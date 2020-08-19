@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Ticket-Tailor"
+    }
+  },
+  "defaultProject": "Ticket-Tailor",
+  "cli": {
+    "analytics": "799ae259-fec3-4c29-bf2f-af98b1d1ae1d"
+  }
 }
