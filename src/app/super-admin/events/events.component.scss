@@ -1,5 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+.main{
+    font-family: Poppins, Regular;
+}
 .add-event-button{
     background-color: #1172F4;
     color: #fff;
     border-radius: 30px;
+}
+.toggle-btn{
+    width: 35px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: #ABE6FD;
 }
