@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+.main-container{
+    width: 100vw;
+    height: 100vh;
+}
+.app-title{
+  font-size: 20px;
+  font-family: Poppins, Regular;
+  background-color: #02316E;
+}
+.left-side-container{
+    width: 120px;
+    background-color: #04397F;
+}
+
+// .add-btn{
+//     width: 10px;
+//     border-radius: 10%;
+//     background-color: #fff;
+// }
+
+.setting-btn{
+    position: absolute;
+    bottom: 30px;
+    left: 0px;
+}
