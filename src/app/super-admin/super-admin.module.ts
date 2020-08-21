@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EventsComponent } from './events/events.component';
 
@@ -8,7 +9,7 @@ import { EventsComponent } from './events/events.component';
 @NgModule({
   declarations: [DashboardComponent, EventsComponent],
   imports: [
-    CommonModule,
+    CommonModule, SuperAdminRoutingModule,
   ]
 })
 export class SuperAdminModule { }
