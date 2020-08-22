@@ -2,6 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 
+interface Status {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-events',
@@ -20,7 +24,11 @@ export class EventsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  
+  Status: Status[] = [
+    {value: 'Draft', viewValue: 'Draft'},
+    {value: 'Published', viewValue: 'Published'},
+
+  ];  
 
 }
 export interface PeriodicElement {
@@ -32,7 +40,10 @@ export interface PeriodicElement {
   Togglebtn:string;
 } 
 
+
 const ELEMENT_DATA: PeriodicElement[] = [
-{Event:'test',Status:'Waiting',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''}
-  
+{Event:'test',Status:'',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
+{Event:'test',Status:'',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
+{Event:'test',Status:'',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
+{Event:'test',Status:'',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''}
 ];

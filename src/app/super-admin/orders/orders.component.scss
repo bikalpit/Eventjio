@@ -1,13 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins');
+.search-bar{
+    border:1px solid #CECECE;
+    input{
+        width: 97%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }   
+    i{
+        width: 3%;
+    }
+}
 
-.main{
-    font-family: Poppins, Regular;
-}
-.add-event-button{
-    background-color: #1172F4;
-    color: #fff;
-    border-radius: 30px;
-}
 .mat-elevation-z8{
     .btn-content{
         position: relative;
@@ -24,7 +27,7 @@
         display:none;
         position: absolute;
         top: 100%;
-        left: -80%;    
+        left: -200%;    
     }
     .event-option:hover{
         display: block;
@@ -33,4 +36,3 @@
        display:block;
     }
 }
-
