@@ -11,11 +11,9 @@
     }
 }
 
-.mat-elevation-z8{
     .btn-content{
         position: relative;
     }
-    
     .toggle-btn{
         width: 35px;
         height: 35px;
@@ -35,4 +33,3 @@
     .toggle-btn:hover + .event-option{
        display:block;
     }
-}
