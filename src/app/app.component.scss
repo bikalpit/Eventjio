@@ -11,6 +11,7 @@ mat-icon{
     border-right: 3px solid skyblue;
 }
 .app-title{
+  font-size: 20px;
   font-family: Poppins, Regular;
   background-color: #02316E;
 }
@@ -22,20 +23,6 @@ mat-icon{
     background-color: #04397F;
 }
 
-.right-toolbar{
-    font-size: 14px;
-    font-family: Poppins, Regular;
-    background-color: #FFFFFF;
-    box-shadow: 0px 0px 12px #00000014;
-  }
-
-  .user-image-icon{
-      width: 35px;
-      height: 35px;
-      border-radius: 30px;
-      background-color: #04397F;
-  }
-
 // .add-btn{
 //     width: 10px;
 //     border-radius: 10%;
@@ -45,5 +32,9 @@ mat-icon{
 .setting-btn{
     position: absolute;
     bottom: 30px;
-    left: 0px;
+    left: 20%;
+}
+.common-menu{
+    padding: 20px;
+    display: block;
 }
