@@ -1,46 +1,41 @@
 <mat-drawer-container class="main-container">
+    
     <mat-drawer mode="side" opened class="left-side-container">
         <mat-toolbar class="app-title">
             <div class="px-3 py-3 text-light text-center">
                 webjio
             </div>
         </mat-toolbar>
-
-
-        <div class="col-12 px-3 pt-4 pb-3 text-info text-center">
-            <img src="/assets/images/admin/add_circle.svg" alt="">
-        </div>
-
-        <div class="col-12 p-3 text-center">
-            <img src="/assets/images/admin/dashboard.svg" alt="">
-        </div>
-
-        <div class="col-12 p-3 text-center text-white">
-            <img src="/assets/images/admin/star.svg" alt="">
-        </div>
-
-        <div class="col-12 p-3 text-center">
-            <img src="/assets/images/admin/order.svg" alt="">
-        </div>
-
-        <div class="col-12 p-3 text-center">
-            <img src="/assets/images/admin/user.svg" alt="">
-        </div>
-
-        <div class="col-12 p-3 text-center">
-            <img src="/assets/images/admin/gift.svg" alt="">
-        </div>
-
-        <div class="col-12 p-3 text-center setting-btn">
-            <img src="/assets/images/admin/settings.svg" alt="">
-        </div>
+        <mat-list-item role="listitem" class="matlist pointer menuitem logo">
+            <div class="common-menu logo text-info text-center"><img style="width:33px" src="assets/images/admin/add_circle.svg"></div>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <div class="common-menu  text-center"><img style="width:33px" src="/assets/images/admin/dashboard.svg"></div>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <div class="common-menu  text-center"><img style="width:33px" src="/assets/images/admin/star.svg"></div>
+        </mat-list-item>
+        <mat-list-item >
+            <div class="common-menu  text-center"><img style="width:33px" src="/assets/images/admin/order.svg"></div>
+        </mat-list-item>
+        <mat-list-item >
+            <div class="common-menu  text-center"><img style="width:33px" src="/assets/images/admin/user.svg"></div>
+        </mat-list-item>
+        <mat-list-item >
+            <div class="common-menu  text-center"><img style="width:33px" src="/assets/images/admin/gift.svg"></div>
+        </mat-list-item>
+        <mat-list-item>
+            <div class="text-center setting-btn common-menu"><img style="width:33px" src="/assets/images/admin/settings.svg"></div>
+        </mat-list-item>
 
     </mat-drawer>
+    
+    
    
     <mat-drawer-content>
         <mat-toolbar class="right-toolbar">
             <div>
-                Deskboard
+                Dashboard
             </div>
 
             <div class="ml-auto pr-3">
