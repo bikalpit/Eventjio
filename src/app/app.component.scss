@@ -4,10 +4,19 @@
     width: 100vw;
     height: 100vh;
 }
+mat-icon{
+    font-size: 30px;
+}
+.active-icon{
+    border-right: 3px solid skyblue;
+}
 .app-title{
   font-size: 20px;
   font-family: Poppins, Regular;
   background-color: #02316E;
+}
+.add-btn{
+    border-radius: 50px;
 }
 .left-side-container{
     width: 120px;
