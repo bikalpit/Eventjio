@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+.main{
+    font-family: Poppins, Regular;
+}
+.add-event-button{
+    background-color: #1172F4;
+    color: #fff;
+    border-radius: 30px;
+}
+.mat-elevation-z8{
+    .btn-content{
+        position: relative;
+    }
+    
+    .toggle-btn{
+        width: 35px;
+        height: 35px;
+        border-radius: 30px;
+        background-color: #ABE6FD;
+    }    
+    .event-option{
+        width: 170px;
+        display:none;
+        position: absolute;
+        top: 100%;
+        left: -80%;    
+    }
+    .event-option:hover{
+        display: block;
+    }
+    .toggle-btn:hover + .event-option{
+       display:block;
+    }
+}
+

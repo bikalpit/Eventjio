@@ -1,0 +1,35 @@
+.search-bar{
+    border:1px solid #CECECE;
+    input{
+        width: 97%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }   
+    i{
+        width: 3%;
+    }
+}
+
+    .btn-content{
+        position: relative;
+    }
+    .toggle-btn{
+        width: 35px;
+        height: 35px;
+        border-radius: 30px;
+        background-color: #ABE6FD;
+    }    
+    .event-option{
+        width: 170px;
+        display:none;
+        position: absolute;
+        top: 100%;
+        left: -200%;    
+    }
+    .event-option:hover{
+        display: block;
+    }
+    .toggle-btn:hover + .event-option{
+       display:block;
+    }

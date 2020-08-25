@@ -1,1 +1,144 @@
-<p>hello</p>
+<mat-drawer-container class="main-container">
+    
+    <mat-drawer mode="side" opened class="left-side-container">
+        <mat-toolbar class="app-title">
+            <div class="px-3 py-3 text-light text-center">
+                webjio
+            </div>
+        </mat-toolbar>
+
+
+        <div class="col-12 px-3 pt-4 pb-3 text-info text-center ">
+            <mat-icon class="add-btn">add_circle</mat-icon>
+            <!-- <img src="/assets/images/admin/add_circle.svg" alt=""> -->
+        </div>
+
+        <div class="col-12 p-3 text-center text-white active-icon">
+            <mat-icon>dashboard</mat-icon>
+            <!-- <img src="/assets/images/admin/dashboard.svg" alt=""> -->
+        </div>
+
+        <div class="col-12 p-3 text-center text-white">
+            <mat-icon>star</mat-icon>
+            <!-- <img src="/assets/images/admin/star.svg" alt=""> -->
+        </div>
+
+        <div class="col-12 p-3 text-center text-white">
+           <mat-icon>shopping_bag</mat-icon>
+            <!-- <img src="/assets/images/admin/order.svg" alt=""> -->
+        </div>
+
+        <div class="col-12 p-3 text-center text-white">
+            <mat-icon>person</mat-icon>
+            <!-- <img src="/assets/images/admin/user.svg" alt=""> -->
+        </div>
+
+        <div class="col-12 p-3 text-center text-white">
+            <mat-icon>card_giftcard</mat-icon>
+            <!-- <img src="/assets/images/admin/gift.svg" alt=""> -->
+        </div>
+
+        <div class="col-12 p-3 text-center setting-btn text-white">
+            <mat-icon>settings</mat-icon>
+            <!-- <img src="/assets/images/admin/settings.svg" alt=""> -->
+        </div>
+
+    </mat-drawer>
+    
+    
+   
+    <mat-drawer-content>
+        <mat-toolbar class="right-toolbar">
+            <div>
+                Dashboard
+            </div>
+
+            <div class="ml-auto pr-3">
+                <span class="d-inline-block"> <i class="fa fa-bell-o fa-lg pr-2"></i> </span>
+                <div class="user-image-icon mx-2 p-1 d-inline-block">
+                    <img src="/assets/images/admin/user.svg" class="w-100" alt="">
+                </div>
+                <span class="d-inline-block"> Administrator <i class="fa fa-angle-down fa-fw pl-1"></i></span>
+            </div>
+        </mat-toolbar>
+        <div class="mt-2">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>  
+</mat-drawer-container>
+
+
+
+
+
+
+<!-- 
+<mat-drawer-container class="main-container">
+    <mat-drawer-content class="">
+        <main>
+            <mat-toolbar color="primary" class="toolbar menu-comman">
+
+                <mat-toolbar-row>
+                    <div class="logo">
+                        <a><img src="/assets/img/logo.png"></a>
+                    </div> comment
+                    <div class="logo">
+                        <a class='logo-link'>
+                            <img src="/assets/images/admin/my-workspace-icon.png" class="page-top-icon mr-3" aria-hidden="true">
+                        </a>
+                    </div>
+                    <span class="f13 d-flex align-items-center">
+         
+          <span class="profile-head">
+              <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
+                  <img class="h-100 w-100" src="../assets/img/user.png'">
+              </div>
+            <p class="font-weight-bold my-2 p-1">admin</p>
+          </span>
+                    <button mat-stroked-button class="bellborder notification-btn bell-color">
+          <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+          <span class="count">3</span>
+          </button>
+                    <button mat-stroked-button class="bellborder bell-color">
+          <i mat-list-icon class="fa fa-sign-out"></i>
+          </button>
+                    </span>
+                </mat-toolbar-row>
+            </mat-toolbar>
+
+            <div class="bottom_header">
+                <mat-drawer-container class="main-container left-admin-menu">
+                    <mat-drawer [disableClose]="true" class="main_admin_menu" mode="side" opened>
+                        <div class="top_admin_menu">
+                            <mat-list-item role="listitem" class="matlist pointer menuitem logo">
+                                <div class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>
+                            </mat-list-item>
+                            <mat-list-item role="listitem" class="add">
+                                <div>
+                                    <div class="add common-menu">
+                                        <img src="/assets/images/admin/add.png">
+                                    </div>
+                                </div>
+                            </mat-list-item>
+                            <mat-list-item role="listitem">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-bag.png"></div>
+                            </mat-list-item>
+                            <mat-list-item role="listitem">
+                                <div class="common-menu"><img src="/assets/images/admin/admin-menu-calendar.png">
+                                </div>
+                            </mat-list-item>
+                        </div>
+                    </mat-drawer>
+                    <mat-drawer-content class="main-admin-drawer">
+                        <div class="row mx-0 h-100 w-100">
+                            <router-outlet #outlet="outlet"></router-outlet>
+                        </div>
+                    </mat-drawer-content>
+                </mat-drawer-container>
+            </div>
+        </main>
+        right drawer menu code comment
+    </mat-drawer-content>
+</mat-drawer-container>
+
+-->
