@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+main{
+    font-family: Poppins, Regular;
+}
 .search-bar{
+    font-family: Poppins, Regular;
     border:1px solid #CECECE;
     input{
         width: 97%;
@@ -32,4 +37,22 @@
     }
     .toggle-btn:hover + .event-option{
        display:block;
+    }
+    .page-title{
+        font-family: Poppins, Regular;
+        font-size: 18px;   
+    }
+
+    .sub-title{
+        font-family: Poppins, Regular;
+    }
+
+    table{
+        background-color: #f8f9fa;
+    }
+    table th{
+        padding-left: 35px;
+    }
+    table td{
+        padding-left: 35px;
     }
