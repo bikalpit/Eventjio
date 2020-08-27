@@ -1,7 +1,7 @@
 <div class="main bg-white p-3">
     <div class="col-12 p-3 ">
         <div class="row">
-            <div class="font-weight-bold">
+            <div class="font-weight-bold page-title">
                 Orders
             </div>
         </div>
@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="row">
-                        <div class="font-weight-bold">
+                        <div class="sub-title font-weight-bold">
                             Manage
                         </div>
                 
@@ -30,7 +30,7 @@
                     <div class="d-inline-block mr-2">
                         <label class="mb-0">Event</label>
                         <div>
-                            <select class="form-control">
+                            <select class="form-control bg-transparent">
                                 <option>All Events</option>
                                 <option>Lajavab Cooking Classes (Mon 17 Jun 2020)</option>
                                 <option>Dracula Drink (Mon 17 Jun 2020)</option>
@@ -42,21 +42,21 @@
                     <div class="d-inline-block mx-2">
                         <label class="mb-0">Order date form</label>
                         <div>
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control bg-transparent">
                         </div>
                     </div>
                     
                     <div class="d-inline-block mx-2">
                         <label class="mb-0">Order date to</label>
                         <div>
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control bg-transparent">
                         </div>
                     </div>
                     
                    <div class="d-inline-block ml-2">
                         <label class="mb-0">Order Status</label>
                         <div>
-                            <select class="form-control">
+                            <select class="form-control bg-transparent">
                                 <option>All Orders</option>
                                 <option>Completed ordes</option>
                                 <option>Pending orders</option>
@@ -73,36 +73,37 @@
 
         <div class="col-12 p-0">
             <div class="mt-3">
-                <table mat-table [dataSource]="dataSource" class=" w-100">
-              
-                  <ng-container matColumnDef="orderid" class="data-cell">
-                    <th mat-header-cell *matHeaderCellDef class=""> Order ID </th>
-                    <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.orderid}} </td>
+              <hr class="m-0">  
+              <table mat-table [dataSource]="dataSource" class="w-100">
+
+                  <ng-container matColumnDef="orderid">
+                    <th mat-header-cell *matHeaderCellDef class="th py-4"> Order ID </th>
+                    <td mat-cell *matCellDef="let element" class="td py-4" > {{element.orderid}} </td>
                   </ng-container>
               
                   <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell *matCellDef="let element"class="mat-cell" [ngStyle]="{'color':element.status === 'Completed' ? 'green' : 'red' }"> {{element.status}} </td>
+                    <td mat-cell *matCellDef="let element"[ngStyle]="{'color':element.status === 'Completed' ? 'green' : 'red' }"> {{element.status}} </td>
                   </ng-container>
               
                   <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef> Name </th>
-                    <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.name}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                   </ng-container>
               
                   <ng-container matColumnDef="datetime">
                     <th mat-header-cell *matHeaderCellDef> Date/Time </th>
-                    <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.datetime}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.datetime}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="event">
                     <th mat-header-cell *matHeaderCellDef> Event </th>
-                    <td mat-cell *matCellDef="let element" class="mat-cell"> {{element.event}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.event}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="value">
                     <th mat-header-cell *matHeaderCellDef> Value </th>
-                    <td mat-cell *matCellDef="let element" class="mat-cell"> $.{{element.value}} </td>
+                    <td mat-cell *matCellDef="let element" class=" "> $.{{element.value}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="action">
@@ -133,4 +134,3 @@
         </div>        
     </div>
 </div>
-    

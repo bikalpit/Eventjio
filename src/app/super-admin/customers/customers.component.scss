@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+.main{
+    font-family: Poppins, Regular;
+}
+.title-btn-content{
+    background-color: #FFE2B7;
+    .add-customer{
+        background-color: #007BFF;
+        border-radius: 30px;
+    }
+}
+.page-title{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.search-btn{
+    border-radius: 30px;
+} 
+.search-btn input{
+        width:80%;
+        outline: none;
+        border: none;
+    }
+
+
+.customer-image-icon{
+    border-radius: 20px;
+}
+
+.customer-dp{
+    width: 70px;
+    height: 70px;
+    border-radius: 30px;
+}
+.customer-email p{
+    font-size: 11px;
+}
+
+.customer-name{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.customer-edit-delete-btn {
+    .edit-btn{
+        background-color: #007BFF;
+        color:#fff;    
+    }
+    .delete-btn{
+        background-color: #E1E1E1;
+        color:#000000; 
+    }  
+}
+
+mat-tab-group{
+    label{
+        font-weight: bold;
+    }
+    span{
+        background-color: #DDEAFD;
+        border: 1px solid #DDEAFD;
+    }
+}
+
+table{
+    span{
+        border-radius: 10px;
+    }
+    .completed-event{
+        background-color: gray;
+    }
+}
