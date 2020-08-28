@@ -42,8 +42,7 @@ export interface PeriodicElement {
 
 
 const ELEMENT_DATA: PeriodicElement[] = [
-{Event:'test',Status:'',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
-{Event:'test',Status:'',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
-{Event:'test',Status:'',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
-{Event:'test',Status:'',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''}
+{Event:'test',Status:'Draft',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
+{Event:'test',Status:'Published',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
+{Event:'test',Status:'Published',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''}
 ];

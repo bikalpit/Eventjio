@@ -6,6 +6,7 @@ import { EventsComponent } from './events/events.component';
 import { OrdersComponent } from './orders/orders.component';
 import { CouponsComponent } from './coupons/coupons.component';
 
+import { CustomersComponent } from './customers/customers.component';
 
 const routes: Routes = [
   { 
@@ -23,6 +24,11 @@ const routes: Routes = [
   { 
     path: 'coupons', 
     component: CouponsComponent
+  { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
+  
+  { 
+    path: 'customers', 
+    component: CustomersComponent
   }
   ];
 
