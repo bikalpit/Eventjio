@@ -8,6 +8,7 @@ import { CouponsComponent } from './coupons/coupons.component';
 
 import { CustomersComponent } from './customers/customers.component';
 
+
 const routes: Routes = [
   { 
     path: '', 
@@ -24,7 +25,11 @@ const routes: Routes = [
   { 
     path: 'coupons', 
     component: CouponsComponent
-  { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
+  },
+
+  // {
+  //    path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) 
+  // },
   
   { 
     path: 'customers', 

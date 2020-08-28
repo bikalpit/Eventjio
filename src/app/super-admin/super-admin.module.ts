@@ -13,11 +13,11 @@ import { CouponsComponent } from './coupons/coupons.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { myCreateDiscountCodeDialog} from './coupons/coupons.component';
+
+
+@NgModule({
+  declarations: [DashboardComponent, EventsComponent, OrdersComponent, CouponsComponent,myCreateDiscountCodeDialog],
 import { CustomersComponent } from './customers/customers.component';
-
-
-// @NgModule({
-//   declarations: [DashboardComponent, EventsComponent, OrdersComponent, CouponsComponent,myCreateDiscountCodeDialog],
 
 @NgModule({
   declarations: [DashboardComponent, EventsComponent, OrdersComponent, CustomersComponent],
