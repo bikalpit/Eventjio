@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SuperAdminComponent } from './super-admin.component';
+import { CouponsComponent } from './coupons.component';
 
-describe('SuperAdminComponent', () => {
-  let component: SuperAdminComponent;
-  let fixture: ComponentFixture<SuperAdminComponent>;
+describe('CouponsComponent', () => {
+  let component: CouponsComponent;
+  let fixture: ComponentFixture<CouponsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SuperAdminComponent ]
+      declarations: [ CouponsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SuperAdminComponent);
+    fixture = TestBed.createComponent(CouponsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

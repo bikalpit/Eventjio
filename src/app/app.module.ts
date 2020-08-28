@@ -8,6 +8,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './_helpers/material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatCheckboxModule,
     MaterialModule,
     NgbModule,
+    FlexLayoutModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
