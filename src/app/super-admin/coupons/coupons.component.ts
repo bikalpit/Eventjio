@@ -15,6 +15,7 @@ export interface DialogData {
 export class CouponsComponent implements OnInit {
   animal :any;
   allBusiness: any;
+  clickedIndex:any = 'coupon'
 
    constructor(
     public dialog: MatDialog,
@@ -22,6 +23,14 @@ export class CouponsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+  onTabChanged(event){
+    let clickedIndex = event.index;
+    if(clickedIndex == 0){
+    this.clickedIndex = 'coupon'
+    }else if(clickedIndex == 1){
+    this.clickedIndex = 'voucher'
+    }
   }
 
   creatDiscountCode() {

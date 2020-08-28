@@ -1,4 +1,3 @@
-
 <main>
     <div class="coupons comm-back">
         <div class="page-title">
@@ -8,22 +7,23 @@
             <div class="row">
                 <p class="col-sm-12 col-12 col-lg-10 col-md-10 col-xl-10 float-left">There are two types of promo codes:discount codes and voucher codes.</p>
                 <div class="col-sm-12 col-12 col-lg-2 col-md-2 col-xl-2 float-left ml-auto">
-                    <button mat-raised-button color="primary" (click)="creatDiscountCode()"  class="cd-code-btn" >Create discount code</button>
+                    <button *ngIf="clickedIndex == 'coupon'" mat-raised-button color="primary" (click)="creatDiscountCode()" class="cd-code-btn">Create discount code</button>
+                    <button *ngIf="clickedIndex == 'voucher'" mat-raised-button color="primary" (click)="creatDiscountCode()" class="cd-code-btn">Create Voucher</button>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group has-search col-sm-12 col-12 col-lg-4 col-md-4 col-xl-4 mb-0 float-left ml-auto search-input">
                     <span class="fa fa-search form-control-feedback"></span>
-                    <input type="text" class="form-control round-search"  placeholder="Search by name,phone and email id">
+                    <input type="text" class="form-control round-search" placeholder="Search by name,phone and email id">
                 </div>
             </div>
             <div class="row code-tab">
-                <mat-tab-group class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left">
+                <mat-tab-group (selectedTabChange)="onTabChanged($event)" class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left">
                     <mat-tab label="Discount Code (5)" class="">
                         <div class="service-listing">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
-                                    <div class="heads main-heading-content drageble"  fxLayout="row">
+                                    <div class="heads main-heading-content drageble" fxLayout="row">
                                         <div class="" fxFlex="20">Coupon Title</div>
                                         <div class="" fxFlex="15">Coupon Code</div>
                                         <div class="" fxFlex="13">Type</div>
@@ -34,7 +34,7 @@
                                         <div class="" fxFlex="10">Action</div>
                                     </div>
                                     <div class="content" class="drageble-list">
-                                        <div  class="drageble-box" cdkDrag fxLayout="row">
+                                        <div class="drageble-box" cdkDrag fxLayout="row">
                                             <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
                                             <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
                                             <div class="tb-data" fxFlex="13">Percentage</div>
@@ -42,11 +42,11 @@
                                             <div class="tb-data" fxFlex="12">20</div>
                                             <div class="tb-data" fxFlex="10">500.00</div>
                                             <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>                                            
+                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>
                                         </div>
                                     </div>
                                     <div class="content" class="drageble-list">
-                                        <div  class="drageble-box" cdkDrag fxLayout="row">
+                                        <div class="drageble-box" cdkDrag fxLayout="row">
                                             <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
                                             <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
                                             <div class="tb-data" fxFlex="13">Percentage</div>
@@ -54,11 +54,11 @@
                                             <div class="tb-data" fxFlex="12">20</div>
                                             <div class="tb-data" fxFlex="10">500.00</div>
                                             <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>                                            
+                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>
                                         </div>
                                     </div>
                                     <div class="content" class="drageble-list">
-                                        <div  class="drageble-box" cdkDrag fxLayout="row">
+                                        <div class="drageble-box" cdkDrag fxLayout="row">
                                             <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
                                             <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
                                             <div class="tb-data" fxFlex="13">Percentage</div>
@@ -66,11 +66,11 @@
                                             <div class="tb-data" fxFlex="12">20</div>
                                             <div class="tb-data" fxFlex="10">500.00</div>
                                             <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>                                            
+                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>
                                         </div>
                                     </div>
                                     <div class="content" class="drageble-list">
-                                        <div  class="drageble-box" cdkDrag fxLayout="row">
+                                        <div class="drageble-box" cdkDrag fxLayout="row">
                                             <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
                                             <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
                                             <div class="tb-data" fxFlex="13">Percentage</div>
@@ -78,11 +78,11 @@
                                             <div class="tb-data" fxFlex="12">20</div>
                                             <div class="tb-data" fxFlex="10">500.00</div>
                                             <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>                                            
+                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>
                                         </div>
                                     </div>
                                     <div class="content" class="drageble-list">
-                                        <div  class="drageble-box" cdkDrag fxLayout="row">
+                                        <div class="drageble-box" cdkDrag fxLayout="row">
                                             <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
                                             <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
                                             <div class="tb-data" fxFlex="13">Percentage</div>
@@ -90,20 +90,20 @@
                                             <div class="tb-data" fxFlex="12">20</div>
                                             <div class="tb-data" fxFlex="10">500.00</div>
                                             <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>                                            
+                                            <div class="tb-data" fxFlex="10"><i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i></div>
                                         </div>
                                     </div>
                                 </div>
-                               
+
                             </div>
-                        </div> 
+                        </div>
 
                     </mat-tab>
                     <mat-tab label="Voucher codes(0)">
                         <p>Voucher codes are useful for facilitating gift cards, or vouchers sold through other services such as Groupon. Each code discounts a specified amount of money from an order and can only be 'spent' once.</p>
                     </mat-tab>
                 </mat-tab-group>
-            </div>           
-        </div> 
+            </div>
+        </div>
     </div>
 </main>
