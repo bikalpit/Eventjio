@@ -15,7 +15,7 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                               path:'buttonsandlinks',
                               component:ButttonAndLinksComponent}
                             ]
-                          }];
+                          }]
 
 @NgModule({
   imports: [

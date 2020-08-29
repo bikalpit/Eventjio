@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+main{
+    font-family: Poppins, Regular;
+}
+/* common default css changes */
+button:focus {
+    outline: none;
+}
+::ng-deep .modal-lg{
+    max-width: 1050px;
+    margin: 0px;
+    border: none;
+}
+::ng-deep .modal-content .modal-header{
+    border: none;
+}
+::ng-deep .modal-content{
+    border: none;
+}
+::ng-deep .modal-content .modal-header .heading{
+    margin-bottom: 0px;
+}
+/* end css */
+
+.coupons.comm-back{
+    background: white;
+    padding: 16px;
+    .page-title h6{
+        font-size: 24px;
+        color: #181818;
+    }
+    .page-descp p{
+        font-size: 18px;
+        color: #808080;
+    }
+    .cd-code-btn{
+        background: #1172F4 0% 0% no-repeat padding-box;
+        color: white;
+        border-radius: 25px;
+    }
+    .code-tab{
+        /* margin-top: 48px; */
+        ::ng-deep .mat-tab-label-content:active{
+            color: #007BFF;
+        }
+    }   
+        
+        ::ng-deep .code-tab .mat-tab-header{
+            margin-bottom: 20px;
+            border:none;
+        }
+        ::ng-deep .code-tab .mat-ink-bar{
+            background: #1172F4;
+            height: 3px;
+        }
+        ::ng-deep .mat-tab-label{
+            font-size: 20px;
+        }
+        .search-input{
+            position: relative;
+            top: 42px;
+            .fa-search:before {
+            color: #595959;
+            }
+            .round-search::placeholder{
+                color: #9E9E9E;
+            }
+        }
+        
+        .has-search .form-control {
+            padding-left: 2.375rem;
+        }        
+        .has-search .form-control-feedback {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            width: 2.375rem;
+            height: 2.375rem;
+            line-height: 2.375rem;
+            text-align: center;
+            pointer-events: none;
+            color: #aaa;
+        }        
+        .round-search{
+            border-radius: 25px;
+            background: #F6F6F6;
+        } 
+
+        .service-listing{
+                     
+            .drageble-list {
+                width: 100%;
+                border-top: solid 1px #DDDDDD;
+                display: block;
+                background: white;
+                border-radius: 4px;
+                overflow: hidden;
+                font-size: 18px;
+            }
+           .main-heading-content{
+                border-top: solid 1px #DDDDDD;
+                padding: 8px 0px;
+                align-items: center;                
+                font-size: 18px;
+                color: #595959;
+            }
+            .tb-data{
+                border-bottom: solid 1px #DDDDDD;
+                padding: 18px 0px;
+                color: #595959;
+            }
+            .cpn-title{
+                color: #181818;
+            }
+            .cpn-code{
+                color: #1172F4;
+            }
+            .cpn-bor{
+                border:2px dashed #1172F4;
+                padding: 6px 12px;
+            }
+            .action-icon{
+                color: #007BFF;
+                border-radius: 50%;
+                padding: 6px 7px;
+                background: #ABE6FD;
+            }
+        }       
+    
+}
