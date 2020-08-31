@@ -6,6 +6,7 @@ main{
 button:focus {
     outline: none;
 }
+::ng-deep .ml-15{margin-left: 15px;}
 ::ng-deep .modal-lg{
     max-width: 1050px;
     margin: 0px;
@@ -19,30 +20,85 @@ button:focus {
 }
 ::ng-deep .modal-content .modal-header .heading{
     margin-bottom: 0px;
+    font: normal normal medium 22px/33px Poppins;
+    letter-spacing: 0px;
+    color: #181818;
+    font-size: 16px;
+    font-weight: 500;
+}
+::ng-deep .modal-dialog .form-group label{
+    color: #595959;
+    font-size: 14px;
 }
 /* end css */
 
+/* Coupon modal css */
+::ng-deep .fa-asterisk{
+    color: #FF0000;
+    font-size: 5px;
+    position: relative;
+    bottom: 6px;
+}
+::ng-deep .fa-question{
+    background: #e8e8e8;
+    border-radius: 50%;
+    font-size: 9px;
+    padding: 3px 5px;
+}
+::ng-deep .tooltip-btn.mat-raised-button{
+    padding-left: 0px;
+    height: 0px;
+    box-shadow: none !important;
+}
+::ng-deep  .info{
+    position: relative;
+    bottom: 2px;
+}
+::ng-deep .cupon-btn{
+    background: #1172F4;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+::ng-deep .cancel-btn{
+    background: #DDDDDD;
+    font-size: 14px;
+    color: #181818;   
+}
+::ng-deep .close-btn{
+    background: #B4D4FF !important;
+    opacity: 1;
+    border-radius: 50%;
+    padding: 4px 6px !important;
+    font-size: 14px;
+    color: #1172F4;
+}
+::ng-deep .voucher-code{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+/* end css */
 .coupons.comm-back{
     background: white;
     padding: 16px;
     .page-title h6{
-        font-size: 24px;
+        font-size: 16px;
         color: #181818;
+        font-weight: 500;
     }
     .page-descp p{
-        font-size: 18px;
+        font-size: 14px;
         color: #808080;
     }
     .cd-code-btn{
-        background: #1172F4 0% 0% no-repeat padding-box;
+        background: #007BFF 0% 0% no-repeat padding-box;
         color: white;
         border-radius: 25px;
     }
     .code-tab{
         /* margin-top: 48px; */
-        ::ng-deep .mat-tab-label-content:active{
-            color: #007BFF;
-        }
+        // ::ng-deep .mat-tab-label-content:active{
+        //     color: #007BFF;
+        // }
     }   
         
         ::ng-deep .code-tab .mat-tab-header{
@@ -51,10 +107,14 @@ button:focus {
         }
         ::ng-deep .code-tab .mat-ink-bar{
             background: #1172F4;
-            height: 3px;
+            height: 5px;
+            border-radius: 10px;
         }
         ::ng-deep .mat-tab-label{
-            font-size: 20px;
+            font-size: 16px;
+        }
+        ::ng-deep .mat-tab-label-active{
+            color: #007BFF;
         }
         .search-input{
             position: relative;
@@ -84,8 +144,11 @@ button:focus {
         .round-search{
             border-radius: 25px;
             background: #F6F6F6;
+            border-color: #F6F6F6;
         } 
-
+        .round-search::placeholder{
+            font-size: 14px;
+        } 
         .service-listing{
                      
             .drageble-list {
@@ -95,17 +158,20 @@ button:focus {
                 background: white;
                 border-radius: 4px;
                 overflow: hidden;
-                font-size: 18px;
+                font-size: 14px;
+                font-weight: 500;
             }
            .main-heading-content{
                 border-top: solid 1px #DDDDDD;
                 padding: 8px 0px;
                 align-items: center;                
-                font-size: 18px;
+                font-size: 14px;
                 color: #595959;
             }
+            .drageble-box{
+                align-items: center;
+            }
             .tb-data{
-                border-bottom: solid 1px #DDDDDD;
                 padding: 18px 0px;
                 color: #595959;
             }
@@ -116,14 +182,21 @@ button:focus {
                 color: #1172F4;
             }
             .cpn-bor{
-                border:2px dashed #1172F4;
+                border:1px dashed #1172F4;
                 padding: 6px 12px;
+                border-radius: 5px;
             }
             .action-icon{
                 color: #007BFF;
                 border-radius: 50%;
-                padding: 6px 7px;
+                padding: 16px 16px;
                 background: #ABE6FD;
+                width: 32px;
+                height: 32px;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                font-size: 30px;
             }
         }       
     

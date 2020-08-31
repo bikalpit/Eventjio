@@ -17,31 +17,42 @@ export class CouponsComponent implements OnInit {
   allBusiness: any;
   clickedIndex:any = 'coupon'
 
-   constructor(
-    public dialog: MatDialog,
-     private http: HttpClient,
-  ) { }
+  constructor(
+   public dialog: MatDialog,
+    private http: HttpClient,
+ ) { }
 
-  ngOnInit(): void {
-  }
-  onTabChanged(event){
-    let clickedIndex = event.index;
-    if(clickedIndex == 0){
-    this.clickedIndex = 'coupon'
-    }else if(clickedIndex == 1){
-    this.clickedIndex = 'voucher'
-    }
-  }
+ ngOnInit(): void {
+ }
+ 
+ onTabChanged(event){
+   let clickedIndex = event.index;
+   if(clickedIndex == 0){
+   this.clickedIndex = 'coupon'
+   }else if(clickedIndex == 1){
+   this.clickedIndex = 'voucher'
+   }
+ }
 
-  creatDiscountCode() {
-    const dialogRef = this.dialog.open(myCreateDiscountCodeDialog, {
-      width: '1100px',
+ creatDiscountCode() {
+   const dialogRef = this.dialog.open(myCreateDiscountCodeDialog, {
+     width: '1100px',
+   });
+
+    dialogRef.afterClosed().subscribe(result => {
+     this.animal = result;
     });
+ }
 
-     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-     });
-  }
+ creatVoucherCode() {
+  const dialogRef = this.dialog.open(myBatchVoucherCodeDialog, {
+    width: '550px',
+  });
+
+   dialogRef.afterClosed().subscribe(result => {
+    this.animal = result;
+   });
+}
 
 }
 
@@ -64,3 +75,26 @@ export class myCreateDiscountCodeDialog {
   }
   
 }
+
+@Component({
+  selector: 'Create-Discount-Code',
+  templateUrl: '../_dialogs/create-voucher-code-dialog.html',
+})
+export class myBatchVoucherCodeDialog { 
+  
+  constructor(
+    public dialogRef: MatDialogRef<myBatchVoucherCodeDialog>,
+    private http: HttpClient,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+  }
+  
+}
+
+
+

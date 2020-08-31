@@ -1,8 +1,8 @@
-<div class="modal-dialog modal-notify modal-info modal-lg" role="document" >
+<div class="modal-dialog modal-notify modal-info modal-lg discount-code" role="document" >
   <div class="modal-content ">
     <div class="modal-header modal-bcolor-primary">
       <p class="heading lead  work-content" >Create discount code</p>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+      <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
     </div>
@@ -11,36 +11,42 @@
       <div class="row">
         
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Coupon Title</label>
+            <label for="exampleInputEmail1">Coupon Title <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleInputPassword1">Maximum Redemption</label>
+            <label for="exampleInputPassword1">Maximum Redemption <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Coupon Title</label>
+            <label for="exampleInputEmail1">Coupon Code <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
           </div>
           <div class="form-group col-md-3">
-            <label for="exampleInputPassword1">Coupon Code</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <label for="exampleFormControlSelect1">Discount Type <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
           </div>
           <div class="form-group col-md-3">
             <label for="exampleInputPassword1">Discount</label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleInputPassword1">Valid From</label>
+            <label for="exampleInputPassword1">Valid From <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Valid Till</label>
+            <label for="exampleInputEmail1">Valid Till <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
           </div>
-            <div class="example-button-row ml-auto">
-              <button mat-raised-button>Cancel</button>
-              <button mat-raised-button color="primary" class="mx-3">Save discount code</button>
+            <div class="example-button-row ml-auto mt-3">
+              <button mat-raised-button class="cancel-btn">Cancel</button>
+              <button mat-raised-button class="mx-3 cupon-btn">Save discount code</button>
             </div>
         
 
