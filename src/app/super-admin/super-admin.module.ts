@@ -9,7 +9,7 @@ import { MaterialModule } from '../_helpers/material.module';
 import {MatTableModule} from '@angular/material/table';
 import { OrdersComponent } from './orders/orders.component';
 import { CouponsComponent } from './coupons/coupons.component';
-
+import { CustomersComponent } from './customers/customers.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -17,7 +17,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { myCreateDiscountCodeDialog} from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog} from './coupons/coupons.component';
-import { CustomersComponent } from './customers/customers.component';
 
 
 

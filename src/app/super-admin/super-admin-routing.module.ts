@@ -26,10 +26,7 @@ const routes: Routes = [
     path: 'coupons', 
     component: CouponsComponent
   },
-
-  {
-     path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) 
-  },
+  { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
   
   { 
     path: 'customers', 

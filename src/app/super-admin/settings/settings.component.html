@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3 p-3 bg-light">
+            <div class="settins-title py-2">
+                <span>Resource Management</span>
+            </div>
+            <div class="py-2" (click)=toggleDisplayDiv()>
+               <i class="fa fa-search pr-2"></i> <span>Event Page Appearance</span><i class="fa fa-angle-down pl-5 ml-3"></i>
+            </div>   
+               <div [hidden]="isShowDiv">
+                <div class="py-2">
+                    <span class="pl-4">Event Page Design</span>
+                </div>
+                
+                <div class="py-2">
+                    <span class="pl-4">Buttons and Links</span>
+                </div>
+
+                <div class="py-2">
+                    <span class="pl-4">Website Embed Codes</span>
+                </div>
+               </div>
+            
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Contact Preferences</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Checkout form</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Order Confirmation</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Team access</span>
+            </div>
+
+            <div class="settins-title py-2">
+                <span>Manage</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Seating Chart</span>
+            </div>
+
+            <div class="settins-title py-2">
+                <span>Account</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span >My Profile</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Box Office</span>
+            </div>
+
+            <div class="settins-title py-2">
+                <span>Payment</span>
+            </div>
+            
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Payment Systems</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Billing</span>
+            </div>
+            
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Sales tax</span>
+            </div>
+
+            <div class="settins-title py-2">
+                <span>General Setting</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Connect apps</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Check in app users</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>Privacy Policy</span>
+            </div>
+
+            <div class="py-2">
+                <i class="fa fa-search pr-2"></i> <span>API</span>
+            </div>
+
+        </div>
+
+        <div class="col-9 p-0 bg-white">
+            <router-outlet></router-outlet>
+        </div>
+
+        </div>
+</div>
