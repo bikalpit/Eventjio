@@ -24,6 +24,7 @@ export class CouponsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   onTabChanged(event){
     let clickedIndex = event.index;
     if(clickedIndex == 0){

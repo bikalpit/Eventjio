@@ -16,11 +16,8 @@ import { myCreateDiscountCodeDialog} from './coupons/coupons.component';
 import { CustomersComponent } from './customers/customers.component';
 
 
-// @NgModule({
-//   declarations: [DashboardComponent, EventsComponent, OrdersComponent, CouponsComponent,myCreateDiscountCodeDialog],
-
 @NgModule({
-  declarations: [DashboardComponent, EventsComponent, OrdersComponent, CustomersComponent],
+  declarations: [DashboardComponent, EventsComponent, OrdersComponent,CouponsComponent, CustomersComponent,myCreateDiscountCodeDialog],
   imports: [
     CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
     FlexLayoutModule,FontAwesomeModule,HttpClientModule,
