@@ -1,5 +1,5 @@
 <mat-drawer-container class="main-container">
-    
+
     <mat-drawer mode="side" opened class="left-side-container">
         <mat-toolbar class="app-title">
             <div class="px-3 py-3 text-light text-center">
@@ -13,40 +13,40 @@
             <img src="/assets/images/admin/add_circle.svg" alt="">
         </div>
 
-        <div class="col-12 p-3 text-center text-white active-icon">
+        <div routerLink="/super-admin" class="col-12 p-3 text-center text-white active-icon">
             <!-- <mat-icon>dashboard</mat-icon> -->
             <img src="/assets/images/admin/dashboard.svg" alt="">
         </div>
 
-        <div class="col-12 p-3 text-center text-white">
+        <div routerLink="/super-admin/events" class="col-12 p-3 text-center text-white">
             <!-- <mat-icon>star</mat-icon> -->
             <img src="/assets/images/admin/star.svg" alt="">
         </div>
 
-        <div class="col-12 p-3 text-center text-white">
-           <!-- <mat-icon>shopping_bag</mat-icon> -->
+        <div routerLink="/super-admin/orders" class="col-12 p-3 text-center text-white">
+            <!-- <mat-icon>shopping_bag</mat-icon> -->
             <img src="/assets/images/admin/order.svg" alt="">
         </div>
 
-        <div class="col-12 p-3 text-center text-white">
+        <div routerLink="/super-admin/customers" class="col-12 p-3 text-center text-white">
             <!-- <mat-icon>person</mat-icon> -->
             <img src="/assets/images/admin/user.svg" alt="">
         </div>
 
-        <div class="col-12 p-3 text-center text-white">
+        <div routerLink="/super-admin/coupons" class="col-12 p-3 text-center text-white">
             <!-- <mat-icon>card_giftcard</mat-icon> -->
             <img src="/assets/images/admin/gift.svg" alt="">
         </div>
 
-        <div class="col-12 p-3 text-center setting-btn text-white">
+        <div routerLink="/super-admin/settings" class="col-12 p-3 text-center setting-btn text-white">
             <!-- <mat-icon>settings</mat-icon> -->
             <img src="/assets/images/admin/settings.svg" alt="">
         </div>
 
     </mat-drawer>
-    
-    
-   
+
+
+
     <mat-drawer-content>
         <mat-toolbar class="right-toolbar">
             <div>
@@ -64,7 +64,7 @@
         <div class="mt-2">
             <router-outlet></router-outlet>
         </div>
-    </mat-drawer-content>  
+    </mat-drawer-content>
 </mat-drawer-container>
 
 
