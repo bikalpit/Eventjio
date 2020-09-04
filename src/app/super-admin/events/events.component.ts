@@ -13,15 +13,18 @@ interface Status {
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-  displayedColumns: string[] = ['Event','Status','Sold','Remaining','Revenue','Togglebtn'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
+  
+  clickedIndex:any = 'coupon'
+  upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
+                {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
+                {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},]
+  pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
+                {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
+                ]
   constructor() { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    
   }
 
   Status: Status[] = [
@@ -31,18 +34,3 @@ export class EventsComponent implements OnInit {
   ];  
 
 }
-export interface PeriodicElement {
-  Event: string;
-  Status: string;
-  Sold: string;
-  Remaining: string;
-  Revenue:string;
-  Togglebtn:string;
-} 
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-{Event:'test',Status:'Draft',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
-{Event:'test',Status:'Published',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
-{Event:'test',Status:'Published',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''}
-];

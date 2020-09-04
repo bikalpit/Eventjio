@@ -1,14 +1,16 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3 p-3 bg-light">
+        <div class="col-3 p-3 bg-light child-left-content">
             <div class="settins-title py-2">
                 <span>Resource Management</span>
             </div>
-            <div class="py-2" (click)=toggleDisplayDiv()>
-               <i class="fa fa-search pr-2"></i> <span>Event Page Appearance</span><i class="fa fa-angle-down pl-5 ml-3"></i>
+            <div class="py-2 active" (click)=toggleDisplayDiv()>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/school/school.png" class="w-100" alt="">
+                </div> <span>Event Page Appearance</span><i class="fa fa-angle-down pl-5 ml-2"></i>
             </div>   
                <div [hidden]="isShowDiv">
-                <div class="py-2">
+                <div class="py-2 active">
                     <span class="pl-4">Event Page Design</span>
                 </div>
                 
@@ -23,15 +25,21 @@
             
 
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>Contact Preferences</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/staff/staff.png" class="w-100" alt="">
+                </div><span>Contact Preferences</span>
             </div>
 
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>Checkout form</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/information/information.png" class="w-100" alt="">
+                </div> <span>Checkout form</span>
             </div>
 
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>Order Confirmation</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/order/order.png" class="w-100" alt="">
+                </div> <span>Order Confirmation</span>
             </div>
 
             <div class="py-2">
@@ -43,7 +51,9 @@
             </div>
 
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>Seating Chart</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                </div> <span>Seating Chart</span>
             </div>
 
             <div class="settins-title py-2">
@@ -51,11 +61,15 @@
             </div>
 
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span >My Profile</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/user/user.png" class="w-100" alt="">
+                </div> <span >My Profile</span>
             </div>
 
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>Box Office</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/store/store.png" class="w-100" alt="">
+                </div> <span>Box Office</span>
             </div>
 
             <div class="settins-title py-2">
@@ -63,15 +77,21 @@
             </div>
             
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>Payment Systems</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/pay/pay.png" class="w-100" alt="">
+                </div> <span>Payment Systems</span>
             </div>
 
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>Billing</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/checklist/checklist.png" class="w-100" alt="">
+                </div> <span>Billing</span>
             </div>
             
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>Sales tax</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/invoice/invoice.png" class="w-100" alt="">
+                </div> <span>Sales tax</span>
             </div>
 
             <div class="settins-title py-2">
@@ -79,7 +99,9 @@
             </div>
 
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>Connect apps</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/app/app.png" class="w-100" alt="">
+                </div> <span>Connect apps</span>
             </div>
 
             <div class="py-2">
@@ -91,7 +113,9 @@
             </div>
 
             <div class="py-2">
-                <i class="fa fa-search pr-2"></i> <span>API</span>
+                <div class="setting-menu-icon d-inline-block mr-2 ">
+                    <img src="../../../assets/images/settings/coding/coding.png" class="w-100" alt="">
+                </div> <span>API</span>
             </div>
 
         </div>

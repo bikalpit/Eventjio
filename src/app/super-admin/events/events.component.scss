@@ -34,3 +34,81 @@
     }
 }
 
+.events.comm-back{
+    background: white;
+    padding: 16px;
+}
+   
+    // .code-tab{
+       
+    // }   
+        
+        ::ng-deep .code-tab .mat-tab-header{
+            margin-bottom: 20px;
+            border:none;
+            text-align: left;
+        }
+        ::ng-deep .code-tab .mat-ink-bar{
+            background: #1172F4;
+            height: 3px;
+            border-radius: 10px;
+        }
+        ::ng-deep .mat-tab-label{
+            font-size: 16px;
+        }
+        ::ng-deep .mat-tab-label-active{
+            color: #007BFF;
+        }
+        
+        .events.service-listing{
+                     
+            .drageble-list {
+                width: 100%;
+                border-top: solid 1px #DDDDDD;
+                display: block;
+                background: white;
+                border-radius: 4px;
+                overflow: hidden;
+                font-size: 14px;
+                font-weight: 500;
+            }
+           .main-heading-content{
+                border-top: solid 1px #DDDDDD;
+                padding: 8px 0px;
+                align-items: center;                
+                font-size: 14px;
+                color: #595959;
+            }
+            .drageble-box{
+                align-items: center;
+                border-bottom: 1px solid #ccc5c5;
+            }
+            .tb-data{
+                padding: 18px 0px;
+                color: #595959;
+            }
+            .cpn-title{
+                color: #181818;
+            }
+            .cpn-code{
+                color: #1172F4;
+            }
+            .cpn-bor{
+                color: #ffffff;
+                padding: 2px 15px; 
+                border-radius: 10px;
+            }
+            .action-icon{
+                color: #007BFF;
+                border-radius: 50%;
+                padding: 16px 16px;
+                background: #ABE6FD;
+                width: 32px;
+                height: 32px;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                font-size: 30px;
+            }
+        }       
+    

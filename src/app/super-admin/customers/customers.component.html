@@ -28,24 +28,29 @@
                     </div>
                 </div>
 
-                <div class="p-3">
+                <div class="customres-div">
+                <div>
+                    <div class="p-3">
                     <div class="row">
                         <div class="col-2  pt-3">
                             <input type="checkbox" class="ml-3">
                         </div>
                         <div class="col-2 p-2">
                             <div class="bg-dark customer-image-icon ">
-                                <img src="../../../assets/images/admin/user.svg" class="w-100">
+                                <img src="../../../assets/images/admin/user.png" class="w-100">
                             </div>
                         </div>
                         <div class="col-8 pt-2 customer-email">
                             <span>Jignesh Surati</span>
                             <p>dummy@dummy.com</p>
                         </div>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
-            
+            </div>
 
             <div class="col-9 bg-white ">
 
@@ -53,7 +58,7 @@
                     <div class="col-12 py-3">
                         <div class="row">
                                 <div class="bg-info customer-dp">
-                                    <img src="../../../assets/images/admin/user.svg" class="w-100" alt="">
+                                    <img src="../../../assets/images/admin/user.png" class="w-100" alt="">
                                 </div>
                                 <div class="px-3 py-4 customer-name">
                                     <span>Jignesh Surati</span>
@@ -85,7 +90,7 @@
                             <div class="py-2">
                                 <label for="">Address</label>
                                 <p>
-                                    Houes/Flat No. 00 Society name, Landmark, Near place, Area name, City name, PIN - 000000.
+                                    House/Flat No. 00 Society name, Landmark, Near place, Area name, City name, PIN - 000000.
                                 </p>
                             </div> 
                             <hr class="m-0">
@@ -141,7 +146,7 @@
                 
             <!-- Add customer form -->
 
-                  <div class="container-fuild" *ngIf="!addFormButtonDiv">
+                  <div class="container-fuild" *ngIf="!addFormButtonDiv" class="add-customer-form">
                  
                     <div class="row">
                         <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title">
@@ -170,7 +175,7 @@
                         </div>  
 
                         <div class="col-12 px-3 mt-3">
-                            <form action="">
+                            <form class="p-3" action="">
                                 <div class="row">
                                     <div class="col-6 ">
                                         <label for="">First Name</label>

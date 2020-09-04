@@ -91,3 +91,13 @@ table{
     background-color: #1172F4;
     color:#ffffff;
 }
+
+.customres-div{
+    height: calc(100vh - 259px);
+    overflow: auto;
+}
+.add-customer-form{
+    height: calc(100vh - 140px);
+    overflow: auto;
+    overflow-x: hidden;
+}
