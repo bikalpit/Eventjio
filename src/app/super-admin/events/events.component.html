@@ -1,4 +1,4 @@
-<div class="main p-3 bg-white">
+<div *ngIf="addNewEvents" class="main p-3 bg-white">
 <div class="col-12 p-3">
     <div class="row">
         <div class="font-weight-bold">
@@ -6,7 +6,7 @@
         </div>
 
         <div class="ml-auto pr-3">
-            <button mat-flat-button class="add-event-button px-5">Add Next Event</button>         
+            <button (click)="fnAddNewEventsForm()" mat-flat-button class="add-event-button px-5">Add Next Event</button>         
         </div>
     </div>
 </div>
@@ -79,4 +79,47 @@
     </mat-tab-group>
 </div>
 </div>
+</div>
+
+<div *ngIf="!addNewEvents" class="add-new-event p-3 bg-white">
+    <div class="col-12 p-3">
+        <i (click)="fnAddNewEventsForm()" class="fa fa-arrow-left fa-lg mr-3"></i><span>Add New Events</span>
+    </div>
+
+    <div class="col-12 px-5 ">
+       <div class="px-5 py-3 border rounded">
+            <div class=" py-2 font-weight-bold">
+                <div>Add event info</div>
+            </div>
+
+            <form action="">
+                <label for=""> Event Name</label>
+                <div class="form-group">
+                    <input type="text" class="form-control">
+                </div>
+
+                
+                <div class="row">
+                    <div class=" col-5">
+                        <label for="">Starts</label>
+                        <div class="form-group">
+                           <input type="date" class=" col-7 form-control d-inline-block mr-1">
+                           <input type="time" class="col-4 form-control d-inline-block ml-1">
+                        </div>
+                    </div>
+
+                    <div class=" col-5">
+                        <label for="">Ends</label>
+                        <div class="form-group">
+                           <input type="date" class=" col-7 form-control d-inline-block mr-1">
+                           <input type="time" class="col-4 form-control d-inline-block ml-1">
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
 </div>
