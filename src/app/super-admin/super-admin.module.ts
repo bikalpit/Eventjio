@@ -15,18 +15,30 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatTooltipModule} from '@angular/material/tooltip';
 // import { MdePopoverModule } from '@material-extended/mde';
 
+import {AddNewTicketType} from './events/events.component';
+import {AddNewTicketGroup} from './events/events.component';
+
 import { myCreateDiscountCodeDialog} from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog} from './coupons/coupons.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, EventsComponent,CouponsComponent, OrdersComponent, CustomersComponent,myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,],
+  declarations: [DashboardComponent, 
+    EventsComponent,
+    CouponsComponent, 
+    OrdersComponent, 
+    CustomersComponent,
+    myCreateDiscountCodeDialog,
+    myBatchVoucherCodeDialog,
+    AddNewTicketType,
+    AddNewTicketGroup
+  ],
   imports: [
     CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
     FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,
   ],
-  entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog],
+  entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,AddNewTicketType,AddNewTicketGroup],
 })
   
 export class SuperAdminModule {}
