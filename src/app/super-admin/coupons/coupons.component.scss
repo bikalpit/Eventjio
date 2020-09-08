@@ -40,10 +40,12 @@ button:focus {
     bottom: 6px;
 }
 ::ng-deep .fa-question{
-    background: #e8e8e8;
+    // background: #e8e8e8;
     border-radius: 50%;
     font-size: 9px;
     padding: 3px 5px;
+    background: #CECECE;
+    opacity: 0.47;
 }
 ::ng-deep .tooltip-btn.mat-raised-button{
     padding-left: 0px;
@@ -94,28 +96,23 @@ button:focus {
         color: white;
         border-radius: 25px;
     }
-    .code-tab{
-        /* margin-top: 48px; */
-        // ::ng-deep .mat-tab-label-content:active{
-        //     color: #007BFF;
-        // }
-    }   
-        
-        ::ng-deep .code-tab .mat-tab-header{
+    ::ng-deep .code-tab{
+        .mat-tab-header{
             margin-bottom: 20px;
             border:none;
         }
-        ::ng-deep .code-tab .mat-ink-bar{
+         .mat-ink-bar{
             background: #1172F4;
             height: 5px;
             border-radius: 10px;
         }
-        ::ng-deep .mat-tab-label{
+        .mat-tab-label{
             font-size: 16px;
         }
-        ::ng-deep .mat-tab-label-active{
+        .mat-tab-label-active{
             color: #007BFF;
         }
+    } 
         .search-input{
             position: relative;
             top: 42px;

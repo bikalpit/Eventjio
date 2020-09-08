@@ -1,0 +1,36 @@
+<div class="main">
+  <div class="modal-header pl-3 py-0 border-0">
+    <p class="font-weight-bold">Add New Ticket Group</p>
+    <button type="button" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+      <span aria-hidden="true" class="white-text">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <p>
+      Groups let you group tickets together with a title.
+    </p>
+
+    <p>
+      You can also optionally set an overriding quantity of tickets for a group and the 
+      total number of tickets sold in this group won't exceed this amount.
+    </p>
+
+    <label for="">Group Title</label>
+    <div class="form-group">
+      <input type="text" class="form-control">
+    </div>
+
+    <label for="">Max quantity for tickets sold in group</label>
+    <div class="form-group">
+      <input type="text" class="form-control">
+    </div>
+
+  </div>
+
+  <div class="modal-footer border-0">
+    <button mat-flat-button (click)="onNoClick()" class="cancel-btn mr-1">Cancel</button>
+    <button mat-flat-button class="save-btn ml-1">Save Ticket</button>
+  </div>
+
+</div>

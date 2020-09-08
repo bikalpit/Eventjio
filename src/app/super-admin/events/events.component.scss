@@ -112,3 +112,59 @@
             }
         }       
     
+
+.event-images{
+    width: 100px;
+    height: 70px;
+    background-color: #CEE6FF;
+    display:inline-block;
+    border-radius: 5px;
+
+    p{
+        color: #2C2C2C;
+    }
+
+    .fa-cloud-upload{
+        color: #007BFF;
+    }
+    .fa-ban{
+        color: #2C2C2C;
+    }
+}
+
+
+.create-ticket-types{
+    button{
+        background-color: #1172F4;
+        color:#ffffff;
+    }
+    .add-ticket-notification{
+        background-color: #CEE6FF  ;
+    }
+
+    .fa-bell{
+        transform:rotate(-45deg);
+        color:#FF6600;
+    }
+}
+
+.event-setting-btn{
+    .cancel-btn{
+       background-color: #E1E1E1; 
+    }
+    .save-btn{
+        background-color: #1172F4;
+        color: #ffffff;
+    }
+}
+
+
+
+::ng-deep .cancel-btn{
+    background-color: #E1E1E1; 
+    outline:none;
+ }
+ ::ng-deep .save-btn{
+     background-color: #1172F4;
+     color: #ffffff;
+ }

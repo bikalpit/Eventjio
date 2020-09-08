@@ -81,13 +81,17 @@
 </div>
 </div>
 
+
+<!-- ----------------------------------Add new events form------------------------------------------ -->
+
+
 <div *ngIf="!addNewEvents" class="add-new-event p-3 bg-white">
     <div class="col-12 p-3">
         <i (click)="addNewEvents=!addNewEvents" class="fa fa-arrow-left fa-lg mr-3"></i><span>Add New Events</span>
     </div>
 
     <div class="col-12 px-5 ">
-       <div class="px-5 py-3 border rounded">
+       <div class="px-5 py-3 border rounded bg-light">
             <div class=" py-2 font-weight-bold">
                 <div>Add event info</div>
             </div>
@@ -95,24 +99,24 @@
             <form  [formGroup]="addEventForm">
                 <label for=""> Event Name</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" formControlName="event_name">
+                    <input type="text" class="form-control" formControlName="event_name" placeholder="Enter the name of your event">
                 </div>
 
                 
                 <div class="row">
-                    <div class=" col-5">
+                    <div class=" col-4">
                         <label for="">Starts</label>
                         <div class="form-group">
-                           <input type="date" formControlName="event_start_date" class=" col-7 form-control d-inline-block mr-1">
-                           <input type="time" formControlName="event_start_time" class="col-4 form-control d-inline-block ml-1">
+                           <input type="date" formControlName="event_start_date" class="col-8 form-control d-inline-block">
+                           <input type="time" formControlName="event_start_time" class="col-4 form-control d-inline-block ">
                         </div>
                     </div>
 
-                    <div class=" col-5">
+                    <div class=" col-4">
                         <label for="">Ends</label>
                         <div class="form-group">
-                           <input type="date" formControlName="event_end_date"class=" col-7 form-control d-inline-block mr-1">
-                           <input type="time" formControlName="event_end_time" class="col-4 form-control d-inline-block ml-1">
+                           <input type="date" formControlName="event_end_date"class=" col-8 form-control d-inline-block">
+                           <input type="time" formControlName="event_end_time" class="col-4 form-control d-inline-block">
                         </div>
                     </div>
                     <div class=" col-5">
@@ -123,5 +127,130 @@
             </form>
 
         </div>
+
+        <div class="px-5 py-3 mt-3 border rounded create-ticket-types bg-light">
+            <div class=" py-2 font-weight-bold">
+                <div>Create ticket types</div>
+            </div>
+            <div class="mt-2">
+                <button mat-flat-button (click)="openAddNewTicketTypeDialog()" class="mr-1">Add a new ticket type</button>
+                <button mat-flat-button (click)="openAddNewTicketGroupDialog()" class="ml-1">Add a new ticket group</button>
+            </div>
+
+            <div class="p-3 mt-3 add-ticket-notification rounded">
+                <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
+            </div>
+
+        </div>
+
+        <div class="px-5 py-3 mt-3 border rounded event-settings bg-light">
+            <div class=" py-2 font-weight-bold">
+                <div>Event Settings</div>
+            </div>
+
+            <label for="">Timezone</label>
+            <div class="form-group ">
+                <select name="" id="" class="form-control col-8">
+                    <option value="">(GMT+05:30)Colcutta</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" class="from-control mr-2"> Allow customers to make a donation
+                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+            </div>
+
+            <label for="">Customise the text that appears on the event button and in the title of the event page</label>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Book Tickets">
+            </div>
+
+            <div class=" py-2 font-weight-bold">
+                <div>Advance Settings</div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <label for="">Tickets become availables</label>
+                    <div class="form-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">When the event is published</option>
+                            <option value="">At a scheduled date and time</option>
+                            <option value="">At a scheduled interval before the event starts</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="">Tickets become unavailables</label>
+                    <div class="form-group">
+                        <select name="" id="" class="form-control">
+                            <option value="">When the event is taken off, or the event passes</option>
+                            <option value="">At a scheduled date and time</option>
+                            <option value="">At a scheduled interval before the event starts</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" class="from-control mr-2"> Redirect order confirmation page
+                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+            </div>
+
+            <label for="">Redirect to URL</label>
+            <div class="form-group">
+                <input type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" class="from-control mr-2"> Hide this event from your box office listings and search engines.
+                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" class="from-control mr-2"> Customers need to enter an access code to buy tickets for this event
+                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+            </div>
+
+            <label for="">Access Code</label>
+            <div class="form-group">
+                <input type="text" class="form-control col-6" >
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" class="from-control mr-2"> Hide share button on event page.
+                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" class="from-control mr-2"> Set custom sales tax for this event 
+                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+            </div>
+
+
+            <div class="row">
+                <div class="col-6">
+                    <label for="">Sales tax amounts</label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="0.00%">
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="">Sales tax label</label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="VAT">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="py-3 mt-3 event-setting-btn text-right bg-light">
+            <button (click)="fnAddNewEventsForm()" mat-flat-button class="cancel-btn mr-2">Cancel</button>
+            <button mat-flat-button class="save-btn ml-2 px-3">Save Event</button>
+        </div>
+
     </div>
 </div>

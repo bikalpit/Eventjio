@@ -14,24 +14,50 @@ import { CustomersComponent } from './customers/customers.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
+
+
+import {AddNewTicketType} from './events/events.component';
+import {AddNewTicketGroup} from './events/events.component';
 
 import { myCreateDiscountCodeDialog} from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog} from './coupons/coupons.component';
+import { ExportOrderDialog} from './orders/orders.component';
+import { AddNewOrderDialog} from './orders/orders.component';
+import { BookTicketDialog} from './orders/orders.component';
+import { OrderInvoiceDialog} from './orders/orders.component';
 import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
 import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.component';
 
 
+
+
 @NgModule({
-  declarations: [DashboardComponent, EventsComponent,CouponsComponent, OrdersComponent, CustomersComponent,myCreateDiscountCodeDialog,myBatchVoucherCodeDialog, 
-    MyBoxofficeComponent,
-    myCreateNewBoxofficeDialog,
+  declarations: [DashboardComponent, 
+     EventsComponent,
+     CouponsComponent,
+      OrdersComponent, 
+      CustomersComponent,
+      MyBoxofficeComponent,
+      myCreateDiscountCodeDialog,
+      myBatchVoucherCodeDialog,
+      ExportOrderDialog,
+      AddNewOrderDialog,
+      BookTicketDialog,
+      AddNewTicketType,
+      AddNewTicketGroup,
+      OrderInvoiceDialog,
+      myCreateNewBoxofficeDialog
   ],
   imports: [
     CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
-    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,  ReactiveFormsModule,
+    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,
+    ReactiveFormsModule,
     FormsModule,
   ],
-  entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,myCreateNewBoxofficeDialog],
+  entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
+    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog],
 })
   
 export class SuperAdminModule {}
