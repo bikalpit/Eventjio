@@ -1,12 +1,10 @@
 <mat-drawer-container class="main-container">
-
-    <mat-drawer mode="side" opened class="left-side-container">
+    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="isBoxoffice()">
         <mat-toolbar class="app-title">
             <div class="py-3 text-light text-center">
                 webjio
             </div>
         </mat-toolbar>
-
 
         <div class="col-12 px-3 pt-4 pb-3 mt-3 text-center">
            <div class="circle-icon text-center">
@@ -20,7 +18,6 @@
             <div routerLink="/super-admin" class="icon text-center">
                 <img src="/assets/images/admin/dashboard.png" class="w-100"  alt="">
            </div>
-            
         </div>
 
         <div class="col-12 p-3 mt-4 text-center text-white">

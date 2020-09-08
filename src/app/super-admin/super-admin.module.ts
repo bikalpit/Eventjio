@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -26,6 +27,8 @@ import { ExportOrderDialog} from './orders/orders.component';
 import { AddNewOrderDialog} from './orders/orders.component';
 import { BookTicketDialog} from './orders/orders.component';
 import { OrderInvoiceDialog} from './orders/orders.component';
+import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
+import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.component';
 
 
 
@@ -36,6 +39,7 @@ import { OrderInvoiceDialog} from './orders/orders.component';
      CouponsComponent,
       OrdersComponent, 
       CustomersComponent,
+      MyBoxofficeComponent,
       myCreateDiscountCodeDialog,
       myBatchVoucherCodeDialog,
       ExportOrderDialog,
@@ -43,14 +47,17 @@ import { OrderInvoiceDialog} from './orders/orders.component';
       BookTicketDialog,
       AddNewTicketType,
       AddNewTicketGroup,
-      OrderInvoiceDialog
+      OrderInvoiceDialog,
+      myCreateNewBoxofficeDialog
   ],
   imports: [
     CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
-    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,CKEditorModule
+    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,CKEditorModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
-    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup],
+    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog],
 })
   
 export class SuperAdminModule {}
