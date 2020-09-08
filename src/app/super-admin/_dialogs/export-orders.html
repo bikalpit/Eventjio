@@ -1,0 +1,283 @@
+<div class="modal-dialog modal-notify modal-info export-order modal-lg" role="document" >
+  <div class="modal-content ">
+    <div class="modal-header modal-bcolor-primary">
+      <p class="heading lead  work-content" >Export orders</p>
+      <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <span aria-hidden="true" class="white-text">&times;</span>
+      </button>
+    </div>
+      
+    <div class="modal-body pb-0"> 
+      <div class="row">
+        <div class="overview">
+          <div  class="">
+            
+            <mat-radio-group (change)="fnExportOrderType($event)" class="d-flex" aria-label="Select an option">
+              <div class="overview-report d-flex">
+              <mat-radio-button value="overview" [checked]="reportType === 'overview'" name="optradio" >
+                <div class="ovr">
+                  <div class="overview">
+                      <p class="wd-60"></p>
+                      <p class="wd-80"></p>
+                      <p class="wd-60"></p>
+                      <p class="wd-80"></p>
+                  </div>
+                  <p>Overview Report</p>
+                </div>
+              </mat-radio-button>
+            </div>
+            <div  class="lineitem-report d-flex">
+              <mat-radio-button value="lineItem" [checked]="reportType === 'lineItem'" name="optradio">
+                <div class="lir">
+                  <div class="line-item">
+                      <p class="wd-90"></p>
+                      <p class="wd-60"></p>
+                      <p class="wd-70"></p>
+                      <p class="wd-90"></p>
+                      <p class="wd-60"></p>
+                      <p class="wd-70"></p>
+                      <p class="wd-90"></p>
+                  </div>
+                  <p>Line item Report</p>
+                </div>
+              </mat-radio-button>
+            </div>
+            </mat-radio-group>
+          </div>           
+        </div>
+      </div>
+      
+      <div class="overview-details" *ngIf="reportType === 'overview'">
+        <h5>Overview details to include in the report</h5>
+        <mat-accordion class="example-headers-align" multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <section class="tab-checkbox">
+                  <mat-checkbox class="example-margin">ORDER DETAILS</mat-checkbox>
+                </section>
+              </mat-panel-title>
+              <mat-panel-description>
+                
+              </mat-panel-description>              
+            </mat-expansion-panel-header>
+
+            <section class="example-section row">
+              <mat-checkbox class="example-margin col-md-4">Order ID</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Order ID</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Order ID</mat-checkbox>
+            </section>
+
+            <section class="example-section row">
+              <mat-checkbox class="example-margin col-md-4">Order date</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Order date</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Order date</mat-checkbox>
+            </section>
+
+            
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion class="example-headers-align" multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <section class="example-section tab-checkbox">
+                  <mat-checkbox class="example-margin">EVENT DETAILS</mat-checkbox>
+                </section>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section row">
+              <mat-checkbox class="example-margin col-md-4">Event ID</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Event name</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Event start</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Event end</mat-checkbox>
+            </section>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion class="example-headers-align" multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <section class="example-section tab-checkbox">
+                  <mat-checkbox class="example-margin">BUYER DETAILS</mat-checkbox>
+                </section>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <section class="example-section row">
+              <mat-checkbox class="example-margin col-md-4">Name</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Email</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Mobile number</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Address 1</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Address 2</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Address 3</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Postcode / Zip</mat-checkbox>
+              <mat-checkbox class="example-margin col-md-4">Postcode / Zip</mat-checkbox>
+            </section>
+          </mat-expansion-panel>
+        </mat-accordion>   
+      </div>
+
+      <div class="linereport-details" *ngIf="reportType === 'lineItem'">
+        <div class="linereport-details-col">
+          <h5>Line items to include in report (rows)</h5>
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <section class="example-section tab-checkbox">
+                    <mat-checkbox class="example-margin">LINE ITEM TYPES</mat-checkbox>
+                  </section>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <section class="example-section row">
+                <mat-checkbox class="example-margin col-md-4">Tickets</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Voided tickets</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Transaction charges</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Taxes</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Gift cards</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Donations</mat-checkbox>
+              </section>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <section class="example-section tab-checkbox">
+                    <mat-checkbox class="example-margin">TICKET TYPES</mat-checkbox>
+                  </section>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="col-md-12 px-0">
+                <div class="note-theme m-0">
+                    <div class="notification">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" class="notif-icon">notifications</mat-icon>
+                    </div>
+                    <div>
+                        <p class="note-message">Select an event in the order list to filter by ticket type </p>
+                    </div>
+                </div>
+            </div>
+            </mat-expansion-panel>
+           
+          </mat-accordion>
+        </div>
+
+        <div class="linereport-details-col">
+          <h5>Line item details to include in the report (columns)</h5>
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <section class="example-section tab-checkbox">
+                    <mat-checkbox class="example-margin">LINE ITEM DETAILS</mat-checkbox>
+                  </section>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <section class="example-section row">
+                <mat-checkbox class="example-margin col-md-4">Type</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Description</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Value</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Booking fee</mat-checkbox>
+              </section>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <section class="example-section tab-checkbox">
+                    <mat-checkbox class="example-margin ">TICKET DETAILS</mat-checkbox>
+                  </section>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <section class="example-section row">
+                <mat-checkbox class="example-margin col-md-4">Type</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Description</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Value</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Booking fee</mat-checkbox>
+              </section>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <section class="example-section tab-checkbox">
+                    <mat-checkbox class="example-margin">ORDER DETAILS</mat-checkbox>
+                  </section>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <section class="example-section row">
+                <mat-checkbox class="example-margin col-md-4">Order ID</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Order date</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Total paid</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Payment method</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Transaction ID</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Referral Tag</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Discount code</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Order cancelled</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Cancellation reason</mat-checkbox>
+
+              </section>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <section class="example-section tab-checkbox">
+                    <mat-checkbox class="example-margin">EVENT DETAILS</mat-checkbox>
+                  </section>
+                </mat-panel-title>
+                <mat-panel-description>
+                 
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <section class="example-section row">
+                <mat-checkbox class="example-margin col-md-4">Event name</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Event start</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Event end</mat-checkbox>
+              </section>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <section class="example-section tab-checkbox">
+                    <mat-checkbox class="example-margin">BUYER DETAILS</mat-checkbox>
+                  </section>
+                </mat-panel-title>
+                <mat-panel-description>
+                 
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <section class="example-section row">
+                <mat-checkbox class="example-margin col-md-4">Name</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Email</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Mobile number</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Address 1</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Address 2</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Address 3</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Postcode / Zip</mat-checkbox>
+                <mat-checkbox class="example-margin col-md-4">Postcode / Zip</mat-checkbox>
+              </section>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        
+      </div>
+
+      
+
+      <div class="example-button-row d-flex mt-4">
+        <button mat-raised-button class="cancel-btn ml-auto">Cancel</button>
+        <button mat-raised-button class="ml-3 comm-btn">Download Report</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+    

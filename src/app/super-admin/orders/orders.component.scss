@@ -2,6 +2,344 @@
 .main{
     font-family: Poppins, Regular;
 }
+// modal css
+::ng-deep .modal-dialog{
+    margin:0px;
+}
+::ng-deep .cdk-overlay-pane{
+    overflow: auto;
+}
+
+// heading css
+
+::ng-deep .main-head{
+    text-align: left;
+    font-size: 16px;
+    letter-spacing: 0px;
+    color: #181818;
+    opacity: 1;
+    font-weight: 500;
+}
+::ng-deep .sub-head{
+    text-align: left;
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: #595959;
+    opacity: 1;
+}
+
+// modal css
+
+::ng-deep .export-order.modal-dialog{
+    margin:0px;
+      .modal-content .modal-header{
+        border: none;
+    }
+      .modal-content{
+        border: none;
+    }
+      .modal-content .modal-header .heading{
+        margin-bottom: 0px;
+        font: normal normal medium 22px/33px Poppins;
+        letter-spacing: 0px;
+        color: #181818;
+        font-size: 16px;
+        font-weight: 500;
+    }
+      .modal-dialog .form-group label{
+        color: #595959;
+        font-size: 14px;
+    }
+  }
+
+  // end css
+
+  ::ng-deep .cancel-btn{
+    background: #DDDDDD;
+    font-size: 14px;
+    color: #181818;   
+  }
+  ::ng-deep .close-btn{
+    background: #B4D4FF !important;
+    opacity: 1;
+    border-radius: 50%;
+    padding: 4px 6px !important;
+    font-size: 14px;
+    color: #1172F4;
+  }
+  ::ng-deep .comm-btn{
+    background: #1172F4;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 5px;
+    text-align: center;
+}
+::ng-deep .comg-btn{
+    background: #DDDDDD;
+    font-size: 14px;
+    color: #181818;
+    border-radius: 5px;
+    text-align: center;
+}
+
+
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+  ::ng-deep .export-order{
+
+    // expansion-panel css 
+   .mat-accordion .mat-expansion-panel:last-of-type{
+        border-bottom: 1px solid #00000029 !important;
+    } 
+    .mat-expansion-panel-header{
+        padding-right: 5px !important;
+        padding-left: 0px !important;
+    } 
+    .mat-expansion-panel-body {
+        padding-left: 0px;
+        padding-right: 0px;
+    }    
+    .mat-expansion-panel-body .mat-checkbox-label{
+        color: #595959;
+    }
+
+    // radio button default css change
+
+    .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+        border-color: #007BFF;
+    }
+    .mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple{
+            background-color: #007BFF;
+        }
+
+    //  checkbox default css chnage
+    .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+        background-color: #007BFF;
+    }
+
+    .overview-report{
+        background: #F2F2F2;
+        border-radius: 4px;
+        height: 145px;
+        padding: 15px;
+        margin: 0px 15px;        
+        .mat-radio-container{
+            position: relative;
+            left: 0px;
+            bottom: 57px;
+        }     
+        .ovr{
+            margin: 15px 32px 15px 8px;
+            .overview{
+                border: 2px solid #808080;
+                background: #FFFFFF;
+                height: 82px;
+                .wd-60{
+                    margin: 7px 5px;
+                    width: 70%;
+                    background: #808080;
+                    border: #808080;
+                    height: 5px;
+                }
+                .wd-80{
+                    margin: 7px 5px;
+                    width: 87%;
+                    background: #808080;
+                    border: #808080;
+                    height: 5px;
+                }
+            }
+        }
+    }
+
+    .lineitem-report{
+        background: #F2F2F2;
+        border-radius: 4px;
+        height: 145px;
+        padding: 15px;
+        .mat-radio-container{
+            position: relative;
+            left: 0px;
+            bottom: 57px;
+        }        
+        .lir{
+            margin: 15px 32px 15px 8px;
+            .line-item{
+                border: 2px solid #808080;
+                background: #FFFFFF;
+                height: 82px;
+                .wd-90{
+                    margin: 7px 5px;
+                    width: 90%;
+                    background: #808080;
+                    border: #808080;
+                    height: 5px;
+                }
+                .wd-60{
+                    margin: 6px 16px;
+                    width: 60%;
+                    background: #808080;
+                    border: #808080;
+                    height: 2px;
+                }
+                .wd-70{
+                    margin: 6px 16px;
+                    width: 70%;
+                    background: #808080;
+                    border: #808080;
+                    height: 2px;
+                }
+            }
+        }
+    }
+    .overview-details{
+        h5{
+            color: #181818;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        .tab-checkbox .mat-checkbox-layout{
+            margin: 17px 0px;
+        }
+        .tab-checkbox .mat-checkbox-label{
+            font-size: 14px;
+            font-weight: 500;
+            color: #181818;
+        }
+        .mat-accordion .mat-expansion-panel:last-of-type{
+            box-shadow: none;
+            border-bottom: 1px solid #DDDDDD;
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+    }
+
+    .linereport-details{
+        .note-theme{
+            background: #DDEAFD;
+            border-radius: 5px;
+            padding: 16px 15px;
+            display: flex;
+            .notif-icon{
+                color: #FF6600;
+                margin-right: 15px;
+                transform: rotate(-45deg);
+            }
+            .notification{
+                align-items: center;
+                display: flex;
+            }
+            .note-message{
+                margin-bottom: 0px;
+                // color: #595959;
+                color: #2C2C2C;
+                .notes{
+                    color: #2C2C2C;
+                    font-weight: bold;
+                }
+            }
+        }
+        h5{
+            color: #181818;
+            font-size: 14px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        .tab-checkbox  .mat-checkbox-layout{
+            margin: 17px 0px;
+        }
+        .tab-checkbox .mat-checkbox-label{
+            font-size: 14px;
+            font-weight: 500;
+            color: #181818;
+        }
+        .mat-accordion .mat-expansion-panel:last-of-type{
+            box-shadow: none;
+            border-bottom: 1px solid #DDDDDD;
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+        .cancel-warn{
+            .note-theme{
+                background: #DDEAFD;
+                border-radius: 5px;
+                padding: 16px 15px;
+                display: flex;
+                .notif-icon{
+                    color: #FF6600;
+                    margin-right: 15px;
+                    transform: rotate(-45deg);
+                }
+                .notification{
+                    align-items: center;
+                    display: flex;
+                }
+                .note-message{
+                    margin-bottom: 0px;
+                    color: #595959;
+                    .notes{
+                        color: #2C2C2C;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .cancel-order-detail{
+
+        }
+        
+    }
+    
+    
+  }
+  
+// end export-modal css
+
+// Add-new-order css
+::ng-deep .add-new-order{
+    .booking{
+        .ticket{
+            .ticket-details{
+                p{
+                    color: #595959;
+                    font-size: 14px;
+                }
+                label{
+                    margin-bottom: 0px;
+                    color: #181818;
+                    font-weight: bold;
+                    font-size: 16px;
+                }                
+            }
+            .ticket-btn{
+                float: right !important;
+                width: 117px !important;
+                text-align: center !important;
+            }
+        }
+        .line{
+            border-bottom: 1px solid #DDDDDD;
+            margin: 15px 0px;
+        }  
+    }
+}
+// end Add-new-order css
+
+
+
 .search-bar{
     font-family: Poppins, Regular;
     border:1px solid #CECECE;
@@ -56,3 +394,391 @@
     table td{
         padding-left: 35px;
     }
+
+    // flex table css 
+
+    //  Book-ticket modal css
+
+    ::ng-deep .new-order-table .service-listing{
+          .select-qty{
+            width: 56%;
+            height: 30px;
+          }   
+          .fw-600{
+              font-weight: 600;
+          }        
+        .drageble-list {
+            width: 100%;
+            border-bottom: solid 1px #DDDDDD;
+            display: block;
+            background: white;
+            overflow: hidden;
+            font-size: 14px;
+            font-weight: 500;
+        }
+       .main-heading-content{
+            border-bottom: solid 1px #DDDDDD;
+            padding: 8px 8px;
+            align-items: center;                
+            font-size: 14px;
+            color: #595959;
+        }
+        .drageble-box{
+            align-items: center;
+        }
+        .tb-data{
+            padding: 8px 8px;
+            color: #181818;
+        }
+        .cpn-title{
+            color: #181818;
+        }
+        .cpn-code{
+            color: #1172F4;
+        }
+        .cpn-bor{
+            border:1px dashed #1172F4;
+            padding: 6px 12px;
+            border-radius: 5px;
+        }
+        .action-icon{
+            color: #007BFF;
+            border-radius: 50%;
+            padding: 16px 16px;
+            background: #ABE6FD;
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            font-size: 30px;
+        }
+    }   
+    
+    ::ng-deep .checkout-form{
+        h4{
+            text-align: left;
+            font-size: 17px;
+            letter-spacing: 0px;
+            color: #181818;
+            opacity: 1;
+            font-weight: 500;
+        }
+        .itemlist-table{
+            .service-listing{
+                .align-end{
+                    text-align: end;
+                }
+                .select-qty{
+                  width: 56%;
+                  height: 30px;
+                }   
+                .fw-600{
+                    font-weight: 600;
+                }   
+                .fs-15{
+                    font-size: 15px;
+                } 
+              .drageble-list {
+                  width: 100%;
+                //   border-bottom: solid 1px #DDDDDD;
+                  display: block;
+                  background: white;
+                  overflow: hidden;
+                  font-size: 14px;
+                  font-weight: 500;
+              }
+             .main-heading-content{
+                  border-bottom: solid 1px #DDDDDD;
+                  padding: 8px 8px;
+                  align-items: center;                
+                  font-size: 14px;
+                  color: #181818;
+                  font-weight: 500;
+              }
+              .drageble-box{
+                  align-items: center;
+              }
+              .tb-data{
+                  padding: 8px 8px;
+                  color: #181818;
+              }
+              .cpn-title{
+                  color: #181818;
+              }
+              .cpn-code{
+                  color: #1172F4;
+              }
+              .cpn-bor{
+                  border:1px dashed #1172F4;
+                  padding: 6px 12px;
+                  border-radius: 5px;
+              }
+              .action-icon{
+                  color: #007BFF;
+                  border-radius: 50%;
+                  padding: 16px 16px;
+                  background: #ABE6FD;
+                  width: 32px;
+                  height: 32px;
+                  align-items: center;
+                  justify-content: center;
+                  display: flex;
+                  font-size: 30px;
+              }
+          }  
+
+        }
+        .link{
+            color: #007BFF;
+        }
+           
+        .mt-16{
+            margin-top: 16px;
+        } 
+        .checkout form{
+             .fa-asterisk{
+                color: #FF0000;
+                font-size: 5px;
+                position: relative;
+                bottom: 6px;
+            }
+        }
+        .general-admission{
+            .fa-asterisk{
+                color: #FF0000;
+                font-size: 5px;
+                position: relative;
+                bottom: 6px;
+            }
+        }
+        
+    }
+
+    ::ng-deep .book-order{
+        .print-order{
+            margin-left: auto;
+            a{
+                color: #181818;
+                display: flex;
+                align-items: center;
+                .link{
+                    color: #007BFF;
+                }                 
+            }
+        }
+    }
+
+    ::ng-deep .order-details{
+        .order-head{
+            padding: 11px 15px;
+            margin: 25px 0px 15px 0px;
+            background: #EFEFEF;
+            color: #181818;
+            a{
+                color: #181818;
+            }
+            p{
+                margin-bottom: 0px;
+            }
+            .dwnld-invoice{
+                margin-left: auto;
+            }
+        }
+        .order-desc{
+            label{
+                color: #181818;
+                font-weight: 500;
+                font-size: 14px;
+            }
+            p{
+                color: #595959;
+                font-size: 14px;
+            }
+        }
+        .order-table{
+            .service-listing{
+                .select-qty{
+                  width: 56%;
+                  height: 30px;
+                }   
+                .fw-600{
+                    font-weight: 600;
+                }        
+              .drageble-list {
+                  width: 100%;
+                  border: solid 1px #DDDDDD;
+                  display: block;
+                  background: white;
+                  overflow: hidden;
+                  font-size: 14px;
+                  font-weight: 500;
+              }
+             .main-heading-content{
+                  border-bottom: solid 1px #DDDDDD;
+                  border-top: solid 1px #DDDDDD;
+                  border: solid 1px #DDDDDD;
+                  padding: 8px 8px;
+                  align-items: center;                
+                  font-size: 14px;
+                  color: #181818;
+                  font-weight: 500;
+              }
+              .drageble-box{
+                  align-items: center;
+              }
+              .tb-data{
+                  padding: 8px 8px;
+                  color: #181818;
+              }
+              .cpn-title{
+                  color: #181818;
+              }
+              .cpn-code{
+                  color: #1172F4;
+              }
+              .cpn-bor{
+                  border:1px dashed #1172F4;
+                  padding: 6px 12px;
+                  border-radius: 5px;
+              }
+              .action-icon{
+                  color: #007BFF;
+                  border-radius: 50%;
+                  padding: 16px 16px;
+                  background: #ABE6FD;
+                  width: 32px;
+                  height: 32px;
+                  align-items: center;
+                  justify-content: center;
+                  display: flex;
+                  font-size: 30px;
+              }
+          }
+
+        }
+        
+    }
+
+    ::ng-deep .buyer-details{
+        .buyer-head{
+            padding: 11px 15px;
+            margin: 25px 0px 15px 0px;
+            background: #EFEFEF;
+            color: #181818;
+            a{
+                color: #181818;
+            }
+            p{
+                margin-bottom: 0px;
+            }
+            .dwnld-invoice{
+                margin-left: auto;
+            }
+        }
+        .buyer-desc{
+            label{
+                color: #181818;
+                font-weight: 500;
+                font-size: 14px;
+            }
+            p{
+                color: #595959;
+                font-size: 14px;
+            }
+        }
+    }
+
+    ::ng-deep .ticket-details{
+        .ticket-head{
+            padding: 11px 15px;
+            margin: 25px 0px 15px 0px;
+            background: #EFEFEF;
+            color: #181818;
+            a{
+                color: #181818;
+            }
+            p{
+                margin-bottom: 0px;
+            }
+            .dwnld-invoice{
+                margin-left: auto;
+            }
+        }
+        .ticket-desc{
+            label{
+                color: #181818;
+                font-weight: 500;
+                font-size: 14px;
+            }
+            p{
+                color: #595959;
+                font-size: 14px;
+            }
+        }
+    }
+    ::ng-deep .cancel-order{
+        .cancel-warn{
+            .note-theme{
+                background: #ffe6e6;
+                border-radius: 5px;
+                padding: 16px 15px;
+                display: flex;
+                .notif-icon{
+                    color: #FF0000;
+                    margin-right: 15px;
+                }
+                .notification{
+                    align-items: center;
+                    display: flex;
+                }
+                .note-message{
+                    margin-bottom: 0px;
+                    color: #595959;
+                    .notes{
+                        color: #2C2C2C;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        
+        .cancel-order-detail{           
+            padding: 20px 26px 10px 20px;
+            .order-det{
+                label{
+                    color: #181818;
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+                p{
+                    color: #595959;
+                    font-size: 14px;
+                }
+            }
+        .cancel-order-note{
+            margin-top: 15px;
+            .fa-asterisk{
+                color: #FF0000;
+                font-size: 5px;
+                position: relative;
+                bottom: 6px;
+            }
+        }
+        .order-cancel{
+            .order-cancel-btn{
+                background: #FF0000;
+                color: #FFFFFF;
+                margin-top: 30px;
+            }
+        }
+
+    }
+         
+    }
+
+       
+    
+   
+
+    //  end Book-ticket modal css

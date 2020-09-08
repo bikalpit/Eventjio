@@ -13,20 +13,29 @@ import { CustomersComponent } from './customers/customers.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatTooltipModule} from '@angular/material/tooltip';
-// import { MdePopoverModule } from '@material-extended/mde';
+import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 import { myCreateDiscountCodeDialog} from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog} from './coupons/coupons.component';
+import { ExportOrderDialog} from './orders/orders.component';
+import { AddNewOrderDialog} from './orders/orders.component';
+import { BookTicketDialog} from './orders/orders.component';
+import { OrderInvoiceDialog} from './orders/orders.component';
+
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, EventsComponent,CouponsComponent, OrdersComponent, CustomersComponent,myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,],
+  declarations: [DashboardComponent, EventsComponent,CouponsComponent, OrdersComponent, CustomersComponent,myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
+    OrderInvoiceDialog],
   imports: [
     CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
-    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,
+    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,
   ],
-  entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog],
+  entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
+    OrderInvoiceDialog],
 })
   
 export class SuperAdminModule {}
