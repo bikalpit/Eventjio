@@ -1,281 +1,256 @@
 <div *ngIf="addNewEvents" class="main p-3 bg-white">
-<div class="col-12 p-3">
-    <div class="row">
-        <div class="font-weight-bold">
-            Events
-        </div>
-
-        <div class="ml-auto pr-3">
-            <button (click)="addNewEvents=!addNewEvents" mat-flat-button class="add-event-button px-5">Add Next Event</button>         
-        </div>
-    </div>
-</div>
-
-<div class="col-12 p-3">
-  <div class="row code-tab">
-    <mat-tab-group class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left p-0">
-        <mat-tab label="Upcoming Events (2)" class="">
-            <div class="service-listing events">
-                <div class="main-table-content main-cust-table-content">
-                    <div class="">
-                        <div class="heads main-heading-content drageble py-3" fxLayout="row">
-                            <div class="" fxFlex="25">Events</div>
-                            <div class="" fxFlex="20">Status</div>
-                            <div class="" fxFlex="13">Sold</div>
-                            <div class="" fxFlex="15">Remaining</div>
-                            <div class="" fxFlex="17">Revenue</div>
-                            <div class="" fxFlex="10">Action</div>
-                        </div>
-                       
-                      <div class="content" class="drageble-list">
-                          <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of upcomingEventData">
-                              <div class="tb-data " fxFlex="25"> <a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
-                              <div class="tb-data" fxFlex="20"><span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span></div>
-                              <div class="tb-data" fxFlex="13">{{element.sold}}</div>
-                              <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
-                              <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
-                              <div class="tb-data" fxFlex="10">
-                                  <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
-                                  <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                              </div>
-                          </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </mat-tab>
-        <mat-tab label="Past Events (0)">
-          <div class="service-listing events">
-            <div class="main-table-content main-cust-table-content">
-                <div class="">
-                    <div class="heads main-heading-content drageble py-3" fxLayout="row">
-                        <div class="" fxFlex="25">Events</div>
-                        <div class="" fxFlex="20">Status</div>
-                        <div class="" fxFlex="13">Sold</div>
-                        <div class="" fxFlex="15">Remaining</div>
-                        <div class="" fxFlex="17">Revenue</div>
-                        <div class="" fxFlex="10">Action</div>
-                    </div>
-                   
-                  <div class="content" class="drageble-list">
-                      <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of pastEventData">
-                          <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
-                          <div class="tb-data" fxFlex="20"><span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span></div>
-                          <div class="tb-data" fxFlex="13">{{element.sold}}</div>
-                          <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
-                          <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
-                          <div class="tb-data" fxFlex="10">
-                              <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
-                              <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                          </div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </mat-tab>
-    </mat-tab-group>
-</div>
-</div>
-</div>
-
-
-<!-- ----------------------------------Add new events form------------------------------------------ -->
-
-
-<div *ngIf="!addNewEvents" class="add-new-event p-3 bg-white">
     <div class="col-12 p-3">
-        <i (click)="addNewEvents=!addNewEvents" class="fa fa-arrow-left fa-lg mr-3"></i><span>Add New Events</span>
+    <div class="row">
+    <div class="font-weight-bold">
+    Events
     </div>
-
+    
+    <div class="ml-auto pr-3">
+    <button (click)="addNewEvents=!addNewEvents" mat-flat-button class="add-event-button px-5">Add Next Event</button>
+    </div>
+    </div>
+    </div>
+    
+    <div class="col-12 p-3">
+    <div class="row code-tab">
+    <mat-tab-group class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left p-0">
+    <mat-tab label="Upcoming Events (2)" class="">
+    <div class="service-listing events">
+    <div class="main-table-content main-cust-table-content">
+    <div class="">
+    <div class="heads main-heading-content drageble py-3" fxLayout="row">
+    <div class="" fxFlex="25">Events</div>
+    <div class="" fxFlex="20">Status</div>
+    <div class="" fxFlex="13">Sold</div>
+    <div class="" fxFlex="15">Remaining</div>
+    <div class="" fxFlex="17">Revenue</div>
+    <div class="" fxFlex="10">Action</div>
+    </div>
+    
+    <div class="content" class="drageble-list">
+    <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of upcomingEventData">
+    <div class="tb-data " fxFlex="25"> <a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
+    <div class="tb-data" fxFlex="20"><span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span></div>
+    <div class="tb-data" fxFlex="13">{{element.sold}}</div>
+    <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
+    <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
+    <div class="tb-data" fxFlex="10">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+    <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+    </div>
+    </div>
+    </div>
+    </div>
+    
+    </div>
+    </div>
+    
+    </mat-tab>
+    <mat-tab label="Past Events (0)">
+    <div class="service-listing events">
+    <div class="main-table-content main-cust-table-content">
+    <div class="">
+    <div class="heads main-heading-content drageble py-3" fxLayout="row">
+    <div class="" fxFlex="25">Events</div>
+    <div class="" fxFlex="20">Status</div>
+    <div class="" fxFlex="13">Sold</div>
+    <div class="" fxFlex="15">Remaining</div>
+    <div class="" fxFlex="17">Revenue</div>
+    <div class="" fxFlex="10">Action</div>
+    </div>
+    
+    <div class="content" class="drageble-list">
+    <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of pastEventData">
+    <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
+    <div class="tb-data" fxFlex="20"><span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span></div>
+    <div class="tb-data" fxFlex="13">{{element.sold}}</div>
+    <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
+    <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
+    <div class="tb-data" fxFlex="10">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+    <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </mat-tab>
+    </mat-tab-group>
+    </div>
+    </div>
+    </div>
+    
+    
+    <!-- ----------------------------------Add new events form------------------------------------------ -->
+    
+    
+    <div *ngIf="!addNewEvents" class="add-new-event p-3 bg-white">
+    <div class="col-12 p-3">
+    <i (click)="addNewEvents=!addNewEvents" class="fa fa-arrow-left fa-lg mr-3"></i><span>Add New Events</span>
+    </div>
+    
     <div class="col-12 px-5 ">
-       <div class="px-5 py-3 border rounded bg-light">
-            <div class=" py-2 font-weight-bold">
-                <div>Add event info</div>
-            </div>
-
-            <form  [formGroup]="addEventForm">
-                <label for=""> Event Name</label>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="event_name" placeholder="Enter the name of your event">
-                </div>
-
-                
-                <div class="row">
-                    <div class=" col-4">
-                        <label for="">Starts</label>
-                        <div class="form-group">
-                           <input type="date" formControlName="event_start_date" class="col-8 form-control d-inline-block">
-                           <input type="time" formControlName="event_start_time" class="col-4 form-control d-inline-block ">
-                        </div>
-                    </div>
-
-                    <div class=" col-4">
-                        <label for="">Ends</label>
-                        <div class="form-group">
-                           <input type="date" formControlName="event_end_date"class=" col-8 form-control d-inline-block">
-                           <input type="time" formControlName="event_end_time" class="col-4 form-control d-inline-block">
-                        </div>
-                    </div>
-                    <div class=" col-5">
-                            <button class="btn btn-primary">Save</button>
-                    </div>
-
-                <div class="form-group">
-                    <input type="checkbox" class="from-control mr-2"> This is on online event
-                    <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
-                </div>
-                <label for="">Description</label>
-                <div class="form-group">
-                    <ck-editor name="editor1" [(ngModel)]="editorValue" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
-                </div>
-                
-                <label for="">Choose or upload an images</label>
-                <div class="row">
-                    <img src="../../../assets/images/events/image 1.jpg" class="event-images ml-3 mr-2" alt="">
-                    <img src="../../../assets/images/events/image 2.jpg" class="event-images mx-2" alt="">
-                    <img src="../../../assets/images/events/image 3.jpg" class="event-images mx-2" alt="">
-                    <img src="../../../assets/images/events/image 4.jpg" class="event-images mx-2" alt="">
-                    <img src="../../../assets/images/events/image 5.jpg" class="event-images mx-2" alt="">
-                    <img src="../../../assets/images/events/image 6.jpg" class="event-images mx-2" alt="">
-                    <div class="event-images mx-2 text-center">
-                        <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
-                        <p>Upload</p>
-                    </div>
-                    <div class="event-images mx-2 text-center">
-                        <i class="fa fa-ban fa-2x pt-2 "></i>
-                        <p>No image</p>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-
-        <div class="px-5 py-3 mt-3 border rounded create-ticket-types bg-light">
-            <div class=" py-2 font-weight-bold">
-                <div>Create ticket types</div>
-            </div>
-            <div class="mt-2">
-                <button mat-flat-button (click)="openAddNewTicketTypeDialog()" class="mr-1">Add a new ticket type</button>
-                <button mat-flat-button (click)="openAddNewTicketGroupDialog()" class="ml-1">Add a new ticket group</button>
-            </div>
-
-            <div class="p-3 mt-3 add-ticket-notification rounded">
-                <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
-            </div>
-
-        </div>
-
-        <div class="px-5 py-3 mt-3 border rounded event-settings bg-light">
-            <div class=" py-2 font-weight-bold">
-                <div>Event Settings</div>
-            </div>
-
-            <label for="">Timezone</label>
-            <div class="form-group ">
-                <select name="" id="" class="form-control col-8">
-                    <option value="">(GMT+05:30)Colcutta</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <input type="checkbox" class="from-control mr-2"> Allow customers to make a donation
-                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
-            </div>
-
-            <label for="">Customise the text that appears on the event button and in the title of the event page</label>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Book Tickets">
-            </div>
-
-            <div class=" py-2 font-weight-bold">
-                <div>Advance Settings</div>
-            </div>
-
-            <div class="row">
-                <div class="col-6">
-                    <label for="">Tickets become availables</label>
-                    <div class="form-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">When the event is published</option>
-                            <option value="">At a scheduled date and time</option>
-                            <option value="">At a scheduled interval before the event starts</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-6">
-                    <label for="">Tickets become unavailables</label>
-                    <div class="form-group">
-                        <select name="" id="" class="form-control">
-                            <option value="">When the event is taken off, or the event passes</option>
-                            <option value="">At a scheduled date and time</option>
-                            <option value="">At a scheduled interval before the event starts</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <input type="checkbox" class="from-control mr-2"> Redirect order confirmation page
-                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
-            </div>
-
-            <label for="">Redirect to URL</label>
-            <div class="form-group">
-                <input type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
-            </div>
-
-            <div class="form-group">
-                <input type="checkbox" class="from-control mr-2"> Hide this event from your box office listings and search engines.
-                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
-            </div>
-
-            <div class="form-group">
-                <input type="checkbox" class="from-control mr-2"> Customers need to enter an access code to buy tickets for this event
-                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
-            </div>
-
-            <label for="">Access Code</label>
-            <div class="form-group">
-                <input type="text" class="form-control col-6" >
-            </div>
-
-            <div class="form-group">
-                <input type="checkbox" class="from-control mr-2"> Hide share button on event page.
-                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
-            </div>
-
-            <div class="form-group">
-                <input type="checkbox" class="from-control mr-2"> Set custom sales tax for this event 
-                <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
-            </div>
-
-
-            <div class="row">
-                <div class="col-6">
-                    <label for="">Sales tax amounts</label>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="0.00%">
-                    </div>
-                </div>
-
-                <div class="col-6">
-                    <label for="">Sales tax label</label>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="VAT">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="py-3 mt-3 event-setting-btn text-right bg-light">
-            <button (click)="fnAddNewEventsForm()" mat-flat-button class="cancel-btn mr-2">Cancel</button>
-            <button mat-flat-button class="save-btn ml-2 px-3">Save Event</button>
-        </div>
-
+    <div class="px-5 py-3 border rounded bg-light">
+    <div class=" py-2 font-weight-bold">
+    <div>Add event info</div>
     </div>
-</div>
+    
+    <form [formGroup]="addEventForm">
+    <label for=""> Event Name</label>
+    <div class="form-group">
+    <input type="text" class="form-control" formControlName="event_name" placeholder="Enter the name of your event">
+    </div>
+    
+    
+    <div class="row">
+    <div class=" col-4">
+    <label for="">Starts</label>
+    <div class="form-group">
+    <input type="date" formControlName="event_start_date" class="col-8 form-control d-inline-block">
+    <input type="time" formControlName="event_start_time" class="col-4 form-control d-inline-block ">
+    </div>
+    </div>
+    
+    <div class=" col-4">
+    <label for="">Ends</label>
+    <div class="form-group">
+    <input type="date" formControlName="event_end_date"class=" col-8 form-control d-inline-block">
+    <input type="time" formControlName="event_end_time" class="col-4 form-control d-inline-block">
+    </div>
+    </div>
+    <div class=" col-5">
+    <button class="btn btn-primary">Save</button>
+    </div>
+    
+    </div>
+    </form>
+    
+    </div>
+    
+    <div class="px-5 py-3 mt-3 border rounded create-ticket-types bg-light">
+    <div class=" py-2 font-weight-bold">
+    <div>Create ticket types</div>
+    </div>
+    <div class="mt-2">
+    <button mat-flat-button (click)="openAddNewTicketTypeDialog()" class="mr-1">Add a new ticket type</button>
+    <button mat-flat-button (click)="openAddNewTicketGroupDialog()" class="ml-1">Add a new ticket group</button>
+    </div>
+    
+    <div class="p-3 mt-3 add-ticket-notification rounded">
+    <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
+    </div>
+    
+    </div>
+    
+    <div class="px-5 py-3 mt-3 border rounded event-settings bg-light">
+    <div class=" py-2 font-weight-bold">
+    <div>Event Settings</div>
+    </div>
+    
+    <label for="">Timezone</label>
+    <div class="form-group ">
+    <select name="" id="" class="form-control col-8">
+    <option value="">(GMT+05:30)Colcutta</option>
+    </select>
+    </div>
+    
+    <div class="form-group">
+    <input type="checkbox" class="from-control mr-2"> Allow customers to make a donation
+    <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+    </div>
+    
+    <label for="">Customise the text that appears on the event button and in the title of the event page</label>
+    <div class="form-group">
+    <input type="text" class="form-control" placeholder="Book Tickets">
+    </div>
+    
+    <div class=" py-2 font-weight-bold">
+    <div>Advance Settings</div>
+    </div>
+    
+    <div class="row">
+    <div class="col-6">
+    <label for="">Tickets become availables</label>
+    <div class="form-group">
+    <select name="" id="" class="form-control">
+    <option value="">When the event is published</option>
+    <option value="">At a scheduled date and time</option>
+    <option value="">At a scheduled interval before the event starts</option>
+    </select>
+    </div>
+    </div>
+    
+    <div class="col-6">
+    <label for="">Tickets become unavailables</label>
+    <div class="form-group">
+    <select name="" id="" class="form-control">
+    <option value="">When the event is taken off, or the event passes</option>
+    <option value="">At a scheduled date and time</option>
+    <option value="">At a scheduled interval before the event starts</option>
+    </select>
+    </div>
+    </div>
+    </div>
+    
+    <div class="form-group">
+    <input type="checkbox" class="from-control mr-2"> Redirect order confirmation page
+    <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+    </div>
+    
+    <label for="">Redirect to URL</label>
+    <div class="form-group">
+    <input type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
+    </div>
+    
+    <div class="form-group">
+    <input type="checkbox" class="from-control mr-2"> Hide this event from your box office listings and search engines.
+    <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+    </div>
+    
+    <div class="form-group">
+    <input type="checkbox" class="from-control mr-2"> Customers need to enter an access code to buy tickets for this event
+    <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+    </div>
+    
+    <label for="">Access Code</label>
+    <div class="form-group">
+    <input type="text" class="form-control col-6" >
+    </div>
+    
+    <div class="form-group">
+    <input type="checkbox" class="from-control mr-2"> Hide share button on event page.
+    <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+    </div>
+    
+    <div class="form-group">
+    <input type="checkbox" class="from-control mr-2"> Set custom sales tax for this event
+    <!-- <mat-checkbox class="form-control">123</mat-checkbox> -->
+    </div>
+    
+    
+    <div class="row">
+    <div class="col-6">
+    <label for="">Sales tax amounts</label>
+    <div class="form-group">
+    <input type="text" class="form-control" placeholder="0.00%">
+    </div>
+    </div>
+    
+    <div class="col-6">
+    <label for="">Sales tax label</label>
+    <div class="form-group">
+    <input type="text" class="form-control" placeholder="VAT">
+    </div>
+    </div>
+    </div>
+    
+    </div>
+    
+    <div class="py-3 mt-3 event-setting-btn text-right bg-light">
+    <button (click)="fnAddNewEventsForm()" mat-flat-button class="cancel-btn mr-2">Cancel</button>
+    <button mat-flat-button class="save-btn ml-2 px-3">Save Event</button>
+    </div>
+    
+    </div>
+    </div>
