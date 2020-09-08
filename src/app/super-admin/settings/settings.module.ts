@@ -6,9 +6,12 @@ import { SettingsComponent } from './settings.component';
 import { EventPageDesignComponent } from './event-page-design/event-page-design.component';
 import { ButttonAndLinksComponent } from './buttton-and-links/buttton-and-links.component';
 import { WebsitesEmbedCodesComponent } from './websites-embed-codes/websites-embed-codes.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { BoxOfficeComponent } from './box-office/box-office.component';
+import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
 
 @NgModule({
-  declarations: [SettingsComponent, EventPageDesignComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent],
+  declarations: [SettingsComponent, EventPageDesignComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,
