@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   
-	apiUrl:         'https://api.schedulic.com/api',
-    authApiUrl:     'https://api.schedulic.com/api',
-    urlForLink :    'http://localhost:4201',
+  	apiUrl:         'http://eventjio.bi-team.in/api/api',
+    authApiUrl:     'http://eventjio.bi-team.in/api/api',
+    urlForLink :    'http://localhost:4200',
 };
 
 /*
