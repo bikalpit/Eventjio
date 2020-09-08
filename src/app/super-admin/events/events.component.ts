@@ -18,6 +18,7 @@ interface Status {
 export class EventsComponent implements OnInit {
   
  addNewEvents : boolean = true;
+ public editorValue: string = '';
  addEventForm : FormGroup;
 
   upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},

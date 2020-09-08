@@ -9,11 +9,14 @@ import { ButttonAndLinksComponent } from './buttton-and-links/buttton-and-links.
 import { ContactPreferencesComponent } from './contact-preferences/contact-preferences.component';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { WebsitesEmbedCodesComponent } from './websites-embed-codes/websites-embed-codes.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { BoxOfficeComponent } from './box-office/box-office.component';
+import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
 import { TeamAccessComponent } from './team-access/team-access.component';
 
-
 @NgModule({
-  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent, TeamAccessComponent],
+  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent],
+ 
   imports: [
     CommonModule,
     SettingsRoutingModule,
