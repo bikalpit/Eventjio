@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -13,20 +14,24 @@ import { CustomersComponent } from './customers/customers.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatTooltipModule} from '@angular/material/tooltip';
-// import { MdePopoverModule } from '@material-extended/mde';
 
 import { myCreateDiscountCodeDialog} from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog} from './coupons/coupons.component';
-
+import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
+import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, EventsComponent,CouponsComponent, OrdersComponent, CustomersComponent,myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,],
+  declarations: [DashboardComponent, EventsComponent,CouponsComponent, OrdersComponent, CustomersComponent,myCreateDiscountCodeDialog,myBatchVoucherCodeDialog, 
+    MyBoxofficeComponent,
+    myCreateNewBoxofficeDialog,
+  ],
   imports: [
     CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
-    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,
+    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,  ReactiveFormsModule,
+    FormsModule,
   ],
-  entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog],
+  entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,myCreateNewBoxofficeDialog],
 })
   
 export class SuperAdminModule {}

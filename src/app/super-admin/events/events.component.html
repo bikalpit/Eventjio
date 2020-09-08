@@ -6,7 +6,7 @@
         </div>
 
         <div class="ml-auto pr-3">
-            <button (click)="fnAddNewEventsForm()" mat-flat-button class="add-event-button px-5">Add Next Event</button>         
+            <button (click)="addNewEvents=!addNewEvents" mat-flat-button class="add-event-button px-5">Add Next Event</button>         
         </div>
     </div>
 </div>
@@ -83,7 +83,7 @@
 
 <div *ngIf="!addNewEvents" class="add-new-event p-3 bg-white">
     <div class="col-12 p-3">
-        <i (click)="fnAddNewEventsForm()" class="fa fa-arrow-left fa-lg mr-3"></i><span>Add New Events</span>
+        <i (click)="addNewEvents=!addNewEvents" class="fa fa-arrow-left fa-lg mr-3"></i><span>Add New Events</span>
     </div>
 
     <div class="col-12 px-5 ">
@@ -92,10 +92,10 @@
                 <div>Add event info</div>
             </div>
 
-            <form action="">
+            <form  [formGroup]="addEventForm">
                 <label for=""> Event Name</label>
                 <div class="form-group">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="event_name">
                 </div>
 
                 
@@ -103,21 +103,23 @@
                     <div class=" col-5">
                         <label for="">Starts</label>
                         <div class="form-group">
-                           <input type="date" class=" col-7 form-control d-inline-block mr-1">
-                           <input type="time" class="col-4 form-control d-inline-block ml-1">
+                           <input type="date" formControlName="event_start_date" class=" col-7 form-control d-inline-block mr-1">
+                           <input type="time" formControlName="event_start_time" class="col-4 form-control d-inline-block ml-1">
                         </div>
                     </div>
 
                     <div class=" col-5">
                         <label for="">Ends</label>
                         <div class="form-group">
-                           <input type="date" class=" col-7 form-control d-inline-block mr-1">
-                           <input type="time" class="col-4 form-control d-inline-block ml-1">
+                           <input type="date" formControlName="event_end_date"class=" col-7 form-control d-inline-block mr-1">
+                           <input type="time" formControlName="event_end_time" class="col-4 form-control d-inline-block ml-1">
                         </div>
                     </div>
+                    <div class=" col-5">
+                            <button class="btn btn-primary">Save</button>
+                    </div>
+
                 </div>
-
-
             </form>
 
         </div>

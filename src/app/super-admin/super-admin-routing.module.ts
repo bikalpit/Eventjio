@@ -7,6 +7,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { CouponsComponent } from './coupons/coupons.component';
 
 import { CustomersComponent } from './customers/customers.component';
+import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
 
 
 const routes: Routes = [
@@ -26,13 +27,17 @@ const routes: Routes = [
     path: 'coupons', 
     component: CouponsComponent
   },
+  { 
+    path: 'boxoffice', 
+    component: MyBoxofficeComponent
+  },
   { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
-  
   { 
     path: 'customers', 
     component: CustomersComponent
-  }
-  ];
+  },
+ 
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
