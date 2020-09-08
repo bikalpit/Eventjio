@@ -1,0 +1,118 @@
+<div class="container" id="adminbusiness">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
+    <button type="button" class="close m-3" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    <div class="row">
+        <div class="col-12 inner-pad">
+            <div class="text-center ">
+                <h2>Create Box Office</h2>
+                <h4>Please tell us about your organisation and types of event that you run</h4>
+            </div>
+           <div class="pt-5">
+                <form [formGroup]="createBoxoffice">
+                    <div class="col-12 p-0" >
+                        <h3 class="text-left">
+                            <strong>About your organisation:</strong>
+                        </h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
+                            <label>Name <span class="text-danger">*</span></label>
+                            <input  formControlName="boxoffice_name" placeholder="" class="form-control">
+                            <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_name').dirty || createBoxoffice.get('boxoffice_name').touched"><small *ngIf="createBoxoffice.get('boxoffice_name').hasError('required')" class="error">Box office name is required.</small></span>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
+                            <label>Type  <span class="text-danger">*</span></label>
+                            <select formControlName="boxoffice_type" class="form-control">
+                                <option value="individual">individual</option>
+                                <option value="business">business</option>
+                                <option value="Parent Teacher Association (PTA)">Parent Teacher Association (PTA)</option>
+                                <option value="charity">charity</option>
+                                <option value="Community Group">Community Group</option>
+                                <option value="Venue">Venue</option>
+                            </select>
+                            <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_type').dirty || createBoxoffice.get('boxoffice_type').touched">
+                            <small *ngIf="createBoxoffice.get('boxoffice_type').hasError('required')" class="error">Box office type is required.</small></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
+                            <label>Country  <span class="text-danger">*</span></label>
+                            <select formControlName="boxoffice_country" class="form-control">
+                                <option value="india">India</option>
+                                <option value="usa">USA</option>
+                                <option value="uk">UK</option>
+                            </select>
+                            <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_country').dirty || createBoxoffice.get('boxoffice_country').touched">
+                            <small *ngIf="createBoxoffice.get('boxoffice_country').hasError('required')" class="error">Country is required.</small></span>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
+                            <label>Billing currency  <span class="text-danger">*</span></label>
+                            <select formControlName="boxoffice_billing_currency" class="form-control">
+                                <option value="usd">US Doller</option>
+                                <option value="inr">INR Rupees</option>
+                            </select>
+                            <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_billing_currency').dirty || createBoxoffice.get('boxoffice_billing_currency').touched">
+                                <small *ngIf="createBoxoffice.get('boxoffice_billing_currency').hasError('required')" class="error">Billing currency is required.</small>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <h4>What kind of event(s) do you typically run ?</h4>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
+                            <label>Genre  <span class="text-danger">*</span></label>
+                            <select formControlName="boxoffice_genre" class="form-control">
+                                <option value="business">Are of film</option>
+                                <option value="business">business</option>
+                                <option value="Charity Fundrises">Charity Fundrises</option>
+                                <option value="Comedy">Comedy</option>
+                                <option value="Education">Education</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Food and Drink">Food and Drink</option>
+                                <option value="Health and wellbeing">Health and wellbeing</option>
+                                <option value="History/Heritage">History/Heritage</option>
+                                <option value="Private(Friend,family,group)">Private(Friend,family,group)</option>
+                                <option value="Tour/Travel">Tour/Travel</option>
+                                <option value="Religious/Spiritual">Religious/Spiritual</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_genre').dirty || createBoxoffice.get('boxoffice_genre').touched">
+                                <small *ngIf="createBoxoffice.get('boxoffice_genre').hasError('required')" class="error">Box office genre is required.</small>
+                            </span>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
+                            <label>Type  <span class="text-danger">*</span></label>
+                            <select formControlName="event_run_type" class="form-control">
+                                <option value="awards/ceremony">awards/ceremony</option>
+                                <option value="Class/seminar/Training/Workshop">Class/seminar/Training/Workshop</option>
+                                <option value="Conference/Tradeshow/Expo">Conference/Tradeshow/Expo</option>
+                                <option value="Dinner/Social">Dinner/Social</option>
+                                <option value="Exhibition">Exhibition</option>
+                                <option value="Fair/Fete">Fair/Fete</option>
+                                <option value="Festival">Festival</option>
+                                <option value="Gallery">Gallery</option>
+                                <option value="Gig/concert">Gig/concert</option>
+                                <option value="Meeting">Meeting</option>
+                                <option value="Private Party">Private Party</option>
+                                <option value="Tour">Tour</option>
+                                <option value="Show/Performance/Viewing">Show/Performance/Viewing</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span class="error-wrap" *ngIf="createBoxoffice.get('event_run_type').dirty || createBoxoffice.get('event_run_type').touched">
+                                <small *ngIf="createBoxoffice.get('event_run_type').hasError('required')" class="error">Type is required.</small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-right pt-2">
+                        <button mat-button class="admin-business-Submitbutton" (click)="fnCreateBoxOffice()">Create Box Office</button>
+                    </div>
+                </form>
+            </div> 
+        </div>
+    </div>
+</div>
