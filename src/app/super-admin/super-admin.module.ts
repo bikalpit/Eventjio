@@ -15,7 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import { CKEditorModule } from 'ngx-ckeditor';
 
 import {AddNewTicketType} from './events/events.component';
 import {AddNewTicketGroup} from './events/events.component';
@@ -47,7 +47,7 @@ import { OrderInvoiceDialog} from './orders/orders.component';
   ],
   imports: [
     CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
-    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,
+    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,CKEditorModule
   ],
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
     OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup],

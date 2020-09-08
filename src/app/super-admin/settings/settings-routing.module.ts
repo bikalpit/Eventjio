@@ -18,21 +18,22 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
 
                             {
                               path:'buttonsandlinks',
-                              component:ButttonAndLinksComponent}
+                              component:ButttonAndLinksComponent
+                            },
+                              {
+                                path: 'websitesembedcodes',
+                                component:WebsitesEmbedCodesComponent
+                              },
+                              { 
+                                path: 'contactpreferences', 
+                                component: ContactPreferencesComponent
+                              },
+                              { 
+                                path: 'checkoutform', 
+                                component: CheckoutFormComponent
+                              },
                             ]
-                          },
-                          { 
-                            path: 'contact-preferences', 
-                            component: ContactPreferencesComponent
-                          },
-                          { 
-                            path: 'checkout-form', 
-                            component: CheckoutFormComponent
-                          },
-                          {
-                            path:'websitesembedcodes',
-                            component:WebsitesEmbedCodesComponent
-                          },
+                          }
                         ]
                          
                          
