@@ -49,6 +49,7 @@ export class MyBoxofficeComponent implements OnInit {
     }
 
     getAllBoxoffice(){
+      console.log('hello');
       this.isLoaderAdmin = true;
       this.superadminService.getAllBoxoffice().subscribe((response:any) => {
         if(response.data == true){
