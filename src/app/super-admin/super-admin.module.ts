@@ -16,7 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import { CKEditorModule } from 'ngx-ckeditor';
 
 import {AddNewTicketType} from './events/events.component';
 import {AddNewTicketGroup} from './events/events.component';
@@ -52,7 +52,7 @@ import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.componen
   ],
   imports: [
     CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
-    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,
+    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,CKEditorModule,
     ReactiveFormsModule,
     FormsModule,
   ],
