@@ -1,0 +1,14 @@
+    @import "variables";
+    @import "my-customer.css";
+    @import url('https://fonts.googleapis.com/css?family=Poppins');
+    
+    html,
+    body {
+        height: 100%;
+        font-family: Poppins, sans-serif !important;
+        color: #333;
+    }
+    
+    body {
+        margin: 0;
+    }

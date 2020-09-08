@@ -12,9 +12,10 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  isShowDiv = true;
+  isShowDiv = false;
   toggleDisplayDiv() {
     this.isShowDiv = !this.isShowDiv;
+    
   }
 
 }

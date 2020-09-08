@@ -9,6 +9,12 @@ export class CustomersComponent implements OnInit {
 
   constructor() { }
 
+  addFormButtonDiv : boolean = true;
+
+  addFormButton(){
+    this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
+  }
+
   ngOnInit(): void {
     
   }

@@ -7,12 +7,14 @@ import { ButttonAndLinksComponent } from './buttton-and-links/buttton-and-links.
 import { ContactPreferencesComponent } from './contact-preferences/contact-preferences.component';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 
+import { WebsitesEmbedCodesComponent } from './websites-embed-codes/websites-embed-codes.component';
 
 const routes: Routes = [{ path: '', component: SettingsComponent, 
 
                           children:[{
                             path:'',
-                            component:EventPageDesignComponent},
+                            component:EventPageDesignComponent
+                          },
 
                             {
                               path:'buttonsandlinks',
@@ -27,7 +29,13 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                             path: 'checkout-form', 
                             component: CheckoutFormComponent
                           },
+                          {
+                            path:'websitesembedcodes',
+                            component:WebsitesEmbedCodesComponent
+                          },
                         ]
+                         
+                         
 
 @NgModule({
   imports: [

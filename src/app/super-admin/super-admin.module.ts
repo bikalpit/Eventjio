@@ -17,6 +17,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 
+import {AddNewTicketType} from './events/events.component';
+import {AddNewTicketGroup} from './events/events.component';
+
 import { myCreateDiscountCodeDialog} from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog} from './coupons/coupons.component';
 import { ExportOrderDialog} from './orders/orders.component';
@@ -28,14 +31,26 @@ import { OrderInvoiceDialog} from './orders/orders.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, EventsComponent,CouponsComponent, OrdersComponent, CustomersComponent,myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
-    OrderInvoiceDialog],
+  declarations: [DashboardComponent, 
+     EventsComponent,
+     CouponsComponent,
+      OrdersComponent, 
+      CustomersComponent,
+      myCreateDiscountCodeDialog,
+      myBatchVoucherCodeDialog,
+      ExportOrderDialog,
+      AddNewOrderDialog,
+      BookTicketDialog,
+      AddNewTicketType,
+      AddNewTicketGroup,
+      OrderInvoiceDialog
+  ],
   imports: [
     CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
     FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,
   ],
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
-    OrderInvoiceDialog],
+    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup],
 })
   
 export class SuperAdminModule {}

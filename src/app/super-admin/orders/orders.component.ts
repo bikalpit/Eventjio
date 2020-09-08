@@ -19,7 +19,7 @@ export class OrdersComponent implements OnInit {
   animal :any;
   allBusiness: any;
   displayedColumns: string[] = ['orderid','status','name','datetime','event','value','action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -27,9 +27,13 @@ export class OrdersComponent implements OnInit {
     public dialog: MatDialog,
     private http: HttpClient,
   ) { }
+ 
+orderData = [{orderid:'012345',status:'Completed',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes (Mon 17 Jun 2020)',value:'$ 5000.00',action:''},
+             {orderid:'012345',status:'Void',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes (Mon 17 Jun 2020)',value:'$ 5000.00',action:''},]
+
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+   
   }
 
   
@@ -174,16 +178,4 @@ export class OrderInvoiceDialog {
 }
 
 
-export interface PeriodicElement {
-  orderid: string;
-  status: string;
-  name: string;
-  datetime: string;
-  event:string;
-  value:string;
-  action:string;
-}
-const ELEMENT_DATA: PeriodicElement[] = [
-  {orderid:'012345',status:'Completed',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes (Mon 17 Jun 2020)',value:'5000',action:''},
-  {orderid:'012345',status:'Void',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes (Mon 17 Jun 2020)',value:'5000',action:''} 
-  ];
+

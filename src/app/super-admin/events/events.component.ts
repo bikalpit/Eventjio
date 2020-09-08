@@ -1,7 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-
+import {Component, OnInit, Inject, ViewChild} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {HttpClient} from '@angular/common/http';
 interface Status {
   value: string;
   viewValue: string;
@@ -13,36 +12,84 @@ interface Status {
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-  displayedColumns: string[] = ['Event','Status','Sold','Remaining','Revenue','Togglebtn'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  
+ addNewEvents : boolean = true;
+  
+  upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
+                {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
+                {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},]
+ 
+                pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
+                {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
+                ]
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  
+  constructor(public dialog: MatDialog) { }
+  openAddNewTicketTypeDialog() {
+    const dialogRef = this.dialog.open(AddNewTicketType,{
+      width: '1100px',
+    });
 
-  constructor() { }
-
-  ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
-  Status: Status[] = [
-    {value: 'Draft', viewValue: 'Draft'},
-    {value: 'Published', viewValue: 'Published'},
+  openAddNewTicketGroupDialog() {
+    const dialogRef = this.dialog.open(AddNewTicketGroup,{
+      width: '700px',
+    });
 
-  ];  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  
+  fnAddNewEventsForm(){
+    this.addNewEvents = !this.addNewEvents;
+  }
+  ngOnInit(): void {
+    
+  }
 
 }
-export interface PeriodicElement {
-  Event: string;
-  Status: string;
-  Sold: string;
-  Remaining: string;
-  Revenue:string;
-  Togglebtn:string;
-} 
 
 
-const ELEMENT_DATA: PeriodicElement[] = [
-{Event:'test',Status:'Draft',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
-{Event:'test',Status:'Published',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''},
-{Event:'test',Status:'Published',Sold:'00',Remaining:'00',Revenue:'00',Togglebtn:''}
-];
+@Component({
+  selector: 'add-new-ticket-type',
+  templateUrl: '../_dialogs/add-new-ticket-type.html',
+})
+export class AddNewTicketType {
+  constructor(
+    public dialogRef: MatDialogRef<AddNewTicketType>,
+    private http: HttpClient,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+  }
+ 
+}
+
+
+@Component({
+  selector: 'add-new-ticket-group',
+  templateUrl: '../_dialogs/add-new-ticket-group.html',
+})
+export class AddNewTicketGroup {
+  constructor(
+    public dialogRef: MatDialogRef<AddNewTicketGroup>,
+    private http: HttpClient,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+  }
+ 
+}
