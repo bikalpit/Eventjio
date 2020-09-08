@@ -73,8 +73,10 @@
 
 .setting-btn{
     position: absolute;
-    bottom: 30px;
+    bottom: 0px;
     left: 0%;
+    background-color: #04397f;
+    padding-bottom: 40px !important;
 }
 .common-menu{
     padding: 20px;
@@ -85,6 +87,9 @@
 .right-toolbar{
     font-size: 16px;
     background-color: #ffffff;
+    position: fixed;
+    width: calc(100% - 100px);
+    z-index: 9999;
 }
 
 .modal-lg{

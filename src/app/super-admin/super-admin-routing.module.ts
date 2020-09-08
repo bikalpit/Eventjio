@@ -32,10 +32,11 @@ const routes: Routes = [
     component: MyBoxofficeComponent
   },
   { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
-  { 
+ { 
     path: 'customers', 
     component: CustomersComponent
   },
+  { path: 'single-eventDashboard', loadChildren: () => import('./single-event-dashboard/single-event-dashboard.module').then(m => m.SingleEventDashboardModule) },
  
 ];
 
