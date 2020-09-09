@@ -2,63 +2,63 @@
     <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="!isBoxoffice()">
         <mat-toolbar class="app-title">
             <div class="text-light text-center company-logo">
-                <img src="/assets/images/logo/logo-white.png" class="w-100"  alt="">
+                <img src="/assets/images/logo/eventjio-icon.png" class="w-100" alt="">
             </div>
         </mat-toolbar>
 
         <div class="col-12 px-3 pt-4 pb-3 mt-3 text-center">
-           <div class="circle-icon text-center">
+            <div class="circle-icon text-center">
                 <div class="plus-sign">
                     +
                 </div>
-           </div>
+            </div>
         </div>
 
         <div class="col-12 p-3 mt-4 text-center text-white active-icon">
-            <div routerLink="/super-admin" class="icon text-center">
-                <img src="/assets/images/admin/dashboard.png" class="w-100"  alt="">
-           </div>
-        </div>
-
-        <div class="col-12 p-3 mt-4 text-center text-white">
-            <div routerLink="/super-admin/events" class="icon text-center">
-                <img src="/assets/images/admin/star.png" class="w-100"  alt="">
-           </div>
-        </div>
-
-        <div class="col-12 p-3 mt-4 text-center text-white">
-            <div routerLink="/super-admin/orders" class="icon text-center">
-                <img src="/assets/images/admin/order.png" class="w-100" alt="">
-           </div>
-           
-        </div>
-
-        <div class="col-12 p-3 mt-4 text-center text-white">
-            <div routerLink="/super-admin/customers" class="icon text-center">
-                <img src="/assets/images/admin/user.png" class="w-100"  alt=""> 
-           </div>
-           
-        </div>
-
-        <div routerLink="/super-admin/coupons" class="col-12 p-3 mt-4 text-center text-white">
-            <div class="icon text-center">
-               <img src="/assets/images/admin/gift.png" class="w-100" alt=""> 
-           </div>
-            
-        </div>
-
-        <div class="col-12 p-3 text-center setting-btn text-white">
-            <div routerLink="/super-admin/settings" class="icon text-center">
-               <img src="/assets/images/admin/settings.png" class="w-100" alt=""> 
+            <div matTooltip="Dashboard" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" routerLink="/super-admin" class="icon text-center">
+                <img src="/assets/images/admin/dashboard.png" class="w-100" alt="">
             </div>
-            
+        </div>
+
+        <div class="col-12 p-3 mt-4 text-center text-white">
+            <div matTooltip="Events" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" routerLink="/super-admin/events" class="icon text-center">
+                <img src="/assets/images/admin/star.png" class="w-100" alt="">
+            </div>
+        </div>
+
+        <div class="col-12 p-3 mt-4 text-center text-white">
+            <div matTooltip="Orders" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" routerLink="/super-admin/orders" class="icon text-center">
+                <img src="/assets/images/admin/order.png" class="w-100" alt="">
+            </div>
+
+        </div>
+
+        <div class="col-12 p-3 mt-4 text-center text-white">
+            <div matTooltip="Customers" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" routerLink="/super-admin/customers" class="icon text-center">
+                <img src="/assets/images/admin/user.png" class="w-100" alt="">
+            </div>
+
+        </div>
+
+        <div matTooltip="Coupon" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" routerLink="/super-admin/coupons" class="col-12 p-3 mt-4 text-center text-white">
+            <div class="icon text-center">
+                <img src="/assets/images/admin/gift.png" class="w-100" alt="">
+            </div>
+
+        </div>
+
+        <div matTooltip="settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="col-12 p-3 text-center setting-btn text-white">
+            <div routerLink="/super-admin/settings" class="icon text-center">
+                <img src="/assets/images/admin/settings.png" class="w-100" alt="">
+            </div>
+
         </div>
 
     </mat-drawer>
 
 
 
-    <mat-drawer-content>
+    <mat-drawer-content class="bg-white">
         <mat-toolbar class="py-3  right-toolbar">
             <div>
                 Dashboard

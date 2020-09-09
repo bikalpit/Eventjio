@@ -1,15 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-
-.main-container{
+.main-container {
     width: 100vw;
     height: 100vh;
     font-family: Poppins, Regular;
 }
+
 // mat-icon{
 //     font-size: 30px;
 // }
-
-.circle-icon{
+.circle-icon {
     width: 25px;
     height: 25px;
     color: white;
@@ -23,8 +22,7 @@
     border-radius: 30px;
 }
 
-
-.plus-sign{
+.plus-sign {
     position: absolute;
     top: 3px;
     left: 0;
@@ -35,7 +33,7 @@
     font-weight: bold;
 }
 
-.left-side-container .icon{
+.left-side-container .icon {
     width: 25px;
     height: 25px;
     color: white;
@@ -47,70 +45,82 @@
     margin: auto;
     cursor: pointer;
 }
-.active-icon{
+
+.active-icon {
     border-right: 3px solid skyblue;
 }
-.company-logo{
+
+.company-logo {
     padding: 15px 0px;
 }
-.app-title{
-  font-size: 18px;
-  font-family: Poppins, Regular;
-  background-color: #02316E;
-  padding: 0px 5px;
+
+.app-title {
+    font-size: 18px;
+    font-family: Poppins, Regular;
+    background-color: #02316E;
+    padding: 0px 5px;
 }
-.add-btn{
+
+.add-btn {
     border-radius: 50px;
 }
-.left-side-container{
+
+.left-side-container {
     width: 100px;
     background-color: #04397F;
 }
 
-.left-side-container img{
+.left-side-container img {
     width: 35%
 }
+
 // .add-btn{
 //     width: 10px;
 //     border-radius: 10%;
 //     background-color: #fff;
 // }
-
-.setting-btn{
+.setting-btn {
     position: absolute;
     bottom: 0px;
     left: 0%;
     background-color: #04397f;
     padding-bottom: 40px !important;
 }
-.common-menu{
+
+.common-menu {
     padding: 20px;
     display: block;
 }
 
-
-.right-toolbar{
+.right-toolbar {
     font-size: 16px;
     background-color: #ffffff;
     position: fixed;
     width: calc(100% - 100px);
     z-index: 9999;
+    box-shadow: 0px 0px 12px #00000014;
 }
 
-.modal-lg{
+.modal-lg {
     max-width: 1050px !important;
     margin: 0px !important;
     border: none !important;
 }
-.modal-content .modal-header{
+
+.modal-content .modal-header {
     border: none !important;
 }
-.modal-content .modal-header .heading{
+
+.modal-content .modal-header .heading {
     margin-bottom: 0px !important;
 }
 
-.user-image-icon{
+.user-image-icon {
     width: 30px;
     height: 30px;
     border-radius: 20px;
+}
+
+::ng-deep .main-menu-tooltip {
+    background: #FF8800;
 }
