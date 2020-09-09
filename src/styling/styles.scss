@@ -33,25 +33,25 @@
     .btn:focus,
     .btn.focus,
     button:focus {
-        border-color: transparent !important;
+        // border-color: transparent !important;
         box-shadow: unset !important;
         outline: 0 !important;
     }
     
     img:focus {
-        border-color: transparent !important;
+        // border-color: transparent !important;
         box-shadow: unset !important;
         outline: 0 !important;
     }
     
     .icone:focus img {
-        border-color: transparent !important;
+        // border-color: transparent !important;
         box-shadow: unset !important;
         outline: 0 !important;
     }
     
     *:focus {
-        border-color: transparent !important;
+        // border-color: transparent !important;
         box-shadow: unset !important;
         outline: 0 !important;
     }

@@ -1,13 +1,13 @@
 <div class="modal-dialog modal-notify modal-info export-order modal-lg" role="document" >
   <div class="modal-content ">
-    <div class="modal-header modal-bcolor-primary">
+    <div class="modal-header modal-bcolor-primary px-0">
       <p class="heading lead  work-content" >Export orders</p>
       <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
     </div>
       
-    <div class="modal-body pb-0"> 
+    <div class="modal-body pb-0 px-0"> 
       <div class="row">
         <div class="overview">
           <div  class="">
@@ -48,7 +48,7 @@
       </div>
       
       <div class="overview-details" *ngIf="reportType === 'overview'">
-        <h5>Overview details to include in the report</h5>
+        <h5 class="mb-0">Overview details to include in the report</h5>
         <mat-accordion class="example-headers-align" multi>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
