@@ -30,10 +30,7 @@ i{
     background-color: #1172F4;
     color:#ffffff;
 }
-.checkbox{
-    width: 29px;
-    height:29px;
-}
+
 .plus-icon{
     color: #1172F4;
 }
@@ -41,5 +38,14 @@ i{
 .required:after {
     content:" *";
     color: red;
+  }
+
+  .close-icon{
+      color: red;
+      font-size:30px !important;
+      cursor: default;
+  }
+  .add-email{
+    cursor: default;
   }
   
