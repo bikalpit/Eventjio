@@ -1,237 +1,234 @@
-<div class="right-toolbar">
-    <div class="container-fluid title-btn-content">
-        <div class="row">
-            <div class="p-3 mt-2 page-title">
-                Manage Customers
-            </div>
-        
-            <div class="ml-auto p-3">
-                <button mat-flat-button class="mx-2">Import Customers</button>
-                <button mat-flat-button class="mx-2">Export Customers</button>
-                <button mat-flat-button class="ml-2 text-white add-customer" (click)="addFormButton()">Add Customer</button>
+<div id="my-customers" class="sub-container">
+    <div class="right-toolbar">
+        <div class="container-fluid title-btn-content">
+            <div class="row">
+                <div class="p-3 mt-2 page-title">
+                    Manage Customers
+                </div>
+
+                <div class="ml-auto p-3">
+                    <button mat-flat-button class="mx-2">Import Customers</button>
+                    <button mat-flat-button class="mx-2">Export Customers</button>
+                    <button mat-flat-button class="ml-2 text-white add-customer" (click)="addFormButton()">Add Customer</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-3 bg-light p-0">
-                <div class="border-bottom p-3">
-                    <select class=" form-control">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="customer-list-container bg-light p-0">
+                    <div class="border-bottom p-3">
+                        <select class=" form-control">
                         <option value="">All Customers</option>
                         <option value="">Lajavab Cooking Classes</option>
                         <option value="">Dracula Drinks</option>
                         <option value="">Kitty Party</option>
                     </select>
 
-                    <div class="mt-2 p-2 bg-white border search-btn">
-                        <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2"  />
-                    </div>
-                </div>
-
-                <div class="customres-div">
-                <div>
-                    <div class="p-3">
-                    <div class="row">
-                        <div class="col-2  pt-3">
-                            <input type="checkbox" class="ml-3">
+                        <div class="mt-2 p-2 bg-white border search-btn">
+                            <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2" />
                         </div>
-                        <div class="col-2 p-2">
-                            <div class="bg-dark customer-image-icon ">
-                                <img src="../../../assets/images/admin/user.png" class="w-100">
+                    </div>
+
+                    <div class="customres-list">
+                        <div class="px-3 py-2 single-customer">
+                            <div class="row">
+                                <div class="col-2  pt-3">
+                                    <mat-checkbox class=""></mat-checkbox>
+                                </div>
+                                <div class="col-2 p-2">
+                                    <div class="bg-dark customer-image-icon ">
+                                        <img src="../../../assets/images/admin/user.png" class="w-100">
+                                    </div>
+                                </div>
+                                <div class="col-8 pt-2 customer-email">
+                                    <span>Jignesh Surati</span>
+                                    <p>dummy@dummy.com</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-8 pt-2 customer-email">
-                            <span>Jignesh Surati</span>
-                            <p>dummy@dummy.com</p>
-                        </div>
-                        </div>
                     </div>
                 </div>
 
+                <div class="customer-detail-container bg-white p-0">
 
-            </div>
-            </div>
-
-            <div class="col-9 bg-white p-0">
-
-                <div class="p-3"  *ngIf="addFormButtonDiv">
-                    <div class="col-12 py-3">
-                        <div class="row">
+                    <div class="p-3" class="single-customer-detail" *ngIf="addFormButtonDiv">
+                        <div class="col-12 py-3">
+                            <div class="row">
                                 <div class="bg-info customer-dp">
                                     <img src="../../../assets/images/admin/user.png" class="w-100" alt="">
                                 </div>
                                 <div class="px-3 py-4 customer-name">
                                     <span>Jignesh Surati</span>
                                 </div>
-    
+
                                 <div class="ml-auto p-3 customer-edit-delete-btn">
-                                <button mat-flat-button  class="mr-1 edit-btn"><i class="fa fa-pencil pr-2"></i>Edit</button>
-                                <button mat-flat-button  class="ml-1 delete-btn"><i class="fa fa-trash pr-2"></i>Delete</button>
+                                    <button mat-flat-button class="mr-1 edit-btn"><i class="fa fa-pencil pr-2"></i>Edit</button>
+                                    <button mat-flat-button class="ml-1 delete-btn"><i class="fa fa-trash pr-2"></i>Delete</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-    
-                    <mat-tab-group>
-                        <mat-tab label="Details"> 
-                            <div class="py-2">
-                                <label for="">Phone No.</label>
-                                <p>
-                                    9876543210
-                                </p>
-                            </div> 
-                            <hr class="m-0">
-                            <div class="py-2">
-                                <label for="">Email</label>
-                                <p>
-                                    dummy@dummy.com
-                                </p>
-                            </div> 
-                            <hr class="m-0">
-                            <div class="py-2">
-                                <label for="">Address</label>
-                                <p>
-                                    House/Flat No. 00 Society name, Landmark, Near place, Area name, City name, PIN - 000000.
-                                </p>
-                            </div> 
-                            <hr class="m-0">
-                            <div class="py-2">
-                               <div class=" d-inline-block mr-5">
-                                <label>Registration</label>
-                                <p class="mb-0">18 Sep 2020 02:30pm</p>
-                                <p class="mb-0">Added by Admin</p>
-                               </div>
-    
-                               <div class=" d-inline-block mx-5">
-                                <label>Last Event</label>
-                                <p class="mb-0">Lajawab Cooking Classes</p>
-                                <p class="mb-0">11 Sep 2020 10:00am</p>
-                               </div>
-    
-                               <div class=" d-inline-block ml-5">
-                                <label class="mb-4">Tags</label>
-                                <p class="" class="text-primary">
-                                    <span class="mr-1 py-1 px-3 rounded">Books</span>
-                                    <span class="m-1 py-1 px-3 rounded">Cooking</span>
-                                    <span class="ml-1 py-1 px-3 rounded">Fun</span>
-                                </p>
-                                <p class="mb-0" class="text-primary">
-                                </p>
-                               </div>
-                            </div> 
-                        </mat-tab>
-                        
-                        <mat-tab label="Events"> 
-                           <div class="py-2">
-                            <button mat-flat-button class="border mr-1">All Events</button>
-                            <button mat-flat-button class="border m-1">Completed Events</button>
-                            <button mat-flat-button class="border ml-1">Upcoming Events</button>
-                           </div> 
-                           <div class="">
-                                <table class="table">
-                                    <tr>
-                                        <td>Lajavab Cooking Classes</td>
-                                        <td>Mon Sep 01 2020</td>
-                                        <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dracula Drinks</td>
-                                        <td>Mon Aug 20 2020</td>
-                                        <td><span class="px-3 py-1 text-white  completed-event">Completed</span></td>
-                                    </tr>
-                                </table>
-                           </div>
-                        </mat-tab>
-                      </mat-tab-group>
-                </div>
-                
-            <!-- Add customer form -->
 
-                <div class="p-3" *ngIf="!addFormButtonDiv" class="add-customer-form">               
-
-                    <div class="px-3">
-                    <div class="row">
-                            <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title">
-                                Add Customer
-                            </div>
-                            <div class="col-12 px-3">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
-                            </div>
-
-                            <div class="col-12 px-3 mt-3">
-                                <div>
-                                <label>Add Image</label>
-                            </div>
-                            <div class="row">
-                                <div class="p-4 ml-3 image-upload">
-                                    <img src="../../../assets/images/admin/add.svg" class="w-100" alt="">
-                                </div>
-                                <div class="px-3 py-42">
-                                    <span>No file Choosen</span>
-                                    <p class="mt-2">
-                                    Upload image (in jpg, jpeg or png) and <br>
-                                    the image size should not excees 200x200.
+                        <mat-tab-group>
+                            <mat-tab label="Details">
+                                <div class="py-2">
+                                    <label for="">Phone No.</label>
+                                    <p>
+                                        9876543210
                                     </p>
                                 </div>
-                            </div>
-                            </div>  
-
-                            <div class="col-12 px-3 mt-3">
-                                <form class="p-3" action="">
-                                    <div class="row">
-                                        <div class="col-6 ">
-                                            <label for="">First Name</label>
-                                            <div class="form-group">
-                                            <input type="text" class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <label for="">First Name</label>
-                                            <div class="form-group">
-                                            <input type="text" class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-6 ">
-                                            <label for="">Phone No.</label>
-                                            <div class="form-group">
-                                            <input type="text" class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-6 ">
-                                            <label for="">Email ID</label>
-                                            <div class="form-group">
-                                            <input type="text" class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 ">
-                                            <label for="">Full Address</label>
-                                            <div class="form-group">
-                                            <input type="text" class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 ">
-                                            <label for="">Add Tag</label>
-                                            <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Press enter to add tag"/>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 mb-3 text-right">
-                                            <button mat-flat-button class="mr-2 px-5 cancel-btn" (click)="addFormButton()">Cancel</button>
-                                            <button mat-flat-button class="ml-2 px-5 create-btn">Create</button>
-                                        </div>
-
+                                <hr class="m-0">
+                                <div class="py-2">
+                                    <label for="">Email</label>
+                                    <p>
+                                        dummy@dummy.com
+                                    </p>
+                                </div>
+                                <hr class="m-0">
+                                <div class="py-2">
+                                    <label for="">Address</label>
+                                    <p>
+                                        House/Flat No. 00 Society name, Landmark, Near place, Area name, City name, PIN - 000000.
+                                    </p>
+                                </div>
+                                <hr class="m-0">
+                                <div class="py-2">
+                                    <div class=" d-inline-block mr-5">
+                                        <label>Registration</label>
+                                        <p class="mb-0">18 Sep 2020 02:30pm</p>
+                                        <p class="mb-0">Added by Admin</p>
                                     </div>
-                                </form>
+
+                                    <div class=" d-inline-block mx-5">
+                                        <label>Last Event</label>
+                                        <p class="mb-0">Lajawab Cooking Classes</p>
+                                        <p class="mb-0">11 Sep 2020 10:00am</p>
+                                    </div>
+
+                                    <div class=" d-inline-block ml-5">
+                                        <label class="mb-4">Tags</label>
+                                        <p class="" class="text-primary">
+                                            <span class="mr-1 py-1 px-3 rounded">Books</span>
+                                            <span class="m-1 py-1 px-3 rounded">Cooking</span>
+                                            <span class="ml-1 py-1 px-3 rounded">Fun</span>
+                                        </p>
+                                        <p class="mb-0" class="text-primary">
+                                        </p>
+                                    </div>
+                                </div>
+                            </mat-tab>
+
+                            <mat-tab label="Events">
+                                <div class="py-2">
+                                    <button mat-flat-button class="border mr-1">All Events</button>
+                                    <button mat-flat-button class="border m-1">Completed Events</button>
+                                    <button mat-flat-button class="border ml-1">Upcoming Events</button>
+                                </div>
+                                <div class="">
+                                    <table class="table">
+                                        <tr>
+                                            <td>Lajavab Cooking Classes</td>
+                                            <td>Mon Sep 01 2020</td>
+                                            <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dracula Drinks</td>
+                                            <td>Mon Aug 20 2020</td>
+                                            <td><span class="px-3 py-1 text-white  completed-event">Completed</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+
+                    <!-- Add customer form -->
+
+                    <div class="p-3" *ngIf="!addFormButtonDiv" class="add-customer-form">
+
+                        <div class="px-3">
+                            <div class="row">
+                                <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title">
+                                    Add Customer
+                                </div>
+                                <div class="col-12 px-3">
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
+                                </div>
+
+                                <div class="col-12 px-3 mt-3">
+                                    <div>
+                                        <label>Add Image</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="p-4 ml-3 image-upload">
+                                            <img src="../../../assets/images/admin/add.svg" class="w-100" alt="">
+                                        </div>
+                                        <div class="px-3 py-42">
+                                            <span>No file Choosen</span>
+                                            <p class="mt-2">
+                                                Upload image (in jpg, jpeg or png) and <br> the image size should not excees 200x200.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 px-3 mt-3">
+                                    <form class="p-3" action="">
+                                        <div class="row">
+                                            <div class="col-6 ">
+                                                <label for="">First Name</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <label for="">First Name</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 ">
+                                                <label for="">Phone No.</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6 ">
+                                                <label for="">Email ID</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 ">
+                                                <label for="">Full Address</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 ">
+                                                <label for="">Add Tag</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Press enter to add tag" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 mb-3 text-right">
+                                                <button mat-flat-button class="mr-2 px-5 cancel-btn" (click)="addFormButton()">Cancel</button>
+                                                <button mat-flat-button class="ml-2 px-5 create-btn">Create</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
