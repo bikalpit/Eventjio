@@ -141,6 +141,7 @@ button:focus {
     .search-input {
         position: relative;
         top: 42px;
+        z-index: 9;
         .fa-search:before {
             color: #595959;
         }
