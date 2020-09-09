@@ -1,8 +1,8 @@
 <mat-drawer-container class="main-container">
-    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="isBoxoffice()">
+    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="!isBoxoffice()">
         <mat-toolbar class="app-title">
-            <div class="py-3 text-light text-center">
-                webjio
+            <div class="text-light text-center company-logo">
+                <img src="/assets/images/logo/logo-white.png" class="w-100"  alt="">
             </div>
         </mat-toolbar>
 

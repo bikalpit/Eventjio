@@ -1,37 +1,92 @@
 <main>
-    <div class="coupons comm-back">
+    <div class="team-access comm-back">
         <div class="page-title">
             <h6>Team access</h6>
         </div>
         <div class="page-descp">
             <div class="row">
                 <p class="col-sm-12 col-12 col-lg-9 col-md-9 col-xl-9 float-left">Team access allows you to invite your teammates to access and help manage your Ticket Tailor box office. This is useful if you work within a team and more than one person needs access.</p>
-                <div class="col-sm-12 col-12 col-lg-3 col-md-3 col-xl-3 float-left d-flex">
-                    <button  mat-raised-button color="primary" class="cd-code-btn ml-auto">Invite Teammate</button>
+                <div class="col-sm-12 col-12 col-lg-3 col-md-3 col-xl-3 float-left">
+                    <button  mat-raised-button color="primary" class="cd-code-btn ml-auto  d-flex">Invite Teammate</button>
                 </div>
             </div>
             <div class="row code-tab">
                 <mat-tab-group class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left">
                     <mat-tab label="Teammates (5)" class="">
-                        <div class="service-listing">
+                        <div class="service-listing teammates">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
-                                        <div class="" fxFlex="30">Name</div>
-                                        <div class="" fxFlex="20">Roles</div>
+                                        <div class="" fxFlex="25">Name</div>
+                                        <div class="" fxFlex="25">Roles</div>
                                         <div class="" fxFlex="25">Email address</div>
                                         <div class="" fxFlex="25">Last Seen</div>
                                     </div>
                                     <div class="content" class="drageble-list">
                                         <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data" fxFlex="30">
+                                            <div class="tb-data" fxFlex="25">
                                                 <div>
-                                                    <p>Meet Shah</p>
+                                                    <div class="user-details">
+                                                        <img src="../assets/images/settings/profile.png" class="user-profile"  alt="">
+                                                        <p>Meet Shah</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="tb-data" fxFlex="20">Owner</div>
+                                            <div class="tb-data" fxFlex="25">Owner</div>
                                             <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
-                                            <div class="tb-data" fxFlex="25">100</div>
+                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
+                                        </div>
+                                    </div>
+                                    <div class="content" class="drageble-list">
+                                        <div class="drageble-box" cdkDrag fxLayout="row">
+                                            <div class="tb-data" fxFlex="25">
+                                                <div class="user-details">
+                                                    <img src="../assets/images/settings/profile.png" class="user-profile"  alt="">
+                                                    <p>Monoj Tiwari</p>
+                                                </div>
+                                            </div>
+                                            <div class="tb-data" fxFlex="25">Event Manager</div>
+                                            <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
+                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
+                                        </div>
+                                    </div>
+                                    <div class="content" class="drageble-list">
+                                        <div class="drageble-box" cdkDrag fxLayout="row">
+                                            <div class="tb-data" fxFlex="25">
+                                                <div class="user-details">
+                                                    <img src="../assets/images/settings/profile.png" class="user-profile"  alt="">
+                                                    <p>Parth Bishnoi</p>
+                                                </div>
+                                            </div>
+                                            <div class="tb-data" fxFlex="25">Order Manager</div>
+                                            <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
+                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
+                                        </div>
+                                    </div>
+                                    <div class="content" class="drageble-list">
+                                        <div class="drageble-box" cdkDrag fxLayout="row">
+                                            <div class="tb-data" fxFlex="25">
+                                                <div class="user-details">
+                                                    <img src="../assets/images/settings/profile.png" class="user-profile"  alt="">
+                                                    <p>Ayushi Jha</p>
+                                                </div>
+                                            </div>
+                                            <div class="tb-data" fxFlex="25">Order Manager</div>
+                                            <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
+                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
+                                        </div>
+                                    </div>
+                                    <div class="content" class="drageble-list">
+                                        <div class="drageble-box" cdkDrag fxLayout="row">
+                                            <div class="tb-data" fxFlex="25">
+                                                <div class="user-details">
+                                                    <img src="../assets/images/settings/profile.png" class="user-profile"  alt="">
+                                                    <p>Sohel Bhaskar</p>
+                                                </div>
+                                            </div>
+                                            <div class="tb-data" fxFlex="25">Ayushi Jha</div>
+                                            <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
+                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
                                         </div>
                                     </div>
                                 </div>
@@ -40,107 +95,29 @@
                         </div>
 
                     </mat-tab>
-                    <mat-tab label="Voucher codes(0)">
-                        <div class="service-listing">
+                    <mat-tab label="Invites(1)">
+                        <div class="service-listing invites">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
-                                        <div class="" fxFlex="20">Coupon Title</div>
-                                        <div class="" fxFlex="15">Coupon Code</div>
-                                        <div class="" fxFlex="13">Type</div>
-                                        <div class="" fxFlex="10">Maximum Redemption</div>
-                                        <div class="" fxFlex="12">Used</div>
-                                        <div class="" fxFlex="10">Discount</div>
-                                        <div class="" fxFlex="10">Status</div>
-                                        <div class="" fxFlex="10">Action</div>
+                                        <div class="" fxFlex="25">Email Address</div>
+                                        <div class="" fxFlex="25">Roles</div>
+                                        <div class="" fxFlex="20">Last Seen</div>
+                                        <div class="" fxFlex="20">Status</div>
+                                        <div class="" fxFlex="10"></div>
                                     </div>
                                     <div class="content" class="drageble-list">
                                         <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10">
-                                                
-                                                <!-- <button mat-raised-button color="primary"
-                                                    [mdePopoverTriggerFor]="appPopover"
-                                                    mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger">
-                                                    Show Popover
-                                                </button>
-                                                
-                                                <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false">
-                                                    <mat-card style="max-width: 300px">
-                                                      <mat-card-content>
-                                                      A material design popover component created using Angular version 8 with the Angular CDK.
-                                                      </mat-card-content>
-                                                    </mat-card>
-                                                </mde-popover> -->
-
-                                                <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+                                            <div class="tb-data cpn-title" fxFlex="25">shah.meet@gmail.com</div>
+                                            <div class="tb-data cpn-code" fxFlex="25">
+                                                <p>Order manager</p>
+                                                <p>Order manager with edit </p>
+                                                <p>manager with export</p>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
+                                            <div class="tb-data" fxFlex="20">Jul 14, 2020 4:44 pm</div>
+                                            <div class="tb-data status" fxFlex="20"><span class="pr-2"><i class="fa fa-circle" aria-hidden="true"></i></span>Pending</div>
                                             <div class="tb-data" fxFlex="10">
                                                 <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10">
-                                                <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10">
-                                                <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10">
-                                                <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                             </div>
                                         </div>
                                     </div>
