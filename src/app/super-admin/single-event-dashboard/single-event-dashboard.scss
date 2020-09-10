@@ -4,7 +4,8 @@
 }
 
 .child-left-content {
-    height: calc(100vh - 72px);
+    width: 250px;
+    height: calc(100vh - 140px);
     overflow-y: auto;
 }
 
@@ -19,4 +20,54 @@
 
 .active {
     color: #007BFF;
+}
+
+.event-title-bar{
+    width:100%;
+    margin-top: 70px;
+    background-color: #FFE2B7;
+    display: flex;
+    .event-image{
+        width: 100px;
+        height: 70px;
+        padding:10px 10px 10px 10px ;
+        margin-left: 25px;
+        overflow: hidden;
+        display: inline-block;
+
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .event-title{
+        padding:10px 10px 0px 10px ;
+        display: inline-block;
+
+        .event-name{
+            font-weight: bold;
+        }
+        .event-date-time-palce{
+            font-size: 11px;
+        }
+    }
+    .event-status{
+        padding:10px 10px 0px 10px ;
+        display: inline-block;
+
+        select{
+            border: none;
+            border-radius: 10px;
+            background-color: #595959;
+            color: #ffffff;
+        }
+    }
+    .preview-btn{
+        padding:10px 10px 0px 10px ;
+        align-items: flex-end;
+    }
+    .fa-link{
+        transform: rotate(80deg);
+    }
 }
