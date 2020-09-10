@@ -1,28 +1,9 @@
 <div class="container-fluid">
-    <div class="row sub-container">
-        <div class="p-3 bg-light setting-left-menu">
+    <div class="row">
+        <div class="col-3 p-3 bg-light sub-container child-left-content">
             <div class="settins-title py-2">
                 <span>Resource Management</span>
             </div>
-            <div class="py-2 active" (click)=toggleDisplayDiv()>
-                <div class="setting-menu-icon d-inline-block mr-2 ">
-                    <img src="../../../assets/images/settings/school/school.png" class="w-100" alt="">
-                </div> <span>Event Page Appearance</span><i class="fa fa-angle-down pl-5 ml-2"></i>
-            </div>
-            <div [hidden]="isShowDiv">
-                <div routerLink="/super-admin/settings" class="py-2 active">
-                    <span class="pl-4">Event Page Design</span>
-                </div>
-
-                <div routerLink="/super-admin/settings/buttonsandlinks" class="py-2">
-                    <span class="pl-4">Buttons and Links</span>
-                </div>
-
-                <div routerLink="/super-admin/settings/websitesembedcodes" class="py-2">
-                    <span class="pl-4">Website Embed Codes</span>
-                </div>
-            </div>
-
             <div>
                 <div class="py-2" routerLink="/super-admin/settings/contactpreferences">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
@@ -36,9 +17,6 @@
                     </div> <span>Checkout form</span>
                 </div>
 
-            <div class="py-2" routerLink="/super-admin/settings/teamaccess">
-                <i class="fa fa-search pr-2"></i> <span>Team access</span>
-            </div>
                 <div class="py-2">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/order/order.png" class="w-100" alt="">
@@ -129,7 +107,7 @@
             </div>
         </div>
 
-        <div class="setting-right-container p-0 bg-white">
+        <div class="col-9 p-0 bg-white">
             <router-outlet></router-outlet>
         </div>
 
