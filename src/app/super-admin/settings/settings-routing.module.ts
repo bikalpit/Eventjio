@@ -48,6 +48,10 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                             path: 'checkoutform', 
                             component: CheckoutFormComponent
                           },
+                          { 
+                            path: 'teamaccess', 
+                            component: TeamAccessComponent
+                          },
 
                           ]
                           }]
