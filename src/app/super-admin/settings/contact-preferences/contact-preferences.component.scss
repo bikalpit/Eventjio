@@ -7,7 +7,7 @@ main{
     background: white;
     height: 100vh;
     .contact-prefrences{
-        padding: 16px;
+        padding: 30px 15px;
         .main-head{
             text-align: left;
             font-size: 16px;
@@ -63,7 +63,7 @@ main{
         border-top: 1px solid #DDEAFD;
         margin: 16px 0px 0px 0px;
         position: absolute;
-        width: 100%;
+        width: calc(100% - 361px);
         bottom: 0px;
         .can-save{
             display: flex;
