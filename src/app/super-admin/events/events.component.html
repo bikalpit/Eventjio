@@ -28,7 +28,12 @@
                                 <div class="content" class="drageble-list">
                                     <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of upcomingEventData">
                                         <div class="tb-data " fxFlex="25"> <a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
-                                        <div class="tb-data" fxFlex="20"><span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span></div>
+                                        <div class="tb-data" fxFlex="20">
+                                            <select name="" id="" class="cpn-bor" (onChange)="($event.target.value)" [ngStyle]="{'background':'statusColor'}">
+                                                <option value="" *ngFor="let st of status" [ngStyle]="{'backgroundColor':st === 'Draft' ? '#85938D' : '#52C03B' }">{{st.status}}</option>
+                                            </select>
+                                            <!-- <span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span> -->
+                                        </div>
                                         <div class="tb-data" fxFlex="13">{{element.sold}}</div>
                                         <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
                                         <div class="tb-data" fxFlex="17">{{element.revenue}}</div>

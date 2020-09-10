@@ -22,73 +22,25 @@
                                         <div class="" fxFlex="25">Email address</div>
                                         <div class="" fxFlex="25">Last Seen</div>
                                     </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data" fxFlex="25">
-                                                <div>
-                                                    <div class="user-details">
-                                                        <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
-                                                        <p>Meet Shah</p>
+
+                                    <div *ngFor="let tm of teammates">
+                                        <div class="content" class="drageble-list">
+                                            <div class="drageble-box" cdkDrag fxLayout="row">
+                                                <div class="tb-data" fxFlex="25">
+                                                    <div>
+                                                        <div class="user-details">
+                                                            <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
+                                                            <p>{{tm.name}}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="tb-data" fxFlex="25">{{tm.role}}</div>
+                                                <div class="tb-data" fxFlex="25">{{tm.email}}</div>
+                                                <div class="tb-data" fxFlex="25">{{tm.lastseen}}</div>
                                             </div>
-                                            <div class="tb-data" fxFlex="25">Owner</div>
-                                            <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
-                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
                                         </div>
                                     </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data" fxFlex="25">
-                                                <div class="user-details">
-                                                    <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
-                                                    <p>Monoj Tiwari</p>
-                                                </div>
-                                            </div>
-                                            <div class="tb-data" fxFlex="25">Event Manager</div>
-                                            <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
-                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data" fxFlex="25">
-                                                <div class="user-details">
-                                                    <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
-                                                    <p>Parth Bishnoi</p>
-                                                </div>
-                                            </div>
-                                            <div class="tb-data" fxFlex="25">Order Manager</div>
-                                            <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
-                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data" fxFlex="25">
-                                                <div class="user-details">
-                                                    <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
-                                                    <p>Ayushi Jha</p>
-                                                </div>
-                                            </div>
-                                            <div class="tb-data" fxFlex="25">Order Manager</div>
-                                            <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
-                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" cdkDrag fxLayout="row">
-                                            <div class="tb-data" fxFlex="25">
-                                                <div class="user-details">
-                                                    <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
-                                                    <p>Sohel Bhaskar</p>
-                                                </div>
-                                            </div>
-                                            <div class="tb-data" fxFlex="25">Ayushi Jha</div>
-                                            <div class="tb-data" fxFlex="25">dummy@gmail.com</div>
-                                            <div class="tb-data" fxFlex="25">14 Jul 2020 4:30 pm</div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
 
                             </div>
