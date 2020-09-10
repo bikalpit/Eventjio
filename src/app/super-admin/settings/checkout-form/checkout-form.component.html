@@ -1,6 +1,5 @@
-<div id="checkout_form" class="">
-    <div class="comm-back">
-        <div class="checkout-form">
+<div id="checkout_form" class="main-section">
+        <div class="checkout-form main-work-area">
             <h6 class="main-head col-md-12">Global checkout form</h6>
             <p class="col-md-12">Customise the questions that your customers get asked when making an order. You can also overide this message for particular events if you wish by going <span> Events -> Your Event -> Edit checkout form editing </span> the checkout form from
                 there.
@@ -16,98 +15,31 @@
                     <p>Buyer questions are asked once per order.</p>
                 </div>
                 <div class="col-md-12">
-                    <mat-card class="buyer-card">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <p class="mb-0">Name <span><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
-                            </div>
-                            <div class="ml-auto buyer-action ">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                </button>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-arrows" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                </button>
-                            </div>
-                        </div>
-                    </mat-card>
-
-                    <mat-card class="buyer-card">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <p class="mb-0">Email <span><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
-                            </div>
-                            <div class="ml-auto buyer-action ">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                </button>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-arrows" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                </button>
-                            </div>
-                        </div>
-                    </mat-card>
-
-                    <mat-card class="buyer-card">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <p class="mb-0">Mobile Phone Number <span><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
-                            </div>
-                            <div class="ml-auto buyer-action ">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                </button>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-arrows" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                </button>
-                            </div>
-                        </div>
-                    </mat-card>
-
-                    <mat-card class="buyer-card">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <p class="mb-0">Address <span><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
-                            </div>
-                            <div class="ml-auto buyer-action ">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                </button>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-arrows" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="Sorry, this  question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                </button>
-                            </div>
-                        </div>
-                    </mat-card>
-
+                    <div class="buyer" *ngFor="let element of buyerQuestion">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header class="buyer-card">
+                            <mat-panel-title>
+                                <div>
+                                    <p class="mb-0">{{element.persondetail}}<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
+                                </div>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                <div class="ml-auto buyer-action ">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
+                                            <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                    </button>
+                                    <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
+                                            <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
+                                    </button>
+                                </div>
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                          <p>Name content</p>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
                 </div>
             </div>
 
@@ -121,39 +53,40 @@
                 <div class="col-md-12 mt-3">
                     <p>Attendee questions are asked for every ticket purchased.</p>
                 </div>
-                <div class="col-md-12">
-                    <mat-card class="buyer-card">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <p class="mb-0">Attendee Name <span><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
-                            </div>
-                            <div class="ml-auto buyer-action ">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                </button>
-                                <!-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                    <i class="fa fa-arrows" aria-hidden="true"></i>
-                                </button> -->
-                                <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                        <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                </button>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
+                    <div class="col-md-12">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                            <mat-expansion-panel-header class="buyer-card">
+                                <mat-panel-title>
+                                    <div>
+                                        <p class="mb-0">Attendee Name<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
+                                    </div>
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    <div class="ml-auto buyer-action ">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
+                                                <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                        </button>
+                                        <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
+                                                <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
+                                        </button>
+                                    </div>
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <p>Name content</p>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
             </div>
-
-            <div class="vertical-line">
-                <div class="can-save">
-                    <button mat-raised-button class="cancel-btn">Cancel</button>
-                    <button mat-raised-button class="save-btn">Save</button>
-                </div>
-            </div>
-
         </div>
-    </div>
+
+        <div class="footer-action-btn">
+            <div class="can-save">
+                <button mat-raised-button class="cancel-btn">Cancel</button>
+                <button mat-raised-button class="save-btn">Save</button>
+            </div>
+        </div>
+
+        
 </div>

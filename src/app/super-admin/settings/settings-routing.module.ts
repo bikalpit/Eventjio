@@ -45,7 +45,7 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                             component: ContactPreferencesComponent
                           },
                           { 
-                            path: 'checkou-form', 
+                            path: 'checkout-form', 
                             component: CheckoutFormComponent
                           },
                           { 
