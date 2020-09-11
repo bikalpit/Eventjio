@@ -21,11 +21,11 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                           },
 
                           {
-                            path:'buttonsandlinks',
+                            path:'buttons-and-links',
                             component:ButttonAndLinksComponent
                           },
                           {
-                            path:'websitesembedcodes',
+                            path:'websites-embed-codes',
                             component:WebsitesEmbedCodesComponent
                           },
                           {
@@ -41,12 +41,16 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                             component:BoxOfficeComponent
                           },
                           { 
-                            path: 'contactpreferences', 
+                            path: 'contact-preferences', 
                             component: ContactPreferencesComponent
                           },
                           { 
-                            path: 'checkoutform', 
+                            path: 'checkout-form', 
                             component: CheckoutFormComponent
+                          },
+                          { 
+                            path: 'team-access', 
+                            component: TeamAccessComponent
                           },
 
                           ]

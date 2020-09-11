@@ -12,7 +12,7 @@ import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
 
 const routes: Routes = [
   { 
-    path: '', 
+    path: 'dashboard', 
     component: DashboardComponent
   },
   { 
@@ -26,6 +26,10 @@ const routes: Routes = [
   { 
     path: 'coupons', 
     component: CouponsComponent
+  },
+  { 
+    path: '', 
+    component: MyBoxofficeComponent
   },
   { 
     path: 'boxoffice', 

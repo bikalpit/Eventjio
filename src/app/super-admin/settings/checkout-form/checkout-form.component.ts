@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckoutFormComponent implements OnInit {
 
+  buyerQuestion = [{persondetail:'Name'},{persondetail:'Email'},{persondetail:'Mobile Phone Number'},{persondetail:'Address'}]
   constructor() { }
 
   ngOnInit(): void {

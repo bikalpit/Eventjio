@@ -8,7 +8,7 @@ import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/route
 })
 export class AppComponent {
 
-  title = 'Ticket-Tailor';
+  title = 'Eventjio';
   boxofficeComponent:boolean = false;
 
   constructor() {}
@@ -16,10 +16,10 @@ export class AppComponent {
   isBoxoffice() {
 
     if (localStorage.getItem('isBoxoffice') && localStorage.getItem('isBoxoffice') == "true") {
-      this.boxofficeComponent = false;
+      this.boxofficeComponent = true;
       return true;
     } else {
-      this.boxofficeComponent = true;
+      this.boxofficeComponent = false;
       return false;
     }
 

@@ -1,7 +1,6 @@
     @import "variables";
     @import "my-customer.css";
     @import url('https://fonts.googleapis.com/css?family=Poppins');
-    
     html,
     body {
         height: 100%;
@@ -12,10 +11,12 @@
     body {
         margin: 0;
     }
-    .sub-container{
-        margin-top: 40px;
+    
+    .sub-container {
+        margin-top: 70px;
     }
-    ::-webkit-scrollbar-track {
+    
+     ::-webkit-scrollbar-track {
         //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         background-color: transparent;
     }
@@ -28,26 +29,74 @@
      ::-webkit-scrollbar-thumb {
         background-color: $primary-color;
     }
+    
     .btn:focus,
     .btn.focus,
     button:focus {
-        border-color: transparent !important;
-        box-shadow: unset !important;
-        outline: 0 !important;
-    }
-    img:focus {
-        border-color: transparent !important;
-        box-shadow: unset !important;
-        outline: 0 !important;
-    }
-    .icone:focus img {
-        border-color: transparent !important;
-        box-shadow: unset !important;
-        outline: 0 !important;
-    }
-    *:focus {
-        border-color: transparent !important;
+        // border-color: transparent !important;
         box-shadow: unset !important;
         outline: 0 !important;
     }
     
+    img:focus {
+        // border-color: transparent !important;
+        box-shadow: unset !important;
+        outline: 0 !important;
+    }
+    
+    .icone:focus img {
+        // border-color: transparent !important;
+        box-shadow: unset !important;
+        outline: 0 !important;
+    }
+    
+    *:focus {
+        // border-color: transparent !important;
+        box-shadow: unset !important;
+        outline: 0 !important;
+    }
+    
+    
+    .pointer {
+        cursor: pointer;
+    }
+    .footer-action-btn{
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 380px);
+        z-index: 9999;
+        height: 75px;
+            border-top: 1px solid #DDEAFD;
+            margin: 16px 0px 0px 0px;
+            .can-save{
+                display: flex;
+                padding: 22px 40px;
+                .cancel-btn{
+                    background: #E1E1E1;
+                    border-radius: 5px;
+                    opacity: 1;
+                    color: #2C2C2C;
+                    text-align: center;
+                    width: 115px;
+                    margin-left: auto;
+                }
+                .save-btn{
+                    background: #1172F4;
+                    border-radius: 5px;
+                    opacity: 1;
+                    color: #FFFFFF;
+                    text-align: center;
+                    width: 115px;
+                    margin-left: 15px;
+                }
+            }
+    }
+    .main-work-area{
+        position: relative;
+        height: calc(100vh - 145px);
+        overflow-y: scroll;
+        z-index: 9;
+    }
+    .main-section{
+        background: white;
+    }

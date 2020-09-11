@@ -1,18 +1,19 @@
 <mat-drawer-container class="main-container">
-    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="!isBoxoffice()">
+    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="!isBoxoffice() && !boxofficeComponent">
         <mat-toolbar class="app-title">
             <div class="text-light text-center company-logo">
-                <img src="/assets/images/logo/logo-white.png" class="w-100"  alt="">
+                <img src="/assets/images/logo/eventjio-icon.png" class="company-img" alt="">
             </div>
         </mat-toolbar>
 
-        <div class="col-12 px-3 pt-4 pb-3 mt-3 text-center">
-           <div class="circle-icon text-center">
-                <div class="plus-sign">
-                    +
+        <div class="main-menu">
+            <div class="col-12 px-3 pt-4 pb-3 mt-3 text-center">
+                <div class="circle-icon text-center">
+                    <div class="plus-sign">
+                        +
+                    </div>
                 </div>
-           </div>
-        </div>
+            </div>
 
         <div class="col-12 p-3 mt-4 text-center text-white active-icon common-icone">
             <div routerLink="/super-admin" class="icon text-center">
@@ -51,15 +52,14 @@
             <div routerLink="/super-admin/settings" class="icon text-center">
                <img src="/assets/images/admin/settings.png" class="w-100" alt=""> 
             </div>
-            
         </div>
 
     </mat-drawer>
 
 
 
-    <mat-drawer-content>
-        <mat-toolbar class="py-3  right-toolbar">
+    <mat-drawer-content class="bg-white">
+        <mat-toolbar class="py-3  right-toolbar" [ngClass]="{'business-open': boxofficeComponent == true}">
             <div>
                 Dashboard
             </div>
@@ -69,7 +69,14 @@
                 <div class="user-image-icon mr-3 p-1 bg-dark d-inline-block">
                     <img src="/assets/images/admin/user.png" class="w-100" alt="">
                 </div>
-                <span class="d-inline-block"> Administrator <i class="fa fa-angle-down fa-fw pl-1"></i></span>
+                <!-- <span class="d-inline-block"> Administrator <i class="fa fa-angle-down fa-fw pl-1"></i></span> -->
+            </div>
+            <div class="">
+                <select class="form-control head-dropdown" id="exampleFormControlSelect1">
+                    <option>Administrator</option>
+                    <option>My Profile</option>
+                  <option>Logout</option>
+                </select>
             </div>
         </mat-toolbar>
         <div class="mt-2">
