@@ -17,8 +17,7 @@ export interface DialogData {
 export class MyBoxofficeComponent implements OnInit {
 
   allBoxoffice: any;
-  allCurency: any;
-  allCountry: any;
+
   adminSettings : boolean = false;
   isLoaderAdmin : boolean = true;
   currentUser:any;
@@ -35,11 +34,7 @@ export class MyBoxofficeComponent implements OnInit {
   ) { }
 
     ngOnInit(): void {
-
       this.getAllBoxoffice();
-      this.getAllCountry();
-      this.getAllCurrancy();
-
     }
 
     ngAfterViewInit() {
@@ -49,40 +44,25 @@ export class MyBoxofficeComponent implements OnInit {
     }
 
     getAllBoxoffice(){
+
       this.isLoaderAdmin = true;
       this.superadminService.getAllBoxoffice().subscribe((response:any) => {
+        this.isLoaderAdmin = false;
         if(response.data == true){
           this.allBoxoffice = response.response
+        }else if(response.data == false && response.response == 'TOKEN_EXPIRED'){
+
         }
-        this.isLoaderAdmin = false;
       });
+
     }
 
-    getAllCountry(){
-      this.isLoaderAdmin = true;
-      this.superadminService.getAllCountry().subscribe((response:any) => {
-        if(response.data == true){
-          this.allCountry = response.response
-        }
-        this.isLoaderAdmin = false;
-      });
-    }
-    
-    getAllCurrancy(){
-      this.isLoaderAdmin = true;
-      this.superadminService.getAllCurrancy().subscribe((response:any) => {
-        if(response.data == true){
-          this.allCurency = response.response
-        }
-        this.isLoaderAdmin = false;
-      });
-    }
   
-    fnSelectBoxoffice(business_id,busisness_name){
+    fnSelectBoxoffice(boxoffice_id,name){
 
-      localStorage.setItem('business_id', business_id);
-      localStorage.setItem('business_name', busisness_name);
-      this.router.navigate(['/admin/my-workspace']);
+      localStorage.setItem('boxoffice_id', boxoffice_id);
+      localStorage.setItem('boxoffice_name', name);
+     // this.router.navigate(['/admin/my-workspace']);
 
     }
 
@@ -98,7 +78,7 @@ export class MyBoxofficeComponent implements OnInit {
 
 
 @Component({
-  selector: 'Create-New-Business',
+  selector: 'create-new-boxoffice-dialog',
   templateUrl: '../_dialogs/create-new-boxoffice-dialog.html',
 })
 export class myCreateNewBoxofficeDialog {
@@ -106,7 +86,9 @@ export class myCreateNewBoxofficeDialog {
   createBoxoffice :FormGroup;
   isLoaderAdmin : boolean = false;
   onlynumeric = /^-?(0|[1-9]\d*)?$/
-  
+  allCurency: any;
+  allCountry: any;
+
   constructor(
     public dialogRef: MatDialogRef<myCreateNewBoxofficeDialog>,
     public router: Router,
@@ -114,6 +96,8 @@ export class myCreateNewBoxofficeDialog {
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.getAllCountry();
+      this.getAllCurrancy();
     }
 
   onNoClick(): void {
@@ -131,6 +115,30 @@ export class myCreateNewBoxofficeDialog {
       event_run_type : ['', Validators.required],
     });
 
+  }
+
+  getAllCountry(){
+    this.isLoaderAdmin = true;
+    this.superadminService.getAllCountry().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCountry = response.response
+      }
+      this.isLoaderAdmin = false;
+    });
+  }
+  
+  getAllCurrancy(){
+
+    this.isLoaderAdmin = true;
+    this.superadminService.getAllCurrancy().subscribe((response:any) => {
+      this.isLoaderAdmin = false;
+      if(response.data == true){
+        this.allCurency = response.response
+      }else if(response.data == false && response.response == 'TOKEN_EXPIRED'){
+          
+      }
+    });
+    
   }
 
 
