@@ -15,42 +15,46 @@
                 </div>
             </div>
 
-        <div class="col-12 p-3 mt-4 text-center text-white active-icon common-icone">
-            <div routerLink="/super-admin" class="icon text-center">
-                <img src="/assets/images/admin/dashboard.png" class="w-100"  alt="">
-           </div>
+            <div class="col-12 p-3 mt-4 text-center text-white active-icon common-icon">
+                <div matTooltip="Dashboard" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" routerLink="/super-admin" class="icon text-center">
+                    <img src="/assets/images/admin/dashboard.png" class="w-100" alt="">
+                </div>
+            </div>
+
+            <div class="col-12 p-3 mt-4 text-center text-white common-icon">
+                <div matTooltip="Events" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" routerLink="/super-admin/events" class="icon text-center">
+                    <img src="/assets/images/admin/star.png" class="w-100" alt="">
+                </div>
+            </div>
+
+            <div class="col-12 p-3 mt-4 text-center text-white common-icon">
+                <div matTooltip="Orders" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" routerLink="/super-admin/orders" class="icon text-center">
+                    <img src="/assets/images/admin/order.png" class="w-100" alt="">
+                </div>
+
+            </div>
+
+            <div class="col-12 p-3 mt-4 text-center text-white common-icon">
+                <div matTooltip="Customers" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" routerLink="/super-admin/customers" class="icon text-center">
+                    <img src="/assets/images/admin/user.png" class="w-100" alt="">
+                </div>
+
+            </div>
+
+            <div routerLink="/super-admin/coupons" class="col-12 p-3 mt-4 text-center text-white common-icon">
+                <div matTooltip="Coupon" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
+                    <img src="/assets/images/admin/gift.png" class="w-100" alt="">
+                </div>
+
+            </div>
         </div>
 
-        <div class="col-12 p-3 mt-4 text-center text-white common-icone">
-            <div routerLink="/super-admin/events" class="icon text-center">
-                <img src="/assets/images/admin/star.png" class="w-100"  alt="">
-           </div>
-        </div>
+        <div class="bottom_admin_menu">
+            <div matTooltip="settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="col-12 p-3 text-center setting-btn text-white common-icon">
+                <div routerLink="/super-admin/settings" class="icon text-center">
+                    <img src="/assets/images/admin/settings.png" class="w-100" alt="">
+                </div>
 
-        <div class="col-12 p-3 mt-4 text-center text-white common-icone">
-            <div routerLink="/super-admin/orders" class="icon text-center">
-                <img src="/assets/images/admin/order.png" class="w-100" alt="">
-           </div>
-           
-        </div>
-
-        <div class="col-12 p-3 mt-4 text-center text-white common-icone">
-            <div routerLink="/super-admin/customers" class="icon text-center">
-                <img src="/assets/images/admin/user.png" class="w-100"  alt=""> 
-           </div>
-           
-        </div>
-
-        <div routerLink="/super-admin/coupons" class="col-12 p-3 mt-4 text-center text-white common-icone">
-            <div class="icon text-center">
-               <img src="/assets/images/admin/gift.png" class="w-100" alt=""> 
-           </div>
-            
-        </div>
-
-        <div class="col-12 p-3 text-center setting-btn text-white common-icone">
-            <div routerLink="/super-admin/settings" class="icon text-center">
-               <img src="/assets/images/admin/settings.png" class="w-100" alt=""> 
             </div>
         </div>
     </div>

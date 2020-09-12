@@ -59,6 +59,10 @@
     .company-img {
         width: 45px;
     }
+    opacity: 1 !important;
+} 
+.company-logo{
+    padding: 15px 0px;
 }
 
 .app-title {
@@ -104,7 +108,9 @@
     padding: 20px;
     display: block;
 }
-
+.common-icon{
+    opacity: 0.5;
+}
 .right-toolbar {
     font-size: 16px;
     background-color: #ffffff;
