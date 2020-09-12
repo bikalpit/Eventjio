@@ -150,8 +150,8 @@
                             <div class="col-3">
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
-                                        <div class="d-inline-block p-2">#A207A8</div>
-                                        <div class="bg-color-code d-inline-block ml-auto m-2"></div>
+                                        <div class="d-inline-block p-2">{{bgColor}}</div>
+                                        <input class="bg-color-code d-inline-block ml-auto m-2" [(colorPicker)]="bgColor" [style.background]="bgColor" (value)="bgColor"/> 
                                     </div>
                                 </div>
                             </div>
@@ -166,8 +166,8 @@
                             <div class="col-3">
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
-                                        <div class="d-inline-block p-2">#F8F8F8</div>
-                                        <div class="text-color-code d-inline-block ml-auto m-2"></div>
+                                        <div class="d-inline-block p-2">{{bgTextColor}}</div>
+                                        <input class="text-color-code d-inline-block ml-auto m-2" [(colorPicker)]="bgTextColor" [style.background]="bgTextColor" (value)="bgTextColor"/> 
                                     </div>
                                 </div>
                             </div>
@@ -183,8 +183,8 @@
                             <div class="col-3">
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
-                                        <div class="d-inline-block p-2">#F3F3F3</div>
-                                        <div class="header-color-code d-inline-block ml-auto m-2"></div>
+                                        <div class="d-inline-block p-2">{{headerColor}}</div>
+                                        <input class="header-color-code d-inline-block ml-auto m-2" [(colorPicker)]="headerColor" [style.background]="headerColor" (value)="headerColor"/> 
                                     </div>
                                 </div>
                             </div>
@@ -199,8 +199,8 @@
                             <div class="col-3">
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
-                                        <div class="d-inline-block p-2">#F3F3F3</div>
-                                        <div class="header-text-color-code d-inline-block ml-auto m-2"></div>
+                                        <div class="d-inline-block p-2">{{headerTextColor}}</div>
+                                        <input class="header-text-color-code d-inline-block ml-auto m-2" [(colorPicker)]="headerTextColor" [style.background]="headerTextColor" (value)="headerTextColor"/> 
                                     </div>
                                 </div>
                             </div>
@@ -215,8 +215,8 @@
                             <div class="col-3">
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
-                                        <div class="d-inline-block p-2">#49DD54</div>
-                                        <div class="btn-color-code d-inline-block ml-auto m-2"></div>
+                                        <div class="d-inline-block p-2">{{btnColor}}</div>
+                                        <input class="btn-color-code d-inline-block ml-auto m-2" [(colorPicker)]="btnColor" [style.background]="btnColor" (value)="btnColor"/> 
                                     </div>
                                 </div>
                             </div>
@@ -231,8 +231,8 @@
                             <div class="col-3">
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
-                                        <div class="d-inline-block p-2">#FFFFFF</div>
-                                        <div class="btn-text-color-code d-inline-block ml-auto m-2"></div>
+                                        <div class="d-inline-block p-2">{{btnTextColor}}</div>
+                                        <input class="btn-text-color-code d-inline-block ml-auto m-2" [(colorPicker)]="btnTextColor" [style.background]="btnTextColor" (value)="btnTextColor"/> 
                                     </div>
                                 </div>
                             </div>

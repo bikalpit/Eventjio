@@ -14,6 +14,7 @@ import { BoxOfficeComponent } from './box-office/box-office.component';
 import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
 import { TeamAccessComponent } from './team-access/team-access.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent],
@@ -23,7 +24,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     SettingsRoutingModule,
     MaterialModule,
     FlexLayoutModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ColorPickerModule
   ]
 })
 export class SettingsModule { }
