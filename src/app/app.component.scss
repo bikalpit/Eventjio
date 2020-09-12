@@ -110,6 +110,7 @@
 }
 .common-icon{
     opacity: 0.5;
+    display: inline-grid;
 }
 .right-toolbar {
     font-size: 16px;
@@ -123,9 +124,7 @@
         width: 100%;
     }
 }
-.right-toolbar-content{
-    // width: calc(100% - 80px);
-}
+
 
 .modal-lg {
     max-width: 1050px !important;

@@ -11,6 +11,7 @@ import { TeamAccessComponent } from './team-access/team-access.component';
 import { WebsitesEmbedCodesComponent } from './websites-embed-codes/websites-embed-codes.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { BoxOfficeComponent } from './box-office/box-office.component';
+import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
 import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
 
 const routes: Routes = [{ path: '', component: SettingsComponent, 
@@ -51,6 +52,10 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                           { 
                             path: 'team-access', 
                             component: TeamAccessComponent
+                          },
+                          { 
+                            path: 'connect-app', 
+                            component: ConnectAppsComponent
                           },
 
                           ]
