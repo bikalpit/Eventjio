@@ -48,6 +48,7 @@
 
 .active-icon {
     border-right: 3px solid skyblue;
+    opacity: 1;
 }
 
 .company-logo {
@@ -116,6 +117,9 @@
     &.business-open {
         width: 100%;
     }
+}
+.right-toolbar-content{
+    // width: calc(100% - 80px);
 }
 
 .modal-lg {
