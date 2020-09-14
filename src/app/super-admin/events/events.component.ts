@@ -16,11 +16,12 @@ interface Status {
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-  
+    
  addNewEvents : boolean = true;
  public editorValue: string = '';
  addEventForm : FormGroup;
-
+ 
+ 
   upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},]
@@ -28,8 +29,8 @@ export class EventsComponent implements OnInit {
   pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
                 ]
-  statusColor = '';         
-  status = [{status:'Draft',value:'green'},{status:'published',value:'red'}];
+  statusColor = '';        
+  status = [{status:'Draft',value:'green'},{status:'Published',value:'red'}];
 
   
   constructor(

@@ -29,19 +29,50 @@
                                     <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of upcomingEventData">
                                         <div class="tb-data " fxFlex="25"> <a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data" fxFlex="20">
-                                            <select name="" id="" class="cpn-bor" (onChange)="($event.target.value)" [ngStyle]="{'background':'statusColor'}">
-                                                <option value="" *ngFor="let st of status" [ngStyle]="{'backgroundColor':st === 'Draft' ? '#85938D' : '#52C03B' }">{{st.status}}</option>
-                                            </select>
+                                            <select (onChange)="$event.target.value"
+                                            [ngStyle]="{'background-color': 'statusColor'}">
+                                            <option *ngFor="let st of status" 
+                                                  [ngStyle]="{'background': st.value}" Value="st.value"> 
+                                                  {{st.status}}
+                                            </option>
+                                       </select>
                                             <!-- <span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span> -->
                                         </div>
                                         <div class="tb-data" fxFlex="13">{{element.sold}}</div>
                                         <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
                                         <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
                                         <div class="tb-data" fxFlex="10">
-                                            <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+                                            <mat-icon [ngbPopover]="popContent" placement="bottom"  aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+                                            <ng-template class="popover" #popContent>
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-eye mr-2"></i><span>View event page</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-bar-chart-o mr-2"></i><span>Event Summary</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-pencil mr-2"></i><span>Edit event & Tickets</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-shopping-bag mr-2"></i><span>Orders</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-copy mr-2"></i><span>Duplicate</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-trash mr-2"></i><span>Delete</span>
+                                                </div>
+
+                                                </ng-template>
+
                                         </div>
-                                    </div>
+                                   </div>
                                 </div>
                             </div>
 
@@ -70,8 +101,33 @@
                                         <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
                                         <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
                                         <div class="tb-data" fxFlex="10">
-                                            <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+                                            <mat-icon [ngbPopover]="popContent" placement="bottom"  aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+                                            <ng-template class="popover" #popContent>
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-eye mr-2"></i><span>View event page</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-bar-chart-o mr-2"></i><span>Event Summary</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-pencil mr-2"></i><span>Edit event & Tickets</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-shopping-bag mr-2"></i><span>Orders</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-copy mr-2"></i><span>Duplicate</span>
+                                                </div>
+
+                                                <div class="px-3  border-bottom">
+                                                    <i class="fa fa-trash mr-2"></i><span>Delete</span>
+                                                </div>
+                                            </ng-template>
                                         </div>
                                     </div>
                                 </div>
