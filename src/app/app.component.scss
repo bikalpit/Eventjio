@@ -46,10 +46,32 @@
 
 .active-icon {
     border-right: 3px solid skyblue;
+    opacity: 1;
+}
+
+.company-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 8px 0px;
+    // padding: 15px 0px;
+    .company-img {
+        width: 45px;
+    }
+    opacity: 1 !important;
 } 
 .company-logo{
     padding: 15px 0px;
 }
+
+.app-title {
+    font-size: 18px;
+    font-family: Poppins, Regular;
+    background-color: #02316E;
+    padding: 0px 5px;
+    height: 60px;
+} 
 
 .main-menu {
     height: calc(100vh - 115px);
@@ -86,7 +108,10 @@
     padding: 20px;
     display: block;
 }
-
+.common-icon{
+    opacity: 0.5;
+    display: inline-grid;
+}
 .right-toolbar {
     font-size: 16px;
     background-color: #ffffff;
@@ -99,6 +124,7 @@
         width: 100%;
     }
 }
+
 
 .modal-lg {
     max-width: 1050px !important;

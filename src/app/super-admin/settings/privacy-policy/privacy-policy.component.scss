@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+.main{
+    font-family: Poppins, Regular;
+}
+.page-title{
+    font-size: medium;
+}
+
+
+ .bottom{
+    margin-top: 10vh;
+
+        .cancel{
+            background-color:#C0C0C0;
+            color:#000000;
+        }
+        .save{
+            background-color: #1172F4;
+            color:#ffffff;  
+        }
+ }
+
+ .notification-icon{
+    transform: matrix(0.87, -0.48, 0.48, 0.87, 0, 0);
+    color: #FF6600;
+    margin-top: --50px !important;
+ }
+
+ .ckeditor{
+    max-width: 1185px;
+    height: 330px;
+ }
+ 

@@ -32,6 +32,7 @@
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^4.5.2",
     "font-awesome": "^4.7.0",
+    "ng2-ckeditor": "^1.2.9",
     "ngx-ckeditor": "^10.0.0",
     "ngx-color-picker": "^10.0.1",
     "rxjs": "~6.5.4",

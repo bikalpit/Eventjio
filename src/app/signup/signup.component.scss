@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+.main {
+    font-family: Poppins, Regular;
+}
+
+.sign-up{
+    .signup-left{
+        padding: 30px 50px;
+        .logo-img{
+            width: 13%;
+        }
+        .user-details {
+            padding: 3% 20%;            
+           
+            input{
+                border:none;
+                background-color: transparent;
+            }
+            input:focus,
+            select:focus,
+            textarea:focus,
+            button:focus {
+                outline: none;
+            }          
+            .input-group{                  
+                align-items: center;
+                display: flex;
+                border: 1px #D8D8D8 solid;
+                padding: 5px 20px;
+                border-radius: 37px;
+                margin: 10px 0px;
+            }
+            .signup-head{
+                h5{
+                    color:#007BFF;
+                    font-size: 20px;
+                }
+                p{
+                    color: #808080;
+                    margin-bottom: 0;
+                }
+                h6{
+                    color: #595959;
+                    margin: 25px 0px;
+                    font-size: 14px;
+                    a{
+                        color: #FF8800;
+                    }
+                }               
+        }
+            .signup-details{
+                textarea{
+                    border-radius: 10px;
+                } 
+                input{
+                    border:none;
+                    background-color: transparent;
+                }
+                input:focus,
+                select:focus,
+                textarea:focus,
+                button:focus {
+                    outline: none;
+                }          
+                .login-icon{
+                    color: #FF8800;
+                }          
+                .input-group{                  
+                    align-items: center;
+                    display: flex;
+                    border: 1px #D8D8D8 solid;
+                    padding: 5px 20px;
+                    border-radius: 37px;
+                    margin: 10px 0px;
+                }
+                .hide-show-pswd{
+                    color: #B4B4B4;;
+                }
+                .fr-pswd-link{
+                    float: right;
+                }
+                a{
+                    color: #808080;
+                }
+                .signin-btn{
+                    background: #0088FF;
+                    color: #FFFFFF;
+                    padding: 6px 12px;
+                    width: 100%;
+                    border-radius: 37px;
+                    margin: 15px 0px;
+                }
+                .signup-link{
+                    text-align: center;
+                    p{
+                        color: #595959;
+                        a{
+                            color: #FF8800;
+                        }
+                    }
+                }
+            }
+            .signup-btn{
+                background: #0088FF;
+                color: #FFFFFF;
+                padding: 6px 12px;
+                width: 100%;
+                border-radius: 37px;
+                margin: 15px 0px;
+            }  
+    }
+}
+    .signup-right{
+        .signup-image{
+            width: 100%;
+            height: 100%;
+        } 
+    }     
+
+}

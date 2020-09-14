@@ -13,11 +13,19 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { BoxOfficeComponent } from './box-office/box-office.component';
 import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
 import { TeamAccessComponent } from './team-access/team-access.component';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { BillingComponent } from './billing/billing.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { MatExpansionModule} from '@angular/material/expansion';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
-  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent],
+  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent, ConnectAppsComponent, BillingComponent, PrivacyPolicyComponent],
+
+ 
  
   imports: [
     CommonModule,
@@ -25,7 +33,9 @@ import { ColorPickerModule } from 'ngx-color-picker';
     MaterialModule,
     FlexLayoutModule,
     MatExpansionModule,
-    ColorPickerModule
+    ColorPickerModule,
+    CKEditorModule,
+    FormsModule
   ]
 })
 export class SettingsModule { }
