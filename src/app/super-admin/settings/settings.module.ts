@@ -18,6 +18,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { MatExpansionModule} from '@angular/material/expansion';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
     MaterialModule,
     FlexLayoutModule,
     MatExpansionModule,
-    ColorPickerModule
+    ColorPickerModule,
+    CKEditorModule,
+    FormsModule
   ]
 })
 export class SettingsModule { }
