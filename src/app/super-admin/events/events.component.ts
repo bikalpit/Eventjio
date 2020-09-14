@@ -25,9 +25,11 @@ export class EventsComponent implements OnInit {
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},]
  
-                pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
+  pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
                 ]
+  statusColor = '';         
+  status = [{status:'Draft',value:'green'},{status:'published',value:'red'}];
 
   
   constructor(
@@ -43,6 +45,10 @@ export class EventsComponent implements OnInit {
       event_end_time: ['',Validators.required],
     })
 
+   }
+
+   onChange(value){
+      this.statusColor == value;
    }
   
   openAddNewTicketTypeDialog() {

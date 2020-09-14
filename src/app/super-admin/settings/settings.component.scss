@@ -1,21 +1,28 @@
-.settins-title{
+.settins-title {
     font-size: 16px;
     font-weight: bold;
 }
 
-.child-left-content{
-    height: calc(100vh - 72px);
+.setting-left-menu {
+    height: calc(100vh - 70px);
     overflow-y: auto;
+    width: 300px;
+    position: fixed;
+    z-index: 9;
+    top: 70px;
 }
-// mat-icon{
-//     font-size: 20px;;
-// }
 
-.setting-menu-icon{
+.setting-right-container {
+    width: calc(100% - 300px);
+    margin-left: 300px;
+}
+
+.setting-menu-icon {
     width: 20px;
     height: 20px;
     // background-color: yellow;
 }
-.active{
+
+.active {
     color: #007BFF;
 }

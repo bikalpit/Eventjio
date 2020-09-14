@@ -81,7 +81,7 @@ button:focus {
 /* end css */
 ::ng-deep  .team-access.comm-back{
     background: white;
-    padding: 16px;
+    padding: 35px;
     .user-details{
         display: flex;
         align-items: center;
@@ -108,7 +108,7 @@ button:focus {
     }
     .code-tab{
         .mat-tab-header{
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             border:none;
         }
          .mat-ink-bar{
@@ -127,7 +127,7 @@ button:focus {
                      
             .drageble-list {
                 width: 100%;
-                border-top: solid 1px #DDDDDD;
+                border-bottom: solid 1px #DDDDDD;
                 display: block;
                 background: white;
                 overflow: hidden;
@@ -140,6 +140,7 @@ button:focus {
                 align-items: center;                
                 font-size: 14px;
                 color: #595959;
+                border-bottom: solid 1px #DDDDDD;
             }
             .drageble-box{
                 align-items: center;
@@ -148,7 +149,7 @@ button:focus {
                 }
             }
             .tb-data{
-                padding: 18px 0px;
+                padding: 12px 0px;
                 color: #181818;
                 p{
                     color: #181818;  

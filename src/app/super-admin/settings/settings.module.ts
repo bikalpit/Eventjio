@@ -15,16 +15,23 @@ import { SeatingChartsComponent } from './seating-charts/seating-charts.componen
 import { TeamAccessComponent } from './team-access/team-access.component';
 import { BillingComponent } from './billing/billing.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { MatExpansionModule} from '@angular/material/expansion';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
 
 
 @NgModule({
-  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent, BillingComponent, PrivacyPolicyComponent],
+  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent, ConnectAppsComponent, BillingComponent, PrivacyPolicyComponent],
+
+ 
  
   imports: [
     CommonModule,
     SettingsRoutingModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatExpansionModule,
+    ColorPickerModule
   ]
 })
 export class SettingsModule { }

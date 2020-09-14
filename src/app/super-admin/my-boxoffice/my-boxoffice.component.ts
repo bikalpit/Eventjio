@@ -16,7 +16,6 @@ export interface DialogData {
 })
 export class MyBoxofficeComponent implements OnInit {
 
-  allBoxoffice: any;
   allCurency: any;
   allCountry: any;
   adminSettings : boolean = false;
@@ -25,6 +24,9 @@ export class MyBoxofficeComponent implements OnInit {
   adminId:any;
   token:any;
   getIpAddress : any;
+  allBoxoffice=  [
+    {boxoffice_name: 'Broadview', address: 'Pandesara', city:[{name: 'Surat'}], state:[{name: 'Gujarat'}], country:[{name: 'India'}], zipcode: '395009'},
+];
 
   constructor(
 
@@ -32,7 +34,11 @@ export class MyBoxofficeComponent implements OnInit {
     public router: Router,
     public superadminService : SuperadminService,
 
-  ) { }
+    ) {
+
+      localStorage.setItem('isBoxoffice','true')
+      console.log(this.allBoxoffice)
+     }
 
     ngOnInit(): void {
 
@@ -43,20 +49,20 @@ export class MyBoxofficeComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-      setTimeout(() => {
-        this.isLoaderAdmin = false;
-      }, 4000);
+      // setTimeout(() => {
+      //   this.isLoaderAdmin = false;
+      // }, 4000);
     }
 
     getAllBoxoffice(){
-      console.log('hello');
-      this.isLoaderAdmin = true;
-      this.superadminService.getAllBoxoffice().subscribe((response:any) => {
-        if(response.data == true){
-          this.allBoxoffice = response.response
-        }
-        this.isLoaderAdmin = false;
-      });
+      // console.log('hello');
+      // this.isLoaderAdmin = true;
+      // this.superadminService.getAllBoxoffice().subscribe((response:any) => {
+      //   if(response.data == true){
+      //     this.allBoxoffice = response.response
+      //   }
+      //   this.isLoaderAdmin = false;
+      // });
     }
 
     getAllCountry(){
@@ -83,8 +89,8 @@ export class MyBoxofficeComponent implements OnInit {
 
       localStorage.setItem('business_id', business_id);
       localStorage.setItem('business_name', busisness_name);
-      this.router.navigate(['/admin/my-workspace']);
-
+      localStorage.setItem('isBoxoffice','false')
+      this.router.navigate(['/super-admin/dashboard']);
     }
 
     fnCreateBoxOffice() {
