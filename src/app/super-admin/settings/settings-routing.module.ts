@@ -12,6 +12,9 @@ import { WebsitesEmbedCodesComponent } from './websites-embed-codes/websites-emb
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { BoxOfficeComponent } from './box-office/box-office.component';
 import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
+import { BillingComponent } from './billing/billing.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+
 
 const routes: Routes = [{ path: '', component: SettingsComponent, 
 
@@ -40,14 +43,23 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                             path:'box-office',
                             component:BoxOfficeComponent
                           },
+                          {
+                            path:'billing',
+                            component:BillingComponent
+                          },
                           { 
                             path: 'contactpreferences', 
                             component: ContactPreferencesComponent
                           },
                           { 
+                            path: 'privacy-policy', 
+                            component: PrivacyPolicyComponent
+                          },
+                          { 
                             path: 'checkoutform', 
                             component: CheckoutFormComponent
                           },
+                          
 
                           ]
                           }]
