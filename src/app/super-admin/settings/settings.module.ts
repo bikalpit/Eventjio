@@ -18,7 +18,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { MatExpansionModule} from '@angular/material/expansion';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
-import { CKEditorModule } from 'ng2-ckeditor';
+import { CKEditorModule } from 'ngx-ckeditor';
 import { FormsModule } from '@angular/forms';
 
 
