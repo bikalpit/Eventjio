@@ -127,6 +127,11 @@
         display: flex;
         font-size: 30px;
     }
+    
+}
+
+::ng-deep .popover-body{
+    padding:  0px  !important;
 }
 
 .event-images {

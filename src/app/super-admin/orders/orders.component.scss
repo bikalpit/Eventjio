@@ -537,6 +537,10 @@
             font-size: 30px;
         }
     }   
+
+    ::ng-deep .popover-body{
+        padding:  0px  !important;
+    }
     
     ::ng-deep .checkout-form{
         h4{
