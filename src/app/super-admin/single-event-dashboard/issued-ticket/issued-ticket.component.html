@@ -21,9 +21,10 @@
                     <button mat-flat-button class="mat-blue mr-1">Export doorlist</button>
                     </div>        
              </div>
-                <div class="row mt-3 ml-1">
-                    <input type="search" class="form-control col-12 ">
-                </div>
+                    <div class="row mt-3 ml-1">
+                        <input matInput  #searchInput="matInput" type="text" class="form-control col-12" placeholder="Search"/>                  
+                        <mat-icon [color]="searchInput.focused ? 'primary' : ''" matPrefix class="search-icon">search</mat-icon>
+                    </div>
               
                 <div class="row mt-2">
                     <label for="" class="col-4">event</label>
@@ -40,17 +41,18 @@
                         <option value="">  <mat-checkbox class="example-margin">General admission </mat-checkbox></option>
                     </select>
                 </div>
-                   <div class="col-2">
-                    <input matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control">
-                    <mat-datepicker-toggle matSuffix [for]="ticketIssuedDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
-                   </div>
+                    <div class="col-2">
+                        <input matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control">
+                        <mat-datepicker-toggle matSuffix [for]="ticketIssuedDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
+                    </div>
 
-                   <div class="col-2">
-                    <input matInput [matDatepicker]="ticketIssuedTo"  (click)="ticketIssuedTo.open()"  class="form-control">
-                    <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
-                    <mat-datepicker #ticketIssuedTo></mat-datepicker>
-                   </div>
+                    <div class="col-2">
+                        <input matInput [matDatepicker]="ticketIssuedTo"  (click)="ticketIssuedTo.open()"  class="form-control">
+                        <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
+                        <mat-datepicker #ticketIssuedTo></mat-datepicker>
+                    </div>
+
                    <div class="col-4">
                     <select name="" id="" class="form-control">
                         <option value=""> <mat-checkbox class="example-margin">All issued ticket </mat-checkbox></option>
@@ -61,36 +63,35 @@
                     
             </div>
 
-                   <div class="row">
-                       <div class="col-12">
-                        <mat-table #table [dataSource]="dataSource">
+            <div class="row">
+                <table class="table col-12">
+                    <tr>
+                        <th>Ticket code</th>
+                        <th>Ticket type</th>
+                        <th>Name</th>
+                        <th>Order Id</th>
+                        <th>Issues</th>
+                    </tr>
+                    <tr>
+                      <td><a href=""><u> 5h92H</u></a></td>
+                      <td>General Admission</td>
+                      <td>shabnam Ansari</td>
+                      <td>107703</td>
+                      <td>Jul 22, 2020</td>
+                    </tr>
+                      
+                    <tr>
+                        <td><a href=""><u> 5h92H <button mat-flat-button class="void-btn mx-1">void</button></u></a></td>
+                        <td>General Admission</td>
+                        <td>shabnam Ansari</td>
+                        <td>107703</td>
+                        <td>Jul 22, 2020</td>
+                      </tr>
 
-                            <ng-container matColumnDef="position">
-                              <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-                              <mat-cell *matCellDef="let element">  </mat-cell>
-                            </ng-container>
-                        
-                            <ng-container matColumnDef="firstName">
-                              <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
-                              <mat-cell *matCellDef="let element">  </mat-cell>
-                            </ng-container>
-                        
-                            <ng-container matColumnDef="lastName">
-                              <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
-                              <mat-cell *matCellDef="let element">  </mat-cell>
-                            </ng-container>
-                        
-                            <ng-container matColumnDef="email">
-                              <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-                              <mat-cell *matCellDef="let element">  </mat-cell>
-                            </ng-container>
-                        
-                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                          </mat-table>
-                       </div>
-                   </div>
-         </div>
+                </table>
+            </div>
+
+        </div>
     </mat-card>
 
  </div>

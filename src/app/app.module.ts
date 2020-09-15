@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule} from '@angular/material/radio';
 import { MatCheckboxModule} from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,6 +33,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     MatCheckboxModule,
     MaterialModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     FontAwesomeModule,
     HttpClientModule,
