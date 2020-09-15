@@ -12,11 +12,37 @@ import { Observable, throwError } from 'rxjs';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  signForm: FormGroup;
+  signUpForm: FormGroup;
+  termsCheckbox:boolean = false;
+  constructor(private formBuilder: FormBuilder) {
+    let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+    this.signUpForm = this.formBuilder.group({
 
-  constructor() { }
+        full_name: ['', Validators.required],        
+        email:     ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
+        password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
+
+    });
+   }
 
   ngOnInit(): void {
+  }
+
+  fnChangeTermsPrivacyCheck(check){
+    this.termsCheckbox = check;
+  }
+
+  fnSignUp(){
+    if(!this.termsCheckbox){
+      return false;
+    }else if(this.signUpForm.invalid){
+      this.signUpForm.get('full_name').markAsTouched;
+      this.signUpForm.get('email').markAsTouched;
+      this.signUpForm.get('password').markAsTouched;
+      return false;
+    }else {
+      alert("Success")
+    }
   }
 
 }

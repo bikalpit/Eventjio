@@ -15,23 +15,27 @@
                 </div>
              
              <div class="signup-details">
+                <form [formGroup]="signUpForm">
                     <div class="input-group">
                         <span class="">
                             <mat-icon class="login-icon">person_outline</mat-icon>
                         </span>
-                        <input type="text" class="form-control" placeholder="Full name" />
+                        <input type="text" class="form-control" formControlName="full_name" placeholder="Full name" />
+                        <span class="error-wrap" *ngIf="signUpForm.get('full_name').dirty || signUpForm.get('full_name').touched"><small *ngIf="signUpForm.get('full_name').hasError('required')" class="error">Full name is required.</small></span>
                     </div>
                     <div class="input-group">
                         <span class="">
                             <mat-icon class="login-icon">mail_outline</mat-icon>
                         </span>
-                        <input type="text" class="form-control" placeholder="Email address" />
+                        <input type="text" class="form-control" formControlName="email" placeholder="Email address" />
+                        <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched"><small *ngIf="signUpForm.get('email').hasError('required')" class="error">Email is required.</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter valid email.</small><small *ngIf="signUpForm.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small></span>
                     </div>
                     <div class="input-group">
                         <span class="">
                             <mat-icon class="login-icon">lock</mat-icon>
                         </span>
-                        <input type="password" class="form-control" placeholder="Create Password" />
+                        <input type="password" class="form-control" formControlName="password" placeholder="Create Password" />
+                        <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span>
                         <span class="">
                             <mat-icon class="hide-show-pswd">remove_red_eye</mat-icon>
                         </span>
@@ -39,10 +43,13 @@
                     <div class="form-group">
                         <textarea class="form-control" id="" rows="3" placeholder="How did you hear about us?"></textarea>
                     </div>
-                    <mat-checkbox class="">I accept terms and conditions & Privacy Policy</mat-checkbox>
+                    <mat-checkbox class="" (change)=" ($event.checked)">I accept terms and conditions & Privacy Policy</mat-checkbox>
+                    <span class="error-wrap" *ngIf="!termsCheckbox">
+                        <small *ngIf="!termsCheckbox" class="error">Password is required.</small></span>
                     <div>
-                        <button mat-raised-button class="signup-btn">SIGN UP</button>
+                        <button mat-raised-button (click)="fnSignUp()" class="signup-btn">SIGN UP</button>
                     </div>
+                </form>
              </div>
             
 

@@ -20,12 +20,12 @@
                         </div>
                         <div class="input-group">
                             <span class="">
-                            <mat-icon class="login-icon">lock</mat-icon>
-                        </span>
-                            <input type="password" formControlName="password" class="form-control" placeholder="Username" />
-                            <span class="">
+                              <mat-icon class="login-icon">lock</mat-icon>
+                             </span>
+                            <input type="password" formControlName="password" class="form-control" placeholder="password" />
+                            <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-center">Password is required.</small></span>
+                            
                             <mat-icon class="hide-show-pswd">remove_red_eye</mat-icon>
-                        </span>
                         </div>
                         <a href="" class="fr-pswd-link" routerLink="/forgot-password">Forgot Password?</a>
                         <div>
