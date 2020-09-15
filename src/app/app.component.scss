@@ -46,7 +46,7 @@
 
 .active-icon {
     border-right: 3px solid skyblue;
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .company-logo {
@@ -120,9 +120,7 @@
     z-index: 9999;
     padding: 10px 35px;
     box-shadow: 0px 0px 12px #00000014;
-    &.business-open {
-        width: 100%;
-    }
+    
 }
 
 

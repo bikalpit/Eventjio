@@ -10,6 +10,7 @@ export class AppComponent {
 
   title = 'Eventjio';
   boxofficeComponent:boolean = false;
+  pageName :any = 'Dashboard';
 
   constructor() {}
 
@@ -23,6 +24,10 @@ export class AppComponent {
       return false;
     }
 
+  }
+
+  fnPostUrl(postUrl){
+    this.pageName = postUrl; 
   }
 
 }
