@@ -1,11 +1,11 @@
 <div class="main bg-white p-4 ml-2">
     <div class="row">
-        <div class="col-12">
-        <div class="font-weight-bold page-title">
-          Issued tickets
-        </div>
-        <p class="mt-2">Find all the issued tickets for your event below, along with attendee data. Looking for orders? See all the orders for this event.</p>
-        </div> 
+            <div class="col-12">
+            <div class="font-weight-bold page-title">
+            Issued tickets
+            </div>
+            <p class="mt-2">Find all the issued tickets for your event below, along with attendee data. Looking for orders? See all the orders for this event.</p>
+            </div> 
     </div>
 
                 
@@ -13,14 +13,15 @@
         
         <div class="container p-2">
             <div class="row">
-                <div class="col-7 font-weight-bold">Manage</div>
-                <div class="col-3">
-                    <a routerLink="" class="mt-1">Get the check-in app</a>
-                </div>
-                <div class="col-2">
-                    <button mat-flat-button class="mat-blue mr-1">Export doorlist</button>
-                    </div>        
-             </div>
+                 <div class="col-7 font-weight-bold">Manage</div>
+                    <div class="col-3">
+                        <a routerLink="" class="mt-1">Get the check-in app</a>
+                    </div>
+                    <div class="col-2">
+                        <button mat-flat-button class="mat-blue mr-1">Export doorlist</button>
+                     </div>        
+            </div>
+
                     <div class="row mt-3 ml-1">
                         <input matInput  #searchInput="matInput" type="text" class="form-control col-12" placeholder="Search"/>                  
                         <mat-icon [color]="searchInput.focused ? 'primary' : ''" matPrefix class="search-icon">search</mat-icon>
@@ -33,7 +34,7 @@
                     <label for="" class="col-3">status</label>
                 </div>
 
-            <div class="row mt-2">
+        <div class="row mt-2">
                 <div class="col-4">
                     <select name="" id="" class="form-control">
                         <option value=""> All ticket types</option>
@@ -53,7 +54,7 @@
                         <mat-datepicker #ticketIssuedTo></mat-datepicker>
                     </div>
 
-                   <div class="col-4">
+                <div class="col-4">
                     <select name="" id="" class="form-control">
                         <option value=""> <mat-checkbox class="example-margin">All issued ticket </mat-checkbox></option>
                         <option value=""> <mat-checkbox class="example-margin">Valid </mat-checkbox></option>
@@ -61,37 +62,11 @@
                     </select>
                 </div>
                     
-            </div>
-
-            <div class="row">
-                <table class="table col-12">
-                    <tr>
-                        <th>Ticket code</th>
-                        <th>Ticket type</th>
-                        <th>Name</th>
-                        <th>Order Id</th>
-                        <th>Issues</th>
-                    </tr>
-                    <tr>
-                      <td><a href=""><u> 5h92H</u></a></td>
-                      <td>General Admission</td>
-                      <td>shabnam Ansari</td>
-                      <td>107703</td>
-                      <td>Jul 22, 2020</td>
-                    </tr>
-                      
-                    <tr>
-                        <td><a href=""><u> 5h92H <button mat-flat-button class="void-btn mx-1">void</button></u></a></td>
-                        <td>General Admission</td>
-                        <td>shabnam Ansari</td>
-                        <td>107703</td>
-                        <td>Jul 22, 2020</td>
-                      </tr>
-
-                </table>
-            </div>
-
         </div>
-    </mat-card>
+
+           
+
+    </div>
+</mat-card>
 
  </div>
