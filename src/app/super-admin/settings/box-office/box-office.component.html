@@ -1,106 +1,108 @@
-<div id="box_office" class="">
-    <div class="main bg-white p-4 ml-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="font-weight-bold page-title">
-                    Box Office
-                </div>
-            </div>
+<div class="main bg-white p-4 ml-4">
+    <div class="row mb-4">
+        <div class="col-12 mt-2">
+        <div class="font-weight-bold page-title">
+           Box Office
         </div>
+    </div> 
+</div>
 
-        <div class="row">
-            <div class="col-6">
-                <div class="row mt-2">
+<div class="row">
+   <div class="col-6 my-left-content">
 
-                    <img src="../../../assets/images/settings/box.png" alt="" class="ml-2">
-                    <div class="col-4 py-2 ml-3">
-                        <button mat-flat-button class="change-logo">Change logo</button>
-                        <button mat-flat-button class="remove-logo mt-2">Remove logo</button>
-                    </div>
+       <div class="row mt-2">
+       
+             <img src="../../../assets/images/settings/box.png"  alt="" class="ml-2">                  
+         <div class="col-4 py-2 ml-3">
+             <button mat-flat-button class="change-logo">Change logo</button>                 
+             <button mat-flat-button class="remove-logo mt-2">Remove logo</button>
+         </div>
 
-                    <div class="form-group col-12 mt-4">
-                        <label for="" class="required">Box Office Name</label>
-                        <input type="text" class="form-control col-10">
-                    </div>
+             <div class="form-group col-12 mt-4">
+                <label for="" class="required">Box Office Name</label>
+                <input type="text" class="form-control col-12">
+            </div>
 
-                    <div class="form-group col-12">
-                        <label for="" class="">Language (experimental feature)</label>
-                        <select name=" " id="" class="form-control col-10">
+      
+
+            <div class="form-group col-12">
+                <label for="" class="">Language (experimental feature)</label>
+                    <select name=" " id="" class="form-control col-12">
                         <option value="english">English</option>
                         <option value="english">Hindi</option>
                         <option value="english">Gujarati</option>
                         <option value="english">Tamil</option>
                     </select>
-                    </div>
-
-                    <div class="form-group col-12">
-                        <label for="" class="required">Timezone</label>
-                        <select name=" " id="" class="form-control col-10">
+            </div>
+             
+            <div class="form-group col-12">
+                 <label for="" class="required">Timezone</label>
+                    <select name=" " id="" class="form-control col-12">
                         <option value="english">(GMT+05.30) Calcutta</option>
                         <option value="english">(GMT+05.30) Mumbai</option>
                         <option value="english">(GMT+05.30) Delhi</option>
                         <option value="english">(GMT+05.30) Calcutta</option>
                     </select>
-                    </div>
+            </div>    
+            
+         </div>
+      </div>
 
-                </div>
-            </div>
-
-            <div class="col-6">
-                <div class="form-group">
-                    <span>Box office Link<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></span>
-                    <div class="row">
+        
+     <div class="col-6 my-right-content">   
+                <div class="form-group mt-2">  
+                      <div class="section1 col-1"></div> 
+                        <span>Box office Link<i class="fa fa-question-circle ml-2"  matTooltip="Info about the action" aria-hidden="true"></i></span>
+                        <div class="row">
                         <div class="col-10 pr-1">
                             <input type="text" class="form-control">
-                        </div>
-                        <div class="col-2 pl-1">
-                            <button type="search-button" class="btn alert-info"><i class="fa fa-pencil fa-lg text-info"></i></button>
+                        </div>            
+                        <div class="col-1 pl-1">
+                            <button type="" class="btn alert-info search-button" ><span class="material-icons create">create </span></button>
                         </div>
                     </div>
                 </div>
 
                 <div class="row mt-2">
-                    <div class="col-1 pr-1">
-                        <input type="checkbox" class="checkbox mt-3">
+                    <div class="col-12">
+                        <mat-checkbox class="example-margin"></mat-checkbox>
+                        <span class="mt-2 ml-2">Send new order notifications by email<i class="fa fa-question-circle ml-2"  matTooltip="Info about the action" aria-hidden="true"></i></span>
+                    </div>            
+                 </div>
+                        
+                    <div class="form-group">                
+                        <label for="" class="ml-0 mt-4">Who should receive notifications?</label> <br/>
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-checkbox class="example-margin"></mat-checkbox>
+                                <span class="ml-2">Account Owner</span>
+                            </div>            
+                               
+                            </div>
                     </div>
-                    <div class="col-11 mt-3">
-                        <span class="mt-2">Send email with phone<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></span>
-                    </div>
-                </div>
+                 <div class="form-group"> 
+                        <i class="fa fa-plus-circle fa-lg plus-icon"(click)="showEmail()" aria-hidden="true"></i>
+                        <a class="ml-2 add-email" (click)="showEmail()">Add Email</a>
 
-                <div class="form-group">
-                    <label for="" class="ml-0 mt-3">Who should receive notifications?</label> <br/>
-                    <div class="row">
-                        <div class="col-1 pr-1">
-                            <input type="checkbox" class="checkbox mt-2">
-                        </div>
-                        <div class="col-11 mt-2">
-                            <span>Account Owner</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <i class="fa fa-plus-circle fa-lg plus-icon" aria-hidden="true"></i>
-                    <a href="" class="ml-2">Add Email</a>
+                        <div class="row mt-2">
+                            <div class="col-10 pr-1">
+                                <input type="text" class="form-control" *ngIf="Emailshow">
+                            </div>   
 
-                    <div class="row mt-2">
-                        <div class="col-10 pr-1">
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-2 pl-1">
-                            <i class="fa fa-times fa-2x text-danger"></i>
-                        </div>
+                            <div class="col-2 pl-1">
+                               <a (click)="hideEmail()"> <span class="material-icons close-icon" *ngIf="iconshow">
+                                    close
+                                </span></a>
+                            </div>
+                        </div>                  
+                 </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <mat-checkbox class="example-margin"></mat-checkbox>
+                            <span class="ml-2">Hide Ticket Tailor Logo<i class="fa fa-question-circle ml-2"  matTooltip="Info about the action" aria-hidden="true"></i></span>
+                        </div>                                      
                     </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-1 pr-1">
-                        <input type="checkbox" class="checkbox mt-4">
-                    </div>
-                    <div class="col-11 mt-4">
-                        <span>Hide Ticket Tailor Logo<i class="fa fa-question-circle ml-2" aria-hidden="true"></i></span>
-                    </div>
-                </div>
 
 
 
@@ -116,5 +118,4 @@
                 <button mat-flat-button class="cancel float-right mt-1 mx-2">Cancel</button>
             </div>
         </div>
-    </div>
-</div>
+    </div>  

@@ -1,6 +1,7 @@
     @import "variables";
     @import "my-customer.css";
     @import url('https://fonts.googleapis.com/css?family=Poppins');
+    @import '~@angular/cdk/overlay-prebuilt.css';
     html,
     body {
         height: 100%;
@@ -56,6 +57,7 @@
         outline: 0 !important;
     }
     
+    
     .pointer {
         cursor: pointer;
     }
@@ -99,3 +101,6 @@
     .main-section{
         background: white;
     }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

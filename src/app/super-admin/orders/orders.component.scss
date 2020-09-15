@@ -460,7 +460,7 @@
         }
         .cpn-bor{
             color: #ffffff;
-            padding: 2px 15px; 
+            // padding: 2px 15px; 
             border-radius: 10px;
         }
         .action-icon{
@@ -537,6 +537,10 @@
             font-size: 30px;
         }
     }   
+
+    ::ng-deep .popover-body{
+        padding:  0px  !important;
+    }
     
     ::ng-deep .checkout-form{
         h4{

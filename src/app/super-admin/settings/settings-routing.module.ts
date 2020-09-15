@@ -11,7 +11,11 @@ import { TeamAccessComponent } from './team-access/team-access.component';
 import { WebsitesEmbedCodesComponent } from './websites-embed-codes/websites-embed-codes.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { BoxOfficeComponent } from './box-office/box-office.component';
+import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
 import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
+import { BillingComponent } from './billing/billing.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+
 
 const routes: Routes = [{ path: '', component: SettingsComponent, 
 
@@ -40,17 +44,30 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                             path:'box-office',
                             component:BoxOfficeComponent
                           },
+                          {
+                            path:'billing',
+                            component:BillingComponent
+                          },
                           { 
                             path: 'contact-preferences', 
                             component: ContactPreferencesComponent
                           },
                           { 
-                            path: 'checkout-form', 
+                            path: 'privacy-policy', 
+                            component: PrivacyPolicyComponent
+                          },
+                          { 
+                            path: 'checkoutform', 
                             component: CheckoutFormComponent
                           },
+
                           { 
                             path: 'team-access', 
                             component: TeamAccessComponent
+                          },
+                          { 
+                            path: 'connect-app', 
+                            component: ConnectAppsComponent
                           },
 
                           ]
