@@ -6,12 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./single-event-dashboard.scss']
 })
 export class SingleEventDashboard implements OnInit {
-
+  eventStatus:any='draft';
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  fnChangeEventStatus(status){
+    this.eventStatus= status
+  }
 
 }
 

@@ -41,9 +41,7 @@
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
                             <label>Country  <span class="text-danger">*</span></label>
                             <select formControlName="boxoffice_country" class="form-control">
-                                <option value="india">India</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
+                                <option *ngFor="let val of allCountry" value="{{val.id}}">{{val.name}}</option>
                             </select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_country').dirty || createBoxoffice.get('boxoffice_country').touched">
                             <small *ngIf="createBoxoffice.get('boxoffice_country').hasError('required')" class="error">Country is required.</small></span>
@@ -51,8 +49,7 @@
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
                             <label>Billing currency  <span class="text-danger">*</span></label>
                             <select formControlName="boxoffice_billing_currency" class="form-control">
-                                <option value="usd">US Doller</option>
-                                <option value="inr">INR Rupees</option>
+                                <option *ngFor="let val of allCurency" value="{{val.id}}">{{val.CurrencyName}}</option>
                             </select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_billing_currency').dirty || createBoxoffice.get('boxoffice_billing_currency').touched">
                                 <small *ngIf="createBoxoffice.get('boxoffice_billing_currency').hasError('required')" class="error">Billing currency is required.</small>
@@ -87,7 +84,7 @@
                         </div>
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
                             <label>Type  <span class="text-danger">*</span></label>
-                            <select formControlName="event_run_type" class="form-control">
+                            <select formControlName="boxoffice_genre_type" class="form-control">
                                 <option value="awards/ceremony">awards/ceremony</option>
                                 <option value="Class/seminar/Training/Workshop">Class/seminar/Training/Workshop</option>
                                 <option value="Conference/Tradeshow/Expo">Conference/Tradeshow/Expo</option>
@@ -103,8 +100,8 @@
                                 <option value="Show/Performance/Viewing">Show/Performance/Viewing</option>
                                 <option value="Other">Other</option>
                             </select>
-                            <span class="error-wrap" *ngIf="createBoxoffice.get('event_run_type').dirty || createBoxoffice.get('event_run_type').touched">
-                                <small *ngIf="createBoxoffice.get('event_run_type').hasError('required')" class="error">Type is required.</small>
+                            <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_genre_type').dirty || createBoxoffice.get('boxoffice_genre_type').touched">
+                                <small *ngIf="createBoxoffice.get('boxoffice_genre_type').hasError('required')" class="error">Type is required.</small>
                             </span>
                         </div>
                     </div>

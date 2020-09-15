@@ -1,0 +1,54 @@
+#waitilist-signup{
+    .top-heading-main{
+        margin-top: 24px;
+
+        h4{font-size: 18px;
+            color: #000;
+            text-align: justify;
+            font-weight: 500;
+            margin-bottom: 6px;}
+        p{
+            color: #808080;
+        }
+    }
+    .bottom-waitlist-main{
+        margin-top:20px;
+        padding:14px;
+        border:1px solid #CECECE;
+        border-radius:4px;
+        .waitilist-deatils-top{
+            h4{
+                 font-size: 16px;
+                color: #000;
+                text-align: justify;
+                font-weight: 500;
+                margin-bottom: 14px;
+            }
+        }
+        .fileds-main{
+            margin-top:18px;
+            label{
+                color:#595959;
+                i{
+                    color: #b5b5b5;
+                    margin-left: 10px;
+                    font-size: 15px;
+                }
+            }
+            input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                   color:#000;
+                   font-size:14px;
+                    }
+                
+            
+        }
+        .bottom-deatils-save-btn{
+            text-align:end;
+            margin-top:24px;
+            button{
+                width:160px;
+            }
+        }
+
+    }
+}

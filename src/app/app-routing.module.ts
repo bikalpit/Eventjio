@@ -14,6 +14,10 @@ const routes: Routes = [
   
   { path: 'settings', loadChildren: () => import('./super-admin/settings/settings.module').then(m => m.SettingsModule) },
    {
+    path: '', 
+    component: LoginComponent 
+  },
+   {
     path: 'login', 
     component: LoginComponent 
   },
