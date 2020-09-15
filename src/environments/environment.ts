@@ -3,8 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  
+    production: false,
   	apiUrl:         'http://eventjio.bi-team.in/api/api',
     authApiUrl:     'http://eventjio.bi-team.in/api/api',
     urlForLink :    'http://localhost:4200',

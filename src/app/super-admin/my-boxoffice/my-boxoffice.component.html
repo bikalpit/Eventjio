@@ -6,7 +6,7 @@
         <div class="col-12 d-flex inner">
             <div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>My Boxoffice</span></div>
             <div class="col-lg-6 col-md-6 col-sm-12 second">
-                <a (click)="fnCreateBoxOffice()"><i class="fa fa-plus AddNewBusinessIcon" aria-hidden="true"></i> Add New Business/Location</a>
+                <a (click)="fnCreateBoxOffice()"><i class="fa fa-plus AddNewBusinessIcon" aria-hidden="true"></i> Add New Boxoffice</a>
             </div>
         </div>
     </div>
@@ -17,23 +17,23 @@
                 <mat-card *ngFor="let allBoxoffice of allBoxoffice; let i=index" class="col-lg-3 col-md-6 col-sm-12 text-center SelectBusiness">
                     <div class="pt-3 image-round-main d-flex">
                         <div class="SelectBusinessIcon">
-                            <img mat-card-avatar="" src="{{allBoxoffice.image?allBoxoffice.image:'../../assets/images/admin/multi-building.png'}}">
+                            <img mat-card-avatar="" src="{{allBoxoffice.image?allBoxoffice.image:'../../assets/img/boxoffice.png'}}">
                         </div>
                     </div>
                     <div class="pt-3 business-title">
-                        <h6 class="text-capitalize">{{allBoxoffice.boxoffice_name}}</h6>
+                        <h6 class="text-capitalize">{{allBoxoffice.box_office_name}}</h6>
                     </div>
                     <div class="content">
-                        {{allBoxoffice.address}}, {{allBoxoffice.city.name}}, {{allBoxoffice.state.name}}-{{allBoxoffice.zipcode}}, {{allBoxoffice.country.name}}.
-                    </div>
+                        {{allBoxoffice.country?allBoxoffice.country:''}}, {{allBoxoffice.timezone}}
+                     </div>
                     <div class="pt-3">
-                        <button mat-button class="businness-btn" (click)="fnSelectBoxoffice(allBoxoffice.id, allBoxoffice.business_name)">Select Business</button>
+                        <button mat-button class="businness-btn" (click)="fnSelectBoxoffice(allBoxoffice.id, allBoxoffice.box_office_name)">Select Business</button>
                     </div>
                 </mat-card>
                 <mat-card class="col-lg-3 col-md-6 col-sm-12 text-center NewBusiness-matcard pointer" (click)="fnCreateBoxOffice()">
                     <div class="business-btn-main">
                         <div class="AddNewBusinessIcon">
-                            <img mat-card-avatar="" src="../../assets/images/admin/add.png">
+                            <img mat-card-avatar="" src="../../../assets/images/admin/add.png">
                         </div>
                     </div>
                     <div class="pt-4">
