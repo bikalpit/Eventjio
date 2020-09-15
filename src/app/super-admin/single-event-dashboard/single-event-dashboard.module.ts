@@ -5,10 +5,12 @@ import { SingleEventDashboard } from './single-event-dashboard'
 import { SingleEventDashboardRoutingModule } from './single-event-dashboard-routing.module';
 import { EventSummaryComponent } from './event-summary/event-summary.component';
 import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.component';
+import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
+
 
 
 @NgModule({
-  declarations: [EventSummaryComponent,SingleEventDashboard, WaitilistSignupComponent],
+  declarations: [EventSummaryComponent,SingleEventDashboard, IssuedTicketComponent, WaitilistSignupComponent],
   imports: [
     CommonModule,
     SingleEventDashboardRoutingModule,

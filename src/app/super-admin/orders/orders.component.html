@@ -94,8 +94,26 @@
                           <div class="tb-data" fxFlex="32">{{element.event}}</div>
                           <div class="tb-data" fxFlex="10">{{element.value}}</div>
                           <div class="tb-data" fxFlex="10">
-                              <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
-                              <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+                            <mat-icon [ngbPopover]="popContent" placement="bottom"  aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+                            <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+                            <ng-template class="popover" #popContent>
+                                <div class="px-3  border-bottom">
+                                    <i class="fa fa-repeat mr-2"></i><span>Resend</span>
+                                </div>
+
+                                <div class="px-3  border-bottom">
+                                    <i class="fa fa-pencil mr-2"></i><span>Edit</span>
+                                </div>
+
+                                <div class="px-3  border-bottom">
+                                    <i class="fa fa-ticket mr-2"></i><span>Download Tickets</span>
+                                </div>
+
+                                <div class="px-3  border-bottom">
+                                    <i class="fa fa-times-circle mr-2"></i><span>Cancel</span>
+                                </div>
+
+                            </ng-template>
                           </div>
                       </div>
                     </div>

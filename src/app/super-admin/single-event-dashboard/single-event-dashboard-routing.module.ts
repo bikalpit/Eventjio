@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SingleEventDashboard } from './single-event-dashboard';
 import { EventSummaryComponent } from './event-summary/event-summary.component';
-//import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.component';
 import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.component';
+import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
 
 const routes: Routes = [
   { 
@@ -21,10 +21,12 @@ const routes: Routes = [
       {
       path:'waitilist-signup',
       component:WaitilistSignupComponent
-      }
-     // path:'waitilist-signup',
-     // component:WaitilistSignupComponent 
-     // }
+      },
+      {
+
+        path:'issued-ticket',
+        component:IssuedTicketComponent 
+      },
     ] 
   }];
 
