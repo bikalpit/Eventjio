@@ -13,11 +13,8 @@ export class WaitilistSignupComponent implements OnInit {
   }
 
   fnActiveWaitlist(event){
-    console.log(event)
     this.activeWaitlist=event.checked
-
-
-   }
+  }
 
 
 }
