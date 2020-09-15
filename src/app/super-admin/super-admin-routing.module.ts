@@ -12,7 +12,7 @@ import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
 
 const routes: Routes = [
   { 
-    path: '', 
+    path: 'dashboard', 
     component: DashboardComponent
   },
   { 
@@ -28,14 +28,19 @@ const routes: Routes = [
     component: CouponsComponent
   },
   { 
+    path: '', 
+    component: MyBoxofficeComponent
+  },
+  { 
     path: 'boxoffice', 
     component: MyBoxofficeComponent
   },
   { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
-  { 
+ { 
     path: 'customers', 
     component: CustomersComponent
   },
+  { path: 'single-eventDashboard', loadChildren: () => import('./single-event-dashboard/single-event-dashboard.module').then(m => m.SingleEventDashboardModule) },
  
 ];
 

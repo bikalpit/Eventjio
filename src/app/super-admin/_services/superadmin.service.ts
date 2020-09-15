@@ -35,23 +35,7 @@ export class SuperadminService {
        
     }
   
-    createNewEvent(){
-
-        // let requestObject = {
-        //     'admin_id' : '',
-        // };
-        // let headers = new HttpHeaders({
-        //     'Content-Type': 'application/json',
-        //     'admin-id' : '',
-        //     'api-token' : ''
-        // });
-        // return this.http.post(`${environment.apiUrl}/create-event-api`,requestObject,{headers:headers}).pipe(
-        // map((res) => {
-        //     return res;
-        // }),
-        // catchError(this.handleError));
-    }
-    
+   
     getAllCountry(){
     
         return this.http.get(`${environment.apiUrl}/get-country-api`).pipe(
@@ -75,6 +59,13 @@ export class SuperadminService {
         };
 
         return this.http.post(`${environment.apiUrl}/get-all-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    createNewBusiness(requestObject){
+        return this.http.post(`${environment.apiUrl}/create-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

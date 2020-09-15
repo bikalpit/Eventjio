@@ -1,13 +1,13 @@
 <div class="modal-dialog modal-notify modal-info export-order modal-lg"  role="document" >
   <div class="modal-content ">
-    <div class="modal-header modal-bcolor-primary">
-      <p class="heading lead  work-content" >Add new order</p>
+    <div class="modal-header modal-bcolor-primary px-0 pt-0">
+      <p class="heading lead  work-content">Add new order</p>
       <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
     </div>
       
-    <div class="modal-body pb-0"> 
+    <div class="modal-body pb-0 px-0"> 
       <div class="new-order-table" *ngIf="addOrderFormType === 'selectTicket'">
         <div class="code-tab">
               <div class="service-listing">
@@ -67,8 +67,8 @@
                     <div class="" fxFlex="20" class="align-end">Subtotal</div>
                 </div>
                 <div class="content" class="drageble-list">
-                    <div class="drageble-box" cdkDrag fxLayout="row">
-                        <div class="tb-data" fxFlex="30">General Admission</div>
+                    <div class="drageble-box fw-600" cdkDrag fxLayout="row">
+                        <div class="tb-data order-item fw-100" fxFlex="30">General Admission</div>
                         <div class="tb-data" fxFlex="20">$5,000.00</div>
                         <div class="tb-data" fxFlex="15">$0.00</div>
                         <div class="tb-data" fxFlex="15">1</div>
@@ -76,8 +76,8 @@
                     </div>
                 </div>     
                 <div class="content" class="drageble-list">
-                  <div class="drageble-box" cdkDrag fxLayout="row">
-                      <div class="tb-data fs-15" fxFlex="35">Order Total</div>
+                  <div class="drageble-box fw-600" cdkDrag fxLayout="row">
+                      <div class="tb-data fs-15 fw-600" fxFlex="35">Order Total</div>
                       <div class="tb-data" fxFlex="20"></div>
                       <div class="tb-data" fxFlex="15"></div>
                       <div class="tb-data" fxFlex="15"></div>
@@ -94,11 +94,11 @@
     </div>
     <div class="mt-16">
       <div class="form-group">
-        <label for="exampleInputEmail1" class="main-head">Do you have a promo code?</label>
+        <label for="exampleInputEmail1" class="main-head fw-600">Do you have a promo code?</label>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter promo code">
       </div>
       <div class="checkout form mt-4">
-        <label class="main-head mb-3">Please complete the form below to checkout</label>
+        <label class="main-head mb-3 fw-600">Please complete the form below to checkout</label>
         <form>
           <div class="form-group">
             <label for="exampleInputEmail1">Name <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
@@ -154,15 +154,15 @@
           <button mat-raised-button class="comg-btn mr-2">Edit Order</button>
           <button mat-raised-button class="comg-btn mr-2" (click)="fnTicketCheckout('cancel-order')">Cancel Order</button>
         </div>        
-        <div class="print-order col-md-4">
-          <a href="#" target="_blank" class=""><span class=""><mat-icon aria-hidden="false" aria-label="Example home icon" class="link mr-2">print</mat-icon></span>Print order confirmationr</a>
+        <div class="print-order col-md-4 px-0">
+          <a href="" target="_blank" class=""><span class=""><mat-icon aria-hidden="false" aria-label="Example home icon" class="link mr-2">print</mat-icon></span>Print order confirmation</a>
         </div>
       </div>
     </div>
     <div class="order-details">
       <div class="order-head row">
         <p>Order details</p>
-        <a href="#" target="_blank" (click)="orderInvoice()" class="dwnld-invoice">Download invoice</a>
+        <a href="" target="_blank" (click)="orderInvoice()" class="dwnld-invoice">Download invoice</a>
       </div>
       <div class="order-desc">
         <div class="row">
@@ -272,9 +272,6 @@
         </div>
       </div>
     </div>
-
-
-    <button mat-raised-button class="comm-btn d-flex ml-auto" >Next</button>
 
   </div>
 

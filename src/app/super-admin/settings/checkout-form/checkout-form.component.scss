@@ -3,11 +3,8 @@ main{
     font-family: Poppins, Regular;
 }
 
-.comm-back{
-    background: white;
-    // height: 100vh;
-    .checkout-form{
-        padding: 16px;
+::ng-deep .checkout-form{
+        padding: 30px 16px;
         .main-head{
             text-align: left;
             font-size: 16px;
@@ -37,16 +34,29 @@ main{
                 margin-left: auto;
                 color: #FFFFFF;;
             }
+            .buyer{
+                margin: 12px 0px;
             .buyer-card{
                 background: #E6E6E6;
                 box-shadow: none;
-                margin: 12px 0px;
                 padding: 10px 16px;
-               .asterisk{
-                    color: #FF0000;
-                    font-size: 5px;
-                    position: relative;
-                    bottom: 6px;
+                .asterisk-icon{
+                    padding: 2px;                            
+                    .asterisk{
+                        color: #FF0000;
+                        font-size: 5px;
+                        position: relative;
+                        bottom: 6px;
+                    }
+                }
+                .mat-expansion-indicator{
+                    display: none;
+                }
+                .mat-expansion-panel-header-description{
+                    margin-right: 0px;
+                }
+                .mat-expansion-panel-header-title{
+                    align-items: center;
                 }
                 .buyer-action{
                     ::ng-deep .tooltip-btn.mat-raised-button{
@@ -59,8 +69,8 @@ main{
                         padding: 0px 10px;
                     }
                 }
-                }
-               
+                }   
+            }            
         }
         .att-qn{
             .byr-qn{
@@ -74,24 +84,33 @@ main{
                 font-weight: 400;
             }
             .byr-qn-btn{
-                // width: 300px;
-                // height: 50px;
                 background: #1172F4;
                 border-radius: 5px;
                 opacity: 1;
                 margin-left: auto;
                 color: #FFFFFF;;
             }
-            .buyer-card{
+           .buyer-card{
                 background: #E6E6E6;
                 box-shadow: none;
-                margin: 12px 0px;
-                padding: 10px 16px;
-               .asterisk{
-                    color: #FF0000;
-                    font-size: 5px;
-                    position: relative;
-                    bottom: 6px;
+                padding: 10px 16px; 
+                .mat-expansion-indicator{
+                    display: none;
+                }
+                .mat-expansion-panel-header-description{
+                    margin-right: 0px;
+                }  
+                .mat-expansion-panel-header-title{
+                    align-items: center;
+                }
+                .asterisk-icon{
+                    padding: 2px;                            
+                    .asterisk{
+                        color: #FF0000;
+                        font-size: 5px;
+                        position: relative;
+                        bottom: 6px;
+                    }
                 }
                 .buyer-action{
                     ::ng-deep .tooltip-btn.mat-raised-button{
@@ -104,16 +123,12 @@ main{
                         padding: 0px 10px;
                     }
                 }
-                }
+                
+            }
         }
        
     }
     .vertical-line{
-        // border-top: 1px solid #DDEAFD;
-        // margin: 16px 0px 0px 0px;
-        // position: absolute;
-        // width: 100%;
-        // bottom: 0px;
         margin-top: 3rem!important;
         .can-save{
             display: flex;
@@ -138,4 +153,3 @@ main{
             }
         }
     }  
-}
