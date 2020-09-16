@@ -7,7 +7,6 @@ import { EventSummaryComponent } from './event-summary/event-summary.component';
 import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
