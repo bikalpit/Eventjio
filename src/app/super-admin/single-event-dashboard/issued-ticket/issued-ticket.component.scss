@@ -12,4 +12,79 @@
     color: white;
     border-radius: 5px;
 }
+.search-bar{
+    font-family: Poppins, Regular;
+    border:1px solid #CECECE;
+    input{
+        width: 97%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }   
+    i{
+        width: 3%;
+    }
+}
+
+.matDate{
+    margin-top: -40px;
+}
+
+.events{
+    padding-bottom: 30px;
+.service-listing{
+             
+    .drageble-list {
+        width: 100%;
+        border-top: solid 1px #DDDDDD;
+        display: block;
+        // background: white;
+        // border-radius: 4px;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: 500;
+    }
+   .main-heading-content{
+        border-top: solid 1px #DDDDDD;
+        padding: 8px 0px;
+        align-items: center;                
+        font-size: 14px;
+        color: #595959;
+    }
+    .drageble-box{
+        align-items: center;
+        // border-bottom: 1px solid #ccc5c5;
+    }
+    .tb-data{
+        padding: 15px 0px;
+        color: #595959;
+    }
+    .cpn-title{
+        color: #181818;
+    }
+    .cpn-code{
+        color: #1172F4;
+    }
+    .cpn-bor{
+        color: #ffffff;
+        // padding: 2px 15px; 
+        border-radius: 10px;
+    }
+    .void-btn{
+        border-radius: 5px;
+    }
+    .action-icon{
+        color: #007BFF;
+        border-radius: 50%;
+        padding: 16px 16px;
+        background: #ABE6FD;
+        width: 32px;
+        height: 32px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        font-size: 30px;
+    }
+}
+}
 
