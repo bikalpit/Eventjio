@@ -40,7 +40,7 @@ const routes: Routes = [
     path: 'customers', 
     component: CustomersComponent
   },
-  { path: 'single-eventDashboard', loadChildren: () => import('./single-event-dashboard/single-event-dashboard.module').then(m => m.SingleEventDashboardModule) },
+  { path: 'single-event-dashboard', loadChildren: () => import('./single-event-dashboard/single-event-dashboard.module').then(m => m.SingleEventDashboardModule) },
  
 ];
 

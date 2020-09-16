@@ -1,12 +1,15 @@
+.p-0{
+    padding: 0px;
+}
 #my-business-top {
     margin-top: 63px;
     .inner {
         background: #cfe3fc;
         padding: 15px;
         position: fixed;
-        top: 64px;
-        left: 0;
+        top: 70px;
         z-index: 99;
+        width: calc(100% - 82px);
         .first {
             align-items: center;
             span {

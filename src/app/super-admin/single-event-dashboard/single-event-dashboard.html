@@ -1,4 +1,3 @@
-
 <div class="event-title-bar">
     <div class="event-image ">
         <img src="../../../assets/images/admin/Image 40.png" class="w-100" alt="">
@@ -11,34 +10,34 @@
             Mon 27 July 2020 at The Garnd Hayyat
         </p>
     </div>
-    <div class="event-status">
-        <select name="" id="" class="p-1 mt-2">
-            <option value="">Draft</option>
-            <option value="">Pubished</option>
-        </select>
+    <div class="event-status" [ngClass]="{'published':eventStatus == 'published', 'draft':eventStatus == 'draft'}">
+        <mat-select (selectionChange)="fnChangeEventStatus($event.value)" class="custome-mat-set mt-2">
+            <mat-option value="draft">Draft</mat-option>
+            <mat-option value="published">Published</mat-option>
+        </mat-select>
     </div>
     <div class="ml-auto mr-5 mt-2">
         <div class="preview-btn d-inline-block">
             <button mat-flat-button>Preview Event Page</button>
         </div>
-    
+
         <div class=" d-inline-block">
             <i class="fa fa-link fa-lg mx-2"></i>
             <i class="fa fa-facebook fa-lg mx-2"></i>
             <i class="fa fa-twitter fa-lg mx-2"></i>
         </div>
     </div>
-    
 
-</div>    
-<div class="container-fluid">
+
+</div>
+<div class="container-fluid fixed-wrap">
     <div class="row">
-        
+
         <div class="p-3 bg-light child-left-content">
             <div class="single-event-summary-title py-2">
                <i class="fa fa-bar-chart-o mr-2"></i> <span>Event Summary</span>
             </div>
-            
+
             <div class="ml-4 py-2">
                 <span>Manage</span>
             </div>
@@ -53,52 +52,70 @@
                 </div>
 
                 <div class="ml-4 py-2">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/settings/order/order.png" class="w-100" alt="">
-                    </div> <span>Broadcast</span>
+                    <div class="event-menu">
+                        <div class="setting-menu-icon d-inline-block mr-2 ">
+                            <img src="../../../assets/images/settings/order/order.png" class="w-100" alt="">
+                        </div> 
+                      <span>Broadcast</span>
+                    </div>
                 </div>
 
-               
+
                 <div class="ml-4 py-2">
                     <span>Edit</span>
                 </div>
 
                 <div class="ml-4 py-2">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
-                    </div> <span>Event and ticket types</span>
+                    <div class="event-menu">
+                        <div class="setting-menu-icon d-inline-block mr-2 ">
+                            <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                        </div> 
+                        <span>Event and ticket types</span>
+                    </div> 
                 </div>
 
                 <div class="ml-4 py-2">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
-                    </div> <span>Order Confirmation</span>
+                    <div class="event-menu">
+                        <div class="setting-menu-icon d-inline-block mr-2 ">
+                            <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                        </div>
+                        <span>Order Confirmation</span>
+                    </div> 
                 </div>
 
                 <div class="ml-4 py-2">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
-                    </div> <span>Checkout form</span>
+                    <div class="event-menu">
+                        <div class="setting-menu-icon d-inline-block mr-2 ">
+                            <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                        </div>
+                        <span>Checkout form</span>
+                    </div>
                 </div>
 
                 <div class="ml-4 py-2">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
-                    </div> <span>Duplicate</span>
+                    <div class="event-menu">
+                        <div class="setting-menu-icon d-inline-block mr-2 ">
+                            <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                        </div>
+                        <span>Duplicate</span>
+                    </div> 
                 </div>
 
                 <div class="ml-4 py-2">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <i class="fa fa-trash fa-lg"></i>
-                        <!-- <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt=""> -->
-                    </div> <span>Delete</span>
+                    <div class="event-menu">
+                        <div class="setting-menu-icon d-inline-block mr-2 ">
+                            <i class="fa fa-trash fa-lg"></i>
+                            <!-- <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt=""> -->
+                        </div> 
+                        <span>Delete</span>
+                    </div> 
                 </div>
 
-                
+
             </div>
         </div>
 
-        <div class="col-9 p-0 bg-white">
+        <div class="col-9 p-0 bg-white side-event">
             <router-outlet></router-outlet>
         </div>
 
