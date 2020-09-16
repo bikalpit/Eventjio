@@ -4,6 +4,7 @@ import { SingleEventDashboard } from './single-event-dashboard';
 import { EventSummaryComponent } from './event-summary/event-summary.component';
 import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.component';
 import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 
 const routes: Routes = [
   { 
@@ -27,6 +28,10 @@ const routes: Routes = [
         path:'issued-ticket',
         component:IssuedTicketComponent 
       },
+      {
+        path: 'order-confirmation',
+        component:OrderConfirmationComponent
+      }
     ] 
   }];
 
