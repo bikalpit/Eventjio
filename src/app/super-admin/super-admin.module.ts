@@ -17,7 +17,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { CKEditorModule } from 'ngx-ckeditor';
-
 import {AddNewTicketType} from './events/events.component';
 import {AddNewTicketGroup} from './events/events.component';
 

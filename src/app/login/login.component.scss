@@ -2,11 +2,20 @@
 .main {
     font-family: Poppins, Regular;
 }
-
+.log-in{
+    height: calc(100vh);
 .login{
+    height: 100%;
     .login-left{  
-        padding: 6% 0% 6% 8%;
+        // padding: 6% 0% 6% 8%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
         // padding: 95px 120px;
+        .login-content{
+
+        }
         .login-head{
             text-align: center;
             h5{
@@ -73,12 +82,14 @@
                       color: #595959;
                       a{
                         color: #FF8800;
-                      }
+                      }     
                   }
               }
         }
     }   
     .login-right{
+        background: url(/assets/images/login/login-bg.jpg); 
+        background-size: cover;
         .login-image{
             width: 100%;
             height: 100%;
@@ -88,7 +99,7 @@
         top: 53px;
         position: relative;
         position: absolute;
-        right: 231px;
+        right: 178px;
         color: #FFFFFF;
         //bottom: 0;
         // top: 118px;
@@ -112,4 +123,5 @@
             }
         }
     }      
+}
 }

@@ -25,7 +25,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSidenavModule } from '@angular/material/sidenav';
-// import { MatPaginatorModule,MatExpansionModule,MatSlideToggleModule,MatSliderModule } from '@angular/material';
+// import {MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 

@@ -22,6 +22,9 @@ export class CouponsComponent implements OnInit {
     private http: HttpClient,
  ) { }
 
+roles = [{name:'unnati',lastname:'tandel'},{name:'abc',lastname:'xyz'}
+                ]
+
  ngOnInit(): void {
  }
  
