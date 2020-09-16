@@ -6,6 +6,7 @@ import { SingleEventDashboardRoutingModule } from './single-event-dashboard-rout
 import { EventSummaryComponent } from './event-summary/event-summary.component';
 import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.component';
 import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -14,7 +15,8 @@ import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
   imports: [
     CommonModule,
     SingleEventDashboardRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule
   ]
 })
 export class SingleEventDashboardModule { }
