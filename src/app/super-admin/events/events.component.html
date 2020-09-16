@@ -27,7 +27,7 @@
 
                                 <div class="content" class="drageble-list">
                                     <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of upcomingEventData">
-                                        <div class="tb-data " fxFlex="25"> <a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
+                                        <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data" fxFlex="20">
                                             <select (onChange)="$event.target.value"
                                             [ngStyle]="{'background-color': 'statusColor'}">
