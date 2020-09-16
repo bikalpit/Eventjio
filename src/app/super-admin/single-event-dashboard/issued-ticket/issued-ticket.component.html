@@ -43,9 +43,9 @@
                     </select>
                 </div>
                     <div class="col-2">
-                        <input matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control">
-                        <mat-datepicker-toggle matSuffix [for]="ticketIssuedDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
+                        <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker">
+                        <input matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control">                     
+                        <mat-datepicker #ticketIssuedDatePicker></mat-datepicker></mat-datepicker-toggle>
                     </div>
 
                     <div class="col-2">

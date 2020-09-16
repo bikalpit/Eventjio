@@ -20,8 +20,8 @@
                         <span class="">
                             <mat-icon class="login-icon">person_outline</mat-icon>
                         </span>
-                        <input type="text" class="form-control" formControlName="full_name" placeholder="Full name" />
-                        <span class="error-wrap" *ngIf="signUpForm.get('full_name').dirty || signUpForm.get('full_name').touched"><small *ngIf="signUpForm.get('full_name').hasError('required')" class="error">Full name is required.</small></span>
+                        <input type="text" class="form-control" formControlName="firstname" placeholder="Full name" />
+                        <span class="error-wrap" *ngIf="signUpForm.get('firstname').dirty || signUpForm.get('firstname').touched"><small *ngIf="signUpForm.get('firstname').hasError('required')" class="error">Full name is required.</small></span>
                     </div>
                     <div class="input-group">
                         <span class="">
@@ -41,9 +41,9 @@
                         </span>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" id="" rows="3" placeholder="How did you hear about us?"></textarea>
+                        <textarea class="form-control" formControlName="description" id="" rows="3" placeholder="How did you hear about us?"></textarea>
                     </div>
-                    <mat-checkbox class="" (change)=" ($event.checked)">I accept terms and conditions & Privacy Policy</mat-checkbox>
+                    <mat-checkbox class="" (change)="fnChangeTermsPrivacyCheck($event.checked)">I accept terms and conditions & Privacy Policy</mat-checkbox>
                     <span class="error-wrap" *ngIf="!termsCheckbox">
                         <small *ngIf="!termsCheckbox" class="error">Password is required.</small></span>
                     <div>
