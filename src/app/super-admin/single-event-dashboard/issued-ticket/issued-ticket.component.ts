@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -8,27 +11,27 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./issued-ticket.component.scss']
 })
 export class IssuedTicketComponent implements OnInit {
-  displayedColumns = ['position', 'firstName', 'lastName', 'email'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  event_ticket: string[] = ['Select all','General admission'];
+  status_ticket: string[] =['All issued ticket','Valid','Void'];
+  selected = -1;
+
+  displayedColumns: string[] = ['Ticket_Code','Ticket_Type','name','Orderid','Issued',];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   
-  constructor() { }
+  
+  constructor(
+    public dialog: MatDialog,
+    private http: HttpClient,
+  ) { }
+
+  orderData = [{Ticket_Code:'5h92H',Ticket_Type:'General Admission',name:'Shabnam Ansari',Orderid:'10771307',Issued:'Jul 22, 2020'},
+               {Ticket_Code:'5h92H',Ticket_Type:'General Admission',name:'Shabnam Ansari',Orderid:'10771307',Issued:'Jul 22, 2020'},]
 
   ngOnInit(): void {
   }
 
+  onChange(event) {
+    console.log(event)
+  }
 }
 
-
-export interface Element {
-  position: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-const ELEMENT_DATA: Element[] = [
-  {position: 1, firstName: 'John', lastName: 'Doe', email: 'john@gmail.com'},
-  {position: 1, firstName: 'Mike', lastName: 'Hussey', email: 'mike@gmail.com'},
-  {position: 1, firstName: 'Ricky', lastName: 'Hans', email: 'ricky@gmail.com'},
-  {position: 1, firstName: 'Martin', lastName: 'Kos', email: 'martin@gmail.com'},
-  {position: 1, firstName: 'Tom', lastName: 'Paisa', email: 'tom@gmail.com'}
-];
