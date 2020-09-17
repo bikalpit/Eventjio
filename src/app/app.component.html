@@ -15,27 +15,27 @@
                 </div>
             </div>
 
-            <div  routerLink="/super-admin/dashboard" (click)="fnPostUrl('Dashboard')" [ngClass]="{'active-icon': pageName == 'Dashboard'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
+            <div routerLink="/super-admin/dashboard" (click)="fnPostUrl('Dashboard')" [ngClass]="{'active-icon': pageName == 'Dashboard'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
                 <div matTooltip="Dashboard" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
                     <img src="/assets/images/admin/dashboard.png" class="w-100" alt="">
                 </div>
             </div>
 
             <div routerLink="/super-admin/events" (click)="fnPostUrl('Events')" [ngClass]="{'active-icon': pageName == 'Events'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
-                <div matTooltip="Events" matTooltipClass="main-menu-tooltip" matTooltipPosition="after"  class="icon text-center">
+                <div matTooltip="Events" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
                     <img src="/assets/images/admin/star.png" class="w-100" alt="">
                 </div>
             </div>
 
             <div routerLink="/super-admin/orders" (click)="fnPostUrl('Orders')" [ngClass]="{'active-icon': pageName == 'Orders'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
-                <div matTooltip="Orders" matTooltipClass="main-menu-tooltip" matTooltipPosition="after"  class="icon text-center">
+                <div matTooltip="Orders" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
                     <img src="/assets/images/admin/order.png" class="w-100" alt="">
                 </div>
 
             </div>
 
             <div routerLink="/super-admin/customers" (click)="fnPostUrl('Customers')" [ngClass]="{'active-icon': pageName == 'Customers'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
-                <div matTooltip="Customers" matTooltipClass="main-menu-tooltip" matTooltipPosition="after"  class="icon text-center">
+                <div matTooltip="Customers" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
                     <img src="/assets/images/admin/user.png" class="w-100" alt="">
                 </div>
 
@@ -62,7 +62,7 @@
 
 
     <mat-drawer-content class="bg-white">
-        <mat-toolbar class="py-3  right-toolbar" [ngClass]="{'business-open': boxofficeComponent == true}">
+        <mat-toolbar [ngClass]="{'admin_top_bar': (isAdminUser() && !isBoxoffice())}" color="primary" class="toolbar menu-comman" *ngIf="isLogin()" class="py-3  right-toolbar">
             <div>
                 {{pageName}}
             </div>

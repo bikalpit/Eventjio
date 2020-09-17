@@ -37,26 +37,6 @@ export class AuthenticationService {
         }));
     }
 
-    loginWithGoogleFacebook(authId,email,provider) {
-        let requestObject={
-            "auth_id":authId,
-            "email_id":email,
-            "provider":provider
-        }
-        return this.http.post<any>(`${environment.apiUrl}/facebook-google-login`, requestObject)
-        .pipe(map(user => {
-            if (user && user.response.idExists == true) {
-                localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
-                this.currentUserSubject.next(user.response.userData);
-                var logoutTime = new Date();
-               logoutTime.setHours( logoutTime.getHours() + 6 );
-               localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
-                console.log(user.response);
-            }
-                console.log(user.response);
-            return user.response;
-        }));
-    }
 
     signup(signUpUserObj) {
         return this.http.post<any>(`${environment.apiUrl}/signup`,signUpUserObj)
@@ -87,10 +67,9 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('isFront');
         localStorage.removeItem('logoutTime');
-        localStorage.removeItem('business_id');
-        localStorage.removeItem('internal_staff');
-        localStorage.removeItem('business_name');
-        localStorage.removeItem('isBusiness');
+        localStorage.removeItem('boxOffice_id');
+        localStorage.removeItem('boxOffice_name');
+        localStorage.removeItem('isBoxOffice');
         localStorage.removeItem('adminData');
         this.currentUserSubject.next(null);
     }
