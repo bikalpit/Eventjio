@@ -8,3 +8,6 @@ Install color-picker through below command
 npm install ngx-color-picker --save
 
 Install npm i bn-ng-idle
+
+npm install --save jquery
+
