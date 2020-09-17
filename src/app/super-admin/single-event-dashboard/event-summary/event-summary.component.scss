@@ -1,0 +1,80 @@
+.main{
+    .page-title{
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .set-up-payment{
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 10px;
+        background-color: #ABE6FD;
+
+        .fa-bell{
+            color: #FF6600;
+            transform: rotate(-45deg);
+        }
+    }
+
+    .total-summary{
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 10px;
+
+        .total-ticket-summary{
+            width: 25%;
+            text-align: center;
+            display: inline-block;
+            
+            
+            .title{
+              color: #808080;
+            }
+            .count{
+                font-size:16px;
+                font-weight: bold;
+            }
+            
+            
+        }
+    }
+
+    .event-page-link{
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 10px;
+
+        .title{
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .input-div{
+            width: 50%;
+        }
+        .fa-link{
+            transform: rotate(90deg);
+        }
+    }
+
+    .ticket-sales{
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 10px;
+
+        .title{
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+    }
+
+    .referral-sales-summary{
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 10px;
+        .title{
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+
+}

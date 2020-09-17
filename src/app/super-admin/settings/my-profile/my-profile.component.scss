@@ -6,28 +6,37 @@
 page-title{
     font:24px;
 }
+.main-content{
 
-img{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
-.change-photo{
-    background-color: #1172F4;
-    color:#ffffff;
-}
-.remove-photo{
-    background-color:#C0C0C0;
-    color:#000000;
-}
-.cancel{
-    background-color:#C0C0C0;
-    color:#000000;
-}
-.save{
-    background-color: #1172F4;
-    color:#ffffff;
-}
-.corner{
+
+            img{
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+            }
+            .change-photo{
+                background-color: #1172F4;
+                color:#ffffff;
+                border-radius: 5px;
+            }
+            .remove-photo{
+                background-color:#C0C0C0;
+                color:#000000;
+                border-radius: 5px;
+            }
+
+ }
+ 
+ .bottom{
     margin-top: 16vh;
-}
+
+        .cancel{
+            background-color:#C0C0C0;
+            color:#000000;
+        }
+        .save{
+            background-color: #1172F4;
+            color:#ffffff;  
+        }
+ }
+

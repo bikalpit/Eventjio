@@ -1,0 +1,73 @@
+<div class="main p-3">
+    <div class="page-title">
+        Edit order confirmation
+    </div>
+    <div class="mt-2">
+        The order confirmation is the message that your customers receive after they have made an order and it includes all of their ticket information.
+    </div>
+
+    <div class="border mt-3 p-3">
+        <mat-radio-group aria-label="Select an option" (change)="fnEditOrderConfirmation($event)">
+            <mat-radio-button value="GlobalOrderConfirmation" [checked]="confirmationType === 'GlobalOrderConfirmation'">
+                <p class="mb-0">Global order confirmation</p>
+                <p class="radio-sub-title mb-0">(Applies to all events)</p>
+            </mat-radio-button>
+            <mat-radio-button class="ml-5" value="SpecificOrderConfirmation" [checked]="confirmationType === 'SpecificOrderConfirmation'">
+                <p class="mb-0">Event specific order confirmation</p>
+                <p class="radio-sub-title mb-0">(Applies to this event only)</p>
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <div *ngIf="confirmationType === 'SpecificOrderConfirmation'">
+            123456789
+          </div>
+    </div>
+
+    <div class="preview-global-order mt-2 border p-3" *ngIf="confirmationType === 'GlobalOrderConfirmation'">
+        <div class="row m-0">
+            <div class="title">
+                Preview of global order confirmation
+            </div>
+            <div class="ml-auto">
+                <button mat-flat-button color="primary">Edit global order confirmation</button>
+            </div>
+        </div>
+        <div class="order-confirm border rounded mt-3">
+            <div class="msg-content border p-3">
+                <div class="title">
+                    Thank you for your order
+                </div>
+                <div class="mt-3">
+                    <p>Dear customer-name</p>
+                    <p>Thank you for the order you recently placed for tickets to the event event-name (on event-start-date).</p>
+                </div>
+                <div class="sub-title mt-3">
+                    Your tickets
+                </div>
+                <div class="mt-3"> 
+                    <p>ticket-vouchers</p> 
+                    <p>Please bring these tickets with you to the event. Personal details such as your address may be used for verification on entry.</p> 
+                </div>
+
+                <div class="sub-title mt-3">
+                    Order summary 
+                </div>
+    
+                <div class="mt-3">
+                    order-summary 
+                </div>
+
+                <div class="sub-title mt-3">
+                    Event details 
+                </div>
+                
+                <div class="mt-3">
+                    <p class="mb-0">Event name: event-name</p> 
+                    <p class="mb-0">Event date: event-full-date</p> 
+                    <p class="mb-0">Venue: event-venue-name, event-venue-postcode</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

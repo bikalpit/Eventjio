@@ -16,18 +16,14 @@ export interface DialogData {
 })
 export class MyBoxofficeComponent implements OnInit {
 
-  allCurency: any;
-  allCountry: any;
+  allBoxoffice: any;
   adminSettings : boolean = false;
   isLoaderAdmin : boolean = true;
   currentUser:any;
   adminId:any;
   token:any;
   getIpAddress : any;
-  allBoxoffice=  [
-    {boxoffice_name: 'Broadview', address: 'Pandesara', city:[{name: 'Surat'}], state:[{name: 'Gujarat'}], country:[{name: 'India'}], zipcode: '395009'},
-];
-
+ 
   constructor(
 
     public dialog: MatDialog,
@@ -41,56 +37,35 @@ export class MyBoxofficeComponent implements OnInit {
      }
 
     ngOnInit(): void {
-
       this.getAllBoxoffice();
-      this.getAllCountry();
-      this.getAllCurrancy();
-
     }
 
     ngAfterViewInit() {
-      // setTimeout(() => {
-      //   this.isLoaderAdmin = false;
-      // }, 4000);
+    
     }
 
     getAllBoxoffice(){
-      // console.log('hello');
-      // this.isLoaderAdmin = true;
-      // this.superadminService.getAllBoxoffice().subscribe((response:any) => {
-      //   if(response.data == true){
-      //     this.allBoxoffice = response.response
-      //   }
-      //   this.isLoaderAdmin = false;
-      // });
+
+      this.isLoaderAdmin = true;
+      this.superadminService.getAllBoxoffice().subscribe((response:any) => {
+        this.isLoaderAdmin = false;
+        if(response.data == true){
+          this.allBoxoffice = response.response
+        }else if(response.data == false && response.response == 'TOKEN_EXPIRED'){
+
+        }
+      });
+
     }
 
-    getAllCountry(){
-      this.isLoaderAdmin = true;
-      this.superadminService.getAllCountry().subscribe((response:any) => {
-        if(response.data == true){
-          this.allCountry = response.response
-        }
-        this.isLoaderAdmin = false;
-      });
-    }
-    
-    getAllCurrancy(){
-      this.isLoaderAdmin = true;
-      this.superadminService.getAllCurrancy().subscribe((response:any) => {
-        if(response.data == true){
-          this.allCurency = response.response
-        }
-        this.isLoaderAdmin = false;
-      });
-    }
   
-    fnSelectBoxoffice(business_id,busisness_name){
+    fnSelectBoxoffice(boxoffice_id,name){
 
-      localStorage.setItem('business_id', business_id);
-      localStorage.setItem('business_name', busisness_name);
-      localStorage.setItem('isBoxoffice','false')
-      this.router.navigate(['/super-admin/dashboard']);
+      localStorage.setItem('boxoffice_id', boxoffice_id);
+      localStorage.setItem('boxoffice_name', name);
+      localStorage.setItem('isBoxoffice','true');
+      this.router.navigate(['/super-admin/events']);
+
     }
 
     fnCreateBoxOffice() {
@@ -105,7 +80,7 @@ export class MyBoxofficeComponent implements OnInit {
 
 
 @Component({
-  selector: 'Create-New-Business',
+  selector: 'create-new-boxoffice-dialog',
   templateUrl: '../_dialogs/create-new-boxoffice-dialog.html',
 })
 export class myCreateNewBoxofficeDialog {
@@ -113,7 +88,10 @@ export class myCreateNewBoxofficeDialog {
   createBoxoffice :FormGroup;
   isLoaderAdmin : boolean = false;
   onlynumeric = /^-?(0|[1-9]\d*)?$/
-  
+  allCurency: any;
+  allCountry: any;
+  admin_id = localStorage.getItem('admin-id');
+
   constructor(
     public dialogRef: MatDialogRef<myCreateNewBoxofficeDialog>,
     public router: Router,
@@ -121,6 +99,8 @@ export class myCreateNewBoxofficeDialog {
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.getAllCountry();
+      this.getAllCurrancy();
     }
 
   onNoClick(): void {
@@ -135,43 +115,66 @@ export class myCreateNewBoxofficeDialog {
       boxoffice_country : ['', Validators.required],
       boxoffice_billing_currency : ['', Validators.required],
       boxoffice_genre : ['', Validators.required],
-      event_run_type : ['', Validators.required],
+      boxoffice_genre_type : ['', Validators.required],
+    });
+
+  }
+
+  getAllCountry(){
+    this.superadminService.getAllCountry().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCountry = response.response
+      }
+    });
+  }
+  
+  getAllCurrancy(){
+
+    this.superadminService.getAllCurrancy().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCurency = response.response
+      }else if(response.data == false && response.response == 'TOKEN_EXPIRED'){
+          
+      }
     });
 
   }
 
 
   fnCreateBoxOffice(){
-    console.log(this.createBoxoffice.valid);
 
     if(this.createBoxoffice.valid){
 
       var insertArr = {
-        "business_name" : this.createBoxoffice.get('boxoffice_name').value,
-        "address" : this.createBoxoffice.get('boxoffice_type').value,
-        "country" : this.createBoxoffice.get('boxoffice_country').value,
-        "state" : this.createBoxoffice.get('boxoffice_billing_currency').value,
-        "city" : this.createBoxoffice.get('boxoffice_genre').value,
-        "time_zone" : this.createBoxoffice.get('event_run_type').value,
+        "box_office_name" : this.createBoxoffice.get('boxoffice_name').value,
+        "admin_id" : this.admin_id,
+        "type" : this.createBoxoffice.get('boxoffice_type').value,
+        "currency" : this.createBoxoffice.get('boxoffice_billing_currency').value,
+        "country" : this.createBoxoffice.get('boxoffice_billing_currency').value,
+        "genre" : this.createBoxoffice.get('boxoffice_genre').value,
+        "genre_type" : this.createBoxoffice.get('boxoffice_genre_type').value,
       }
 
-      this.createNewBusiness(insertArr);
+      this.createNewBoxOffice(insertArr);
+
     }
     
   }
 
-  createNewBusiness(insertArr){
-    console.log(insertArr);
-    // this.superadminService.createNewBusiness(insertArr).subscribe((response:any) => {
-    //   if(response.data == true){
-    //     this._snackBar.open("Box Office Created.", "X", {
-    //       duration: 2000,
-    //       verticalPosition:'top',
-    //       panelClass :['green-snackbar']
-    //     });
-    //     this.dialogRef.close();
-    //   }
-    // });
+  createNewBoxOffice(insertArr){
+
+    this.superadminService.createNewBusiness(insertArr).subscribe((response:any) => {
+      if(response.data == true){
+        this._snackBar.open("Box Office Created.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+      }else if(response.data == false && response.response == 'TOKEN_EXPIRED'){
+          
+      }
+    });
 
   }
   

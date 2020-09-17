@@ -5,6 +5,9 @@ import { EventSummaryComponent } from './event-summary/event-summary.component';
 import { EventAndTicketTypesComponent } from './event-and-ticket-types/event-and-ticket-types.component';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { DeleteComponent } from './delete/delete.component';
+import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.component';
+import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 
 const routes: Routes = [
   { 
@@ -30,6 +33,18 @@ const routes: Routes = [
       {
       path:'delete',
       component:DeleteComponent 
+      },
+      {     
+      path:'waitilist-signup',
+      component:WaitilistSignupComponent
+      },
+      {
+        path:'issued-ticket',
+        component:IssuedTicketComponent 
+      },
+      {
+        path: 'order-confirmation',
+        component:OrderConfirmationComponent
       }
     ] 
   }];
