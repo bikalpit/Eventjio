@@ -8,6 +8,7 @@ import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.co
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
+import { CKEditorModule } from 'ngx-ckeditor';
 
 
 
@@ -17,7 +18,8 @@ import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
     CommonModule,
     SingleEventDashboardRoutingModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    CKEditorModule
   ]
 })
 export class SingleEventDashboardModule { }
