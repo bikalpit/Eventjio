@@ -5,13 +5,15 @@ import { SingleEventDashboard } from './single-event-dashboard'
 import { SingleEventDashboardRoutingModule } from './single-event-dashboard-routing.module';
 import { EventSummaryComponent } from './event-summary/event-summary.component';
 import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.component';
-import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 // import { ChartsModule } from 'ng2-charts';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
+import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
+
 
 
 @NgModule({
-  declarations: [EventSummaryComponent,SingleEventDashboard, IssuedTicketComponent, WaitilistSignupComponent],
+  declarations: [EventSummaryComponent,SingleEventDashboard, IssuedTicketComponent, WaitilistSignupComponent, OrderConfirmationComponent],
   imports: [
     CommonModule,
     SingleEventDashboardRoutingModule,

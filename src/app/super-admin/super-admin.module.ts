@@ -18,10 +18,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import {AddNewTicketType} from './events/events.component';
 import {AddNewTicketGroup} from './events/events.component';
-
 import { myCreateDiscountCodeDialog} from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog} from './coupons/coupons.component';
 import { ExportOrderDialog} from './orders/orders.component';
