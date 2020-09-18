@@ -47,7 +47,6 @@ export class MyBoxofficeComponent implements OnInit {
     }
 
     getAllBoxoffice(){
-      alert("0");
       let requestObject = {
           'admin_id' : JSON.stringify(this.currentUser.user_id),
       };

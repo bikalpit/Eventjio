@@ -57,10 +57,8 @@ export class SuperadminService {
 
 
     getAllBoxoffice(requestObject){
-        alert("Hello")
         return this.http.post(`${environment.apiUrl}/get-all-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
-            alert("Hello1")
             return res;
         }),catchError(this.handleError));
     }
