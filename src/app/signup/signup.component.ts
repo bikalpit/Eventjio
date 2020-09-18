@@ -19,6 +19,9 @@ export class SignupComponent implements OnInit {
   adminSignUpData:any;
   hide = true;
   termsCheckbox:boolean = false;
+
+
+
   constructor( private formBuilder: FormBuilder,
 	private http: HttpClient,
   public router: Router,
@@ -67,8 +70,8 @@ export class SignupComponent implements OnInit {
       let requestObject = {
 				"firstname":this.signUpForm.get("firstname").value,
 				"email":this.signUpForm.get("email").value,
-        "password":this.signUpForm.get("password").value,
-        "description":this.signUpForm.get("description").value
+                "password":this.signUpForm.get("password").value,
+                "description":this.signUpForm.get("description").value
 			};
 			let headers = new HttpHeaders({
 				'Content-Type': 'application/json',
