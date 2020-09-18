@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderConfirmationComponent implements OnInit {
 confirmationType :any ='GlobalOrderConfirmation';
+attachInvoice = true;
   constructor() { }
 
   ngOnInit(): void {
