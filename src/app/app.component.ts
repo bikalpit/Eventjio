@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
-
+import { from } from 'rxjs';
+import { AuthenticationService } from './_services/authentication.service'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +13,10 @@ export class AppComponent {
   boxofficeComponent:boolean = false;
   pageName :any = 'Dashboard';
 
-  constructor() {}
+  constructor(
+    public auth:AuthenticationService,
+    public router:Router
+  ) {}
 
   isBoxoffice() {
 
@@ -30,4 +34,8 @@ export class AppComponent {
     this.pageName = postUrl; 
   }
 
+  logOut(){
+    this.auth.logout();
+    this.router.navigate(['/login'])
+  }
 }
