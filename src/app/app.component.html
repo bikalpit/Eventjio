@@ -72,11 +72,11 @@
                 <!-- <span class="d-inline-block"> Administrator <i class="fa fa-angle-down fa-fw pl-1"></i></span> -->
             </div>
             <div class="">
-                <select class="form-control head-dropdown" id="exampleFormControlSelect1" (change)="logout();">
-                    <option>Administrator</option>
-                    <option>My Profile</option>
-                  <option>Logout</option>
-                </select>
+                <mat-select class="form-control head-dropdown" id="exampleFormControlSelect1" (selectionChange)="fnChangeTopMenu($event.value);">
+                    <mat-option value="admin">Administrator</mat-option>
+                    <mat-option value="profile">My Profile</mat-option>
+                    <mat-option value="logout">Logout</mat-option>
+                </mat-select>
             </div>
         </mat-toolbar>
         <div class="right-toolbar-content">

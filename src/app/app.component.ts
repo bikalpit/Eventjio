@@ -81,7 +81,11 @@ export class AppComponent {
     }, 1080000);
   }
 
-  
+  fnChangeTopMenu(value){
+    if(value === 'logout'){
+      this.logout();
+    }
+  }
 
   isBoxoffice() {
 
