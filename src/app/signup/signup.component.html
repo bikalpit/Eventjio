@@ -15,30 +15,37 @@
              
              <div class="signup-details">
                 <form [formGroup]="signUpForm">
-                    <div class="input-group">
+                  <div class="input-group">
+                     <div class="field-list">
                         <span class="">
                             <mat-icon class="login-icon">person_outline</mat-icon>
                         </span>
                         <input type="text" class="form-control" formControlName="firstname" placeholder="Full name" />
-                        <span class="error-wrap" *ngIf="signUpForm.get('firstname').dirty || signUpForm.get('firstname').touched"><small *ngIf="signUpForm.get('firstname').hasError('required')" class="error">Full name is required.</small></span>
-                    </div>
+                     </div>
+                        <span class="error-wrap" *ngIf="signUpForm.get('firstname').dirty || signUpForm.get('firstname').touched"><small *ngIf="signUpForm.get('firstname').hasError('required')" class="error text-left ml-4">Full name is required.</small></span>
+                   </div>
+
                     <div class="input-group">
+                     <div class="field-list">
                         <span class="">
                             <mat-icon class="login-icon">mail_outline</mat-icon>
                         </span>
                         <input type="text" class="form-control" formControlName="email" placeholder="Email address" />
-                        <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched"><small *ngIf="signUpForm.get('email').hasError('required')" class="error">Email is required.</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter valid email.</small><small *ngIf="signUpForm.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small></span>
+                     </div>
+                        <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched"><small *ngIf="signUpForm.get('email').hasError('required')" class="error text-left ml-4">Email is required.</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter valid email.</small><small *ngIf="signUpForm.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small></span>
                     </div>
-                    <div class="input-group">
+
+                 <div class="input-group">
+                     <div class="field-list">
                         <span class="">
                             <mat-icon class="login-icon">lock</mat-icon>
                         </span>
                         <input type="password" class="form-control" formControlName="password" placeholder="Create Password"  [type]="hide ? 'password' : 'text'" />
-                        <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span>
-                        <span class="">
-                            <mat-icon class="hide-show-pswd" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </span>
-                    </div>
+                        <mat-icon class="hide-show-pswd" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                     </div>
+                        <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span>                    
+                 </div>
+                
                     <div class="form-group">
                         <textarea class="form-control" formControlName="description" id="" rows="3" placeholder="How did you hear about us?"></textarea>
                     </div>
