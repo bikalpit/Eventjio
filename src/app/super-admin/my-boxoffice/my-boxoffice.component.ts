@@ -3,7 +3,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { SuperadminService } from '../_services/superadmin.service'
+import { SuperadminService } from '../_services/superadmin.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 export interface DialogData {
   animal: string;
   name: string;
@@ -18,7 +19,7 @@ export class MyBoxofficeComponent implements OnInit {
 
   allBoxoffice: any;
   adminSettings : boolean = false;
-  isLoaderAdmin : boolean = true;
+  isLoaderAdmin : boolean = false;
   currentUser:any;
   adminId:any;
   token:any;
@@ -29,11 +30,12 @@ export class MyBoxofficeComponent implements OnInit {
     public dialog: MatDialog,
     public router: Router,
     public superadminService : SuperadminService,
+    private authenticationService : AuthenticationService,
 
     ) {
-
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
       localStorage.setItem('isBoxoffice','true')
-      console.log(this.allBoxoffice)
+      console.log(this.currentUser)
      }
 
     ngOnInit(): void {
@@ -41,20 +43,22 @@ export class MyBoxofficeComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-    
+      
     }
 
     getAllBoxoffice(){
-
+      let requestObject = {
+          'admin_id' : JSON.stringify(this.currentUser.user_id),
+      };
       this.isLoaderAdmin = true;
-      this.superadminService.getAllBoxoffice().subscribe((response:any) => {
-        this.isLoaderAdmin = false;
+      this.superadminService.getAllBoxoffice(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.allBoxoffice = response.response
         }else if(response.data == false && response.response == 'TOKEN_EXPIRED'){
 
         }
       });
+      this.isLoaderAdmin = false;
 
     }
 
@@ -63,7 +67,7 @@ export class MyBoxofficeComponent implements OnInit {
 
       localStorage.setItem('boxoffice_id', boxoffice_id);
       localStorage.setItem('boxoffice_name', name);
-      localStorage.setItem('isBoxoffice','true');
+      localStorage.setItem('isBoxoffice','false');
       this.router.navigate(['/super-admin/events']);
 
     }

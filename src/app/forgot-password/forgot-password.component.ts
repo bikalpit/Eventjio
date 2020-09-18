@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-forgot-password',
@@ -45,10 +46,10 @@ export class ForgotPasswordComponent implements OnInit {
 forgotPwdSubmit(){
   this.forgotEmail =  this.forgotForm.get('email').value
   if(this.forgotForm.valid){
-    // let site_url = login.urlForLink;
+     let site_url = environment.urlForLink;
   let requestObject = {
         "email":this.forgotEmail,
-        // "url" : site_url+"/reset-password?accessToken"
+         "url" : site_url+"/reset-password?accessToken"
       };
   let headers = new HttpHeaders({
         'Content-Type': 'application/json',
