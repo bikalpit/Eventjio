@@ -1,5 +1,5 @@
 <mat-drawer-container class="main-container">
-    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="isBoxoffice()">
+    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="!isBoxoffice() && !boxofficeComponent">
         <mat-toolbar class="app-title">
             <div class="text-light text-center company-logo">
                 <img src="/assets/images/logo/eventjio-icon.png" class="company-img" alt="">
@@ -58,11 +58,8 @@
             </div>
         </div>
     </mat-drawer>
-
-
-
-    <mat-drawer-content class="bg-white">
-        <mat-toolbar [ngClass]="{'admin_top_bar': (isAdminUser() && !isBoxoffice())}" color="primary" class="toolbar menu-comman" *ngIf="isLogin()" class="py-3  right-toolbar">
+    <mat-drawer-content class="bg-white h-100vh">
+        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser(), 'business_toolbar': (isAdminUser() && isBoxoffice()) }" *ngIf="isLogin()" class="py-3 right-toolbar toolbar menu-comman">
             <div>
                 {{pageName}}
             </div>
@@ -82,7 +79,7 @@
                 </select>
             </div>
         </mat-toolbar>
-        <div class="mt-2 right-toolbar-content">
+        <div class="right-toolbar-content">
             <router-outlet></router-outlet>
         </div>
     </mat-drawer-content>
