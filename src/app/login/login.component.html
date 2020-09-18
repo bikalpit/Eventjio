@@ -12,20 +12,27 @@
                 <div class="login-details">
                     <form [formGroup]="loginForm">
                         <div class="input-group">
-                            <span class="">
-                            <mat-icon class="login-icon">person_outline</mat-icon>
-                        </span>
-                            <input type="text" formControlName="email" class="form-control" placeholder="Email" />
-                            <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched"><small *ngIf="loginForm.get('email').hasError('required')" class="error text-center">Email is required.</small><small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error text-center">Enter a valid email address.</small></span>
+                            <div class="field-list">
+                                <span class="">
+                                    <mat-icon class="login-icon">person_outline</mat-icon>
+                                </span>
+                                <input type="text" formControlName="email" class="form-control" placeholder="Email" />
+                            </div>
+                            <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched">
+                                <small *ngIf="loginForm.get('email').hasError('required')" class="error text-left ml-4">Email is required.</small>
+                                <small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error text-left ml-4">Enter a valid email address.</small>
+                            </span>
                         </div>
                         <div class="input-group">
-                            <span class="">
-                              <mat-icon class="login-icon">lock</mat-icon>
-                             </span>
-                            <input type="password" formControlName="password" class="form-control" placeholder="password" [type]="hide ? 'password' : 'text'"  />
-                            <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-center">Password is required.</small></span>
-                            
-                            <mat-icon class="hide-show-pswd"  (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <div class="field-list">
+                                <span class="">
+                                <mat-icon class="login-icon">lock</mat-icon>
+                                </span>
+                                <input type="password" formControlName="password" class="form-control" placeholder="password" [type]="hide ? 'password' : 'text'" />
+
+                                <mat-icon class="hide-show-pswd" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </div>
+                            <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small></span>
                         </div>
                         <a href="" class="fr-pswd-link" routerLink="/forgot-password">Forgot Password?</a>
                         <div>
