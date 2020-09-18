@@ -16,6 +16,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
   adminSignUpData:any;
+  hide = true;
   termsCheckbox:boolean = false;
   constructor( private formBuilder: FormBuilder,
 	private http: HttpClient,
@@ -31,6 +32,7 @@ export class SignupComponent implements OnInit {
         email:     ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
         password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
         description:[''],
+        termsCheckbox:[],
 
     });
    }
@@ -44,7 +46,6 @@ export class SignupComponent implements OnInit {
 
   fnChangeTermsPrivacyCheck(check){
     this.termsCheckbox = check;
-    alert(this.termsCheckbox)
   }
 
   fnSignUp(){
