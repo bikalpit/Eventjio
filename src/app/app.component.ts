@@ -18,6 +18,7 @@ export class AppComponent {
   
   currentUser: User;
 
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -57,6 +58,7 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 
+  
   fnCheckLoginStatus(){
     
     
