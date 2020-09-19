@@ -25,9 +25,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSidenavModule } from '@angular/material/sidenav';
-// import { MatPaginatorModule,MatExpansionModule,MatSlideToggleModule,MatSliderModule } from '@angular/material';
+// import { MatPaginatorModule,MatExpansionModule,MatSliderModule } from '@angular/material';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 const material = [
   MatSidenavModule,
@@ -57,6 +58,7 @@ const material = [
   MatBadgeModule,
   MatTooltipModule,
   MatButtonToggleModule,
+  MatSlideToggleModule,
 
 ]
 
