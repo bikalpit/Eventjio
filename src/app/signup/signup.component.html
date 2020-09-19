@@ -41,7 +41,7 @@
                             <mat-icon class="login-icon">lock</mat-icon>
                         </span>
                         <input type="password" class="form-control" formControlName="password" placeholder="Create Password"  [type]="hide ? 'password' : 'text'" />
-                        <mat-icon class="hide-show-pswd" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-icon class="hide-show-pswd pointer" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                      </div>
                         <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span>                    
                  </div>
