@@ -1,46 +1,46 @@
-<div class="container-fluid sub-container p-0" id="my_business">
+<div class="container-fluid sub-container p-0" id="my_boxoffice">
     <div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="isLoaderAdmin" fxLayoutAlign="center center" class="full-height">
         <img src="../../assets/loading-spinner.gif" />
     </div>
-    <div id="my-business-top">
+    <div id="my-boxoffice-top">
         <div class="col-12 d-flex inner">
             <div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>My Boxoffice</span></div>
             <div class="col-lg-6 col-md-6 col-sm-12 second">
-                <a (click)="fnCreateBoxOffice()" class="pointer"><i class="fa fa-plus AddNewBusinessIcon" aria-hidden="true"></i> Add New Boxoffice</a>
+                <a (click)="fnCreateBoxOffice()" class="pointer"><i class="fa fa-plus AddNewboxofficeIcon" aria-hidden="true"></i> Add New Boxoffice</a>
             </div>
         </div>
     </div>
 
-    <div class="" id="list_business">
+    <div class="" id="list_boxoffice">
         <div class="col-12">
             <div class="d-flex flex-wrap">
-                <mat-card *ngFor="let allBoxoffice of allBoxoffice; let i=index" class="col-lg-3 col-md-6 col-sm-12 text-center SelectBusiness">
+                <mat-card *ngFor="let allBoxoffice of allBoxoffice; let i=index" class="col-lg-3 col-md-6 col-sm-12 text-center signle-boxoffice">
                     <div class="pt-3 image-round-main d-flex">
-                        <div class="SelectBusinessIcon">
+                        <div class="SelectboxofficeIcon">
                             <img mat-card-avatar="" src="{{allBoxoffice.image?allBoxoffice.image:'../../assets/img/boxoffice.png'}}">
                         </div>
                     </div>
-                    <div class="pt-3 business-title">
+                    <div class="pt-3 boxoffice-title">
                         <h6 class="text-capitalize">{{allBoxoffice.box_office_name}}</h6>
                     </div>
                     <div class="content">
                         {{allBoxoffice.country?allBoxoffice.country:''}}, {{allBoxoffice.timezone}}
                     </div>
                     <div class="pt-3">
-                        <button mat-button class="businness-btn" (click)="fnSelectBoxoffice(allBoxoffice.id, allBoxoffice.box_office_name)">Select Business</button>
+                        <button mat-button class="businness-btn" (click)="fnSelectBoxoffice(allBoxoffice.id, allBoxoffice.box_office_name)">Select Box Office</button>
                     </div>
                 </mat-card>
-                <mat-card class="col-lg-3 col-md-6 col-sm-12 text-center NewBusiness-matcard pointer" (click)="fnCreateBoxOffice()">
-                    <div class="business-btn-main">
-                        <div class="AddNewBusinessIcon">
+                <mat-card class="col-lg-3 col-md-6 col-sm-12 text-center Newboxoffice-matcard pointer" (click)="fnCreateBoxOffice()">
+                    <div class="boxoffice-btn-main">
+                        <div class="AddNewboxofficeIcon">
                             <img mat-card-avatar="" src="../../../assets/images/admin/add.png">
                         </div>
                     </div>
                     <div class="pt-4">
-                        <h6>Add New Boxoffice/Location</h6>
+                        <h2>Add New Boxoffice</h2>
                     </div>
                     <div class="pb-3 content">
-                        Boxoffice/Location can be a physical or online address from where services are provided. Each Boxoffice/location can have its own staff members, resources, services and settings.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                     </div>
                 </mat-card>
             </div>

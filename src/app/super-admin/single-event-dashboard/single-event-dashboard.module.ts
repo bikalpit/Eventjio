@@ -10,17 +10,21 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
 import { CKEditorModule } from 'ngx-ckeditor';
+import { BroadcastComponent } from './broadcast/broadcast.component';
+import { mySendBroadcastDialog } from './broadcast/broadcast.component';
+import { DuplicateComponent } from './duplicate/duplicate.component';
 
 
 
 @NgModule({
-  declarations: [EventSummaryComponent,SingleEventDashboard, IssuedTicketComponent, WaitilistSignupComponent, OrderConfirmationComponent],
+  declarations: [EventSummaryComponent,SingleEventDashboard, IssuedTicketComponent, WaitilistSignupComponent, OrderConfirmationComponent, BroadcastComponent,  mySendBroadcastDialog, DuplicateComponent],
   imports: [
     CommonModule,
     SingleEventDashboardRoutingModule,
     MaterialModule,
     FlexLayoutModule,
     CKEditorModule
-  ]
+  ],
+  entryComponents: [mySendBroadcastDialog],
 })
 export class SingleEventDashboardModule { }
