@@ -1,0 +1,283 @@
+<div class="event-tickets">
+    <div class="event-main">
+        <div class="event-head">
+            <h5 >Edit Event and Tickets</h5>
+        </div>
+        <div class="add-event-info">
+            <div class="event-content">
+                <h6 class="col-md-12">Add event info</h6>
+                <div class="event-info row mx-0">
+                    <div class="form-group col-md-12">
+                        <label for="">Event name<span><i class="fa fa-asterisk asterisk"></i></span> </label>
+                        <input type="text" class="form-control" id="" placeholder="Lajawab Cooking Class">
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="">Starts <span><i class="fa fa-asterisk asterisk"></i></span> </label>
+                        <div class="row mx-0">
+                            <div  class="col-md-7 pl-0">
+                                <select id=""  class="form-control">
+                                    <option>Thu Jul 30, 2020 </option>
+                                </select>
+                            </div>
+                            <div  class="col-md-5">
+                                <select class="form-control" id="">
+                                    <option> 6:00 pm</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="">Ends <span><i class="fa fa-asterisk asterisk"></i></span> </label>
+                        <div class="row mx-0">
+                            <div  class="col-md-7 pl-0">
+                                <select class="form-control" id="">
+                                    <option>Thu Jul 30, 2020 </option>
+                                </select>
+                            </div>
+                            <div  class="col-md-5">
+                                <select class="form-control" id="">
+                                    <option>  10:30 pm</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="">Venue name</label>
+                        <input type="text" class="form-control" id="" placeholder="e.g. Blues bar">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="">Venue postcode / zip</label>
+                        <input type="text" class="form-control" id="" placeholder="e.g. 400 101">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="">Venue country</label>
+                        <select class="form-control" id="">
+                          <option>Indian </option>
+                        </select>
+                    </div>
+                    <section class="form-group col-md-12">
+                        <mat-checkbox class="">This is an online event</mat-checkbox>
+                    </section>
+                    <div class="form-group col-md-12">
+                        <label for="">Description <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
+                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                        <ck-editor name="editor1" 
+                            skin="moono-lisa" 
+                            language="en" [fullPage]="true">
+                        </ck-editor>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="">Choose or upload an image</label>
+                        <div class="d-flex">
+                            <div class="events">
+                                <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="event-image" alt="">
+                            </div>
+                            <div class="events">
+                                <img src="../assets/images/Single Event/event-ticket-type/event2.png" class="event-image" alt="">
+                            </div>
+                            <div class="events">
+                                <img src="../assets/images/Single Event/event-ticket-type/event3.png" class="event-image" alt="">
+                            </div>
+                            <div class="events">
+                                <img src="../assets/images/Single Event/event-ticket-type/event4.png" class="event-image" alt="">
+                            </div>
+                            <div class="events">
+                                <img src="../assets/images/Single Event/event-ticket-type/event4.png" class="event-image" alt="">
+                            </div>
+                            <a href="" class="upload-link">
+                                <div class="upload">
+                                    <div>
+                                        <div class="d-flex align-items-center justify-content-center"><mat-icon class="upload-icon">cloud_upload</mat-icon></div>
+                                        <div class="d-flex align-items-center justify-content-center"><p class="mb-0">Upload</p></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="" class="no-image-link">
+                                <div class="no-image">
+                                    <div>
+                                        <img src="../assets/images/Single Event/event-ticket-type/block.png" class="no-img d-flex mx-auto">
+                                        <!-- <div class="d-flex align-items-center justify-content-center"><mat-icon class="upload-icon">cloud_upload</mat-icon></div> -->
+                                        <div class="d-flex align-items-center justify-content-center"><p class="mb-0">No image</p></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 mt-2">
+                        <label for="">Choose or upload an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
+                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
+                        </label>
+                        <div class="select-event-img-sm row mx-0">
+                            <div class="">
+                                <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="select-event-image" alt="">
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center mx-3">
+                                <div>
+                                    <div class="image-status">
+
+                                    </div>
+                                    <div class="">
+                                        <button mat-raised-button class="delete-button">Delete Image</button>
+                                        <button mat-raised-button class="choose-img-btn">Choose Image</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="form-group col-md-12 mt-2">
+                        <label for="">Choose or upload an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
+                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
+                        </label>
+                        <div class="select-event-img-lg row mx-0">
+                            <div class="">
+                                <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="select-event-image" alt="">
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center mx-3">
+                                <div>
+                                    <div class="image-status">
+
+                                    </div>
+                                    <div class="">
+                                        <button mat-raised-button class="delete-button">Delete Image</button>
+                                        <button mat-raised-button class="choose-img-btn">Choose Image</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="create-ticket">
+            <div class="event-content">
+                <h6>Create ticket types</h6>
+                <div class="event-info d-flex">
+                    <div class="mr-3">
+                        <button mat-raised-button class="ticket-type-btn">Add a new ticket type</button>
+                    </div>
+                    <div>
+                        <button mat-raised-button class="ticket-grp-btn">Add a new ticket group</button>
+                    </div>
+                </div>
+                <div class="ticket-details">
+                    <div class="row">
+                        <p class="col-md-6 mb-0">General Admission</p>
+                        <div class="sold-ticket col-md-3">
+                            <p class="mb-0"><span class="mx-2"><i class="fa fa-ticket" aria-hidden="true"></i></span>1 Ticket Sold</p>
+                        </div>
+                        <div class="remaining-ticket col-md-3 d-flex">
+                            <p class="mb-0 ml-auto"><span class="mx-2"><i class="fa fa-ticket" aria-hidden="true"></i></span>500 Tickets Remaining</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-settings">
+            <div class="event-content">
+                <h6 class="col-md-12">Event Settings</h6>
+                <div class="event-info row mx-0">
+                    <div class="form-group col-md-6">
+                        <label for="">Timezone<span><i class="fa fa-asterisk asterisk"></i></span> </label>
+                        <select class="form-control" id="">
+                            <option>(GMT+05:30) Calcutta </option>
+                        </select>                    
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Transaction fee<span matTooltip="You can add a transactionfee to orders.This is charged pnce per order as opposed to ticket booking fees which are charged once per ticket."
+                            matTooltipPosition="above" class="tooltip-btn info"><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                        <input type="text" class="form-control" id="" placeholder="0.00">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Currency <span class="info tooltip-btn" matTooltip="Note that once your tickets have gone on sale you won't be able to change the currency."
+                            matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                        <select class="form-control" id="">
+                            <option>$ United States Dollar </option>
+                        </select> 
+                    </div>
+                    <section class="col-md-12 form-group allow-donation">
+                        <mat-checkbox class="">Allow customers to make a donation</mat-checkbox>
+                    </section>
+                    <div class="form-group col-md-6">
+                        <label for="">Donation title <span><i class="fa fa-asterisk asterisk"></i></span>  <span class="info tooltip-btn" matTooltip="This is what will be displayed when asking for a donation, and will also show on their order receipt."
+                            matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                        <input type="text" class="form-control" id="" placeholder="Please make a donation">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Suggested donation amount <span class="info tooltip-btn" matTooltip="Set an amount you would like people to donate.This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."
+                            matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                        <input type="text" class="form-control" id="" placeholder="0.00">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Donation desciption <span class="info tooltip-btn" matTooltip="Tell people more about the donation here. "
+                            matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                        <input type="text" class="form-control" id="" placeholder="">
+                    </div>
+                    <div class="form-group col-md-12 mt-2 mb-0">
+                        <label for="">Customise the text that appears on the event button and in the title of the event page</label>
+                        <input type="text" class="form-control" id="" placeholder="Book Tickets">                        
+                        <p class="mb-0 pt-2 text-italic">Example: Book Ticket for Lajawab Cooking Class..</p>
+                    </div>
+                    
+                </div>
+                <div>                        
+                    <h6 class="col-md-12 mb-0 py-3">Advance Settings</h6>
+                    <div class="event-info row mx-0">
+                        <div class="form-group col-md-6">
+                            <label for="">Tickets become available <span><i class="fa fa-asterisk asterisk"></i></span> </label>
+                            <select class="form-control" id="">
+                                <option>When the event is published </option>
+                            </select>                    
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Tickets become unavailable <span><i class="fa fa-asterisk asterisk"></i></span> </label>
+                            <select class="form-control" id="">
+                                <option>When the event is taken off sale, or the event passes</option>
+                            </select>                    
+                        </div>
+                        <section class="col-md-12">
+                            <mat-checkbox class="mb-0">Redirect order confirmation page <span class="info tooltip-btn" matTooltip="Redirect ticket buyers to a customer order confirmation page on your own website."
+                                matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                        </section>
+                        <div class="form-group col-md-6">
+                            <label for="">Redirect to URL <span class="info tooltip-btn" matTooltip="Enter the URL that you would like ticketbuyers to be redirected to after sucessfully completing an order"
+                                matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                            <input type="text" class="form-control" id="" placeholder="http://yourwebsite.com/order-complete">                        
+                        </div>
+                        <section class="  col-md-12">
+                            <mat-checkbox class="">Hide this event from your box office listings and search engines <span class="info tooltip-btn" matTooltip="Tick this box if you don't want this event listing to appear within your box office listings or within search engine result."
+                                matTooltipPosition="above" class=""><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                        </section>
+                        <section class=" col-md-12">
+                            <mat-checkbox class="">Customers need to enter an access code to buy tickets for this event <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
+                                matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                        </section>
+                        <div class="form-group col-md-6">
+                            <label for="">Access Code</label>
+                            <input type="text" class="form-control" id="" placeholder="0.00">                        
+                        </div>
+                        <section class=" col-md-12">
+                            <mat-checkbox class="">Hide share buttons on event page</mat-checkbox>
+                        </section>
+                        <section class="col-md-12">
+                            <mat-checkbox class="">Set custom sales tax for this event</mat-checkbox>
+                        </section>
+                        <div class="form-group col-md-6">
+                            <label for="">Sales tax amount</label>
+                            <input type="text" class="form-control" id="" placeholder="0.00">                        
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Sales tax label </label>
+                            <input type="text" class="form-control" id="" placeholder="VAT">                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cancel-save">
+            <button mat-raised-button class="cancel-btn">Cancel</button>
+            <button mat-raised-button class="save-btn">Save Event</button>
+        </div>
+    </div>
+</div>

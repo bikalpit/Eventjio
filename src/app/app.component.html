@@ -59,7 +59,7 @@
         </div>
     </mat-drawer>
     <mat-drawer-content class="bg-white h-100vh">
-        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser(), 'business_toolbar': (isAdminUser() && isBoxoffice()) }" *ngIf="isLogin()" class="py-3 right-toolbar toolbar menu-comman">
+        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser(), 'business_toolbar': (isAdminUser() && isBoxoffice()) }" *ngIf="isLogin() && currentUser" class="py-3 right-toolbar toolbar menu-comman">
             <div>
                 {{pageName}}
             </div>

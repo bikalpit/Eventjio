@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
+
 
 @Component({
   selector: 'app-team-access',
@@ -6,6 +14,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./team-access.component.scss']
 })
 export class TeamAccessComponent implements OnInit {
+  animal :any;
+  allBusiness: any;
 
   teammates = [{name:'Meet Shah',role:'Owner',email:'abc@gmail.com',lastseen:'14 Jul 2020 4:30 pm'},
   {name:'Monoj Tiwari',role:'Event Manager',email:'abc@gmail.com',lastseen:'14 Jul 2020 4:30 pm'},
@@ -16,9 +26,42 @@ export class TeamAccessComponent implements OnInit {
 ]
 
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog,
+    private http: HttpClient,
+  ) { }
 
   ngOnInit(): void {
   }
+  inviteTeammate() {
+    const dialogRef = this.dialog.open(inviteTeamMateDialog, {
+      width: '550px',
+    });
 
-}
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }
+
+  }
+
+  @Component({
+    selector: 'Invite-Team-Mate',
+    templateUrl: '../_dialogs/inviteTeamMateDialog.html',
+  })
+  export class inviteTeamMateDialog { 
+    
+    constructor(
+      public dialogRef: MatDialogRef<inviteTeamMateDialog>,
+      private http: HttpClient,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+      }
+  
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+    ngOnInit() {
+    }
+    
+  }
+  

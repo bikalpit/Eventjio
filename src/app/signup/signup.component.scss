@@ -2,16 +2,27 @@
 .main {
     font-family: Poppins, Regular;
 }
-
-.sign-up{
+.signin-main{
+    height: calc(100vh);
+}
+::ng-deep .sign-up{
     .signup-left{
+        // padding: 30px 50px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
         padding: 30px 50px;
-        .logo-img{
-            width: 13%;
+        .logo-image{
+            position: fixed;
+            left: 50px;
+            top: 40px;
+            .logo-img{
+                width: 10%;
+            } 
         }
         .user-details {
-            padding: 3% 20%;            
-           
+            // padding: 3% 20%;                  
             input{
                 border:none;
                 background-color: transparent;
@@ -22,6 +33,17 @@
             button:focus {
                 outline: none;
             }          
+            .input-group {
+                margin: 10px 0px;
+                .field-list {
+                    align-items: center;
+                    display: flex;
+                    border: 1px #D8D8D8 solid;
+                    padding: 5px 20px;
+                    border-radius: 37px;
+                    width: 100%;
+                }
+            }
             .signup-head{
                 h5{
                     color:#007BFF;
@@ -35,6 +57,7 @@
                     color: #595959;
                     margin: 25px 0px;
                     font-size: 14px;
+                    font-weight: 500;
                     a{
                         color: #FF8800;
                     }
@@ -77,6 +100,9 @@
                 a{
                     color: #808080;
                 }
+                .mat-checkbox-label{
+                    color: #808080 ;
+                }               
                 .signin-btn{
                     background: #0088FF;
                     color: #FFFFFF;
