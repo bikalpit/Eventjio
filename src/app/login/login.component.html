@@ -11,7 +11,7 @@
                 </div>
                 <div class="login-details">
                     <form [formGroup]="loginForm">
-                        
+
                         <div class="input-group">
                             <div class="field-list">
                                 <span class="">
@@ -36,6 +36,7 @@
                             </div>
                             <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small></span>
                         </div>
+                        
                         <a href="" class="fr-pswd-link" routerLink="/forgot-password">Forgot Password?</a>
                         <div>
                             <button mat-raised-button class="signin-btn" (click)="onSubmit()">SIGN IN</button>
