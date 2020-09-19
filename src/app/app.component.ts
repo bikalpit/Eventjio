@@ -15,9 +15,9 @@ export class AppComponent {
   boxofficeComponent:boolean = false;
   pageName :any = 'Dashboard';
   timer: any = 0;
-  
+  selectedBoxOfficeName:any;
   currentUser: User;
-
+  adminTopMenuselected:any
   
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +35,7 @@ export class AppComponent {
         }
       }
     })
+    this.adminTopMenuselected = this.currentUser.firstname
   }
 
   ngOnInit() {
@@ -102,6 +103,15 @@ export class AppComponent {
   fnPostUrl(postUrl){
     this.pageName = postUrl; 
   }
+  isBoxOfficeSelected() {
+    if (localStorage.getItem('boxoffice_id') && localStorage.getItem('boxoffice_id') != "") {
+      this.selectedBoxOfficeName = localStorage.getItem('boxoffice_name');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
   isAdminUser() {
     return this.currentUser && this.currentUser.user_type === Role.Admin;
