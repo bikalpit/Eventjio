@@ -121,6 +121,10 @@
     .h-100vh {
         height: 100vh;
     }
+    
+    .event-status-select {
+        width: 160px !important;
+    }
     /* Importing Bootstrap SCSS file. */
     
     @import '~bootstrap/scss/bootstrap';
