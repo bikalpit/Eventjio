@@ -1,17 +1,17 @@
-<div class="" id="log-in">
+<div class="log-in" id="">
     <div class="login">
-        <div class="row mx-0">
-            <div class="col-md-4 login-left">
-                <div class="login-head">
-                    <h5>WELCOME TO</h5>
-                    <div class="login-logo">
-                        <img src="/assets/images/login/logo-black.png" class="login-img" alt="">
+        <div class="row mx-0 h-100">
+            <div class="col-md-6 login-left">
+                <div class="login-content">                    
+                    <div class="login-head">
+                        <h5>WELCOME TO</h5>
+                        <div class="login-logo">
+                            <img src="/assets/images/login/logo-black.png" class="login-img" alt="">
+                        </div>
+                        <p>Log in Lorem ipsum is a dummy text used for design industry.</p>
                     </div>
-                    <p>Log in Lorem ipsum is a dummy text used for design industry.</p>
-                </div>
-                <div class="login-details">
-                    <form [formGroup]="loginForm">
-
+                    <div class="login-details">
+                        <form [formGroup]="loginForm">
                         <div class="input-group">
                             <div class="field-list">
                                 <span class="">
@@ -28,10 +28,9 @@
                         <div class="input-group">
                             <div class="field-list">
                                 <span class="">
-                                <mat-icon class="login-icon">lock</mat-icon>
+                                    <mat-icon class="login-icon">lock</mat-icon>
                                 </span>
                                 <input type="password" formControlName="password" class="form-control" placeholder="password" [type]="hide ? 'password' : 'text'" />
-
                                 <mat-icon class="hide-show-pswd pointer" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </div>
                             <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small></span>
@@ -45,10 +44,25 @@
                             <p>Don't have an account? <a href="" routerLink="/sign-up">Sign Up Now</a></p>
                         </div>
                     </form>
+                    </div>                
                 </div>
             </div>
-            <div class="col-md-8 login-right P-0">
-                <img src="/assets/images/login/login-merge.png" class="login-image" alt="">
+            <div class="col-md-6 login-right">
+                <!-- <img src="/assets/images/login/login-merge.png" class="login-image" alt=""> -->
+                <div class="event-jio">
+                    <h2>
+                        Less Effort, 
+                    </h2>
+                    <h2>
+                        Greater Experience.
+                    </h2>
+                    <h3 class="mt-3">
+                        Event management is made easy 
+                    </h3>
+                    <h3>
+                        with Eventjio.
+                    </h3>
+                </div>
             </div>
         </div>
     </div>

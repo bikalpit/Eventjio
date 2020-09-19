@@ -16,8 +16,8 @@ import { ErrorService } from '../_services/error.service'
 })
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
-  adminSignUpData:any;
   hide = true;
+  adminSignUpData:any;
   termsCheckbox:boolean = false;
 
 

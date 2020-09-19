@@ -25,7 +25,12 @@ export class AppComponent {
     private bnIdle: BnNgIdleService,
     private authenticationService: AuthenticationService,
   ) {
-    if(this.authenticationService.currentUser){
+    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    if(this.currentUser && this.currentUser !== null){
+      console.log(this.currentUser)
+      alert("alert");
+      this.adminTopMenuselected = this.currentUser.firstname
+      
       this.loadLocalStorage();
     }
     this.bnIdle.startWatching(6600).subscribe((res) => {
@@ -35,7 +40,6 @@ export class AppComponent {
         }
       }
     })
-    this.adminTopMenuselected = this.currentUser.firstname
   }
 
   ngOnInit() {
@@ -51,6 +55,8 @@ export class AppComponent {
 
   loadLocalStorage(){
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    
+    this.adminTopMenuselected = this.currentUser.firstname
   }
 
   logout() {
