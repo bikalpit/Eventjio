@@ -11,6 +11,7 @@
                 </div>
                 <div class="login-details">
                     <form [formGroup]="loginForm">
+                        
                         <div class="input-group">
                             <div class="field-list">
                                 <span class="">
@@ -23,6 +24,7 @@
                                 <small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error text-left ml-4">Enter a valid email address.</small>
                             </span>
                         </div>
+
                         <div class="input-group">
                             <div class="field-list">
                                 <span class="">
