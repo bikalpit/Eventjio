@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { environment } from '../../environments/environment';
 import { User } from '../_models/index';
 
@@ -15,6 +13,7 @@ export class AuthenticationService {
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
+        console.log(this.currentUser)
     }
 
     public getIPAddress()  
@@ -37,26 +36,6 @@ export class AuthenticationService {
         }));
     }
 
-    loginWithGoogleFacebook(authId,email,provider) {
-        let requestObject={
-            "auth_id":authId,
-            "email_id":email,
-            "provider":provider
-        }
-        return this.http.post<any>(`${environment.apiUrl}/facebook-google-login`, requestObject)
-        .pipe(map(user => {
-            if (user && user.response.idExists == true) {
-                localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
-                this.currentUserSubject.next(user.response.userData);
-                var logoutTime = new Date();
-               logoutTime.setHours( logoutTime.getHours() + 6 );
-               localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
-                console.log(user.response);
-            }
-                console.log(user.response);
-            return user.response;
-        }));
-    }
 
     signup(signUpUserObj) {
         return this.http.post<any>(`${environment.apiUrl}/signup`,signUpUserObj)
@@ -87,10 +66,7 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('isFront');
         localStorage.removeItem('logoutTime');
-        localStorage.removeItem('business_id');
-        localStorage.removeItem('internal_staff');
-        localStorage.removeItem('business_name');
-        localStorage.removeItem('isBusiness');
+        localStorage.removeItem('isBoxoffice');
         localStorage.removeItem('adminData');
         this.currentUserSubject.next(null);
     }

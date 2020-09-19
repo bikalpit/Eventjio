@@ -4,25 +4,27 @@ import { Observable, throwError, from } from 'rxjs';
 import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { map, catchError, filter } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { AuthenticationService } from '../../_services/authentication.service';
 
 
 
 @Injectable({ providedIn: 'root' })
 export class SuperadminService {
 
-    token = localStorage.getItem('token');
-    admin_id = localStorage.getItem('admin-id');
+    // token = localStorage.getItem('token');
+    // admin_id = localStorage.getItem('admin-id');
     globalHeaders:any;
-
+    currentUser:any;
      constructor(
         private http: HttpClient,
         public router: Router,
+        private authenticationService : AuthenticationService,
     ) {
-
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         this.globalHeaders = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : localStorage.getItem('admin-id'),
-            'api-token' : localStorage.getItem('token')
+            'admin-id' : this.currentUser.user_id,
+            'api-token' : this.currentUser.token
         });
     }  
 
@@ -52,12 +54,7 @@ export class SuperadminService {
     }
 
 
-    getAllBoxoffice(){
-    
-        let requestObject = {
-            'admin_id' : this.admin_id,
-        };
-
+    getAllBoxoffice(requestObject){
         return this.http.post(`${environment.apiUrl}/get-all-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;

@@ -18,9 +18,56 @@
             </mat-radio-button>
           </mat-radio-group>
 
-          <div *ngIf="confirmationType === 'SpecificOrderConfirmation'">
-            123456789
+
+    <div class="specific-order-confirmation" *ngIf="confirmationType === 'SpecificOrderConfirmation'">
+        <div class="">Click the <mat-icon class="px-1 mx-1">people</mat-icon> icon to insert <span class="highlight p-1 mx-1">Placeholder</span> which get replaced with order details when the email is sent.</div> 
+            <div class="specific--order-confirm mt-3 border">
+                
+                <div class="specific-msg-content">
+                    <ck-editor
+                        class="specific-msg-content"
+                        name="editor1" 
+                        skin="moono-lisa" 
+                        language="en" [fullPage]="true">
+                    </ck-editor>    
+                </div>
+                
+            </div>
+
+            <div class="invoice-preview mt-3">
+                
+                <div class="invoive-details">
+                    <mat-checkbox>Attach ticket vouchers as a PDF <i class="fa fa-question-circle"></i></mat-checkbox><br>
+                    <mat-checkbox [checked]="attachInvoice">Attach invoice <i class="fa fa-question-circle"></i></mat-checkbox>
+                    
+                    <div class="title mt-2">
+                        Invoice preview
+                    </div>
+                    <p>Edit the invoice text field to add details such as your company address and contact information.</p>
+
+                    <div class="invoice-demo border rounded p-3">
+                        <div class="row m-0">
+                            <div class="title p-2">Invoice</div>
+                            <div class="empty-box ml-auto rounded">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="row m-0">
+                                <div class="blank-bar"> </div>
+                                <div class="blank-bar ml-auto"> </div>
+                                <div class="blank-bar"> </div>
+                                <div class="blank-bar ml-auto"> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+            
           </div>
+
+                    
     </div>
 
     <div class="preview-global-order mt-2 border p-3" *ngIf="confirmationType === 'GlobalOrderConfirmation'">

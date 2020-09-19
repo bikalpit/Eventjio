@@ -4,6 +4,8 @@ import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from '../_services/authentication.service';
+import { AppComponent } from '../app.component';
+import { User, Role } from '../_models';
 
 
 @Component({
@@ -21,18 +23,25 @@ export class LoginComponent implements OnInit {
   hideLoginForm: boolean = true;
   dataLoaded: boolean = false;
   isIE: boolean = false;
-
+  currentUser: User;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private _snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
+    private appComponent:AppComponent,
     //private appComponent:AppComponent,
   ) { 
     if(/msie\s|trident\//i.test(window.navigator.userAgent)){
-            this.isIE = true;
-  }
+        this.isIE = true;
+    }
+    // redirect to home if already logged in
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+       
+    if (this.authenticationService.currentUserValue) {
+        this.appComponent.fnCheckLoginStatus();
+    }
   };
 
   ngOnInit(): void {
@@ -57,25 +66,8 @@ export class LoginComponent implements OnInit {
     .pipe(first()).subscribe(data => {
 
         if(data.data == true){
-          
-            if(data.response.currentPlan == null){
-                localStorage.setItem('adminData',JSON.stringify(data.response))
-                localStorage.removeItem('currentUser');
-                this.router.navigate(["/super-admin"]);
-                return;    
-            }
-
-            if(data.response.user_type == "A"){
-                this.router.navigate(["admin"]);
-            }else if(data.response.user_type == "SM"){
-                localStorage.setItem('internal_staff','N');
-                this.router.navigate(["staff"]);
-            }else{
-                this.router.navigate(["user"]);
-            }
-
-            // this.appComponent.initiateTimeout();
-            this.hideLoginForm = false;
+            localStorage.setItem('currentUser',JSON.stringify(data.response))
+            this.router.navigate(["/super-admin"]);
             
         }else if(data.data == false){
 

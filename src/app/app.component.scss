@@ -21,7 +21,8 @@
     margin: auto;
     border-radius: 30px;
 }
-.plus-sign{
+
+.plus-sign {
     position: absolute;
     top: 3px;
     left: 0;
@@ -31,7 +32,8 @@
     font-size: 20px;
     font-weight: bold;
 }
-.left-side-container .icon{
+
+.left-side-container .icon {
     width: 25px;
     height: 25px;
     color: white;
@@ -60,8 +62,9 @@
         width: 45px;
     }
     opacity: 1 !important;
-} 
-.company-logo{
+}
+
+.company-logo {
     padding: 15px 0px;
 }
 
@@ -71,7 +74,7 @@
     background-color: #02316E;
     padding: 0px 5px;
     height: 60px;
-} 
+}
 
 .main-menu {
     height: calc(100vh - 115px);
@@ -108,10 +111,12 @@
     padding: 20px;
     display: block;
 }
-.common-icon{
+
+.common-icon {
     opacity: 0.5;
     display: inline-grid;
 }
+
 .right-toolbar {
     font-size: 16px;
     background-color: #ffffff;
@@ -120,14 +125,24 @@
     z-index: 9999;
     padding: 10px 35px;
     box-shadow: 0px 0px 12px #00000014;
-    
+    &.business_toolbar {
+        width: 100%;
+    }
 }
-
 
 .modal-lg {
     max-width: 1050px !important;
     margin: 0px !important;
     border: none !important;
+}
+
+.example-fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+.selected-boxoffice-btn-main {
+    display: table;
+    margin: 0 auto;
 }
 
 .modal-content .modal-header {

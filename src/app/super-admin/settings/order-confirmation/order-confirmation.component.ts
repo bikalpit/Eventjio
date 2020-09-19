@@ -6,16 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-confirmation.component.scss']
 })
 export class OrderConfirmationComponent implements OnInit {
-confirmationType :any ='GlobalOrderConfirmation';
-attachInvoice = true;
+
+  attachInvoice = true;
+  
   constructor() { }
 
   ngOnInit(): void {
-
-  }
-
-  fnEditOrderConfirmation(event){
-    this.confirmationType = event.value;
   }
 
 }
