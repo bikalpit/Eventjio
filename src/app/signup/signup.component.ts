@@ -56,19 +56,16 @@ export class SignupComponent implements OnInit {
 
   fnSignUp(){
     if(!this.termsCheckbox){
-		alert("1")
       return false;
     }
     
     if(this.signUpForm.invalid){
-		alert("2")
       this.signUpForm.get('firstname').markAsTouched;
       this.signUpForm.get('email').markAsTouched;
       this.signUpForm.get('password').markAsTouched;
       this.signUpForm.get('description').markAsTouched;
       return false;
     }
-	alert("3")
 
       let requestObject = {
 				"firstname":this.signUpForm.get("firstname").value,
