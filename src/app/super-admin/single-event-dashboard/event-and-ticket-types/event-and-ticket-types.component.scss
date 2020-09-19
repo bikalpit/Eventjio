@@ -1,0 +1,233 @@
+::ng-deep .event-tickets{
+    .event-main{
+        padding: 15px 35px;
+        .event-head{
+            h5{
+                font-size: 16px;
+                font-weight: 500;
+                color: #181818;
+            }
+        }
+        .add-event-info{
+            background: #F6F6F645;
+            border: 1px solid #CECECE;
+            border-radius: 4px;
+            .event-content{
+                padding: 15px 15px;
+                h6{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #181818;
+                }
+                .event-info{
+                    .asterisk{
+                        color: #FF0000;
+                        font-size: 5px;
+                        position: relative;
+                        bottom: 6px;
+                    }
+                    .fa-question {
+                        border-radius: 50%;
+                        font-size: 9px;
+                        padding: 3px 5px;
+                        background: #CECECE;
+                        opacity: 0.47;
+                        margin-left: 8px;
+                    }
+                    .events{
+                        margin-right: 15px;
+                        .event-image{
+                            border-radius: 4px;
+                            width: 80px;
+                            height: 80px;
+                        }
+                    }
+                    .upload-link{
+                        margin-right: 15px;
+                        .upload{
+                            background: #CEE6FF;
+                            border: 1px dashed #007BFF;
+                            border-radius: 4px;
+                            align-items: center;
+                            display: flex;
+                            justify-content: center;
+                            width: 80px;
+                            height: 80px;
+                            .upload-icon{                            
+                            color: #007BFF;
+                            }
+                            p{
+                                color: #2C2C2C;
+                            }
+                        }
+                    }
+                    .no-image-link{
+                        margin-right: 15px;
+                        .no-image{
+                            background: #E4E4E4;
+                            border: 1px dashed #E4E4E4;
+                            border-radius: 4px;
+                            align-items: center;
+                            display: flex;
+                            justify-content: center;
+                            width: 80px;
+                            height: 80px;
+                            .no-img{
+                                width: 25px;
+                                height: 25px;
+                            }
+                            p{
+                                color: #2C2C2C;
+                            }
+                        }
+                    }
+                    .select-event-img-sm{
+                        .select-event-image{
+                            border-radius: 4px;
+                            width: 150px;
+                            height: 150px;
+                            .image-status{
+
+                            }                            
+                        }
+                        .delete-button{
+                            background: #E1E1E1;
+                            color: #2C2C2C;
+                            margin: 0px 10px;
+                        }
+                        .choose-img-btn{
+                            background: #E1E1E1;
+                            color: #2C2C2C;
+                            margin: 0px 10px;
+                        }
+                    }
+                    .select-event-img-lg{
+                        .select-event-image{
+                            border-radius: 4px;
+                            width: 400px;
+                            height: 150px;
+                            .image-status{
+
+                            }                            
+                        }
+                        .delete-button{
+                            background: #E1E1E1;
+                            color: #2C2C2C;
+                            margin: 0px 10px;
+                        }
+                        .choose-img-btn{
+                            background: #E1E1E1;
+                            color: #2C2C2C;
+                            margin: 0px 10px;
+                        }
+                    }
+                }
+            }
+            
+        }
+        .create-ticket{
+            background: #F6F6F645;
+            border: 1px solid #CECECE;
+            border-radius: 4px;
+            margin: 15px 0px;
+            .event-content{
+                padding: 15px 30px;
+                h6{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #181818;
+                }
+                .event-info{
+                    .ticket-type-btn{
+                        background: #1172F4;
+                        color: #FFFFFF;
+                    }
+                    .ticket-grp-btn{
+                        background: #1172F4;
+                        color: #FFFFFF;
+                    }
+                }
+                .ticket-details{
+                    background: #e4f0fd;
+                    padding : 15px;
+                    border-radius: 4px;
+                    margin: 15px 0px;
+                    .sold-ticket{
+                        color: #1172F4;
+                    }
+                    .remaining-ticket{
+                        color: #1172F4
+                    }
+                }
+        }
+     }
+     .event-settings{
+        background: #F6F6F645;
+        border: 1px solid #CECECE;
+        border-radius: 4px;
+        margin: 15px 0px;
+        .event-content{
+            padding: 15px 15px;
+            h6{
+                font-size: 14px;
+                font-weight: 500;
+                color: #181818;
+            }
+        .event-info{
+            .text-italic{
+                font-style: italic;
+            }
+            .info {
+                position: relative;
+                bottom: 2px;
+            }
+            .asterisk{
+                color: #FF0000;
+                font-size: 5px;
+                position: relative;
+                bottom: 6px;
+            }
+            .fa-question {
+                border-radius: 50%;
+                font-size: 9px;
+                padding: 3px 5px;
+                background: #CECECE;
+                opacity: 0.47;
+                margin-left: 8px;
+            }
+            .allow-donation{
+                .mat-checkbox-layout{
+                    margin-bottom: 0px !important;
+                }
+            }
+        }
+    }
+     }
+     
+    .cancel-save{
+        display: flex;
+        .cancel-btn{
+            background: #E1E1E1;
+            border-radius: 5px;
+            opacity: 1;
+            color: #2C2C2C;
+            text-align: center;
+            margin-left: auto;
+        }
+        .save-btn{
+            background: #1172F4;
+            border-radius: 5px;
+            opacity: 1;
+            color: #FFFFFF;
+            text-align: center;
+            margin-left: 15px;
+        }
+    }
+    }
+}
+
+::ng-deep .info {
+    position: relative;
+    bottom: 2px;
+    // padding-left: 8px;
+}

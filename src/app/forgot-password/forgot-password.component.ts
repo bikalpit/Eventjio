@@ -54,7 +54,7 @@ forgotPwdSubmit(){
   let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
-      return this.http.post(`/forgot-password`,requestObject,{headers:headers}).pipe(
+      return this.http.post(`http://eventjio.bi-team.in/api/forgot-password`,requestObject,{headers:headers}).pipe(
       map((res) => {
           return res;
       }),

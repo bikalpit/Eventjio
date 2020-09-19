@@ -1,4 +1,4 @@
-#my-business-top {
+#my-boxoffice-top {
     width: 100%;
     height: 65px;
     .inner {
@@ -32,7 +32,7 @@
     }
 }
 
-#list_business {
+#list_boxoffice {
     display: flex;
     align-items: flex-start;
     padding: 25px;
@@ -41,7 +41,7 @@
     mat-card {
         border-radius: 20px 20px;
         margin: 0px 16px 20px;
-        .business-title {
+        .boxoffice-title {
             h6 {
                 font-size: 20px;
             }
@@ -52,14 +52,14 @@
             margin: 2% 1em;
         }
     }
-    .SelectBusiness {
+    .Selectboxoffice {
         box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
         .image-round-main {
             display: flex;
             justify-content: center;
         }
     }
-    .SelectBusinessIcon {
+    .SelectboxofficeIcon {
         background-color: #e6e6e6;
         border-radius: 50%;
         font-size: 45px;
@@ -80,18 +80,27 @@
         background-color: #1172f4;
         color: white;
     }
-    .NewBusiness-matcard {
-        background-color: #cfe3fc;
+    .Newboxoffice-matcard {
+        background-color: #fff;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        box-shadow: unset;
+        border: 1px dashed #1172F4;
+        border-radius: 20px;
+        transition: all 0.3s;
+        &:hover {
+            background-color: #cfe3fc;
+            box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+            border: 0px;
+        }
     }
-    .business-btn-main {
+    .boxoffice-btn-main {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .AddNewBusinessIcon {
+    .AddNewboxofficeIcon {
         background-color: #97c1fb;
         border-radius: 50%;
         height: 60px;
@@ -111,18 +120,18 @@
         margin-right: 0 !important;
         padding-bottom: 10px;
     }
-    .SelectBusiness {
+    .Selectboxoffice {
         margin-bottom: 10px;
     }
 }
 
 @media only screen and (max-width: 767px) {
-    #Add-new-business {
+    #Add-new-boxoffice {
         mat-card {
             margin: 0px 0px 20px;
         }
     }
-     ::ng-deep #adminbusiness .inner-pad {
+     ::ng-deep #admin-boxoffice .inner-pad {
         padding: 10px !important;
     }
      ::ng-deep .form-group {
@@ -151,15 +160,15 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation:portrait) {
-    #Add-new-business {
+    #Add-new-boxoffice {
         mat-card {
             margin: 0px 0px 20px;
         }
     }
 }
 
-// <-----------create-new-business-dialog----->
-::ng-deep #adminbusiness {
+// <-----------create-new-boxoffice-dialog----->
+::ng-deep #admin-boxoffice {
     .inner-pad {
         padding: 60px;
     }
@@ -167,7 +176,7 @@
         color: #1173f4;
         font-weight: bolder;
     }
-    .admin-business-Submitbutton {
+    .admin-boxoffice-Submitbutton {
         background-color: #1173f4;
         color: white;
         padding: 2px 45px;
@@ -212,4 +221,13 @@
 
 mat-drawer.left-side-container.left-side-main-menu.mat-drawer.ng-tns-c2-0.ng-trigger.ng-trigger-transform.mat-drawer-side.mat-drawer-opened.ng-star-inserted {
     display: none;
+}
+
+.signle-boxoffice {
+    .boxoffice-title {
+        h6 {
+            font-size: 24px;
+            font-weight: 500;
+        }
+    }
 }

@@ -1,17 +1,17 @@
-<div class="container" id="adminbusiness">
+<div class="container" id="admin-boxoffice">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
     <button type="button" class="close m-3" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+        <span aria-hidden="true">&times;</span>
+    </button>
     <div class="row">
         <div class="col-12 inner-pad">
             <div class="text-center ">
                 <h2>Create Box Office</h2>
                 <h4>Please tell us about your organisation and types of event that you run</h4>
             </div>
-           <div class="pt-5">
+            <div class="pt-5">
                 <form [formGroup]="createBoxoffice">
-                    <div class="col-12 p-0" >
+                    <div class="col-12 p-0">
                         <h3 class="text-left">
                             <strong>About your organisation:</strong>
                         </h3>
@@ -19,19 +19,19 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
                             <label>Name <span class="text-danger">*</span></label>
-                            <input  formControlName="boxoffice_name" placeholder="" class="form-control">
+                            <input formControlName="boxoffice_name" placeholder="" class="form-control">
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_name').dirty || createBoxoffice.get('boxoffice_name').touched"><small *ngIf="createBoxoffice.get('boxoffice_name').hasError('required')" class="error">Box office name is required.</small></span>
                         </div>
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
                             <label>Type  <span class="text-danger">*</span></label>
-                            <select formControlName="boxoffice_type" class="form-control">
-                                <option value="individual">individual</option>
-                                <option value="business">business</option>
-                                <option value="Parent Teacher Association (PTA)">Parent Teacher Association (PTA)</option>
-                                <option value="charity">charity</option>
-                                <option value="Community Group">Community Group</option>
-                                <option value="Venue">Venue</option>
-                            </select>
+                            <mat-select formControlName="boxoffice_type" class="form-control">
+                                <mat-option value="individual">individual</mat-option>
+                                <mat-option value="business">business</mat-option>
+                                <mat-option value="Parent Teacher Association (PTA)">Parent Teacher Association (PTA)</mat-option>
+                                <mat-option value="charity">charity</mat-option>
+                                <mat-option value="Community Group">Community Group</mat-option>
+                                <mat-option value="Venue">Venue</mat-option>
+                            </mat-select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_type').dirty || createBoxoffice.get('boxoffice_type').touched">
                             <small *ngIf="createBoxoffice.get('boxoffice_type').hasError('required')" class="error">Box office type is required.</small></span>
                         </div>
@@ -40,17 +40,17 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
                             <label>Country  <span class="text-danger">*</span></label>
-                            <select formControlName="boxoffice_country" class="form-control">
-                                <option *ngFor="let val of allCountry" value="{{val.id}}">{{val.name}}</option>
-                            </select>
+                            <mat-select formControlName="boxoffice_country" class="form-control">
+                                <mat-option *ngFor="let val of allCountry" value="{{val.id}}">{{val.name}}</mat-option>
+                            </mat-select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_country').dirty || createBoxoffice.get('boxoffice_country').touched">
                             <small *ngIf="createBoxoffice.get('boxoffice_country').hasError('required')" class="error">Country is required.</small></span>
                         </div>
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
                             <label>Billing currency  <span class="text-danger">*</span></label>
-                            <select formControlName="boxoffice_billing_currency" class="form-control">
-                                <option *ngFor="let val of allCurency" value="{{val.id}}">{{val.CurrencyName}}</option>
-                            </select>
+                            <mat-select formControlName="boxoffice_billing_currency" class="form-control">
+                                <mat-option *ngFor="let val of allCurency" value="{{val.id}}">{{val.CurrencyName}}</mat-option>
+                            </mat-select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_billing_currency').dirty || createBoxoffice.get('boxoffice_billing_currency').touched">
                                 <small *ngIf="createBoxoffice.get('boxoffice_billing_currency').hasError('required')" class="error">Billing currency is required.</small>
                             </span>
@@ -63,43 +63,43 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
                             <label>Genre  <span class="text-danger">*</span></label>
-                            <select formControlName="boxoffice_genre" class="form-control">
-                                <option value="business">Are of film</option>
-                                <option value="business">business</option>
-                                <option value="Charity Fundrises">Charity Fundrises</option>
-                                <option value="Comedy">Comedy</option>
-                                <option value="Education">Education</option>
-                                <option value="Entertainment">Entertainment</option>
-                                <option value="Food and Drink">Food and Drink</option>
-                                <option value="Health and wellbeing">Health and wellbeing</option>
-                                <option value="History/Heritage">History/Heritage</option>
-                                <option value="Private(Friend,family,group)">Private(Friend,family,group)</option>
-                                <option value="Tour/Travel">Tour/Travel</option>
-                                <option value="Religious/Spiritual">Religious/Spiritual</option>
-                                <option value="Other">Other</option>
-                            </select>
+                            <mat-select formControlName="boxoffice_genre" class="form-control">
+                                <mat-option value="business">Are of film</mat-option>
+                                <mat-option value="business">business</mat-option>
+                                <mat-option value="Charity Fundrises">Charity Fundrises</mat-option>
+                                <mat-option value="Comedy">Comedy</mat-option>
+                                <mat-option value="Education">Education</mat-option>
+                                <mat-option value="Entertainment">Entertainment</mat-option>
+                                <mat-option value="Food and Drink">Food and Drink</mat-option>
+                                <mat-option value="Health and wellbeing">Health and wellbeing</mat-option>
+                                <mat-option value="History/Heritage">History/Heritage</mat-option>
+                                <mat-option value="Private(Friend,family,group)">Private(Friend,family,group)</mat-option>
+                                <mat-option value="Tour/Travel">Tour/Travel</mat-option>
+                                <mat-option value="Religious/Spiritual">Religious/Spiritual</mat-option>
+                                <mat-option value="Other">Other</mat-option>
+                            </mat-select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_genre').dirty || createBoxoffice.get('boxoffice_genre').touched">
                                 <small *ngIf="createBoxoffice.get('boxoffice_genre').hasError('required')" class="error">Box office genre is required.</small>
                             </span>
                         </div>
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
                             <label>Type  <span class="text-danger">*</span></label>
-                            <select formControlName="boxoffice_genre_type" class="form-control">
-                                <option value="awards/ceremony">awards/ceremony</option>
-                                <option value="Class/seminar/Training/Workshop">Class/seminar/Training/Workshop</option>
-                                <option value="Conference/Tradeshow/Expo">Conference/Tradeshow/Expo</option>
-                                <option value="Dinner/Social">Dinner/Social</option>
-                                <option value="Exhibition">Exhibition</option>
-                                <option value="Fair/Fete">Fair/Fete</option>
-                                <option value="Festival">Festival</option>
-                                <option value="Gallery">Gallery</option>
-                                <option value="Gig/concert">Gig/concert</option>
-                                <option value="Meeting">Meeting</option>
-                                <option value="Private Party">Private Party</option>
-                                <option value="Tour">Tour</option>
-                                <option value="Show/Performance/Viewing">Show/Performance/Viewing</option>
-                                <option value="Other">Other</option>
-                            </select>
+                            <mat-select formControlName="boxoffice_genre_type" class="form-control">
+                                <mat-option value="awards/ceremony">awards/ceremony</mat-option>
+                                <mat-option value="Class/seminar/Training/Workshop">Class/seminar/Training/Workshop</mat-option>
+                                <mat-option value="Conference/Tradeshow/Expo">Conference/Tradeshow/Expo</mat-option>
+                                <mat-option value="Dinner/Social">Dinner/Social</mat-option>
+                                <mat-option value="Exhibition">Exhibition</mat-option>
+                                <mat-option value="Fair/Fete">Fair/Fete</mat-option>
+                                <mat-option value="Festival">Festival</mat-option>
+                                <mat-option value="Gallery">Gallery</mat-option>
+                                <mat-option value="Gig/concert">Gig/concert</mat-option>
+                                <mat-option value="Meeting">Meeting</mat-option>
+                                <mat-option value="Private Party">Private Party</mat-option>
+                                <mat-option value="Tour">Tour</mat-option>
+                                <mat-option value="Show/Performance/Viewing">Show/Performance/Viewing</mat-option>
+                                <mat-option value="Other">Other</mat-option>
+                            </mat-select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_genre_type').dirty || createBoxoffice.get('boxoffice_genre_type').touched">
                                 <small *ngIf="createBoxoffice.get('boxoffice_genre_type').hasError('required')" class="error">Type is required.</small>
                             </span>
@@ -109,7 +109,7 @@
                         <button mat-button class="admin-business-Submitbutton" (click)="fnCreateBoxOffice()">Create Box Office</button>
                     </div>
                 </form>
-            </div> 
+            </div>
         </div>
     </div>
 </div>

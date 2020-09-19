@@ -15,9 +15,9 @@ export class AppComponent {
   boxofficeComponent:boolean = false;
   pageName :any = 'Dashboard';
   timer: any = 0;
-  
+  selectedBoxOfficeName:any;
   currentUser: User;
-
+  adminTopMenuselected:any
   
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +25,12 @@ export class AppComponent {
     private bnIdle: BnNgIdleService,
     private authenticationService: AuthenticationService,
   ) {
-    if(this.authenticationService.currentUser){
+    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    if(this.currentUser && this.currentUser !== null){
+      console.log(this.currentUser)
+      alert("alert");
+      this.adminTopMenuselected = this.currentUser.firstname
+      
       this.loadLocalStorage();
     }
     this.bnIdle.startWatching(6600).subscribe((res) => {
@@ -50,6 +55,8 @@ export class AppComponent {
 
   loadLocalStorage(){
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    
+    this.adminTopMenuselected = this.currentUser.firstname
   }
 
   logout() {
@@ -102,6 +109,15 @@ export class AppComponent {
   fnPostUrl(postUrl){
     this.pageName = postUrl; 
   }
+  isBoxOfficeSelected() {
+    if (localStorage.getItem('boxoffice_id') && localStorage.getItem('boxoffice_id') != "") {
+      this.selectedBoxOfficeName = localStorage.getItem('boxoffice_name');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
   isAdminUser() {
     return this.currentUser && this.currentUser.user_type === Role.Admin;

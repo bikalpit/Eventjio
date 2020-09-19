@@ -1,0 +1,67 @@
+<div id="duplicate">
+     <div class="container-fluid">
+          <div class="top-heading-main">
+               <h4> Duplicate Event   </h4>
+               <p>Below you can create multiple duplications of the event with different names, start dates and end dates. All other details including tickets will be replicated.</p>
+           </div>
+           <div class="manage-duplicate-table">
+               <div class="main-table-content main-cust-table-content">
+                    <div class="duplicate-heading">
+                         <h3>
+                              Create duplicates
+                         </h3>
+                      
+                    </div>
+                    <div class="duplicate-table-wrap">
+                        <div class="heads main-heading-content drageble" fxLayout="row">
+                            <div class="heading-table" fxFlex="20"></div>
+                            <div class="heading-table" fxFlex="20">Event Name</div>
+                            <div class="heading-table" fxFlex="20">Start Date</div>
+                            <div class="heading-table" fxFlex="20">End Date</div>
+                            <div class="heading-table" fxFlex="20">Status</div>
+                        </div>
+                        <div class="content" class="drageble-list">
+                            <div class="drageble-box" cdkDrag fxLayout="row">
+                                <div class="tb-data heading-table clr-black" fxFlex="20">      Original </div>
+                                <div class="tb-data heading-table" fxFlex="20"> Interior Expo </div>
+                                <div class="tb-data heading-table text-green" fxFlex="20">Thu Aug 13, 2020</div>
+                                <div class="tb-data heading-table" fxFlex="20">Wed Aug 26, 2020</div>
+                                <div class="tb-data heading-table" fxFlex="20">Draft</div>
+                            </div>
+                        </div>
+                        <div class="content" class="drageble-list">
+                         <div class="drageble-box main-drageble" cdkDrag fxLayout="row">
+                             <div class="tb-data heading-table clr-black" fxFlex="20"> New </div>
+                             <div class="tb-data heading-table" fxFlex="20"> <input class="form-control ng-pristine ng-invalid ng-touched" formcontrolname="" placeholder="Interior Expo"> </div>
+                             <div class="tb-data heading-table text-purple" fxFlex="20"><input class="form-control ng-pristine ng-invalid ng-touched" formcontrolname="" placeholder="Thu Aug 13, 2020"></div>
+                             <div class="tb-data heading-table" fxFlex="20"><input class="form-control ng-pristine ng-invalid ng-touched" formcontrolname="" placeholder="Wed Aug 26, 2020"></div>
+                             <div class="tb-data heading-table" fxFlex="20"> <mat-select class="form-control clr-black custom-fc-width" id="exampleFormControlSelect1">
+                                <mat-option>Draft</mat-option>
+                                    <mat-option>2</mat-option>
+                                    <mat-option>3</mat-option>
+                                    <mat-option>4</mat-option>
+                                     <mat-option>5</mat-option>
+                              </mat-select>
+
+                              <div class="delete-duplicate"> 
+                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                              </div>
+                            </div>
+                         </div>
+                     </div>
+                     
+                    </div>
+                    <div class="add-row">
+                            <a href="" > Add another row  </a>
+                    </div>
+
+                </div>
+                <div class="form-group col-md-12 col-lg-12 col-sm-12">
+                    <div class="botttom-buttons">
+                        <button mat-flat-button  color="primary"> Save Duplicates </button>
+                    </div>
+                </div>
+          </div>
+          
+     </div>
+</div>

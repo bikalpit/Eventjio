@@ -32,6 +32,7 @@ import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.componen
 
 
 
+
 @NgModule({
   declarations: [DashboardComponent, 
      EventsComponent,
@@ -47,7 +48,7 @@ import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.componen
       AddNewTicketType,
       AddNewTicketGroup,
       OrderInvoiceDialog,
-      myCreateNewBoxofficeDialog
+      myCreateNewBoxofficeDialog,
   ],
   
   imports: [

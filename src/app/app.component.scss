@@ -136,6 +136,15 @@
     border: none !important;
 }
 
+.example-fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+.selected-boxoffice-btn-main {
+    display: table;
+    margin: 0 auto;
+}
+
 .modal-content .modal-header {
     border: none !important;
 }
@@ -152,6 +161,7 @@
 
 .head-dropdown {
     border: none;
+    width: 170px;
 }
 
 ::ng-deep .main-menu-tooltip {

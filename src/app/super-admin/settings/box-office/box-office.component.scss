@@ -6,7 +6,9 @@
 page-title{
     font:24px;
 }
-
+label{
+    margin-bottom: 0px;
+} 
 .my-left-content{
     border-right:solid 0.5px #C0C0C0;
 
@@ -35,8 +37,7 @@ page-title{
 
     .my-right-content{
         border-left:solid 0.5px #C0C0C0;
-        
-            
+       
         i{
             color:#C0C0C0;
         }
@@ -77,7 +78,3 @@ page-title{
     background-color: #1172F4;
     color:#ffffff;
 }
-
-
-  
-  
