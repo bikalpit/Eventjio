@@ -1,5 +1,5 @@
 <mat-drawer-container class="main-container">
-    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="!isBoxoffice() && !boxofficeComponent">
+    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="isAdminUser() && (!isBoxoffice() && !boxofficeComponent)">
         <mat-toolbar class="app-title">
             <div class="text-light text-center company-logo">
                 <img src="/assets/images/logo/eventjio-icon.png" class="company-img" alt="">

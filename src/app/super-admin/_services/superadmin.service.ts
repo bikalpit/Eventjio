@@ -20,12 +20,10 @@ export class SuperadminService {
         public router: Router,
         private authenticationService : AuthenticationService,
     ) {
-       // alert(this.currentUser.token)
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        alert(this.currentUser.token)
         this.globalHeaders = new HttpHeaders({
             'Content-Type': 'application/json',
-            'admin-id' : JSON.stringify(this.currentUser.user_id),
+            'admin-id' : this.currentUser.user_id,
             'api-token' : this.currentUser.token
         });
     }  

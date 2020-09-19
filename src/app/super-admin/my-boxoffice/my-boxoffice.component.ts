@@ -48,7 +48,7 @@ export class MyBoxofficeComponent implements OnInit {
 
     getAllBoxoffice(){
       let requestObject = {
-          'admin_id' : JSON.stringify(this.currentUser.user_id),
+          'admin_id' : this.currentUser.user_id,
       };
       this.isLoaderAdmin = true;
       this.superadminService.getAllBoxoffice(requestObject).subscribe((response:any) => {
@@ -75,6 +75,7 @@ export class MyBoxofficeComponent implements OnInit {
     fnCreateBoxOffice() {
       const dialogRef = this.dialog.open(myCreateNewBoxofficeDialog, {
         width: '1100px',
+        data : {adminId : this.currentUser.user_id}
       });
       dialogRef.afterClosed().subscribe(result => {
         this.getAllBoxoffice();
@@ -94,7 +95,7 @@ export class myCreateNewBoxofficeDialog {
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   allCurency: any;
   allCountry: any;
-  admin_id = localStorage.getItem('admin-id');
+  admin_id :any;
 
   constructor(
     public dialogRef: MatDialogRef<myCreateNewBoxofficeDialog>,
@@ -103,6 +104,7 @@ export class myCreateNewBoxofficeDialog {
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.admin_id = this.data.adminId;
       this.getAllCountry();
       this.getAllCurrancy();
     }
@@ -150,8 +152,8 @@ export class myCreateNewBoxofficeDialog {
     if(this.createBoxoffice.valid){
 
       var insertArr = {
+        "admin_id": this.admin_id,
         "box_office_name" : this.createBoxoffice.get('boxoffice_name').value,
-        "admin_id" : this.admin_id,
         "type" : this.createBoxoffice.get('boxoffice_type').value,
         "currency" : this.createBoxoffice.get('boxoffice_billing_currency').value,
         "country" : this.createBoxoffice.get('boxoffice_billing_currency').value,
@@ -161,6 +163,8 @@ export class myCreateNewBoxofficeDialog {
 
       this.createNewBoxOffice(insertArr);
 
+    }else{
+      
     }
     
   }
