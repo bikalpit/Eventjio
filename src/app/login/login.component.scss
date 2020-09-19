@@ -2,16 +2,21 @@
 .main {
     font-family: Poppins, Regular;
 }
-
-.P-0 {
-    padding: 0px;
-}
-
-.login {
-    .login-left {
-        padding: 6% 0% 6% 8%;
+.log-in{
+    height: calc(100vh);
+.P-0{padding: 0px;}
+.login{
+    height: 100%;
+    .login-left{  
+        // padding: 6% 0% 6% 8%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
         // padding: 95px 120px;
-        .login-head {
+        .login-content{
+        }
+        .login-head{
             text-align: center;
             h5 {
                 color: #808080;
@@ -44,9 +49,14 @@
             }
             .login-icon {
                 color: #FF8800;
-            }
-            .input-group {
+              }
+              .input-group {
                 margin: 10px 0px;
+                // align-items: center;
+                // display: flex;
+                // border: 1px #D8D8D8 solid;
+                // padding: 5px 20px;
+                // border-radius: 37px;
                 .field-list {
                     align-items: center;
                     display: flex;
@@ -55,12 +65,11 @@
                     border-radius: 37px;
                     width: 100%;
                 }
-            }
-            .hide-show-pswd {
-                color: #B4B4B4;
-                ;
-            }
-            .fr-pswd-link {
+            }   
+              .hide-show-pswd{
+                  color: #B4B4B4;;
+              }
+              .fr-pswd-link{
                 float: right;
             }
             a {
@@ -81,29 +90,31 @@
                     color: #595959;
                     a {
                         color: #FF8800;
-                    }
-                }
-            }
+                      }     
+                  }
+              }
         }
-    }
-    .login-right {
-        .login-image {
+    }   
+    .login-right{
+        background: url(/assets/images/login/login-bg.jpg); 
+        background-size: cover;
+        .login-image{
             width: 100%;
         }
         .event-jio {
             bottom: 0;
-            top: 53px;
-            position: relative;
-            position: absolute;
-            right: 231px;
-            color: #FFFFFF;
-            //bottom: 0;
-            // top: 118px;
-            // position: relative;
-            // position: fixed;
-            // right: 231px;
-            // color: #FFFFFF;
-            h2 {
+        top: 53px;
+        position: relative;
+        position: absolute;
+        right: 178px;
+        color: #FFFFFF;
+        //bottom: 0;
+        // top: 118px;
+        // position: relative;
+        // position: fixed;
+        // right: 231px;
+        // color: #FFFFFF;
+            h2{
                 margin-bottom: 0px;
                 color: #FFFFFF;
                 text-align: start;
@@ -118,5 +129,6 @@
                 font-style: italic;
             }
         }
-    }
+    }      
+}
 }

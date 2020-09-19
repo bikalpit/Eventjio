@@ -59,7 +59,7 @@
         </div>
     </mat-drawer>
     <mat-drawer-content class="bg-white h-100vh">
-        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser(), 'business_toolbar': (isAdminUser() && isBoxoffice()) }" *ngIf="isLogin()" class="py-3 right-toolbar toolbar menu-comman">
+        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser(), 'business_toolbar': (isAdminUser() && isBoxoffice()) }" *ngIf="isLogin() && currentUser" class="py-3 right-toolbar toolbar menu-comman">
             <div>
                 {{pageName}}
             </div>
@@ -76,13 +76,11 @@
                 </div>
                 <!-- <span class="d-inline-block"> Administrator <i class="fa fa-angle-down fa-fw pl-1"></i></span> -->
             </div>
-            <mat-form-field>
-                <mat-select [(ngModel)]="adminTopMenuselected" class="form-control head-dropdown" id="exampleFormControlSelect1" (selectionChange)="fnChangeTopMenu($event.value);">
-                    <mat-option value="admin" selected>{{currentUser.firstname}}</mat-option>
-                    <mat-option value="profile">My Profile</mat-option>
-                    <mat-option value="logout">Logout</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <mat-select [(ngModel)]="adminTopMenuselected" class="form-control head-dropdown" id="exampleFormControlSelect1" (selectionChange)="fnChangeTopMenu($event.value);">
+                <mat-option value="admin" selected>{{currentUser.firstname}}</mat-option>
+                <mat-option value="profile">My Profile</mat-option>
+                <mat-option value="logout">Logout</mat-option>
+            </mat-select>
         </mat-toolbar>
         <div class="right-toolbar-content">
             <router-outlet></router-outlet>

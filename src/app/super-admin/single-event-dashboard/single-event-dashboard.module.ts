@@ -4,27 +4,55 @@ import { MaterialModule } from '../../_helpers/material.module';
 import { SingleEventDashboard } from './single-event-dashboard'
 import { SingleEventDashboardRoutingModule } from './single-event-dashboard-routing.module';
 import { EventSummaryComponent } from './event-summary/event-summary.component';
+import { EventAndTicketTypesComponent } from './event-and-ticket-types/event-and-ticket-types.component';
+import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
+import { DeleteComponent } from './delete/delete.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-// import { ChartsModule } from 'ng2-charts';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { addBuyeronlyQuestionDialog} from './checkout-form/checkout-form.component';
+import { addAttendeeonlyQuestionDialog} from './checkout-form/checkout-form.component';
+import { editBuyerNameDialog} from './checkout-form/checkout-form.component';
+import { editAttendeeNameDialog} from './checkout-form/checkout-form.component';
+
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 import { mySendBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 
 
-
 @NgModule({
-  declarations: [EventSummaryComponent,SingleEventDashboard, IssuedTicketComponent, WaitilistSignupComponent, OrderConfirmationComponent, BroadcastComponent,  mySendBroadcastDialog, DuplicateComponent],
-  imports: [
-    CommonModule,
-    SingleEventDashboardRoutingModule,
-    MaterialModule,
-    FlexLayoutModule,
-    CKEditorModule
-  ],
-  entryComponents: [mySendBroadcastDialog],
+  declarations: [EventSummaryComponent,
+    SingleEventDashboard, 
+    EventAndTicketTypesComponent, 
+    CheckoutFormComponent, 
+    DeleteComponent,
+    IssuedTicketComponent, 
+    WaitilistSignupComponent, 
+    OrderConfirmationComponent,
+    addBuyeronlyQuestionDialog,
+    addAttendeeonlyQuestionDialog,
+    editBuyerNameDialog,
+    editAttendeeNameDialog,
+    BroadcastComponent,  
+    mySendBroadcastDialog, 
+    DuplicateComponent],
+    
+    imports: [
+      CommonModule,
+      SingleEventDashboardRoutingModule,
+      MaterialModule,
+      CKEditorModule,
+      FlexLayoutModule,
+      MatExpansionModule,
+      CKEditorModule,
+      MatTooltipModule],
+
+    entryComponents: [mySendBroadcastDialog,addBuyeronlyQuestionDialog,addAttendeeonlyQuestionDialog,editBuyerNameDialog,editAttendeeNameDialog],
+  
+  
 })
 export class SingleEventDashboardModule { }
