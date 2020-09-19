@@ -20,7 +20,7 @@
                                     <span class="">
                                         <mat-icon class="login-icon">person_outline</mat-icon>
                                     </span>
-                                    <input type="text" class="form-control" placeholder="Full name" />
+                                    <input type="text" class="form-control" placeholder="Full name" formControlName="firstname"  />
                                 </div>
                                 <span class="error-wrap" *ngIf="signUpForm.get('firstname').dirty || signUpForm.get('firstname').touched"><small *ngIf="signUpForm.get('firstname').hasError('required')" class="error text-left ml-4">Full name is required.</small></span>
                             </div>
