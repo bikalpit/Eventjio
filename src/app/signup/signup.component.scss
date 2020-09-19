@@ -33,13 +33,16 @@
             button:focus {
                 outline: none;
             }          
-            .input-group{                  
-                align-items: center;
-                display: flex;
-                border: 1px #D8D8D8 solid;
-                padding: 5px 20px;
-                border-radius: 37px;
+            .input-group {
                 margin: 10px 0px;
+                .field-list {
+                    align-items: center;
+                    display: flex;
+                    border: 1px #D8D8D8 solid;
+                    padding: 5px 20px;
+                    border-radius: 37px;
+                    width: 100%;
+                }
             }
             .signup-head{
                 h5{
@@ -77,13 +80,16 @@
                 .login-icon{
                     color: #FF8800;
                 }          
-                .input-group{                  
-                    align-items: center;
-                    display: flex;
-                    border: 1px #D8D8D8 solid;
-                    padding: 5px 20px;
-                    border-radius: 37px;
+                .input-group {
                     margin: 10px 0px;
+                    .field-list {
+                        align-items: center;
+                        display: flex;
+                        border: 1px #D8D8D8 solid;
+                        padding: 5px 20px;
+                        border-radius: 37px;
+                        width: 100%;
+                    }
                 }
                 .hide-show-pswd{
                     color: #B4B4B4;;

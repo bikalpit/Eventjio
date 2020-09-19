@@ -1,4 +1,4 @@
-.event-tickets{
+::ng-deep .event-tickets{
     .event-main{
         padding: 15px 35px;
         .event-head{
@@ -32,6 +32,7 @@
                         padding: 3px 5px;
                         background: #CECECE;
                         opacity: 0.47;
+                        margin-left: 8px;
                     }
                     .events{
                         margin-right: 15px;
@@ -173,6 +174,9 @@
                 color: #181818;
             }
         .event-info{
+            .text-italic{
+                font-style: italic;
+            }
             .info {
                 position: relative;
                 bottom: 2px;
@@ -189,6 +193,12 @@
                 padding: 3px 5px;
                 background: #CECECE;
                 opacity: 0.47;
+                margin-left: 8px;
+            }
+            .allow-donation{
+                .mat-checkbox-layout{
+                    margin-bottom: 0px !important;
+                }
             }
         }
     }
@@ -219,4 +229,5 @@
 ::ng-deep .info {
     position: relative;
     bottom: 2px;
+    // padding-left: 8px;
 }

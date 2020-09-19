@@ -15,6 +15,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 })
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
+  hide = true;
   adminSignUpData:any;
   termsCheckbox:boolean = false;
   constructor( private formBuilder: FormBuilder,

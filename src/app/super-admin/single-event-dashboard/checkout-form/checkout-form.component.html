@@ -1,1 +1,176 @@
-<p>checkout-form works!</p>
+<div class="checkout-form">
+    <div class="checkout-form-main">
+        <div class="checkout-form-content">
+            <h5 class="col-md-12">Edit checkout form</h5>
+            <p class="col-md-12 sub-title">The checkout form is the form your ticket buyers need to fill out when purchasing tickets. You can choose what data you would like to collect.</p>
+            <div class="form-radio-btn">
+                <div class="">
+                    <mat-radio-group aria-label="Select an option" (change)="fnCheckoutForm($event)" class="row mx-0">
+                        <div class="global-checkout col-md-3">
+                            <mat-radio-button value="global"  [checked]="reportType === 'global'">Global checkout form</mat-radio-button>
+                            <p>(Applies to all events)</p>
+                        </div>
+                        <div class="event-checkout col-md-3">
+                            <mat-radio-button value="eventspecific" [checked]="reportType === 'eventspecific'">Event specific checkout form</mat-radio-button>
+                            <p>(Applies to this event only)</p>
+                        </div>
+                    </mat-radio-group>
+                    
+                </div>
+            </div>
+            <div class="global-checkout-preview"  *ngIf="reportType === 'global'">
+                <div class="row mx-0">
+                    <h5 class="col-md-6 mb-0 pl-0">Preview of global checkout form</h5>
+                    <div class="col-md-6 d-flex pr-0">
+                        <button mat-raised-button class="ml-auto comm-btn">Edit global checkout form</button>
+                    </div>
+                </div>                
+                <div class="preview-form">
+                    <div class="global-checkout-form">
+                        <div class="col-md-12 checkout-form">
+                            <div class="">
+                              <form>
+                                <div class="form-group">
+                                  <label for="">Name <span><i class="fa fa-asterisk"></i></span> </label>
+                                  <input type="text" class="form-control" id="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Email address <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
+                                  <input type="email" class="form-control" id="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Repeat Email <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
+                                  <input type="email" class="form-control" id=""  placeholder="">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Mobile Phone Number <span><i class="fa fa-asterisk"></i></span> </label>
+                                  <input type="number" class="form-control" id=""  placeholder="">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Address Line 1 <span><i class="fa fa-asterisk" ></i></span> </label>
+                                  <input type="text" class="form-control" id="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Address Line 2 <span><i class="fa fa-asterisk" ></i></span> </label>
+                                  <input type="text" class="form-control" id=""  placeholder="">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Address Line 3 <span><i class="fa fa-asterisk" ></i></span> </label>
+                                  <input type="text" class="form-control" id=""  placeholder="">
+                                </div>
+                                <div class="form-group">
+                                  <label for="">Postcode <span><i class="fa fa-asterisk" ></i></span> </label>
+                                  <input type="text" class="form-control" id=""  placeholder="">
+                                </div>
+                              </form>
+                            </div>
+                            <div class="general-admission">
+                              <h5 class="main-head">General Admission 1</h5>
+                              <div class="form-group">
+                                <label for="">Attendee name <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
+                                <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="">
+                              </div>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="event-checkout-preview"  *ngIf="reportType === 'eventspecific'">
+                <div class="checkout-form main-work-area">                  
+                  <div class="buyer-que">
+                    <div class="d-flex byr-qn">
+                        <button mat-raised-button class="byr-qn-btn" (click)="addBuyerQuestion()">Add a buyer only question</button>
+                    </div>
+                      <div class="col-md-12 mt-5">
+                          <h5>Buyer only questions</h5>
+                      </div>
+                      <div class="col-md-12 mt-3">
+                          <p>Buyer questions are asked once per order.</p>
+                      </div>
+                      <div class="col-md-12">
+                          <div class="" >
+                            <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="drop($event)">
+                              <div class="" *ngFor="let element of buyerQuestion" cdkDrag>
+                                <div class="" *cdkDragPlaceholder></div>
+                                <div  class="buyer" >
+                                  <div class="buyer-card">
+                                    <div class="row mx-auto">
+                                      <div class="col-md-8">
+                                        <p class="mb-0">{{element.persondetail}}<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
+                                      </div>
+                                      <div class="col-md-4 d-flex">
+                                        <div class="ml-auto buyer-action d-flex">
+                                            <i class="fa fa-pencil" (click)="editBuyerName()" aria-hidden="true"></i>
+                                            <i matTooltip="This question can't be deleted" matTooltipPosition="above" class="fa fa-trash-o" aria-hidden="true"></i>
+                                            <i  matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above"  class="fa fa-arrows" aria-hidden="true"></i>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+      
+                  <div class="att-qn">
+                      <div class="d-flex byr-qn">
+                          <button mat-raised-button class="byr-qn-btn" (click)="addAttendeeQuestion()">Add a attendee question</button>
+                      </div>
+                      <div class="col-md-12 mt-5">
+                          <h5>Attendee questions</h5>
+                      </div>
+                      <div class="col-md-12 mt-3">
+                          <p>Attendee questions are asked for every ticket purchased.</p>
+                      </div>                     
+                      <div class="col-md-12">
+                        <div class="" >
+                          <div cdkDropList class="buyerqn-list" (cdkDropListDropped)="drop($event)">
+                            <div class=""  cdkDrag>
+                              <div class="" *cdkDragPlaceholder></div>
+                              <div  class="buyer" >
+                                <div class="buyer-card">
+                                  <div class="row mx-auto">
+                                    <div class="col-md-8">
+                                      <p class="mb-0"><span class="hidden-name">Attendee Name</span> (Hidden)</p>
+                                    </div>
+                                    <div class="col-md-4 d-flex">
+                                      <div class="ml-auto buyer-action ">
+                                        <button (click)="editAttendeeName()"  mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
+                                                <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span>
+                                        </button>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+                          </div>
+                      </div>
+                      
+                          <!-- <mat-accordion>
+                              <mat-expansion-panel>
+                              <mat-expansion-panel-header class="buyer-card">
+                                  <mat-panel-title>
+                                      <div>
+                                          <p class="mb-0"><span class="hidden-name">Attendee Name</span> (Hidden)</p>
+                                      </div>
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                      <div class="ml-auto buyer-action ">
+                                          <button (click)="editAttendeeName()"  mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
+                                                  <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span>
+                                          </button>
+                                      </div>
+                                  </mat-panel-description>
+                              </mat-expansion-panel-header>
+                              </mat-expansion-panel>
+                          </mat-accordion> -->
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+      </div>
+</div>

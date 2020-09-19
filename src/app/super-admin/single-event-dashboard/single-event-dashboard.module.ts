@@ -13,6 +13,12 @@ import { WaitilistSignupComponent } from './waitilist-signup/waitilist-signup.co
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { addBuyeronlyQuestionDialog} from './checkout-form/checkout-form.component';
+import { addAttendeeonlyQuestionDialog} from './checkout-form/checkout-form.component';
+import { editBuyerNameDialog} from './checkout-form/checkout-form.component';
+import { editAttendeeNameDialog} from './checkout-form/checkout-form.component';
+
 
 @NgModule({
   declarations: [EventSummaryComponent,
@@ -22,13 +28,18 @@ import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
     DeleteComponent,
     IssuedTicketComponent, 
     WaitilistSignupComponent, 
-    OrderConfirmationComponent],
+    OrderConfirmationComponent,
+    addBuyeronlyQuestionDialog,
+    addAttendeeonlyQuestionDialog,
+    editBuyerNameDialog,
+    editAttendeeNameDialog],
   imports: [
     CommonModule,
     SingleEventDashboardRoutingModule,
     MaterialModule,
     MatTooltipModule,
     CKEditorModule,
-    FlexLayoutModule]
+    FlexLayoutModule,MatExpansionModule],
+    entryComponents: [addBuyeronlyQuestionDialog,addAttendeeonlyQuestionDialog,editBuyerNameDialog,editAttendeeNameDialog],
 })
 export class SingleEventDashboardModule { }

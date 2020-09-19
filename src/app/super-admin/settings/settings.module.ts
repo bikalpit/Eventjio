@@ -20,10 +20,15 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { FormsModule } from '@angular/forms';
+import { inviteTeamMateDialog} from './team-access/team-access.component';
+
 
 
 @NgModule({
-  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent, ConnectAppsComponent, BillingComponent, PrivacyPolicyComponent],
+  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent, ConnectAppsComponent, BillingComponent, 
+    PrivacyPolicyComponent,
+    inviteTeamMateDialog
+  ],
 
  
  
@@ -36,6 +41,7 @@ import { FormsModule } from '@angular/forms';
     ColorPickerModule,
     CKEditorModule,
     FormsModule
-  ]
+  ],
+  entryComponents: [inviteTeamMateDialog],
 })
 export class SettingsModule { }

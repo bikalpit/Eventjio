@@ -57,7 +57,7 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                             component: PrivacyPolicyComponent
                           },
                           { 
-                            path: 'checkoutform', 
+                            path: 'checkout-form', 
                             component: CheckoutFormComponent
                           },
 
