@@ -55,7 +55,7 @@ forgotPwdSubmit(){
   let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
-      return this.http.post(`${environment.apiUrl}/forgot-password`,requestObject,{headers:headers}).pipe(
+      return this.http.post(`${environment.apiUrl}/forget-password`,requestObject,{headers:headers}).pipe(
       map((res) => {
           return res;
       }),
