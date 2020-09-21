@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { DialogAuthentication } from './_services/auth.component';
 
 
 
@@ -25,6 +26,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     SignupComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    DialogAuthentication,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,12 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers: [],
+  entryComponents: [
+
+  ],
+  providers: [
+    DialogAuthentication,
+  ],
   bootstrap: [AppComponent],
 
 })

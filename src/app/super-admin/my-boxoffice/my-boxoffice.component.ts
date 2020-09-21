@@ -54,7 +54,7 @@ export class MyBoxofficeComponent implements OnInit {
       this.superadminService.getAllBoxoffice(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.allBoxoffice = response.response
-        }else if(response.data == false && response.response == 'TOKEN_EXPIRED'){
+        }else if(response.data == false){
 
         }
       });
@@ -139,7 +139,7 @@ export class myCreateNewBoxofficeDialog {
     this.superadminService.getAllCurrancy().subscribe((response:any) => {
       if(response.data == true){
         this.allCurency = response.response
-      }else if(response.data == false && response.response == 'TOKEN_EXPIRED'){
+      }else if(response.data == false){
           
       }
     });
@@ -179,7 +179,7 @@ export class myCreateNewBoxofficeDialog {
           panelClass :['green-snackbar']
         });
         this.dialogRef.close();
-      }else if(response.data == false && response.response == 'TOKEN_EXPIRED'){
+      }else if(response.data == false){
           
       }
     });
