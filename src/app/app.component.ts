@@ -28,7 +28,7 @@ export class AppComponent {
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     if(this.currentUser && this.currentUser !== null){
       console.log(this.currentUser)
-      alert("alert");
+      // alert("alert");
       this.adminTopMenuselected = this.currentUser.firstname
       
       this.loadLocalStorage();
