@@ -26,7 +26,7 @@
                                 </div>
 
                                 <div class="content" class="drageble-list">
-                                    <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of upcomingEventData">
+                                    <div class="drageble-box"  fxLayout="row" *ngFor="let element of upcomingEventData">
                                         <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data" fxFlex="20">
                                             <mat-select [(value)]="element.status" class="form-control event-status-select" (selectionChange)="fnChangeEventStatus($event)" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
@@ -91,7 +91,7 @@
                                 </div>
 
                                 <div class="content" class="drageble-list">
-                                    <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of pastEventData">
+                                    <div class="drageble-box"  fxLayout="row" *ngFor="let element of pastEventData">
                                         <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data" fxFlex="20"><span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span></div>
                                         <div class="tb-data" fxFlex="13">{{element.sold}}</div>
