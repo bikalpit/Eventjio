@@ -16,6 +16,7 @@ import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
 import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
 import { BillingComponent } from './billing/billing.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 
 
 const routes: Routes = [{ path: '', component: SettingsComponent, 
@@ -52,6 +53,10 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                           {
                             path:'billing',
                             component:BillingComponent
+                          },
+                          {
+                            path:'sales-tax',
+                            component:SalesTaxComponent
                           },
                           { 
                             path: 'contact-preferences', 

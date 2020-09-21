@@ -22,12 +22,14 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { FormsModule } from '@angular/forms';
 import { inviteTeamMateDialog} from './team-access/team-access.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
+import { SalesTaxComponent } from './sales-tax/sales-tax.component';
+import { AddSalesTax } from './sales-tax/sales-tax.component';
 
 
 
 @NgModule({
-  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent, ConnectAppsComponent, BillingComponent, 
-    PrivacyPolicyComponent,
+  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent, ConnectAppsComponent, BillingComponent, AddSalesTax,
+    PrivacyPolicyComponent,SalesTaxComponent,
      OrderConfirmationComponent,
     inviteTeamMateDialog
   ],
@@ -44,8 +46,9 @@ import { OrderConfirmationComponent } from './order-confirmation/order-confirmat
     MatExpansionModule,
     ColorPickerModule,
     CKEditorModule,
-    FormsModule
+    FormsModule,
+    
   ],
-  entryComponents: [inviteTeamMateDialog],
+  entryComponents: [AddSalesTax]
 })
 export class SettingsModule { }
