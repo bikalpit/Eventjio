@@ -7,63 +7,61 @@
         </button>
       </div>
         
-      <div class="modal-body pb-0"> 
-        <div class="row">
-          
-            <div class="form-group col-md-6">
-              <label for="">Name <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> 
-                <button mat-raised-button
-                      matTooltip="what would you like to call this batch of codes? This name will be displayed to the customer when enter a code at checkout."
-                      matTooltipPosition="above" class="tooltip-btn">
-                      <span class="info"><i class="fa fa-question" aria-hidden="true"></i></span>
-              </button>
-              </label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="exampleInputPassword1">Value <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> 
-                <button mat-raised-button
-                      matTooltip="How much money do these vouchers discount from an order?"
-                      matTooltipPosition="above" class="tooltip-btn">
-                      <span class="info"><i class="fa fa-question" aria-hidden="true"></i></span>
+      <div class="modal-body pb-0">         
+        <form>
+          <div class="row">
+              <div class="form-group col-md-6">
+                <label for="">Name <span><i class="fa fa-asterisk"></i></span> 
+                  <button mat-raised-button
+                        matTooltip="what would you like to call this batch of codes? This name will be displayed to the customer when enter a code at checkout."
+                        matTooltipPosition="above" class="tooltip-btn">
+                        <span class="info"><i class="fa fa-question"></i></span>
                 </button>
-              </label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-group col-md-12">
-              <label for="exampleFormControlTextarea1">Voucher Codes <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> 
-                <button mat-raised-button
-                      matTooltip="Paste the voucher codes into the box below. One voucher code per line. Max 1,000 voucher codes."
-                      matTooltipPosition="above" class="tooltip-btn">
-                      <span class="info"><i class="fa fa-question" aria-hidden="true"></i></span>
-                </button>
-              </label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <div class="form-group col-md-12">
-              <label for="exampleInputEmail1">Expire Date <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
-            <div class="form-group col-md-12 mt-2">
-                <label class="mb-0">Events these voucher codes can be redeemed against.</label>                
-            </div>
-            <div class="form-check col-md-12 form-group ml-15 mb-2">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Mon 27 JUl: Lajawab Cooking Class</label>
-            </div>
-            <div class="form-check col-md-12 form-group ml-15 mb-2">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Mon 27 JUl:Dracula Drinks </label>
-            </div>
-            <div class="form-check col-md-12 form-group ml-15">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Mon 3 Aug - Mon 10 Aug: Kitty Party</label>
-            </div>
-            <div class="example-button-row ml-auto mt-2">
-                <button mat-raised-button class="cancel-btn">Cancel</button>
-                <button mat-raised-button class="mx-3 cupon-btn">Create Voucher Codes</button>
-            </div>
-        </div>
+                </label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Value <span><i class="fa fa-asterisk"></i></span> 
+                  <button mat-raised-button
+                        matTooltip="How much money do these vouchers discount from an order?"
+                        matTooltipPosition="above" class="tooltip-btn">
+                        <span class="info"><i class="fa fa-question"></i></span>
+                  </button>
+                </label>
+                <input type="password" class="form-control">
+              </div>
+              <div class="form-group col-md-12">
+                <label>Voucher Codes <span><i class="fa fa-asterisk"></i></span> 
+                  <button mat-raised-button
+                        matTooltip="Paste the voucher codes into the box below. One voucher code per line. Max 1,000 voucher codes."
+                        matTooltipPosition="above" class="tooltip-btn">
+                        <span class="info"><i class="fa fa-question"></i></span>
+                  </button>
+                </label>
+                <textarea class="form-control"  rows="3"></textarea>
+              </div>
+              <div class="form-group col-md-12">
+                <label>Expire Date <span><i class="fa fa-asterisk"></i></span> </label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="form-group col-md-12 mt-2">
+                  <label class="mb-0">Events these voucher codes can be redeemed against.</label>                
+              </div>
+              <section class="col-md-12 ">
+                <mat-checkbox >Mon 27 JUl: Lajawab Cooking Class</mat-checkbox>
+              </section>
+              <section class="col-md-12 ">
+                <mat-checkbox >Mon 27 JUl:Dracula Drinks </mat-checkbox>
+              </section>
+              <section class="col-md-12 ">
+                <mat-checkbox >Mon 3 Aug - Mon 10 Aug: Kitty Party</mat-checkbox>
+              </section>
+              <div class="example-button-row ml-auto mt-2">
+                  <button mat-raised-button class="cancel-btn">Cancel</button>
+                  <button mat-raised-button class="mx-3 cupon-btn">Create voucher codes</button>
+              </div>
+          </div>
+        </form>
       </div>
   
     </div>
