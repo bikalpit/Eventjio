@@ -174,16 +174,16 @@ button:focus {
     .service-listing {
         .drageble-list {
             width: 100%;
-            border-top: solid 1px #DDDDDD;
+            border-bottom: solid 1px #DDDDDD;
             display: block;
             background: white;
-            border-radius: 4px;
             overflow: hidden;
             font-size: 14px;
             font-weight: 500;
         }
         .main-heading-content {
             border-top: solid 1px #DDDDDD;
+            border-bottom: solid 1px #DDDDDD;
             padding: 8px 0px;
             align-items: center;
             font-size: 14px;
