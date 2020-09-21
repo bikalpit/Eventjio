@@ -15,10 +15,10 @@ import { environment } from '../../environments/environment';
 export class ForgotPasswordComponent implements OnInit {
   forgotForm:FormGroup;
   dataLoaded: boolean = true;
-   forgotPwdContainer: boolean = true;
-   emailSentContainer: boolean = false;
-   forgotEmail: any;
-   error = '';
+  forgotPwdContainer: boolean = true;
+  emailSentContainer: boolean = false;
+  forgotEmail: any;
+  error = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,9 +67,9 @@ forgotPwdSubmit(){
           //   verticalPosition:'top',
           //   panelClass :['green-snackbar']
           // });
+          alert('2');
           this.forgotPwdContainer =false
           this.emailSentContainer = true;
-          alert('2');
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 4000);
