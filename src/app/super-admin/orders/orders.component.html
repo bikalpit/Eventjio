@@ -86,7 +86,7 @@
                     </div>
                    
                   <div class="drageble-list">
-                      <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of orderData">
+                      <div class="drageble-box"  fxLayout="row" *ngFor="let element of orderData">
                           <div class="tb-data ml-5 " fxFlex="10"> <a href="" class="text-dark"> {{element.orderid}} </a></div>
                           <div class="tb-data" fxFlex="10"><span class="cpn-bor" [ngStyle]="{'color':element.status === 'Completed' ? '#2BB800' : '#FF0000' }">{{element.status}}</span></div>
                           <div class="tb-data" fxFlex="13">{{element.name}}</div>

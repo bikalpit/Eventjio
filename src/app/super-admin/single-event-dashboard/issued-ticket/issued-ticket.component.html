@@ -76,7 +76,7 @@
                            </div>
                      
                          <div class="drageble-list">
-                            <div class="drageble-box" cdkDrag fxLayout="row" *ngFor="let element of orderData">
+                            <div class="drageble-box"  fxLayout="row" *ngFor="let element of orderData">
                                 <div class="tb-data" fxFlex="20"><span class="cpn-bor" [ngStyle]="{'color':element.Ticket_Code === 'Completed' ? '#0000ff' : '#0000ff' }">{{element.Ticket_Code}}</span> <button mat-raised-button class="mx-1 void-btn">void</button></div>      
                                 <div class="tb-data" fxFlex="20">{{element.Ticket_Type}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.name}}</div>
