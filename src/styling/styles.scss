@@ -15,7 +15,8 @@
     }
     
     .sub-container {
-        margin-top: 70px;
+        margin-top: 60px;
+        height: calc(100vh - 60px);
     }
     
      ::-webkit-scrollbar-track {
@@ -56,6 +57,16 @@
         // border-color: transparent !important;
         box-shadow: unset !important;
         outline: 0 !important;
+    }
+    
+    .red-snackbar {
+        background: #F44336;
+        color: #fff;
+    }
+    
+    .green-snackbar {
+        background: #3ce832;
+        color: #fff;
     }
     
     .pointer {
