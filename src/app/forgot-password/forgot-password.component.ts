@@ -51,10 +51,11 @@ forgotPwdSubmit(){
         "email":this.forgotEmail,
          "url" : site_url+"/reset-password?accessToken"
       };
+      alert('0');
   let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
-      return this.http.post(`/forgot-password`,requestObject,{headers:headers}).pipe(
+      return this.http.post(`${environment.apiUrl}/forgot-password`,requestObject,{headers:headers}).pipe(
       map((res) => {
           return res;
       }),
@@ -68,6 +69,7 @@ forgotPwdSubmit(){
           // });
           this.forgotPwdContainer =false
           this.emailSentContainer = true;
+          alert('2');
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 4000);
@@ -83,6 +85,7 @@ forgotPwdSubmit(){
         console.log(err)
       })
   }else{
+    alert('1');
    this.forgotForm.get('email').markAsTouched();
   }
   

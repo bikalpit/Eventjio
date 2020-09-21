@@ -29,20 +29,17 @@
                                     <div class="drageble-box"  fxLayout="row" *ngFor="let element of upcomingEventData">
                                         <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data" fxFlex="20">
-                                            <select (onChange)="$event.target.value"
-                                            [ngStyle]="{'background-color': 'statusColor'}">
-                                            <option *ngFor="let st of status" 
-                                                  [ngStyle]="{'background': st.value}" Value="st.value"> 
-                                                  {{st.status}}
-                                            </option>
-                                       </select>
+                                            <mat-select [(value)]="element.status" class="form-control event-status-select" (selectionChange)="fnChangeEventStatus($event)" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
+                                                <mat-option value="Draft">Draft</mat-option>
+                                                <mat-option value="Published">Published</mat-option>
+                                            </mat-select>
                                             <!-- <span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span> -->
                                         </div>
                                         <div class="tb-data" fxFlex="13">{{element.sold}}</div>
                                         <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
                                         <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
                                         <div class="tb-data" fxFlex="10">
-                                            <mat-icon [ngbPopover]="popContent" placement="bottom"  aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+                                            <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                             <ng-template class="popover" #popContent>
                                                 <div class="px-3  border-bottom">
@@ -69,10 +66,10 @@
                                                     <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                                 </div>
 
-                                                </ng-template>
+                                            </ng-template>
 
                                         </div>
-                                   </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -101,7 +98,7 @@
                                         <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
                                         <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
                                         <div class="tb-data" fxFlex="10">
-                                            <mat-icon [ngbPopover]="popContent" placement="bottom"  aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+                                            <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                             <ng-template class="popover" #popContent>
                                                 <div class="px-3  border-bottom">

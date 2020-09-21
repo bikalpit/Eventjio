@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
 
 
   constructor( private formBuilder: FormBuilder,
-	private http: HttpClient,
+  private http: HttpClient,
   public router: Router,
   private route: ActivatedRoute,
   private _snackBar: MatSnackBar,
@@ -77,7 +77,7 @@ export class SignupComponent implements OnInit {
 				'Content-Type': 'application/json',
 			});
 			
-		  this.http.post(`${environment.apiUrl}/signup`,requestObject,{headers:headers} ).pipe(
+		  this.http.post(`${environment.apiUrl}/signup`,requestObject,{headers:headers} ).pipe(	
 			map((res) => {
 			  return res;
 			}),
