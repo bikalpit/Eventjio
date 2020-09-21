@@ -34,9 +34,10 @@ import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.componen
 
 
 @NgModule({
-  declarations: [DashboardComponent, 
-     EventsComponent,
-     CouponsComponent,
+  declarations: [
+      DashboardComponent, 
+      EventsComponent,
+      CouponsComponent,
       OrdersComponent, 
       CustomersComponent,
       MyBoxofficeComponent,
