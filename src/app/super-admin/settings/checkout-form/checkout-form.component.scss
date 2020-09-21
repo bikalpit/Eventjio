@@ -35,11 +35,13 @@ main{
                 color: #FFFFFF;;
             }
             .buyer{
-                margin: 12px 0px;
-            .buyer-card{
                 background: #E6E6E6;
                 box-shadow: none;
-                padding: 10px 16px;
+                padding: 4px 16px;
+                margin: 10px 10px;
+                border-radius: 4px;
+            .buyer-card{
+                margin: 12px 0px;
                 .asterisk-icon{
                     padding: 2px;                            
                     .asterisk{
@@ -88,46 +90,53 @@ main{
                 border-radius: 5px;
                 opacity: 1;
                 margin-left: auto;
-                color: #FFFFFF;;
+                color: #FFFFFF;
             }
-           .buyer-card{
+            .buyer{
                 background: #E6E6E6;
                 box-shadow: none;
-                padding: 10px 16px; 
-                .mat-expansion-indicator{
-                    display: none;
-                }
-                .mat-expansion-panel-header-description{
-                    margin-right: 0px;
-                }  
-                .mat-expansion-panel-header-title{
-                    align-items: center;
-                }
-                .asterisk-icon{
-                    padding: 2px;                            
-                    .asterisk{
-                        color: #FF0000;
-                        font-size: 5px;
-                        position: relative;
-                        bottom: 6px;
+                padding: 4px 16px;  
+                margin: 10px 10px;
+                border-radius: 4px;
+                    .buyer-card{
+                        margin: 12px 0px; 
+                        .mat-expansion-indicator{
+                            display: none;
+                        }
+                        .mat-expansion-panel-header-description{
+                            margin-right: 0px;
+                        }  
+                        .mat-expansion-panel-header-title{
+                            align-items: center;
+                        }
+                        .asterisk-icon{
+                            padding: 2px;                            
+                            .asterisk{
+                                color: #FF0000;
+                                font-size: 5px;
+                                position: relative;
+                                bottom: 6px;
+                            }
+                        }
+                        .buyer-action{
+                            ::ng-deep .tooltip-btn.mat-raised-button{
+                                padding: 0px;
+                                height: 0px;
+                                box-shadow: none !important;
+                            }
+                            i{
+                                font-size: 22px;
+                                padding: 0px 10px;
+                            }
+                        }
+                        
                     }
-                }
-                .buyer-action{
-                    ::ng-deep .tooltip-btn.mat-raised-button{
-                        padding: 0px;
-                        height: 0px;
-                        box-shadow: none !important;
-                    }
-                    i{
-                        font-size: 22px;
-                        padding: 0px 10px;
-                    }
-                }
-                
             }
         }
-       
     }
+       
+       
+    
     .vertical-line{
         margin-top: 3rem!important;
         .can-save{
@@ -154,6 +163,7 @@ main{
         }
     }  
 
+// ----------------drag and drop css---------------
 
     .example-list {
         width: 500px;

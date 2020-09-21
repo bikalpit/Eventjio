@@ -29,6 +29,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const material = [
   MatSidenavModule,
@@ -59,6 +60,7 @@ const material = [
   MatTooltipModule,
   MatButtonToggleModule,
   MatSlideToggleModule,
+  DragDropModule
 
 ]
 

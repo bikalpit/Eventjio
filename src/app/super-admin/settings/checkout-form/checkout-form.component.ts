@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-checkout-form',
@@ -8,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class CheckoutFormComponent implements OnInit {
 
   buyerQuestion = [{persondetail:'Name'},{persondetail:'Email'},{persondetail:'Mobile Phone Number'},{persondetail:'Address'}]
-  constructor() { }
+
+    drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.buyerQuestion, event.previousIndex, event.currentIndex);
+  }
 
   ngOnInit(): void {
   }

@@ -8,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class EventAndTicketTypesComponent implements OnInit {
   value = 50;
   bufferValue = 75;
+  allowDonation:any;  
+  redirectPage:any;
+  accessCode:any;   
+  salesTax:any;
 
   constructor() { }
 
