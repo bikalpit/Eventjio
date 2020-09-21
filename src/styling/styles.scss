@@ -15,7 +15,8 @@
     }
     
     .sub-container {
-        margin-top: 70px;
+        margin-top: 60px;
+        height: calc(100vh - 60px);
     }
     
      ::-webkit-scrollbar-track {
@@ -56,6 +57,16 @@
         // border-color: transparent !important;
         box-shadow: unset !important;
         outline: 0 !important;
+    }
+    
+    .red-snackbar {
+        background: #F44336;
+        color: #fff;
+    }
+    
+    .green-snackbar {
+        background: #3ce832;
+        color: #fff;
     }
     
     .pointer {
@@ -105,16 +116,6 @@
         background: white;
     }
     
-    .error {
-        color: $error;
-        font-size: 12px;
-        display: block;
-    }
-    
-    .error-wrap {
-        width: 100%;
-    }
-    
     .full-height {
         height: 100vh;
     }
@@ -125,6 +126,44 @@
     
     .event-status-select {
         width: 160px !important;
+    }
+    
+    // for Error messages
+    .with-validation {
+        .form-group {
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 5px;
+            .error-wrap {
+                position: absolute;
+                bottom: 0;
+            }
+        }
+        .error {
+            color: $error;
+            font-size: 12px;
+            display: block;
+        }
+        .error-wrap {
+            width: 100%;
+        }
+    }
+    
+    .loader-main {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0px;
+        top: 0%;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            height: 80px;
+            width: 80px;
+        }
     }
     /* Importing Bootstrap SCSS file. */
     

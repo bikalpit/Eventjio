@@ -125,11 +125,12 @@
     z-index: 9999;
     padding: 10px 35px;
     box-shadow: 0px 0px 12px #00000014;
+    height: 60px;
     &.business_toolbar {
         width: 100%;
     }
 }
-
+// .right-toolbar-content{height: calc(100vh - 60px);}
 .modal-lg {
     max-width: 1050px !important;
     margin: 0px !important;
