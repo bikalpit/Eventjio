@@ -9,63 +9,70 @@
     </div>
 
                 
-   <mat-card class="main-form-setting-content bg-light mt-2">
+   <mat-card class="main-form-setting-content mat_content mt-2">
         
-      <div class="container p-2">
-                <div class="row">
-                    <div class="col-7 font-weight-bold">Manage</div>
-                              <div>
-                                <a routerLink="" class="mt-1 col-3"><u> Get the check-in app </u></a>
-                                <button mat-flat-button class="mat-blue mr-1">Export doorlist</button>
-                              </div>        
-                
-                    <div class="searchbox p-0 search-bar rounded col-11 mt-3 bg-white ml-3" >
-                        <i class="fa fa-search p-2 pl-3"></i>
-                        <input matInput type="text" class="p-2 pl-0" placeholder="Search by name, email, transaction id, or ticket code">   
-                    </div>
-                </div>  
+      <div class="container ">
+        <div class="form-group">
+                     <div class="row">
+                        <div class="col-12 font-weight-bold">Manage
+                            <button mat-flat-button class="mat-blue float-right">Export doorlist</button>
+                            <a routerLink="" class="mt-1 float-right mr-1"><u> Get the check-in app </u></a>      
+                        </div>   
+                     </div> 
+
+                          <div class="row"> 
+                            <div class="searchbox p-0 search-bar rounded col-12 mt-3 bg-white ml-2" >
+                                <i class="fa fa-search p-2 pl-3"></i>
+                                <input matInput type="text" class="p-2 pl-0" placeholder="Search by name, email, transaction id, or ticket code">   
+                            </div>    
+                           </div>
               
                 <div class="row mt-3">
-                    <label for="" class="col-4">event</label>
-                    <label for="" class="col-2">issued from</label>
-                    <label for="" class="col-2">issued to</label>
-                    <label for="" class="col-3">Status</label>
-                </div>
-
-             <div class="row">
-                    <div class="col-4">   
+                      <div class="col-5"> 
+                        <label for="">event</label>  
                         <mat-select placeholder="Select all ticket" class="form-control">
                             <mat-option *ngFor="let status of event_ticket; let i =index" [value]="status" >
                                 <mat-checkbox [checked]="selected === i" (change)="onChange(status);selected = i"> {{status}}</mat-checkbox>
                             </mat-option>
                         </mat-select>
-                    </div>
-
-                      <div class="col-2">                        
-                        <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker"> </mat-datepicker-toggle>
-                        <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control matDate">               
-                        <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
                       </div>
 
-                     <div class="col-2">            
-                        <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
-                        <input type="text" matInput [matDatepicker]="ticketIssuedTo"  (click)="ticketIssuedTo.open()"  class="form-control matDate">
-                        <mat-datepicker #ticketIssuedTo></mat-datepicker>
-                     </div>
+                      <div class="col-2"> 
+                        <label for="">issued from</label>   
+                        <div class="matDate">                    
+                        <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon"> </mat-datepicker-toggle>
+                        <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control matInputdate ">               
+                        <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
+                        </div>
+                      </div>
 
-                    <div class="col-3">
-                        <mat-select placeholder="All issued  ticket" class="form-control">
-                            <mat-option *ngFor="let status of status_ticket; let i =index" >
-                                {{status}}
-                            </mat-option>
-                        </mat-select>
-                    </div> 
+                     <div class="col-2"> 
+                        <label for="">issued to</label>   
+                        <div class="matDate"> 
+                        <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
+                        <input type="text" matInput [matDatepicker]="ticketIssuedTo"  (click)="ticketIssuedTo.open()"  class="form-control matInputdate">
+                        <mat-datepicker #ticketIssuedTo></mat-datepicker>
+                        </div> 
+                     </div>
+                    
+
+                        <div class="col-3">
+                            <label for="" class="col-3">Status</label>
+                            <mat-select placeholder="All issued  ticket" class="form-control">
+                                <mat-option *ngFor="let status of status_ticket; let i =index" >
+                                    {{status}}
+                                </mat-option>
+                            </mat-select>
+                        </div> 
+                 </div>
+                    
              </div>
-                 
-                 
-        <div class="events mt-5">
-            <div class="service-listing">
-              <div class="main-table-content main-cust-table-content ">
+         </div>
+            
+         <div class="container-fluid">
+           <div class="events mt-5">
+              <div class="service-listing">
+                <div class="main-table-content main-cust-table-content ">
                     <div class="">
                           <div class="heads main-heading-content drageble py-3" fxLayout="row">
                                 <div class="" fxFlex="20">Ticket_Code</div>
@@ -75,25 +82,22 @@
                                 <div class="" fxFlex="20">Issued</div>  
                            </div>
                      
-                         <div class="drageble-list">
-                            <div class="drageble-box"  fxLayout="row" *ngFor="let element of orderData">
+                           <div class="drageble-list">
+                              <div class="drageble-box"  fxLayout="row" *ngFor="let element of orderData">
                                 <div class="tb-data" fxFlex="20"><span class="cpn-bor" [ngStyle]="{'color':element.Ticket_Code === 'Completed' ? '#0000ff' : '#0000ff' }">{{element.Ticket_Code}}</span> <button mat-raised-button class="mx-1 void-btn">void</button></div>      
                                 <div class="tb-data" fxFlex="20">{{element.Ticket_Type}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.name}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.Orderid}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.Issued}}</div>
-                            </div>
-                         </div>
-
+                              </div>
+                           </div>
                     </div>
 
                 </div>
-            </div>
-         </div>        
+              </div>
+           </div>       
+        </div> 
            
-
-      </div>
-
    </mat-card>
 
  </div>
