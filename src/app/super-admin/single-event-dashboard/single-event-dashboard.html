@@ -34,8 +34,13 @@
     <div class="row">
 
         <div class="p-3 bg-light child-left-content">
-            <div class="single-event-summary-title py-2" routerLink="event-summary">
-               <i class="fa fa-bar-chart-o mr-2"></i> <span>Event Summary</span>
+            <div class="ml-4 py-2" routerLink="event-summary">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block py-2">
+                        <img src="../../../assets/images/events/graph.png" class="w-100" alt=""> 
+                    </div>
+                    <span>Event Summary</span>
+                </div>
             </div>
 
             <div class="ml-4 py-2">
@@ -44,14 +49,18 @@
 
             <div>
                 <div class="ml-4 py-2" routerLink="issued-ticket">
-                    <i class="fa fa-ticket fa-lg mr-2"></i>
+                    <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
+                    </div>
                     <span>Issued Tickets (1)</span>
+                </div>
                 </div>
 
                 <div class="ml-4 py-2" routerLink="waitilist-signup">
                     <div class="event-menu">
                         <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                            <img src="../../../assets/images/events/waitlist.png" class="w-100" alt="">
                         </div>
                         <span>Waitlist Signups</span>
                     </div>
@@ -93,7 +102,7 @@
                 <div class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/checkout-form">
                     <div class="event-menu">
                         <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                            <img src="../../../assets/images/events/Checkout-form.png" class="w-100" alt="">
                         </div>
                         <span>Checkout form</span>
                     </div>
@@ -102,7 +111,7 @@
                 <div class="ml-4 py-2" routerLink="duplicate">
                     <div class="event-menu">
                         <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                            <img src="../../../assets/images/events/Duplicate.png" class="w-100" alt="">
                         </div>
                         <span>Duplicate</span>
                     </div> 
@@ -111,8 +120,7 @@
                 <div class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/delete">
                     <div class="event-menu">
                         <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <i class="fa fa-trash fa-lg"></i>
-                            <!-- <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt=""> -->
+                             <img src="../../../assets/images/events/Icon material-delete.png" class="w-100" alt="">
                         </div> 
                         <span>Delete</span>
                     </div> 

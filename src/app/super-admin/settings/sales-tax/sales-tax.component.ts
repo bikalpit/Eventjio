@@ -34,7 +34,7 @@ export class SalesTaxComponent implements OnInit {
 
 @Component({
   selector: 'add-sales-tax',
-  templateUrl: '../../_dialogs/add-sales-tax.component.html',
+  templateUrl: '../_dialogs/add-sales-tax.component.html',
 })
 export class AddSalesTax {
   status = true;

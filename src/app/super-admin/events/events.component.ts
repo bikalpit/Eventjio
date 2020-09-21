@@ -16,7 +16,11 @@ interface Status {
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-    
+ 
+ redirectURL:any;
+ customSalesTax:any;
+ accessCode:any;
+
  addNewEvents : boolean = true;
  public editorValue: string = '';
  addEventForm : FormGroup;
