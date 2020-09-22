@@ -15,6 +15,35 @@
                     <p>Buyer questions are asked once per order.</p>
                 </div>
                 <div class="col-md-12">
+                    <div class="" >
+                      <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="drop($event)">
+                        <div class="" *ngFor="let element of buyerQuestion" cdkDrag>
+                          <div class="" *cdkDragPlaceholder></div>
+                          <div  class="buyer" >
+                            <div class="buyer-card">
+                              <div class="row mx-auto">
+                                <div class="col-md-8">
+                                  <p class="mb-0">{{element.persondetail}}<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
+                                </div>
+                                <div class="col-md-4 d-flex">
+                                  <div class="ml-auto buyer-action ">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
+                                            <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                    </button>
+                                    <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
+                                            <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
+                                    </button>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <!-- <div class="col-md-12">
                     <div class="buyer" *ngFor="let element of buyerQuestion">
                     <mat-accordion>
                         <mat-expansion-panel>
@@ -39,9 +68,9 @@
                           <p>Name content</p>
                         </mat-expansion-panel>
                     </mat-accordion>
+                </div> -->
                 </div>
-                </div>
-            </div>
+            
 
             <div class="att-qn">
                 <div class="d-flex byr-qn">
@@ -53,7 +82,34 @@
                 <div class="col-md-12 mt-3">
                     <p>Attendee questions are asked for every ticket purchased.</p>
                 </div>
-                    <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="" >
+                      <div cdkDropList class="buyerqn-list" (cdkDropListDropped)="drop($event)">
+                        <div class=""  cdkDrag>
+                          <div class="" *cdkDragPlaceholder></div>
+                          <div  class="buyer" >
+                            <div class="buyer-card">
+                              <div class="row mx-auto">
+                                <div class="col-md-8">
+                                  <p class="mb-0">Attendee Name<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>                                </div>
+                                <div class="col-md-4 d-flex">
+                                  <div class="ml-auto buyer-action ">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
+                                            <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                    </button>
+                                    <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
+                                            <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
+                                    </button>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                  </div>
+                    <!-- <div class="col-md-12">
                         <mat-accordion>
                             <mat-expansion-panel>
                             <mat-expansion-panel-header class="buyer-card">
@@ -77,9 +133,10 @@
                             <p>Name content</p>
                             </mat-expansion-panel>
                         </mat-accordion>
-                    </div>
+                    </div> -->
             </div>
         </div>
+      </div>
 
         <div class="footer-action-btn">
             <div class="can-save">

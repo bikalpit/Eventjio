@@ -22,6 +22,7 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 import { mySendBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import { DuplicateComponent } from './duplicate/duplicate.component';
       FlexLayoutModule,
       MatExpansionModule,
       CKEditorModule,
-      MatTooltipModule],
+      MatTooltipModule,],
 
     entryComponents: [mySendBroadcastDialog,addBuyeronlyQuestionDialog,addAttendeeonlyQuestionDialog,editBuyerNameDialog,editAttendeeNameDialog],
   

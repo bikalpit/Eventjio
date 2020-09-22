@@ -30,7 +30,7 @@
                                 <span class="">
                                     <mat-icon class="login-icon">lock</mat-icon>
                                 </span>
-                                <input type="password" formControlName="password" class="form-control" placeholder="password" [type]="hide ? 'password' : 'text'" />
+                                <input type="password" formControlName="password" class="form-control" placeholder="Password" [type]="hide ? 'password' : 'text'" />
                                 <mat-icon class="hide-show-pswd pointer" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </div>
                             <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small></span>

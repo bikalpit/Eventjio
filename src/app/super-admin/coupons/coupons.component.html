@@ -1,4 +1,5 @@
 <div id="my-coupons" class="sub-container">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="coupons comm-back">
         <div class="page-title">
             <h6>Promo codes</h6>
@@ -34,15 +35,15 @@
                                         <div class="" fxFlex="10">Status</div>
                                         <div class="" fxFlex="10">Action</div>
                                     </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box"  fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
+                                    <div *ngIf="allCouponCodeList !== null || allCouponCodeList !== ''" class="content" class="drageble-list">
+                                        <div *ngFor="let allCouponCodeList of allCouponCodeList; let i=index;" class="drageble-box" fxLayout="row">
+                                            <div class="tb-data cpn-title" fxFlex="20">{{allCouponCodeList.coupon_title}}</div>
+                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">{{allCouponCodeList.coupon_code}}</span></div>
+                                            <div class="tb-data" fxFlex="13">{{allCouponCodeList.discount_type == 'P'? 'Percentage' : 'Fixed Amount'}}</div>
+                                            <div class="tb-data" fxFlex="10">{{allCouponCodeList.max_redemption}}</div>
+                                            <div class="tb-data" fxFlex="12">23</div>
+                                            <div class="tb-data" fxFlex="10">{{allCouponCodeList.discount}}</div>
+                                            <div class="tb-data" fxFlex="10">{{allCouponCodeList.coupon_title}}</div>
                                             <div class="tb-data" fxFlex="10">
 
                                                 <!-- <button mat-raised-button color="primary"
@@ -59,70 +60,24 @@
                                                     </mat-card>
                                                 </mde-popover> -->
 
-                                                <mat-icon aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+                                                <mat-icon [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
+                                                <ng-template class="popover" #popContent>
+                                                    <div class="px-3  border-bottom">
+                                                        <i class="fa fa-pencil mr-2"></i><span>Edit</span>
+                                                    </div>
+                                                    <div class="px-3  border-bottom">
+                                                        <i class="fa fa-ticket mr-2"></i><span>Assign to Ticket Type</span>
+                                                    </div>
+                                                    <div class="px-3  border-bottom">
+                                                        <i class="fa fa-trash mr-2"></i><span>Delete</span>
+                                                    </div>
+                                                </ng-template>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box"  fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10">
-                                                <mat-icon aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box"  fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10">
-                                                <mat-icon aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10">
-                                                <mat-icon aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" fxLayout="row">
-                                            <div class="tb-data cpn-title" fxFlex="20">Lorem Ipsum</div>
-                                            <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">SUMMER2050</span></div>
-                                            <div class="tb-data" fxFlex="13">Percentage</div>
-                                            <div class="tb-data" fxFlex="10">100</div>
-                                            <div class="tb-data" fxFlex="12">20</div>
-                                            <div class="tb-data" fxFlex="10">500.00</div>
-                                            <div class="tb-data" fxFlex="10">Actice</div>
-                                            <div class="tb-data" fxFlex="10">
-                                                <mat-icon aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
-                                                <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                                            </div>
-                                        </div>
+
+                                    <div *ngIf="allCouponCodeList === null || allCouponCodeList === ''" class="content" class="drageble-list">
+                                        <p class="text-center">Record not found.</p>
                                     </div>
                                 </div>
 

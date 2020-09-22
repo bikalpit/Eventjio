@@ -130,6 +130,12 @@
     
 }
 
+.ticket-available-unavailabel{
+    width:49%
+}
+.tax-input{
+    width:49%;
+}
 ::ng-deep .popover-body{
     padding:  0px  !important;
 }
@@ -190,4 +196,23 @@
         margin: 0 6rem;
         width: calc(100% - 12rem);
     }
+}
+
+::ng-deep .popover {
+    border: none;
+    .popover-body {
+        padding: 0px !important;
+        color: #595959;
+        box-shadow: 0px 0px 12px #007bff26;
+        border-radius: 6px;
+        .border-bottom {
+            border-bottom: 1px solid #7070701a !important;
+            padding: 5px 0px;
+        }
+    }
+}
+
+ ::ng-deep .bs-popover-bottom>.arrow::before,
+.bs-popover-auto[x-placement^=bottom]>.arrow::before {
+    border-bottom-color: transparent;
 }

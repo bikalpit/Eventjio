@@ -161,11 +161,11 @@
                 </div>
                 <div class="ticket-details">
                     <div class="row">
-                        <p class="col-md-6 mb-0">General Admission</p>
-                        <div class="sold-ticket col-md-3">
+                        <p class="col-md-4 mb-0">General Admission</p>
+                        <div class="sold-ticket col-md-4">
                             <p class="mb-0"><span class="mx-2"><i class="fa fa-ticket" aria-hidden="true"></i></span>1 Ticket Sold</p>
                         </div>
-                        <div class="remaining-ticket col-md-3 d-flex">
+                        <div class="remaining-ticket col-md-4 d-flex">
                             <p class="mb-0 ml-auto"><span class="mx-2"><i class="fa fa-ticket" aria-hidden="true"></i></span>500 Tickets Remaining</p>
                         </div>
                     </div>
@@ -196,23 +196,25 @@
                         </select> 
                     </div>
                     <section class="col-md-12 form-group allow-donation">
-                        <mat-checkbox class="">Allow customers to make a donation</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="allowDonation" [checked]="false" class="">Allow customers to make a donation</mat-checkbox>
                     </section>
-                    <div class="form-group col-md-6">
-                        <label for="">Donation title <span><i class="fa fa-asterisk asterisk"></i></span>  <span class="info tooltip-btn" matTooltip="This is what will be displayed when asking for a donation, and will also show on their order receipt."
-                            matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
-                        <input type="text" class="form-control" id="" placeholder="Please make a donation">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Suggested donation amount <span class="info tooltip-btn" matTooltip="Set an amount you would like people to donate.This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."
-                            matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></label>
-                        <input type="text" class="form-control" id="" placeholder="0.00">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Donation desciption <span class="info tooltip-btn" matTooltip="Tell people more about the donation here. "
-                            matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
-                        <input type="text" class="form-control" id="" placeholder="">
-                    </div>
+                    <div *ngIf="allowDonation" class="row mx-0 w-100">
+                        <div class="form-group col-md-6" >
+                            <label for="">Donation title <span><i class="fa fa-asterisk asterisk"></i></span>  <span class="info tooltip-btn" matTooltip="This is what will be displayed when asking for a donation, and will also show on their order receipt."
+                                matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                            <input type="text" class="form-control" id="" placeholder="Please make a donation">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Suggested donation amount <span class="info tooltip-btn" matTooltip="Set an amount you would like people to donate.This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."
+                                matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                            <input type="text" class="form-control" id="" placeholder="0.00">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Donation desciption <span class="info tooltip-btn" matTooltip="Tell people more about the donation here. "
+                                matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                            <input type="text" class="form-control" id="" placeholder="">
+                        </div>
+                        </div>
                     <div class="form-group col-md-12 mt-2 mb-0">
                         <label for="">Customise the text that appears on the event button and in the title of the event page</label>
                         <input type="text" class="form-control" id="" placeholder="Book Tickets">                        
@@ -236,39 +238,41 @@
                             </select>                    
                         </div>
                         <section class="col-md-12">
-                            <mat-checkbox class="mb-0">Redirect order confirmation page <span class="info tooltip-btn" matTooltip="Redirect ticket buyers to a customer order confirmation page on your own website."
+                            <mat-checkbox  [(ngModel)]="redirectPage" [checked]="false" class="mb-0">Redirect order confirmation page <span class="info tooltip-btn" matTooltip="Redirect ticket buyers to a customer order confirmation page on your own website."
                                 matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
                         </section>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6" *ngIf="redirectPage">
                             <label for="">Redirect to URL <span class="info tooltip-btn" matTooltip="Enter the URL that you would like ticketbuyers to be redirected to after sucessfully completing an order"
                                 matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
                             <input type="text" class="form-control" id="" placeholder="http://yourwebsite.com/order-complete">                        
                         </div>
-                        <section class="  col-md-12">
-                            <mat-checkbox class="">Hide this event from your box office listings and search engines <span class="info tooltip-btn" matTooltip="Tick this box if you don't want this event listing to appear within your box office listings or within search engine result."
+                        <section class="col-md-12">
+                            <mat-checkbox  class="">Hide this event from your box office listings and search engines <span class="info tooltip-btn" matTooltip="Tick this box if you don't want this event listing to appear within your box office listings or within search engine result."
                                 matTooltipPosition="above" class=""><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
                         </section>
                         <section class=" col-md-12">
-                            <mat-checkbox class="">Customers need to enter an access code to buy tickets for this event <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
+                            <mat-checkbox  [(ngModel)]="accessCode" [checked]="false" class="">Customers need to enter an access code to buy tickets for this event <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
                                 matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
                         </section>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6" *ngIf="accessCode">
                             <label for="">Access Code</label>
                             <input type="text" class="form-control" id="" placeholder="0.00">                        
                         </div>
                         <section class=" col-md-12">
-                            <mat-checkbox class="">Hide share buttons on event page</mat-checkbox>
+                            <mat-checkbox  class="">Hide share buttons on event page</mat-checkbox>
                         </section>
                         <section class="col-md-12">
-                            <mat-checkbox class="">Set custom sales tax for this event</mat-checkbox>
+                            <mat-checkbox [(ngModel)]="salesTax" [checked]="false" class="">Set custom sales tax for this event</mat-checkbox>
                         </section>
-                        <div class="form-group col-md-6">
-                            <label for="">Sales tax amount</label>
-                            <input type="text" class="form-control" id="" placeholder="0.00">                        
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Sales tax label </label>
-                            <input type="text" class="form-control" id="" placeholder="VAT">                        
+                        <div class="row mx-0 w-100" *ngIf="salesTax">
+                            <div class="form-group col-md-6">
+                                <label for="">Sales tax amount</label>
+                                <input type="text" class="form-control" id="" placeholder="0.00">                        
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="">Sales tax label </label>
+                                <input type="text" class="form-control" id="" placeholder="VAT">                        
+                            </div>
                         </div>
                     </div>
                 </div>

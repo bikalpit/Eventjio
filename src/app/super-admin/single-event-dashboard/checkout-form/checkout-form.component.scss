@@ -201,43 +201,43 @@ main {
                     padding: 4px 16px;  
                     margin: 10px 10px;
                     border-radius: 4px;
-                .buyer-card{
-                    margin: 12px 0px; 
-                        .hidden-name{
-                            text-decoration: line-through;
-                        }
-                        .mat-expansion-indicator{
-                            display: none;
-                        }
-                        .mat-expansion-panel-header-description{
-                            margin-right: 0px;
-                        }  
-                        .mat-expansion-panel-header-title{
-                            align-items: center;
-                        }
-                        .asterisk-icon{
-                            padding: 2px;                            
-                            .asterisk{
-                                color: #FF0000;
-                                font-size: 5px;
-                                position: relative;
-                                bottom: 6px;
+                    .buyer-card{
+                        margin: 12px 0px; 
+                            .hidden-name{
+                                text-decoration: line-through;
                             }
-                        }
-                        .buyer-action{
-                            ::ng-deep .tooltip-btn.mat-raised-button{
-                                padding: 0px;
-                                height: 0px;
-                                box-shadow: none !important;
+                            .mat-expansion-indicator{
+                                display: none;
                             }
-                            i{
-                                font-size: 22px;
-                                padding: 0px 10px;
+                            .mat-expansion-panel-header-description{
+                                margin-right: 0px;
+                            }  
+                            .mat-expansion-panel-header-title{
+                                align-items: center;
                             }
+                            .asterisk-icon{
+                                padding: 2px;                            
+                                .asterisk{
+                                    color: #FF0000;
+                                    font-size: 5px;
+                                    position: relative;
+                                    bottom: 6px;
+                                }
+                            }
+                            .buyer-action{
+                                ::ng-deep .tooltip-btn.mat-raised-button{
+                                    padding: 0px;
+                                    height: 0px;
+                                    box-shadow: none !important;
+                                }
+                                i{
+                                    font-size: 22px;
+                                    padding: 0px 10px;
+                                }
+                            }
+                            
                         }
-                        
                     }
-                }
                 }
                
             } 
