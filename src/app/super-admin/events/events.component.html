@@ -1,4 +1,5 @@
 <div class="bg-white sub-container">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div *ngIf="addNewEvents" class="main bg-white">
         <div class="row mx-0 p-3">
             <div class="font-weight-bold page-title">
@@ -152,12 +153,12 @@
         </div>
 
         <div class="add-new-event-form">
-            <div class="px-5 py-3 border rounded bg-light">
-                <div class=" py-2 font-weight-bold">
-                    <div>Add event info</div>
-                </div>
 
-                <form [formGroup]="addEventForm">
+            <form [formGroup]="addEventForm">
+                <div class="px-5 py-3 border rounded bg-light">
+                    <div class=" py-2 font-weight-bold">
+                        <div>Add event info</div>
+                    </div>
                     <label for=""> Event Name</label>
                     <div class="form-group">
                         <input type="text" class="form-control" formControlName="event_name" placeholder="Enter the name of your event">
@@ -238,25 +239,20 @@
                             </div>
                         </div>
 
-                        <label for="">Description</label>
+                        <label class="w-100" for="">Description</label>
                         <div class="form-group">
                             <ck-editor formControlName="description" skin="moono-lisa" language="en" [fullPage]="true">
                             </ck-editor>
                         </div>
 
-                        <label for="">Choose or upload an images</label>
+                        <label class="w-100" for="">Choose or upload an images</label>
                         <div class="row">
-                            <img src="../../../assets/images/events/image 1.jpg" class="event-images m-2" alt="">
-                            <img src="../../../assets/images/events/image 2.jpg" class="event-images m-2" alt="">
-                            <img src="../../../assets/images/events/image 3.jpg" class="event-images m-2" alt="">
-                            <img src="../../../assets/images/events/image 4.jpg" class="event-images m-2" alt="">
-                            <img src="../../../assets/images/events/image 5.jpg" class="event-images m-2" alt="">
-                            <img src="../../../assets/images/events/image 6.jpg" class="event-images m-2" alt="">
-                            <div class="event-images m-2 text-center">
+                            <img [ngClass]="{'active-image':eventImageType == 'defaultImage'}" (click)="fnSelectImage('defaultImage')" src="../../../assets/images/events/image 1.jpg" class="event-images m-2" alt="">
+                            <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage')" class="event-images m-2 text-center pointer">
                                 <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
                                 <p>Upload</p>
                             </div>
-                            <div class="event-images m-2 text-center">
+                            <div [ngClass]="{'active-image':eventImageType == 'noImage'}" (click)="fnSelectImage('noImage')" class="event-images m-2 text-center pointer">
                                 <i class="fa fa-ban fa-2x pt-2 "></i>
                                 <p>No image</p>
                             </div>
@@ -264,183 +260,174 @@
 
 
                     </div>
-                </form>
 
-            </div>
-
-            <div class="px-5 py-3 mt-3 border rounded create-ticket-types bg-light">
-                <div class=" py-2 font-weight-bold">
-                    <div>Create ticket types</div>
-                </div>
-                <div class="mt-2">
-                    <button mat-flat-button (click)="openAddNewTicketTypeDialog()" class="mr-1">Add a new ticket type</button>
-                    <button mat-flat-button (click)="openAddNewTicketGroupDialog()" class="ml-1">Add a new ticket group</button>
                 </div>
 
-                <div class="p-3 mt-3 add-ticket-notification rounded">
-                    <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
-                </div>
+                <div class="px-5 py-3 mt-3 border rounded create-ticket-types bg-light">
+                    <div class=" py-2 font-weight-bold">
+                        <div>Create ticket types</div>
+                    </div>
+                    <div class="mt-2">
+                        <button mat-flat-button (click)="openAddNewTicketTypeDialog()" class="mr-1">Add a new ticket type</button>
+                        <button mat-flat-button (click)="openAddNewTicketGroupDialog()" class="ml-1">Add a new ticket group</button>
+                    </div>
 
-                <div class="after-save-general-admission p-3 mt-2 rounded">
-                    <div class="row m-0">
-                        <div>
-                            General Admission
-                        </div>
-                        <div class="ticket-status ml-auto">
-                            <div class="d-inline-block ">
-                                <i class="fa fa-ticket fa-lg mr-2"></i><span>0 Ticket Sold</span>
+                    <div class="p-3 mt-3 add-ticket-notification rounded">
+                        <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
+                    </div>
+
+                    <div class="after-save-general-admission p-3 mt-2 rounded">
+                        <div class="row m-0">
+                            <div>
+                                General Admission
                             </div>
-                            <div class="d-inline-block ml-2">
-                                <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Remaining</span>
+                            <div class="ticket-status ml-auto">
+                                <div class="d-inline-block ">
+                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>0 Ticket Sold</span>
+                                </div>
+                                <div class="d-inline-block ml-2">
+                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Remaining</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="after-save-general-admission p-3 mt-2 rounded">
-                    <div class="row m-0">
-                        <div>
-                            General Admission
-                        </div>
-                        <div class="ticket-status ml-auto">
-                            <div class="d-inline-block">
-                                <i class="fa fa-ticket fa-lg mr-2"></i><span>0 Ticket Sold</span>
+                    <div class="after-save-general-admission p-3 mt-2 rounded">
+                        <div class="row m-0">
+                            <div>
+                                General Admission
                             </div>
-                            <div class="d-inline-block ml-3">
-                                <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Available</span>
+                            <div class="ticket-status ml-auto">
+                                <div class="d-inline-block">
+                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>0 Ticket Sold</span>
+                                </div>
+                                <div class="d-inline-block ml-3">
+                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Available</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="w-100 mt-2">
-                            <input type="text" class="form-control p-3" placeholder="To add ticket to this group, select this group name when adding or editing tickets.">
+                            <div class="w-100 mt-2">
+                                <input type="text" class="form-control p-3" placeholder="To add ticket to this group, select this group name when adding or editing tickets.">
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
-            </div>
-
-            <div class="px-5 py-3 mt-3 border rounded event-settings bg-light">
-                <div class=" py-2 font-weight-bold">
-                    <div>Event Settings</div>
-                </div>
-
-                <label for="">Timezone</label>
-                <div class="form-group ">
-                    <mat-select class="form-control col-8">
-                        <mat-option *ngFor="let allTimeZone of allTimeZone; let i=index" value="{{allTimeZone.id}}">({{allTimeZone.utc}}){{allTimeZone.name}}</mat-option>
-                    </mat-select>
-                </div>
-
-                <div class="form-group">
-                    <!-- <input type="checkbox" class="from-control mr-2"> Allow customers to make a donation -->
-                    <mat-checkbox [(ngModel)]="donationDiv" [checked]="false">Allow customers to make a donation</mat-checkbox>
-                </div>
-
-                <div class="w-100" *ngIf="donationDiv">
-                    <div class="row m-0">
-                        <div class="donation-field mt-2">
-                            <label for="">Donation title <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" placeholder="Please make a donation">
-                        </div>
-                        <div class="donation-field ml-auto mt-2">
-                            <label for="">Suggested donation amount <i class="fa fa-question-circle"></i></label>
-                            <input type="text" class="form-control" placeholder="0.00">
-                        </div>
-                        <div class="donation-field mt-2">
-                            <label for="">Donation desciption <i class="fa fa-question-circle"></i></label>
-                            <input type="text" class="form-control">
-                        </div>
+                <div class="px-5 py-3 mt-3 border rounded event-settings bg-light">
+                    <div class=" py-2 font-weight-bold">
+                        <div>Event Settings</div>
                     </div>
-                </div>
 
-                <div class="mt-2">
-                    <label for="">Customise the text that appears on the event button and in the title of the event page</label>
+                    <label for="">Timezone</label>
+                    <div class="form-group ">
+                        <mat-select formControlName="timezone" class="form-control col-8">
+                            <mat-option *ngFor="let allTimeZone of allTimeZone; let i=index" value="{{allTimeZone.id}}">({{allTimeZone.utc}}){{allTimeZone.name}}</mat-option>
+                        </mat-select>
+                    </div>
+
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Book Tickets">
+                        <!-- <input type="checkbox" class="from-control mr-2"> Allow customers to make a donation -->
+                        <mat-checkbox (change)="fnChangeDonation($event)" [checked]="false">Allow customers to make a donation</mat-checkbox>
                     </div>
-                </div>
 
+                    <div class="w-100" *ngIf="donation == 'Y'">
+                        <div class="row m-0">
+                            <div class="donation-field mt-2">
+                                <label for="">Donation title <span class="text-danger">*</span></label>
+                                <input formControlName="donation_title" type="text" class="form-control" placeholder="Please make a donation">
+                            </div>
+                            <div class="donation-field ml-auto mt-2">
+                                <label for="">Suggested donation amount <i class="fa fa-question-circle"></i></label>
+                                <input formControlName="donation_amount" type="text" class="form-control" placeholder="0.00">
+                            </div>
+                            <div class="donation-field mt-2">
+                                <label for="">Donation desciption <i class="fa fa-question-circle"></i></label>
+                                <input formControlName="donation_description" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
 
-                <div class=" py-2 font-weight-bold">
-                    <div>Advance Settings</div>
-                </div>
-
-                <div class="row mx-0">
-                    <div class="ticket-available-unavailabel">
-                        <label for="">Tickets become availables</label>
+                    <div class="mt-2">
+                        <label for="">Customise the text that appears on the event button and in the title of the event page</label>
                         <div class="form-group">
-                            <mat-select class="form-control">
-                                <mat-option value="">When the event is published</mat-option>
-                                <mat-option value="">At a scheduled date and time</mat-option>
-                                <mat-option value="">At a scheduled interval before the event starts</mat-option>
-                            </mat-select>
-
-
+                            <input formControlName="book_btn_title" type="text" class="form-control" placeholder="Book Tickets">
                         </div>
                     </div>
 
-                    <div class="ticket-available-unavailabel ml-auto">
-                        <label for="">Tickets become unavailables</label>
-                        <div class="form-group">
-                            <mat-select name="" id="" class="form-control">
-                                <mat-option value="">When the event is taken off, or the event passes</mat-option>
-                                <mat-option value="">At a scheduled date and time</mat-option>
-                                <mat-option value="">At a scheduled interval before the event starts</mat-option>
-                            </mat-select>
-                        </div>
+
+                    <div class=" py-2 font-weight-bold">
+                        <div>Advance Settings</div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <!-- <input type="checkbox" class="from-control mr-2"> Redirect order confirmation page -->
-                    <mat-checkbox [(ngModel)]="redirectURL" [checked]="false">Redirect order confirmation page</mat-checkbox>
-                </div>
-
-                <div *ngIf="redirectURL">
-                    <label for="">Redirect to URL</label>
-                    <div class="form-group">
-                        <input type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <!-- <input type="checkbox" class="from-control mr-2"> Hide this event from your box office listings and search engines. -->
-                    <mat-checkbox>Hide this event from your box office listings and search engines.</mat-checkbox>
-                </div>
-
-                <div class="form-group">
-                    <!-- <input type="checkbox" class="from-control mr-2"> Customers need to enter an access code to buy tickets for this event -->
-                    <mat-checkbox [(ngModel)]="accessCode" [checked]="false">Customers need to enter an access code to buy tickets for this event</mat-checkbox>
-                </div>
-
-                <div *ngIf="accessCode">
-                    <label for="">Access Code</label>
-                    <div class="form-group">
-                        <input type="text" class="form-control col-6">
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <!-- <input type="checkbox" class="from-control mr-2"> Hide share button on event page. -->
-                    <mat-checkbox>Hide share button on event page.</mat-checkbox>
-                </div>
-
-                <div class="form-group">
-                    <!-- <input type="checkbox" class="from-control mr-2"> Set custom sales tax for this event -->
-                    <mat-checkbox [(ngModel)]="customSalesTax" [checked]="false">Set custom sales tax for this event</mat-checkbox>
-                </div>
-
-                <div *ngIf="customSalesTax">
                     <div class="row mx-0">
-                        <div class="w-100">
-                            <div (click)="fnSalesTaxAdd()" class="tax-add-btn">
-                                <i class="fa fa-plus-circle"></i><span class="ml-2">Add Tax</span>
+                        <div class="ticket-available-unavailabel">
+                            <label for="">Tickets become availables</label>
+                            <div class="form-group">
+                                <mat-select class="form-control" formControlName="ticket_available">
+                                    <mat-option value="when_published">When the event is published</mat-option>
+                                    <mat-option value="schedule_datetime">At a scheduled date and time</mat-option>
+                                    <mat-option value="schedule_interval">At a scheduled interval before the event starts</mat-option>
+                                </mat-select>
                             </div>
-
                         </div>
 
-                        <div class="tax-input">
+                        <div class="ticket-available-unavailabel ml-auto">
+                            <label for="">Tickets become unavailables</label>
+                            <div class="form-group">
+                                <mat-select class="form-control" formControlName="ticket_unavailable">
+                                    <mat-option value="when_published">When the event is taken off, or the event passes</mat-option>
+                                    <mat-option value="schedule_datetime">At a scheduled date and time</mat-option>
+                                    <mat-option value="schedule_interval">At a scheduled interval before the event starts</mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <input type="checkbox" class="from-control mr-2"> Redirect order confirmation page -->
+                        <mat-checkbox (change)="fnRedirectURL($event)" [checked]="false">Redirect order confirmation page</mat-checkbox>
+                    </div>
+
+                    <div *ngIf="redirectURL == 'Y'">
+                        <label for="">Redirect to URL</label>
+                        <div class="form-group">
+                            <input formControlName="redirect_url" type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <!-- <input type="checkbox" class="from-control mr-2"> Hide this event from your box office listings and search engines. -->
+                        <mat-checkbox (change)="fnHideEventSearch($event)">Hide this event from your box office listings and search engines.</mat-checkbox>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <input type="checkbox" class="from-control mr-2"> Customers need to enter an access code to buy tickets for this event -->
+                        <mat-checkbox (change)="fnAccessCode($event)" [checked]="false">Customers need to enter an access code to buy tickets for this event</mat-checkbox>
+                    </div>
+
+                    <div *ngIf="accessCode == 'Y'">
+                        <label for="">Access Code</label>
+                        <div class="form-group">
+                            <input formControlName="access_code" type="text" class="form-control col-6">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <!-- <input type="checkbox" class="from-control mr-2"> Hide share button on event page. -->
+                        <mat-checkbox (change)="fnShareButtonStatus($event)">Hide share button on event page.</mat-checkbox>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <input type="checkbox" class="from-control mr-2"> Set custom sales tax for this event -->
+                        <mat-checkbox (change)="fnCustomSalesTax($event)" [checked]="false">Set custom sales tax for this event</mat-checkbox>
+                    </div>
+
+                    <div *ngIf="customSalesTax">
+                        <div class="row mx-0">
+
+                            <!-- <div class="tax-input">
                             <label for="">Sales tax amounts</label>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="0.00%">
@@ -452,36 +439,42 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="VAT">
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class=" w-100" *ngFor="let salesTax of salesTax">
-                            <div class="row m-0">
-                                <div class="tax-input">
-                                    <label for="">Sales tax amounts</label>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="0.00%">
+                            <div class=" w-100" *ngFor="let salesTax of salesTax">
+                                <div class="row m-0">
+                                    <div class="tax-input">
+                                        <label for="">Sales tax amounts</label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="0.00%">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="tax-input ml-auto">
-                                    <label for="">Sales tax label</label>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="VAT">
+                                    <div class="tax-input ml-auto">
+                                        <label for="">Sales tax label</label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="VAT">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="w-100">
+                                <div (click)="fnSalesTaxAdd()" class="tax-add-btn">
+                                    <i class="fa fa-plus-circle"></i><span class="ml-2">Add Tax</span>
+                                </div>
 
+                            </div>
+
+                        </div>
                     </div>
+
                 </div>
 
-            </div>
-
-            <div class="py-3 mt-3 event-setting-btn text-right">
-                <button (click)="fnAddNewEventsForm()" mat-flat-button class="cancel-btn mr-2">Cancel</button>
-                <button mat-flat-button class="save-btn ml-2 px-3">Save Event</button>
-            </div>
-
+                <div class="py-3 mt-3 event-setting-btn text-right">
+                    <button (click)="fnCancelNewEvent()" mat-flat-button class="cancel-btn mr-2">Cancel</button>
+                    <button (click)="fnAddNewEvent()" mat-flat-button class="save-btn ml-2 px-3">Save Event</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
