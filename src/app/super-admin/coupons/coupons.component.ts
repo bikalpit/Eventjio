@@ -183,9 +183,9 @@ export class myCreateDiscountCodeDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.signleCouponDetail = this.data.signleCouponDetail;
-      if(this.signleCouponDetail){
-        this.createCouponForm.controls.title.setValue(this.signleCouponDetail.coupon_title)
-      }
+      // if(this.signleCouponDetail){
+      //   this.createCouponForm.controls.title.setValue(this.signleCouponDetail.coupon_title)
+      // }
     }
 
   onNoClick(): void {
@@ -193,7 +193,7 @@ export class myCreateDiscountCodeDialog {
   }
   ngOnInit() {
     this.createCouponForm = this._formBuilder.group({
-      title : ['', [Validators.required,Validators.maxLength(15)]],
+      title : [this.signleCouponDetail?this.signleCouponDetail.coupon_title:'', [Validators.required,Validators.maxLength(15)]],
       max_redemption : [this.signleCouponDetail?this.signleCouponDetail.max_redemption:'', [Validators.required,Validators.pattern(this.onlynumeric)]],
       code : [this.signleCouponDetail?this.signleCouponDetail.coupon_code:'', [Validators.required,Validators.maxLength(15)]],
       valid_from : [this.signleCouponDetail?this.signleCouponDetail.valid_from:'', Validators.required],
