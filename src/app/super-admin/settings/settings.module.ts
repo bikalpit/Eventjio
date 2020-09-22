@@ -24,6 +24,7 @@ import { inviteTeamMateDialog} from './team-access/team-access.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { AddSalesTax } from './sales-tax/sales-tax.component';
+import { HttpClientModule} from '@angular/common/http';
 
 
 
@@ -47,6 +48,7 @@ import { AddSalesTax } from './sales-tax/sales-tax.component';
     ColorPickerModule,
     CKEditorModule,
     FormsModule,
+    HttpClientModule,
     
   ],
   entryComponents: [AddSalesTax]
