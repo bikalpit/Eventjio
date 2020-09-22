@@ -43,6 +43,7 @@ label{
         }
         .plus-icon{
             color: #1172F4;
+            cursor: pointer;
         }
         
         
@@ -50,11 +51,11 @@ label{
           .close-icon{
               color: red;
               font-size:30px !important;
-              cursor: default;
+              cursor: pointer;
           }
         
           .add-email{
-            cursor: default;
+            cursor: pointer;
           }
         
           .create{
