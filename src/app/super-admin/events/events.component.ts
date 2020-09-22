@@ -200,7 +200,7 @@ export class EventsComponent implements OnInit {
       'description':this.addEventForm.get('description').value,
       'platform':this.addEventForm.get('online_platform').value,
       'event_link':this.addEventForm.get('online_link').value,
-      'event_status':'Draft',
+      'event_status':'draft',
       'timezone':this.addEventForm.get('timezone').value,
       'make_donation':this.donation,
       'event_button_title':this.addEventForm.get('book_btn_title').value,
