@@ -165,24 +165,51 @@
 
 
                     <div class="row mx-0">
-                        <div class=" col-4">
+                        <div class=" date-and-time">
                             <label for="">Starts</label>
                             <div class="form-group">
-                                <input type="date" formControlName="event_start_date" class="col-8 form-control d-inline-block">
-                                <input type="time" formControlName="event_start_time" class="col-4 form-control d-inline-block ">
+                                <input type="date" formControlName="event_start_date" class="col-7 form-control d-inline-block">
+                                <input type="time" formControlName="event_start_time" class="col-4 ml-2 form-control d-inline-block ">
                             </div>
                         </div>
 
-                        <div class=" col-4">
+                        <div class=" date-and-time ml-2">
                             <label for="">Ends</label>
                             <div class="form-group">
-                                <input type="date" formControlName="event_end_date" class=" col-8 form-control d-inline-block">
-                                <input type="time" formControlName="event_end_time" class="col-4 form-control d-inline-block">
+                                <input type="date" formControlName="event_end_date" class=" col-7 form-control d-inline-block">
+                                <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
                             </div>
                         </div>
-                        <div class=" col-5">
-                            <button class="btn btn-primary">Save</button>
+                        <div class="w-100">
+                            <div class="form-group">
+                                <!-- <input type="checkbox" class="from-control mr-2"> This is on online event -->
+                                <mat-checkbox class="">This is on online event</mat-checkbox>
+                            </div>
                         </div>
+                        
+                        <label for="">Description</label>
+                        <div class="form-group">
+                            ck editor
+                        </div>
+                        
+                        <label for="">Choose or upload an images</label>
+                        <div class="row">
+                            <img src="../../../assets/images/events/image 1.jpg" class="event-images m-2" alt="">
+                            <img src="../../../assets/images/events/image 2.jpg" class="event-images m-2" alt="">
+                            <img src="../../../assets/images/events/image 3.jpg" class="event-images m-2" alt="">
+                            <img src="../../../assets/images/events/image 4.jpg" class="event-images m-2" alt="">
+                            <img src="../../../assets/images/events/image 5.jpg" class="event-images m-2" alt="">
+                            <img src="../../../assets/images/events/image 6.jpg" class="event-images m-2" alt="">
+                            <div class="event-images m-2 text-center">
+                                <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
+                                <p>Upload</p>
+                            </div>
+                            <div class="event-images m-2 text-center">
+                                <i class="fa fa-ban fa-2x pt-2 "></i>
+                                <p>No image</p>
+                            </div>
+                        </div>
+                    
 
                     </div>
                 </form>
