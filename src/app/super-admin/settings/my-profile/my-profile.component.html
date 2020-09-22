@@ -1,16 +1,16 @@
 <div class="main bg-white ml-4">
-        <div class="row mb-4 mt-2">
+        <div class="row mx-0 mb-4 mt-2">
             <div class="col-12  mt-2">
-                <div class="font-weight-bold page-title">
+                <div class="font-weight-bold page-title ml-4">
                     My Profile
                 </div>
             </div>
         </div>
-    </div>
+   
     
     <div class="row main-content ml-4">
         <div class="col-6">
-            <div class="row mt-2">
+            <div class="row mx-0 mt-2">
             
                   <img src="../../../assets/images/settings/profile/my-profile.png"  alt="">                  
               <div class="col-4 py-2">
@@ -22,19 +22,32 @@
      
         
     <div class="p-2">
-            <div class="row mt-4">
-                <label for="first-name" class="col-5">Firstname</label>
-                <label for="first-name" class="col-5 ml-3">Lastname</label>
-                <input type="text" class="col-5 form-control ml-3 " placeholder="Shabnamm">
-                <input type="text" class="col-5 form-control ml-3" placeholder="Ansari">
-                <label for="first-name" class="col-5 mt-4">Email</label>
-                <label for="first-name" class="col-5 ml-3 mt-4">Phone</label>
-                <input type="text" class="col-5 form-control ml-3" placeholder="dummy@gmail.com">
-                <input type="text" class="col-5 form-control ml-3" placeholder="+91 87678687">
+        <div class="form-group">
+            <div class="row mx-0 mt-4">
+                 <div class="col-5">
+                    <label for="first-name" class="col-5">Firstname</label>
+                    <input type="text" class="form-control " placeholder="Shabnamm">
+                 </div>
+
+                 <div class="col-5">
+                    <label for="first-name" class="col-5">Lastname</label>
+                    <input type="text" class="form-control" placeholder="Ansari">
+                 </div>
+
+                 <div class="col-5">
+                    <label for="first-name" class="col-5 mt-4">Email</label>
+                    <input type="text" class="form-control" placeholder="dummy@gmail.com">
+                 </div>
+                 
+                  <div class="col-5">
+                    <label for="first-name" class="col-5 mt-4">Phone</label>        
+                    <input type="text" class="form-control" placeholder="+91 87678687">
+                  </div>
             </div>
+        </div>
 
 
-      <div class="row bottom">
+      <div class="row mx-0 bottom">
         <hr class="col-12   ">
             <div class="pull-right col-12 mt-2">
                 <button mat-flat-button class="save float-right mx-2 mr-4">Save</button>
@@ -42,4 +55,5 @@
             </div>
       </div>
     </div>
+</div>
 </div>
