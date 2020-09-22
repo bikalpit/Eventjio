@@ -4,17 +4,29 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { Role } from './_models';
+import { AuthGuard } from './_helpers/auth.guard';
 
 
 const routes: Routes = [
   
   
-  { path: 'customers', loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) },
+  { 
+    path: 'customers', 
+    loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) 
+  },
   
-  { path: 'super-admin', loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },  
+  { 
+    path: 'super-admin', 
+    canActivate: [AuthGuard],
+    data: {roles: Role.Admin},
+    loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },  
   
-  { path: 'settings', loadChildren: () => import('./super-admin/settings/settings.module').then(m => m.SettingsModule) },
-   {
+  { 
+    path: 'settings', 
+    loadChildren: () => import('./super-admin/settings/settings.module').then(m => m.SettingsModule) 
+  },
+  {
     path: '', 
     component: LoginComponent 
   },
