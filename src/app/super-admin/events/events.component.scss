@@ -133,9 +133,14 @@
 .ticket-available-unavailabel{
     width:49%
 }
+
 .tax-input{
     width:49%;
 }
+.tax-add-btn{
+    color:#1172F4;
+}
+
 ::ng-deep .popover-body{
     padding:  0px  !important;
 }
@@ -158,6 +163,14 @@
 
 ::ng-deep .venue-info{
     width: 30%;
+}
+
+.after-save-general-admission{
+    background-color:  #CEE6FF;
+    font-weight: bold;
+    .ticket-status{
+        color:#007BFF;
+    }
 }
 
 ::ng-deep .donation-field{

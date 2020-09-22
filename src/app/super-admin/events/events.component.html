@@ -280,6 +280,41 @@
                     <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
                 </div>
 
+               <div class="after-save-general-admission p-3 mt-2 rounded">
+                <div class="row m-0">
+                    <div>
+                        General Admission
+                    </div>
+                    <div class="ticket-status ml-auto">
+                        <div class="d-inline-block ">
+                            <i class="fa fa-ticket fa-lg mr-2"></i><span>0 Ticket Sold</span>
+                        </div>
+                        <div class="d-inline-block ml-2">
+                            <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Remaining</span>
+                        </div>
+                    </div>
+                </div>
+               </div>
+
+               <div class="after-save-general-admission p-3 mt-2 rounded">
+                <div class="row m-0">
+                    <div>
+                        General Admission
+                    </div>
+                    <div class="ticket-status ml-auto">
+                        <div class="d-inline-block">
+                            <i class="fa fa-ticket fa-lg mr-2"></i><span>0 Ticket Sold</span>
+                        </div>
+                        <div class="d-inline-block ml-3">
+                            <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Available</span>
+                        </div>
+                    </div>
+                    <div class="w-100 mt-2">
+                        <input type="text" class="form-control p-3" placeholder="To add ticket to this group, select this group name when adding or editing tickets.">
+                    </div>
+                </div>
+               </div>
+
             </div>
 
             <div class="px-5 py-3 mt-3 border rounded event-settings bg-light">
@@ -397,6 +432,13 @@
 
                 <div *ngIf="customSalesTax">
                     <div class="row mx-0" >
+                        <div class="w-100">
+                            <div (click)="fnSalesTaxAdd()" class="tax-add-btn">
+                                <i class="fa fa-plus-circle"></i><span class="ml-2">Add Tax</span>
+                            </div>
+                            
+                        </div>
+
                         <div class="tax-input">
                             <label for="">Sales tax amounts</label>
                             <div class="form-group">
@@ -410,6 +452,25 @@
                                 <input type="text" class="form-control" placeholder="VAT">
                             </div>
                         </div>
+                       
+                        <div class=" w-100" *ngFor="let salesTax of salesTax">
+                            <div class="row m-0">
+                                <div class="tax-input">
+                                    <label for="">Sales tax amounts</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="0.00%">
+                                    </div>
+                                </div>
+            
+                                <div class="tax-input ml-auto">
+                                    <label for="">Sales tax label</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="VAT">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 

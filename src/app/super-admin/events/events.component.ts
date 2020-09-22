@@ -38,6 +38,7 @@ export class EventsComponent implements OnInit {
                 ]    
   onlinePlatForm = ['Zoom','Google Hangout','Youtube','Hopin','Vimeo','Skype','Other'] 
 
+  salesTax = [ ];
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -100,6 +101,10 @@ export class EventsComponent implements OnInit {
 
   fnolPlatform(event){
     this.olPlatForm = !this.olPlatForm;
+  }
+
+  fnSalesTaxAdd(){
+    this.salesTax.push(this.salesTax.length+1);
   }
 
   fnChangeEventStatus(event){
