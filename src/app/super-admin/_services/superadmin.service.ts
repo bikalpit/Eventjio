@@ -73,8 +73,32 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    updateCouponCode(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     getAllCouponCodes(requestObject){
         return this.http.post(`${environment.apiUrl}/get-all-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    changeCouponStaus(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-coupon-status-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    fnDeleteCoupon(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    fnGetSignleCouponDetail(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

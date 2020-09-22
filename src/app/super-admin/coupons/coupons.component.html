@@ -1,6 +1,6 @@
 <div id="my-coupons" class="sub-container">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
-    <div class="coupons comm-back">
+    <div class="coupons h-100 comm-back">
         <div class="page-title">
             <h6>Promo codes</h6>
         </div>
@@ -20,9 +20,9 @@
             </div>
 
             <div class="row code-tab">
-                <mat-tab-group (selectedTabChange)="onTabChanged($event)" class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left">
+                <mat-tab-group (selectedTabChange)="onTabChanged($event)" class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left p-0 coupon-code-tabs">
                     <mat-tab label="Discount Code (5)" class="">
-                        <div class="service-listing">
+                        <div class="couponcodes-listing">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
@@ -30,10 +30,11 @@
                                         <div class="" fxFlex="15">Coupon Code</div>
                                         <div class="" fxFlex="13">Type</div>
                                         <div class="" fxFlex="10">Maximum Redemption</div>
-                                        <div class="" fxFlex="12">Used</div>
-                                        <div class="" fxFlex="10">Discount</div>
+                                        <div class="" fxFlex="8">Used</div>
+                                        <div class="" fxFlex="8">Discount</div>
                                         <div class="" fxFlex="10">Status</div>
-                                        <div class="" fxFlex="10">Action</div>
+                                        <div class="" fxFlex="10">Status Action</div>
+                                        <div class="" fxFlex="6">Action</div>
                                     </div>
                                     <div *ngIf="allCouponCodeList !== null || allCouponCodeList !== ''" class="content" class="drageble-list">
                                         <div *ngFor="let allCouponCodeList of allCouponCodeList; let i=index;" class="drageble-box" fxLayout="row">
@@ -41,10 +42,15 @@
                                             <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">{{allCouponCodeList.coupon_code}}</span></div>
                                             <div class="tb-data" fxFlex="13">{{allCouponCodeList.discount_type == 'P'? 'Percentage' : 'Fixed Amount'}}</div>
                                             <div class="tb-data" fxFlex="10">{{allCouponCodeList.max_redemption}}</div>
-                                            <div class="tb-data" fxFlex="12">23</div>
-                                            <div class="tb-data" fxFlex="10">{{allCouponCodeList.discount}}</div>
+                                            <div class="tb-data" fxFlex="8">23</div>
+                                            <div class="tb-data" fxFlex="8">{{allCouponCodeList.discount}}</div>
                                             <div class="tb-data" fxFlex="10">{{allCouponCodeList.coupon_title}}</div>
                                             <div class="tb-data" fxFlex="10">
+                                                <div *ngIf="allCouponCodeList.status == 'A' || allCouponCodeList.status == 'IA'">
+                                                    <mat-slide-toggle (change)="changeCouponStaus($event,allCouponCodeList.unique_code)" [checked]="allCouponCodeList.status == 'A'"></mat-slide-toggle>
+                                                </div>
+                                            </div>
+                                            <div class="tb-data" fxFlex="6">
 
                                                 <!-- <button mat-raised-button color="primary"
                                                     [mdePopoverTriggerFor]="appPopover"
@@ -60,15 +66,15 @@
                                                     </mat-card>
                                                 </mde-popover> -->
 
-                                                <mat-icon [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
+                                                <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
                                                 <ng-template class="popover" #popContent>
-                                                    <div class="px-3  border-bottom">
+                                                    <div (click)="fnEditCoupon(allCouponCodeList.unique_code)" class="px-3 pointer border-bottom">
                                                         <i class="fa fa-pencil mr-2"></i><span>Edit</span>
                                                     </div>
-                                                    <div class="px-3  border-bottom">
+                                                    <div class="px-3 pointer border-bottom">
                                                         <i class="fa fa-ticket mr-2"></i><span>Assign to Ticket Type</span>
                                                     </div>
-                                                    <div class="px-3  border-bottom">
+                                                    <div (click)="fnDeleteCoupon(allCouponCodeList.unique_code)" class="px-3 pointer border-bottom">
                                                         <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                                     </div>
                                                 </ng-template>
@@ -77,7 +83,7 @@
                                     </div>
 
                                     <div *ngIf="allCouponCodeList === null || allCouponCodeList === ''" class="content" class="drageble-list">
-                                        <p class="text-center">Record not found.</p>
+                                        <p class="text-center my-3" style="font-size: 16px;">Record not found.</p>
                                     </div>
                                 </div>
 

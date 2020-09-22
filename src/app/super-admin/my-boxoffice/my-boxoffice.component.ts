@@ -63,9 +63,9 @@ export class MyBoxofficeComponent implements OnInit {
     }
 
   
-    fnSelectBoxoffice(boxoffice_id,name){
+    fnSelectBoxoffice(boxoffice_code,name){
 
-      localStorage.setItem('boxoffice_id', boxoffice_id);
+      localStorage.setItem('boxoffice_id', boxoffice_code);
       localStorage.setItem('boxoffice_name', name);
       localStorage.setItem('isBoxoffice','false');
       this.router.navigate(['/super-admin/events']);
