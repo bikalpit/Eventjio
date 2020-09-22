@@ -47,10 +47,10 @@ export class MyBoxofficeComponent implements OnInit {
     }
 
     getAllBoxoffice(){
+      this.isLoaderAdmin = true;
       let requestObject = {
           'admin_id' : this.currentUser.user_id,
       };
-      this.isLoaderAdmin = true;
       this.superadminService.getAllBoxoffice(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.allBoxoffice = response.response

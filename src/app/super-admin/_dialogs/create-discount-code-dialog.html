@@ -71,8 +71,8 @@
                     </div>
                     <div class="example-button-row ml-auto mt-3">
                         <button mat-raised-button (click)="fnCancelCreateCoupon()" class="cancel-btn">Cancel</button>
-                        <button *ngIf="!signleCouponDetail.unique_code" mat-raised-button (click)="fnSubmitCreateCoupon()" class="mx-3 cupon-btn">Save discount code</button>
-                        <button *ngIf="signleCouponDetail.unique_code" mat-raised-button (click)="fnSubmitCreateCoupon()" class="mx-3 cupon-btn">Update discount code</button>
+                        <button *ngIf="!signleCouponDetail" mat-raised-button (click)="fnSubmitCreateCoupon()" class="mx-3 cupon-btn">Save discount code</button>
+                        <button *ngIf="signleCouponDetail" mat-raised-button (click)="fnSubmitCreateCoupon()" class="mx-3 cupon-btn">Update discount code</button>
                     </div>
                 </form>
             </div>

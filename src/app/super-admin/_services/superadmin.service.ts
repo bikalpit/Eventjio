@@ -52,6 +52,12 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    getAllTimeZone(){
+        return this.http.post(`${environment.apiUrl}/get-timezones`,{}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 
 
     getAllBoxoffice(requestObject){

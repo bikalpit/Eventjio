@@ -26,10 +26,10 @@
                                 </div>
 
                                 <div class="content" class="drageble-list">
-                                    <div class="drageble-box"  fxLayout="row" *ngFor="let element of upcomingEventData">
+                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of upcomingEventData">
                                         <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data" fxFlex="20">
-                                            <mat-select [(value)]="element.status" class="form-control event-status-select"  [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
+                                            <mat-select [(value)]="element.status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="Draft">Draft</mat-option>
                                                 <mat-option value="Published">Published</mat-option>
                                             </mat-select>
@@ -91,10 +91,10 @@
                                 </div>
 
                                 <div class="content" class="drageble-list">
-                                    <div class="drageble-box"  fxLayout="row" *ngFor="let element of pastEventData">
+                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of pastEventData">
                                         <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data" fxFlex="20">
-                                            <mat-select [(value)]="element.status" class="form-control event-status-select"  [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
+                                            <mat-select [(value)]="element.status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="Draft">Draft</mat-option>
                                                 <mat-option value="Published">Published</mat-option>
                                             </mat-select>
@@ -181,27 +181,27 @@
                             </div>
                         </div>
 
-                        <div class="w-100" *ngIf="!olPlatForm">
+                        <div class="w-100" *ngIf="olPlatForm == 'N'">
                             <div class="row m-0">
                                 <div class="venue-info">
                                     <label for="">Venue Name</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="e.g. Blues Star">
+                                        <input formControlName="vanue_name" type="text" class="form-control" placeholder="e.g. Blues Star">
                                     </div>
                                 </div>
 
                                 <div class="venue-info ml-2">
                                     <label for="">Venue postalcode / Zip</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="e.g. 400001">
+                                        <input formControlName="vanue_zip" type="text" class="form-control" placeholder="e.g. 400001">
                                     </div>
                                 </div>
 
                                 <div class="venue-info ml-2">
                                     <label for="">Venue Country</label>
                                     <div class="form-group">
-                                        <mat-select class="form-control ">
-                                            <mat-option value="India">India</mat-option>
+                                        <mat-select formControlName="vanue_country" class="form-control">
+                                            <mat-option *ngFor="let allCountry of allCountry; let i=index" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
                                         </mat-select>
                                     </div>
                                 </div>
@@ -209,25 +209,25 @@
                         </div>
 
 
-                        <div class="w-100" *ngIf="olPlatForm">
+                        <div class="w-100" *ngIf="olPlatForm == 'Y'">
                             <div class="row m-0">
                                 <div class="venue-info">
                                     <label for="">Platform</label>
                                     <div class="form-group">
-                                        <mat-select class="form-control" placeholder="Please select platform">
-                                            <mat-option value="onlinePlatForm"*ngFor="let onlinePlatForm of onlinePlatForm">{{onlinePlatForm}}</mat-option>
+                                        <mat-select formControlName="online_platform" class="form-control" placeholder="Please select platform">
+                                            <mat-option value="onlinePlatForm" *ngFor="let onlinePlatForm of onlinePlatForm">{{onlinePlatForm}}</mat-option>
                                         </mat-select>
                                     </div>
                                 </div>
 
                                 <div class="venue-info ml-2">
-                                    <label for="">Venue postalcode / Zip</label>
+                                    <label for="">Online event link (Can be added later)</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="e.g. 400001">
+                                        <input formControlName="online_link" type="text" class="form-control">
                                     </div>
                                 </div>
 
-                                
+
                             </div>
                         </div>
 
@@ -237,12 +237,13 @@
                                 <mat-checkbox class="" (change)="fnolPlatform($event)">This is on online event</mat-checkbox>
                             </div>
                         </div>
-                        
+
                         <label for="">Description</label>
                         <div class="form-group">
-                            ck editor
+                            <ck-editor formControlName="description" skin="moono-lisa" language="en" [fullPage]="true">
+                            </ck-editor>
                         </div>
-                        
+
                         <label for="">Choose or upload an images</label>
                         <div class="row">
                             <img src="../../../assets/images/events/image 1.jpg" class="event-images m-2" alt="">
@@ -260,7 +261,7 @@
                                 <p>No image</p>
                             </div>
                         </div>
-                    
+
 
                     </div>
                 </form>
@@ -289,8 +290,8 @@
 
                 <label for="">Timezone</label>
                 <div class="form-group ">
-                    <mat-select name="" id="" class="form-control col-8">
-                        <mat-option value="">(GMT+05:30)Colcutta</mat-option>
+                    <mat-select class="form-control col-8">
+                        <mat-option *ngFor="let allTimeZone of allTimeZone; let i=index" value="{{allTimeZone.id}}">({{allTimeZone.utc}}){{allTimeZone.name}}</mat-option>
                     </mat-select>
                 </div>
 
@@ -322,7 +323,7 @@
                         <input type="text" class="form-control" placeholder="Book Tickets">
                     </div>
                 </div>
-                
+
 
                 <div class=" py-2 font-weight-bold">
                     <div>Advance Settings</div>
@@ -337,8 +338,8 @@
                                 <mat-option value="">At a scheduled date and time</mat-option>
                                 <mat-option value="">At a scheduled interval before the event starts</mat-option>
                             </mat-select>
-                         
-                            
+
+
                         </div>
                     </div>
 
@@ -365,29 +366,29 @@
                         <input type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
                     </div>
                 </div>
-              
+
 
                 <div class="form-group">
                     <!-- <input type="checkbox" class="from-control mr-2"> Hide this event from your box office listings and search engines. -->
-                    <mat-checkbox >Hide this event from your box office listings and search engines.</mat-checkbox>
+                    <mat-checkbox>Hide this event from your box office listings and search engines.</mat-checkbox>
                 </div>
 
                 <div class="form-group">
                     <!-- <input type="checkbox" class="from-control mr-2"> Customers need to enter an access code to buy tickets for this event -->
                     <mat-checkbox [(ngModel)]="accessCode" [checked]="false">Customers need to enter an access code to buy tickets for this event</mat-checkbox>
                 </div>
-               
+
                 <div *ngIf="accessCode">
                     <label for="">Access Code</label>
                     <div class="form-group">
                         <input type="text" class="form-control col-6">
-                    </div>     
+                    </div>
                 </div>
-                
+
 
                 <div class="form-group">
                     <!-- <input type="checkbox" class="from-control mr-2"> Hide share button on event page. -->
-                    <mat-checkbox >Hide share button on event page.</mat-checkbox>
+                    <mat-checkbox>Hide share button on event page.</mat-checkbox>
                 </div>
 
                 <div class="form-group">
@@ -396,14 +397,14 @@
                 </div>
 
                 <div *ngIf="customSalesTax">
-                    <div class="row mx-0" >
+                    <div class="row mx-0">
                         <div class="tax-input">
                             <label for="">Sales tax amounts</label>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="0.00%">
                             </div>
                         </div>
-    
+
                         <div class="tax-input ml-auto">
                             <label for="">Sales tax label</label>
                             <div class="form-group">
@@ -412,7 +413,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="py-3 mt-3 event-setting-btn text-right">
