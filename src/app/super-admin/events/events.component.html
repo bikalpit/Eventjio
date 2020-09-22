@@ -180,10 +180,61 @@
                                 <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
                             </div>
                         </div>
+
+                        <div class="w-100" *ngIf="!olPlatForm">
+                            <div class="row m-0">
+                                <div class="venue-info">
+                                    <label for="">Venue Name</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="e.g. Blues Star">
+                                    </div>
+                                </div>
+
+                                <div class="venue-info ml-2">
+                                    <label for="">Venue postalcode / Zip</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="e.g. 400001">
+                                    </div>
+                                </div>
+
+                                <div class="venue-info ml-2">
+                                    <label for="">Venue Country</label>
+                                    <div class="form-group">
+                                        <mat-select class="form-control ">
+                                            <mat-option value="India">India</mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="w-100" *ngIf="olPlatForm">
+                            <div class="row m-0">
+                                <div class="venue-info">
+                                    <label for="">Platform</label>
+                                    <div class="form-group">
+                                        <mat-select class="form-control" placeholder="Please select platform">
+                                            <mat-option value="onlinePlatForm"*ngFor="let onlinePlatForm of onlinePlatForm">{{onlinePlatForm}}</mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+
+                                <div class="venue-info ml-2">
+                                    <label for="">Venue postalcode / Zip</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="e.g. 400001">
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+
                         <div class="w-100">
                             <div class="form-group">
                                 <!-- <input type="checkbox" class="from-control mr-2"> This is on online event -->
-                                <mat-checkbox class="">This is on online event</mat-checkbox>
+                                <mat-checkbox class="" (change)="fnolPlatform($event)">This is on online event</mat-checkbox>
                             </div>
                         </div>
                         
@@ -245,13 +296,33 @@
 
                 <div class="form-group">
                     <!-- <input type="checkbox" class="from-control mr-2"> Allow customers to make a donation -->
-                    <mat-checkbox >Allow customers to make a donation</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="donationDiv" [checked]="false">Allow customers to make a donation</mat-checkbox>
                 </div>
 
-                <label for="">Customise the text that appears on the event button and in the title of the event page</label>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Book Tickets">
+                <div class="w-100" *ngIf="donationDiv">
+                    <div class="row m-0">
+                        <div class="donation-field mt-2">
+                            <label for="">Donation title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" placeholder="Please make a donation">
+                        </div>
+                        <div class="donation-field ml-auto mt-2">
+                            <label for="">Suggested donation amount <i class="fa fa-question-circle"></i></label>
+                            <input type="text" class="form-control" placeholder="0.00">
+                        </div>
+                        <div class="donation-field mt-2">
+                            <label for="">Donation desciption <i class="fa fa-question-circle"></i></label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
                 </div>
+
+                <div class="mt-2">
+                    <label for="">Customise the text that appears on the event button and in the title of the event page</label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Book Tickets">
+                    </div>
+                </div>
+                
 
                 <div class=" py-2 font-weight-bold">
                     <div>Advance Settings</div>

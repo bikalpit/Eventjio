@@ -20,6 +20,8 @@ export class EventsComponent implements OnInit {
  redirectURL:any;
  customSalesTax:any;
  accessCode:any;
+ donationDiv:any;
+ olPlatForm : any = false;
 
  addNewEvents : boolean = true;
  public editorValue: string = '';
@@ -33,7 +35,8 @@ export class EventsComponent implements OnInit {
  
   pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
-                ]     
+                ]    
+  onlinePlatForm = ['Zoom','Google Hangout','Youtube','Hopin','Vimeo','Skype','Other'] 
 
   
   constructor(
@@ -93,6 +96,10 @@ export class EventsComponent implements OnInit {
        "password" : this.addEventForm.get('existing_password').value
       };
 
+  }
+
+  fnolPlatform(event){
+    this.olPlatForm = !this.olPlatForm;
   }
 
   fnChangeEventStatus(event){

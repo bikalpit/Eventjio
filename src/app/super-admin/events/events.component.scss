@@ -145,6 +145,28 @@
 }
 
 
+::ng-deep .matDate{
+    
+    position:relative;
+}
+::ng-deep .dateIcon{
+     position: absolute;
+}
+::ng-deep .matInputdate{
+    padding-left: 40px;
+}
+
+::ng-deep .venue-info{
+    width: 30%;
+}
+
+::ng-deep .donation-field{
+    width:49%;
+    .fa-question-circle{
+        color:#CECECE;
+    }
+}
+
 .event-images {
     width: 100px;
     height: 70px;
