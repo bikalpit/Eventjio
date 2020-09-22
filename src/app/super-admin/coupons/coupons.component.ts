@@ -26,6 +26,9 @@ export class CouponsComponent implements OnInit {
   allCouponCodeList: any;
   couponCodeStatus: any;
   signleCouponDetail: any;
+  search = {
+    keyword: ""
+  };
   constructor(
    public dialog: MatDialog,
     private http: HttpClient,
@@ -54,9 +57,14 @@ export class CouponsComponent implements OnInit {
    }
  }
 
+ couponSearch(){
+    this.getAllCouponCodes()
+ }
+
   getAllCouponCodes(){
     this.isLoaderAdmin = true;
     let requestObject = {
+      'search':this.search.keyword,
       'boxoffice_id' : this.boxOfficeCode
     }
     this.SuperadminService.getAllCouponCodes(requestObject).subscribe((response:any) => {

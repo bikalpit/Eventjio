@@ -2,9 +2,10 @@ import {Component, OnInit, ViewChild,Inject} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
-
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
+import { SuperadminService } from '../_services/superadmin.service';
+
 interface Status {
   value: string;
   viewValue: string;
@@ -21,12 +22,15 @@ export class EventsComponent implements OnInit {
  customSalesTax:any;
  accessCode:any;
  donationDiv:any;
- olPlatForm : any = false;
+ olPlatForm : any = 'N';
 
  addNewEvents : boolean = true;
  public editorValue: string = '';
  addEventForm : FormGroup;
  eventStatus : FormGroup;
+ allCountry:any;
+ allTimeZone:any;
+ boxOfficeCode:AnalyserNode;
  
  
   upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
@@ -43,21 +47,38 @@ export class EventsComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
-  ) {
+    private superadminService: SuperadminService,
+    ) {
 
-    this.addEventForm = this._formBuilder.group({
-      event_name: ['',[Validators.required]],
-      event_start_date: ['',Validators.required],
-      event_start_time: ['',Validators.required],
-      event_end_date: ['',Validators.required],
-      event_end_time: ['',Validators.required],
-    });
+      this.addEventForm = this._formBuilder.group({
+        event_name: ['',[Validators.required]],
+        event_start_date: ['',Validators.required],
+        event_start_time: ['',Validators.required],
+        event_end_date: ['',Validators.required],
+        event_end_time: ['',Validators.required],
+      });
 
-   }
+    }
 
    
   ngOnInit(): void {
+    this.getAllCountry();
+    this.getAllTimeZone();
     
+  }
+  getAllCountry(){
+    this.superadminService.getAllCountry().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCountry = response.response
+      }
+    });
+  }
+  getAllTimeZone(){
+    this.superadminService.getAllTimeZone().subscribe((response:any) => {
+      if(response.data == true){
+        this.allTimeZone = response.response
+      }
+    });
   }
 
   
@@ -93,14 +114,51 @@ export class EventsComponent implements OnInit {
      }
 
      let requestObject = {
-       "description" : this.addEventForm.get('event_name').value,
-       "password" : this.addEventForm.get('existing_password').value
+      'boxoffice_id':'boxoffice_id',
+      'event_title':'event_title',
+      'start_date':'start_date',
+      'end_date':'end_date',
+      'start_time':'start_time',
+      'end_time':'end_time',
+      'venue_name':'venue_name',
+      'postal_code':'postal_code',
+      'country':'country',
+      'online_event':'online_event',
+      'description':'description',
+      'platform':'platform',
+      'event_link':'event_link',
+      'event_status':'event_status',
+      'unique_code':'unique_code',
+      'timezone':'timezone',
+      'make_donation':'make_donation',
+      'event_button_title':'event_button_title',
+      'donation_title':'donation_title',
+      'donation_amt':'donation_amt',
+      'donation_description':'donation_description',
+      'ticket_avilable':'ticket_avilable',
+      'ticket_unavilable':'ticket_unavilable',
+      'redirect_confirm_page':'redirect_confirm_page',
+      'redirect_url':'redirect_url',
+      'hide_office_listing':'hide_office_listing',
+      'customer_access_code':'customer_access_code',
+      'access_code':'access_code',
+      'hide_share_button':'hide_share_button',
+      'custom_sales_tax':'custom_sales_tax',
+      'sales_tax_amt':'sales_tax_amt',
+      'sales_tax_label':'sales_tax_label',
+      'sales_tax_id':'sales_tax_id',
+      'ticket_ids[]':'ticket_ids[]',
+      
       };
 
   }
 
   fnolPlatform(event){
-    this.olPlatForm = !this.olPlatForm;
+    if(event.checked == true){
+      this.olPlatForm = 'Y';
+    }else{
+      this.olPlatForm = 'N';
+    }
   }
 
   fnSalesTaxAdd(){
