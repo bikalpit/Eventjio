@@ -171,26 +171,29 @@ button:focus {
     .round-search::placeholder {
         font-size: 14px;
     }
-    .service-listing {
+    .couponcodes-listing {
         .drageble-list {
             width: 100%;
-            border-bottom: solid 1px #DDDDDD;
+            border-top: solid 1px #DDDDDD;
             display: block;
             background: white;
+            border-radius: 4px;
             overflow: hidden;
             font-size: 14px;
+            height: calc(100vh - 320px);
             font-weight: 500;
         }
         .main-heading-content {
             border-top: solid 1px #DDDDDD;
-            border-bottom: solid 1px #DDDDDD;
-            padding: 8px 0px;
+            padding: 8px 3rem;
             align-items: center;
             font-size: 14px;
             color: #595959;
         }
         .drageble-box {
             align-items: center;
+            border-bottom: 1px solid #ccc5c5;
+            padding: 0 3rem;
         }
         .tb-data {
             padding: 18px 0px;
@@ -218,6 +221,15 @@ button:focus {
             justify-content: center;
             display: flex;
             font-size: 30px;
+        }
+    }
+}
+
+::ng-deep .coupon-code-tabs {
+    .mat-tab-labels {
+        padding: 0 20px;
+        .mat-tab-label {
+            opacity: 1;
         }
     }
 }
