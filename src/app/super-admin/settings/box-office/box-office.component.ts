@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./box-office.component.scss']
 })
 export class BoxOfficeComponent implements OnInit {
-  Emailshow:boolean = false;
-  iconshow:boolean = false;
+  
+  showHide:any = false;
 
 
   constructor() { }
@@ -15,13 +15,9 @@ export class BoxOfficeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  showEmail(){
-    this.Emailshow= true;
-    this.iconshow= true;
+  fnshowHide(){
+    this.showHide = !this.showHide;
   }
 
-  hideEmail(){
-    this.Emailshow= false;
-    this.iconshow= false;
-  }
+  
 }
