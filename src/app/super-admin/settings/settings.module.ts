@@ -24,6 +24,7 @@ import { inviteTeamMateDialog} from './team-access/team-access.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { AddSalesTax } from './sales-tax/sales-tax.component';
+import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component'
 
 
 
@@ -31,7 +32,8 @@ import { AddSalesTax } from './sales-tax/sales-tax.component';
   declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent, ConnectAppsComponent, BillingComponent, AddSalesTax,
     PrivacyPolicyComponent,SalesTaxComponent,
      OrderConfirmationComponent,
-    inviteTeamMateDialog
+    inviteTeamMateDialog,
+    DialogAdminProfileImageUpload,
   ],
 
 
@@ -49,6 +51,6 @@ import { AddSalesTax } from './sales-tax/sales-tax.component';
     FormsModule,
     
   ],
-  entryComponents: [AddSalesTax]
+  entryComponents: [AddSalesTax,DialogAdminProfileImageUpload]
 })
 export class SettingsModule { }
