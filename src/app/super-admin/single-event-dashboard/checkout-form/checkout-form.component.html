@@ -10,7 +10,7 @@
                             <mat-radio-button value="global"  [checked]="reportType === 'global'">Global checkout form</mat-radio-button>
                             <p>(Applies to all events)</p>
                         </div>
-                        <div class="event-checkout col-md-3">
+                        <div class="event-checkout col-md-4">
                             <mat-radio-button value="eventspecific" [checked]="reportType === 'eventspecific'">Event specific checkout form</mat-radio-button>
                             <p>(Applies to this event only)</p>
                         </div>
@@ -78,11 +78,12 @@
             <div class="event-checkout-preview"  *ngIf="reportType === 'eventspecific'">
                 <div class="checkout-form main-work-area">                  
                   <div class="buyer-que">
-                    <div class="d-flex byr-qn">
+                    <!-- <div class="d-flex byr-qn">
                         <button mat-raised-button class="byr-qn-btn" (click)="addBuyerQuestion()">Add a buyer only question</button>
-                    </div>
-                      <div class="col-md-12 mt-5">
+                    </div> -->
+                      <div class="col-md-12 mt-5 d-flex">
                           <h5>Buyer only questions</h5>
+                          <button mat-raised-button class="byr-qn-btn ml-auto" (click)="addBuyerQuestion()">Add a buyer only question</button>
                       </div>
                       <div class="col-md-12 mt-3">
                           <p>Buyer questions are asked once per order.</p>
@@ -115,11 +116,12 @@
                   </div>
       
                   <div class="att-qn">
-                      <div class="d-flex byr-qn">
+                      <!-- <div class="d-flex byr-qn">
                           <button mat-raised-button class="byr-qn-btn" (click)="addAttendeeQuestion()">Add a attendee question</button>
-                      </div>
-                      <div class="col-md-12 mt-5">
+                      </div> -->
+                      <div class="col-md-12 mt-5 d-flex">
                           <h5>Attendee questions</h5>
+                          <button mat-raised-button class="byr-qn-btn ml-auto" (click)="addAttendeeQuestion()">Add a attendee question</button>
                       </div>
                       <div class="col-md-12 mt-3">
                           <p>Attendee questions are asked for every ticket purchased.</p>

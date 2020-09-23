@@ -5,6 +5,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { SuperadminService } from '../_services/superadmin.service';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { ErrorService } from '../../_services/error.service'
 export interface DialogData {
   animal: string;
   name: string;
@@ -102,6 +103,7 @@ export class myCreateNewBoxofficeDialog {
     public router: Router,
     private superadminService: SuperadminService,
     private _formBuilder: FormBuilder,
+    private ErrorService: ErrorService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.admin_id = this.data.adminId;
@@ -173,13 +175,10 @@ export class myCreateNewBoxofficeDialog {
 
     this.superadminService.createNewBusiness(insertArr).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Box Office Created.", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
+        this.ErrorService.successMessage(response.response);
         this.dialogRef.close();
       }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
           
       }
     });

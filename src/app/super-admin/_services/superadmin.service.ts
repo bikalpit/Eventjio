@@ -109,6 +109,12 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    createNewEvent(requestObject){
+        return this.http.post(`${environment.apiUrl}/create-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     
 }
 

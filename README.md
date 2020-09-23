@@ -11,3 +11,6 @@ Install npm i bn-ng-idle
 
 npm install --save jquery
 
+Intall Timepicker through below command
+npm i mat-timepicker
+

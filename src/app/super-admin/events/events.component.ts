@@ -3,8 +3,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {HttpClient} from '@angular/common/http';
 import { SuperadminService } from '../_services/superadmin.service';
+import { ErrorService } from '../../_services/error.service'
 
 interface Status {
   value: string;
@@ -18,10 +18,13 @@ interface Status {
 })
 export class EventsComponent implements OnInit {
  
- redirectURL:any;
- customSalesTax:any;
- accessCode:any;
- donationDiv:any;
+  isLoaderAdmin:boolean = false;
+ redirectURL:any = 'N';
+ hideEventSearch:any = 'N';
+ customSalesTax:any = 'N';
+ accessCode:any = 'N';
+ donation:any = 'N';
+ shareButtonStatus: any = 'N';
  olPlatForm : any = 'N';
 
  addNewEvents : boolean = true;
@@ -30,7 +33,9 @@ export class EventsComponent implements OnInit {
  eventStatus : FormGroup;
  allCountry:any;
  allTimeZone:any;
- boxOfficeCode:AnalyserNode;
+ boxOfficeCode:any;
+ eventImageType:any = 'noImage';
+ 
  
  
   upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
@@ -40,15 +45,25 @@ export class EventsComponent implements OnInit {
   pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
                 ]    
-  onlinePlatForm = ['Zoom','Google Hangout','Youtube','Hopin','Vimeo','Skype','Other'] 
 
   salesTax = [ ];
-  
+  salesTaxValue = [{
+    amount:'',
+    label:'',
+  }];
+  minEventStartDate:any = new Date();
+  minEventEndDate:any = new Date();
+  // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
+    private ErrorService: ErrorService,
     private superadminService: SuperadminService,
     ) {
+      if(localStorage.getItem('boxoffice_id')){
+        this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+      }
+      this.salesTax.length = 1;
 
       this.addEventForm = this._formBuilder.group({
         event_name: ['',[Validators.required]],
@@ -56,6 +71,21 @@ export class EventsComponent implements OnInit {
         event_start_time: ['',Validators.required],
         event_end_date: ['',Validators.required],
         event_end_time: ['',Validators.required],
+        vanue_name: [''],
+        vanue_zip: [''],
+        vanue_country: [''],
+        online_platform: [''],
+        online_link: [''],
+        description: ['',Validators.required],
+        timezone: ['',Validators.required],
+        donation_title: [''],
+        donation_amount: [''],
+        donation_description: [''],
+        book_btn_title: ['',Validators.required],
+        ticket_available: ['',Validators.required],
+        ticket_unavailable: ['',Validators.required],
+        redirect_url: [''],
+        access_code: [''],
       });
 
     }
@@ -66,6 +96,7 @@ export class EventsComponent implements OnInit {
     this.getAllTimeZone();
     
   }
+
   getAllCountry(){
     this.superadminService.getAllCountry().subscribe((response:any) => {
       if(response.data == true){
@@ -73,6 +104,7 @@ export class EventsComponent implements OnInit {
       }
     });
   }
+
   getAllTimeZone(){
     this.superadminService.getAllTimeZone().subscribe((response:any) => {
       if(response.data == true){
@@ -80,7 +112,156 @@ export class EventsComponent implements OnInit {
       }
     });
   }
+  
+  fnChangeEventStartDate(){
+    this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+    this.addEventForm.get('event_end_date').setValue('');
+    this.addEventForm.get('event_end_time').setValue('');
+  }
 
+  fnSalesTaxAdd(){
+    this.salesTax.push(this.salesTax.length+1);
+  }
+
+  fnChangeEventStatus(event){
+    console.log(event)
+  }
+
+  fnCancelNewEvent(){
+    this.addNewEvents = false;
+  }
+
+  fnSelectImage(imageType){
+    this.eventImageType = imageType
+  }
+
+  fnChangeDonation(event){
+    if(event.checked == true){
+      this.donation = 'Y' ;
+      this.addEventForm.get('donation_title').setValidators([Validators.required]);
+      console.log(this.addEventForm)
+    }else{
+      this.donation = 'N' 
+      alert(this.donation);
+      this.addEventForm.get('donation_title').setValidators(null);
+      console.log(this.addEventForm)
+    }
+  }
+  fnRedirectURL(event){
+    if(event.checked == true){
+      this.redirectURL = 'Y' 
+    }else{
+      this.redirectURL = 'N' 
+    }
+  }
+  fnAccessCode(event){
+    if(event.checked == true){
+      this.accessCode = 'Y' 
+    }else{
+      this.accessCode = 'N' 
+    }
+  }
+  fnShareButtonStatus(event){
+    if(event.checked == true){
+      this.shareButtonStatus = 'Y' 
+    }else{
+      this.shareButtonStatus = 'N' 
+    }
+  }
+  fnCustomSalesTax(event){
+    if(event.checked == true){
+      this.customSalesTax = 'Y' 
+    }else{
+      this.customSalesTax = 'N' 
+    }
+  }
+  fnHideEventSearch(event){
+    if(event.checked == true){
+      this.hideEventSearch = 'Y' 
+    }else{
+      this.hideEventSearch = 'N' 
+    }
+  }
+  
+  fnolPlatform(event){
+    if(event.checked == true){
+      this.olPlatForm = 'Y';
+    }else{
+      this.olPlatForm = 'N';
+    }
+  }
+  
+  fnAddNewEvent(){
+    console.log(this.addEventForm)
+
+    if(this.addEventForm.invalid){
+      this.addEventForm.get('event_name').markAsTouched();
+      this.addEventForm.get('event_start_date').markAsTouched();
+      this.addEventForm.get('event_start_time').markAsTouched();
+      this.addEventForm.get('event_end_date').markAsTouched();
+      this.addEventForm.get('event_end_time').markAsTouched();
+      this.addEventForm.get('description').markAsTouched();
+      this.addEventForm.get('timezone').markAsTouched();
+      this.addEventForm.get('book_btn_title').markAsTouched();
+      this.addEventForm.get('ticket_available').markAsTouched();
+      this.addEventForm.get('ticket_unavailable').markAsTouched();
+      return false;
+     }
+
+     let requestObject = {
+      'boxoffice_id':this.boxOfficeCode,
+      'event_title':this.addEventForm.get('event_name').value,
+      'start_date':this.addEventForm.get('event_start_date').value,
+      'end_date':this.addEventForm.get('event_end_date').value,
+      'start_time':this.addEventForm.get('event_start_time').value,
+      'end_time':this.addEventForm.get('event_end_time').value,
+      'venue_name':this.addEventForm.get('vanue_name').value,
+      'postal_code':this.addEventForm.get('vanue_zip').value,
+      'country':this.addEventForm.get('vanue_country').value,
+      'online_event':this.olPlatForm,
+      'description':this.addEventForm.get('description').value,
+      'platform':this.addEventForm.get('online_platform').value,
+      'event_link':this.addEventForm.get('online_link').value,
+      'event_status':'draft',
+      'timezone':this.addEventForm.get('timezone').value,
+      'make_donation':this.donation,
+      'event_button_title':this.addEventForm.get('book_btn_title').value,
+      'donation_title':this.addEventForm.get('donation_title').value,
+      'donation_amt':this.addEventForm.get('donation_amount').value,
+      'donation_description':this.addEventForm.get('donation_description').value,
+      'ticket_avilable':this.addEventForm.get('ticket_available').value,
+      'ticket_unavilable':this.addEventForm.get('ticket_unavailable').value,
+      'redirect_confirm_page':this.redirectURL,
+      'redirect_url':this.addEventForm.get('redirect_url').value,
+      'hide_office_listing':this.hideEventSearch,
+      'customer_access_code':this.accessCode,
+      'access_code':this.addEventForm.get('access_code').value,
+      'hide_share_button':this.shareButtonStatus,
+      'custom_sales_tax':this.customSalesTax,
+      'sales_tax':'sales_tax_amt',
+      'ticket_ids[]':'1,2',
+      'image' : 'sd',
+      };
+      this.createNewEvent(requestObject);
+  }
+
+  createNewEvent(requestObject){
+    this.isLoaderAdmin = true;
+    this.superadminService.createNewEvent(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
+
+  }
+
+
+
+
+  
   
   openAddNewTicketTypeDialog() {
     const dialogRef = this.dialog.open(AddNewTicketType,{
@@ -101,73 +282,6 @@ export class EventsComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-  
-  fnAddNewEventsForm(){
-
-    if(!this.addEventForm.valid){
-      this.addEventForm.get('event_name').markAsTouched();
-      this.addEventForm.get('event_start_date').markAsTouched();
-      this.addEventForm.get('event_start_time').markAsTouched();
-      this.addEventForm.get('event_end_date').markAsTouched();
-      this.addEventForm.get('event_end_time').markAsTouched();
-      return false;
-     }
-
-     let requestObject = {
-      'boxoffice_id':'boxoffice_id',
-      'event_title':'event_title',
-      'start_date':'start_date',
-      'end_date':'end_date',
-      'start_time':'start_time',
-      'end_time':'end_time',
-      'venue_name':'venue_name',
-      'postal_code':'postal_code',
-      'country':'country',
-      'online_event':'online_event',
-      'description':'description',
-      'platform':'platform',
-      'event_link':'event_link',
-      'event_status':'event_status',
-      'unique_code':'unique_code',
-      'timezone':'timezone',
-      'make_donation':'make_donation',
-      'event_button_title':'event_button_title',
-      'donation_title':'donation_title',
-      'donation_amt':'donation_amt',
-      'donation_description':'donation_description',
-      'ticket_avilable':'ticket_avilable',
-      'ticket_unavilable':'ticket_unavilable',
-      'redirect_confirm_page':'redirect_confirm_page',
-      'redirect_url':'redirect_url',
-      'hide_office_listing':'hide_office_listing',
-      'customer_access_code':'customer_access_code',
-      'access_code':'access_code',
-      'hide_share_button':'hide_share_button',
-      'custom_sales_tax':'custom_sales_tax',
-      'sales_tax_amt':'sales_tax_amt',
-      'sales_tax_label':'sales_tax_label',
-      'sales_tax_id':'sales_tax_id',
-      'ticket_ids[]':'ticket_ids[]',
-      
-      };
-
-  }
-
-  fnolPlatform(event){
-    if(event.checked == true){
-      this.olPlatForm = 'Y';
-    }else{
-      this.olPlatForm = 'N';
-    }
-  }
-
-  fnSalesTaxAdd(){
-    this.salesTax.push(this.salesTax.length+1);
-  }
-
-  fnChangeEventStatus(event){
-    console.log(event)
-  }
 
 }
 
@@ -179,7 +293,6 @@ export class EventsComponent implements OnInit {
 export class AddNewTicketType {
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
-    private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     }
 
@@ -199,7 +312,6 @@ export class AddNewTicketType {
 export class AddNewTicketGroup {
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketGroup>,
-    private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     }
 
