@@ -275,7 +275,7 @@
                         <label class="w-100" for="">Choose or upload an images</label>
                         <div class="row">
                             <img [ngClass]="{'active-image':eventImageType == 'defaultImage'}" (click)="fnSelectImage('defaultImage')" src="../../../assets/images/events/image 1.jpg" class="event-images m-2" alt="">
-                            <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage')" class="event-images m-2 text-center pointer">
+                            <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage'); fnUploadEventImage()" class="event-images m-2 text-center pointer">
                                 <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
                                 <p>Upload</p>
                             </div>
