@@ -127,17 +127,58 @@
         display: flex;
         font-size: 30px;
     }
-    
 }
 
-.ticket-available-unavailabel{
-    width:49%
+.ticket-available-unavailabel {
+    width: 49%
 }
-.tax-input{
-    width:49%;
+
+.tax-input {
+    width: 49%;
 }
-::ng-deep .popover-body{
-    padding:  0px  !important;
+
+.tax-add-btn {
+    color: #1172F4;
+}
+
+::ng-deep .popover-body {
+    padding: 0px !important;
+}
+
+.date-and-time {
+    width: 40%;
+    // background-color: red;
+}
+
+::ng-deep .matDate {
+    position: relative;
+}
+
+::ng-deep .dateIcon {
+    position: absolute;
+}
+
+::ng-deep .matInputdate {
+    padding-left: 40px;
+}
+
+::ng-deep .venue-info {
+    width: 30%;
+}
+
+.after-save-general-admission {
+    background-color: #CEE6FF;
+    font-weight: bold;
+    .ticket-status {
+        color: #007BFF;
+    }
+}
+
+::ng-deep .donation-field {
+    width: 49%;
+    .fa-question-circle {
+        color: #CECECE;
+    }
 }
 
 .event-images {
@@ -154,6 +195,9 @@
     }
     .fa-ban {
         color: #2C2C2C;
+    }
+    &.active-image {
+        border: 3px solid #195bf3;
     }
 }
 

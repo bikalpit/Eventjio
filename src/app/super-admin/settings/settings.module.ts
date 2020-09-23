@@ -25,6 +25,7 @@ import { OrderConfirmationComponent } from './order-confirmation/order-confirmat
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { AddSalesTax } from './sales-tax/sales-tax.component';
 import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component'
+import { HttpClientModule} from '@angular/common/http';
 
 
 
@@ -49,6 +50,7 @@ import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component
     ColorPickerModule,
     CKEditorModule,
     FormsModule,
+    HttpClientModule,
     
   ],
   entryComponents: [AddSalesTax,DialogAdminProfileImageUpload]

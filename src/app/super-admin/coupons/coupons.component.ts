@@ -21,9 +21,14 @@ export interface DialogData {
 export class CouponsComponent implements OnInit {
   isLoaderAdmin:boolean = false;
   animal :any;
-  clickedIndex:any = 'coupon'
-  boxOfficeCode:any;
-  allCouponCodeList:any;
+  clickedIndex: any = 'coupon'
+  boxOfficeCode: any;
+  allCouponCodeList: any;
+  couponCodeStatus: any;
+  signleCouponDetail: any;
+  search = {
+    keyword: ""
+  };
   constructor(
    public dialog: MatDialog,
     private http: HttpClient,
@@ -43,7 +48,7 @@ export class CouponsComponent implements OnInit {
    this.getAllCouponCodes();
  }
  
- onTabChanged(event){
+  onTabChanged(event){
    let clickedIndex = event.index;
    if(clickedIndex == 0){
    this.clickedIndex = 'coupon'
@@ -52,33 +57,100 @@ export class CouponsComponent implements OnInit {
    }
  }
 
- getAllCouponCodes(){
-  this.isLoaderAdmin = true;
-  let requestObject = {
-    'boxoffice_id' : this.boxOfficeCode
+ couponSearch(){
+    this.getAllCouponCodes()
+ }
+
+  getAllCouponCodes(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'search':this.search.keyword,
+      'boxoffice_id' : this.boxOfficeCode
+    }
+    this.SuperadminService.getAllCouponCodes(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this.allCouponCodeList = response.response
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      this.allCouponCodeList = null;
+      }
+      this.isLoaderAdmin = false;
+    })
   }
-  this.SuperadminService.getAllCouponCodes(requestObject).subscribe((response:any) => {
-    if(response.data == true){
-     this.allCouponCodeList = response.response
-     console.log(this.allCouponCodeList)
+  changeCouponStaus(event,couponcode_code){
+    this.isLoaderAdmin = true;
+    if(event.checked == true){
+      this.couponCodeStatus = 'A';
     }
-    else if(response.data == false){
-     this.ErrorService.errorMessage(response.response);
+    else if(event.checked == false){
+      this.couponCodeStatus = 'IA';
     }
+    let requestObject = {
+      'unique_code': couponcode_code,
+      'status' : this.couponCodeStatus
+    }
+    this.SuperadminService.changeCouponStaus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+         this.getAllCouponCodes();
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      }
+    })
     this.isLoaderAdmin = false;
-  })
-}
+  }
+  fnDeleteCoupon(couponcode_code){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'unique_code': couponcode_code
+    }
+    this.SuperadminService.fnDeleteCoupon(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+         this.getAllCouponCodes();
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      }
+    })
+    this.isLoaderAdmin = false;
+  }
+  fnEditCoupon(couponcode_code){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'unique_code': couponcode_code
+    }
+    this.SuperadminService.fnGetSignleCouponDetail(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.signleCouponDetail = response.response[0];
+        console.log(this.signleCouponDetail)
+        this.creatDiscountCode();
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      }
+    })
+    this.isLoaderAdmin = false;
+
+  }
 
  creatDiscountCode() {
+   this.isLoaderAdmin = true;
    const dialogRef = this.dialog.open(myCreateDiscountCodeDialog, {
      width: '1100px',
-     data :{boxOfficeCode : this.boxOfficeCode}
+     data :{
+       boxOfficeCode : this.boxOfficeCode,
+       signleCouponDetail : this.signleCouponDetail
+      }
    });
 
     dialogRef.afterClosed().subscribe(result => {
      this.animal = result;
      this.getAllCouponCodes();
     });
+    this.isLoaderAdmin = false;
  }
 
  creatVoucherCode() {
@@ -107,6 +179,7 @@ export class myCreateDiscountCodeDialog {
   minTillDate : any = new Date();
   diccount_error:boolean=false;
   boxOfficeCode:any;
+  signleCouponDetail:any;
   constructor(
     public dialogRef: MatDialogRef<myCreateDiscountCodeDialog>,
     private http: HttpClient,
@@ -117,6 +190,10 @@ export class myCreateDiscountCodeDialog {
     private ErrorService: ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
+      this.signleCouponDetail = this.data.signleCouponDetail;
+      // if(this.signleCouponDetail){
+      //   this.createCouponForm.controls.title.setValue(this.signleCouponDetail.coupon_title)
+      // }
     }
 
   onNoClick(): void {
@@ -124,15 +201,27 @@ export class myCreateDiscountCodeDialog {
   }
   ngOnInit() {
     this.createCouponForm = this._formBuilder.group({
-      title : ['', [Validators.required,Validators.maxLength(15)]],
-      max_redemption : ['', [Validators.required,Validators.pattern(this.onlynumeric)]],
-      code : ['', [Validators.required,Validators.maxLength(15)]],
-      valid_from : ['', Validators.required],
-      type : ['', Validators.required],
-      valid_till : ['', Validators.required],
-      discount : ['', [Validators.required,Validators.pattern(this.onlynumeric)]],
+      title : [this.signleCouponDetail?this.signleCouponDetail.coupon_title:'', [Validators.required,Validators.maxLength(15)]],
+      max_redemption : [this.signleCouponDetail?this.signleCouponDetail.max_redemption:'', [Validators.required,Validators.pattern(this.onlynumeric)]],
+      code : [this.signleCouponDetail?this.signleCouponDetail.coupon_code:'', [Validators.required,Validators.maxLength(15)]],
+      valid_from : [this.signleCouponDetail?this.signleCouponDetail.valid_from:'', Validators.required],
+      type : [this.signleCouponDetail?this.signleCouponDetail.discount_type:'', Validators.required],
+      valid_till : [this.signleCouponDetail?this.signleCouponDetail.valid_till:'', Validators.required],
+      discount : [this.signleCouponDetail?this.signleCouponDetail.discount:'', [Validators.required,Validators.pattern(this.onlynumeric)]],
     });
 
+  }
+
+  fnChangeDiscountType(discountType){
+    var discount_value = this.createCouponForm.get('discount').value; 
+    alert(discountType)
+    alert(discount_value)
+    if(discountType=='P' && discount_value > 100){
+      this.diccount_error = true;
+    }else{
+      this.diccount_error = false;
+    }
+    alert(this.diccount_error)
   }
 
   discount_check(){
@@ -149,7 +238,6 @@ export class myCreateDiscountCodeDialog {
 
   fnChangeValideFrom(){
     this.minTillDate =this.createCouponForm.get('valid_from').value;
-    console.log(this.createCouponForm)
     this.createCouponForm.get('valid_till').setValue('');
   }
 
@@ -179,18 +267,32 @@ export class myCreateDiscountCodeDialog {
       }else{
         this.diccount_error = false;
       }
-
-      let createdCouponCodeData = {
-        "boxoffice_id" : this.boxOfficeCode,
-        "coupon_title" : this.createCouponForm.get('title').value,
-        "coupon_code" : this.createCouponForm.get('code').value,
-        "max_redemption" : this.createCouponForm.get('max_redemption').value,
-        "valid_from" : valid_from,
-        "valid_till" : valid_till,
-        "discount_type" : this.createCouponForm.get('type').value,
-        "discount" : this.createCouponForm.get('discount').value,
+      if(this.signleCouponDetail){
+        let updateCouponCodeData = {
+          'unique_code': this.signleCouponDetail.unique_code,
+          "boxoffice_id" : this.boxOfficeCode,
+          "coupon_title" : this.createCouponForm.get('title').value,
+          "coupon_code" : this.createCouponForm.get('code').value,
+          "max_redemption" : this.createCouponForm.get('max_redemption').value,
+          "valid_from" : valid_from,
+          "valid_till" : valid_till,
+          "discount_type" : this.createCouponForm.get('type').value,
+          "discount" : this.createCouponForm.get('discount').value,
+        }
+          this.updateCouponCode(updateCouponCodeData);
+      }else{
+        let createdCouponCodeData = {
+          "boxoffice_id" : this.boxOfficeCode,
+          "coupon_title" : this.createCouponForm.get('title').value,
+          "coupon_code" : this.createCouponForm.get('code').value,
+          "max_redemption" : this.createCouponForm.get('max_redemption').value,
+          "valid_from" : valid_from,
+          "valid_till" : valid_till,
+          "discount_type" : this.createCouponForm.get('type').value,
+          "discount" : this.createCouponForm.get('discount').value,
+        }
+          this.createNewCouponCode(createdCouponCodeData);
       }
-        this.createNewCouponCode(createdCouponCodeData);
      
     }else{
       this.createCouponForm.get("title").markAsTouched();
@@ -205,6 +307,20 @@ export class myCreateDiscountCodeDialog {
   createNewCouponCode(createdCouponCodeData){
     this.isLoaderAdmin = true;
     this.SuperadminService.createNewCouponCode(createdCouponCodeData).subscribe((response:any) => {
+      if(response.data == true){
+       this.ErrorService.successMessage(response.response);
+        this.createCouponForm.reset();
+        this.dialogRef.close();
+      }
+      else if(response.data == false){
+       this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+  updateCouponCode(updateCouponCode){
+    this.isLoaderAdmin = true;
+    this.SuperadminService.updateCouponCode(updateCouponCode).subscribe((response:any) => {
       if(response.data == true){
        this.ErrorService.successMessage(response.response);
         this.createCouponForm.reset();
