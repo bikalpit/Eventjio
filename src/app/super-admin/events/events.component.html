@@ -1,6 +1,6 @@
 <div id="events" class="bg-white sub-container">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
-    <div *ngIf="addNewEvents" class="main bg-white">
+    <div *ngIf="addNewEvents" class="bg-white">
         <div class="row mx-0 p-3">
             <div class="font-weight-bold page-title">
                 Events
@@ -274,8 +274,8 @@
 
                         <label class="w-100" for="">Choose or upload an images</label>
                         <div class="row">
-                            <img [ngClass]="{'active-image':eventImageType == 'defaultImage'}" (click)="fnSelectImage('defaultImage')" src="../../../assets/images/events/image 1.jpg" class="event-images m-2" alt="">
-                            <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage')" class="event-images m-2 text-center pointer">
+                            <img [ngClass]="{'active-image':eventImageType == 'defaultImage'}" (click)="fnSelectImage('defaultImage'); fnSelectDefaultImage()" src="../../../assets/images/events/image 1.jpg" class="event-images m-2" alt="">
+                            <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage'); fnUploadEventImage()" class="event-images m-2 text-center pointer">
                                 <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
                                 <p>Upload</p>
                             </div>

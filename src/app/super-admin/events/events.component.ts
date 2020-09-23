@@ -35,9 +35,9 @@ export class EventsComponent implements OnInit {
  allTimeZone:any;
  boxOfficeCode:any;
  eventImageType:any = 'noImage';
- newEventImageUrl:any;
+ newEventImageUrl:any = '';
  allDefaultImages:any;
- 
+ selecetdDefaultImage:any;
  
   upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Draft',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
@@ -144,17 +144,16 @@ export class EventsComponent implements OnInit {
   fnSelectImage(imageType){
     this.eventImageType = imageType
   }
+  
+  fnSelectDefaultImage(){
+    this.selecetdDefaultImage = '';
+  }
 
   fnChangeDonation(event){
     if(event.checked == true){
       this.donation = 'Y' ;
-      this.addEventForm.get('donation_title').setValidators([Validators.required]);
-      console.log(this.addEventForm)
     }else{
       this.donation = 'N' 
-      alert(this.donation);
-      this.addEventForm.get('donation_title').setValidators(null);
-      console.log(this.addEventForm)
     }
   }
   fnRedirectURL(event){
@@ -251,8 +250,8 @@ export class EventsComponent implements OnInit {
       'hide_share_button':this.shareButtonStatus,
       'custom_sales_tax':this.customSalesTax,
       'sales_tax':'sales_tax_amt',
-      'ticket_ids[]':'1,2',
-      'image' : 'sd',
+      'ticket_ids[]':'',
+      'image' : this.newEventImageUrl,
       'default-image' : 'sd',
       };
       this.createNewEvent(requestObject);
