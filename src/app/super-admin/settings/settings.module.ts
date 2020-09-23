@@ -19,7 +19,7 @@ import { MatExpansionModule} from '@angular/material/expansion';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
 import { CKEditorModule } from 'ngx-ckeditor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { inviteTeamMateDialog} from './team-access/team-access.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
@@ -50,6 +50,7 @@ import { HttpClientModule} from '@angular/common/http';
     ColorPickerModule,
     CKEditorModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     
   ],
