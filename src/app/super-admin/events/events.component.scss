@@ -260,3 +260,15 @@
 .bs-popover-auto[x-placement^=bottom]>.arrow::before {
     border-bottom-color: transparent;
 }
+
+.event-settings {
+    border-bottom: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+.sales-tax-container {
+    border-top: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}

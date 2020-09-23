@@ -45,10 +45,15 @@ export class EventsComponent implements OnInit {
   pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
                 ]    
-  onlinePlatForm = ['Zoom','Google Hangout','Youtube','Hopin','Vimeo','Skype','Other'] 
 
   salesTax = [ ];
-  
+  salesTaxValue = [{
+    amount:'',
+    label:'',
+  }];
+  minEventStartDate:any = new Date();
+  minEventEndDate:any = new Date();
+  // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -108,6 +113,12 @@ export class EventsComponent implements OnInit {
     });
   }
   
+  fnChangeEventStartDate(){
+    this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+    this.addEventForm.get('event_end_date').setValue('');
+    this.addEventForm.get('event_end_time').setValue('');
+  }
+
   fnSalesTaxAdd(){
     this.salesTax.push(this.salesTax.length+1);
   }
@@ -126,9 +137,14 @@ export class EventsComponent implements OnInit {
 
   fnChangeDonation(event){
     if(event.checked == true){
-      this.donation = 'Y' 
+      this.donation = 'Y' ;
+      this.addEventForm.get('donation_title').setValidators([Validators.required]);
+      console.log(this.addEventForm)
     }else{
       this.donation = 'N' 
+      alert(this.donation);
+      this.addEventForm.get('donation_title').setValidators(null);
+      console.log(this.addEventForm)
     }
   }
   fnRedirectURL(event){
@@ -176,13 +192,19 @@ export class EventsComponent implements OnInit {
   }
   
   fnAddNewEvent(){
+    console.log(this.addEventForm)
 
-    if(!this.addEventForm.valid){
+    if(this.addEventForm.invalid){
       this.addEventForm.get('event_name').markAsTouched();
       this.addEventForm.get('event_start_date').markAsTouched();
       this.addEventForm.get('event_start_time').markAsTouched();
       this.addEventForm.get('event_end_date').markAsTouched();
       this.addEventForm.get('event_end_time').markAsTouched();
+      this.addEventForm.get('description').markAsTouched();
+      this.addEventForm.get('timezone').markAsTouched();
+      this.addEventForm.get('book_btn_title').markAsTouched();
+      this.addEventForm.get('ticket_available').markAsTouched();
+      this.addEventForm.get('ticket_unavailable').markAsTouched();
       return false;
      }
 
@@ -216,10 +238,9 @@ export class EventsComponent implements OnInit {
       'access_code':this.addEventForm.get('access_code').value,
       'hide_share_button':this.shareButtonStatus,
       'custom_sales_tax':this.customSalesTax,
-      'sales_tax_amt':'sales_tax_amt',
-      'sales_tax_label':'sales_tax_label',
-      'sales_tax_id':'sales_tax_id',
+      'sales_tax':'sales_tax_amt',
       'ticket_ids[]':'1,2',
+      'image' : 'sd',
       };
       this.createNewEvent(requestObject);
   }

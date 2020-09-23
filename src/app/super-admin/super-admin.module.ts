@@ -28,6 +28,7 @@ import { BookTicketDialog } from './orders/orders.component';
 import { OrderInvoiceDialog } from './orders/orders.component';
 import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
 import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.component';
+import { MatTimepickerModule } from 'mat-timepicker';
 
 
 
@@ -53,10 +54,21 @@ import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.componen
   ],
   
   imports: [
-    CommonModule, SuperAdminRoutingModule, MaterialModule, MatTableModule,
-    FlexLayoutModule,FontAwesomeModule,MatTooltipModule,HttpClientModule,MatCardModule,MatExpansionModule,CKEditorModule,
+    CommonModule, 
+    SuperAdminRoutingModule, 
+    MaterialModule, 
+    MatTableModule,
+    FlexLayoutModule,
+    FontAwesomeModule,
+    MatTooltipModule,
+    HttpClientModule,
+    MatCardModule,
+    MatExpansionModule,
+    CKEditorModule,
     ReactiveFormsModule,
-    FormsModule,NgbModule
+    FormsModule,
+    NgbModule,
+    MatTimepickerModule,
   ],
   
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,

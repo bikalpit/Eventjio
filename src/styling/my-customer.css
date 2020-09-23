@@ -710,7 +710,7 @@ textarea.cdk-textarea-autosize-measuring {
 }
 
 .mat-select-panel {
-    min-width: calc(100% + 50px) !important;
+    min-width: calc(100% - 10px) !important;
 }
 
 .mat-option.mat-active {
