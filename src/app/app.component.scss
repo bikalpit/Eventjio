@@ -259,3 +259,8 @@
     margin: 0 auto;
     display: table;
 }
+
+// for modal auto
+::ng-deep .cdk-overlay-pane {
+    overflow: auto;
+}
