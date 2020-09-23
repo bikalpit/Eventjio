@@ -39,7 +39,6 @@ export class SuperadminService {
   
    
     getAllCountry(){
-    
         return this.http.get(`${environment.apiUrl}/get-country-api`).pipe(
         map((res) => {
             return res;
@@ -54,6 +53,12 @@ export class SuperadminService {
     }
     getAllTimeZone(){
         return this.http.post(`${environment.apiUrl}/get-timezones`,{}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    getDefaultImages(){
+        return this.http.post(`${environment.apiUrl}/get-default-images`,{}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

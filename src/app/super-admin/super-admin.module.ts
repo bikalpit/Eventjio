@@ -28,6 +28,7 @@ import { BookTicketDialog } from './orders/orders.component';
 import { OrderInvoiceDialog } from './orders/orders.component';
 import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
 import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.component';
+import { DialogEventImageUpload } from './events/events.component'
 import { MatTimepickerModule } from 'mat-timepicker';
 
 
@@ -51,6 +52,7 @@ import { MatTimepickerModule } from 'mat-timepicker';
       AddNewTicketGroup,
       OrderInvoiceDialog,
       myCreateNewBoxofficeDialog,
+      DialogEventImageUpload,
   ],
   
   imports: [
@@ -72,7 +74,7 @@ import { MatTimepickerModule } from 'mat-timepicker';
   ],
   
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
-    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog],
+    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog,DialogEventImageUpload],
 })
   
 export class SuperAdminModule {}

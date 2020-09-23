@@ -35,7 +35,8 @@ export class EventsComponent implements OnInit {
  allTimeZone:any;
  boxOfficeCode:any;
  eventImageType:any = 'noImage';
- 
+ newEventImageUrl:any;
+ allDefaultImages:any;
  
  
   upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
@@ -94,6 +95,7 @@ export class EventsComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCountry();
     this.getAllTimeZone();
+    this.getDefaultImages();
     
   }
 
@@ -101,6 +103,14 @@ export class EventsComponent implements OnInit {
     this.superadminService.getAllCountry().subscribe((response:any) => {
       if(response.data == true){
         this.allCountry = response.response
+      }
+    });
+  }
+
+  getDefaultImages(){
+    this.superadminService.getDefaultImages().subscribe((response:any) => {
+      if(response.data == true){
+        this.allDefaultImages= response.response
       }
     });
   }
@@ -208,6 +218,8 @@ export class EventsComponent implements OnInit {
       return false;
      }
 
+
+
      let requestObject = {
       'boxoffice_id':this.boxOfficeCode,
       'event_title':this.addEventForm.get('event_name').value,
@@ -241,6 +253,7 @@ export class EventsComponent implements OnInit {
       'sales_tax':'sales_tax_amt',
       'ticket_ids[]':'1,2',
       'image' : 'sd',
+      'default-image' : 'sd',
       };
       this.createNewEvent(requestObject);
   }
@@ -282,6 +295,70 @@ export class EventsComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  fnUploadEventImage(){
+    const dialogRef = this.dialog.open(DialogEventImageUpload, {
+      width: '500px',
+      
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+            this.newEventImageUrl = result;
+            console.log(result);
+           }
+     });
+  }
+
+}
+
+
+
+@Component({
+  selector: 'profile-image-upload',
+  templateUrl: '../_dialogs/image-upload.html',
+})
+export class DialogEventImageUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: string;
+  profileImage: string;
+  
+constructor(
+  public dialogRef: MatDialogRef<DialogEventImageUpload>,
+  private _formBuilder:FormBuilder,
+  @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onNoClick(): void {
+      this.dialogRef.close(this.profileImage);
+    }
+    ngOnInit() {
+      this.uploadForm = this._formBuilder.group({
+        profile: ['']
+      });
+    }
+    get f() {
+      return this.uploadForm.controls;
+    }
+    
+onFileChange(event) {
+  const reader = new FileReader();
+  if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result as string;
+          this.uploadForm.patchValue({
+              fileSource: reader.result
+          });
+      };
+  }
+}
+uploadImage() {
+  this.profileImage = this.imageSrc
+  this.dialogRef.close(this.profileImage);
+}
+
 
 }
 
