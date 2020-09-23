@@ -1,4 +1,5 @@
-<div class="bg-white sub-container">
+<div id="events">
+    <div class="bg-white sub-container">
     <div *ngIf="addNewEvents" class="main bg-white">
         <div class="row mx-0 p-3">
             <div class="font-weight-bold page-title">
@@ -28,7 +29,7 @@
                                 <div class="content" class="drageble-list">
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of upcomingEventData">
                                         <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
-                                        <div class="tb-data" fxFlex="20">
+                                        <div class="tb-data mat-common-radius" fxFlex="20">
                                             <mat-select [(value)]="element.status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="Draft">Draft</mat-option>
                                                 <mat-option value="Published">Published</mat-option>
@@ -484,4 +485,5 @@
 
         </div>
     </div>
+</div>
 </div>

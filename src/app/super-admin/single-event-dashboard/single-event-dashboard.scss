@@ -1,3 +1,4 @@
+
 .single-event-summary-title {
     font-size: 16px;
     font-weight: bold;
@@ -58,7 +59,8 @@
             font-weight: bold;
         }
         .event-date-time-palce {
-            font-size: 11px;
+            font-size: 12px;
+            color: #595959;
         }
     }
     .event-status {
@@ -79,11 +81,22 @@
     .fa-link {
         transform: rotate(80deg);
     }
-    .event-status{
-        .custome-mat-set{
-            background-color: #fff;
-            padding: 8px!important;
-            border-radius: 5px;
-        }
+   
+}
+::ng-deep .event-status{
+    .custome-mat-set{
+        background-color: #595959;
+        padding: 8px !important;
+        border-radius: 30px;
+        .mat-select-trigger{
+            .mat-select-value{
+                color: #fff;
+            }
+            .mat-select-arrow-wrapper{
+                .mat-select-arrow{
+                    color: #fff;
+                }
+              }
+            } 
     }
 }

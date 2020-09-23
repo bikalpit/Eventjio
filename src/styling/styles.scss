@@ -63,12 +63,15 @@
         background: #F44336;
         color: #fff;
     }
+    .fw-bold{font-weight: 600;}
     
     .green-snackbar {
         background: #3ce832;
         color: #fff;
     }
-    
+    .main{
+        padding: 14px 44px !important;
+    }
     .pointer {
         cursor: pointer;
     }

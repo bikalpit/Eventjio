@@ -256,3 +256,20 @@
 .bs-popover-auto[x-placement^=bottom]>.arrow::before {
     border-bottom-color: transparent;
 }
+::ng-deep .mat-common-radius{
+    .mat-select {
+        height: 32px;
+        line-height: 1.2;
+        border-radius: 30px;
+    .mat-select-trigger{
+        .mat-select-value{
+            color: #fff;
+        }
+        .mat-select-arrow-wrapper{
+            .mat-select-arrow{
+                color: #fff;
+            }
+          }
+        }
+    }
+}
