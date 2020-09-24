@@ -2,7 +2,11 @@
     background-color: #1172F4;
     color:#ffffff;
 }
-
+.tickes-heading{
+    p{
+        margin-bottom: 24px!important;
+    }
+}
 .void-btn{
     background-color: red;
     color: white;
@@ -11,11 +15,13 @@
 .search-bar{
     font-family: Poppins, Regular;
     border:1px solid #CECECE;
+    display: flex;
     input{
         
         background-color: transparent;
         border: none;
         outline: none;
+        width: 100%;
     }   
     
 }
@@ -36,6 +42,7 @@
 
 .events{
     padding-bottom: 30px;
+    margin-top: 34px;
 .service-listing{
              
     .drageble-list {
@@ -47,6 +54,7 @@
         overflow: hidden;
         font-size: 14px;
         font-weight: 500;
+        padding-top: 16px;
     }
    .main-heading-content{
         border-top: solid 1px #DDDDDD;
@@ -75,9 +83,10 @@
         border-radius: 10px;
     }
     .void-btn{
-        border-radius: 5px;
+        border-radius: 4px;
         line-height: 24px;
-        margin-left: 12px;
+        margin-left: 12px !important;
+        box-shadow: none;
     }
     .action-icon{
         color: #007BFF;

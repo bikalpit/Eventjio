@@ -191,24 +191,33 @@ export class myCreateDiscountCodeDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.signleCouponDetail = this.data.signleCouponDetail;
-      // if(this.signleCouponDetail){
-      //   this.createCouponForm.controls.title.setValue(this.signleCouponDetail.coupon_title)
-      // }
+
+      this.createCouponForm = this._formBuilder.group({
+        title : ['', [Validators.required,Validators.maxLength(15)]],
+        max_redemption : ['', [Validators.required,Validators.pattern(this.onlynumeric)]],
+        code : ['', [Validators.required,Validators.maxLength(15)]],
+        valid_from : ['', Validators.required],
+        type : ['', Validators.required],
+        valid_till : ['', Validators.required],
+        discount : ['', [Validators.required,Validators.pattern(this.onlynumeric)]],
+      });
+
+      if(this.signleCouponDetail){
+        this.createCouponForm.controls['title'].setValue(this.signleCouponDetail.coupon_title)
+        this.createCouponForm.controls['max_redemption'].setValue(this.signleCouponDetail.max_redemption)
+        this.createCouponForm.controls['code'].setValue(this.signleCouponDetail.coupon_code)
+        this.createCouponForm.controls['valid_from'].setValue(this.signleCouponDetail.valid_from)
+        this.createCouponForm.controls['type'].setValue(this.signleCouponDetail.discount_type)
+        this.createCouponForm.controls['valid_till'].setValue(this.signleCouponDetail.valid_till)
+        this.createCouponForm.controls['discount'].setValue(this.signleCouponDetail.discount)
+      }
     }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
   ngOnInit() {
-    this.createCouponForm = this._formBuilder.group({
-      title : [this.signleCouponDetail?this.signleCouponDetail.coupon_title:'', [Validators.required,Validators.maxLength(15)]],
-      max_redemption : [this.signleCouponDetail?this.signleCouponDetail.max_redemption:'', [Validators.required,Validators.pattern(this.onlynumeric)]],
-      code : [this.signleCouponDetail?this.signleCouponDetail.coupon_code:'', [Validators.required,Validators.maxLength(15)]],
-      valid_from : [this.signleCouponDetail?this.signleCouponDetail.valid_from:'', Validators.required],
-      type : [this.signleCouponDetail?this.signleCouponDetail.discount_type:'', Validators.required],
-      valid_till : [this.signleCouponDetail?this.signleCouponDetail.valid_till:'', Validators.required],
-      discount : [this.signleCouponDetail?this.signleCouponDetail.discount:'', [Validators.required,Validators.pattern(this.onlynumeric)]],
-    });
+   
 
   }
 

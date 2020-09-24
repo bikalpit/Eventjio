@@ -265,8 +265,11 @@
             margin-top: 15px;
             font-weight: 500;
         }
+        // .tab-checkbox{
+        //     margin-top: 9px;
+        // }
         .tab-checkbox .mat-checkbox-layout{
-            margin: 17px 0px;
+            margin: 8px 0px;
         }
         .tab-checkbox .mat-checkbox-label{
             font-size: 14px;
@@ -312,8 +315,11 @@
             margin-top: 15px;
             font-weight: 500;
         }
+        // .tab-checkbox{
+        //     margin-top: 9px;
+        // }
         .tab-checkbox  .mat-checkbox-layout{
-            margin: 17px 0px;
+            margin: 8px 0px;
         }
         .tab-checkbox .mat-checkbox-label{
             font-size: 14px;
@@ -445,7 +451,7 @@
         }
        .main-heading-content{
             border-top: solid 1px #DDDDDD;
-            padding: 8px 0px;
+            // padding: 8px 0px;
             align-items: center;                
             font-size: 14px;
             color: #595959;
@@ -453,6 +459,9 @@
         .drageble-box{
             align-items: center;
             // border-bottom: 1px solid #ccc5c5;
+        }
+        .th-data{
+            padding: 8px 8px;
         }
         .tb-data{
             padding: 15px 0px;
@@ -507,13 +516,16 @@
         }
        .main-heading-content{
             border-bottom: solid 1px #DDDDDD;
-            padding: 8px 8px;
+            // padding: 8px 8px;
             align-items: center;                
             font-size: 14px;
             color: #595959;
         }
         .drageble-box{
             align-items: center;
+        }
+        .th-data{
+            padding: 8px 8px;
         }
         .tb-data{
             padding: 8px 8px;
@@ -583,7 +595,7 @@
               }
              .main-heading-content{
                   border-bottom: solid 1px #DDDDDD;
-                  padding: 8px 8px;
+                //   padding: 8px 8px;
                   align-items: center;                
                   font-size: 14px;
                   color: #181818;
@@ -595,6 +607,9 @@
               .order-item{
                   font-weight: 100;
               }
+              .th-data{
+                padding: 8px 8px;
+            }
               .tb-data{
                   padding: 8px 8px;
                   color: #181818;
@@ -714,7 +729,7 @@
                   border-bottom: solid 1px #DDDDDD;
                   border-top: solid 1px #DDDDDD;
                   border: solid 1px #DDDDDD;
-                  padding: 8px 8px;
+                //padding: 8px 8px;
                   align-items: center;                
                   font-size: 14px;
                   color: #181818;
@@ -723,10 +738,16 @@
               .drageble-box{
                   align-items: center;
               }
+              .th-data{
+                padding: 8px 8px;
+            }
               .tb-data{
                   padding: 8px 8px;
                   color: #181818;
               }
+              .th-data{
+                padding: 8px 8px;
+            }
               .cpn-title{
                   color: #181818;
               }

@@ -1,4 +1,4 @@
-<div class="bg-white sub-container">
+<div id="events" class="bg-white sub-container">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div *ngIf="addNewEvents" class="main bg-white">
         <div class="row mx-0 p-3">
@@ -29,8 +29,9 @@
                                 <div class="content" class="drageble-list">
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of upcomingEventData">
                                         <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
-                                        <div class="tb-data" fxFlex="20">
+                                        <div class="tb-data mat-common-radius" fxFlex="20">
                                             <mat-select [(value)]="element.status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
+                        
                                                 <mat-option value="Draft">Draft</mat-option>
                                                 <mat-option value="Published">Published</mat-option>
                                             </mat-select>
@@ -154,7 +155,7 @@
 
         <div class="add-new-event-form">
 
-            <form [formGroup]="addEventForm">
+            <form [formGroup]="addEventForm" class="with-validation">
                 <div class="px-5 py-3 border rounded bg-light">
                     <div class=" py-2 font-weight-bold">
                         <div>Add event info</div>
@@ -162,6 +163,9 @@
                     <label for=""> Event Name</label>
                     <div class="form-group">
                         <input type="text" class="form-control" formControlName="event_name" placeholder="Enter the name of your event">
+                        <span class="error-wrap" *ngIf="addEventForm.get('event_name').touched || addEventForm.get('event_name').dirty">
+                            <small *ngIf="addEventForm.get('event_name').hasError('required')" class="error">Event Name is required.</small>
+                        </span>
                     </div>
 
 
@@ -169,16 +173,31 @@
                         <div class=" date-and-time">
                             <label for="">Starts</label>
                             <div class="form-group">
-                                <input type="date" formControlName="event_start_date" class="col-7 form-control d-inline-block">
-                                <input type="time" formControlName="event_start_time" class="col-4 ml-2 form-control d-inline-block ">
+                                <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-7 form-control d-inline-block" placeholder="DD/MM/YY">
+                                <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_start_date').touched || addEventForm.get('event_start_date').dirty">
+                                    <small *ngIf="addEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
+                                </span>
+                                <mat-datepicker #event_start_date_picker></mat-datepicker>
+                                <input matTimepicker class="col-4 ml-2 form-control d-inline-block" formControlName="event_start_time" mode="12h" #tStart="matTimepicker" placeholder="HH/MM">
+                                <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
+                                    <small *ngIf="addEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
+                                </span>
                             </div>
                         </div>
 
                         <div class=" date-and-time ml-2">
                             <label for="">Ends</label>
                             <div class="form-group">
-                                <input type="date" formControlName="event_end_date" class=" col-7 form-control d-inline-block">
-                                <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
+                                <input (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-7 form-control d-inline-block" placeholder="DD/MM/YY">
+                                <mat-datepicker #event_end_date_picker></mat-datepicker>
+                                <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_end_date').touched || addEventForm.get('event_end_date').dirty">
+                                    <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
+                                </span>
+                                <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
+                                <input matTimepicker class="col-4 ml-2 form-control d-inline-block" formControlName="event_end_time" mode="12h" #tEnd="matTimepicker" placeholder="HH/MM">
+                                <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_end_time').touched || addEventForm.get('event_end_time').dirty">
+                                    <small *ngIf="addEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
+                                </span>
                             </div>
                         </div>
 
@@ -216,7 +235,13 @@
                                     <label for="">Platform</label>
                                     <div class="form-group">
                                         <mat-select formControlName="online_platform" class="form-control" placeholder="Please select platform">
-                                            <mat-option value="onlinePlatForm" *ngFor="let onlinePlatForm of onlinePlatForm">{{onlinePlatForm}}</mat-option>
+                                            <mat-option value="Z">Zoom</mat-option>
+                                            <mat-option value="GH">Google Hangout</mat-option>
+                                            <mat-option value="YU">Youtube</mat-option>
+                                            <mat-option value="HP">Hopin</mat-option>
+                                            <mat-option value="VM">Vimeo</mat-option>
+                                            <mat-option value="SKY">Skype</mat-option>
+                                            <mat-option value="OTH">Other</mat-option>
                                         </mat-select>
                                     </div>
                                 </div>
@@ -243,6 +268,9 @@
                         <div class="form-group">
                             <ck-editor formControlName="description" skin="moono-lisa" language="en" [fullPage]="true">
                             </ck-editor>
+                            <span class="error-wrap" *ngIf="addEventForm.get('description').touched || addEventForm.get('description').dirty">
+                                <small *ngIf="addEventForm.get('description').hasError('required')" class="error">Description is required.</small>
+                            </span>
                         </div>
 
                         <label class="w-100" for="">Choose or upload an images</label>
@@ -320,9 +348,12 @@
 
                     <label for="">Timezone</label>
                     <div class="form-group ">
-                        <mat-select formControlName="timezone" class="form-control col-8">
+                        <mat-select formControlName="timezone" class="form-control col-8 d-block">
                             <mat-option *ngFor="let allTimeZone of allTimeZone; let i=index" value="{{allTimeZone.id}}">({{allTimeZone.utc}}){{allTimeZone.name}}</mat-option>
                         </mat-select>
+                        <span class="error-wrap" *ngIf="addEventForm.get('timezone').touched || addEventForm.get('timezone').dirty">
+                            <small *ngIf="addEventForm.get('timezone').hasError('required')" class="error">Timezone is required.</small>
+                        </span>
                     </div>
 
                     <div class="form-group">
@@ -335,6 +366,9 @@
                             <div class="donation-field mt-2">
                                 <label for="">Donation title <span class="text-danger">*</span></label>
                                 <input formControlName="donation_title" type="text" class="form-control" placeholder="Please make a donation">
+                                <span class="error-wrap" *ngIf="addEventForm.get('donation_title').touched || addEventForm.get('donation_title').dirty">
+                                    <small *ngIf="addEventForm.get('donation_title').hasError('required')" class="error">Donation title is required.</small>
+                                </span>
                             </div>
                             <div class="donation-field ml-auto mt-2">
                                 <label for="">Suggested donation amount <i class="fa fa-question-circle"></i></label>
@@ -351,6 +385,9 @@
                         <label for="">Customise the text that appears on the event button and in the title of the event page</label>
                         <div class="form-group">
                             <input formControlName="book_btn_title" type="text" class="form-control" placeholder="Book Tickets">
+                            <span class="error-wrap" *ngIf="addEventForm.get('book_btn_title').touched || addEventForm.get('book_btn_title').dirty">
+                                <small *ngIf="addEventForm.get('book_btn_title').hasError('required')" class="error">Button title is required.</small>
+                            </span>
                         </div>
                     </div>
 
@@ -363,22 +400,28 @@
                         <div class="ticket-available-unavailabel">
                             <label for="">Tickets become availables</label>
                             <div class="form-group">
-                                <mat-select class="form-control" formControlName="ticket_available">
+                                <mat-select class="form-control d-block" formControlName="ticket_available">
                                     <mat-option value="PB">When the event is published</mat-option>
                                     <mat-option value="SDT">At a scheduled date and time</mat-option>
                                     <mat-option value="SIB">At a scheduled interval before the event starts</mat-option>
                                 </mat-select>
+                                <span class="error-wrap" *ngIf="addEventForm.get('ticket_available').touched || addEventForm.get('ticket_available').dirty">
+                                    <small *ngIf="addEventForm.get('ticket_available').hasError('required')" class="error">Tickets availablity is required.</small>
+                                </span>
                             </div>
                         </div>
 
                         <div class="ticket-available-unavailabel ml-auto">
                             <label for="">Tickets become unavailables</label>
                             <div class="form-group">
-                                <mat-select class="form-control" formControlName="ticket_unavailable">
+                                <mat-select class="form-control d-block" formControlName="ticket_unavailable">
                                     <mat-option value="TOS">When the event is taken off, or the event passes</mat-option>
                                     <mat-option value="SDT">At a scheduled date and time</mat-option>
                                     <mat-option value="SIB">At a scheduled interval before the event starts</mat-option>
                                 </mat-select>
+                                <span class="error-wrap" *ngIf="addEventForm.get('ticket_unavailable').touched || addEventForm.get('ticket_unavailable').dirty">
+                                    <small *ngIf="addEventForm.get('ticket_unavailable').hasError('required')" class="error">Tickets unavailablity is required.</small>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -424,37 +467,40 @@
                         <mat-checkbox (change)="fnCustomSalesTax($event)" [checked]="false">Set custom sales tax for this event</mat-checkbox>
                     </div>
 
-                    <div *ngIf="customSalesTax">
-                        <div class="row mx-0">
 
-                            <!-- <div class="tax-input">
-                            <label for="">Sales tax amounts</label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="0.00%">
-                            </div>
-                        </div>
+                </div>
+            </form>
+            <div class="px-5 py-3 border rounded sales-tax-container bg-light">
+                <div *ngIf="customSalesTax == 'Y'">
+                    <div class="row mx-0">
 
-                        <div class="tax-input ml-auto">
-                            <label for="">Sales tax label</label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="VAT">
-                            </div>
-                        </div> -->
+                        <!-- <div class="tax-input">
+                    <label for="">Sales tax amounts</label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="0.00%">
+                    </div>
+                </div>
 
-                            <div class=" w-100" *ngFor="let salesTax of salesTax">
-                                <div class="row m-0">
-                                    <div class="tax-input">
-                                        <label for="">Sales tax amounts</label>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="0.00%">
-                                        </div>
+                <div class="tax-input ml-auto">
+                    <label for="">Sales tax label</label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="VAT">
+                    </div>
+                </div> -->
+
+                        <div class=" w-100" *ngFor="let salesTax of salesTax">
+                            <div class="row m-0">
+                                <div class="tax-input">
+                                    <label for="">Sales tax amounts</label>
+                                    <div class="form-group">
+                                        <input [(ngModel)]="salesTaxValue[salesTax.length].amount" type="text" class="form-control" placeholder="0.00%">
                                     </div>
+                                </div>
 
-                                    <div class="tax-input ml-auto">
-                                        <label for="">Sales tax label</label>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="VAT">
-                                        </div>
+                                <div class="tax-input ml-auto">
+                                    <label for="">Sales tax label</label>
+                                    <div class="form-group">
+                                        <input [(ngModel)]="salesTaxValue[salesTax.length].label" type="text" class="form-control" placeholder="VAT">
                                     </div>
                                 </div>
                             </div>
@@ -466,15 +512,16 @@
                             </div>
 
                         </div>
+
                     </div>
-
                 </div>
+            </div>
 
-                <div class="py-3 mt-3 event-setting-btn text-right">
-                    <button (click)="fnCancelNewEvent()" mat-flat-button class="cancel-btn mr-2">Cancel</button>
-                    <button (click)="fnAddNewEvent()" mat-flat-button class="save-btn ml-2 px-3">Save Event</button>
-                </div>
-            </form>
+            <div class="py-3 mt-3 event-setting-btn text-right">
+                <button (click)="fnCancelNewEvent()" mat-flat-button class="cancel-btn mr-2">Cancel</button>
+                <button (click)="fnAddNewEvent()" mat-flat-button class="save-btn ml-2 px-3">Save Event</button>
+            </div>
         </div>
     </div>
+</div>
 </div>
