@@ -31,7 +31,7 @@
                                         <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data mat-common-radius" fxFlex="20">
                                             <mat-select [(value)]="element.status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
-                        
+                                      
                                                 <mat-option value="Draft">Draft</mat-option>
                                                 <mat-option value="Published">Published</mat-option>
                                             </mat-select>
@@ -510,9 +510,6 @@
                                     <i class="fa fa-plus-circle"></i><span class="ml-2">Add Tax</span>
                                 </div>
                             </div>
-
-                        </div>
-
                     </div>
                 </div>
             </div>
