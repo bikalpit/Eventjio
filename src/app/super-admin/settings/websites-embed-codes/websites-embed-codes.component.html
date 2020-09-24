@@ -4,9 +4,9 @@
         <div class="font-weight-bold page-title">
             Websites Embed Codes
         </div>
-        <p class="py-2">Embed a booking widget in to your website so that your customer can book tickets directly.</p>
+        <p class="py-1 Customise-widgets-title">Embed a booking widget in to your website so that your customer can book tickets directly.</p>
 
-        <div class="p-3 border rounded">
+        <div class="p-3 border rounded main-booking-widget">
             <div class="row">
                 <div class="col-12">
                     <div class="row">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-12" *ngIf="!EditButtonDiv">
                     <div class="col-7">
-                        <label for="">Widget Background</label>
+                        <label for="">Widget Background <span class="text-danger">*</span>  </label>
                         <mat-select name="" id="" class="form-control">
                             <mat-option value="Filled Background">Filled Background</mat-option>
                             <mat-option value="Transparent Background">Transparent Background</mat-option>
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="col-7 mt-3">
-                        <label for="">Widget Background</label>
+                        <label for="">Widget Background <span class="text-danger">*</span> </label>
                         <mat-select name="" id="" class="form-control">
                             <mat-option value="Show Header, event description and header image">Show Header, event description and header image</mat-option>
                             <mat-option value="Hide header and event description">Hide header and event description</mat-option>
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="col-7 mt-3">
-                        <label for="">Events</label>
+                        <label for="">Events <span class="text-danger">*</span>  </label>
                         <mat-select name="" id="" class="form-control">
                             <mat-option value="All Events">All Events</mat-option>
                             <mat-option value="Lajawab Cooking Classes (Mon 27 July 2020)">Lajawab Cooking Classes (Mon 27 July 2020) </mat-option>
@@ -77,11 +77,16 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="py-3 font-weight-bold">
+                    <div class="py-3 font-weight-bold ml-2">
                         Directions
                     </div>
-                    <div class="col-md-7 p-2 border rounded">
-                        <span class="mr-4">For HTML Websites</span><i class="fa fa-angle-down ml-5"></i>
+                    <div class="col-md-7 p-2">
+                        <mat-select name="" id="" class="form-control">
+                            <mat-option value="">For HTML Websites</mat-option>
+                            <mat-option value="">1</mat-option>
+                            <mat-option value="">2</mat-option>
+                            <mat-option value="">3</mat-option>
+                        </mat-select>
                     </div>
 
                     <div class="py-2 mt-2">
@@ -115,7 +120,7 @@
         <div class="font-weight-bold page-title">
             Widget Customisation
         </div>
-        <p class="py-2">Customise how your widgets look using the options below</p>
+        <p class="py-1 Customise-widgets-title">Customise how your widgets look using the options below</p>
 
         <div class="p-3 border rounded ">
             <div class="row">
@@ -248,7 +253,7 @@
 
 
         <div class="font-weight-bold page-title my-3">
-            Preview of example events widgets
+            Preview of example events widget
         </div>
 
         <div class="px-3 pt-0 preview-example">
@@ -261,7 +266,7 @@
                         Lajawab Cooking Classes [DRAFT]
                     </div>
                     <div>
-                        Mon Jul 27 2020 6:00 - 10:00 | The Grand Hayatt
+                        Mon Jul 27 2020 6:00 - 10:00 | The Grand Hyatt
                     </div>
                 </div>
 
@@ -305,7 +310,7 @@
                 <div class="col-12 px-5">
                     <div class="row">
                         <div class="col-10">
-                            Subtoatal
+                            Subtotal
                         </div>
 
                         <div class="col-2">
