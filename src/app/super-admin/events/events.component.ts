@@ -38,10 +38,13 @@ export class EventsComponent implements OnInit {
  newEventImageUrl:any = '';
  allDefaultImages:any;
  selecetdDefaultImage:any;
- 
-  upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
-                {event:'Draculla Drinks',status:'Draft',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
-                {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},]
+ eventStartTime:any;
+  timeIntervals:any = [];
+  allBoxOfficeList:any;
+  upcomingEventData:any;
+  // upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
+  //               {event:'Draculla Drinks',status:'Draft',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
+  //               {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},]
  
   pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
                 {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
@@ -52,6 +55,7 @@ export class EventsComponent implements OnInit {
     amount:'',
     label:'',
   }];
+  
   minEventStartDate:any = new Date();
   minEventEndDate:any = new Date();
   // minEndTime:any;
@@ -59,11 +63,17 @@ export class EventsComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
     private ErrorService: ErrorService,
-    private superadminService: SuperadminService,
+    private SuperadminService: SuperadminService,
     ) {
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');
       }
+      // this.add_mins = this.slotDuration * 60;
+      // while(this.slotStartTime <= this.slotEndTime){
+      //  this.timeIntervals = Date("h:i", this.slotStartTime);
+      //  this.slotStartTime += $add_mins;
+      // }
+      console.log(this.timeIntervals);
       this.salesTax.length = 1;
 
       this.addEventForm = this._formBuilder.group({
@@ -96,11 +106,12 @@ export class EventsComponent implements OnInit {
     this.getAllCountry();
     this.getAllTimeZone();
     this.getDefaultImages();
+    this.fnGetAllEventList();
     
   }
 
   getAllCountry(){
-    this.superadminService.getAllCountry().subscribe((response:any) => {
+    this.SuperadminService.getAllCountry().subscribe((response:any) => {
       if(response.data == true){
         this.allCountry = response.response
       }
@@ -108,7 +119,7 @@ export class EventsComponent implements OnInit {
   }
 
   getDefaultImages(){
-    this.superadminService.getDefaultImages().subscribe((response:any) => {
+    this.SuperadminService.getDefaultImages().subscribe((response:any) => {
       if(response.data == true){
         this.allDefaultImages= response.response
       }
@@ -116,12 +127,36 @@ export class EventsComponent implements OnInit {
   }
 
   getAllTimeZone(){
-    this.superadminService.getAllTimeZone().subscribe((response:any) => {
+    this.SuperadminService.getAllTimeZone().subscribe((response:any) => {
       if(response.data == true){
         this.allTimeZone = response.response
       }
     });
   }
+
+  // List Event fns
+
+  fnGetAllEventList(){
+    let requestObject = {
+      'boxoffice_id'  :this.boxOfficeCode
+    }
+    this.isLoaderAdmin = true;
+    this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.allBoxOfficeList = response.response
+        this.upcomingEventData = this.allBoxOfficeList;
+        console.log(this.allBoxOfficeList)
+        this.addNewEvents = true;
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
+
+  }
+
+
+  // add Event Fns
   
   fnChangeEventStartDate(){
     this.minEventEndDate = this.addEventForm.get('event_start_date').value;
@@ -138,7 +173,7 @@ export class EventsComponent implements OnInit {
   }
 
   fnCancelNewEvent(){
-    this.addNewEvents = false;
+    this.addNewEvents = true;
   }
 
   fnSelectImage(imageType){
@@ -259,9 +294,10 @@ export class EventsComponent implements OnInit {
 
   createNewEvent(requestObject){
     this.isLoaderAdmin = true;
-    this.superadminService.createNewEvent(requestObject).subscribe((response:any) => {
+    this.SuperadminService.createNewEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
+        this.addNewEvents = true;
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -278,6 +314,7 @@ export class EventsComponent implements OnInit {
   openAddNewTicketTypeDialog() {
     const dialogRef = this.dialog.open(AddNewTicketType,{
       width: '1100px',
+      data : {boxOfficeCode : this.boxOfficeCode}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -367,15 +404,111 @@ uploadImage() {
   templateUrl: '../_dialogs/add-new-ticket-type.html',
 })
 export class AddNewTicketType {
+  isLoaderAdmin:boolean = false;
+  allCouponCodeList:any;
+  boxOfficeCode:any
+  addTicketForm:FormGroup;
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
+    private _formBuilder: FormBuilder,
+    private ErrorService: ErrorService,
+    private SuperadminService: SuperadminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.boxOfficeCode = this.data.boxOfficeCode
+
+      this.addTicketForm = this._formBuilder.group({
+        title: [''],
+        price: [''],
+        qty: [''],
+        description: [''],
+        fee: [''],
+        status: [''],
+        min_order: [''],
+        max_order: [''],
+        until_date: [''],
+        until_time: [''],
+        until_interval: [''],
+        after_date: [''],
+        after_time: [''],
+        after_interval: ['']
+      });
     }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
   ngOnInit() {
+    this.getAllCouponCodes();
+  }
+
+  getAllCouponCodes(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'search':'',
+      'boxoffice_id' : this.boxOfficeCode
+    }
+    this.SuperadminService.getAllCouponCodes(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this.allCouponCodeList = response.response
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      this.allCouponCodeList = null;
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+  fnAddCoupon(event, couponId){
+
+  }
+
+  fnSubmitAddTicketForm(){
+    if(this.addTicketForm.invalid){
+      this.addTicketForm.get('title').markAsTouched
+
+      return false;
+    }
+
+    let requestObject = {
+      'ticket_name': this.addTicketForm.get('title').value,
+      'prize': this.addTicketForm.get('price').value,
+      'qty': this.addTicketForm.get('qty').value,
+      'advance_setting': 'Y',
+      'description':  this.addTicketForm.get('description').value,
+      'booking_fee':  this.addTicketForm.get('fee').value,
+      'status':  this.addTicketForm.get('status').value,
+      'min_per_order':  '10',
+      'max_per_order':'20',
+      'hide_untill': 'Y',
+      'hide_after':  'Y',
+      'untill_date': '',
+      'untill_time': '',
+      'after_date':  '',
+      'after_time':  '',
+      'sold_out':  'Y',
+      'show_qty':  'Y',
+      'discount':  '',
+      'untill_interval':  '',
+      'after_interval':  '',
+    }
+    
+    this.createNewTicket(requestObject)
+    console.log(this.addTicketForm)
+  }
+
+
+  createNewTicket(requestObject){
+    this.isLoaderAdmin = true;
+    this.SuperadminService.createNewTicket(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+      }
+      else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    })
   }
  
 }

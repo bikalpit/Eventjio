@@ -28,17 +28,17 @@
 
                                 <div class="content" class="drageble-list">
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of upcomingEventData">
-                                        <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
+                                        <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event_title}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data mat-common-radius" fxFlex="20">
-                                            <mat-select [(value)]="element.status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
-                                                <mat-option value="Draft">Draft</mat-option>
-                                                <mat-option value="Published">Published</mat-option>
+                                            <mat-select [(value)]="element.event_status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
+                                                <mat-option value="draft">Draft</mat-option>
+                                                <mat-option value="published">Published</mat-option>
                                             </mat-select>
                                             <!-- <span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span> -->
                                         </div>
-                                        <div class="tb-data" fxFlex="13">{{element.sold}}</div>
-                                        <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
-                                        <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
+                                        <div class="tb-data" fxFlex="13">0</div>
+                                        <div class="tb-data" fxFlex="15">100</div>
+                                        <div class="tb-data" fxFlex="17">300</div>
                                         <div class="tb-data" fxFlex="10">
                                             <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
@@ -177,7 +177,9 @@
                                     <small *ngIf="addEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
                                 </span>
                                 <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                <input matTimepicker class="col-4 ml-2 form-control d-inline-block" formControlName="event_start_time" mode="12h" #tStart="matTimepicker" placeholder="HH/MM">
+                                <mat-select formControlName="event_start_time" class="col-4 ml-2 form-control d-inline-block">
+                                    <option></option>
+                                </mat-select>
                                 <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
                                     <small *ngIf="addEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
                                 </span>
@@ -193,7 +195,9 @@
                                     <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
                                 </span>
                                 <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
-                                <input matTimepicker class="col-4 ml-2 form-control d-inline-block" formControlName="event_end_time" mode="12h" #tEnd="matTimepicker" placeholder="HH/MM">
+                                <mat-select formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
+                                    <option></option>
+                                </mat-select>
                                 <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_end_time').touched || addEventForm.get('event_end_time').dirty">
                                     <small *ngIf="addEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
                                 </span>
@@ -492,14 +496,14 @@
                                 <div class="tax-input">
                                     <label for="">Sales tax amounts</label>
                                     <div class="form-group">
-                                        <input [(ngModel)]="salesTaxValue[salesTax.length].amount" type="text" class="form-control" placeholder="0.00%">
+                                        <input type="text" class="form-control" placeholder="0.00%">
                                     </div>
                                 </div>
 
                                 <div class="tax-input ml-auto">
                                     <label for="">Sales tax label</label>
                                     <div class="form-group">
-                                        <input [(ngModel)]="salesTaxValue[salesTax.length].label" type="text" class="form-control" placeholder="VAT">
+                                        <input type="text" class="form-control" placeholder="VAT">
                                     </div>
                                 </div>
                             </div>
