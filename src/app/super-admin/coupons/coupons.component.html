@@ -92,7 +92,50 @@
 
                     </mat-tab>
                     <mat-tab label="Voucher codes(0)">
-                        <p>Voucher codes are useful for facilitating gift cards, or vouchers sold through other services such as Groupon. Each code discounts a specified amount of money from an order and can only be 'spent' once.</p>
+                        <!-- <p>Voucher codes are useful for facilitating gift cards, or vouchers sold through other services such as Groupon. Each code discounts a specified amount of money from an order and can only be 'spent' once.</p> -->
+                        <div class="couponcodes-listing">
+                            <div class="main-table-content main-cust-table-content">
+                                <div class="">
+                                    <div class="heads main-heading-content drageble py-3" fxLayout="row">
+                                        <div class="" fxFlex="25">Voucher Name</div>
+                                        <div class="" fxFlex="25">Voucher Value</div>
+                                        <div class="" fxFlex="20">Voucher Code</div>
+                                        <div class="" fxFlex="20">Expiry Date</div>
+                                        <div class="" fxFlex="10">Action</div>
+                                    </div>
+                                    <div  class="content" class="drageble-list">
+                                        <div *ngFor="let allVoucherCodeList of allVoucherCodeList; let i=index;" class="drageble-box" fxLayout="row" >
+                                            <div class="tb-data cpn-title" fxFlex="25">{{allVoucherCodeList.voucher_name}}</div>
+                                            <div class="tb-data cpn-code" fxFlex="25"><span class="cpn-bor">{{allVoucherCodeList.voucher_value}}</span></div>
+                                            <div class="tb-data" fxFlex="20">{{allVoucherCodeList.voucher_code}}</div>
+                                            <div class="tb-data" fxFlex="20">{{allVoucherCodeList.expiry_date}}</div>
+                                            <div class="tb-data" fxFlex="10">
+
+                                                <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
+                                                <ng-template class="popover" #popContent>
+                                                    <div (click)=" fnEditVoucher(allVoucherCodeList.unique_code)" class="px-3 pointer border-bottom">
+                                                        <i class="fa fa-pencil mr-2"></i><span>Edit</span>
+                                                    </div>
+                                                    <div class="px-3 pointer border-bottom">
+                                                        <i class="fa fa-star mr-2"></i><span>Assign to Event</span>
+                                                    </div>
+                                                    <div (click)="fnDeleteVoucher(allVoucherCodeList.unique_code)" class="px-3 pointer border-bottom">
+                                                        <i class="fa fa-trash mr-2"></i><span>Delete</span>
+                                                    </div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="allCouponCodeList === null || allCouponCodeList === ''" class="content" class="drageble-list">
+                                        <p class="text-center my-3" style="font-size: 16px;">Record not found.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- --------------------------------------------------------------------------- -->
                     </mat-tab>
                 </mat-tab-group>
             </div>
