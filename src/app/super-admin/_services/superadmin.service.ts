@@ -46,19 +46,19 @@ export class SuperadminService {
     }
     
     getAllCurrancy(){
-        return this.http.post(`${environment.apiUrl}/get-currancy-api`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-currancy-api`,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
     getAllTimeZone(){
-        return this.http.post(`${environment.apiUrl}/get-timezones`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-timezones`,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
     getDefaultImages(){
-        return this.http.post(`${environment.apiUrl}/get-default-images`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-default-images`,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
