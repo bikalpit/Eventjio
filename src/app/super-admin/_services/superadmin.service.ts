@@ -120,6 +120,18 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    fnGetAllEventList(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-allboxoffice-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    createNewTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/add-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     
 }
 
