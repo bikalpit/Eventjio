@@ -96,6 +96,12 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    getAllVoucherCodes(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-all-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     changeCouponStaus(requestObject){
         return this.http.post(`${environment.apiUrl}/update-coupon-status-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -108,8 +114,20 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    fnDeleteVoucher(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     fnGetSignleCouponDetail(requestObject){
         return this.http.post(`${environment.apiUrl}/get-single-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    fnGetSignleVoucherDetail(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
@@ -132,7 +150,18 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
-    
+    createVoucherCode(requestObject){
+        return this.http.post(`${environment.apiUrl}/create-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    updateVoucherCode(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 }
 
     
