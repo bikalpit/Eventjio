@@ -29,30 +29,41 @@
                                 <div class="tb-data heading-table" fxFlex="20">Draft</div>
                             </div>
                         </div>
-                        <div class="content" class="drageble-list">
+
+                        <div class="content" class="drageble-list" *ngFor="let duplicate of duplicateArray, let i = index">
                          <div class="drageble-box main-drageble"  fxLayout="row">
                              <div class="tb-data heading-table clr-black" fxFlex="20"> New </div>
                              <div class="tb-data heading-table" fxFlex="20"> <input class="form-control ng-pristine ng-invalid ng-touched" formcontrolname="" placeholder="Interior Expo"> </div>
-                             <div class="tb-data heading-table text-purple" fxFlex="20"><input class="form-control ng-pristine ng-invalid ng-touched" formcontrolname="" placeholder="Thu Aug 13, 2020"></div>
-                             <div class="tb-data heading-table" fxFlex="20"><input class="form-control ng-pristine ng-invalid ng-touched" formcontrolname="" placeholder="Wed Aug 26, 2020"></div>
-                             <div class="tb-data heading-table" fxFlex="20"> <mat-select class="form-control clr-black custom-fc-width" id="exampleFormControlSelect1">
-                                <mat-option>Draft</mat-option>
-                                    <mat-option>2</mat-option>
-                                    <mat-option>3</mat-option>
-                                    <mat-option>4</mat-option>
-                                     <mat-option>5</mat-option>
-                              </mat-select>
+                             <div class="tb-data heading-table text-purple" fxFlex="20">
+                                <div class="matDate">                    
+                                    <mat-datepicker-toggle matPrefix [for]="duplicateStartDatePicker" class="dateIcon"> </mat-datepicker-toggle>
+                                    <input type="text" matInput [matDatepicker]="duplicateStartDatePicker"  (click)="duplicateStartDatePicker.open()"  class="form-control matInputdate ">               
+                                    <mat-datepicker #duplicateStartDatePicker></mat-datepicker>
+                                </div>
+                             </div>
+                             <div class="tb-data heading-table" fxFlex="20">
+                                <div class="matDate">                    
+                                    <mat-datepicker-toggle matPrefix [for]="duplicateEndDatePicker" class="dateIcon"> </mat-datepicker-toggle>
+                                    <input type="text" matInput [matDatepicker]="duplicateEndDatePicker"  (click)="duplicateEndDatePicker.open()"  class="form-control matInputdate ">               
+                                    <mat-datepicker #duplicateEndDatePicker></mat-datepicker>
+                                </div>
+                             </div>
+                             <div class="tb-data heading-table" fxFlex="20"> 
+                                 <mat-select class="form-control clr-black custom-fc-width" id="exampleFormControlSelect1">
+                                     <mat-option value="Draft">Draft</mat-option>
+                                     <mat-option value="Published">Published</mat-option>                                    
+                                </mat-select>
 
                               <div class="delete-duplicate"> 
-                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                <i class="fa fa-times-circle" (click)="fnRemoveDuplicate(i)"></i>
                               </div>
                             </div>
                          </div>
                      </div>
                      
                     </div>
-                    <div class="add-row">
-                            <a href="" > Add another row  </a>
+                    <div class="w-100 my-3">
+                        <a class="add-row" (click)="fnAddDuplicate()"> Add another row  </a>
                     </div>
 
                 </div>

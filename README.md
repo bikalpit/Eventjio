@@ -11,3 +11,11 @@ Install npm i bn-ng-idle
 
 npm install --save jquery
 
+
+Foe QR Code and Barcode run this command
+
+QR - Code :
+npm install ngx-qrcode2 --save 
+
+Bar-Code :
+npm install ngx-barcode --save

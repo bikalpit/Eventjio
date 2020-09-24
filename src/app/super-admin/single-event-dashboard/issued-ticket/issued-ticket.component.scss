@@ -94,3 +94,99 @@
 }
 }
 
+// ---------------------------------Export Doorlist CSS ---------------------------------------
+
+::ng-deep .export-door-list-field{
+        width:49%;
+    }
+
+::ng-deep .buyer-question{
+    width:50%;
+}
+::ng-deep .ques-checkbox{
+    width: 50%;
+}
+::ng-deep .cancel-btn{
+    background-color: #DDDDDD;
+}
+::ng-deep .export-btn{
+    background-color: #1172F4;
+    color:#ffffff;
+}
+::ng-deep .close-btn{
+    outline: none;
+    border: unset;
+    border-radius: 20px;
+    background-color:#B4D4FF ;
+    color:#1172F4;
+}
+
+// --------------------------------- Issued ticket View CSS -----------------------------------------
+::ng-deep .mat-dialog-container{
+    padding: 0px !important;
+}
+::ng-deep .issued-ticket-view-container{
+   
+    max-height: 90vh;
+    .void-ticket-btn{
+        background-color: #1172F4;
+        color: #ffffff;
+    }
+    .print-ticket-btn{
+        background-color:#DDDDDD ;
+    }
+     .re-issue-notify{
+        width: 90%;
+        background-color: #ABE6FD;
+    
+        .fa-bell{
+            transform: rotate(-45deg);
+            color: #FF6600;
+        }
+    }
+    .ticket-detail-title{
+        background-color: #EFEFEF;
+    }
+    .ticket-detail{
+        width: 50%;
+    }
+    .ticket-detail-field{
+        padding: 10px 0px;
+        width: 50%;
+    }
+
+    .ticket-voucher{
+        width: 70%;
+        border:2px dashed #DDDDDD;
+        .ticket-title{
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .qrcode {
+            background-color: aqua;
+            width: 300px;
+            height: 300px;
+            img{
+                width: 100%;    
+            }
+
+           
+            
+        }
+        label{
+            font-size: 12px;
+        }
+        .date{
+            font-size: 12px;
+        }
+        .barcode{
+            transform: rotate(-45deg);  
+        }
+        
+    }
+
+    
+    
+
+}

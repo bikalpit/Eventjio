@@ -242,6 +242,11 @@
     }
 }
 
+.status-select {
+    border-radius: 50px;
+    font-size: 12px;
+}
+
 ::ng-deep .popover {
     border: none;
     .popover-body {
