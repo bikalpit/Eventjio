@@ -4,6 +4,10 @@
         font-size:16px;
         font-weight: bold;
     }
+    .order-main-st{
+        color: #808080;
+        font-size: 12px;
+    }
 
     .radio-sub-title{
         font-size:12px;
@@ -11,6 +15,7 @@
     }
 
     .preview-global-order{
+        border-radius: 5px;
         .title{
             font-size:14px;
             font-weight: bold;
@@ -33,7 +38,7 @@
             background-color: #FFFFFF;
 
             .title{
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: bold;
             }
             .sub-title{
@@ -111,5 +116,24 @@
 
         
    } 
-    
+  
+}
+::ng-deep .select-order-main{
+    border-radius: 5px;
+    margin-bottom: 28px;
+    .mat-radio-button{
+        .mat-radio-label {
+            align-items: end;
+        }
+    }
+}
+.bottom-thankyou-preview p{
+    color: #808080;
+}
+.order-info-line{
+    display: flex;
+    align-items: center;
+    .order-set-icone{
+        display: inline-table;
+    }
 }
