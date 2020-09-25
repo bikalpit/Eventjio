@@ -28,8 +28,8 @@ export class OrdersComponent implements OnInit {
     private http: HttpClient,
   ) { }
  
-orderData = [{orderid:'012345',status:'Completed',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes (Mon 17 Jun 2020)',value:'$ 5000.00',action:''},
-             {orderid:'012345',status:'Void',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes (Mon 17 Jun 2020)',value:'$ 5000.00',action:''},]
+orderData = [{orderid:'012345',status:'Completed',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes ',value:' 5000.00',action:''},
+             {orderid:'012345',status:'Void',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes',value:' 5000.00',action:''},]
 
 
   ngOnInit(): void {

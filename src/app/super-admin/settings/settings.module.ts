@@ -54,6 +54,6 @@ import { HttpClientModule} from '@angular/common/http';
     HttpClientModule,
     
   ],
-  entryComponents: [AddSalesTax,DialogAdminProfileImageUpload]
+  entryComponents: [AddSalesTax,DialogAdminProfileImageUpload,inviteTeamMateDialog]
 })
 export class SettingsModule { }

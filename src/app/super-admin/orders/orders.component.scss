@@ -20,7 +20,7 @@
 .order{
     padding:30px 35px;
     .page-title{
-        font-size: 20px;
+        font-size: 15px;
         color: #181818;
     }
     .manage-order{
@@ -36,6 +36,18 @@
             .order-event{
                 margin-top: 15px;
                 color: #595959;
+                .form-control{
+                        background-color: #F6F6F645;
+                    }
+                .matDate{
+                    position: relative;
+                   .mat-datepicker-toggle{
+                    position: absolute;
+                   } 
+                   .form-control{
+                    padding-left: 40px;
+                }
+                } 
             }
             .drageble-list{
                 background: #F6F6F645;
@@ -85,7 +97,7 @@
         letter-spacing: 0px;
         color: #181818;
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 600;
     }
       .modal-dialog .form-group label{
         color: #595959;
@@ -142,9 +154,6 @@
   ::ng-deep .export-order{
 
     // expansion-panel css 
-   .mat-accordion .mat-expansion-panel:last-of-type{
-        border-bottom: 1px solid #00000029 !important;
-    } 
     .mat-expansion-panel-header{
         padding-right: 5px !important;
         padding-left: 0px !important;
@@ -152,6 +161,7 @@
     .mat-expansion-panel-body {
         padding-left: 0px;
         padding-right: 0px;
+        padding: 0 24px 6px 0px;
     }    
     .mat-expansion-panel-body .mat-checkbox-label{
         color: #595959;
@@ -450,7 +460,7 @@
             font-weight: 500;
         }
        .main-heading-content{
-            border-top: solid 1px #DDDDDD;
+            border-top: solid 1px #00000029;
             // padding: 8px 0px;
             align-items: center;                
             font-size: 14px;
@@ -466,6 +476,10 @@
         .tb-data{
             padding: 15px 0px;
             color: #595959;
+        }
+        .order-data-date{
+            font-size: 12px;
+            color: #808080;
         }
         .cpn-title{
             color: #181818;

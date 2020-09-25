@@ -24,8 +24,10 @@ export class CouponsComponent implements OnInit {
   clickedIndex: any = 'coupon'
   boxOfficeCode: any;
   allCouponCodeList: any;
+  allVoucherCodeList:any;
   couponCodeStatus: any;
   signleCouponDetail: any;
+  signleVoucherDetail :  any;
   search = {
     keyword: ""
   };
@@ -46,6 +48,7 @@ export class CouponsComponent implements OnInit {
 
  ngOnInit(): void {
    this.getAllCouponCodes();
+   this.getAllVoucherCodes();
  }
  
   onTabChanged(event){
@@ -78,6 +81,25 @@ export class CouponsComponent implements OnInit {
       this.isLoaderAdmin = false;
     })
   }
+
+  getAllVoucherCodes(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'search':this.search.keyword,
+      'boxoffice_id' : this.boxOfficeCode
+    }
+    this.SuperadminService.getAllVoucherCodes(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this. allVoucherCodeList = response.response
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      this. allVoucherCodeList = null;
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
   changeCouponStaus(event,couponcode_code){
     this.isLoaderAdmin = true;
     if(event.checked == true){
@@ -117,6 +139,24 @@ export class CouponsComponent implements OnInit {
     })
     this.isLoaderAdmin = false;
   }
+
+  fnDeleteVoucher(vouchercode_code){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'unique_code': vouchercode_code
+    }
+    this.SuperadminService.fnDeleteVoucher(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+         this. getAllVoucherCodes();
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      }
+    })
+    this.isLoaderAdmin = false;
+  }
+  
   fnEditCoupon(couponcode_code){
     this.isLoaderAdmin = true;
     let requestObject = {
@@ -135,6 +175,27 @@ export class CouponsComponent implements OnInit {
     this.isLoaderAdmin = false;
 
   }
+
+  fnEditVoucher(vouchercode_code){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'unique_code': vouchercode_code
+    }
+    this.SuperadminService.fnGetSignleVoucherDetail(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.signleVoucherDetail = response.response[0];
+        console.log(this.signleVoucherDetail)
+        this.creatVoucherCode();
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      }
+    })
+    this.isLoaderAdmin = false;
+
+  }
+
+  
 
  creatDiscountCode() {
    this.isLoaderAdmin = true;
@@ -156,12 +217,29 @@ export class CouponsComponent implements OnInit {
  creatVoucherCode() {
   const dialogRef = this.dialog.open(myBatchVoucherCodeDialog, {
     width: '550px',
-    data :{boxOfficeCode : this.boxOfficeCode}
+    data :{boxOfficeCode : this.boxOfficeCode,
+    signleVoucherDetail : this.signleVoucherDetail
+  }
+  });
+
+   dialogRef.afterClosed().subscribe(result => {
+    this.animal = result;
+    this.signleVoucherDetail = null
+    this.getAllVoucherCodes();
+   });
+   this.isLoaderAdmin = false;
+}
+
+assignToEvent() {
+  const dialogRef = this.dialog.open(AssignToEventDialog, {
+    width: '550px',
+    data :{boxOfficeCode : this.boxOfficeCode,}
   });
 
    dialogRef.afterClosed().subscribe(result => {
     this.animal = result;
    });
+   this.isLoaderAdmin = false;
 }
 
 }
@@ -215,6 +293,7 @@ export class myCreateDiscountCodeDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+    
   }
   ngOnInit() {
    
@@ -252,7 +331,7 @@ export class myCreateDiscountCodeDialog {
 
   fnSubmitCreateCoupon(){
     if(this.createCouponForm.valid){
-       let valid_from = this.createCouponForm.get('valid_from').value;
+      let valid_from = this.createCouponForm.get('valid_from').value;
       let valid_till = this.createCouponForm.get('valid_till').value;
 
       if(valid_from > valid_till){
@@ -289,6 +368,7 @@ export class myCreateDiscountCodeDialog {
           "discount" : this.createCouponForm.get('discount').value,
         }
           this.updateCouponCode(updateCouponCodeData);
+          
       }else{
         let createdCouponCodeData = {
           "boxoffice_id" : this.boxOfficeCode,
@@ -352,21 +432,138 @@ export class myCreateDiscountCodeDialog {
   templateUrl: '../_dialogs/create-voucher-code-dialog.html',
 })
 export class myBatchVoucherCodeDialog { 
+  isLoaderAdmin:boolean = false;
   boxOfficeCode:any;
+  eventId:any;
+  signleVoucherDetail:any;
+  createVoucherForm: FormGroup;
   constructor(
+    private _formBuilder: FormBuilder,
+    // private _snackBar: MatSnackBar,
+    // private datePipe: DatePipe,
+    private SuperadminService : SuperadminService,
+    private ErrorService: ErrorService,
     public dialogRef: MatDialogRef<myBatchVoucherCodeDialog>,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
+      this.signleVoucherDetail = this.data.signleVoucherDetail
+
+      this.createVoucherForm = this._formBuilder.group({
+        voucher_name:['',[Validators.required,Validators.maxLength(15)]],
+        voucher_value:['',[Validators.required,Validators.maxLength(15)]],
+        voucher_code:['',[Validators.required,Validators.maxLength(15)]],
+        expiry_date:['' ,Validators.required],
+      })
+
+      if(this.signleVoucherDetail){
+        this.createVoucherForm.controls['voucher_name'].setValue(this.signleVoucherDetail.voucher_name)
+        this.createVoucherForm.controls['voucher_value'].setValue(this.signleVoucherDetail.voucher_value)
+        this.createVoucherForm.controls['voucher_code'].setValue(this.signleVoucherDetail.voucher_code)
+        this.createVoucherForm.controls['expiry_date'].setValue(this.signleVoucherDetail.expiry_date)
+      }
+
+    }
+
+    fnOnSubmitVoucher(){
+      if(this.createVoucherForm.valid){
+        if(this.signleVoucherDetail){
+          let updateVoucherCode = {
+            'unique_code': this.signleVoucherDetail.unique_code,
+            "boxoffice_id" : this.boxOfficeCode,
+            "voucher_name" : this.createVoucherForm.get('voucher_name').value,
+            "voucher_value" : this.createVoucherForm.get('voucher_value').value,
+            "voucher_code" : this.createVoucherForm.get('voucher_code').value,
+            "expiry_date" : this.createVoucherForm.get('expiry_date').value,
+          }
+            this.updateVoucherCode(updateVoucherCode);
+            
+        }else{
+          let createdVoucherCodeData = {
+          "boxoffice_id" : this.boxOfficeCode,
+          "voucher_name" : this.createVoucherForm.get('voucher_name').value,
+          "voucher_value" : this.createVoucherForm.get('voucher_value').value,
+          "voucher_code" : this.createVoucherForm.get('voucher_code').value,
+          "expiry_date" : this.createVoucherForm.get('expiry_date').value,
+          // "event_id" : this.eventId, 
+        }
+        this.createVoucherCode(createdVoucherCodeData);
+        
+        // console.log(this.createVoucherCode(createdVoucherCodeData))
+      }
+  
+      }else{
+        this.createVoucherForm.get("voucher_name").markAsTouched();
+        this.createVoucherForm.get("voucher_value").markAsTouched();
+        this.createVoucherForm.get("voucher_code").markAsTouched();
+        this.createVoucherForm.get("expiry_date").markAsTouched();
+      }
+    
+    }
+    createVoucherCode(createdVoucherCodeData){
+      this.isLoaderAdmin = true;
+      this.SuperadminService.createVoucherCode(createdVoucherCodeData).subscribe((response:any) => {
+        if(response.data == true){
+         this.ErrorService.successMessage(response.response);
+          this.createVoucherForm.reset();
+          this.dialogRef.close();
+        }
+        else if(response.data == false){
+         this.ErrorService.errorMessage(response.response);
+        }
+        this.isLoaderAdmin = false;
+        this.createVoucherForm.reset();
+      })
+    }
+
+    updateVoucherCode(updateVoucherCode){
+      this.isLoaderAdmin = true;
+      this.SuperadminService.updateVoucherCode(updateVoucherCode).subscribe((response:any) => {
+        if(response.data == true){
+         this.ErrorService.successMessage(response.response);
+          this.createVoucherForm.reset();
+          this.dialogRef.close();
+        }
+        else if(response.data == false){
+         this.ErrorService.errorMessage(response.response);
+        }
+        this.isLoaderAdmin = false;
+        this.createVoucherForm.reset();
+      })
     }
 
   onNoClick(): void {
+   
+    this.createVoucherForm.reset();
+    this.signleVoucherDetail = null;
     this.dialogRef.close();
   }
-  ngOnInit() {
+  ngOnInit() { 
   }
   
 }
 
 
+// ------------------------------------ Assign to Event -------------------------------------------
+
+@Component({
+  selector: 'Assign-To-Event-Dialog',
+  templateUrl: '../_dialogs/assign-to-event-dialog.html',
+})
+export class AssignToEventDialog { 
+  eventList = [ {name:'Mon 27 Jul: Lajawab Cooking Class',value:'Mon 27 Jul: Lajawab Cooking Class'},
+                {name:'Mon 27 Jul: Dracula Drinks',value:'Mon 27 Jul: Dracula Drinks'},
+                {name:'Mon 3 Aug - Mon 10 Aug: Kitty Party',value:'Mon 3 Aug - Mon 10 Aug: Kitty Party'}
+              ]
+  constructor(
+    public dialogRef: MatDialogRef<AssignToEventDialog>
+  ){
+  } 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() { 
+  }
+  
+}
 

@@ -87,6 +87,7 @@
         overflow: hidden;
         font-size: 14px;
         font-weight: 500;
+        height: calc(100vh - 255px);
     }
     .main-heading-content {
         border-top: solid 1px #DDDDDD;
@@ -260,23 +261,24 @@
 .bs-popover-auto[x-placement^=bottom]>.arrow::before {
     border-bottom-color: transparent;
 }
-::ng-deep .mat-common-radius{
+
+::ng-deep .mat-common-radius {
     .mat-select {
         height: 32px;
         line-height: 1.2;
         border-radius: 30px;
-    .mat-select-trigger{
-        .mat-select-value{
-            color: #fff;
-        }
-        .mat-select-arrow-wrapper{
-            .mat-select-arrow{
+        .mat-select-trigger {
+            .mat-select-value {
                 color: #fff;
             }
-          }
+            .mat-select-arrow-wrapper {
+                .mat-select-arrow {
+                    color: #fff;
+                }
+            }
         }
     }
-} 
+}
 
 .event-settings {
     border-bottom: 0px !important;
@@ -289,3 +291,6 @@
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
 }
+// ::ng-deep .mat-dialog-container {
+//          padding: 0px !important;
+// }

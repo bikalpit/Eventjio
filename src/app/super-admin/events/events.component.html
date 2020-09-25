@@ -12,7 +12,7 @@
         </div>
 
         <div class="row mx-0 code-tab">
-            <mat-tab-group class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left p-0 event-tabs">
+            <mat-tab-group (selectedTabChange)="onTabChange($event)" class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left p-0 event-tabs">
                 <mat-tab label="Upcoming Events (2)" class="">
                     <div class="service-listing events">
                         <div class="main-table-content main-cust-table-content">
@@ -27,10 +27,10 @@
                                 </div>
 
                                 <div class="content" class="drageble-list">
-                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of upcomingEventData">
+                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of allEventListData">
                                         <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event_title}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data mat-common-radius" fxFlex="20">
-                                            <mat-select [(value)]="element.event_status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
+                                            <mat-select [(value)]="element.event_status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="draft">Draft</mat-option>
                                                 <mat-option value="published">Published</mat-option>
                                             </mat-select>
@@ -92,22 +92,21 @@
                                 </div>
 
                                 <div class="content" class="drageble-list">
-                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of pastEventData">
-                                        <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
-                                        <div class="tb-data" fxFlex="20">
-                                            <mat-select [(value)]="element.status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B'}">
-                                                <mat-option value="Draft">Draft</mat-option>
-                                                <mat-option value="Published">Published</mat-option>
+                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of allEventListData">
+                                        <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event_title}} </a> <br> Mon Jul 27, 2020</div>
+                                        <div class="tb-data mat-common-radius" fxFlex="20">
+                                            <mat-select [(value)]="element.event_status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
+                                                <mat-option value="draft">Draft</mat-option>
+                                                <mat-option value="published">Published</mat-option>
                                             </mat-select>
-                                            <!-- <span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span> -->
                                         </div>
-                                        <div class="tb-data" fxFlex="13">{{element.sold}}</div>
-                                        <div class="tb-data" fxFlex="15">{{element.remaining}}</div>
-                                        <div class="tb-data" fxFlex="17">{{element.revenue}}</div>
+                                        <div class="tb-data" fxFlex="13">0</div>
+                                        <div class="tb-data" fxFlex="15">100</div>
+                                        <div class="tb-data" fxFlex="17">300</div>
                                         <div class="tb-data" fxFlex="10">
                                             <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                                            <ng-template class="popover" #popContent>
+                                            <ng-template class="popover custom-popover" #popContent>
                                                 <div class="px-3  border-bottom">
                                                     <i class="fa fa-eye mr-2"></i><span>View event page</span>
                                                 </div>
@@ -131,7 +130,9 @@
                                                 <div class="px-3  border-bottom">
                                                     <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                                 </div>
+
                                             </ng-template>
+
                                         </div>
                                     </div>
                                 </div>
@@ -177,8 +178,8 @@
                                     <small *ngIf="addEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
                                 </span>
                                 <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                <mat-select formControlName="event_start_time" class="col-4 ml-2 form-control d-inline-block">
-                                    <option></option>
+                                <mat-select (selectionChange)="fnChangeStartTime($event)" formControlName="event_start_time" class="col-4 ml-2 form-control d-inline-block">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
                                 <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
                                     <small *ngIf="addEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
@@ -189,14 +190,17 @@
                         <div class=" date-and-time ml-2">
                             <label for="">Ends</label>
                             <div class="form-group">
-                                <input (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-7 form-control d-inline-block" placeholder="DD/MM/YY">
+                                <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-7 form-control d-inline-block" placeholder="DD/MM/YY">
                                 <mat-datepicker #event_end_date_picker></mat-datepicker>
                                 <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_end_date').touched || addEventForm.get('event_end_date').dirty">
                                     <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
                                 </span>
                                 <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
-                                <mat-select formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
-                                    <option></option>
+                                <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                </mat-select>
+                                <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
+                                    <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
                                 <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_end_time').touched || addEventForm.get('event_end_time').dirty">
                                     <small *ngIf="addEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
@@ -278,7 +282,8 @@
 
                         <label class="w-100" for="">Choose or upload an images</label>
                         <div class="row">
-                            <img [ngClass]="{'active-image':eventImageType == 'defaultImage'}" (click)="fnSelectImage('defaultImage'); fnSelectDefaultImage()" src="../../../assets/images/events/image 1.jpg" class="event-images m-2" alt="">
+                            <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == 'defaultImage'}" (click)="fnSelectImage('defaultImage'); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
+                                alt="">
                             <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage'); fnUploadEventImage()" class="event-images m-2 text-center pointer">
                                 <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
                                 <p>Upload</p>
@@ -303,14 +308,14 @@
                         <button mat-flat-button (click)="openAddNewTicketGroupDialog()" class="ml-1">Add a new ticket group</button>
                     </div>
 
-                    <div class="p-3 mt-3 add-ticket-notification rounded">
+                    <div *ngIf="eventTicketAlertMSG" class="p-3 mt-3 add-ticket-notification rounded">
                         <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
                     </div>
 
-                    <div class="after-save-general-admission p-3 mt-2 rounded">
+                    <div *ngFor="let eventTicketList of eventTicketList; let i=index;" class="after-save-general-admission p-3 mt-2 rounded">
                         <div class="row m-0">
                             <div>
-                                General Admission
+                                {{eventTicketList.ticket_name}}
                             </div>
                             <div class="ticket-status ml-auto">
                                 <div class="d-inline-block ">
@@ -323,7 +328,7 @@
                         </div>
                     </div>
 
-                    <div class="after-save-general-admission p-3 mt-2 rounded">
+                    <!-- <div class="after-save-general-admission p-3 mt-2 rounded">
                         <div class="row m-0">
                             <div>
                                 General Admission
@@ -340,7 +345,7 @@
                                 <input type="text" class="form-control p-3" placeholder="To add ticket to this group, select this group name when adding or editing tickets.">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -490,30 +495,31 @@
                         <input type="text" class="form-control" placeholder="VAT">
                     </div>
                 </div> -->
-
-                        <div class=" w-100" *ngFor="let salesTax of salesTax">
-                            <div class="row m-0">
-                                <div class="tax-input">
-                                    <label for="">Sales tax amounts</label>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="0.00%">
+                        <!-- <form [formGroup]="customSalesTaxForm">
+                            <div class=" w-100" formArrayName="arr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr').controls; let i = index">
+                                <div [formGroupName]="i" class="row m-0">
+                                    <div class="tax-input">
+                                        <label for="">Sales tax amounts</label>
+                                        <div class="form-group">
+                                            <input formControlName="amount" type="text" class="form-control" placeholder="0.00%">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="tax-input ml-auto">
-                                    <label for="">Sales tax label</label>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="VAT">
+                                    <div class="tax-input ml-auto">
+                                        <label for="">Sales tax label</label>
+                                        <div class="form-group">
+                                            <input formControlName="label" type="text" class="form-control" placeholder="VAT">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="w-100">
+                        </form> -->
+                        <!-- <div class="w-100">
                             <div (click)="fnSalesTaxAdd()" class="tax-add-btn">
                                 <i class="fa fa-plus-circle"></i><span class="ml-2">Add Tax</span>
                             </div>
 
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>

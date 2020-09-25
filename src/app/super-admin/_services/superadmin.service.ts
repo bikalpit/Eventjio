@@ -39,26 +39,32 @@ export class SuperadminService {
   
    
     getAllCountry(){
-        return this.http.get(`${environment.apiUrl}/get-country-api`).pipe(
+        return this.http.post(`${environment.apiUrl}/get-country-api`,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
     
     getAllCurrancy(){
-        return this.http.post(`${environment.apiUrl}/get-currancy-api`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-currancy-api`,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
     getAllTimeZone(){
-        return this.http.post(`${environment.apiUrl}/get-timezones`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-timezones`,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
     getDefaultImages(){
-        return this.http.post(`${environment.apiUrl}/get-default-images`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-default-images`,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    getTimeSlote(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-timeslots`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
@@ -96,6 +102,12 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    getAllVoucherCodes(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-all-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     changeCouponStaus(requestObject){
         return this.http.post(`${environment.apiUrl}/update-coupon-status-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -108,8 +120,20 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    fnDeleteVoucher(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     fnGetSignleCouponDetail(requestObject){
         return this.http.post(`${environment.apiUrl}/get-single-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    fnGetSignleVoucherDetail(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
@@ -132,7 +156,18 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
-    
+    createVoucherCode(requestObject){
+        return this.http.post(`${environment.apiUrl}/create-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    updateVoucherCode(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 }
 
     

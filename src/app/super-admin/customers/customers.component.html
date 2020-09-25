@@ -30,17 +30,17 @@
                     </div>
 
                     <div class="customres-list">
-                        <div class="px-3 py-2 single-customer">
-                            <div class="row">
-                                <div class="col-2  pt-3">
+                        <div class="single-customer">
+                            <div class="row mx-auto">
+                                <div class="col-1 p-0 pt-3">
                                     <mat-checkbox class=""></mat-checkbox>
                                 </div>
-                                <div class="col-2 p-2">
-                                    <div class="bg-dark customer-image-icon ">
+                                <div class="col-2 p-0 p-1">
+                                    <div class="customer-image-icon ">
                                         <img src="../../../assets/images/admin/user.png" class="w-100">
                                     </div>
                                 </div>
-                                <div class="col-8 pt-2 customer-email">
+                                <div class="col-8 pt-2 p-0 ml-2 customer-email">
                                     <span>Jignesh Surati</span>
                                     <p>dummy@dummy.com</p>
                                 </div>
@@ -54,7 +54,7 @@
                     <div class="p-3" class="single-customer-detail" *ngIf="addFormButtonDiv">
                         <div class="col-12 py-3">
                             <div class="row">
-                                <div class="bg-info customer-dp">
+                                <div class="customer-dp">
                                     <img src="../../../assets/images/admin/user.png" class="w-100" alt="">
                                 </div>
                                 <div class="px-3 py-4 customer-name">
@@ -68,30 +68,30 @@
                             </div>
                         </div>
 
-                        <mat-tab-group>
+                        <mat-tab-group class="Details">
                             <mat-tab label="Details">
-                                <div class="py-2">
+                                <div class="py-3">
                                     <label for="">Phone No.</label>
                                     <p>
                                         9876543210
                                     </p>
                                 </div>
                                 <hr class="m-0">
-                                <div class="py-2">
+                                <div class="py-3">
                                     <label for="">Email</label>
                                     <p>
                                         dummy@dummy.com
                                     </p>
                                 </div>
                                 <hr class="m-0">
-                                <div class="py-2">
+                                <div class="py-3">
                                     <label for="">Address</label>
                                     <p>
                                         House/Flat No. 00 Society name, Landmark, Near place, Area name, City name, PIN - 000000.
                                     </p>
                                 </div>
                                 <hr class="m-0">
-                                <div class="py-2">
+                                <div class="py-3">
                                     <div class=" d-inline-block mr-5">
                                         <label>Registration</label>
                                         <p class="mb-0">18 Sep 2020 02:30pm</p>
@@ -115,10 +115,11 @@
                                         </p>
                                     </div>
                                 </div>
+                                <hr class="m-0">
                             </mat-tab>
 
                             <mat-tab label="Events">
-                                <div class="py-2">
+                                <div class="py-3">
                                     <button mat-flat-button class="border mr-1">All Events</button>
                                     <button mat-flat-button class="border m-1">Completed Events</button>
                                     <button mat-flat-button class="border ml-1">Upcoming Events</button>
@@ -150,7 +151,7 @@
                                 <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title">
                                     Add Customer
                                 </div>
-                                <div class="col-12 px-3">
+                                <div class="col-12 px-3 sub-heading">
                                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
                                 </div>
 
@@ -162,10 +163,11 @@
                                         <div class="p-4 ml-3 image-upload">
                                             <img src="../../../assets/images/admin/add.svg" class="w-100" alt="">
                                         </div>
-                                        <div class="px-3 py-42">
+                                        <div class="px-3 py-42 add-customer-file">
                                             <span>No file Choosen</span>
                                             <p class="mt-2">
-                                                Upload image (in jpg, jpeg or png) and <br> the image size should not excees 200x200.
+                                                Upload image (in .jpg, .jpeg or .png format), <br />
+                                                and the image size should not exceed 200x200.
                                             </p>
                                         </div>
                                     </div>
@@ -182,7 +184,7 @@
                                             </div>
 
                                             <div class="col-6">
-                                                <label for="">First Name</label>
+                                                <label for="">Last Name</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" />
                                                 </div>
@@ -210,7 +212,7 @@
                                             </div>
 
                                             <div class="col-12 ">
-                                                <label for="">Add Tag</label>
+                                                <label for="">Add Tags</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" placeholder="Press enter to add tag" />
                                                 </div>
