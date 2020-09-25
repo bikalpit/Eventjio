@@ -224,7 +224,20 @@ export class CouponsComponent implements OnInit {
 
    dialogRef.afterClosed().subscribe(result => {
     this.animal = result;
+    this.signleVoucherDetail = null
     this.getAllVoucherCodes();
+   });
+   this.isLoaderAdmin = false;
+}
+
+assignToEvent() {
+  const dialogRef = this.dialog.open(AssignToEventDialog, {
+    width: '550px',
+    data :{boxOfficeCode : this.boxOfficeCode,}
+  });
+
+   dialogRef.afterClosed().subscribe(result => {
+    this.animal = result;
    });
    this.isLoaderAdmin = false;
 }
@@ -355,6 +368,7 @@ export class myCreateDiscountCodeDialog {
           "discount" : this.createCouponForm.get('discount').value,
         }
           this.updateCouponCode(updateCouponCodeData);
+          
       }else{
         let createdCouponCodeData = {
           "boxoffice_id" : this.boxOfficeCode,
@@ -463,6 +477,7 @@ export class myBatchVoucherCodeDialog {
             "expiry_date" : this.createVoucherForm.get('expiry_date').value,
           }
             this.updateVoucherCode(updateVoucherCode);
+            
         }else{
           let createdVoucherCodeData = {
           "boxoffice_id" : this.boxOfficeCode,
@@ -473,6 +488,7 @@ export class myBatchVoucherCodeDialog {
           // "event_id" : this.eventId, 
         }
         this.createVoucherCode(createdVoucherCodeData);
+        
         // console.log(this.createVoucherCode(createdVoucherCodeData))
       }
   
@@ -496,6 +512,7 @@ export class myBatchVoucherCodeDialog {
          this.ErrorService.errorMessage(response.response);
         }
         this.isLoaderAdmin = false;
+        this.createVoucherForm.reset();
       })
     }
 
@@ -511,17 +528,42 @@ export class myBatchVoucherCodeDialog {
          this.ErrorService.errorMessage(response.response);
         }
         this.isLoaderAdmin = false;
+        this.createVoucherForm.reset();
       })
     }
 
   onNoClick(): void {
-    this.dialogRef.close();
+   
     this.createVoucherForm.reset();
+    this.signleVoucherDetail = null;
+    this.dialogRef.close();
   }
-  ngOnInit() {
+  ngOnInit() { 
   }
   
 }
 
 
+// ------------------------------------ Assign to Event -------------------------------------------
+
+@Component({
+  selector: 'Assign-To-Event-Dialog',
+  templateUrl: '../_dialogs/assign-to-event-dialog.html',
+})
+export class AssignToEventDialog { 
+  eventList = [ {name:'Mon 27 Jul: Lajawab Cooking Class',value:'Mon 27 Jul: Lajawab Cooking Class'},
+                {name:'Mon 27 Jul: Dracula Drinks',value:'Mon 27 Jul: Dracula Drinks'},
+                {name:'Mon 3 Aug - Mon 10 Aug: Kitty Party',value:'Mon 3 Aug - Mon 10 Aug: Kitty Party'}
+              ]
+  constructor(
+    public dialogRef: MatDialogRef<AssignToEventDialog>
+  ){
+  } 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() { 
+  }
+  
+}
 

@@ -304,7 +304,7 @@
                         <button mat-flat-button (click)="openAddNewTicketGroupDialog()" class="ml-1">Add a new ticket group</button>
                     </div>
 
-                    <div *ngIf="eventTicketList !== '' || eventTicketList !== []" class="p-3 mt-3 add-ticket-notification rounded">
+                    <div *ngIf="eventTicketAlertMSG" class="p-3 mt-3 add-ticket-notification rounded">
                         <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
                     </div>
 

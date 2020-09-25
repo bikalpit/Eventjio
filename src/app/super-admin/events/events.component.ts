@@ -55,6 +55,7 @@ export class EventsComponent implements OnInit {
   minEventStartDate:any = new Date();
   minEventEndDate:any = new Date();
   eventTicketList= [];
+  eventTicketAlertMSG :boolean = true;
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -337,9 +338,11 @@ export class EventsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-      if(result)
-      this.eventTicketList.push(result)
-      console.log(this.eventTicketList)
+      if(result){
+        this.eventTicketList.push(result)
+        console.log(this.eventTicketList)
+        this.eventTicketAlertMSG = false;
+      }
     });
   }
 
