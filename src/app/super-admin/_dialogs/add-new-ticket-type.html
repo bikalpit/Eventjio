@@ -1,4 +1,4 @@
-<div class="main">
+<div class="">
       <div class="modal-header pl-3 py-0 border-0">
         <p class="font-weight-bold">Add New Ticket Type</p>
         <button type="button" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
@@ -11,21 +11,21 @@
         <div class="col-7">
           <div class="row">
             <div class="col-6">
-              <label for="">Ticket Name</label>
+              <label for="">Ticket Name <span><i class="fa fa-asterisk"></i></span> <span class="ml-2"><i class="fa fa-question"   matTooltip="Enter a name of your ticket e.g. 'General Admission, VIP Entry, Student Entry'" aria-hidden="true"></i></span></label>
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="General Adminssion">
               </div>
             </div>
 
             <div class="col-6">
-              <label for="">Price</label>
+              <label for="">Price <span><i class="fa fa-asterisk"></i></span> <span class="ml-2"><i class="fa fa-question"   matTooltip="Enter the price you want people pay for your ticket." aria-hidden="true"></i></span> </label>
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="0.00">
               </div>
             </div>
 
             <div class="col-6">
-              <label for="">Quantity</label>
+              <label for="">Quantity <span><i class="fa fa-asterisk"></i></span> <span class="ml-2"><i class="fa fa-question"   matTooltip="Enter the quantity of tickets on sale." aria-hidden="true"></i></span> </label>
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="General Adminssion">
               </div>
@@ -37,7 +37,7 @@
             <mat-checkbox >Show advance settings</mat-checkbox>
           </div>
 
-        <label for="">Description</label>
+        <label for="">Description <span><i class="fa fa-asterisk"></i></span> <span class="ml-2"><i class="fa fa-question"   matTooltip="Enter any specific information for this ticket" aria-hidden="true"></i></span> </label>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="General Admission">
         </div>
@@ -45,14 +45,14 @@
 
         <div class="row">
           <div class="col-6">
-            <label for="">Booking Fee</label>
+            <label for="">Booking Fee <span><i class="fa fa-asterisk"></i></span> <span class="ml-2"><i class="fa fa-question"   matTooltip="Enter an optional booking fee which is charged per ticket to the customer and the funds are paid to you. We would recommend charging no more than 10% of the ticket price. " aria-hidden="true"></i></span> </label>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="0.00">
             </div>
           </div>
 
           <div class="col-6">
-            <label for="">Status</label>
+            <label for="">Status <span><i class="fa fa-asterisk"></i></span> <span class="ml-2"><i class="fa fa-question"   matTooltip="The ticket status determines whether the ticket is available to buy and who can see it. For more details. please ee our help and support area." aria-hidden="true"></i></span> </label>
             <div class="form-group" class="form-group">
               <select name="" id="" class="form-control">
                 <option value="">On Sale</option>
@@ -66,14 +66,14 @@
           </div>
 
           <div class="col-6">
-            <label for="">Min per order</label>
+            <label for="">Min per order <span><i class="fa fa-asterisk"></i></span> <span class="ml-2"><i class="fa fa-question"   matTooltip="Select the minimum number of tickets allowed per order" aria-hidden="true"></i></span></label>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="1">
             </div>
           </div>
 
           <div class="col-6">
-            <label for="">Max per order</label>
+            <label for="">Max per order <span><i class="fa fa-asterisk"></i></span> <span class="ml-2"><i class="fa fa-question"   matTooltip="Select the maximum number of tickets allowed per order" aria-hidden="true"></i></span></label>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="20">
             </div>
@@ -88,12 +88,12 @@
         
         <div class="col-5">
           
-        <div class="form-group mt-4">
+        <div class="">
             <!-- <input type="checkbox" class="from-control mr-2"> Hide untill a set date and time -->
-            <mat-checkbox >Hide untill a set date and time</mat-checkbox>
+            <mat-checkbox >Hide untill a set date and time <span class="ml-2"><i class="fa fa-question"   matTooltip="Optionally, you can select a date and time when the ticket should be hidden until" aria-hidden="true"></i></span> </mat-checkbox>
         </div>
 
-        <div class="form-group">
+        <div class="">
           <div class="matDate w-50 d-inline-block">                    
             <mat-datepicker-toggle matPrefix [for]="hideDatePicker" class="dateIcon"> </mat-datepicker-toggle>
             <input type="text" matInput [matDatepicker]="hideDatePicker"  (click)="hideDatePicker.open()"  class="form-control matInputdate ">               
@@ -102,12 +102,12 @@
             <input type="time" class="form-control col-3 ml-1 d-inline-block">   
         </div>
 
-        <div class="form-group mt-4">
+        <div class="py-2">
           <!-- <input type="checkbox" class="from-control mr-2"> Hide untill a set date and time -->
-          <label for="">Hide untill a set available interval hours</label>
+          <label for="">Hide untill a set available interval hours  </label>
         </div>
 
-       <div class="form-group ">
+       <div class="">
           <mat-select class="form-control w-50">
             <mat-option value="1">1</mat-option>
             <mat-option value="2">2</mat-option>
@@ -125,12 +125,12 @@
        </div> 
 
 
-        <div class="form-group">
+        <div class="py-2">
           <!-- <input type="checkbox" class="from-control mr-2"> Hide after a set date and time -->
-          <mat-checkbox >Hide after a set date and time</mat-checkbox>
+          <mat-checkbox >Hide after a set date and time  <span class="ml-2"><i class="fa fa-question"   matTooltip="Optionally, you can select a date and time when the ticket should be hidden after" aria-hidden="true"></i></span> </mat-checkbox>
         </div>
 
-        <div class="form-group">
+        <div class="">
           <div class="matDate w-50 d-inline-block">                    
             <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon"> </mat-datepicker-toggle>
             <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control matInputdate ">               
@@ -140,9 +140,9 @@
           <input type="time" class="form-control col-3 ml-1 d-inline-block">   
         </div>
 
-        <div class="form-group mt-4">
+        <div class="py-2">
           <!-- <input type="checkbox" class="from-control mr-2"> Hide untill a set date and time -->
-          <label>Hide untill a set unavailable interval hours</label>
+          <label>Hide untill a set unavailable interval hours </label>
         </div>
 
         <div class="form-group ">
@@ -162,18 +162,18 @@
           </mat-select>  <span class="pl-2"> / Hours</span>
        </div> 
         
-        <div class="form-group">
+        <div class="">
           <!-- <input type="checkbox" class="from-control mr-2"> Hide when sold out -->
-          <mat-checkbox >Hide when sold out</mat-checkbox>
+          <mat-checkbox >Hide when sold out <span class="ml-2"><i class="fa fa-question"   matTooltip="Tick this box to hide the ticket when it has sold out" aria-hidden="true"></i></span> </mat-checkbox>
         </div>
 
-        <div class="form-group">
+        <div class="">
           <!-- <input type="checkbox" class="from-control mr-2"> Show quantity  remaining on event page -->
-          <mat-checkbox >Show quantity  remaining on event page</mat-checkbox>
+          <mat-checkbox >Show quantity  remaining on event page <span class="ml-2"><i class="fa fa-question"   matTooltip="Tick this box to show the number of tickets still available" aria-hidden="true"></i></span> </mat-checkbox>
         </div>
 
-        <label for="">Discounts</label>
-        <div class="form-group">
+        <label for="" class="py-2">Discounts</label>
+        <div class="">
           <!-- <input type="checkbox" class="from-control mr-2"> July rffer -->
           <mat-checkbox >July rffer</mat-checkbox>
         </div>
