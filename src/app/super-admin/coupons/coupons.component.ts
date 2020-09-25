@@ -551,16 +551,15 @@ export class myBatchVoucherCodeDialog {
   templateUrl: '../_dialogs/assign-to-event-dialog.html',
 })
 export class AssignToEventDialog { 
-  eventList = ['Mon 27 Jul: Lajawab Cooking Class',
-                'Mon 27 Jul: Dracula Drinks',
-                'Mon 3 Aug - Mon 10 Aug: Kitty Party'
+  eventList = [ {name:'Mon 27 Jul: Lajawab Cooking Class',value:'Mon 27 Jul: Lajawab Cooking Class'},
+                {name:'Mon 27 Jul: Dracula Drinks',value:'Mon 27 Jul: Dracula Drinks'},
+                {name:'Mon 3 Aug - Mon 10 Aug: Kitty Party',value:'Mon 3 Aug - Mon 10 Aug: Kitty Party'}
               ]
   constructor(
     public dialogRef: MatDialogRef<AssignToEventDialog>
   ){
   } 
   onNoClick(): void {
-   
     this.dialogRef.close();
   }
   ngOnInit() { 
