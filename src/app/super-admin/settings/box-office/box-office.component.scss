@@ -10,7 +10,7 @@ label{
     margin-bottom: 0px;
 } 
 .my-left-content{
-    border-right:solid 0.5px #C0C0C0;
+    border-right: solid 1px #c0c0c038;
 
         img{
             width: 100px;
@@ -36,7 +36,6 @@ label{
 
 
     .my-right-content{
-        border-left:solid 0.5px #C0C0C0;
        
         i{
             color:#C0C0C0;
@@ -78,4 +77,7 @@ label{
 .save{
     background-color: #1172F4;
     color:#ffffff;
+}
+::ng-deep .mat-checkbox-layout{
+    margin-bottom: 0px;
 }

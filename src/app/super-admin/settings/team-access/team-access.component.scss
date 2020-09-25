@@ -184,13 +184,8 @@ button:focus {
     padding-top: 0px;
     padding-bottom: 0px;
 }
-
 ::ng-deep  .modal-content {
 border: none;
-}
-::ng-deep .mat-dialog-container{
-padding-left: 15px !important;
-padding-right: 15px !important;
 }
 ::ng-deep .modal-lg{
 margin-top: 0px;
