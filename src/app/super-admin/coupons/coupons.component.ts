@@ -318,7 +318,7 @@ export class myCreateDiscountCodeDialog {
 
   fnSubmitCreateCoupon(){
     if(this.createCouponForm.valid){
-       let valid_from = this.createCouponForm.get('valid_from').value;
+      let valid_from = this.createCouponForm.get('valid_from').value;
       let valid_till = this.createCouponForm.get('valid_till').value;
 
       if(valid_from > valid_till){
@@ -436,10 +436,10 @@ export class myBatchVoucherCodeDialog {
       this.signleVoucherDetail = this.data.signleVoucherDetail
 
       this.createVoucherForm = this._formBuilder.group({
-        voucher_name:[''],
-        voucher_value:[''],
-        voucher_code:[''],
-        expiry_date:[''],
+        voucher_name:['',[Validators.required,Validators.maxLength(15)]],
+        voucher_value:['',[Validators.required,Validators.maxLength(15)]],
+        voucher_code:['',[Validators.required,Validators.maxLength(15)]],
+        expiry_date:['' ,Validators.required],
       })
 
       if(this.signleVoucherDetail){
@@ -452,30 +452,38 @@ export class myBatchVoucherCodeDialog {
     }
 
     fnOnSubmitVoucher(){
-      if(this.signleVoucherDetail){
-        let updateVoucherCode = {
-          'unique_code': this.signleVoucherDetail.unique_code,
+      if(this.createVoucherForm.valid){
+        if(this.signleVoucherDetail){
+          let updateVoucherCode = {
+            'unique_code': this.signleVoucherDetail.unique_code,
+            "boxoffice_id" : this.boxOfficeCode,
+            "voucher_name" : this.createVoucherForm.get('voucher_name').value,
+            "voucher_value" : this.createVoucherForm.get('voucher_value').value,
+            "voucher_code" : this.createVoucherForm.get('voucher_code').value,
+            "expiry_date" : this.createVoucherForm.get('expiry_date').value,
+          }
+            this.updateVoucherCode(updateVoucherCode);
+        }else{
+          let createdVoucherCodeData = {
           "boxoffice_id" : this.boxOfficeCode,
           "voucher_name" : this.createVoucherForm.get('voucher_name').value,
           "voucher_value" : this.createVoucherForm.get('voucher_value').value,
           "voucher_code" : this.createVoucherForm.get('voucher_code').value,
           "expiry_date" : this.createVoucherForm.get('expiry_date').value,
+          // "event_id" : this.eventId, 
         }
-          this.updateVoucherCode(updateVoucherCode);
+        this.createVoucherCode(createdVoucherCodeData);
+        // console.log(this.createVoucherCode(createdVoucherCodeData))
+      }
+  
       }else{
-        let createdVoucherCodeData = {
-        "boxoffice_id" : this.boxOfficeCode,
-        "voucher_name" : this.createVoucherForm.get('voucher_name').value,
-        "voucher_value" : this.createVoucherForm.get('voucher_value').value,
-        "voucher_code" : this.createVoucherForm.get('voucher_code').value,
-        "expiry_date" : this.createVoucherForm.get('expiry_date').value,
-        // "event_id" : this.eventId, 
+        this.createVoucherForm.get("voucher_name").markAsTouched();
+        this.createVoucherForm.get("voucher_value").markAsTouched();
+        this.createVoucherForm.get("voucher_code").markAsTouched();
+        this.createVoucherForm.get("expiry_date").markAsTouched();
       }
     
-      this.createVoucherCode(createdVoucherCodeData)
-      console.log(this.createVoucherCode(createdVoucherCodeData))
     }
-  }
     createVoucherCode(createdVoucherCodeData){
       this.isLoaderAdmin = true;
       this.SuperadminService.createVoucherCode(createdVoucherCodeData).subscribe((response:any) => {
@@ -508,6 +516,7 @@ export class myBatchVoucherCodeDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+    this.createVoucherForm.reset();
   }
   ngOnInit() {
   }

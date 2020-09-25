@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild,Inject} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
-import { ErrorService } from '../../_services/error.service'
+import { ErrorService } from '../../_services/error.service';
+import { DatePipe} from '@angular/common';
 
 interface Status {
   value: string;
@@ -14,7 +15,8 @@ interface Status {
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+  styleUrls: ['./events.component.scss'],
+  providers: [DatePipe]
 })
 export class EventsComponent implements OnInit {
  
@@ -39,25 +41,20 @@ export class EventsComponent implements OnInit {
  allDefaultImages:any;
  selecetdDefaultImage:any;
  eventStartTime:any;
-  timeIntervals:any = [];
-  allBoxOfficeList:any;
-  upcomingEventData:any;
-  // upcomingEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
-  //               {event:'Draculla Drinks',status:'Draft',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
-  //               {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},]
- 
-  pastEventData = [{event:'Lajawab Cooking Classes',status:'Draft',sold:'00',remaining:'00',revenue:'$.00.00',togglebtn:''},
-                {event:'Draculla Drinks',status:'Published',sold:'20',remaining:'200',revenue:'$.2000.00',togglebtn:''},
-                ]    
-
+  // timeIntervals:any = ['00:00','00:30','01:00','01:30','02:00','02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30'];
+  allEventListData:any;
   salesTax = [ ];
   salesTaxValue = [{
     amount:'',
     label:'',
   }];
-  
+
+  customSalesTaxForm: FormGroup;
+  customSalesTaxArr: FormArray;
+  eventListingFilter : any = 'upcoming';
   minEventStartDate:any = new Date();
   minEventEndDate:any = new Date();
+  eventTicketList= [];
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -68,12 +65,6 @@ export class EventsComponent implements OnInit {
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');
       }
-      // this.add_mins = this.slotDuration * 60;
-      // while(this.slotStartTime <= this.slotEndTime){
-      //  this.timeIntervals = Date("h:i", this.slotStartTime);
-      //  this.slotStartTime += $add_mins;
-      // }
-      console.log(this.timeIntervals);
       this.salesTax.length = 1;
 
       this.addEventForm = this._formBuilder.group({
@@ -99,6 +90,10 @@ export class EventsComponent implements OnInit {
         access_code: [''],
       });
 
+      this.customSalesTaxForm = this._formBuilder.group({
+        customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
+      })
+
     }
 
    
@@ -109,6 +104,23 @@ export class EventsComponent implements OnInit {
     this.fnGetAllEventList();
     
   }
+
+  createSalesTaxItem() {
+    return this._formBuilder.group({
+      amount: [''],
+      label: ['']
+    })
+  }
+
+  
+  fnSalesTaxAdd(){
+    this.salesTax.push(this.salesTax.length+1);
+    this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
+    this.customSalesTaxArr.push(this.createSalesTaxItem());
+    console.log(this.customSalesTaxForm.value)
+    console.log(this.customSalesTaxArr)
+  }
+
 
   getAllCountry(){
     this.SuperadminService.getAllCountry().subscribe((response:any) => {
@@ -136,16 +148,25 @@ export class EventsComponent implements OnInit {
 
   // List Event fns
 
+  onTabChange(event){
+    let clickedIndex = event.index;
+    if(clickedIndex == 0){
+      this.eventListingFilter = 'upcoming'
+    }else if(clickedIndex == 1){
+      this.eventListingFilter = 'past'
+    }
+    this.fnGetAllEventList();
+  }
+
   fnGetAllEventList(){
     let requestObject = {
-      'boxoffice_id'  :this.boxOfficeCode
+      'boxoffice_id'  :this.boxOfficeCode,
+      'filter' : this.eventListingFilter
     }
     this.isLoaderAdmin = true;
     this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allBoxOfficeList = response.response
-        this.upcomingEventData = this.allBoxOfficeList;
-        console.log(this.allBoxOfficeList)
+        this.allEventListData = response.response
         this.addNewEvents = true;
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -162,10 +183,6 @@ export class EventsComponent implements OnInit {
     this.minEventEndDate = this.addEventForm.get('event_start_date').value;
     this.addEventForm.get('event_end_date').setValue('');
     this.addEventForm.get('event_end_time').setValue('');
-  }
-
-  fnSalesTaxAdd(){
-    this.salesTax.push(this.salesTax.length+1);
   }
 
   fnChangeEventStatus(event){
@@ -190,6 +207,7 @@ export class EventsComponent implements OnInit {
     }else{
       this.donation = 'N' 
     }
+    this.addEventForm.updateValueAndValidity();
   }
   fnRedirectURL(event){
     if(event.checked == true){
@@ -319,6 +337,9 @@ export class EventsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      if(result)
+      this.eventTicketList.push(result)
+      console.log(this.eventTicketList)
     });
   }
 
@@ -402,35 +423,42 @@ uploadImage() {
 @Component({
   selector: 'add-new-ticket-type',
   templateUrl: '../_dialogs/add-new-ticket-type.html',
+  providers: [DatePipe]
 })
 export class AddNewTicketType {
   isLoaderAdmin:boolean = false;
   allCouponCodeList:any;
   boxOfficeCode:any
   addTicketForm:FormGroup;
+  minDate= new Date();
+  assignedCouponCodes :any = [];
+  showQTY:any = 'N';
+  soldOut:any = 'N';
+  showDes:any = 'N';
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
     private ErrorService: ErrorService,
+    private datePipe: DatePipe,
     private SuperadminService: SuperadminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
 
       this.addTicketForm = this._formBuilder.group({
-        title: [''],
-        price: [''],
-        qty: [''],
-        description: [''],
+        title: ['',[Validators.required]],
+        price: ['',[Validators.required]],
+        qty: ['',[Validators.required]],
+        description: ['',[Validators.required]],
         fee: [''],
-        status: [''],
-        min_order: [''],
-        max_order: [''],
-        until_date: [''],
-        until_time: [''],
-        until_interval: [''],
-        after_date: [''],
-        after_time: [''],
-        after_interval: ['']
+        status: ['',[Validators.required]],
+        min_order: ['',[Validators.required]],
+        max_order: ['',[Validators.required]],
+        until_date: ['',[Validators.required]],
+        until_time: ['',[Validators.required]],
+        until_interval: ['',[Validators.required]],
+        after_date: ['',[Validators.required]],
+        after_time: ['',[Validators.required]],
+        after_interval: ['',[Validators.required]]
       });
     }
 
@@ -459,13 +487,51 @@ export class AddNewTicketType {
     })
   }
 
-  fnAddCoupon(event, couponId){
-
+  fnAddCoupon(event, couponCode){
+    if(event.checked == true){
+      this.assignedCouponCodes.push(couponCode)
+    }else{
+      const index = this.assignedCouponCodes.indexOf(couponCode, 0);
+      if (index > -1) {
+          this.assignedCouponCodes.splice(index, 1);
+      }
+    }
   }
+
+  fnChangeShowQTY(event){
+    if(event.checked == true){
+      this.showQTY = 'Y';
+    }else{
+      this.showQTY = 'N';
+    }
+  }
+
+  fnChangeSoldOut(event){
+    if(event.checked == true){
+      this.soldOut = 'Y';
+    }else{
+      this.soldOut = 'N';
+    }
+  }
+
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
-      this.addTicketForm.get('title').markAsTouched
+      alert('as')
+      this.addTicketForm.get('title').markAsTouched;
+      this.addTicketForm.get('price').markAsTouched;
+      this.addTicketForm.get('qty').markAsTouched;
+      this.addTicketForm.get('description').markAsTouched;
+      this.addTicketForm.get('fee').markAsTouched;
+      this.addTicketForm.get('status').markAsTouched;
+      this.addTicketForm.get('min_order').markAsTouched;
+      this.addTicketForm.get('max_order').markAsTouched;
+      this.addTicketForm.get('until_date').markAsTouched;
+      this.addTicketForm.get('until_time').markAsTouched;
+      this.addTicketForm.get('after_date').markAsTouched;
+      this.addTicketForm.get('after_time').markAsTouched;
+      this.addTicketForm.get('until_interval').markAsTouched;
+      this.addTicketForm.get('after_interval').markAsTouched;
 
       return false;
     }
@@ -478,19 +544,19 @@ export class AddNewTicketType {
       'description':  this.addTicketForm.get('description').value,
       'booking_fee':  this.addTicketForm.get('fee').value,
       'status':  this.addTicketForm.get('status').value,
-      'min_per_order':  '10',
-      'max_per_order':'20',
+      'min_per_order':  this.addTicketForm.get('min_order').value,
+      'max_per_order':this.addTicketForm.get('max_order').value,
       'hide_untill': 'Y',
       'hide_after':  'Y',
-      'untill_date': '',
-      'untill_time': '',
-      'after_date':  '',
-      'after_time':  '',
-      'sold_out':  'Y',
-      'show_qty':  'Y',
-      'discount':  '',
-      'untill_interval':  '',
-      'after_interval':  '',
+      'untill_date': this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"),
+      'untill_time': this.addTicketForm.get('until_time').value,
+      'after_date':  this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"),
+      'after_time':  this.addTicketForm.get('after_time').value,
+      'sold_out':  this.soldOut,
+      'show_qty':  this.showQTY,
+      'discount':  this.assignedCouponCodes,
+      'untill_interval':  this.addTicketForm.get('until_interval').value,
+      'after_interval':  this.addTicketForm.get('after_interval').value,
     }
     
     this.createNewTicket(requestObject)
@@ -502,7 +568,9 @@ export class AddNewTicketType {
     this.isLoaderAdmin = true;
     this.SuperadminService.createNewTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response);
+
+        this.ErrorService.successMessage('Ticket created succesfully.');
+        this.dialogRef.close(response.response);
       }
       else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -517,10 +585,12 @@ export class AddNewTicketType {
 @Component({
   selector: 'add-new-ticket-group',
   templateUrl: '../_dialogs/add-new-ticket-group.html',
+  providers: [DatePipe]
 })
 export class AddNewTicketGroup {
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketGroup>,
+    private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     }
 
