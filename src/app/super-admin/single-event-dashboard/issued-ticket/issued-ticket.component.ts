@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild, Inject } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -34,4 +34,59 @@ export class IssuedTicketComponent implements OnInit {
     console.log(event)
   }
 }
+
+
+// ------------------------------------- Export Door List Component ---------------------------------
+
+
+
+@Component({
+  selector: 'app-export-door-list',
+  templateUrl: '../_dialogs/export-door-list.html',
+})
+export class ExportDoorListComponent {
+  constructor(
+    public dialogRef: MatDialogRef<ExportDoorListComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+  }
+ 
+}
+
+
+// ------------------------------------- issued ticket view Component ---------------------------------
+
+
+
+@Component({
+  selector: 'app-issued-ticket-view',
+  templateUrl: '../_dialogs/issued-ticket-view.html',
+})
+export class IssuedTicketViewComponent {
+  voidTicket:boolean = false;
+  elementType : 'url' | 'canvas' | 'img' = 'url';
+  value : string = '5h92H';
+  
+  constructor(
+    public dialogRef: MatDialogRef<IssuedTicketViewComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  fnVoidTicket(){
+    this.voidTicket = !this.voidTicket
+  }
+  ngOnInit() {
+  }
+ 
+}
+
 
