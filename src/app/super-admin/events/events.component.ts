@@ -58,6 +58,7 @@ export class EventsComponent implements OnInit {
   eventTicketAlertMSG :boolean = true;
   fullDayTimeSlote:any;
   startEndSameDate:boolean = false;
+  assignedTicketId :any =[];
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -339,7 +340,7 @@ export class EventsComponent implements OnInit {
       'hide_share_button':this.shareButtonStatus,
       'custom_sales_tax':this.customSalesTax,
       'sales_tax':'sales_tax_amt',
-      'ticket_ids':'',
+      'ticket_ids':this.assignedTicketId,
       'image' : this.newEventImageUrl,
       'default-image' : this.selecetdDefaultImage,
       };
@@ -379,6 +380,8 @@ export class EventsComponent implements OnInit {
       if(result){
         this.eventTicketList.push(result)
         console.log(this.eventTicketList)
+        this.assignedTicketId.push(result.id)
+        console.log(this.assignedTicketId)
         this.eventTicketAlertMSG = false;
       }
     });
