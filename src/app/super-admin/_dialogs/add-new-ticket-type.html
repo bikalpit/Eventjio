@@ -122,9 +122,9 @@
                             </span>
                         </div>
                         <mat-select formControlName="until_time" class="col-4 ml-2 form-control d-inline-block">
-                            <mat-option value="00:00"> 00:00</mat-option>
+                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}"> {{fullDayTimeSlote}}</mat-option>
                         </mat-select>
-                        <span class="error-wrap" *ngIf="addTicketForm.get('until_time').touched || addTicketForm.get('until_time').dirty">
+                        <span style="left:0px" class="error-wrap offset-6 w-auto pl-2" *ngIf="addTicketForm.get('until_time').touched || addTicketForm.get('until_time').dirty">
                             <small *ngIf="addTicketForm.get('until_time').hasError('required')" class="error">Hide untill Time is required.</small>
                         </span>
                     </div>
@@ -163,9 +163,9 @@
                         </div>
                         <!-- <input type="date" class="form-control col-6 mr-1 d-inline-block"> -->
                         <mat-select formControlName="after_time" class="col-4 ml-2 form-control d-inline-block">
-                            <mat-option value="00:00"> 00:00</mat-option>
+                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}"> {{fullDayTimeSlote}}</mat-option>
                         </mat-select>
-                        <span class="error-wrap" *ngIf="addTicketForm.get('after_time').touched || addTicketForm.get('after_time').dirty">
+                        <span style="left:0px" class="error-wrap offset-6 w-auto pl-2" *ngIf="addTicketForm.get('after_time').touched || addTicketForm.get('after_time').dirty">
                             <small *ngIf="addTicketForm.get('after_time').hasError('required')" class="error">Hide after Time is required.</small>
                         </span>
                     </div>

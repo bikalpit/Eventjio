@@ -39,7 +39,7 @@ export class SuperadminService {
   
    
     getAllCountry(){
-        return this.http.get(`${environment.apiUrl}/get-country-api`).pipe(
+        return this.http.post(`${environment.apiUrl}/get-country-api`,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
@@ -59,6 +59,12 @@ export class SuperadminService {
     }
     getDefaultImages(){
         return this.http.post(`${environment.apiUrl}/get-default-images`,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    getTimeSlote(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-timeslots`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

@@ -56,6 +56,8 @@ export class EventsComponent implements OnInit {
   minEventEndDate:any = new Date();
   eventTicketList= [];
   eventTicketAlertMSG :boolean = true;
+  fullDayTimeSlote:any;
+  startEndSameDate:boolean = false;
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -103,6 +105,7 @@ export class EventsComponent implements OnInit {
     this.getAllTimeZone();
     this.getDefaultImages();
     this.fnGetAllEventList();
+    this.getTimeSlote();
     
   }
 
@@ -135,6 +138,18 @@ export class EventsComponent implements OnInit {
     this.SuperadminService.getDefaultImages().subscribe((response:any) => {
       if(response.data == true){
         this.allDefaultImages= response.response
+      }
+    });
+  }
+
+  getTimeSlote(){
+    let requestObject = {
+      'interval'  :'30',
+    }
+    this.SuperadminService.getTimeSlote(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fullDayTimeSlote= response.response
+        console.log(this.fullDayTimeSlote)
       }
     });
   }
@@ -180,11 +195,28 @@ export class EventsComponent implements OnInit {
 
   // add Event Fns
   
-  fnChangeEventStartDate(){
-    this.minEventEndDate = this.addEventForm.get('event_start_date').value;
-    this.addEventForm.get('event_end_date').setValue('');
-    this.addEventForm.get('event_end_time').setValue('');
-  }
+  // fnChangeEventStartDate(){
+  //   this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+  //   this.addEventForm.get('event_end_date').setValue('');
+  //   this.addEventForm.get('event_end_time').setValue('');
+  // }
+  
+  // fnChangeEventEndDate(){
+  //   let startDate = this.addEventForm.get('event_start_date').value;
+  //   let endDate = this.addEventForm.get('event_end_date').value;
+  //   if(startDate == endDate){
+  //     this.startEndSameDate = true;
+  //   }else{
+  //     this.startEndSameDate = false;
+  //   }
+  //   this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+  //   this.addEventForm.get('event_end_date').setValue('');
+  //   this.addEventForm.get('event_end_time').setValue('');
+  // }
+
+  // fnChangeStartTime(){
+  //   this.eventStartTime = this.addEventForm.get('event_start_time').value;
+  // }
 
   fnChangeEventStatus(event){
     console.log(event)
@@ -198,15 +230,17 @@ export class EventsComponent implements OnInit {
     this.eventImageType = imageType
   }
   
-  fnSelectDefaultImage(){
-    this.selecetdDefaultImage = '';
+  fnSelectDefaultImage(imageName){
+    this.selecetdDefaultImage = imageName;
   }
 
   fnChangeDonation(event){
     if(event.checked == true){
       this.donation = 'Y' ;
+      this.addEventForm.controls['donation_title'].setValidators([Validators.required])
     }else{
       this.donation = 'N' 
+      this.addEventForm.controls['donation_title'].setValidators(null)
     }
     this.addEventForm.updateValueAndValidity();
   }
@@ -304,9 +338,9 @@ export class EventsComponent implements OnInit {
       'hide_share_button':this.shareButtonStatus,
       'custom_sales_tax':this.customSalesTax,
       'sales_tax':'sales_tax_amt',
-      'ticket_ids[]':'',
+      'ticket_ids':'',
       'image' : this.newEventImageUrl,
-      'default-image' : 'sd',
+      'default-image' : this.selecetdDefaultImage,
       };
       this.createNewEvent(requestObject);
   }
@@ -333,7 +367,10 @@ export class EventsComponent implements OnInit {
   openAddNewTicketTypeDialog() {
     const dialogRef = this.dialog.open(AddNewTicketType,{
       width: '1100px',
-      data : {boxOfficeCode : this.boxOfficeCode}
+      data : {
+        boxOfficeCode : this.boxOfficeCode,
+        fullDayTimeSlote : this.fullDayTimeSlote,
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -438,6 +475,7 @@ export class AddNewTicketType {
   showQTY:any = 'N';
   soldOut:any = 'N';
   showDes:any = 'N';
+  fullDayTimeSlote:any;
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
@@ -446,6 +484,7 @@ export class AddNewTicketType {
     private SuperadminService: SuperadminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
+      this.fullDayTimeSlote = this.data.fullDayTimeSlote
 
       this.addTicketForm = this._formBuilder.group({
         title: ['',[Validators.required]],
@@ -520,7 +559,7 @@ export class AddNewTicketType {
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
-      alert('as')
+      
       this.addTicketForm.get('title').markAsTouched;
       this.addTicketForm.get('price').markAsTouched;
       this.addTicketForm.get('qty').markAsTouched;

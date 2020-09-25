@@ -178,8 +178,8 @@
                                     <small *ngIf="addEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
                                 </span>
                                 <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                <mat-select formControlName="event_start_time" class="col-4 ml-2 form-control d-inline-block">
-                                    <option></option>
+                                <mat-select (selectionChange)="fnChangeStartTime($event)" formControlName="event_start_time" class="col-4 ml-2 form-control d-inline-block">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
                                 <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
                                     <small *ngIf="addEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
@@ -190,14 +190,17 @@
                         <div class=" date-and-time ml-2">
                             <label for="">Ends</label>
                             <div class="form-group">
-                                <input (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-7 form-control d-inline-block" placeholder="DD/MM/YY">
+                                <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-7 form-control d-inline-block" placeholder="DD/MM/YY">
                                 <mat-datepicker #event_end_date_picker></mat-datepicker>
                                 <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_end_date').touched || addEventForm.get('event_end_date').dirty">
                                     <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
                                 </span>
                                 <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
-                                <mat-select formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
-                                    <option></option>
+                                <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                </mat-select>
+                                <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block">
+                                    <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
                                 <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_end_time').touched || addEventForm.get('event_end_time').dirty">
                                     <small *ngIf="addEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
@@ -279,7 +282,8 @@
 
                         <label class="w-100" for="">Choose or upload an images</label>
                         <div class="row">
-                            <img [ngClass]="{'active-image':eventImageType == 'defaultImage'}" (click)="fnSelectImage('defaultImage'); fnSelectDefaultImage()" src="../../../assets/images/events/image 1.jpg" class="event-images m-2" alt="">
+                            <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == 'defaultImage'}" (click)="fnSelectImage('defaultImage'); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
+                                alt="">
                             <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage'); fnUploadEventImage()" class="event-images m-2 text-center pointer">
                                 <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
                                 <p>Upload</p>
