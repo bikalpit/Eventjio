@@ -194,6 +194,24 @@
         }
         
     }
+    .invalidate-ticket{
+        background-color: #ffe5e5;
+        border-radius: 5px;
+
+        .fa-times-circle{
+            color: #FF0000;
+        }
+    }
+    .main-div-ticket-code-type{
+        width: 50%;
+        .ticket-code-type{
+            width: 50%;
+        }
+    }
+    .void-ticket{
+        background-color: #007BFF;
+        color: #ffffff;
+    }
 
     .invalidate-ticket{
         background-color: #ffe5e5;
