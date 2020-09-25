@@ -224,6 +224,7 @@ export class CouponsComponent implements OnInit {
 
    dialogRef.afterClosed().subscribe(result => {
     this.animal = result;
+    this.signleVoucherDetail = null
     this.getAllVoucherCodes();
    });
    this.isLoaderAdmin = false;
@@ -355,6 +356,7 @@ export class myCreateDiscountCodeDialog {
           "discount" : this.createCouponForm.get('discount').value,
         }
           this.updateCouponCode(updateCouponCodeData);
+          
       }else{
         let createdCouponCodeData = {
           "boxoffice_id" : this.boxOfficeCode,
@@ -463,6 +465,7 @@ export class myBatchVoucherCodeDialog {
             "expiry_date" : this.createVoucherForm.get('expiry_date').value,
           }
             this.updateVoucherCode(updateVoucherCode);
+            
         }else{
           let createdVoucherCodeData = {
           "boxoffice_id" : this.boxOfficeCode,
@@ -473,6 +476,7 @@ export class myBatchVoucherCodeDialog {
           // "event_id" : this.eventId, 
         }
         this.createVoucherCode(createdVoucherCodeData);
+        
         // console.log(this.createVoucherCode(createdVoucherCodeData))
       }
   
@@ -496,6 +500,7 @@ export class myBatchVoucherCodeDialog {
          this.ErrorService.errorMessage(response.response);
         }
         this.isLoaderAdmin = false;
+        this.createVoucherForm.reset();
       })
     }
 
@@ -511,14 +516,17 @@ export class myBatchVoucherCodeDialog {
          this.ErrorService.errorMessage(response.response);
         }
         this.isLoaderAdmin = false;
+        this.createVoucherForm.reset();
       })
     }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    alert()
     this.createVoucherForm.reset();
+    this.signleVoucherDetail = null;
+    this.dialogRef.close();
   }
-  ngOnInit() {
+  ngOnInit() { 
   }
   
 }
