@@ -1,0 +1,20 @@
+<div class="modal-dialog modal-notify modal-info voucher-code py-3" role="document" >
+    <div class="modal-content ">
+        <div class="modal-header modal-bcolor-primary">
+            <p class="heading lead  work-content" >Assign to event</p>
+            <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body pb-0">
+            <div class="p-3 border rounded">
+                <div class="w-100 d-inline-block py-2" *ngFor="let eventList of eventList">
+                    <mat-checkbox class="">{{eventList}}</mat-checkbox>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+</div>
+      

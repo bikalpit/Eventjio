@@ -230,6 +230,18 @@ export class CouponsComponent implements OnInit {
    this.isLoaderAdmin = false;
 }
 
+assignToEvent() {
+  const dialogRef = this.dialog.open(AssignToEventDialog, {
+    width: '550px',
+    data :{boxOfficeCode : this.boxOfficeCode,}
+  });
+
+   dialogRef.afterClosed().subscribe(result => {
+    this.animal = result;
+   });
+   this.isLoaderAdmin = false;
+}
+
 }
 
 @Component({
@@ -521,7 +533,7 @@ export class myBatchVoucherCodeDialog {
     }
 
   onNoClick(): void {
-    alert()
+   
     this.createVoucherForm.reset();
     this.signleVoucherDetail = null;
     this.dialogRef.close();
@@ -532,4 +544,27 @@ export class myBatchVoucherCodeDialog {
 }
 
 
+// ------------------------------------ Assign to Event -------------------------------------------
+
+@Component({
+  selector: 'Assign-To-Event-Dialog',
+  templateUrl: '../_dialogs/assign-to-event-dialog.html',
+})
+export class AssignToEventDialog { 
+  eventList = ['Mon 27 Jul: Lajawab Cooking Class',
+                'Mon 27 Jul: Dracula Drinks',
+                'Mon 3 Aug - Mon 10 Aug: Kitty Party'
+              ]
+  constructor(
+    public dialogRef: MatDialogRef<AssignToEventDialog>
+  ){
+  } 
+  onNoClick(): void {
+   
+    this.dialogRef.close();
+  }
+  ngOnInit() { 
+  }
+  
+}
 

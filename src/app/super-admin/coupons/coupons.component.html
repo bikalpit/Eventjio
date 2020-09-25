@@ -116,7 +116,7 @@
                                                     <div (click)=" fnEditVoucher(allVoucherCodeList.unique_code)" class="px-3 pointer border-bottom">
                                                         <i class="fa fa-pencil mr-2"></i><span>Edit</span>
                                                     </div>
-                                                    <div class="px-3 pointer border-bottom">
+                                                    <div class="px-3 pointer border-bottom" (click)="assignToEvent()">
                                                         <i class="fa fa-star mr-2"></i><span>Assign to Event</span>
                                                     </div>
                                                     <div (click)="fnDeleteVoucher(allVoucherCodeList.unique_code)" class="px-3 pointer border-bottom">
