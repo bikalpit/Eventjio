@@ -195,28 +195,28 @@ export class EventsComponent implements OnInit {
 
   // add Event Fns
   
-  // fnChangeEventStartDate(){
-  //   this.minEventEndDate = this.addEventForm.get('event_start_date').value;
-  //   this.addEventForm.get('event_end_date').setValue('');
-  //   this.addEventForm.get('event_end_time').setValue('');
-  // }
+  fnChangeEventStartDate(){
+    // this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+    // this.addEventForm.get('event_end_date').setValue('');
+    // this.addEventForm.get('event_end_time').setValue('');
+  }
   
-  // fnChangeEventEndDate(){
-  //   let startDate = this.addEventForm.get('event_start_date').value;
-  //   let endDate = this.addEventForm.get('event_end_date').value;
-  //   if(startDate == endDate){
-  //     this.startEndSameDate = true;
-  //   }else{
-  //     this.startEndSameDate = false;
-  //   }
-  //   this.minEventEndDate = this.addEventForm.get('event_start_date').value;
-  //   this.addEventForm.get('event_end_date').setValue('');
-  //   this.addEventForm.get('event_end_time').setValue('');
-  // }
+  fnChangeEventEndDate(){
+    // let startDate = this.addEventForm.get('event_start_date').value;
+    // let endDate = this.addEventForm.get('event_end_date').value;
+    // if(startDate == endDate){
+    //   this.startEndSameDate = true;
+    // }else{
+    //   this.startEndSameDate = false;
+    // }
+    // this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+    // this.addEventForm.get('event_end_date').setValue('');
+    // this.addEventForm.get('event_end_time').setValue('');
+  }
 
-  // fnChangeStartTime(){
-  //   this.eventStartTime = this.addEventForm.get('event_start_time').value;
-  // }
+  fnChangeStartTime(){
+    // this.eventStartTime = this.addEventForm.get('event_start_time').value;
+  }
 
   fnChangeEventStatus(event){
     console.log(event)
