@@ -23,6 +23,7 @@ import { BroadcastComponent } from './broadcast/broadcast.component';
 import { mySendBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { IssuedTicketViewComponent,ExportDoorListComponent  } from './issued-ticket/issued-ticket.component'
 
 
 @NgModule({
@@ -40,7 +41,10 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
     editAttendeeNameDialog,
     BroadcastComponent,  
     mySendBroadcastDialog, 
-    DuplicateComponent],
+    DuplicateComponent,
+    IssuedTicketViewComponent,
+    ExportDoorListComponent
+  ],
     
     imports: [
       CommonModule,
@@ -52,7 +56,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
       CKEditorModule,
       MatTooltipModule,],
 
-    entryComponents: [mySendBroadcastDialog,addBuyeronlyQuestionDialog,addAttendeeonlyQuestionDialog,editBuyerNameDialog,editAttendeeNameDialog],
+    entryComponents: [mySendBroadcastDialog,addBuyeronlyQuestionDialog,addAttendeeonlyQuestionDialog,editBuyerNameDialog,editAttendeeNameDialog,IssuedTicketViewComponent,ExportDoorListComponent],
   
   
 })
