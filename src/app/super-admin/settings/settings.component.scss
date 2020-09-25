@@ -4,7 +4,7 @@
 }
 
 .setting-left-menu {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 60px);
     overflow-y: auto;
     width: 300px;
     position: fixed;
@@ -25,4 +25,7 @@
 
 .active {
     color: #007BFF;
+}
+.common-setting-menu{
+    cursor: pointer;
 }

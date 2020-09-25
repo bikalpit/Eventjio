@@ -26,14 +26,16 @@
     border: none;
 }
 
-.customer-image-icon {
-    border-radius: 20px;
+.customer-image-icon img{
+    border-radius: 30px;
 }
 
 .customer-dp {
-    width: 70px;
-    height: 70px;
-    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    img{
+        border-radius: 30px;
+    }
 }
 
 .customer-email {
@@ -107,8 +109,7 @@ table {
     overflow: auto;
     .single-customer {
         border-bottom: 1px solid #ccc;
-        display: flex;
-        align-items: center;
+        padding-left: 34px;
     }
 }
 
@@ -135,6 +136,8 @@ table {
 
 .customer-list-container {
     width: 315px;
+    height: calc(100vh - 130px);
+    overflow-y: auto;
 }
 .Details {
     p {

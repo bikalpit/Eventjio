@@ -157,9 +157,13 @@
 }
 
 .user-image-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 20px;
+    width: 34px;
+    height: 34px;
+   
+    img{
+        border-radius: 30px;
+    }
+
 }
 
 .head-dropdown {
