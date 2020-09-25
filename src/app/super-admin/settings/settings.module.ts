@@ -26,6 +26,7 @@ import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { AddSalesTax } from './sales-tax/sales-tax.component';
 import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component'
 import { HttpClientModule} from '@angular/common/http';
+import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
 
 
 
@@ -35,6 +36,7 @@ import { HttpClientModule} from '@angular/common/http';
      OrderConfirmationComponent,
     inviteTeamMateDialog,
     DialogAdminProfileImageUpload,
+    PaymentSystemsComponent,
   ],
 
 

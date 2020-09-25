@@ -1,5 +1,5 @@
 <div id="broadcast" class="main">
-     <div class="broadcast-deatails">
+     <div class="broadcast-deatails" *ngIf="createBroadcast">
      <div class="container-fluid">
           <div class="top-heading-main">
                <h4> Broadcasts </h4>
@@ -17,7 +17,7 @@
                               <h3>
                               Manage Broadcasts
                               </h3>
-                              <button mat-flat-button color="primary"> Create Broadcast </button>
+                              <button mat-flat-button color="primary" (click)="fnCreateBroadcast()"> Create Broadcast </button>
 
                          </div>
                          <div class="">
@@ -53,7 +53,7 @@
            </div>
      </div>
      </div>
-     <div class="create-broadcast-main">
+     <div class="create-broadcast-main" *ngIf="!createBroadcast">
           <div class="container-fluid">
                <div class="top-heading-main">
                     <h4>Create Broadcast</h4>
