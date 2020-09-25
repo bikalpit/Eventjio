@@ -1,0 +1,85 @@
+<div class="main p-3">
+    <div class="modal-header pl-3 py-0 border-0">
+      <p class="font-weight-bold">Export doorlist</p>
+      <button type="button" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
+        <span aria-hidden="true" class="white-text">&times;</span>
+      </button>
+    </div>
+  
+    <div class="modal-body ">
+          <p>A doorlist lists all of your attendees and what tickets they are entitled to. <br>
+            Print it out and use it to check people in at the door.</p>
+    
+
+    <div class="row m-0">
+        <div class="export-door-list-field">
+             <label for="">Group list by <span class="text-danger"> * </span></label>
+            <mat-select class="form-control">
+                <mat-option value="Attendee name">Attendee name</mat-option>
+                <mat-option value="Buyer name">Buyer name</mat-option>
+            </mat-select>
+        </div>
+
+        <div class="export-door-list-field ml-auto">
+            <label for="">Sort by <span class="text-danger"> * </span></label>
+           <mat-select class="form-control">
+               <mat-option value="Ordered by first name">Ordered by first name</mat-option>
+               <mat-option value="Ordered by last name">Ordered by last name</mat-option>
+           </mat-select>
+       </div>
+
+       <div class="export-door-list-field mt-2">
+        <label for="">Format <span class="text-danger"> * </span></label>
+            <mat-select class="form-control">
+                <mat-option value="Download as formatted PDF">Download as formatted PDF</mat-option>
+                <mat-option value="Download CSV">Download CSV</mat-option>
+                <mat-option value="Print form here">Print form here</mat-option>
+            </mat-select>
+        </div>
+
+        <div class="export-door-list-field ml-auto mt-2">
+            <label for="">Print Size <span class="text-danger"> * </span></label>
+           <mat-select class="form-control">
+               <mat-option value="Small typeface (30 name per page)">Small typeface (30 name per page)</mat-option>
+               <mat-option value="Large typeface (20 name per page)">Large typeface (20 name per page)</mat-option>
+           </mat-select>
+       </div>
+
+    </div>
+    
+    <div class="buyer-question mt-2">
+        <label for="">Buyer questions</label>
+        <div class="row m-0">
+            <div class="ques-checkbox">
+                <mat-checkbox>Buyer questions</mat-checkbox>
+            </div>
+            <div class="ques-checkbox ml-auto">
+                <mat-checkbox>Address line 2</mat-checkbox>
+            </div>
+            <div class="ques-checkbox">
+                <mat-checkbox>Email address</mat-checkbox>
+            </div>
+            <div class="ques-checkbox ml-auto">
+                <mat-checkbox>Address line 3</mat-checkbox>
+            </div>
+            <div class="ques-checkbox">
+                <mat-checkbox>Mobile Phone Number</mat-checkbox>
+            </div>
+            <div class="ques-checkbox ml-auto">
+                <mat-checkbox>Post code</mat-checkbox>
+            </div>
+            <div class="ques-checkbox">
+                <mat-checkbox>Address line 1</mat-checkbox>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+  
+    <div class="modal-footer border-0">
+      <button mat-flat-button (click)="onNoClick()" class="cancel-btn mr-1">Cancel</button>
+      <button mat-flat-button class="export-btn ml-1">Export Doorlist</button>
+    </div>
+  
+  </div>

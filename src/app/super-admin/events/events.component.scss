@@ -242,6 +242,11 @@
     }
 }
 
+.status-select {
+    border-radius: 50px;
+    font-size: 12px;
+}
+
 ::ng-deep .popover {
     border: none;
     .popover-body {
@@ -259,6 +264,23 @@
  ::ng-deep .bs-popover-bottom>.arrow::before,
 .bs-popover-auto[x-placement^=bottom]>.arrow::before {
     border-bottom-color: transparent;
+}
+::ng-deep .mat-common-radius{
+    .mat-select {
+        height: 32px;
+        line-height: 1.2;
+        border-radius: 30px;
+    .mat-select-trigger{
+        .mat-select-value{
+            color: #fff;
+        }
+        .mat-select-arrow-wrapper{
+            .mat-select-arrow{
+                color: #fff;
+            }
+          }
+        }
+    }
 }
 
 .event-settings {

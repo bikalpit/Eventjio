@@ -2,6 +2,7 @@
     .page-title{
         font-size: 16px;
         font-weight: bold;
+        margin-bottom: 22px;
     }
     .set-up-payment{
         width: 100%;
@@ -50,6 +51,9 @@
         }
         .input-div{
             width: 50%;
+            .bg-light{
+                background-color: #F8F8F8;
+            }
         }
         .fa-link{
             transform: rotate(90deg);
@@ -76,6 +80,10 @@
             font-size: 14px;
             font-weight: bold;
         }
+    }
+
+    .event-view-dropdown{
+        width: 170px;
     }
 
 }

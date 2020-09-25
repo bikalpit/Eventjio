@@ -1,6 +1,6 @@
-<div class="main bg-white p-4 ml-2">
+<div class="main bg-white ml-2">
     <div class="row">
-            <div class="col-12">
+            <div class="col-12 tickes-heading">
                 <div class="font-weight-bold page-title">
                   Issued tickets
                 </div>
@@ -15,7 +15,7 @@
         <div class="form-group">
                      <div class="row">
                         <div class="col-12 font-weight-bold">Manage
-                            <button mat-flat-button class="mat-blue float-right">Export doorlist</button>
+                            <button mat-flat-button class="mat-blue float-right" (click)="fnExportDoorList()">Export doorlist</button>
                             <a routerLink="" class="mt-1 float-right mr-1"><u> Get the check-in app </u></a>      
                         </div>   
                      </div> 
@@ -23,12 +23,12 @@
                           <div class="row mx-0"> 
                             <div class="searchbox p-0 search-bar rounded col-12 mt-3 bg-white" >
                                 <i class="fa fa-search p-2 "></i>
-                                <input matInput type="text" class="p-2 pl-0" placeholder="Search by name, email, transaction id, or ticket code">   
+                                <input matInput type="text" class="p-2 pl-0" placeholder="Search by name, email, order ID, or ticket code">   
                             </div>    
                            </div>
               
                 <div class="row mt-3">
-                      <div class="col-5"> 
+                      <div class="col-3"> 
                         <label for="">event</label>  
                         <mat-select placeholder="Select all ticket" class="form-control">
                             <mat-option *ngFor="let status of event_ticket; let i =index" [value]="status" >
@@ -37,7 +37,7 @@
                         </mat-select>
                       </div>
 
-                      <div class="col-2"> 
+                      <div class="col-3"> 
                         <label for="">issued from</label>   
                         <div class="matDate">                    
                         <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon"> </mat-datepicker-toggle>
@@ -46,7 +46,7 @@
                         </div>
                       </div>
 
-                     <div class="col-2"> 
+                     <div class="col-3"> 
                         <label for="">issued to</label>   
                         <div class="matDate"> 
                         <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
@@ -70,21 +70,21 @@
          </div>
             
          <div class="container-fluid">
-           <div class="events mt-5">
+           <div class="events">
               <div class="service-listing">
                 <div class="main-table-content main-cust-table-content ">
                     <div class="">
                           <div class="heads main-heading-content drageble py-3" fxLayout="row">
-                                <div class="" fxFlex="20">Ticket_Code</div>
-                                <div class="" fxFlex="20">Ticket_Type</div>
+                                <div class="" fxFlex="20">Ticket Code</div>
+                                <div class="" fxFlex="20">Ticket Type</div>
                                 <div class="" fxFlex="20">Name</div>
-                                <div class="" fxFlex="20">Orderid</div>  
+                                <div class="" fxFlex="20">Order ID</div>  
                                 <div class="" fxFlex="20">Issued</div>  
                            </div>
                      
                            <div class="drageble-list">
                               <div class="drageble-box"  fxLayout="row" *ngFor="let element of orderData">
-                                <div class="tb-data" fxFlex="20"><span class="cpn-bor" [ngStyle]="{'color':element.Ticket_Code === 'Completed' ? '#0000ff' : '#0000ff' }">{{element.Ticket_Code}}</span> <button mat-raised-button class="mx-1 void-btn">void</button></div>      
+                                <div class="tb-data" fxFlex="20"><span class="cpn-bor" (click)="fnIssuedTicketView()" [ngStyle]="{'color':element.Ticket_Code === 'Completed' ? '#0000ff' : '#0000ff' }">{{element.Ticket_Code}}</span> <button mat-raised-button class="mx-1 void-btn">void</button></div>      
                                 <div class="tb-data" fxFlex="20">{{element.Ticket_Type}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.name}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.Orderid}}</div>
