@@ -15,6 +15,7 @@
 .setting-right-container {
     width: calc(100% - 300px);
     margin-left: 300px;
+    overflow: auto;
 }
 
 .setting-menu-icon {

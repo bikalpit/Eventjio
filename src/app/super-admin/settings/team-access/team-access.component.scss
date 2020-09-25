@@ -113,14 +113,16 @@ button:focus {
         }
          .mat-ink-bar{
             background: #1172F4;
-            height: 5px;
+            height: 3px;
             border-radius: 10px;
         }
         .mat-tab-label{
             font-size: 16px;
+            font-weight: bold;
         }
         .mat-tab-label-active{
-            color: #007BFF;
+            color: #1172F4;
+            font-weight: bold;
         }
     } 
         .service-listing{
@@ -221,6 +223,13 @@ padding-bottom: 0px;
     font-size: 14px;
 }
 ::ng-deep .team-mate{
+    .roles{
+        .team-role{
+            background: #F9F9FA;
+            padding: 10px 15px;
+            font-weight: 600;
+        }
+    }
     .mat-checkbox-layout{
         margin-bottom: 0px;
     }
