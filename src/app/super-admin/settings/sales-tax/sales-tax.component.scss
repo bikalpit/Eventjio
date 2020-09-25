@@ -22,10 +22,12 @@
         .fa-pencil{
             background-color: #E3E6EB;
             cursor: pointer;
+            border-radius: 5px;
         }
         .fa-trash{
             background-color: #E3E6EB;
             cursor: pointer;
+            border-radius: 5px;
         }
     }
     
@@ -33,7 +35,7 @@
 
 // --------------------------------------- Add Tax --------------------------------------------------
 
-::ng-deep .main{
+::ng-deep .main-sale-tax{
     .input-box{
         width: 49%;
         display: inline-block;
