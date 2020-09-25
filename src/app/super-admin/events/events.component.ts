@@ -119,11 +119,13 @@ export class EventsComponent implements OnInit {
 
   
   fnSalesTaxAdd(){
+    
     this.salesTax.push(this.salesTax.length+1);
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.customSalesTaxArr.push(this.createSalesTaxItem());
-    console.log(this.customSalesTaxForm.value)
-    console.log(this.customSalesTaxArr)
+    
+    console.log(this.customSalesTaxForm.value.customSalesTaxArr)
+
   }
 
 
@@ -215,7 +217,7 @@ export class EventsComponent implements OnInit {
     // this.addEventForm.get('event_end_time').setValue('');
   }
 
-  fnChangeStartTime(){
+  fnChangeStartTime(e){
     // this.eventStartTime = this.addEventForm.get('event_start_time').value;
   }
 
