@@ -63,6 +63,7 @@ export class EventsComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
     private ErrorService: ErrorService,
+    private datePipe: DatePipe,
     private SuperadminService: SuperadminService,
     ) {
       if(localStorage.getItem('boxoffice_id')){
@@ -310,8 +311,8 @@ export class EventsComponent implements OnInit {
      let requestObject = {
       'boxoffice_id':this.boxOfficeCode,
       'event_title':this.addEventForm.get('event_name').value,
-      'start_date':this.addEventForm.get('event_start_date').value,
-      'end_date':this.addEventForm.get('event_end_date').value,
+      'start_date':this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
+      'end_date': this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
       'start_time':this.addEventForm.get('event_start_time').value,
       'end_time':this.addEventForm.get('event_end_time').value,
       'venue_name':this.addEventForm.get('vanue_name').value,
