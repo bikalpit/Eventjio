@@ -19,6 +19,10 @@
                 </button>
                 </label>
                 <input type="text" class="form-control" formControlName="voucher_name">
+                <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_name').touched || createVoucherForm.get('voucher_name').dirty">
+                  <small *ngIf="createVoucherForm.get('voucher_name').hasError('required')" class="error">Voucher name is required.</small>
+                  <small *ngIf="createVoucherForm.get('voucher_name').hasError('maxlength')" class="error">Voucher name should be maximum 15 character.</small>
+                </span>
               </div>
               <div class="form-group col-md-6">
                 <label>Value <span><i class="fa fa-asterisk"></i></span> 
@@ -29,6 +33,10 @@
                   </button>
                 </label>
                 <input type="text" class="form-control" formControlName="voucher_value" >
+                <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_value').touched || createVoucherForm.get('voucher_value').dirty">
+                  <small *ngIf="createVoucherForm.get('voucher_value').hasError('required')" class="error">Voucher value is required.</small>
+                  <small *ngIf="createVoucherForm.get('voucher_value').hasError('maxlength')" class="error">Voucher value should be maximum 15 character.</small>
+                </span>
               </div>
               <div class="form-group col-md-12">
                 <label>Voucher Codes <span><i class="fa fa-asterisk"></i></span> 
@@ -39,10 +47,18 @@
                   </button>
                 </label>
                 <textarea class="form-control"  formControlName="voucher_code" rows="3"></textarea>
+                <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_code').touched || createVoucherForm.get('voucher_code').dirty">
+                  <small *ngIf="createVoucherForm.get('voucher_code').hasError('required')" class="error">Voucher code is required.</small>
+                  <small *ngIf="createVoucherForm.get('voucher_code').hasError('maxlength')" class="error">Voucher code should be maximum 15 character.</small>
+                </span>
               </div>
               <div class="form-group col-md-12">
                 <label>Expire Date <span><i class="fa fa-asterisk"></i></span> </label>
                 <input type="date" class="form-control" formControlName="expiry_date">
+                <span class="error-wrap" *ngIf="createVoucherForm.get('expiry_date').touched || createVoucherForm.get('expiry_date').dirty">
+                  <small *ngIf="createVoucherForm.get('expiry_date').hasError('required')" class="error">Voucher code is required.</small>
+                  <!-- <small *ngIf="createVoucherForm.get('voucher_code').hasError('maxlength')" class="error">Voucher code should be maximum 15 character.</small> -->
+                </span>
               </div>
               <div class="form-group col-md-12 mt-2">
                   <label class="mb-0">Events these voucher codes can be redeemed against.</label>                
