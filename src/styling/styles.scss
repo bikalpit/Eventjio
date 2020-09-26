@@ -82,6 +82,7 @@
     }
     
     .footer-action-btn {
+        background-color: white;
         position: fixed;
         bottom: 0;
         width: calc(100% - 380px);
@@ -119,6 +120,7 @@
         height: calc(100vh - 145px);
         overflow-y: scroll;
         z-index: 9;
+        margin-bottom: 75px;
     }
     
     .main-section {

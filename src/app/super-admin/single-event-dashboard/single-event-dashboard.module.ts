@@ -19,6 +19,7 @@ import { editBuyerNameDialog} from './checkout-form/checkout-form.component';
 import { editAttendeeNameDialog} from './checkout-form/checkout-form.component'; 
 import { ExportDoorListComponent } from './issued-ticket/issued-ticket.component';
 import { IssuedTicketViewComponent } from './issued-ticket/issued-ticket.component';
+import { OrderViewComponent } from './issued-ticket/issued-ticket.component';
 
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
@@ -48,7 +49,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ExportDoorListComponent,
     IssuedTicketComponent,
     IssuedTicketViewComponent,
-    ExportDoorListComponent
+    ExportDoorListComponent,
+    OrderViewComponent
   ],
     
     imports: [
@@ -70,7 +72,9 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
       editBuyerNameDialog,
       editAttendeeNameDialog,
       ExportDoorListComponent,
-      IssuedTicketComponent],
+      IssuedTicketViewComponent,
+      OrderViewComponent
+    ],
   
   
 })
