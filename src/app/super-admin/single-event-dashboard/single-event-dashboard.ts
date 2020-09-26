@@ -7,15 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleEventDashboard implements OnInit {
   eventStatus:any='draft';
+ 
   constructor() { }
 
   ngOnInit(): void {
   }
 
   fnChangeEventStatus(status){
-    this.eventStatus= status
+    this.eventStatus = status
   }
 
+  
 }
 
 
