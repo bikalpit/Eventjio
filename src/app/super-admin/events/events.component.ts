@@ -261,7 +261,7 @@ export class EventsComponent implements OnInit {
   }
 
   fnChangeStartTime(){
-    // this.eventStartTime = this.addEventForm.get('event_start_time').value;
+    this.eventStartTime = this.addEventForm.get('event_start_time').value;
   }
 
   fnChangeEventStatus(event){
