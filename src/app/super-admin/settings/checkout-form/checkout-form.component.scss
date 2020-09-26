@@ -14,14 +14,15 @@ main {
     }
     .buyer-que {
         .byr-qn {
-            position: relative;
-            float: right;
-            top: -15px;
-            padding: 0px 15px;
+           display: flex;
+           justify-content: space-around;
+           align-items: center;
+           padding: 6px 16px;
         }
         h5 {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 400;
+            margin-bottom: 0px;
         }
         .byr-qn-btn {
             // width: 300px;
@@ -78,14 +79,15 @@ main {
     }
     .att-qn {
         .byr-qn {
-            position: relative;
-            float: right;
-            top: -15px;
-            padding: 0px 15px;
+            display: flex;
+           justify-content: space-around;
+           align-items: center;
+           padding: 6px 16px;
         }
         h5 {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 400;
+            margin-bottom: 0px;
         }
         .byr-qn-btn {
             background: #1172F4;
