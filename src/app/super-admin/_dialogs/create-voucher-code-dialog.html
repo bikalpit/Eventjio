@@ -10,7 +10,7 @@
       <div class="modal-body pb-0">         
         <form [formGroup]="createVoucherForm">
           <div class="row">
-              <div class=" col-md-6">
+              <div class="col-md-6">
                 <label for="">Name <span><i class="fa fa-asterisk"></i></span> 
                   <button mat-raised-button
                         matTooltip="what would you like to call this batch of codes? This name will be displayed to the customer when enter a code at checkout."
@@ -24,7 +24,7 @@
                   <small *ngIf="createVoucherForm.get('voucher_name').hasError('maxlength')" class="error">Voucher name should be maximum 15 character.</small>
                 </span>
               </div>
-              <div class=" col-md-6">
+              <div class="col-md-6">
                 <label>Value <span><i class="fa fa-asterisk"></i></span> 
                   <button mat-raised-button
                         matTooltip="How much money do these vouchers discount from an order?"
@@ -38,7 +38,7 @@
                   <small *ngIf="createVoucherForm.get('voucher_value').hasError('maxlength')" class="error">Voucher value should be maximum 15 character.</small>
                 </span>
               </div>
-              <div class=" col-md-12">
+              <div class="col-md-12">
                 <label>Voucher Codes <span><i class="fa fa-asterisk"></i></span> 
                   <button mat-raised-button
                         matTooltip="Paste the voucher codes into the box below. One voucher code per line. Max 1,000 voucher codes."
@@ -52,7 +52,7 @@
                   <small *ngIf="createVoucherForm.get('voucher_code').hasError('maxlength')" class="error">Voucher code should be maximum 15 character.</small>
                 </span>
               </div>
-              <div class=" col-md-12">
+              <div class="col-md-12 mt-2">
                 <label>Expire Date <span><i class="fa fa-asterisk"></i></span> </label>
                 <input type="date" class="form-control" formControlName="expiry_date">
                 <span class="error-wrap" *ngIf="createVoucherForm.get('expiry_date').touched || createVoucherForm.get('expiry_date').dirty">
@@ -60,8 +60,8 @@
                   <!-- <small *ngIf="createVoucherForm.get('voucher_code').hasError('maxlength')" class="error">Voucher code should be maximum 15 character.</small> -->
                 </span>
               </div>
-              <div class=" col-md-12 mt-2">
-                  <label class="mb-0">Events these voucher codes can be redeemed against.</label>                
+              <div class="col-md-12 mt-2">
+                  <label class="mb-1 mt-2">Events these voucher codes can be redeemed against.</label>                
               </div>
               <section class="col-md-12 ">
                 <mat-checkbox >Mon 27 JUl: Lajawab Cooking Class</mat-checkbox>
