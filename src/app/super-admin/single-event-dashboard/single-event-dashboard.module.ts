@@ -70,7 +70,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
       editBuyerNameDialog,
       editAttendeeNameDialog,
       ExportDoorListComponent,
-      IssuedTicketComponent],
+      IssuedTicketViewComponent],
   
   
 })

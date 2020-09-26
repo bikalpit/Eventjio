@@ -91,9 +91,10 @@ export class ExportDoorListComponent {
   templateUrl: '../_dialogs/issued-ticket-view.html',
 })
 export class IssuedTicketViewComponent {
-  voidTicket:boolean = false;
+  
   elementType : 'url' | 'canvas' | 'img' = 'url';
   value : string = '5h92H';
+  ticketTypeView : any = 'normal';
   
   constructor(
     public dialogRef: MatDialogRef<IssuedTicketViewComponent>,
@@ -104,9 +105,10 @@ export class IssuedTicketViewComponent {
     this.dialogRef.close();
   }
 
-  fnVoidTicket(){
-    this.voidTicket = !this.voidTicket
+  fnVoidTicket(ticketview){
+    this.ticketTypeView = ticketview;
   }
+
   ngOnInit() {
   }
  
