@@ -94,11 +94,12 @@ export class EventsComponent implements OnInit {
         redirect_url: [''],
         access_code: [''],
       });
-      console.log(this.addEventForm);
-      this.addEventForm.get('event_name').setValidators([]);
-      this.addEventForm.get('event_name').updateValueAndValidity();
 
       console.log(this.addEventForm);
+       this.addEventForm.get('event_name').setValidators([]);
+      // this.addEventForm.get('event_name').updateValueAndValidity();
+
+       console.log(this.addEventForm);
 
       this.customSalesTaxForm = this._formBuilder.group({
         customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
@@ -126,11 +127,11 @@ export class EventsComponent implements OnInit {
 
   
   fnSalesTaxAdd(){
-    this.salesTax.push(this.salesTax.length+1);
+    
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.customSalesTaxArr.push(this.createSalesTaxItem());
-    console.log(this.customSalesTaxForm.value)
-    console.log(this.customSalesTaxArr)
+    this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
+
   }
 
 
@@ -242,7 +243,7 @@ export class EventsComponent implements OnInit {
     // this.addEventForm.get('event_end_time').setValue('');
   }
 
-  fnChangeStartTime(){
+  fnChangeStartTime(e){
     this.eventStartTime = this.addEventForm.get('event_start_time').value;
   }
 
