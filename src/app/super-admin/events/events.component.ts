@@ -181,6 +181,7 @@ export class EventsComponent implements OnInit {
     }
   }
 
+
   fnGetUpcomingEventList(){
     this.isLoaderAdmin = true;
     let requestObject = {
@@ -198,8 +199,8 @@ export class EventsComponent implements OnInit {
       }
     });
     this.isLoaderAdmin = false;
-
   }
+
   fnGetPastEventList(){
     this.isLoaderAdmin = true;
     let requestObject = {
@@ -242,12 +243,26 @@ export class EventsComponent implements OnInit {
     // this.addEventForm.get('event_end_time').setValue('');
   }
 
-  fnChangeStartTime(){
-    this.eventStartTime = this.addEventForm.get('event_start_time').value;
+  fnChangeStartTime(event){
+   // this.eventStartTime = this.addEventForm.get('event_start_time').value;
   }
 
-  fnChangeEventStatus(event){
-    console.log(event)
+  fnChangeEventStatus(uniqueCode, status){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'unique_code' : uniqueCode,
+      'event_status' : status,
+    }
+    this.SuperadminService.fnChangeEventStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.allUpcomingEventListData = response.response
+        this.addNewEvents = true;
+      }else if(response.data == false){
+        this.allUpcomingEventListData.length = 0;
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
   }
 
   fnCancelNewEvent(){
@@ -272,6 +287,7 @@ export class EventsComponent implements OnInit {
     }
     this.addEventForm.updateValueAndValidity();
   }
+
   fnRedirectURL(event){
     if(event.checked == true){
       this.redirectURL = 'Y' 
@@ -279,6 +295,7 @@ export class EventsComponent implements OnInit {
       this.redirectURL = 'N' 
     }
   }
+
   fnAccessCode(event){
     if(event.checked == true){
       this.accessCode = 'Y' 
@@ -286,6 +303,7 @@ export class EventsComponent implements OnInit {
       this.accessCode = 'N' 
     }
   }
+
   fnShareButtonStatus(event){
     if(event.checked == true){
       this.shareButtonStatus = 'Y' 
@@ -293,6 +311,7 @@ export class EventsComponent implements OnInit {
       this.shareButtonStatus = 'N' 
     }
   }
+
   fnCustomSalesTax(event){
     if(event.checked == true){
       this.customSalesTax = 'Y' 
@@ -300,6 +319,7 @@ export class EventsComponent implements OnInit {
       this.customSalesTax = 'N' 
     }
   }
+
   fnHideEventSearch(event){
     if(event.checked == true){
       this.hideEventSearch = 'Y' 

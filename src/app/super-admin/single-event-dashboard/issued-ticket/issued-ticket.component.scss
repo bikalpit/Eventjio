@@ -191,6 +191,17 @@
         .barcode {
             transform: rotate(-45deg);
         }
+        .void-label{
+            width: 50%;
+            height: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            position: absolute;
+            top: 600px;
+            left: 65px;
+            color:#ffffff;
+            transform: rotate(-20deg);
+        }
     }
     .invalidate-ticket {
         background-color: #ffe5e5;
