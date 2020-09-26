@@ -256,99 +256,101 @@
             Preview of example events widget
         </div>
 
-        <div class="px-3 pt-0 preview-example">
+        <div class="px-3 pt-0 preview-example" [(colorPicker)]="bgTextColor" [style.color]="bgTextColor">
             <div class="row">
-                <div class="col-12 p-3 ticket-header">
-                    <div>
-                        Sparkling Events
+                <div class="preview"  [(colorPicker)]="bgColor" [style.background]="bgColor">    
+                    <div class="col-12 p-3 ticket-header" [(colorPicker)]="headerColor" [style.background]="headerColor"  [(colorPicker)]="headerTextColor" [style.color]="headerTextColor"> 
+                        <div>
+                            Sparkling Events
+                        </div>
+                        <div class="font-weight-bold">
+                            Lajawab Cooking Classes [DRAFT]
+                        </div>
+                        <div>
+                            Mon Jul 27 2020 6:00 - 10:00 | The Grand Hyatt
+                        </div>
                     </div>
-                    <div class="font-weight-bold">
-                        Lajawab Cooking Classes [DRAFT]
-                    </div>
-                    <div>
-                        Mon Jul 27 2020 6:00 - 10:00 | The Grand Hyatt
-                    </div>
-                </div>
 
-                <div class="col-12 px-5 py-3">
-                    Book Ticket
-                </div>
-
-                <div class="col-12 px-5 py-3 ticket-table-title">
-                    <div class="row">
-                        <div class="col-8">
-                            Ticket Type
-                        </div>
-                        <div class="col-2">
-                            Price
-                        </div>
-                        <div class="col-2">
-                            Quantity
-                        </div>
+                    <div class="col-12 px-5 py-3">
+                        Book Ticket
                     </div>
-                </div>
-                <hr>
-                <div class="col-12 mt-3 px-5">
-                    <div class="row">
-                        <div class="col-8">
-                            General Adminssion
-                        </div>
-                        <div class="col-2">
-                            $ 5000.00
-                        </div>
-                        <div class="col-2">
-                            <mat-select name="" id="" class="form-control">
-                                <mat-option value="0">0</mat-option>
-                                <mat-option value="1">1</mat-option>
-                                <mat-option value="2">2</mat-option>
-                        </mat-select>
+
+                    <div class="col-12 px-5 py-3 ticket-table-title">
+                        <div class="row">
+                            <div class="col-8">
+                                Ticket Type
+                            </div>
+                            <div class="col-2">
+                                Price
+                            </div>
+                            <div class="col-2">
+                                Quantity
+                            </div>
                         </div>
                     </div>
                     <hr>
-                </div>
-
-                <div class="col-12 px-5">
-                    <div class="row">
-                        <div class="col-10">
-                            Subtotal
+                    <div class="col-12 mt-3 px-5">
+                        <div class="row">
+                            <div class="col-8">
+                                General Adminssion
+                            </div>
+                            <div class="col-2">
+                                $ 5000.00
+                            </div>
+                            <div class="col-2">
+                                <mat-select name="" id="" class="form-control">
+                                    <mat-option value="0">0</mat-option>
+                                    <mat-option value="1">1</mat-option>
+                                    <mat-option value="2">2</mat-option>
+                            </mat-select>
+                            </div>
                         </div>
-
-                        <div class="col-2">
-                            $ 0.00
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-
-                <div class="col-12 px-5 text-right">
-                    <button mat-flat-button class="next-btn px-5">Next</button>
-                </div>
-                <div class="col-12 px-5 font-weight-bold pb-2">
-                    DISCRIPTION
-                </div>
-                <div class="col-12 px-5">
-                    <div class="row">
-                        <div class="col-8">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur nihil est maxime! Suscipit inventore libero cumque, iure sequi reprehenderit debitis ut ipsam nemo. Optio delectus sequi vero nobis soluta molestiae.
-                        </div>
-                        <div class="col-4">
-                            <img src="../../../../assets/images/admin/Image 40.png" alt="" class="w-100">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 mt-4 p-3 ticket-footer">
-                    <div class="row">
-                        <div class="col-8 pt-3">
-                            <span>Need help, lost your tickets, and have any questions? <a href="#">Click here for help</a></span>
-                        </div>
-                        <div class="col-4 text-center poweredby">
-                            <p class="m-0">Powered by</p>
-                            <p class="web-title">Eventjio</p>
-                        </div>
+                        <hr>
                     </div>
 
+                    <div class="col-12 px-5">
+                        <div class="row">
+                            <div class="col-10">
+                                Subtotal
+                            </div>
 
+                            <div class="col-2">
+                                $ 0.00
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <div class="col-12 px-5 text-right">
+                        <button mat-flat-button class="next-btn px-5" [(colorPicker)]="btnColor" [style.background]="btnColor"  [(colorPicker)]="btnTextColor" [style.color]="btnTextColor">Next</button>
+                    </div>
+                    <div class="col-12 px-5 font-weight-bold pb-2">
+                        DISCRIPTION
+                    </div>
+                    <div class="col-12 px-5">
+                        <div class="row">
+                            <div class="col-8">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur nihil est maxime! Suscipit inventore libero cumque, iure sequi reprehenderit debitis ut ipsam nemo. Optio delectus sequi vero nobis soluta molestiae.
+                            </div>
+                            <div class="col-4">
+                                <img src="../../../../assets/images/admin/Image 40.png" alt="" class="w-100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4 p-3 ticket-footer">
+                        <div class="row">
+                            <div class="col-8 pt-3">
+                                <span>Need help, lost your tickets, and have any questions? <a href="#">Click here for help</a></span>
+                            </div>
+                            <div class="col-4 text-center poweredby">
+                                <p class="m-0">Powered by</p>
+                                <p class="web-title">Eventjio</p>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
 

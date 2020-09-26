@@ -266,7 +266,7 @@
 }
 
 // for modal auto
-::ng-deep .cdk-overlay-pane {
+::ng-deep .cdk-global-overlay-wrapper .cdk-overlay-pane {
     overflow: auto;
 }
 
@@ -297,4 +297,8 @@
     padding: 4px 6px !important;
     font-size: 14px;
     color: #1172F4;
+}
+.mat-dialog-container {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
 }
