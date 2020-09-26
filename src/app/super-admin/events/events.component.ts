@@ -181,23 +181,6 @@ export class EventsComponent implements OnInit {
     }
   }
 
-  changeEventStatus(uniqueCode, status){
-    this.isLoaderAdmin = true;
-    let requestObject = {
-      'unique_code' : uniqueCode,
-      'event_status' : status,
-    }
-    this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.allUpcomingEventListData = response.response
-        this.addNewEvents = true;
-      }else if(response.data == false){
-        this.allUpcomingEventListData.length = 0;
-        this.ErrorService.errorMessage(response.response);
-      }
-    });
-    this.isLoaderAdmin = false;
-  }
 
   fnGetUpcomingEventList(){
     this.isLoaderAdmin = true;
@@ -260,12 +243,26 @@ export class EventsComponent implements OnInit {
     // this.addEventForm.get('event_end_time').setValue('');
   }
 
-  fnChangeStartTime(){
-    this.eventStartTime = this.addEventForm.get('event_start_time').value;
+  fnChangeStartTime(event){
+   // this.eventStartTime = this.addEventForm.get('event_start_time').value;
   }
 
-  fnChangeEventStatus(event){
-    console.log(event)
+  fnChangeEventStatus(uniqueCode, status){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'unique_code' : uniqueCode,
+      'event_status' : status,
+    }
+    this.SuperadminService.fnChangeEventStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.allUpcomingEventListData = response.response
+        this.addNewEvents = true;
+      }else if(response.data == false){
+        this.allUpcomingEventListData.length = 0;
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
   }
 
   fnCancelNewEvent(){
