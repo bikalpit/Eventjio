@@ -67,18 +67,18 @@ export class BoxOfficeComponent implements OnInit {
     });
   }
   
-  fnshowhide(){
-    this.showHide =!this.showHide;
+  // fnshowhide(){
+  //   this.showHide =!this.showHide;
+  // }
+
+  fnshowHide(){
+    this.showHide = !this.showHide;
   }
 
-  // fnshowHide(){
-  //   this.showHide = !this.showHide;
-  // }
-
-  // hideEmail(){
-  //   this.Emailshow= false;
-  //   this.iconshow= false;
-  // }
+  hideEmail(){
+    this.Emailshow= false;
+    this.iconshow= false;
+  }
 
   updateBoxoffice(){
     if(this.singleBoxofficeUpdate){
