@@ -73,4 +73,6 @@ export class SettingService {
         }),catchError(this.handleError));
     }
 
+    
+
 }
