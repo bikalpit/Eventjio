@@ -50,7 +50,7 @@ export class ErrorService {
     }
   }
   successMessage(errorMessage){
-    this._snackBar.open(JSON.stringify(errorMessage), "X", {
+    this._snackBar.open(errorMessage, "X", {
       duration: 2000,
       verticalPosition: 'top',
       panelClass : ['green-snackbar']

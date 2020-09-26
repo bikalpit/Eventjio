@@ -78,9 +78,9 @@ export class EventsComponent implements OnInit {
         event_start_time: ['',Validators.required],
         event_end_date: ['',Validators.required],
         event_end_time: ['',Validators.required],
-        vanue_name: [''],
-        vanue_zip: [''],
-        vanue_country: [''],
+        vanue_name: ['',Validators.required],
+        vanue_zip: ['',Validators.required],
+        vanue_country: ['',Validators.required],
         online_platform: [''],
         online_link: [''],
         description: ['',Validators.required],
@@ -148,7 +148,6 @@ export class EventsComponent implements OnInit {
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.customSalesTaxArr.push(this.createSalesTaxItem());
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
-
   }
 
 
@@ -273,11 +272,8 @@ export class EventsComponent implements OnInit {
     }
     this.SuperadminService.fnChangeEventStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allUpcomingEventListData = response.response
         this.ErrorService.successMessage(response.response);
-
       }else if(response.data == false){
-        this.allUpcomingEventListData.length = 0;
         this.ErrorService.errorMessage(response.response);
       }
     });
@@ -299,10 +295,20 @@ export class EventsComponent implements OnInit {
   fnChangeDonation(event){
     if(event.checked == true){
       this.donation = 'Y' ;
-      this.addEventForm.controls['donation_title'].setValidators([Validators.required])
+      this.addEventForm.controls["donation_title"].setValidators(Validators.required);
+      this.addEventForm.controls["donation_amount"].setValidators(Validators.required);
+      this.addEventForm.controls["donation_description"].setValidators(Validators.required);
+      this.addEventForm.controls["donation_title"].updateValueAndValidity();
+      this.addEventForm.controls["donation_amount"].updateValueAndValidity();
+      this.addEventForm.controls["donation_description"].updateValueAndValidity();
     }else{
       this.donation = 'N' 
-      this.addEventForm.controls['donation_title'].setValidators(null)
+      this.addEventForm.controls["donation_title"].setValidators(null);
+      this.addEventForm.controls["donation_amount"].setValidators(null);
+      this.addEventForm.controls["donation_description"].setValidators(null);
+      this.addEventForm.controls["donation_title"].updateValueAndValidity();
+      this.addEventForm.controls["donation_amount"].updateValueAndValidity();
+      this.addEventForm.controls["donation_description"].updateValueAndValidity();
     }
     this.addEventForm.updateValueAndValidity();
   }
@@ -310,34 +316,28 @@ export class EventsComponent implements OnInit {
   fnRedirectURL(event){
     if(event.checked == true){
       this.redirectURL = 'Y' 
+      this.addEventForm.controls["redirect_url"].setValidators(Validators.required);
+      this.addEventForm.controls["redirect_url"].updateValueAndValidity();
     }else{
       this.redirectURL = 'N' 
+      this.addEventForm.controls["redirect_url"].setValidators(null);
+      this.addEventForm.controls["redirect_url"].updateValueAndValidity();
     }
+    this.addEventForm.updateValueAndValidity();
   }
 
   fnAccessCode(event){
     if(event.checked == true){
       this.accessCode = 'Y' 
-      alert();
       this.addEventForm.controls["access_code"].setValidators(Validators.required);
       this.addEventForm.controls["access_code"].updateValueAndValidity();
   
-      this.addEventForm.controls["event_name"].setValidators(null);
-      this.addEventForm.controls["event_name"].updateValueAndValidity();
-  
-  
-      //  this.addEventForm.get('event_name').setValidators(null);
-      // this.addEventForm.controls.event_name.setValidators([]);
-      // console.log(this.addEventForm.controls);
-  
-  
-      //this.addEventForm.controls.event_name.updateValueAndValidity();
-      this.addEventForm.updateValueAndValidity();
-      console.log(this.addEventForm.controls);
-  
     }else{
       this.accessCode = 'N' 
+      this.addEventForm.controls["access_code"].setValidators(null);
+      this.addEventForm.controls["access_code"].updateValueAndValidity();
     }
+    this.addEventForm.updateValueAndValidity();
   }
 
   fnShareButtonStatus(event){
@@ -367,13 +367,38 @@ export class EventsComponent implements OnInit {
   fnolPlatform(event){
     if(event.checked == true){
       this.olPlatForm = 'Y';
+      this.addEventForm.controls["online_platform"].setValidators(Validators.required);
+      this.addEventForm.controls["online_link"].setValidators(Validators.required);
+      this.addEventForm.controls["vanue_name"].setValidators(null);
+      this.addEventForm.controls["vanue_zip"].setValidators(null);
+      this.addEventForm.controls["vanue_country"].setValidators(null);
+      this.addEventForm.controls["online_platform"].updateValueAndValidity();
+      this.addEventForm.controls["online_link"].updateValueAndValidity();
+      this.addEventForm.controls["vanue_name"].updateValueAndValidity();
+      this.addEventForm.controls["vanue_zip"].updateValueAndValidity();
+      this.addEventForm.controls["vanue_country"].updateValueAndValidity();
     }else{
       this.olPlatForm = 'N';
+      this.addEventForm.controls["online_platform"].setValidators(null);
+      this.addEventForm.controls["online_link"].setValidators(null);
+      this.addEventForm.controls["vanue_name"].setValidators(Validators.required);
+      this.addEventForm.controls["vanue_zip"].setValidators(Validators.required);
+      this.addEventForm.controls["vanue_country"].setValidators(Validators.required);
+      this.addEventForm.controls["online_platform"].updateValueAndValidity();
+      this.addEventForm.controls["online_link"].updateValueAndValidity();
+      this.addEventForm.controls["vanue_name"].updateValueAndValidity();
+      this.addEventForm.controls["vanue_zip"].updateValueAndValidity();
+      this.addEventForm.controls["vanue_country"].updateValueAndValidity();
     }
+    this.addEventForm.updateValueAndValidity();
   }
   
   fnAddNewEvent(){
     console.log(this.addEventForm)
+    console.log(this.salesTax)
+    this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
+    this.customSalesTaxArr.push(this.createSalesTaxItem());
+    this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
 
     if(this.addEventForm.invalid){
       this.addEventForm.get('event_name').markAsTouched();
@@ -386,6 +411,14 @@ export class EventsComponent implements OnInit {
       this.addEventForm.get('book_btn_title').markAsTouched();
       this.addEventForm.get('ticket_available').markAsTouched();
       this.addEventForm.get('ticket_unavailable').markAsTouched();
+      this.addEventForm.get('donation_title').markAsTouched();
+      this.addEventForm.get('donation_amount').markAsTouched();
+      this.addEventForm.get('donation_description').markAsTouched();
+      this.addEventForm.get('redirect_url').markAsTouched();
+      this.addEventForm.get('access_code').markAsTouched();
+      this.addEventForm.get('vanue_name').markAsTouched();
+      this.addEventForm.get('vanue_zip').markAsTouched();
+      this.addEventForm.get('vanue_country').markAsTouched();
       return false;
      }
 
@@ -421,7 +454,7 @@ export class EventsComponent implements OnInit {
       'access_code':this.addEventForm.get('access_code').value,
       'hide_share_button':this.shareButtonStatus,
       'custom_sales_tax':this.customSalesTax,
-      'sales_tax':'sales_tax_amt',
+      'sales_tax':this.salesTax,
       'ticket_ids':this.assignedTicketId,
       'image' : this.newEventImageUrl,
       'default-image' : this.selecetdDefaultImage,
@@ -434,6 +467,8 @@ export class EventsComponent implements OnInit {
     this.SuperadminService.createNewEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
+        this.fnGetUpcomingEventList()
+        this.fnGetPastEventList()
         this.addNewEvents = true;
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
