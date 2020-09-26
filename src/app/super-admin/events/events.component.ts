@@ -95,15 +95,11 @@ export class EventsComponent implements OnInit {
         access_code: [''],
       });
 
-      console.log(this.addEventForm);
-       this.addEventForm.get('event_name').setValidators([]);
-      // this.addEventForm.get('event_name').updateValueAndValidity();
-
-       console.log(this.addEventForm);
+      console.log(this.addEventForm.controls);
 
       this.customSalesTaxForm = this._formBuilder.group({
         customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
-      })
+      });
 
     }
 
@@ -116,6 +112,27 @@ export class EventsComponent implements OnInit {
     this.fnGetPastEventList();
     this.getTimeSlote();
     
+  }
+
+  test(){
+    alert();
+    this.addEventForm.controls["access_code"].setValidators(Validators.required);
+    this.addEventForm.controls["access_code"].updateValueAndValidity();
+
+    this.addEventForm.controls["event_name"].setValidators(null);
+    this.addEventForm.controls["event_name"].updateValueAndValidity();
+
+
+    //  this.addEventForm.get('event_name').setValidators(null);
+    // this.addEventForm.controls.event_name.setValidators([]);
+    // console.log(this.addEventForm.controls);
+
+
+    //this.addEventForm.controls.event_name.updateValueAndValidity();
+    this.addEventForm.updateValueAndValidity();
+    console.log(this.addEventForm.controls);
+
+   
   }
 
   createSalesTaxItem() {
@@ -158,7 +175,7 @@ export class EventsComponent implements OnInit {
     this.SuperadminService.getTimeSlote(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fullDayTimeSlote= response.response
-        console.log(this.fullDayTimeSlote)
+       // console.log(this.fullDayTimeSlote)
       }
     });
   }
