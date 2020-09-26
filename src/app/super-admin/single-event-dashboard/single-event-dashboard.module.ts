@@ -25,6 +25,7 @@ import { BroadcastComponent } from './broadcast/broadcast.component';
 import { mySendBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
@@ -44,6 +45,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     BroadcastComponent,  
     mySendBroadcastDialog, 
     DuplicateComponent,
+    ExportDoorListComponent,
+    IssuedTicketComponent,
     IssuedTicketViewComponent,
     ExportDoorListComponent
   ],
@@ -61,15 +64,13 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
       NgxQRCodeModule
     ],
 
-    entryComponents: [
-      mySendBroadcastDialog,
+    entryComponents: [mySendBroadcastDialog,
       addBuyeronlyQuestionDialog,
       addAttendeeonlyQuestionDialog,
       editBuyerNameDialog,
       editAttendeeNameDialog,
       ExportDoorListComponent,
-      IssuedTicketViewComponent
-    ],
+      IssuedTicketComponent],
   
   
 })
