@@ -20,6 +20,4 @@ npm install ngx-qrcode2 --save
 Bar-Code :
 npm install ngx-barcode --save
 
-Intall Timepicker through below command
-npm i mat-timepicker
 
