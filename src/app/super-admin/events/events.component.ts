@@ -256,7 +256,8 @@ export class EventsComponent implements OnInit {
     this.SuperadminService.fnChangeEventStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allUpcomingEventListData = response.response
-        this.addNewEvents = true;
+        this.ErrorService.successMessage(response.response);
+
       }else if(response.data == false){
         this.allUpcomingEventListData.length = 0;
         this.ErrorService.errorMessage(response.response);
@@ -299,6 +300,23 @@ export class EventsComponent implements OnInit {
   fnAccessCode(event){
     if(event.checked == true){
       this.accessCode = 'Y' 
+      alert();
+      this.addEventForm.controls["access_code"].setValidators(Validators.required);
+      this.addEventForm.controls["access_code"].updateValueAndValidity();
+  
+      this.addEventForm.controls["event_name"].setValidators(null);
+      this.addEventForm.controls["event_name"].updateValueAndValidity();
+  
+  
+      //  this.addEventForm.get('event_name').setValidators(null);
+      // this.addEventForm.controls.event_name.setValidators([]);
+      // console.log(this.addEventForm.controls);
+  
+  
+      //this.addEventForm.controls.event_name.updateValueAndValidity();
+      this.addEventForm.updateValueAndValidity();
+      console.log(this.addEventForm.controls);
+  
     }else{
       this.accessCode = 'N' 
     }

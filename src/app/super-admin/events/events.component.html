@@ -33,7 +33,7 @@
                                             <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
 
                                                 <mat-option value="draft">Draft</mat-option>
-                                                <mat-option value="published">Published</mat-option>
+                                                <mat-option value="publish">Published</mat-option>
                                             </mat-select>
                                         </div>
                                         <div class="tb-data" fxFlex="13">0</div>
@@ -95,9 +95,9 @@
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of allPastEventListData">
                                         <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data" fxFlex="20">
-                                            <mat-select [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
+                                            <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="draft">Draft</mat-option>
-                                                <mat-option value="published">Published</mat-option>
+                                                <mat-option value="publish">Published</mat-option>
                                             </mat-select>
                                         </div>
                                         <div class="tb-data" fxFlex="13">0</div>
