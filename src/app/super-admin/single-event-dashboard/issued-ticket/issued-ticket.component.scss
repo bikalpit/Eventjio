@@ -1,217 +1,225 @@
-.mat-blue{
+.mat-blue {
     background-color: #1172F4;
-    color:#ffffff;
+    color: #ffffff;
 }
-.tickes-heading{
-    p{
+
+.tickes-heading {
+    p {
         margin-bottom: 24px!important;
     }
 }
-.void-btn{
+
+.void-btn {
     background-color: red;
     color: white;
     border-radius: 5px;
 }
-.search-bar{
+
+.search-bar {
     font-family: Poppins, Regular;
-    border:1px solid #CECECE;
+    border: 1px solid #CECECE;
     display: flex;
-    input{
-        
+    input {
         background-color: transparent;
         border: none;
         outline: none;
         width: 100%;
-    }   
-    
-}
-.mat_content{
-  background-color:#F6F6F645;
+    }
 }
 
-.matDate{
-    
-    position:relative;
+.mat_content {
+    background-color: #F6F6F645;
 }
-.dateIcon{
-     position: absolute;
+
+.matDate {
+    position: relative;
 }
-.matInputdate{
+
+.dateIcon {
+    position: absolute;
+}
+
+.matInputdate {
     padding-left: 40px;
 }
 
-.events{
+.events {
     padding-bottom: 30px;
     margin-top: 34px;
-.service-listing{
-             
-    .drageble-list {
-        width: 100%;
-        border-top: solid 1px #DDDDDD;
-        display: block;
-        // background: white;
-        // border-radius: 4px;
-        overflow: hidden;
-        font-size: 14px;
-        font-weight: 500;
-        padding-top: 16px;
+    .service-listing {
+        .drageble-list {
+            width: 100%;
+            border-top: solid 1px #DDDDDD;
+            display: block;
+            // background: white;
+            // border-radius: 4px;
+            overflow: hidden;
+            font-size: 14px;
+            font-weight: 500;
+            padding-top: 16px;
+        }
+        .main-heading-content {
+            border-top: solid 1px #DDDDDD;
+            padding: 8px 0px;
+            align-items: center;
+            font-size: 14px;
+            color: #595959;
+        }
+        .drageble-box {
+            align-items: center;
+            // border-bottom: 1px solid #ccc5c5;
+        }
+        .tb-data {
+            padding: 15px 0px;
+            color: #595959;
+        }
+        .cpn-title {
+            color: #181818;
+        }
+        .cpn-code {
+            color: #1172F4;
+        }
+        .cpn-bor {
+            color: #ffffff;
+            // padding: 2px 15px; 
+            border-radius: 10px;
+        }
+        .void-btn {
+            border-radius: 4px;
+            line-height: 24px;
+            margin-left: 12px !important;
+            box-shadow: none;
+        }
+        .action-icon {
+            color: #007BFF;
+            border-radius: 50%;
+            padding: 16px 16px;
+            background: #ABE6FD;
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            font-size: 30px;
+        }
     }
-   .main-heading-content{
-        border-top: solid 1px #DDDDDD;
-        padding: 8px 0px;
-        align-items: center;                
-        font-size: 14px;
-        color: #595959;
-    }
-    .drageble-box{
-        align-items: center;
-        // border-bottom: 1px solid #ccc5c5;
-    }
-    .tb-data{
-        padding: 15px 0px;
-        color: #595959;
-    }
-    .cpn-title{
-        color: #181818;
-    }
-    .cpn-code{
-        color: #1172F4;
-    }
-    .cpn-bor{
-        color: #ffffff;
-        // padding: 2px 15px; 
-        border-radius: 10px;
-    }
-    .void-btn{
-        border-radius: 4px;
-        line-height: 24px;
-        margin-left: 12px !important;
-        box-shadow: none;
-    }
-    .action-icon{
-        color: #007BFF;
-        border-radius: 50%;
-        padding: 16px 16px;
-        background: #ABE6FD;
-        width: 32px;
-        height: 32px;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        font-size: 30px;
-    }
-}
 }
 
 // ---------------------------------Export Doorlist CSS ---------------------------------------
-
-::ng-deep .export-door-list-field{
-        width:49%;
-    }
-
-::ng-deep .buyer-question{
-    width:50%;
+::ng-deep .export-door-list-field {
+    width: 49%;
 }
-::ng-deep .ques-checkbox{
+
+::ng-deep .buyer-question {
     width: 50%;
 }
-::ng-deep .cancel-btn{
+
+::ng-deep .ques-checkbox {
+    width: 50%;
+}
+
+::ng-deep .cancel-btn {
     background-color: #DDDDDD;
 }
-::ng-deep .export-btn{
+
+::ng-deep .export-btn {
     background-color: #1172F4;
-    color:#ffffff;
+    color: #ffffff;
 }
-::ng-deep .close-btn{
+
+::ng-deep .close-btn {
     outline: none;
     border: unset;
     border-radius: 20px;
-    background-color:#B4D4FF ;
-    color:#1172F4;
+    background-color: #B4D4FF;
+    color: #1172F4;
 }
 
 // --------------------------------- Issued ticket View CSS -----------------------------------------
-::ng-deep .mat-dialog-container{
+::ng-deep .mat-dialog-container {
     padding: 0px !important;
 }
-::ng-deep .issued-ticket-view-container{
-   
+
+::ng-deep .issued-ticket-view-container {
     max-height: 90vh;
-    .void-ticket-btn{
+    .void-ticket-btn {
         background-color: #1172F4;
         color: #ffffff;
     }
-    .print-ticket-btn{
-        background-color:#DDDDDD ;
+    .print-ticket-btn {
+        background-color: #DDDDDD;
     }
-     .re-issue-notify{
+    .re-issue-notify {
         width: 90%;
         background-color: #ABE6FD;
-    
-        .fa-bell{
+        .fa-bell {
             transform: rotate(-45deg);
             color: #FF6600;
         }
     }
-    .ticket-detail-title{
+    .ticket-detail-title {
         background-color: #EFEFEF;
     }
-    .ticket-detail{
+    .ticket-detail {
         width: 50%;
     }
-    .ticket-detail-field{
+    .ticket-detail-field {
         padding: 10px 0px;
         width: 50%;
     }
-
-    .ticket-voucher{
+    .ticket-voucher {
         width: 70%;
-        border:2px dashed #DDDDDD;
-        .ticket-title{
+        border: 2px dashed #DDDDDD;
+        .ticket-title {
             font-size: 20px;
             font-weight: bold;
         }
-
         .qrcode {
             background-color: aqua;
             width: 300px;
             height: 300px;
-            img{
-                width: 100%;    
+            img {
+                width: 100%;
             }
-
-           
-            
         }
-        label{
+        label {
             font-size: 12px;
         }
-        .date{
+        .date {
             font-size: 12px;
         }
-        .barcode{
-            transform: rotate(-45deg);  
+        .barcode {
+            transform: rotate(-45deg);
         }
-        
     }
-
-    .invalidate-ticket{
+    .invalidate-ticket {
         background-color: #ffe5e5;
         border-radius: 5px;
-
-        .fa-times-circle{
+        .fa-times-circle {
             color: #FF0000;
         }
     }
-    .main-div-ticket-code-type{
+    .main-div-ticket-code-type {
         width: 50%;
-        .ticket-code-type{
+        .ticket-code-type {
             width: 50%;
         }
-    
     }
-    
-    
-    
-
+    .void-ticket {
+        background-color: #007BFF;
+        color: #ffffff;
+    }
+    .invalidate-ticket {
+        background-color: #ffe5e5;
+        border-radius: 5px;
+        .fa-times-circle {
+            color: #FF0000;
+        }
+    }
+    .main-div-ticket-code-type {
+        width: 50%;
+        .ticket-code-type {
+            width: 50%;
+        }
+    }
 }

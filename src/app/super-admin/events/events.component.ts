@@ -42,7 +42,8 @@ export class EventsComponent implements OnInit {
  selecetdDefaultImage:any;
  eventStartTime:any;
   // timeIntervals:any = ['00:00','00:30','01:00','01:30','02:00','02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30'];
-  allEventListData:any;
+  allUpcomingEventListData:any =[];
+  allPastEventListData:any =[];
   salesTax = [ ];
   salesTaxValue = [{
     amount:'',
@@ -51,13 +52,13 @@ export class EventsComponent implements OnInit {
 
   customSalesTaxForm: FormGroup;
   customSalesTaxArr: FormArray;
-  eventListingFilter : any = 'upcoming';
   minEventStartDate:any = new Date();
   minEventEndDate:any = new Date();
   eventTicketList= [];
   eventTicketAlertMSG :boolean = true;
   fullDayTimeSlote:any;
   startEndSameDate:boolean = false;
+  assignedTicketId :any =[];
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -93,6 +94,11 @@ export class EventsComponent implements OnInit {
         redirect_url: [''],
         access_code: [''],
       });
+      console.log(this.addEventForm);
+      this.addEventForm.get('event_name').setValidators([]);
+      this.addEventForm.get('event_name').updateValueAndValidity();
+
+      console.log(this.addEventForm);
 
       this.customSalesTaxForm = this._formBuilder.group({
         customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
@@ -105,7 +111,8 @@ export class EventsComponent implements OnInit {
     this.getAllCountry();
     this.getAllTimeZone();
     this.getDefaultImages();
-    this.fnGetAllEventList();
+    this.fnGetUpcomingEventList();
+    this.fnGetPastEventList();
     this.getTimeSlote();
     
   }
@@ -168,24 +175,44 @@ export class EventsComponent implements OnInit {
   onTabChange(event){
     let clickedIndex = event.index;
     if(clickedIndex == 0){
-      this.eventListingFilter = 'upcoming'
+      this.fnGetUpcomingEventList();
     }else if(clickedIndex == 1){
-      this.eventListingFilter = 'past'
+      this.fnGetPastEventList();
     }
-    this.fnGetAllEventList();
   }
 
-  fnGetAllEventList(){
+  fnGetUpcomingEventList(){
+    this.isLoaderAdmin = true;
     let requestObject = {
       'boxoffice_id'  :this.boxOfficeCode,
-      'filter' : this.eventListingFilter
+      'filter' : 'upcoming'
     }
     this.isLoaderAdmin = true;
     this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allEventListData = response.response
+        this.allUpcomingEventListData = response.response
         this.addNewEvents = true;
       }else if(response.data == false){
+        this.allUpcomingEventListData.length = 0;
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
+
+  }
+  fnGetPastEventList(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'boxoffice_id'  :this.boxOfficeCode,
+      'filter' : 'past'
+    }
+    this.isLoaderAdmin = true;
+    this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.allPastEventListData = response.response
+        this.addNewEvents = true;
+      }else if(response.data == false){
+        this.allPastEventListData.lenght = 0
         this.ErrorService.errorMessage(response.response);
       }
     });
@@ -339,7 +366,7 @@ export class EventsComponent implements OnInit {
       'hide_share_button':this.shareButtonStatus,
       'custom_sales_tax':this.customSalesTax,
       'sales_tax':'sales_tax_amt',
-      'ticket_ids':'',
+      'ticket_ids':this.assignedTicketId,
       'image' : this.newEventImageUrl,
       'default-image' : this.selecetdDefaultImage,
       };
@@ -379,6 +406,8 @@ export class EventsComponent implements OnInit {
       if(result){
         this.eventTicketList.push(result)
         console.log(this.eventTicketList)
+        this.assignedTicketId.push(result.id)
+        console.log(this.assignedTicketId)
         this.eventTicketAlertMSG = false;
       }
     });

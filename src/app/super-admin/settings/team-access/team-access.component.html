@@ -17,7 +17,8 @@
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
-                                        <div class="" fxFlex="25">Name</div>
+                                        <div class="" fxFlex="5"></div>
+                                        <div class="" fxFlex="20">Name</div>
                                         <div class="" fxFlex="25">Roles</div>
                                         <div class="" fxFlex="25">Email address</div>
                                         <div class="" fxFlex="25">Last Seen</div>
@@ -26,13 +27,13 @@
                                     <div *ngFor="let tm of teammates">
                                         <div class="content" class="drageble-list">
                                             <div class="drageble-box"  fxLayout="row">
-                                                <div class="tb-data" fxFlex="25">
-                                                    <div>
-                                                        <div class="user-details">
-                                                            <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
-                                                            <p>{{tm.name}}</p>
-                                                        </div>
+                                                <div class="tb-data" fxFlex="5">
+                                                    <div class="user-details">
+                                                        <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
                                                     </div>
+                                                </div>
+                                                <div class="tb-data" fxFlex="20">
+                                                 {{tm.name}}
                                                 </div>
                                                 <div class="tb-data" fxFlex="25">{{tm.role}}</div>
                                                 <div class="tb-data" fxFlex="25">{{tm.email}}</div>
