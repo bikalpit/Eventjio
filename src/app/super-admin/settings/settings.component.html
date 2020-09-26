@@ -10,15 +10,15 @@
                 </div> <span>Event Page Appearance</span><i class="fa fa-angle-down pl-5 ml-2"></i>
             </div>
             <div [hidden]="isShowDiv">
-                <div routerLink="/super-admin/settings" class="py-2 active">
+                <div routerLink="/super-admin/settings" class="py-2 common-sub-menu" >
                     <span class="pl-4">Event Page Design</span>
                 </div>
 
-                <div routerLink="/super-admin/settings/buttons-and-links" class="py-2">
+                <div routerLink="/super-admin/settings/buttons-and-links" class="py-2 common-sub-menu">
                     <span class="pl-4">Buttons and Links</span>
                 </div>
 
-                <div routerLink="/super-admin/settings/websites-embed-codes" class="py-2">
+                <div routerLink="/super-admin/settings/websites-embed-codes" class="py-2 common-sub-menu">
                     <span class="pl-4">Website Embed Codes</span>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     </div><span>Contact Preferences</span>
                 </div>
 
-                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/checkout-form">
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/checkout-form" (click)="fnPostUrl('checkout-form')" [ngClass]="{'active': pageName == 'checkout-form'}">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/information/information.png" class="w-100" alt="">
                     </div> <span>Checkout form</span>
