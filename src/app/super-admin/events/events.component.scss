@@ -291,6 +291,7 @@
         .border-bottom {
             border-bottom: 1px solid #7070701a !important;
             padding: 5px 0px;
+            cursor: pointer;
         }
     }
 }
@@ -305,6 +306,7 @@
         height: 32px;
         line-height: 1.2;
         border-radius: 30px;
+        border: none;
         .mat-select-trigger {
             .mat-select-value {
                 color: #fff;
