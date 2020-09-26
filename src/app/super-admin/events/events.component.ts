@@ -42,8 +42,8 @@ export class EventsComponent implements OnInit {
  selecetdDefaultImage:any;
  eventStartTime:any;
   // timeIntervals:any = ['00:00','00:30','01:00','01:30','02:00','02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30'];
-  allUpcomingEventListData:any;
-  allPastEventListData:any;
+  allUpcomingEventListData:any =[];
+  allPastEventListData:any =[];
   salesTax = [ ];
   salesTaxValue = [{
     amount:'',
@@ -181,6 +181,7 @@ export class EventsComponent implements OnInit {
     }
   }
 
+
   fnGetUpcomingEventList(){
     this.isLoaderAdmin = true;
     let requestObject = {
@@ -193,12 +194,13 @@ export class EventsComponent implements OnInit {
         this.allUpcomingEventListData = response.response
         this.addNewEvents = true;
       }else if(response.data == false){
+        this.allUpcomingEventListData.length = 0;
         this.ErrorService.errorMessage(response.response);
       }
     });
     this.isLoaderAdmin = false;
-
   }
+
   fnGetPastEventList(){
     this.isLoaderAdmin = true;
     let requestObject = {
@@ -211,6 +213,7 @@ export class EventsComponent implements OnInit {
         this.allPastEventListData = response.response
         this.addNewEvents = true;
       }else if(response.data == false){
+        this.allPastEventListData.lenght = 0
         this.ErrorService.errorMessage(response.response);
       }
     });
@@ -240,12 +243,26 @@ export class EventsComponent implements OnInit {
     // this.addEventForm.get('event_end_time').setValue('');
   }
 
-  fnChangeStartTime(){
-    // this.eventStartTime = this.addEventForm.get('event_start_time').value;
+  fnChangeStartTime(event){
+   // this.eventStartTime = this.addEventForm.get('event_start_time').value;
   }
 
-  fnChangeEventStatus(event){
-    console.log(event)
+  fnChangeEventStatus(uniqueCode, status){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'unique_code' : uniqueCode,
+      'event_status' : status,
+    }
+    this.SuperadminService.fnChangeEventStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.allUpcomingEventListData = response.response
+        this.addNewEvents = true;
+      }else if(response.data == false){
+        this.allUpcomingEventListData.length = 0;
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
   }
 
   fnCancelNewEvent(){
@@ -270,6 +287,7 @@ export class EventsComponent implements OnInit {
     }
     this.addEventForm.updateValueAndValidity();
   }
+
   fnRedirectURL(event){
     if(event.checked == true){
       this.redirectURL = 'Y' 
@@ -277,6 +295,7 @@ export class EventsComponent implements OnInit {
       this.redirectURL = 'N' 
     }
   }
+
   fnAccessCode(event){
     if(event.checked == true){
       this.accessCode = 'Y' 
@@ -284,6 +303,7 @@ export class EventsComponent implements OnInit {
       this.accessCode = 'N' 
     }
   }
+
   fnShareButtonStatus(event){
     if(event.checked == true){
       this.shareButtonStatus = 'Y' 
@@ -291,6 +311,7 @@ export class EventsComponent implements OnInit {
       this.shareButtonStatus = 'N' 
     }
   }
+
   fnCustomSalesTax(event){
     if(event.checked == true){
       this.customSalesTax = 'Y' 
@@ -298,6 +319,7 @@ export class EventsComponent implements OnInit {
       this.customSalesTax = 'N' 
     }
   }
+
   fnHideEventSearch(event){
     if(event.checked == true){
       this.hideEventSearch = 'Y' 
