@@ -9,13 +9,15 @@
                 <span aria-hidden="true" class="white-text">&times;</span>
             </button>
 
-            <button type="button" *ngIf="voidTicket === 'confirm'" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="fnVoidTicket('normal')">
+            <button type="button" *ngIf="ticketTypeView === 'confirm'"  data-dismiss="modal" aria-label="Close" class="close-btn" (click)="fnVoidTicket('normal')">
                 <span aria-hidden="true" class="white-text">&times;</span>
             </button>
 
-            <!-- <button type="button" *ngIf="voidTiccketPreview" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
+            <button type="button" *ngIf="ticketTypeView === 'voidview'"  data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
                 <span aria-hidden="true" class="white-text">&times;</span>
-            </button> -->
+            </button>
+
+           
 
         </div>
     </div>
@@ -47,7 +49,7 @@
                         Order ID :
                     </div>
                     <div class="ticket-detail-field ml-auto">
-                        <a href="">10771307</a>
+                        <a (click)="fnOrdertView()">10771307</a>
                     </div>
 
                     <div class="ticket-detail-field font-weight-bold">
@@ -280,8 +282,5 @@
             </div>
         </div>
     </div>
-
-
-
 
 </div>
