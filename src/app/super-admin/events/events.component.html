@@ -30,7 +30,7 @@
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of allUpcomingEventListData">
                                         <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event_title}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data mat-common-radius" fxFlex="20">
-                                            <mat-select [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
+                                            <mat-select (selectionChange)="changeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
 
                                                 <mat-option value="draft">Draft</mat-option>
                                                 <mat-option value="published">Published</mat-option>
