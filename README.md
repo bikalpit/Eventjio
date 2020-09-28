@@ -20,4 +20,7 @@ npm install ngx-qrcode2 --save
 Bar-Code :
 npm install ngx-barcode --save
 
+export-to-csv:
+npm install export-to-csv --save
+
 
