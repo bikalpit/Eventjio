@@ -2,7 +2,7 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div *ngIf="addNewEvents" class="bg-white events">
         <div class="row mx-0 p-3">
-            <div class="font-weight-bold page-title" (click)="test();">
+            <div class="font-weight-bold page-title">
                 Events
             </div>
 
@@ -28,7 +28,7 @@
 
                                 <div class="content" class="drageble-list">
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of allUpcomingEventListData">
-                                        <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event_title}} </a> <br> Mon Jul 27, 2020</div>
+                                        <div class="tb-data " fxFlex="25"> <a (click)="fnSelectSingleEvent(element.unique_code)"> {{element.event_title}} </a> <br> {{element.start_date}}</div>
                                         <div class="tb-data mat-common-radius" fxFlex="20">
                                             <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
 
@@ -93,7 +93,7 @@
 
                                 <div class="content" class="drageble-list">
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of allPastEventListData">
-                                        <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
+                                        <div class="tb-data" fxFlex="25"><a (click)="fnSelectSingleEvent(element.unique_code)"> {{element.event_title}} </a> <br> {{element.start_date}}</div>
                                         <div class="tb-data" fxFlex="20">
                                             <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="draft">Draft</mat-option>

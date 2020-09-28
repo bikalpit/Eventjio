@@ -162,6 +162,9 @@ export class AppComponent {
   }
 
   fnChangeTopMenu(value){
+    if(value === 'profile'){
+      this.router.navigate(['/super-admin/settings/my-profile']);
+    }
     if(value === 'logout'){
       this.logout();
     }
