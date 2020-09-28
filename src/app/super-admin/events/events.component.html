@@ -2,7 +2,7 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div *ngIf="addNewEvents" class="bg-white events">
         <div class="row mx-0 p-3">
-            <div class="font-weight-bold page-title">
+            <div class="font-weight-bold page-title" (click)="test();">
                 Events
             </div>
 
@@ -33,7 +33,7 @@
                                             <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
 
                                                 <mat-option value="draft">Draft</mat-option>
-                                                <mat-option value="published">Published</mat-option>
+                                                <mat-option value="publish">Published</mat-option>
                                             </mat-select>
                                         </div>
                                         <div class="tb-data" fxFlex="13">0</div>
@@ -95,9 +95,9 @@
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of allPastEventListData">
                                         <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data" fxFlex="20">
-                                            <mat-select [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
+                                            <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="draft">Draft</mat-option>
-                                                <mat-option value="published">Published</mat-option>
+                                                <mat-option value="publish">Published</mat-option>
                                             </mat-select>
                                         </div>
                                         <div class="tb-data" fxFlex="13">0</div>
@@ -381,10 +381,16 @@
                             <div class="donation-field ml-auto mt-2">
                                 <label for="">Suggested donation amount <i class="fa fa-question-circle"></i></label>
                                 <input formControlName="donation_amount" type="text" class="form-control" placeholder="0.00">
+                                <span class="error-wrap" *ngIf="addEventForm.get('donation_amount').touched || addEventForm.get('donation_amount').dirty">
+                                    <small *ngIf="addEventForm.get('donation_amount').hasError('required')" class="error">Amount is required.</small>
+                                </span>
                             </div>
                             <div class="donation-field mt-2">
                                 <label for="">Donation desciption <i class="fa fa-question-circle"></i></label>
                                 <input formControlName="donation_description" type="text" class="form-control">
+                                <span class="error-wrap" *ngIf="addEventForm.get('donation_description').touched || addEventForm.get('donation_description').dirty">
+                                    <small *ngIf="addEventForm.get('donation_description').hasError('required')" class="error">Description is required.</small>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -443,6 +449,9 @@
                         <label for="">Redirect to URL</label>
                         <div class="my-2">
                             <input formControlName="redirect_url" type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
+                            <span class="error-wrap" *ngIf="addEventForm.get('redirect_url').touched || addEventForm.get('redirect_url').dirty">
+                                <small *ngIf="addEventForm.get('redirect_url').hasError('required')" class="error">Redirect URL is required.</small>
+                            </span>
                         </div>
                     </div>
 
@@ -461,6 +470,9 @@
                         <label for="">Access Code</label>
                         <div class="my-2">
                             <input formControlName="access_code" type="text" class="form-control col-6">
+                            <span class="error-wrap" *ngIf="addEventForm.get('access_code').touched || addEventForm.get('access_code').dirty">
+                                <small *ngIf="addEventForm.get('access_code').hasError('required')" class="error">Access Code is required.</small>
+                            </span>
                         </div>
                     </div>
 
@@ -495,8 +507,8 @@
                         <input type="text" class="form-control" placeholder="VAT">
                     </div>
                 </div> -->
-                        <!-- <form [formGroup]="customSalesTaxForm">
-                            <div class=" w-100" formArrayName="arr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr').controls; let i = index">
+                        <form class="w-100" [formGroup]="customSalesTaxForm">
+                            <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr').controls; let i = index">
                                 <div [formGroupName]="i" class="row m-0">
                                     <div class="tax-input">
                                         <label for="">Sales tax amounts</label>
@@ -513,13 +525,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </form> -->
-                        <!-- <div class="w-100">
+                        </form>
+                        <div class="w-100">
                             <div (click)="fnSalesTaxAdd()" class="tax-add-btn">
                                 <i class="fa fa-plus-circle"></i><span class="ml-2">Add Tax</span>
                             </div>
-
-                        </div> -->
+                        </div>
 
                     </div>
                 </div>
