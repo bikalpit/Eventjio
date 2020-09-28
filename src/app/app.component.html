@@ -50,8 +50,8 @@
         </div>
 
         <div class="bottom_admin_menu">
-            <div routerLink="/super-admin/settings" (click)="fnPostUrl('Settings')" [ngClass]="{'active-icon': pageName == 'Settings'}" matTooltip="Settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="col-12 p-3 text-center setting-btn text-white common-icon">
-                <div class="icon text-center">
+            <div routerLink="/super-admin/settings" (click)="fnPostUrl('Settings')" [ngClass]="{'active-icon': pageName == 'Settings'}" class="col-12 p-3 text-center setting-btn text-white common-icon">
+                <div class="icon text-center" matTooltip="Settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after">
                     <img src="/assets/images/admin/settings.png" class="w-100" alt="">
                 </div>
 

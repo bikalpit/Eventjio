@@ -58,6 +58,7 @@ export class CouponsComponent implements OnInit {
    }else if(clickedIndex == 1){
    this.clickedIndex = 'voucher'
    }
+   this.search.keyword= '';
  }
 
  couponSearch(){
@@ -209,6 +210,7 @@ export class CouponsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
      this.animal = result;
+     this.signleCouponDetail = null;
      this.getAllCouponCodes();
     });
     this.isLoaderAdmin = false;

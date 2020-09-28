@@ -508,7 +508,7 @@
                     </div>
                 </div> -->
                         <form class="w-100" [formGroup]="customSalesTaxForm">
-                            <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr').controls; let i = index">
+                            <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr')['controls']; let i = index">
                                 <div [formGroupName]="i" class="row m-0">
                                     <div class="tax-input">
                                         <label for="">Sales tax amounts</label>

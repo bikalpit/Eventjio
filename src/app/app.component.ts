@@ -18,6 +18,7 @@ export class AppComponent {
   selectedBoxOfficeName:any;
   currentUser: User;
   adminTopMenuselected:any
+  currentUrl: string;
   
   constructor(
     private route: ActivatedRoute,
@@ -42,24 +43,30 @@ export class AppComponent {
     })
   }
 
-  ngOnInit() {
-    // this.router.events.subscribe(event => {
-    //   if (event instanceof RouterEvent) this.handleRoute(event);
-    // });
-    
 
+  ngOnInit() {
+   
     var is_logout = this.authenticationService.logoutTime();
     if(is_logout==true){
         this.router.navigate(['/login']);
         return false;
     } 
     if(localStorage.getItem('currentUser') && localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true"){
+
     }  
+    if(localStorage.getItem('currentUser')){
+      if(this.currentUser.user_type == 'A'){
+        this.router.navigate(['/super-admin/']);
+      }
+      else{
+
+      }
+    }
   }
+  
 
   loadLocalStorage(){
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
-    
     this.adminTopMenuselected = this.currentUser.firstname
   }
 
@@ -71,8 +78,6 @@ export class AppComponent {
 
   
   fnCheckLoginStatus(){
-    
-    
     if(!this.authenticationService.currentUserValue.google_id && !this.authenticationService.currentUserValue.facebook_id){
       if(this.authenticationService.currentUserValue.user_type == Role.Admin){
           this.router.navigate(["admin"]);
@@ -99,7 +104,6 @@ export class AppComponent {
   }
 
   isBoxoffice() {
-
     if (localStorage.getItem('isBoxoffice') && localStorage.getItem('isBoxoffice') == "true") {
       this.boxofficeComponent = true;
       return true;
@@ -107,12 +111,12 @@ export class AppComponent {
       this.boxofficeComponent = false;
       return false;
     }
-
   }
 
   fnPostUrl(postUrl){
     this.pageName = postUrl; 
   }
+
   isBoxOfficeSelected() {
     if (localStorage.getItem('boxoffice_id') && localStorage.getItem('boxoffice_id') != "") {
       this.selectedBoxOfficeName = localStorage.getItem('boxoffice_name');
@@ -126,6 +130,7 @@ export class AppComponent {
   isAdminUser() {
     return this.currentUser && this.currentUser.user_type === Role.Admin;
   }
+
   isLogin() {
     if (localStorage.getItem('currentUser')) {
       return true;
