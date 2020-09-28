@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-
+import {SettingService} from '../_services/setting.service';
+import { ErrorService } from '../../../_services/error.service'
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
@@ -9,10 +10,22 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 })
 export class MyProfileComponent implements OnInit {
   profileImageUrl:any;
+  myProfileForm:FormGroup;
+  isLoaderAdmin:any;
+
   constructor(
     private _formBuilder: FormBuilder,
+    private SettingService : SettingService,
+    private ErrorService: ErrorService,
     public dialog: MatDialog,
-  ) { }
+  ) {
+    this.myProfileForm = this._formBuilder.group({
+      firstname : [''],
+      lastname: [''],
+      email:[''],
+      phone:['']
+    })
+   }
 
   ngOnInit(): void {
   }
@@ -30,6 +43,35 @@ export class MyProfileComponent implements OnInit {
            }
      });
   }
+
+  fnUploadMyProfile(){
+    let uploadProfileData ={
+      "firstname" : this.myProfileForm.get('firstname').value,
+      "lastname" : this.myProfileForm.get('lastname').value,
+      "email" : this.myProfileForm.get('email').value,
+      "phone" : this.myProfileForm.get('phone').value,
+    }
+    this.uploadMyProfile(uploadProfileData);
+  }
+
+  uploadMyProfile(uploadProfileData){
+    this.isLoaderAdmin = true;
+    this.SettingService.uploadMyProfile(uploadProfileData).subscribe((response:any) => {
+      if(response.data == true){
+       this.ErrorService.successMessage(response.response);
+        this.myProfileForm.reset();
+        // this.dialogRef.close();
+      }
+      else if(response.data == false){
+       this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+      this.myProfileForm.reset();
+    })
+  }
+
+
+
 
 }
 
