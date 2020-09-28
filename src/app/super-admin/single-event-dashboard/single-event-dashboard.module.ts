@@ -24,6 +24,7 @@ import { OrderViewComponent } from './issued-ticket/issued-ticket.component';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 import { mySendBroadcastDialog } from './broadcast/broadcast.component';
+import { myPreviewBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
@@ -50,7 +51,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     IssuedTicketComponent,
     IssuedTicketViewComponent,
     ExportDoorListComponent,
-    OrderViewComponent
+    OrderViewComponent,
+    myPreviewBroadcastDialog
   ],
     
     imports: [
@@ -67,6 +69,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ],
 
     entryComponents: [mySendBroadcastDialog,
+      myPreviewBroadcastDialog,
       addBuyeronlyQuestionDialog,
       addAttendeeonlyQuestionDialog,
       editBuyerNameDialog,

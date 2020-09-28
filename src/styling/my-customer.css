@@ -1247,14 +1247,14 @@ textarea.cdk-textarea-autosize-measuring {
 .mat-flat-button.mat-primary,
 .mat-mini-fab.mat-primary,
 .mat-raised-button.mat-primary {
-    background-color:#1172f4;
+    background-color:#007BFF;
 }
 
 .mat-fab.mat-accent,
 .mat-flat-button.mat-accent,
 .mat-mini-fab.mat-accent,
 .mat-raised-button.mat-accent {
-    background-color: #007bff
+    background-color: #007BFF;
 }
 
 .mat-fab.mat-warn,
