@@ -359,24 +359,20 @@ export class EventsComponent implements OnInit {
     if(event.checked == true){
       this.olPlatForm = 'Y';
       this.addEventForm.controls["online_platform"].setValidators(Validators.required);
-      this.addEventForm.controls["online_link"].setValidators(Validators.required);
       this.addEventForm.controls["vanue_name"].setValidators(null);
       this.addEventForm.controls["vanue_zip"].setValidators(null);
       this.addEventForm.controls["vanue_country"].setValidators(null);
       this.addEventForm.controls["online_platform"].updateValueAndValidity();
-      this.addEventForm.controls["online_link"].updateValueAndValidity();
       this.addEventForm.controls["vanue_name"].updateValueAndValidity();
       this.addEventForm.controls["vanue_zip"].updateValueAndValidity();
       this.addEventForm.controls["vanue_country"].updateValueAndValidity();
     }else{
       this.olPlatForm = 'N';
       this.addEventForm.controls["online_platform"].setValidators(null);
-      this.addEventForm.controls["online_link"].setValidators(null);
       this.addEventForm.controls["vanue_name"].setValidators(Validators.required);
       this.addEventForm.controls["vanue_zip"].setValidators(Validators.required);
       this.addEventForm.controls["vanue_country"].setValidators(Validators.required);
       this.addEventForm.controls["online_platform"].updateValueAndValidity();
-      this.addEventForm.controls["online_link"].updateValueAndValidity();
       this.addEventForm.controls["vanue_name"].updateValueAndValidity();
       this.addEventForm.controls["vanue_zip"].updateValueAndValidity();
       this.addEventForm.controls["vanue_country"].updateValueAndValidity();
@@ -388,7 +384,7 @@ export class EventsComponent implements OnInit {
     console.log(this.addEventForm)
     console.log(this.salesTax)
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
-    this.customSalesTaxArr.push(this.createSalesTaxItem());
+    // this.customSalesTaxArr.push(this.createSalesTaxItem());
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
 
     if(this.addEventForm.invalid){

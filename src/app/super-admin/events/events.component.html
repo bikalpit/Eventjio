@@ -214,6 +214,9 @@
                                     <label for="">Venue Name</label>
                                     <div class="form-group">
                                         <input formControlName="vanue_name" type="text" class="form-control" placeholder="e.g. Blues Star">
+                                        <span class="error-wrap" *ngIf="addEventForm.get('vanue_name').touched || addEventForm.get('vanue_name').dirty">
+                                            <small *ngIf="addEventForm.get('vanue_name').hasError('required')" class="error">Vanue is required.</small>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -221,6 +224,9 @@
                                     <label for="">Venue postalcode / Zip</label>
                                     <div class="form-group">
                                         <input formControlName="vanue_zip" type="text" class="form-control" placeholder="e.g. 400001">
+                                        <span class="error-wrap" *ngIf="addEventForm.get('vanue_zip').touched || addEventForm.get('vanue_zip').dirty">
+                                            <small *ngIf="addEventForm.get('vanue_zip').hasError('required')" class="error">Zip is required.</small>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -230,6 +236,9 @@
                                         <mat-select formControlName="vanue_country" class="form-control">
                                             <mat-option *ngFor="let allCountry of allCountry; let i=index" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
                                         </mat-select>
+                                        <span class="error-wrap" *ngIf="addEventForm.get('vanue_country').touched || addEventForm.get('vanue_country').dirty">
+                                            <small *ngIf="addEventForm.get('vanue_country').hasError('required')" class="error">Country is required.</small>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -250,6 +259,9 @@
                                             <mat-option value="SKY">Skype</mat-option>
                                             <mat-option value="OTH">Other</mat-option>
                                         </mat-select>
+                                        <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('online_platform').touched || addEventForm.get('online_platform').dirty">
+                                            <small *ngIf="addEventForm.get('online_platform').hasError('required')" class="error">Platform is required.</small>
+                                        </span>
                                     </div>
                                 </div>
 
