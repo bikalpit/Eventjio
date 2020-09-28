@@ -113,8 +113,22 @@ export class IssuedTicketViewComponent {
   fnOrdertView() {
     const dialogRef = this.dialog.open(OrderViewComponent, {
       width: '900px',
+      
     });
-  
+    this.dialogRef.close();
+
+     dialogRef.afterClosed().subscribe(result => {
+      this.OrderView = result;
+     });
+  }
+
+  fnVoidOrdertView() {
+    const dialogRef = this.dialog.open(VoidOrderViewComponent, {
+      width: '900px',
+      
+    });
+    this.dialogRef.close();
+
      dialogRef.afterClosed().subscribe(result => {
       this.OrderView = result;
      });
@@ -136,6 +150,28 @@ export class IssuedTicketViewComponent {
 export class OrderViewComponent {
 
   constructor( public dialogRef: MatDialogRef<OrderViewComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any){
+
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit(){
+
+  }
+}
+
+// ---------------------------------  Void Order View ---------------------------------------------
+
+@Component({
+  selector: 'app-void-order-view',
+  templateUrl: '../_dialogs/void-order-view.html',
+})
+export class VoidOrderViewComponent {
+
+  constructor( public dialogRef: MatDialogRef<VoidOrderViewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any){
 
   }
