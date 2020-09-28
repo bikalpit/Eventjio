@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Subject } from 'rxjs';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { DatePipe} from '@angular/common';
-import { SuperadminService } from '../_services/superadmin.service';
-import { ErrorService } from '../../_services/error.service'
+ import { ErrorService } from '../../_services/error.service'
+ import { SuperadminService} from '../_services/superadmin.service';
 export interface DialogData {
   animal: string;
   name: string;
@@ -58,10 +58,12 @@ export class CouponsComponent implements OnInit {
    }else if(clickedIndex == 1){
    this.clickedIndex = 'voucher'
    }
+   this.search.keyword = '';
  }
 
  couponSearch(){
     this.getAllCouponCodes()
+    this.getAllVoucherCodes()
  }
 
   getAllCouponCodes(){

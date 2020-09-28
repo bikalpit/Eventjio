@@ -8,9 +8,9 @@
       </div>
         
       <div class="modal-body pb-0">         
-        <form [formGroup]="createVoucherForm">
+        <form [formGroup]="createVoucherForm" class="with-validation">
           <div class="row">
-              <div class="col-md-6">
+              <div class="form-group col-md-6">
                 <label for="">Name <span><i class="fa fa-asterisk"></i></span> 
                   <button mat-raised-button
                         matTooltip="what would you like to call this batch of codes? This name will be displayed to the customer when enter a code at checkout."
@@ -54,7 +54,11 @@
               </div>
               <div class="col-md-12 mt-2">
                 <label>Expire Date <span><i class="fa fa-asterisk"></i></span> </label>
-                <input type="date" class="form-control" formControlName="expiry_date">
+                <div class="matDate"> 
+                  <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
+                  <input type="text" matInput [matDatepicker]="ticketIssuedTo"  formControlName="expiry_date" (click)="ticketIssuedTo.open()"  class="form-control matInputdate">
+                  <mat-datepicker #ticketIssuedTo></mat-datepicker>
+                  </div>
                 <span class="error-wrap" *ngIf="createVoucherForm.get('expiry_date').touched || createVoucherForm.get('expiry_date').dirty">
                   <small *ngIf="createVoucherForm.get('expiry_date').hasError('required')" class="error">Voucher code is required.</small>
                   <!-- <small *ngIf="createVoucherForm.get('voucher_code').hasError('maxlength')" class="error">Voucher code should be maximum 15 character.</small> -->

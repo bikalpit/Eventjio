@@ -85,16 +85,16 @@
                                 <div class="">
                                     <div class="heads main-heading-content drageble py-3" fxLayout="row">
                                         <div class="" fxFlex="25">Voucher Name</div>
-                                        <div class="" fxFlex="25">Voucher Value</div>
-                                        <div class="" fxFlex="20">Voucher Code</div>
+                                        <div class="" fxFlex="25">Voucher Code</div>
+                                        <div class="" fxFlex="20">Voucher Value</div>
                                         <div class="" fxFlex="20">Expiry Date</div>
                                         <div class="" fxFlex="10">Action</div>
                                     </div>
                                     <div class="content" class="drageble-list">
                                         <div *ngFor="let allVoucherCodeList of allVoucherCodeList; let i=index;" class="drageble-box" fxLayout="row">
                                             <div class="tb-data cpn-title" fxFlex="25">{{allVoucherCodeList.voucher_name}}</div>
-                                            <div class="tb-data cpn-code" fxFlex="25"><span class="cpn-bor">{{allVoucherCodeList.voucher_value}}</span></div>
-                                            <div class="tb-data" fxFlex="20">{{allVoucherCodeList.voucher_code}}</div>
+                                            <div class="tb-data cpn-code" fxFlex="25"><span class="cpn-bor">{{allVoucherCodeList.voucher_code}}</span></div>
+                                            <div class="tb-data" fxFlex="20">{{allVoucherCodeList.voucher_value}}</div>
                                             <div class="tb-data" fxFlex="20">{{allVoucherCodeList.expiry_date}}</div>
                                             <div class="tb-data" fxFlex="10">
 
