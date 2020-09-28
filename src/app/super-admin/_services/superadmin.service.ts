@@ -120,7 +120,58 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    createCustomersForm(requestObject){
+        return this.http.post(`${environment.apiUrl}/create-customer-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+            }),catchError(this.handleError));
+        }
+         
+    getAllCustomersDetails(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-all-customer-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getSingleCustomersDetails(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-customer-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    updateCustomerDetails(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-customer-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+         }),catchError(this.handleError));
+    }
     
+    deleteCustomerDetails(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-customer-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res)=>{
+                return res;
+            }),catchError(this.handleError));
+        
+    }
+ 
+   fnImportCustomer(requestObject){  
+        return this.http.post(`${environment.apiUrl}/import-customers`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res)=>{
+                return res;
+         }),catchError(this.handleError));
+   }
+    
+    fnExportCustomer(requestObject){
+        return this.http.post(`${environment.apiUrl}/export-customers`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),
+        catchError(this.handleError));
+    }
+
 }
+
 
     
