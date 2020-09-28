@@ -45,6 +45,9 @@ export class AppComponent {
 
 
   ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof RouterEvent) this.handleRoute(event);
+    });
    
     var is_logout = this.authenticationService.logoutTime();
     if(is_logout==true){
@@ -54,7 +57,7 @@ export class AppComponent {
     if(localStorage.getItem('currentUser') && localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true"){
 
     }  
-    if(localStorage.getItem('currentUser')){
+    if(localStorage.getItem('currentUser') && this.currentUrl == ''){
       if(this.currentUser.user_type == 'A'){
         this.router.navigate(['/super-admin/']);
       }
@@ -106,6 +109,28 @@ export class AppComponent {
   private urlIsNew(url: string) {
     return !!url && url.length > 0 && url !== this.currentUrl;
   }
+  private handleRoute(event: RouterEvent) {
+    const url = this.getUrl(event);
+    this.currentUrl = url;
+    if(url === '/super-admin/dashboard' ){
+      this.pageName = 'Dashboard';
+    }
+    else if(url === '/super-admin/events'){
+      this.pageName= 'Events'
+    }
+    else if(url === '/super-admin/orders'){
+      this.pageName= 'Orders'
+    }
+    else if(url === '/super-admin/customers'){
+      this.pageName= 'Customers'
+    }
+    else if(url === '/super-admin/coupons'){
+      this.pageName= 'Coupon'
+    }
+    else if(url === '/super-admin/settings'){
+      this.pageName= 'Settings'
+    }
+  }
   
 
   loadLocalStorage(){
@@ -123,11 +148,7 @@ export class AppComponent {
   fnCheckLoginStatus(){
     if(!this.authenticationService.currentUserValue.google_id && !this.authenticationService.currentUserValue.facebook_id){
       if(this.authenticationService.currentUserValue.user_type == Role.Admin){
-          this.router.navigate(["admin"]);
-      }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
-          this.router.navigate(["staff"]);
-      }else if(Role.Customer){
-          this.router.navigate(["user"]);
+          this.router.navigate(["super-admin"]);
       }
     }
   }
