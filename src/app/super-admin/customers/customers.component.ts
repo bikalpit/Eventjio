@@ -33,6 +33,7 @@ export class CustomersComponent implements OnInit {
   deleteCustomer:any;
   isLoaderAdmin:boolean = false;
   selectedCustomerArr:any;
+  addFormButtonDiv : boolean = true;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -59,7 +60,6 @@ export class CustomersComponent implements OnInit {
     
    }
 
-  addFormButtonDiv : boolean = true;
 
   addFormButton(){
     this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
@@ -221,6 +221,8 @@ fnUpdateCustomer(requestObject){
       this.isLoaderAdmin = false;
     });
 }
+
+
 
   deleteCustomerDetails(){
     this.isLoaderAdmin = true;

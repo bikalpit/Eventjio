@@ -90,7 +90,7 @@ fnSubmitBoxOffice(){
 
     let requestObject = {
       
-      "box_office_name" : this.singleBoxOffice.get('box_office_name').value,
+      "box_office_name" : this.allBoxofficeDetails.box_office_name,
       "country":this.allBoxofficeDetails.country,
       "currency":this.allBoxofficeDetails.currency,
       "genre":this.allBoxofficeDetails.genre,
@@ -105,6 +105,7 @@ fnSubmitBoxOffice(){
         this.settingService.updateBoxoffice(requestObject).subscribe((response:any) => {
           if(response.data == true){
           this.ErrorService.successMessage(response.response);
+          this. getBoxofficeDetails();
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
         }
