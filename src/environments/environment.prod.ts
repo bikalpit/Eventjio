@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-    apiUrl:         'http://eventjio.bi-team.in/api/api',
-    authApiUrl:     'http://eventjio.bi-team.in/api/api',
-    urlForLink :    'http://eventjio.bi-team.in',
+    apiUrl:         'https://api.eventjio.com/api',
+    authApiUrl:     'https://api.eventjio.com/api',
+    urlForLink :    'https://app.eventjio.com',
 };

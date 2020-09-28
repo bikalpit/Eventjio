@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-  	apiUrl:         'http://eventjio.bi-team.in/api/api',
-    authApiUrl:     'http://eventjio.bi-team.in/api/api',
+  	apiUrl:         'https://api.eventjio.com/api',
+    authApiUrl:     'https://api.eventjio.com/api',
     urlForLink :    'http://localhost:4200',
 };
 

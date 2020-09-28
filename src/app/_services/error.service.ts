@@ -95,7 +95,6 @@ export class ErrorService {
           this.currentUser = result;
           
         }else{
-          alert()
           this.logout();
           this.router.navigate(['/login']);
         }

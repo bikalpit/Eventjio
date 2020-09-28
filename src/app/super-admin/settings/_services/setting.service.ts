@@ -39,13 +39,13 @@ export class SettingService {
 
 
     getAllLanguages(){
-        return this.http.get(`${environment.apiUrl}/get-languages-api`,{}).pipe(
+        return this.http.get(`${environment.apiUrl}/get-languages`,{}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
 
-    getAllTimezone(requestObject){
+    getAllTimezone(){
         return this.http.get(`${environment.apiUrl}/get-timezone-api`,{}).pipe(
         map((res) => {
             return res;
@@ -53,7 +53,7 @@ export class SettingService {
     }
     
     createNewBusiness(requestObject){
-        return this.http.get(`${environment.apiUrl}/create-boxoffice-api`).pipe(
+        return this.http.get(`${environment.apiUrl}/create-boxoffice-api`,{}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

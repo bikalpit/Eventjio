@@ -322,14 +322,11 @@ export class myCreateDiscountCodeDialog {
 
   fnChangeDiscountType(discountType){
     var discount_value = this.createCouponForm.get('discount').value; 
-    alert(discountType)
-    alert(discount_value)
     if(discountType=='P' && discount_value > 100){
       this.diccount_error = true;
     }else{
       this.diccount_error = false;
     }
-    alert(this.diccount_error)
   }
 
   discount_check(){
