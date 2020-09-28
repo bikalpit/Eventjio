@@ -63,6 +63,49 @@ export class AppComponent {
       }
     }
   }
+
+  
+  dynamicSort(property: string) {
+    let sortOrder = 1;
+
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+
+    return (a, b) => {
+      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    };
+  }
+
+  private getUrl(event: any) {
+    if (event) {
+      const url = event.url;
+      const state = (event.state) ? event.state.url : null;
+      const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
+      const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
+      if (longest.length > 0) return longest[0];
+    }
+  }
+
+  private cleanUrl(url: string) {
+    if (url) {
+      let cleanUrl = url.substr(1);
+      const slashIndex = cleanUrl.indexOf("/");
+      console.log(slashIndex)
+      if (slashIndex >= 0) {
+        cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
+        return cleanUrl;
+      } else {
+        return null;
+      }
+    } else return null;
+  }
+
+  private urlIsNew(url: string) {
+    return !!url && url.length > 0 && url !== this.currentUrl;
+  }
   
 
   loadLocalStorage(){
