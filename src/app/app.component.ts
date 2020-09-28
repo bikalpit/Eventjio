@@ -18,6 +18,7 @@ export class AppComponent {
   selectedBoxOfficeName:any;
   currentUser: User;
   adminTopMenuselected:any
+  currentUrl: string;
   
   constructor(
     private route: ActivatedRoute,
@@ -42,24 +43,98 @@ export class AppComponent {
     })
   }
 
-  ngOnInit() {
-    // this.router.events.subscribe(event => {
-    //   if (event instanceof RouterEvent) this.handleRoute(event);
-    // });
-    
 
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof RouterEvent) this.handleRoute(event);
+    });
+   
     var is_logout = this.authenticationService.logoutTime();
     if(is_logout==true){
         this.router.navigate(['/login']);
         return false;
     } 
     if(localStorage.getItem('currentUser') && localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true"){
+
     }  
+    if(localStorage.getItem('currentUser') && this.currentUrl == ''){
+      if(this.currentUser.user_type == 'A'){
+        this.router.navigate(['/super-admin/']);
+      }
+      else{
+
+      }
+    }
   }
+
+  
+  dynamicSort(property: string) {
+    let sortOrder = 1;
+
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+
+    return (a, b) => {
+      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    };
+  }
+
+  private getUrl(event: any) {
+    if (event) {
+      const url = event.url;
+      const state = (event.state) ? event.state.url : null;
+      const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
+      const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
+      if (longest.length > 0) return longest[0];
+    }
+  }
+
+  private cleanUrl(url: string) {
+    if (url) {
+      let cleanUrl = url.substr(1);
+      const slashIndex = cleanUrl.indexOf("/");
+      console.log(slashIndex)
+      if (slashIndex >= 0) {
+        cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
+        return cleanUrl;
+      } else {
+        return null;
+      }
+    } else return null;
+  }
+
+  private urlIsNew(url: string) {
+    return !!url && url.length > 0 && url !== this.currentUrl;
+  }
+  private handleRoute(event: RouterEvent) {
+    const url = this.getUrl(event);
+    this.currentUrl = url;
+    if(url === '/super-admin/dashboard' ){
+      this.pageName = 'Dashboard';
+    }
+    else if(url === '/super-admin/events'){
+      this.pageName= 'Events'
+    }
+    else if(url === '/super-admin/orders'){
+      this.pageName= 'Orders'
+    }
+    else if(url === '/super-admin/customers'){
+      this.pageName= 'Customers'
+    }
+    else if(url === '/super-admin/coupons'){
+      this.pageName= 'Coupon'
+    }
+    else if(url === '/super-admin/settings'){
+      this.pageName= 'Settings'
+    }
+  }
+  
 
   loadLocalStorage(){
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
-    
     this.adminTopMenuselected = this.currentUser.firstname
   }
 
@@ -71,15 +146,9 @@ export class AppComponent {
 
   
   fnCheckLoginStatus(){
-    
-    
     if(!this.authenticationService.currentUserValue.google_id && !this.authenticationService.currentUserValue.facebook_id){
       if(this.authenticationService.currentUserValue.user_type == Role.Admin){
-          this.router.navigate(["admin"]);
-      }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
-          this.router.navigate(["staff"]);
-      }else if(Role.Customer){
-          this.router.navigate(["user"]);
+          this.router.navigate(["super-admin"]);
       }
     }
   }
@@ -99,7 +168,6 @@ export class AppComponent {
   }
 
   isBoxoffice() {
-
     if (localStorage.getItem('isBoxoffice') && localStorage.getItem('isBoxoffice') == "true") {
       this.boxofficeComponent = true;
       return true;
@@ -107,12 +175,12 @@ export class AppComponent {
       this.boxofficeComponent = false;
       return false;
     }
-
   }
 
   fnPostUrl(postUrl){
     this.pageName = postUrl; 
   }
+
   isBoxOfficeSelected() {
     if (localStorage.getItem('boxoffice_id') && localStorage.getItem('boxoffice_id') != "") {
       this.selectedBoxOfficeName = localStorage.getItem('boxoffice_name');
@@ -126,6 +194,7 @@ export class AppComponent {
   isAdminUser() {
     return this.currentUser && this.currentUser.user_type === Role.Admin;
   }
+
   isLogin() {
     if (localStorage.getItem('currentUser')) {
       return true;

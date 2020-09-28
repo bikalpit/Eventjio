@@ -31,30 +31,26 @@
                 <div matTooltip="Orders" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
                     <img src="/assets/images/admin/order.png" class="w-100" alt="">
                 </div>
-
             </div>
 
             <div routerLink="/super-admin/customers" (click)="fnPostUrl('Customers')" [ngClass]="{'active-icon': pageName == 'Customers'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
                 <div matTooltip="Customers" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
                     <img src="/assets/images/admin/user-sidemenu.png" class="w-100" alt="">
                 </div>
-
             </div>
 
             <div (click)="fnPostUrl('Coupon')" [ngClass]="{'active-icon': pageName == 'Coupon'}" routerLink="/super-admin/coupons" class="col-12 p-3 mt-4 text-center text-white common-icon">
                 <div matTooltip="Coupon" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
                     <img src="/assets/images/admin/gift.png" class="w-100" alt="">
                 </div>
-
             </div>
         </div>
 
         <div class="bottom_admin_menu">
-            <div routerLink="/super-admin/settings" (click)="fnPostUrl('Settings')" [ngClass]="{'active-icon': pageName == 'Settings'}" matTooltip="Settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="col-12 p-3 text-center setting-btn text-white common-icon">
-                <div class="icon text-center">
+            <div routerLink="/super-admin/settings" (click)="fnPostUrl('Settings')" [ngClass]="{'active-icon': pageName == 'Settings'}" class="col-12 p-3 text-center setting-btn text-white common-icon">
+                <div class="icon text-center" matTooltip="Settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after">
                     <img src="/assets/images/admin/settings.png" class="w-100" alt="">
                 </div>
-
             </div>
         </div>
     </mat-drawer>

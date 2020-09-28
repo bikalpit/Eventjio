@@ -41,6 +41,7 @@ export class ErrorService {
   errorMessage(errorMessage){
     if(errorMessage == 'TOKEN_EXPIRED'){
       this.checkAuthentication();
+      return false;
     }else{
       this._snackBar.open(errorMessage, "X", {
         duration: 2000,
@@ -58,9 +59,7 @@ export class ErrorService {
   }
   
   checkAuthentication(){
-    
     console.log(this.currentUser);
-
     let requestObject = {
       "user_type": JSON.parse(localStorage.getItem('currentUser')).user_type,
       "user_id" : JSON.parse(localStorage.getItem('currentUser')).user_id,
@@ -107,11 +106,9 @@ export class ErrorService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('isFront');
     localStorage.removeItem('logoutTime');
-    localStorage.removeItem('business_id');
-    localStorage.removeItem('internal_staff');
-    localStorage.removeItem('business_name');
-    localStorage.removeItem('isBusiness');
-    localStorage.removeItem('adminData');
+    localStorage.removeItem('boxoffice_id');
+    localStorage.removeItem('boxoffice_name');
+    localStorage.removeItem('isBoxoffice');
     
   }
 }

@@ -211,6 +211,7 @@ export class CouponsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
      this.animal = result;
+     this.signleCouponDetail = null;
      this.getAllCouponCodes();
     });
     this.isLoaderAdmin = false;
