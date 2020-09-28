@@ -320,3 +320,7 @@
         border-top: 0px;
     }
 }
+
+::ng-deep .mat-tab-label-active {
+    opacity: 1 !important;
+}

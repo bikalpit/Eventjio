@@ -2,8 +2,10 @@
     <div class="box-office main">
     <div class="box-office main-work-area">
         <h5>Box Office</h5>
+        <form [formGroup]="singleBoxOffice">
         <div class="box-office-content row mx-0 mt-4">
             <div class="col-md-6 my-left-content px-0">
+                <div>
                 <div class="">
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="col-md-3 pl-0">
@@ -15,6 +17,51 @@
                             </div>
                             <div>
                                 <button mat-flat-button class="remove-logo mt-2">Remove logo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         
+             <div class="form-group col-12 mt-4">
+                <label for="" class="required">Box Office Name</label>
+                <input type="text" class="form-control col-12" formControlName="boxoffice_name">
+                <span class="error-wrap" *ngIf="singleBoxOffice.get('boxoffice_name').dirty || singleBoxOffice.get('boxoffice_name').touched"><small *ngIf="singleBoxOffice.get('boxoffice_name').hasError('required')" class="error text-left ml-4">Box Office name required.</small></span>
+            </div>
+
+             <div class="form-group col-12">
+                <label for="" class="">Language (experimental feature)</label>
+                <mat-select name=" " id="" class="form-control col-12" formControlName="language">
+                    <mat-option value="english">English</mat-option>
+                    <mat-option value="Hindi">Hindi</mat-option>
+                    <mat-option value="Gujarati">Gujarati</mat-option>
+                    <mat-option value="Tamil">Tamil</mat-option>
+                </mat-select>
+              </div>
+             
+               <div class="form-group col-12">
+                 <label for="" class="required">Timezone</label>
+                    <mat-select name=" " id="" class="form-control col-12" formControlName="timezone" >
+                        <span class="error-wrap" *ngIf="singleBoxOffice.get('timezone').dirty || singleBoxOffice.get('timezone').touched"><small *ngIf="singleBoxOffice.get('timezone').hasError('required')" class="error text-left ml-4">Time  required.</small></span>
+                        <mat-option value="(GMT+05.30) Calcutta">(GMT+05.30) Calcutta</mat-option>
+                        <mat-option value="(GMT+05.30) Mumbai">(GMT+05.30) Mumbai</mat-option>
+                        <mat-option value="(GMT+05.30) Delhi">(GMT+05.30) Delhi</mat-option>
+                        <mat-option value="(GMT+05.30) Calcutta">(GMT+05.30) Calcutta</mat-option>
+                    </mat-select>
+               </div>    
+            
+         </div>
+      </div>
+<!--   
+            <div class="col-6 my-right-content">   
+                 <div class="form-group mt-2">  
+                      <div class="section1 col-1"></div> 
+                        <span>Box office Link<i class="fa fa-question-circle ml-2"  matTooltip="Info about the action" aria-hidden="true"></i></span>
+                        <div class="row">
+                            <div class="col-10 pr-1">
+                                <input type="text" class="form-control">
+                            </div>            
+                            <div class="col-1 pl-1">
+                                <button type="" class="btn alert-info search-button" ><span class="material-icons create">create </span></button>
                             </div>
                         </div>
                     </div>
@@ -44,8 +91,8 @@
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
+                </div> -->
+          
 
             <div class="col-md-6 my-right-content">
                 <div class="form-group mt-2">
@@ -76,8 +123,9 @@
                     <div *ngIf="showHide">
                         <div class="row mt-2">
                             <div class="col-10 pr-1">
-                                <input type="text" class="form-control">
-                            </div>
+                                <input type="text" class="form-control" *ngIf="Emailshow" formControlName="add_email">
+                            </div>   
+
                             <div class="col-2 pl-1">
                                 <mat-icon class="material-icons close-icon" (click)="fnshowHide()">close</mat-icon>
                             </div>
@@ -87,14 +135,18 @@
                 <div class="">
                     <mat-checkbox class="">Hide Eventjio logo <span class="ml-2"><i class="fa fa-question-circle ml-2"  matTooltip="Hide the Ticket Tailor logo from your box office pages. This feature is only available on certain plans." aria-hidden="true"></i></span></mat-checkbox>
                 </div>
-            </div>
+
+        </div>
+    </div>
+    </form>  
+    
         </div>
     </div>
 
     <div class="footer-action-btn">
         <div class="can-save">
             <button mat-raised-button class="cancel-btn">Cancel</button>
-            <button mat-raised-button class="save-btn">Save</button>
+            <button mat-raised-button class="save-btn" (click)="fnSubmitBoxOffice()">Save</button>
         </div>
     </div>
 </div>
