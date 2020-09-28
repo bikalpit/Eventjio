@@ -159,11 +159,9 @@
 .user-image-icon {
     width: 34px;
     height: 34px;
-   
-    img{
+    img {
         border-radius: 30px;
     }
-
 }
 
 .head-dropdown {
@@ -187,7 +185,6 @@
 // ::ng-deep .mat-dialog-container {
 //     padding: 0px !important;
 // }
-
 ::ng-deep .file-upload {
     background-color: #ffffff;
     margin: 0 auto;
@@ -290,6 +287,7 @@
         width: 100%;
     }
 }
+
 .close-btn {
     background: #B4D4FF !important;
     opacity: 1;
@@ -298,7 +296,18 @@
     font-size: 14px;
     color: #1172F4;
 }
+
 .mat-dialog-container {
     padding-left: 15px !important;
     padding-right: 15px !important;
+}
+
+::ng-deep #re-athentication-dialog {
+    .submit-btn {
+        width: 130px;
+        height: 37px;
+        border-radius: 29px;
+        background-color: #1172f4;
+        color: white;
+    }
 }

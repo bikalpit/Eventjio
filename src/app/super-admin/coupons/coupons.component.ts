@@ -52,18 +52,23 @@ export class CouponsComponent implements OnInit {
  }
  
   onTabChanged(event){
-   let clickedIndex = event.index;
-   if(clickedIndex == 0){
-   this.clickedIndex = 'coupon'
-   }else if(clickedIndex == 1){
-   this.clickedIndex = 'voucher'
-   }
-   this.search.keyword = '';
- }
+    let clickedIndex = event.index;
+    if(clickedIndex == 0){
+      this.clickedIndex = 'coupon'
+    }else if(clickedIndex == 1){
+      this.clickedIndex = 'voucher'
+    }
+    this.search.keyword = '';
+    this.getAllVoucherCodes()
+    this.getAllCouponCodes()
+  }
 
  couponSearch(){
-    this.getAllCouponCodes()
-    this.getAllVoucherCodes()
+   if(this.clickedIndex == 'coupon'){
+      this.getAllCouponCodes()
+   }else if(this.clickedIndex == 'voucher'){
+      this.getAllVoucherCodes()
+   }
  }
 
   getAllCouponCodes(){
@@ -433,6 +438,7 @@ export class myCreateDiscountCodeDialog {
 @Component({
   selector: 'Create-Voucher-Code',
   templateUrl: '../_dialogs/create-voucher-code-dialog.html',
+  providers: [DatePipe]
 })
 export class myBatchVoucherCodeDialog { 
   isLoaderAdmin:boolean = false;
@@ -443,7 +449,7 @@ export class myBatchVoucherCodeDialog {
   constructor(
     private _formBuilder: FormBuilder,
     // private _snackBar: MatSnackBar,
-    // private datePipe: DatePipe,
+    private datePipe: DatePipe,
     private SuperadminService : SuperadminService,
     private ErrorService: ErrorService,
     public dialogRef: MatDialogRef<myBatchVoucherCodeDialog>,
@@ -471,23 +477,26 @@ export class myBatchVoucherCodeDialog {
     fnOnSubmitVoucher(){
       if(this.createVoucherForm.valid){
         if(this.signleVoucherDetail){
+
+         let  expiry_date=this.datePipe.transform(new Date(this.createVoucherForm.get('expiry_date').value),"yyyy-MM-dd")
           let updateVoucherCode = {
             'unique_code': this.signleVoucherDetail.unique_code,
             "boxoffice_id" : this.boxOfficeCode,
             "voucher_name" : this.createVoucherForm.get('voucher_name').value,
             "voucher_value" : this.createVoucherForm.get('voucher_value').value,
             "voucher_code" : this.createVoucherForm.get('voucher_code').value,
-            "expiry_date" : this.createVoucherForm.get('expiry_date').value,
+            "expiry_date" : expiry_date,
           }
             this.updateVoucherCode(updateVoucherCode);
             
         }else{
+          let  expiry_date=this.datePipe.transform(new Date(this.createVoucherForm.get('expiry_date').value),"yyyy-MM-dd")
           let createdVoucherCodeData = {
           "boxoffice_id" : this.boxOfficeCode,
           "voucher_name" : this.createVoucherForm.get('voucher_name').value,
           "voucher_value" : this.createVoucherForm.get('voucher_value').value,
           "voucher_code" : this.createVoucherForm.get('voucher_code').value,
-          "expiry_date" : this.createVoucherForm.get('expiry_date').value,
+          "expiry_date" : expiry_date,
           // "event_id" : this.eventId, 
         }
         this.createVoucherCode(createdVoucherCodeData);

@@ -45,10 +45,9 @@ import { DialogAuthentication } from './_services/auth.component';
     FormsModule,
   ],
   entryComponents: [
-
+    DialogAuthentication
   ],
   providers: [
-    DialogAuthentication,
   ],
   bootstrap: [AppComponent],
 

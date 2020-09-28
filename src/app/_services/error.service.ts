@@ -93,7 +93,9 @@ export class ErrorService {
 
         if(result){
           this.currentUser = result;
+          
         }else{
+          alert()
           this.logout();
           this.router.navigate(['/login']);
         }
@@ -102,7 +104,6 @@ export class ErrorService {
 
   }
   logout() {
-      
     localStorage.removeItem('currentUser');
     localStorage.removeItem('isFront');
     localStorage.removeItem('logoutTime');
