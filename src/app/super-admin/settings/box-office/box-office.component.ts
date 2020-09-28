@@ -68,6 +68,9 @@ export class BoxOfficeComponent implements OnInit {
     });
   }
   
+  // fnshowhide(){
+  //   this.showHide =!this.showHide;
+  // }
 
   fnshowHide(){
     this.showHide = !this.showHide;

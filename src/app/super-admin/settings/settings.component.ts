@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
   
+  pageName :any = '';
  
   constructor() { }
 
@@ -17,6 +18,10 @@ export class SettingsComponent implements OnInit {
   toggleDisplayDiv() {
     this.isShowDiv = !this.isShowDiv;
     
+  }
+
+  fnPostUrl(postUrl){
+    this.pageName = postUrl; 
   }
 
 }

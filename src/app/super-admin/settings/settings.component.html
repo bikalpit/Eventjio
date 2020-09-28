@@ -4,46 +4,47 @@
             <div class="settins-title py-2">
                 <span>Resource Management</span>
             </div>
-            <div class="py-2 active" (click)=toggleDisplayDiv()>
+            <div class="py-2 active common-setting-menu" (click)=toggleDisplayDiv()>
                 <div class="setting-menu-icon d-inline-block mr-2 ">
                     <img src="../../../assets/images/settings/school/school.png" class="w-100" alt="">
                 </div> <span>Event Page Appearance</span><i class="fa fa-angle-down pl-5 ml-2"></i>
             </div>
             <div [hidden]="isShowDiv">
-                <div routerLink="/super-admin/settings" class="py-2 active">
+                <div (click)="fnPostUrl('')" [ngClass]="{'active': pageName == ''}" routerLink="/super-admin/settings" class="py-2 common-sub-menu">
                     <span class="pl-4">Event Page Design</span>
                 </div>
 
-                <div routerLink="/super-admin/settings/buttons-and-links" class="py-2">
+                <div (click)="fnPostUrl('buttons-and-links')" [ngClass]="{'active': pageName == 'buttons-and-links'}" routerLink="/super-admin/settings/buttons-and-links" class="py-2 common-sub-menu">
                     <span class="pl-4">Buttons and Links</span>
                 </div>
 
-                <div routerLink="/super-admin/settings/websites-embed-codes" class="py-2">
+                <div (click)="fnPostUrl('websites-embed-codes')" [ngClass]="{'active': pageName == 'websites-embed-codes'}" routerLink="/super-admin/settings/websites-embed-codes" class="py-2 common-sub-menu">
                     <span class="pl-4">Website Embed Codes</span>
                 </div>
             </div>
 
             <div>
-                <div class="py-2" routerLink="/super-admin/settings/contact-preferences">
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/contact-preferences">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/staff/staff.png" class="w-100" alt="">
                     </div><span>Contact Preferences</span>
                 </div>
 
-                <div class="py-2" routerLink="/super-admin/settings/checkout-form">
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/checkout-form" (click)="fnPostUrl('checkout-form')" [ngClass]="{'active': pageName == 'checkout-form'}">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/settings/information/information.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'checkout-form' ? 'none' : 'block'}" src="../../../assets/images/settings/information/information.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'checkout-form' ? 'block' : 'none'}" src="../../../assets/images/settings/staff/staff.png" class="w-100" alt="">
                     </div> <span>Checkout form</span>
                 </div>
 
-            
-                <div class="py-2" routerLink="/super-admin/settings/order-confirmation">
+
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/order-confirmation">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/order/order.png" class="w-100" alt="">
                     </div> <span>Order Confirmation</span>
                 </div>
 
-                <div class="py-2" routerLink="/super-admin/settings/team-access">
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/team-access">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/Teamaccess/Team access.png" class="w-100" alt="">
                     </div> <span>Team access</span>
@@ -54,84 +55,74 @@
                     <span>Manage</span>
                 </div>
 
-                <div class="py-2">
-                    <div routerLink="/super-admin/settings/seating-charts">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
-                        </div> <span>Seating Chart</span>
-                    </div>
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/seating-charts">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                    </div> <span>Seating Chart</span>
                 </div>
 
                 <div class="settins-title py-2">
                     <span>Account</span>
                 </div>
 
-                <div class="py-2">
-                    <div routerLink="/super-admin/settings/my-profile">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/user/user.png" class="w-100" alt="">
-                        </div> <span>My Profile</span>
-                    </div>
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/my-profile">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/user/user.png" class="w-100" alt="">
+                    </div> <span>My Profile</span>
                 </div>
 
-                <div class="py-2">
-                    <div routerLink="/super-admin/settings/box-office">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/store/store.png" class="w-100" alt="">
-                        </div> <span>Box Office</span>
-                    </div>
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/box-office">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/store/store.png" class="w-100" alt="">
+                    </div> <span>Box Office</span>
                 </div>
 
-            
+
                 <div class="settins-title py-2">
                     <span>Payment</span>
                 </div>
 
-                <div class="py-2">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                <div class="py-2 common-setting-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2" routerLink="/super-admin/settings/payment-systems">
                         <img src="../../../assets/images/settings/pay/pay.png" class="w-100" alt="">
                     </div> <span>Payment Systems</span>
                 </div>
 
-                <div class="py-2">
-                    <div routerLink="/super-admin/settings/billing">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/checklist/checklist.png" class="w-100" alt="">
-                        </div> <span>Billing</span>
-                    </div>
-                    </div>
-                    
-                    <div class="py-2" routerLink="/super-admin/settings/sales-tax">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/invoice/invoice.png" class="w-100" alt="">
-                        </div> <span>Sales tax</span>
-                    </div>
-           
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/billing">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/checklist/checklist.png" class="w-100" alt="">
+                    </div> <span>Billing</span>
+                </div>
+
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/sales-tax">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/invoice/invoice.png" class="w-100" alt="">
+                    </div> <span>Sales tax</span>
+                </div>
+
                 <div class="settins-title py-2">
                     <span>General Setting</span>
                 </div>
 
-                <div class="py-2">
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/connect-app">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/app/app.png" class="w-100" alt="">
                     </div> <span>Connect apps</span>
                 </div>
 
-                <div class="py-2">
+                <div class="py-2 common-setting-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/appusers/app-user.png" class="w-100" alt="">
                     </div> <span>Check in app users</span>
                 </div>
 
-                <div class="py-2">
-                    <div routerLink="/super-admin/settings/privacy-policy">
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/privacy-policy">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/PrivacyPolicy/Privacy-Policy.png" class="w-100" alt="">
                     </div> <span>Privacy Policy</span>
-                    </div>
                 </div>
 
-                <div class="py-2">
+                <div class="py-2 common-setting-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/coding/coding.png" class="w-100" alt="">
                     </div> <span>API</span>

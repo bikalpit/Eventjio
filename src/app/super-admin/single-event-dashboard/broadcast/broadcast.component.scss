@@ -4,7 +4,6 @@
 #broadcast{
 font-family: Poppins;
     .top-heading-main{
-     margin-top: 24px;
      h4{font-size: 18px;
          color: #000;
          text-align: justify;
@@ -256,7 +255,3 @@ font-family: Poppins;
         color: #000000;
     }
 }
-::ng-deep .mat-dialog-container {padding: 0px !important;}
-::ng-deep .cdk-overlay-pane {
-        overflow: auto;
-    }

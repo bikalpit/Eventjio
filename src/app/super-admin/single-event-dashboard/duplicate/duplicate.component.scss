@@ -16,6 +16,7 @@
                     margin-top: 26px;
                     border: 1px solid #CECECE;
                     border-radius: 4px;
+                    background-color: #F6F6F645;
                     .duplicate-heading {
                      border-bottom: solid 1px #DDDDDD;
                      padding: 14px 18px 24px 14px;
@@ -55,9 +56,7 @@
                     }
                     .drageble-box {
                         align-items: center;
-                        flex-direction: row;
-                        box-sizing: border-box;
-                        display: flex;
+                        background-color: #f6f6f645;
                         padding: 10px 20px;
                         border-bottom: 1px solid #dddddd;
                     }
@@ -77,6 +76,9 @@
                         padding: 6px 12px;
                         border-radius: 5px;
                     } 
+                    .form-group{
+                        padding: 10px 20px;
+                    }
                 }
               .duplicate-table-wrap{
                   .drageble-list{
@@ -100,17 +102,25 @@
                         }
                         input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
                             color:#000;
-                            font-size:12px;
-                             }
-                        select { /* Chrome, Firefox, Opera, Safari 10.1+ */
-                        font-size:12px;
-                            }     
+                             } 
                     }
                    
 
                   }
               }  
               .add-row {
+                color:#007BFF;
                 padding: 10px 20px;
+                cursor: pointer;
               }
+
+            .matDate{
+                position:relative;
+            }
+            .dateIcon{
+                 position: absolute;
+            }
+            .matInputdate{
+                padding-left: 40px;
+            }
 }

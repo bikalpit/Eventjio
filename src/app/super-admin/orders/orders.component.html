@@ -26,8 +26,8 @@
                     <i class="fa fa-search p-2 pl-3"></i>
                     <input matInput type="text" class="p-2 pl-0" placeholder="Search by name, email, transaction id, or ticket code">   
                 </div>
-                <div class="col-12 p-0 order-event" fxLayout="row">
-                    <div class="" fxFlex="40">
+                <div class="col-12 p-0 order-event">
+                    <div class="" fxFlex="34">
                         <label class="mb-0">Event</label>
                         <div class="">
                             <mat-select class="form-control ">
@@ -39,18 +39,22 @@
                         </div>
                     </div>
                     
-                    <div class="mx-1" fxFlex="20">
+                    <div class="ml-4" fxFlex="20">
                         <label class="mb-0">Order date form</label>
-                        <div>
-                            <input type="date" class="form-control ">
-                        </div>
+                        <div class="matDate">                    
+                            <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon"> </mat-datepicker-toggle>
+                            <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control matInputdate ">               
+                            <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
+                        </div>          
                     </div>
                     
-                    <div class="mx-1" fxFlex="20">
+                    <div class="mx-4" fxFlex="20">
                         <label class="mb-0">Order date to</label>
-                        <div>
-                            <input type="date" class="form-control ">
-                        </div>
+                        <div class="matDate"> 
+                            <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
+                            <input type="text" matInput [matDatepicker]="ticketIssuedTo"  (click)="ticketIssuedTo.open()"  class="form-control matInputdate">
+                            <mat-datepicker #ticketIssuedTo></mat-datepicker>
+                            </div>
                     </div>
                     
                    <div class="" fxFlex="20">
@@ -91,7 +95,7 @@
                           <div class="tb-data" fxFlex="10"><span class="cpn-bor" [ngStyle]="{'color':element.status === 'Completed' ? '#2BB800' : '#FF0000' }">{{element.status}}</span></div>
                           <div class="tb-data" fxFlex="13">{{element.name}}</div>
                           <div class="tb-data" fxFlex="15">{{element.datetime}}</div>
-                          <div class="tb-data" fxFlex="32">{{element.event}}</div>
+                          <div class="tb-data" fxFlex="32">{{element.event}} <span class="order-data-date"> (Mon 17 Jun 2020) </span></div>
                           <div class="tb-data" fxFlex="10">{{element.value}}</div>
                           <div class="tb-data" fxFlex="10">
                             <mat-icon [ngbPopover]="popContent" placement="bottom"  aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>

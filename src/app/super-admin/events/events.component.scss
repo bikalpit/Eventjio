@@ -56,7 +56,39 @@
 }
 
 // .code-tab{
-// }   
+// }  
+::ng-deep .fa-asterisk {
+    color: #FF0000;
+    font-size: 5px;
+    position: relative;
+    bottom: 6px;
+}
+
+ ::ng-deep .fa-question {
+    // background: #e8e8e8;
+    border-radius: 50%;
+    font-size: 9px;
+    padding: 3px 5px;
+    background: #CECECE;
+    opacity: 0.47;
+}
+
+::ng-deep .events {
+    .mat-select-trigger {
+        line-height: 1.5;
+    }
+    .mat-select-trigger {
+        .mat-select-value {
+            color: #fff;
+        }
+        .mat-select-arrow-wrapper {
+            .mat-select-arrow {
+                color: #fff;
+            }
+        }
+    }
+}
+
  ::ng-deep .code-tab .mat-tab-header {
     margin-bottom: 20px;
     border: none;
@@ -87,6 +119,8 @@
         overflow: hidden;
         font-size: 14px;
         font-weight: 500;
+        height: calc(100vh - 255px);
+        overflow-y: scroll;
     }
     .main-heading-content {
         border-top: solid 1px #DDDDDD;
@@ -163,7 +197,7 @@
 }
 
 ::ng-deep .venue-info {
-    width: 30%;
+    width: 32%;
 }
 
 .after-save-general-admission {
@@ -242,6 +276,11 @@
     }
 }
 
+.status-select {
+    border-radius: 50px;
+    font-size: 12px;
+}
+
 ::ng-deep .popover {
     border: none;
     .popover-body {
@@ -252,6 +291,7 @@
         .border-bottom {
             border-bottom: 1px solid #7070701a !important;
             padding: 5px 0px;
+            cursor: pointer;
         }
     }
 }
@@ -260,23 +300,25 @@
 .bs-popover-auto[x-placement^=bottom]>.arrow::before {
     border-bottom-color: transparent;
 }
-::ng-deep .mat-common-radius{
+
+::ng-deep .mat-common-radius {
     .mat-select {
         height: 32px;
         line-height: 1.2;
         border-radius: 30px;
-    .mat-select-trigger{
-        .mat-select-value{
-            color: #fff;
-        }
-        .mat-select-arrow-wrapper{
-            .mat-select-arrow{
+        border: none;
+        .mat-select-trigger {
+            .mat-select-value {
                 color: #fff;
             }
-          }
+            .mat-select-arrow-wrapper {
+                .mat-select-arrow {
+                    color: #fff;
+                }
+            }
         }
     }
-} 
+}
 
 .event-settings {
     border-bottom: 0px !important;
@@ -289,3 +331,7 @@
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
 }
+
+// ::ng-deep .mat-dialog-container {
+//          padding: 0px !important;
+// }

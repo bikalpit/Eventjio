@@ -1,21 +1,22 @@
-<div class="main bg-white p-4 ml-2">
-    <div class="row">
-        <div class="col-12  ml-2 mt-2">
-            <div class="font-weight-bold page-title">
-                <div class="form-group">
-                    Privacy  policy             
+<div class="bg-white">
+    <div class="main main-work-area">
+        <div class="rowmx-auto">
+            <div class="col-12  ml-2 mt-2">
+                <div class="font-weight-bold page-title">
+                    <div class="form-group">
+                        Privacy  policy             
+                    </div>
                 </div>
-            </div>
-            <label for="">Add your privacy policy below. This explains to your customers how you will use the data that you collect from them. There will be a link to this from the footer of your box office.</label>
-            
-        </div> 
-    </div>
+                <label for="">Add your privacy policy below. This explains to your customers how you will use the data that you collect from them. There will be a link to this from the footer of your box office.</label>
+                
+            </div> 
+        </div>
 
-    <div class="row mt-3">
-            <div class="col-12 pb-2 ml-2 font-weight-bold ">Update privacy policy
+    <div class="row mx-auto mt-3">
+            <div class="col-12 pb-2 font-weight-bold ">Update privacy policy
                 <i class="fa fa-question-circle ml-2"  matTooltip="Info about the action" aria-hidden="true"></i> 
             </div>
-        <div class="col-10 mb-5 ml-2 ckeditor">
+        <div class="col-10 mb-5 ckeditor">
             <ck-editor name="editor1" 
                 skin="moono-lisa" 
                 language="en" [fullPage]="true">
@@ -26,27 +27,25 @@
             <!-- <div [innerHTML]="mycontent"></div> -->
     </div>
     
-    <div class="row mt-5">
-        <div class="col-10 ml-4 bg alert-info box text-dark">
-            <div class="form-group mt-1">
-                <p class="ml-4 font-weight-bold"> Do you need a privacy policy?</p>
-                <!-- <span class="material-icons notification-icon">
-                    notifications
-                    </span>   -->
-               <p class="ml-4"> We have a created a free tool for you to create a custom privacy policy specific to your requirements.</p>
-                <a routerLink="#" class="ml-4"><u> Use our free privacy policy generator.</u></a>
-            </div>
-        </div>
-      
+    <div class="row mx-auto mt-5">
+            <div class="main-privacy-text col-10 ml-3 bg alert-info box text-dark">
+                    <div class="">
+                    <span class="material-icons notification-icon mr-2">
+                        notifications
+                        </span>
+                    </div>
+                        <div class="">
+                        <p class=" mb-1 font-weight-bold"> Do you need a privacy policy?</p>
+                    <p class=""> We have a created a free tool for you to create a custom privacy policy specific to your requirements.</p>
+                        <a routerLink="#" class=""><u> Use our free privacy policy generator.</u></a>
+                </div>
+                </div>        
+        </div>        
     </div>
-
-
-    <div class="row bottom">
-        <hr class="col-12   ">
-        <div class="pull-right col-12 mt-2">
-            <button mat-flat-button class="save float-right mx-2">Save</button>
-            <button mat-flat-button class="cancel float-right mx-2">Cancel</button>                 
+    <div class="footer-action-btn">
+        <div class="can-save">
+            <button mat-raised-button class="cancel-btn">Cancel</button>
+            <button mat-raised-button class="save-btn">Save</button>
         </div>
     </div>
-
 </div>

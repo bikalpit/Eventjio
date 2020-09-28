@@ -22,6 +22,10 @@ button:focus {
 
 ::ng-deep .modal-content .modal-header {
     border: none;
+    padding: 0px 16px;
+    .close-btn{
+        margin-top: 0px;
+    }
 }
 
 ::ng-deep .modal-content {
@@ -225,6 +229,16 @@ button:focus {
     }
 }
 
+::ng-deep .matDate{
+    position: relative;
+   .mat-datepicker-toggle{
+    position: absolute;
+   } 
+   .form-control{
+    padding-left: 40px;
+}
+} 
+
 ::ng-deep .coupon-code-tabs {
     .mat-tab-labels {
         padding: 0 20px;
@@ -244,6 +258,7 @@ button:focus {
         .border-bottom {
             border-bottom: 1px solid #7070701a !important;
             padding: 5px 0px;
+            cursor: pointer;
         }
     }
 }

@@ -4,17 +4,18 @@
 }
 
 .setting-left-menu {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 60px);
     overflow-y: auto;
     width: 300px;
     position: fixed;
     z-index: 9;
-    top: 70px;
+    top: 60px;
 }
 
 .setting-right-container {
     width: calc(100% - 300px);
     margin-left: 300px;
+    overflow: auto;
 }
 
 .setting-menu-icon {
@@ -25,4 +26,10 @@
 
 .active {
     color: #007BFF;
+}
+.common-setting-menu{
+    cursor: pointer;
+}
+.common-sub-menu{
+    cursor: pointer;
 }

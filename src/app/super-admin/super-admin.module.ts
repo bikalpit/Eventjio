@@ -22,6 +22,7 @@ import { AddNewTicketType } from './events/events.component';
 import { AddNewTicketGroup } from './events/events.component';
 import { myCreateDiscountCodeDialog } from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog } from './coupons/coupons.component';
+import { AssignToEventDialog } from './coupons/coupons.component';
 import { ExportOrderDialog } from './orders/orders.component';
 import { AddNewOrderDialog } from './orders/orders.component';
 import { BookTicketDialog } from './orders/orders.component';
@@ -54,7 +55,8 @@ import { DialogImportFileUpload } from './customers/customers.component';
       OrderInvoiceDialog,
       myCreateNewBoxofficeDialog,
       DialogEventImageUpload,
-      DialogImportFileUpload
+      DialogImportFileUpload,
+      AssignToEventDialog
   ],
   
   imports: [
@@ -76,7 +78,7 @@ import { DialogImportFileUpload } from './customers/customers.component';
   ],
   
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
-    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog,DialogEventImageUpload,DialogImportFileUpload],
+    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog,DialogEventImageUpload,AssignToEventDialog,DialogImportFileUpload],
 })
   
 export class SuperAdminModule {}

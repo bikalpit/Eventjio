@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "Ticket-Tailor": {
+        "Eventjio": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/Ticket-Tailor",
+                        "outputPath": "dist",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -62,7 +62,7 @@
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "2mb",   
+                                    "maximumWarning": "2mb",
                                     "maximumError": "5mb"
                                 }
                             ]
@@ -72,18 +72,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "Ticket-Tailor:build"
+                        "browserTarget": "Eventjio:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "Ticket-Tailor:build:production"
+                            "browserTarget": "Eventjio:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "Ticket-Tailor:build"
+                        "browserTarget": "Eventjio:build"
                     }
                 },
                 "test": {
@@ -120,18 +120,18 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "Ticket-Tailor:serve"
+                        "devServerTarget": "Eventjio:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "Ticket-Tailor:serve:production"
+                            "devServerTarget": "Eventjio:serve:production"
                         }
                     }
                 }
             }
         }
     },
-    "defaultProject": "Ticket-Tailor",
+    "defaultProject": "Eventjio",
     "cli": {
         "analytics": "799ae259-fec3-4c29-bf2f-af98b1d1ae1d"
     }

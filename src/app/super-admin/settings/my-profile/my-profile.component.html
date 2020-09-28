@@ -1,21 +1,21 @@
-<div class="main bg-white ml-4">
+<div class="main bg-white">
         <div class="row mx-0 mb-4 mt-2">
             <div class="col-12  mt-2">
-                <div class="font-weight-bold page-title ml-4">
+                <div class="font-weight-bold page-title">
                     My Profile
                 </div>
             </div>
         </div>
    
     
-    <div class="row main-content ml-4">
+    <div class="row main-content">
         <div class="col-6">
             <div class="row mx-0 mt-2">
             
                   <img src="../../../assets/images/settings/profile/my-profile.png"  alt="">                  
               <div class="col-4 py-2">
-                  <button mat-flat-button (click)="fnChangeImage()" class="change-photo">Change photo</button>                 
-                  <button mat-flat-button class="remove-photo mt-2">Remove photo</button>
+                  <button mat-flat-button (click)="fnChangeImage()" class="change-photo">Change Image</button>                 
+                  <button mat-flat-button class="remove-photo mt-2">Remove Image</button>
               </div>
             </div>
         </div>
@@ -23,37 +23,38 @@
         
     <div class="p-2">
         <div class="form-group">
-            <div class="row mx-0 mt-4">
-                 <div class="col-5">
-                    <label for="first-name" class="col-5">Firstname</label>
-                    <input type="text" class="form-control " placeholder="Shabnamm">
-                 </div>
+            <form [formGroup]="myProfileForm">
+                <div class="row mx-0 mt-4">
+                    <div class="col-6">
+                        <label for="first-name" class="">First Name</label>
+                        <input type="text" class="form-control" formControlName="firstname" placeholder="Shabnamm">
+                    </div>
 
-                 <div class="col-5">
-                    <label for="first-name" class="col-5">Lastname</label>
-                    <input type="text" class="form-control" placeholder="Ansari">
-                 </div>
+                    <div class="col-6">
+                        <label for="first-name" class="">Last Name</label>
+                        <input type="text" class="form-control" formControlName="lastname" placeholder="Ansari">
+                    </div>
 
-                 <div class="col-5">
-                    <label for="first-name" class="col-5 mt-4">Email</label>
-                    <input type="text" class="form-control" placeholder="dummy@gmail.com">
-                 </div>
-                 
-                  <div class="col-5">
-                    <label for="first-name" class="col-5 mt-4">Phone</label>        
-                    <input type="text" class="form-control" placeholder="+91 87678687">
-                  </div>
-            </div>
+                    <div class="col-6">
+                        <label for="first-name" class="mt-4">Email</label>
+                        <input type="text" class="form-control" formControlName="email" placeholder="dummy@gmail.com">
+                    </div>
+                    
+                    <div class="col-6">
+                        <label for="first-name" class="mt-4">Phone</label>        
+                        <input type="text" class="form-control" formControlName="phone" placeholder="+91 87678687">
+                    </div>
+                </div>
+            </form>
         </div>
 
-
-      <div class="row mx-0 bottom">
-        <hr class="col-12   ">
-            <div class="pull-right col-12 mt-2">
-                <button mat-flat-button class="save float-right mx-2 mr-4">Save</button>
-                <button mat-flat-button class="cancel float-right mx-2">Cancel</button>                  
-            </div>
-      </div>
     </div>
-</div>
-</div>
+    </div>
+    </div>
+    <div class="footer-action-btn">
+        <div class="can-save">
+            <button mat-raised-button class="cancel-btn">Cancel</button>
+            <button mat-raised-button class="save-btn" (click)="fnUploadMyProfile()">Save</button>
+        </div>
+    </div>
+  

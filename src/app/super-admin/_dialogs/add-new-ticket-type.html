@@ -1,189 +1,211 @@
 <div class="main">
-      <div class="modal-header pl-3 py-0 border-0">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="modal-header pl-3 py-0 border-0">
         <p class="font-weight-bold">Add New Ticket Type</p>
-        <button type="button" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
-      </div>
+    </div>
 
     <div class="modal-body">
-      <div class="row">
-        <div class="col-7">
-          <div class="row">
-            <div class="col-6">
-              <label for="">Ticket Name</label>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="General Adminssion">
-              </div>
+        <form [formGroup]="addTicketForm" class="with-validation">
+            <div class="row">
+                <div class="col-7">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Ticket Name</label>
+                            <div class="form-group">
+                                <input type="text" formControlName="title" class="form-control" placeholder="Ticket Name">
+                                <span class="error-wrap" *ngIf="addTicketForm.get('title').touched || addTicketForm.get('title').dirty">
+                                    <small *ngIf="addTicketForm.get('title').hasError('required')" class="error">Ticket Name is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="">Price</label>
+                            <div class="form-group">
+                                <input type="text" formControlName="price" class="form-control" placeholder="0.00">
+                                <span class="error-wrap" *ngIf="addTicketForm.get('price').touched || addTicketForm.get('price').dirty">
+                                    <small *ngIf="addTicketForm.get('price').hasError('required')" class="error">Price is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="">Quantity</label>
+                            <div class="form-group">
+                                <input type="text" formControlName="qty" class="form-control" placeholder="General Adminssion">
+                                <span class="error-wrap" *ngIf="addTicketForm.get('qty').touched || addTicketForm.get('qty').dirty">
+                                    <small *ngIf="addTicketForm.get('qty').hasError('required')" class="error">Quantity required.</small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <input type="checkbox" class="from-control mr-2"> Show advance settings -->
+                        <mat-checkbox>Show advance settings</mat-checkbox>
+                    </div>
+
+                    <label for="">Description</label>
+                    <div class="form-group">
+                        <input type="text" formControlName="description" class="form-control" placeholder="General Admission">
+                        <span class="error-wrap" *ngIf="addTicketForm.get('description').touched || addTicketForm.get('description').dirty">
+                            <small *ngIf="addTicketForm.get('description').hasError('required')" class="error">Description is required.</small>
+                        </span>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="">Booking Fee</label>
+                            <div class="form-group">
+                                <input type="text" formControlName="fee" class="form-control" placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="">Status</label>
+                            <div class="form-group" class="form-group">
+                                <mat-select formControlName="status" id="" class="form-control">
+                                    <mat-option value="OS">On Sale</mat-option>
+                                    <mat-option value="H">Hidden</mat-option>
+                                    <mat-option value="ACR">Access code required</mat-option>
+                                    <mat-option value="DSO">Display as sold out</mat-option>
+                                    <mat-option value="DU">Display as unavailable</mat-option>
+                                    <mat-option value="OVA">Only visoble to admin</mat-option>
+                                </mat-select>
+                                <span class="error-wrap" *ngIf="addTicketForm.get('status').touched || addTicketForm.get('status').dirty">
+                                    <small *ngIf="addTicketForm.get('status').hasError('required')" class="error">Status is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="">Min per order</label>
+                            <div class="form-group">
+                                <input formControlName="min_order" type="text" class="form-control" placeholder="1">
+                                <span class="error-wrap" *ngIf="addTicketForm.get('min_order').touched || addTicketForm.get('min_order').dirty">
+                                    <small *ngIf="addTicketForm.get('min_order').hasError('required')" class="error">Min per order is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="">Max per order</label>
+                            <div class="form-group">
+                                <input formControlName="max_order" type="text" class="form-control" placeholder="20">
+                                <span class="error-wrap" *ngIf="addTicketForm.get('max_order').touched || addTicketForm.get('max_order').dirty">
+                                    <small *ngIf="addTicketForm.get('max_order').hasError('required')" class="error">Max per order is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="col-5">
+
+                    <label class="mt-4">Hide untill a set date and time</label>
+
+                    <div class="form-group">
+                        <div class="matDate w-50 d-inline-block">
+                            <input formControlName="until_date" type="text" [matDatepicker]="hideDatePicker" [min]="minDate" id="until_date" (click)="hideDatePicker.open()" class="form-control  ">
+                            <mat-datepicker #hideDatePicker></mat-datepicker>
+                            <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('until_date').touched || addTicketForm.get('until_date').dirty">
+                                <small *ngIf="addTicketForm.get('until_date').hasError('required')" class="error">Hide untill Date is required.</small>
+                            </span>
+                        </div>
+                        <mat-select formControlName="until_time" class="col-4 ml-2 form-control d-inline-block">
+                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}"> {{fullDayTimeSlote}}</mat-option>
+                        </mat-select>
+                        <span style="left:0px" class="error-wrap offset-6 w-auto pl-2" *ngIf="addTicketForm.get('until_time').touched || addTicketForm.get('until_time').dirty">
+                            <small *ngIf="addTicketForm.get('until_time').hasError('required')" class="error">Hide untill Time is required.</small>
+                        </span>
+                    </div>
+
+                    <label class="mt-2" for="">Hide untill a set available interval hours</label>
+
+                    <div class="form-group ">
+                        <mat-select formControlName="until_interval" class="form-control w-50">
+                            <mat-option value="1">1</mat-option>
+                            <mat-option value="2">2</mat-option>
+                            <mat-option value="3">3</mat-option>
+                            <mat-option value="4">4</mat-option>
+                            <mat-option value="5">5</mat-option>
+                            <mat-option value="6">6</mat-option>
+                            <mat-option value="7">7</mat-option>
+                            <mat-option value="8">8</mat-option>
+                            <mat-option value="9">9</mat-option>
+                            <mat-option value="10">10</mat-option>
+                            <mat-option value="11">11</mat-option>
+                            <mat-option value="12">12</mat-option>
+                        </mat-select> <span class="pl-2">/ Hours</span>
+                        <span class="error-wrap d-block" *ngIf="addTicketForm.get('until_interval').touched || addTicketForm.get('until_interval').dirty">
+                            <small *ngIf="addTicketForm.get('until_interval').hasError('required')" class="error">Hide until Interval is required.</small>
+                        </span>
+                    </div>
+
+                    <label class="mt-2">Hide after a set date and time</label>
+
+                    <div class="form-group">
+                        <div class="matDate w-50 d-inline-block">
+                            <input formControlName="after_date" type="text" [matDatepicker]="ticketIssuedDatePicker" [min]="minDate" id="after_date" (click)="ticketIssuedDatePicker.open()" class="form-control ">
+                            <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
+                            <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('after_date').touched || addTicketForm.get('after_date').dirty">
+                                <small *ngIf="addTicketForm.get('after_date').hasError('required')" class="error">Hide after Date is required.</small>
+                            </span>
+                        </div>
+                        <!-- <input type="date" class="form-control col-6 mr-1 d-inline-block"> -->
+                        <mat-select formControlName="after_time" class="col-4 ml-2 form-control d-inline-block">
+                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}"> {{fullDayTimeSlote}}</mat-option>
+                        </mat-select>
+                        <span style="left:0px" class="error-wrap offset-6 w-auto pl-2" *ngIf="addTicketForm.get('after_time').touched || addTicketForm.get('after_time').dirty">
+                            <small *ngIf="addTicketForm.get('after_time').hasError('required')" class="error">Hide after Time is required.</small>
+                        </span>
+                    </div>
+
+                    <label class="mt-2">Hide untill a set unavailable interval hours</label>
+
+                    <div class="form-group ">
+                        <mat-select formControlName="after_interval" class="form-control w-50">
+                            <mat-option value="1">1</mat-option>
+                            <mat-option value="2">2</mat-option>
+                            <mat-option value="3">3</mat-option>
+                            <mat-option value="4">4</mat-option>
+                            <mat-option value="5">5</mat-option>
+                            <mat-option value="6">6</mat-option>
+                            <mat-option value="7">7</mat-option>
+                            <mat-option value="8">8</mat-option>
+                            <mat-option value="9">9</mat-option>
+                            <mat-option value="10">10</mat-option>
+                            <mat-option value="11">11</mat-option>
+                            <mat-option value="12">12</mat-option>
+                        </mat-select> <span class="pl-2"> / Hours</span>
+                        <span class="error-wrap d-block" *ngIf="addTicketForm.get('after_interval').touched || addTicketForm.get('after_interval').dirty">
+                            <small *ngIf="addTicketForm.get('after_interval').hasError('required')" class="error">Hide after Interval is required.</small>
+                        </span>
+                    </div>
+
+                    <mat-checkbox class="w-100 d-block mt-2" (change)="fnChangeSoldOut($event)">Hide when sold out</mat-checkbox>
+                    <mat-checkbox class="w-100 d-block" (change)="fnChangeShowQTY($event)">Show quantity remaining on event page</mat-checkbox>
+
+                    <h3 class="font-weight-medium mt-2 text-left">Discounts</h3>
+                    <div class="form-group">
+                        <mat-checkbox class="d-block" *ngFor="let allCouponCodeList of allCouponCodeList; let i=index" (change)="fnAddCoupon($event,allCouponCodeList.unique_code)">{{allCouponCodeList.coupon_title}}</mat-checkbox>
+                    </div>
+                </div>
             </div>
-
-            <div class="col-6">
-              <label for="">Price</label>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="0.00">
-              </div>
-            </div>
-
-            <div class="col-6">
-              <label for="">Quantity</label>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="General Adminssion">
-              </div>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <!-- <input type="checkbox" class="from-control mr-2"> Show advance settings -->
-            <mat-checkbox >Show advance settings</mat-checkbox>
-          </div>
-
-        <label for="">Description</label>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="General Admission">
-        </div>
-
-
-        <div class="row">
-          <div class="col-6">
-            <label for="">Booking Fee</label>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="0.00">
-            </div>
-          </div>
-
-          <div class="col-6">
-            <label for="">Status</label>
-            <div class="form-group" class="form-group">
-              <select name="" id="" class="form-control">
-                <option value="">On Sale</option>
-                <option value="">Hidden</option>
-                <option value="">Access code required</option>
-                <option value="">Display as sold out</option>
-                <option value="">Display as unavailable</option>
-                <option value="">Only visoble to admin</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-6">
-            <label for="">Min per order</label>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="1">
-            </div>
-          </div>
-
-          <div class="col-6">
-            <label for="">Max per order</label>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="20">
-            </div>
-          </div>
-
-        </div>
-
-        </div>
-        
-        
-        
-        
-        <div class="col-5">
-          
-        <div class="form-group mt-4">
-            <!-- <input type="checkbox" class="from-control mr-2"> Hide untill a set date and time -->
-            <mat-checkbox >Hide untill a set date and time</mat-checkbox>
-        </div>
-
-        <div class="form-group">
-          <div class="matDate w-50 d-inline-block">                    
-            <mat-datepicker-toggle matPrefix [for]="hideDatePicker" class="dateIcon"> </mat-datepicker-toggle>
-            <input type="text" matInput [matDatepicker]="hideDatePicker"  (click)="hideDatePicker.open()"  class="form-control matInputdate ">               
-            <mat-datepicker #hideDatePicker></mat-datepicker>
-          </div>
-            <input type="time" class="form-control col-3 ml-1 d-inline-block">   
-        </div>
-
-        <div class="form-group mt-4">
-          <!-- <input type="checkbox" class="from-control mr-2"> Hide untill a set date and time -->
-          <label for="">Hide untill a set available interval hours</label>
-        </div>
-
-       <div class="form-group ">
-          <mat-select class="form-control w-50">
-            <mat-option value="1">1</mat-option>
-            <mat-option value="2">2</mat-option>
-            <mat-option value="3">3</mat-option>
-            <mat-option value="4">4</mat-option>
-            <mat-option value="5">5</mat-option>
-            <mat-option value="6">6</mat-option>
-            <mat-option value="7">7</mat-option>
-            <mat-option value="8">8</mat-option>
-            <mat-option value="9">9</mat-option>
-            <mat-option value="10">10</mat-option>
-            <mat-option value="11">11</mat-option>
-            <mat-option value="12">12</mat-option>
-          </mat-select>  <span class="pl-2">/ Hours</span>
-       </div> 
-
-
-        <div class="form-group">
-          <!-- <input type="checkbox" class="from-control mr-2"> Hide after a set date and time -->
-          <mat-checkbox >Hide after a set date and time</mat-checkbox>
-        </div>
-
-        <div class="form-group">
-          <div class="matDate w-50 d-inline-block">                    
-            <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon"> </mat-datepicker-toggle>
-            <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control matInputdate ">               
-            <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
-          </div>
-          <!-- <input type="date" class="form-control col-6 mr-1 d-inline-block"> -->
-          <input type="time" class="form-control col-3 ml-1 d-inline-block">   
-        </div>
-
-        <div class="form-group mt-4">
-          <!-- <input type="checkbox" class="from-control mr-2"> Hide untill a set date and time -->
-          <label>Hide untill a set unavailable interval hours</label>
-        </div>
-
-        <div class="form-group ">
-          <mat-select class="form-control w-50">
-            <mat-option value="1">1</mat-option>
-            <mat-option value="2">2</mat-option>
-            <mat-option value="3">3</mat-option>
-            <mat-option value="4">4</mat-option>
-            <mat-option value="5">5</mat-option>
-            <mat-option value="6">6</mat-option>
-            <mat-option value="7">7</mat-option>
-            <mat-option value="8">8</mat-option>
-            <mat-option value="9">9</mat-option>
-            <mat-option value="10">10</mat-option>
-            <mat-option value="11">11</mat-option>
-            <mat-option value="12">12</mat-option>
-          </mat-select>  <span class="pl-2"> / Hours</span>
-       </div> 
-        
-        <div class="form-group">
-          <!-- <input type="checkbox" class="from-control mr-2"> Hide when sold out -->
-          <mat-checkbox >Hide when sold out</mat-checkbox>
-        </div>
-
-        <div class="form-group">
-          <!-- <input type="checkbox" class="from-control mr-2"> Show quantity  remaining on event page -->
-          <mat-checkbox >Show quantity  remaining on event page</mat-checkbox>
-        </div>
-
-        <label for="">Discounts</label>
-        <div class="form-group">
-          <!-- <input type="checkbox" class="from-control mr-2"> July rffer -->
-          <mat-checkbox >July rffer</mat-checkbox>
-        </div>
-        </div>
-      </div>
+        </form>
     </div>
 
     <div class="modal-footer border-0">
-      <button mat-flat-button (click)="onNoClick()" class="cancel-btn mr-1">Cancel</button>
-      <button mat-flat-button class="save-btn ml-1">Save Ticket</button>
+        <button mat-flat-button (click)="onNoClick()" class="cancel-btn mr-1">Cancel</button>
+        <button mat-flat-button (click)="fnSubmitAddTicketForm()" class="save-btn ml-1">Save Ticket</button>
     </div>
 </div>
-    

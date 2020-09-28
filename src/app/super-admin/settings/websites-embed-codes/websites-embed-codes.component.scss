@@ -82,9 +82,13 @@ font-size: 11px;
 .preview-example{
     background-color: #F6FAFF;
 }
-.ticket-header{
-    background-color: #92C7FF;
-    border-radius: 10px 10px 0px 0px;
+.preview{    
+    border-radius: 10px;
+    .ticket-header{
+        background-color: #92C7FF;
+        border-radius: 10px 10px 0px 0px;
+    }
+    
 }
 
 .ticket-footer{
@@ -92,7 +96,7 @@ font-size: 11px;
     border-radius: 0px 0px 10px 10px;
 }
 .ticket-table-title{
-    background-color: #DCECFF;
+    // background-color: #DCECFF;
 }
 
 .save-btn, .next-btn, .edit-btn {
@@ -110,4 +114,11 @@ font-size: 11px;
 }
 .poweredby .web-title{
     font-size: 22px;
+}
+.main-booking-widget{
+    background-color: #F6F6F645;
+}
+.Customise-widgets-title{
+    color: #808080;
+    font-size: 12px;
 }

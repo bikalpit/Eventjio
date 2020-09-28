@@ -1,4 +1,4 @@
-<div class="main p-3">
+<div class="main">
     <div class="page-title">
         Global order confirmation
     </div>
@@ -7,26 +7,19 @@
     </div>
 
     <div class="edit-order-confirmation p-3 border rounded mt-2">
-        <div class="row m-0">
+       <div class="main-top-heading">
             <div class="title pt-1">
                 Edit order confirmation
             </div>
-
-            <div class="ml-auto">
-                <div class="d-inline-block">
-                    Template :
-                </div>
-
-                <div class="d-inline-block ml-2">
-                    <select name="" id="" class="form-control">
-                        <option value="">In-person event</option>
-                        <option value="">Online event</option>
-                    </select>
-                </div>
+            <div class="side-name">
+                Template:
+                <mat-select name="" id="" class="form-control ml-2">
+                    <mat-option value="">In-person event</mat-option>
+                    <mat-option value="">Online event</mat-option>
+                </mat-select>
             </div>
         </div>
-        
-        <div>
+        <div class="edit-order-main">
             Click the <mat-icon class="mx-2">people</mat-icon> icon to insert <span class="highlight p-1 mx-1">Placeholdes</span> which get replaced with order details when the email is sent.
         </div>
 
