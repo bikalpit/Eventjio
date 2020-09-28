@@ -54,7 +54,7 @@ export class ErrorService {
       duration: 2000,
       verticalPosition: 'top',
       panelClass : ['green-snackbar']
-      });
+    });
   }
   
   checkAuthentication(){

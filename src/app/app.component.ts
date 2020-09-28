@@ -43,6 +43,10 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof RouterEvent) this.handleRoute(event);
+    // });
+    
 
     var is_logout = this.authenticationService.logoutTime();
     if(is_logout==true){
