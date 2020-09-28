@@ -19,6 +19,7 @@ export class BoxOfficeComponent implements OnInit {
   allTimezone:any;
   allBoxofficeDetails:any;
   singleBoxofficeUpdate:any;
+  allTimezones:any;
 
 
   constructor(
@@ -29,6 +30,8 @@ export class BoxOfficeComponent implements OnInit {
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
     }
+    this.getAllLanguages();
+    this.getAllTimezone();
     this.getBoxofficeDetails();
   }
 
@@ -46,7 +49,6 @@ export class BoxOfficeComponent implements OnInit {
     let requestObject = {
         'unique_code' : this.boxOfficeCode
     };
-    alert(this.boxOfficeCode);
     this.settingService.getBoxofficeDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allBoxofficeDetails = response.response[0]
@@ -64,6 +66,13 @@ export class BoxOfficeComponent implements OnInit {
     this.settingService.getAllLanguages().subscribe((response:any) => {
       if(response.data == true){
         this.allLanguage = response.response
+      }
+    });
+  }
+  getAllTimezone(){
+    this.settingService.getAllTimezone().subscribe((response:any) => {
+      if(response.data == true){
+        this.allTimezones = response.response
       }
     });
   }
@@ -85,7 +94,7 @@ export class BoxOfficeComponent implements OnInit {
 
 fnSubmitBoxOffice(){
   if(this.singleBoxOffice.invalid){
-    alert("1");
+    
   }
 
     let requestObject = {

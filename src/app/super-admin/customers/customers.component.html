@@ -10,7 +10,8 @@
                 <div class="ml-auto p-3">
                     <button mat-flat-button class="mx-2" (click)="ImportFileUpload()">Import Customers</button>
                     <button mat-flat-button class="mx-2" (click)="ExportFile()">Export Customers</button>
-                    <button mat-flat-button class="ml-2 text-white add-customer" (click)="addFormButton()">Add Customer</button>
+                    <button *ngIf="addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" (click)="addFormButton()">Add Customer</button>
+                    <button *ngIf="!addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" (click)="addFormButton()">View Customer</button>
                 </div>
             </div>
         </div>
@@ -19,56 +20,59 @@
                 <div class="customer-list-container bg-light p-0">
                     <div class="border-bottom p-3">
                         <mat-select class=" form-control">
-                        <mat-option value="All Customers">All Customers</mat-option>
-                        <mat-option value="">Lajavab Cooking Classes</mat-option>
-                        <mat-option value="">Dracula Drinks</mat-option>
-                        <mat-option value="">Kitty Party</mat-option>
-                    </mat-select>
+                            <mat-option value="All Customers">All Customers</mat-option>
+                            <mat-option value="">Lajavab Cooking Classes</mat-option>
+                            <mat-option value="">Dracula Drinks</mat-option>
+                            <mat-option value="">Kitty Party</mat-option>
+                        </mat-select>
 
                         <div class="mt-2 p-2 bg-white border search-btn">
                             <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2" />
                         </div>
                     </div>
 
-                    <div class="customres-list">
+                    <div class="customres-list" *ngIf="selectedCustomerDetails !== null">
                         <div class="single-customer" *ngFor="let customerDetails of customerDetails; let i=index">
-                            <div class="row mx-auto">
-                                <div class="col-2 p-0 p-1">
+                            <div class="row mx-auto align-items-center">
+                                <div class="check-col p-1">
                                     <mat-checkbox class=""></mat-checkbox>
                                 </div>
-                                <div class="col-2 p-2" (click)="fnSelectCustomer(customerDetails.unique_code)">
-                                    <div class="bg-dark customer-image-icon ">
-                                        <img src="../../../assets/images/admin/user.png" class="w-100">
-                                    </div>
+                                <div class="customer-image-icon p-1 pointer" (click)="fnSelectCustomer(customerDetails.unique_code)">
+                                    <img src="../../../assets/images/admin/user.png" class="w-100">
                                 </div>
-                                <div class="col-8 pt-2 customer-email p-0 " (click)="fnSelectCustomer(customerDetails.unique_code)">
+                                <div class="customer-email p-1 pointer" (click)="fnSelectCustomer(customerDetails.unique_code)">
                                     <span>{{customerDetails.firstname}}</span>
                                     <p> {{customerDetails.email}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="customres-list" *ngIf="selectedCustomerDetails === null">
+                        <p>No customer found.</p>
+                    </div>
+
                 </div>
 
                 <div class="customer-detail-container bg-white p-0">
 
                     <div class="p-3" class="single-customer-detail" *ngIf="addFormButtonDiv">
-                        <div  *ngFor = "let selectedCustomerDetails of selectedCustomerDetails; let i=index">
-                        <div class="col-12 py-3">
-                            <div class="row">
-                                <div class="customer-dp">
-                                    <img src="../../../assets/images/admin/user.png" class="w-100" alt="">
-                                </div>
-                                <div class="px-3 py-4 customer-name">
-                                    <span> {{selectedCustomerDetails.firstname + " " + selectedCustomerDetails.lastname}} </span>
-                                </div>
+                        <div *ngFor="let selectedCustomerDetails of selectedCustomerDetails; let i=index">
+                            <div class="col-12 py-3">
+                                <div class="row">
+                                    <div class="customer-dp">
+                                        <img src="../../../assets/images/admin/user.png" class="w-100" alt="">
+                                    </div>
+                                    <div class="px-3 py-4 customer-name">
+                                        <span> {{selectedCustomerDetails.firstname + " " + selectedCustomerDetails.lastname}} </span>
+                                    </div>
 
-                                <div class="ml-auto p-3 customer-edit-delete-btn">
-                                    <button mat-flat-button class="mr-1 edit-btn" (click)="editCustomerDetails()"><i class="fa fa-pencil pr-2"></i>Edit</button>
-                                    <button mat-flat-button class="ml-1 delete-btn" (click)="deleteCustomerDetails()"><i class="fa fa-trash pr-2"></i>Delete</button>
+                                    <div class="ml-auto p-3 customer-edit-delete-btn">
+                                        <button mat-flat-button class="mr-1 edit-btn" (click)="editCustomerDetails()"><i class="fa fa-pencil pr-2"></i>Edit</button>
+                                        <button mat-flat-button class="ml-1 delete-btn" (click)="deleteCustomerDetails()"><i class="fa fa-trash pr-2"></i>Delete</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
 
                         <div *ngFor="let selectedCustomerDetails of selectedCustomerDetails; let i=index">
@@ -77,7 +81,7 @@
                                     <div class="py-2">
                                         <label for="">Phone No.</label>
                                         <p>
-                                         {{selectedCustomerDetails.phone}}
+                                            {{selectedCustomerDetails.phone}}
                                         </p>
                                     </div>
                                     <hr class="m-0">
@@ -91,37 +95,37 @@
                                     <div class="py-2">
                                         <label for="">Address</label>
                                         <p>
-                                          
+
                                         </p>
                                     </div>
-                                <hr class="m-0">
-                            </mat-tab>
+                                    <hr class="m-0">
+                                </mat-tab>
 
-                            <mat-tab label="Events">
-                                <div class="py-3">
-                                    <button mat-flat-button class="border mr-1">All Events</button>
-                                    <button mat-flat-button class="border m-1">Completed Events</button>
-                                    <button mat-flat-button class="border ml-1">Upcoming Events</button>
-                                </div>
-                                <div class="">
-                                    <table class="table">
-                                        <tr>
-                                            <td>Lajavab Cooking Classes</td>
-                                            <td>Mon Sep 01 2020</td>
-                                            <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dracula Drinks</td>
-                                            <td>Mon Aug 20 2020</td>
-                                            <td><span class="px-3 py-1 text-white  completed-event">Completed</span></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </mat-tab>
-                        </mat-tab-group>
+                                <mat-tab label="Events">
+                                    <div class="py-3">
+                                        <button mat-flat-button class="border mr-1">All Events</button>
+                                        <button mat-flat-button class="border m-1">Completed Events</button>
+                                        <button mat-flat-button class="border ml-1">Upcoming Events</button>
+                                    </div>
+                                    <div class="">
+                                        <table class="table">
+                                            <tr>
+                                                <td>Lajavab Cooking Classes</td>
+                                                <td>Mon Sep 01 2020</td>
+                                                <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dracula Drinks</td>
+                                                <td>Mon Aug 20 2020</td>
+                                                <td><span class="px-3 py-1 text-white  completed-event">Completed</span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+
                     </div>
-                
-</div>
                     <!-- Add customer form -->
 
                     <div class="p-3" *ngIf="!addFormButtonDiv" class="add-customer-form">
@@ -129,38 +133,37 @@
                         <div class="px-3">
                             <div class="row">
                                 <form class="p-3" action="" [formGroup]="addCustomerForm">
-                                <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title">
-                                    Add Customer
-                                </div>
-                                <div class="col-12 px-3 sub-heading">
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
-                                </div>
-
-                                <div class="col-12 px-3 mt-3">
-                                    <div>
-                                        <label>Add Image</label>
+                                    <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title">
+                                        Add Customer
                                     </div>
-                                    <div class="row">
-                                        <div class="p-4 ml-3 image-upload">image
-                                           <input type="file" class="form-control" formControlName="image" >
-                                           <span class="error-wrap" *ngIf="addCustomerForm.get('image').dirty || addCustomerForm.get('image').touched"><small *ngIf="addCustomerForm.get('image').hasError('required')" class="error text-left ml-4">Image is required.</small></span>
+                                    <div class="col-12 px-3 sub-heading">
+                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
+                                    </div>
+
+                                    <div class="col-12 px-3 mt-3">
+                                        <div>
+                                            <label>Add Image</label>
                                         </div>
-                                        <div class="px-3 py-42 add-customer-file">
-                                            <span>No file Choosen</span>
-                                            <p class="mt-2">
-                                                Upload image (in .jpg, .jpeg or .png format), <br />
-                                                and the image size should not exceed 200x200.
-                                            </p>
+                                        <div class="row">
+                                            <div class="p-4 ml-3 image-upload">image
+                                                <input type="file" class="form-control" formControlName="image">
+                                                <span class="error-wrap" *ngIf="addCustomerForm.get('image').dirty || addCustomerForm.get('image').touched"><small *ngIf="addCustomerForm.get('image').hasError('required')" class="error text-left ml-4">Image is required.</small></span>
+                                            </div>
+                                            <div class="px-3 py-42 add-customer-file">
+                                                <span>No file Choosen</span>
+                                                <p class="mt-2">
+                                                    Upload image (in .jpg, .jpeg or .png format), <br /> and the image size should not exceed 200x200.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-12 px-3 mt-3">
+                                    <div class="col-12 px-3 mt-3">
                                         <div class="row">
                                             <div class="col-6 ">
                                                 <label for="">First Name</label>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" formControlName="firstname"/>
+                                                    <input type="text" class="form-control" formControlName="firstname" />
                                                     <span class="error-wrap" *ngIf="addCustomerForm.get('firstname').dirty || addCustomerForm.get('firstname').touched"><small *ngIf="addCustomerForm.get('firstname').hasError('required')" class="error text-left ml-4">First name is required.</small></span>
                                                 </div>
                                             </div>
@@ -209,8 +212,8 @@
                                             </div>
 
                                         </div>
-                                </div>
-                            </form>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
