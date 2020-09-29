@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject} from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { SettingService } from '../_services/setting.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ErrorService } from '../../../_services/error.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class BoxOfficeComponent implements OnInit {
   allTimezone:any;
   allBoxofficeDetails:any;
   singleBoxofficeUpdate:any;
+  boxofficeImageUrl:any;
   allTimezones:any;
 
 
@@ -26,6 +28,7 @@ export class BoxOfficeComponent implements OnInit {
     private formBuilder:FormBuilder,
     private settingService:SettingService,
     private ErrorService: ErrorService,
+    public dialog: MatDialog,
   ) {
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
@@ -33,9 +36,7 @@ export class BoxOfficeComponent implements OnInit {
     this.getAllLanguages();
     this.getAllTimezone();
     this.getBoxofficeDetails();
-  }
-
-  ngOnInit(): void {
+    
     this.singleBoxOffice=this.formBuilder.group({
       boxoffice_name:['',[Validators.required]],
       language:[''],
@@ -43,6 +44,25 @@ export class BoxOfficeComponent implements OnInit {
       add_email:[''],
 
     });
+    
+  }
+
+  ngOnInit(): void {
+    this.getBoxofficeDetails();
+  }
+  
+  fnChangeImage(){
+    const dialogRef = this.dialog.open(DialogAdminBoxofficeImageUpload, {
+      width: '500px',
+      
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+            this.boxofficeImageUrl = result;
+            console.log(result);
+           }
+     });
   }
 
   getBoxofficeDetails(){
@@ -121,5 +141,55 @@ fnSubmitBoxOffice(){
     });
   }
 }
+
+
+@Component({
+  selector: 'boxoffice-image-upload',
+  templateUrl: '../_dialogs/image-upload.html',
+})
+export class DialogAdminBoxofficeImageUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: string;
+  profileImage: string;
+  
+constructor(
+  public dialogRef: MatDialogRef<DialogAdminBoxofficeImageUpload>,
+  private _formBuilder:FormBuilder,
+  @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onNoClick(): void {
+      this.dialogRef.close(this.profileImage);
+    }
+    ngOnInit() {
+      this.uploadForm = this._formBuilder.group({
+        profile: ['']
+      });
+    }
+    get f() {
+      return this.uploadForm.controls;
+    }
+    
+onFileChange(event) {
+  const reader = new FileReader();
+  if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result as string;
+          this.uploadForm.patchValue({
+              fileSource: reader.result
+          });
+      };
+  }
+}
+uploadImage() {
+  this.profileImage = this.imageSrc
+  this.dialogRef.close(this.profileImage);
+}
+
+
+}
+
   
 

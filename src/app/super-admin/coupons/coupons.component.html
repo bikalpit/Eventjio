@@ -58,7 +58,7 @@
                                                     <div (click)="fnEditCoupon(allCouponCodeList.unique_code)" class="px-3 pointer border-bottom">
                                                         <i class="fa fa-pencil mr-2"></i><span>Edit</span>
                                                     </div>
-                                                    <div class="px-3 pointer border-bottom">
+                                                    <div class="px-3 pointer border-bottom" (click)="assignToTicketType()">
                                                         <i class="fa fa-ticket mr-2"></i><span>Assign to Ticket Type</span>
                                                     </div>
                                                     <div (click)="fnDeleteCoupon(allCouponCodeList.unique_code)" class="px-3 pointer border-bottom">

@@ -40,8 +40,8 @@
                                 <div class="customer-image-icon p-1 pointer" (click)="fnSelectCustomer(customerDetails.unique_code)">
                                     <img src="../../../assets/images/admin/user.png" class="w-100">
                                 </div>
-                                <div class="customer-email p-1 pointer" (click)="fnSelectCustomer(customerDetails.unique_code)">
-                                    <span>{{customerDetails.firstname}}</span>
+                                <div class="col-8 pt-2 customer-email p-0 " (click)="fnSelectCustomer(customerDetails.unique_code)">
+                                    <span>{{customerDetails.firstname + " " + customerDetails.lastname}}</span>
                                     <p> {{customerDetails.email}}</p>
                                 </div>
                             </div>

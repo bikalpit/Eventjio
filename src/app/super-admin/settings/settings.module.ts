@@ -24,7 +24,8 @@ import { inviteTeamMateDialog} from './team-access/team-access.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { AddSalesTax } from './sales-tax/sales-tax.component';
-import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component'
+import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component';
+import { DialogAdminBoxofficeImageUpload } from './box-office/box-office.component';
 import { HttpClientModule} from '@angular/common/http';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
 
@@ -36,6 +37,7 @@ import { PaymentSystemsComponent } from './payment-systems/payment-systems.compo
      OrderConfirmationComponent,
     inviteTeamMateDialog,
     DialogAdminProfileImageUpload,
+    DialogAdminBoxofficeImageUpload,
     PaymentSystemsComponent,
   ],
 
@@ -56,6 +58,6 @@ import { PaymentSystemsComponent } from './payment-systems/payment-systems.compo
     HttpClientModule,
     
   ],
-  entryComponents: [AddSalesTax,DialogAdminProfileImageUpload,inviteTeamMateDialog]
+  entryComponents: [AddSalesTax,DialogAdminProfileImageUpload,DialogAdminBoxofficeImageUpload,inviteTeamMateDialog]
 })
 export class SettingsModule { }
