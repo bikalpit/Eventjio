@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="tb-data" fxFlex="6">
 
-                                                
+
                                                 <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
                                                 <ng-template class="popover" #popContent>
                                                     <div (click)="fnEditCoupon(allCouponCodeList.unique_code)" class="px-3 pointer border-bottom">
@@ -90,8 +90,8 @@
                                         <div class="" fxFlex="20">Expiry Date</div>
                                         <div class="" fxFlex="10">Action</div>
                                     </div>
-                                    <div  class="content" class="drageble-list">
-                                        <div *ngFor="let allVoucherCodeList of allVoucherCodeList; let i=index;" class="drageble-box" fxLayout="row" >
+                                    <div class="content" class="drageble-list">
+                                        <div *ngFor="let allVoucherCodeList of allVoucherCodeList; let i=index;" class="drageble-box" fxLayout="row">
                                             <div class="tb-data cpn-title" fxFlex="25">{{allVoucherCodeList.voucher_name}}</div>
                                             <div class="tb-data cpn-code" fxFlex="25"><span class="cpn-bor">{{allVoucherCodeList.voucher_value}}</span></div>
                                             <div class="tb-data" fxFlex="20">{{allVoucherCodeList.voucher_code}}</div>

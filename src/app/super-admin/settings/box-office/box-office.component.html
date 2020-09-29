@@ -1,119 +1,100 @@
-<div class="main bg-white">
-    <div class="row mb-4 mx-auto">
-        <div class="col-12 mt-2">
-        <div class="font-weight-bold page-title">
-           Box Office
-        </div>
-    </div> 
-</div>
-
-<form [formGroup]="singleBoxOffice">
-  <div class="row">
-     <div class="col-6 my-left-content">
-       <div class="row mt-2">
-             <img src="../../../assets/images/settings/box.png"  alt="" class="ml-2">                  
-         <div class="col-4 py-2 ml-3">
-             <button mat-flat-button class="change-logo">Change logo</button>                 
-             <button mat-flat-button class="remove-logo mt-2">Remove logo</button>
-         </div>
-         
-             <div class="form-group col-12 mt-4">
-                <label for="" class="required">Box Office Name</label>
-                <input type="text" class="form-control col-12" formControlName="boxoffice_name">
-                <span class="error-wrap" *ngIf="singleBoxOffice.get('boxoffice_name').dirty || singleBoxOffice.get('boxoffice_name').touched"><small *ngIf="singleBoxOffice.get('boxoffice_name').hasError('required')" class="error text-left ml-4">Box Office name required.</small></span>
-            </div>
-
-             <div class="form-group col-12">
-                <label for="" class="">Language (experimental feature)</label>
-                <mat-select name=" " id="" class="form-control col-12" formControlName="languages">
-                    <mat-option value="english">English</mat-option>
-                    <mat-option value="english">Hindi</mat-option>
-                    <mat-option value="english">Gujarati</mat-option>
-                    <mat-option value="english">Tamil</mat-option>
-                </mat-select>
-              </div>
-             
-               <div class="form-group col-12">
-                 <label for="" class="required">Timezone</label>
-                    <mat-select name=" " id="" class="form-control col-12" formControlName="timeZone" >
-                        <span class="error-wrap" *ngIf="singleBoxOffice.get('timeZone').dirty || singleBoxOffice.get('timeZone').touched"><small *ngIf="singleBoxOffice.get('timeZone').hasError('required')" class="error text-left ml-4">Time  required.</small></span>
-                        <mat-option value="english">(GMT+05.30) Calcutta</mat-option>
-                        <mat-option value="english">(GMT+05.30) Mumbai</mat-option>
-                        <mat-option value="english">(GMT+05.30) Delhi</mat-option>
-                        <mat-option value="english">(GMT+05.30) Calcutta</mat-option>
-                    </mat-select>
-               </div>    
-            
-         </div>
-      </div>
-  
-            <div class="col-6 my-right-content">   
-                 <div class="form-group mt-2">  
-                      <div class="section1 col-1"></div> 
-                        <span>Box office Link<i class="fa fa-question-circle ml-2"  matTooltip="You can share this short link with your customers so they have a conveniest way to access your box office." aria-hidden="true"></i></span>
-                        <div class="row">
-                            <div class="col-10 pr-1">
-                                <input type="text" class="form-control">
-                            </div>            
-                            <div class="col-1 pl-1">
-                                <button type="" class="btn alert-info search-button" ><span class="material-icons create">create </span></button>
+<div class="">
+    <div class="box-office main">
+    <div class="box-office main-work-area">
+        <h5>Box Office</h5>
+        <div class="box-office-content row mx-0 mt-4">
+            <div class="col-md-6 my-left-content px-0">
+                <div class="">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="col-md-3 pl-0">
+                            <img src="../../../assets/images/settings/box.png" alt="" class="">
+                        </div>
+                        <div class="col-md-9">
+                            <div>
+                                <button mat-flat-button class="change-logo">Change logo</button>
+                            </div>
+                            <div>
+                                <button mat-flat-button class="remove-logo mt-2">Remove logo</button>
                             </div>
                         </div>
-                   </div>
-
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <mat-checkbox class="example-margin"> Send new order notifications by email <i class="fa fa-question-circle ml-2"  matTooltip="Hide the Tickets Tailor logo from your box ofice pages. This feature is only available on certain plans."></i> </mat-checkbox>
-                    </div>            
-                 </div>
-                        
-                    <div class="form-group">                
-                        <label for="" class="ml-0 mt-4">Who should receive notifications?</label> <br/>
-                         <div class="row mt-2">
-                              <div class="col-6">
-                                <mat-checkbox class="example-margin"> Account Owner </mat-checkbox>
-                             </div>                   
-                         </div>
                     </div>
-                    
-                 <div class="form-group"> 
-                     <div *ngIf="!showHide" >
-                        <i class="fa fa-plus-circle fa-lg plus-icon" (click)="fnshowhide()" ></i>
-                        <a class="ml-2 add-email" (click)="fnshowhide()">Add Email</a>
-                     </div>
-                        
-                     <div *ngIf="showHide">
-                        <div class="row mt-2">
-                            <div class="col-10 pr-1">
-                                <input type="text" class="form-control"  formControlName="email">
-                            </div>   
-
-                            <div class="col-2 pl-1">
-                               <a (click)="fnshowhide()"> <span class="material-icons close-icon">
-                                    close
-                                </span></a>
+                    <div class="box-office-form">
+                        <form>
+                            <div class="form-group mt-4">
+                                <label for="" class="required">Box Office Name</label>
+                                <input type="text" class="form-control col-12">
                             </div>
-                        </div> 
-                     </div>
-                                         
-                 </div>
-                    
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <mat-checkbox class="example-margin"> Hide EventJio Logo <i class="fa fa-question-circle ml-2"  matTooltip="Info about the action" aria-hidden="true"></i> </mat-checkbox>
-                        </div>                                      
+                            <div class="form-group">
+                                <label for="" class="">Language (experimental feature)</label>
+                                <mat-select name=" " id="" class="form-control col-12">
+                                    <mat-option value="english">English</mat-option>
+                                    <mat-option value="english">Hindi</mat-option>
+                                    <mat-option value="english">Gujarati</mat-option>
+                                    <mat-option value="english">Tamil</mat-option>
+                                </mat-select>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="required">Timezone</label>
+                                <mat-select name=" " id="" class="form-control col-12">
+                                    <mat-option value="english">(GMT+05.30) Calcutta</mat-option>
+                                    <mat-option value="english">(GMT+05.30) Mumbai</mat-option>
+                                    <mat-option value="english">(GMT+05.30) Delhi</mat-option>
+                                    <mat-option value="english">(GMT+05.30) Calcutta</mat-option>
+                                </mat-select>
+                            </div>
+                        </form>
                     </div>
-            </div>
-        </div>
-    </form>
-  
-    
-            <div class="row mt-5 mx-auto">
-                <hr class="col-12">
-                <div class="pull-right col-12">
-                    <button mat-flat-button class="save float-right mt-1 mx-2" (click)="updateBoxoffice()">Save</button>
-                    <button mat-flat-button class="cancel float-right mt-1 mx-2">Cancel</button>
                 </div>
             </div>
-        
-</div>  
+
+            <div class="col-md-6 my-right-content">
+                <div class="form-group mt-2">
+                    <label>Box office Link <span> <i class="fa fa-question-circle ml-2"  matTooltip="You can share this short link with your customers so they have a convenient way to access your box office. " aria-hidden="true"></i></span></label>
+                    <div class="row">
+                        <div class="col-10 pr-1">
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-1 pl-1">
+                            <button type="" class="btn alert-info search-button"><span class="material-icons create">create </span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <mat-checkbox class="">Send new order notifications by email </mat-checkbox>
+                </div>
+                <div class="">
+                    <label for="" class="pt-2">Who should receive notifications?</label>
+                    <div class="">
+                        <mat-checkbox class="">Account Owner</mat-checkbox>
+                    </div>
+                </div>
+                <div class="form-group pt-2">
+                    <div *ngIf="!showHide">
+                        <i class="fa fa-plus-circle fa-lg plus-icon" (click)="fnshowHide()"></i>
+                        <a class="ml-2 add-email" (click)="fnshowHide()">Add Email</a>
+                    </div>
+                    <div *ngIf="showHide">
+                        <div class="row mt-2">
+                            <div class="col-10 pr-1">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-2 pl-1">
+                                <mat-icon class="material-icons close-icon" (click)="fnshowHide()">close</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <mat-checkbox class="">Hide Eventjio logo <span class="ml-2"><i class="fa fa-question-circle ml-2"  matTooltip="Hide the Ticket Tailor logo from your box office pages. This feature is only available on certain plans." aria-hidden="true"></i></span></mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-action-btn">
+        <div class="can-save">
+            <button mat-raised-button class="cancel-btn">Cancel</button>
+            <button mat-raised-button class="save-btn">Save</button>
+        </div>
+    </div>
+</div>

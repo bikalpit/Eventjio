@@ -168,6 +168,12 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    fnChangeEventStatus(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-event-status`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 }
 
     

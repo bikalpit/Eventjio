@@ -16,12 +16,16 @@ export interface DialogData {
 export class BroadcastComponent implements OnInit {
   animal :any;
   allBusiness: any;
+  createBroadcast: any = true;
 
   constructor(public dialog: MatDialog,
     private http: HttpClient,) { 
     
   }
 
+  fnCreateBroadcast(){
+    this.createBroadcast = !this.createBroadcast;
+  }
   ngOnInit(): void {
   }
   sendBroadcast() {

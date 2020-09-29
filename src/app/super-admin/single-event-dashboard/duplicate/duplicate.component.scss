@@ -102,17 +102,25 @@
                         }
                         input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
                             color:#000;
-                            font-size:12px;
-                             }
-                        select { /* Chrome, Firefox, Opera, Safari 10.1+ */
-                        font-size:12px;
-                            }     
+                             } 
                     }
                    
 
                   }
               }  
               .add-row {
+                color:#007BFF;
                 padding: 10px 20px;
+                cursor: pointer;
               }
+
+            .matDate{
+                position:relative;
+            }
+            .dateIcon{
+                 position: absolute;
+            }
+            .matInputdate{
+                padding-left: 40px;
+            }
 }

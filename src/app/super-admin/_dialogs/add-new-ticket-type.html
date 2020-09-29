@@ -2,7 +2,7 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="modal-header pl-3 py-0 border-0">
         <p class="font-weight-bold">Add New Ticket Type</p>
-        <button type="button" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
     </div>
@@ -195,7 +195,7 @@
                     <mat-checkbox class="w-100 d-block mt-2" (change)="fnChangeSoldOut($event)">Hide when sold out</mat-checkbox>
                     <mat-checkbox class="w-100 d-block" (change)="fnChangeShowQTY($event)">Show quantity remaining on event page</mat-checkbox>
 
-                    <label for="">Discounts</label>
+                    <h3 class="font-weight-medium mt-2 text-left">Discounts</h3>
                     <div class="form-group">
                         <mat-checkbox class="d-block" *ngFor="let allCouponCodeList of allCouponCodeList; let i=index" (change)="fnAddCoupon($event,allCouponCodeList.unique_code)">{{allCouponCodeList.coupon_title}}</mat-checkbox>
                     </div>

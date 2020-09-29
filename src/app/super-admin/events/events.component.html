@@ -1,8 +1,8 @@
 <div id="events" class="bg-white sub-container">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
-    <div *ngIf="addNewEvents" class="bg-white">
+    <div *ngIf="addNewEvents" class="bg-white events">
         <div class="row mx-0 p-3">
-            <div class="font-weight-bold page-title">
+            <div class="font-weight-bold page-title" (click)="test();">
                 Events
             </div>
 
@@ -13,7 +13,7 @@
 
         <div class="row mx-0 code-tab">
             <mat-tab-group (selectedTabChange)="onTabChange($event)" class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left p-0 event-tabs">
-                <mat-tab label="Upcoming Events (2)" class="">
+                <mat-tab label="Upcoming Events ({{allUpcomingEventListData.length}})" class="">
                     <div class="service-listing events">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
@@ -23,18 +23,18 @@
                                     <div class="" fxFlex="13">Sold</div>
                                     <div class="" fxFlex="15">Remaining</div>
                                     <div class="" fxFlex="17">Revenue</div>
-                                    <div class="" fxFlex="10">Action</div>
+                                    <div class="" fxFlex="10"></div>
                                 </div>
 
                                 <div class="content" class="drageble-list">
-                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of allEventListData">
+                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of allUpcomingEventListData">
                                         <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event_title}} </a> <br> Mon Jul 27, 2020</div>
                                         <div class="tb-data mat-common-radius" fxFlex="20">
-                                            <mat-select [(value)]="element.event_status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
+                                            <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
+
                                                 <mat-option value="draft">Draft</mat-option>
-                                                <mat-option value="published">Published</mat-option>
+                                                <mat-option value="publish">Published</mat-option>
                                             </mat-select>
-                                            <!-- <span class="cpn-bor" [ngStyle]="{'backgroundColor':element.status === 'Draft' ? '#85938D' : '#52C03B' }">{{element.status}}<i class="fa fa-angle-down pl-2"></i></span> -->
                                         </div>
                                         <div class="tb-data" fxFlex="13">0</div>
                                         <div class="tb-data" fxFlex="15">100</div>
@@ -78,7 +78,7 @@
                     </div>
 
                 </mat-tab>
-                <mat-tab label="Past Events (0)">
+                <mat-tab label="Past Events ({{allPastEventListData.length}})">
                     <div class="service-listing events">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
@@ -88,16 +88,16 @@
                                     <div class="" fxFlex="13">Sold</div>
                                     <div class="" fxFlex="15">Remaining</div>
                                     <div class="" fxFlex="17">Revenue</div>
-                                    <div class="" fxFlex="10">Action</div>
+                                    <div class="" fxFlex="10"></div>
                                 </div>
 
                                 <div class="content" class="drageble-list">
-                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of allEventListData">
-                                        <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event_title}} </a> <br> Mon Jul 27, 2020</div>
-                                        <div class="tb-data mat-common-radius" fxFlex="20">
-                                            <mat-select [(value)]="element.event_status" class="form-control event-status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
+                                    <div class="drageble-box" fxLayout="row" *ngFor="let element of allPastEventListData">
+                                        <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
+                                        <div class="tb-data" fxFlex="20">
+                                            <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="draft">Draft</mat-option>
-                                                <mat-option value="published">Published</mat-option>
+                                                <mat-option value="publish">Published</mat-option>
                                             </mat-select>
                                         </div>
                                         <div class="tb-data" fxFlex="13">0</div>
@@ -160,7 +160,7 @@
                     <div class=" py-2 font-weight-bold">
                         <div>Add event info</div>
                     </div>
-                    <label for=""> Event Name</label>
+                    <label for=""> Event Name  <span><i class="fa fa-asterisk"></i></span> </label>
                     <div class="form-group">
                         <input type="text" class="form-control" formControlName="event_name" placeholder="Enter the name of your event">
                         <span class="error-wrap" *ngIf="addEventForm.get('event_name').touched || addEventForm.get('event_name').dirty">
@@ -171,7 +171,7 @@
 
                     <div class="row mx-0">
                         <div class=" date-and-time">
-                            <label for="">Starts</label>
+                            <label for="">Starts  <span><i class="fa fa-asterisk"></i></span> </label>
                             <div class="form-group">
                                 <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-7 form-control d-inline-block" placeholder="DD/MM/YY">
                                 <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_start_date').touched || addEventForm.get('event_start_date').dirty">
@@ -188,7 +188,7 @@
                         </div>
 
                         <div class=" date-and-time ml-2">
-                            <label for="">Ends</label>
+                            <label for="">Ends  <span><i class="fa fa-asterisk"></i></span> </label>
                             <div class="form-group">
                                 <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-7 form-control d-inline-block" placeholder="DD/MM/YY">
                                 <mat-datepicker #event_end_date_picker></mat-datepicker>
@@ -254,7 +254,7 @@
                                 </div>
 
                                 <div class="venue-info ml-2">
-                                    <label for="">Online event link (Can be added later)</label>
+                                    <label for="">Online event link (Can be added later) <span class="ml-2"><i class="fa fa-question"   matTooltip="Enter the link where attendees can join your online event. If you don't know this yet, just leave this blank." aria-hidden="true"></i></span> </label>
                                     <div class="form-group">
                                         <input formControlName="online_link" type="text" class="form-control">
                                     </div>
@@ -271,7 +271,7 @@
                             </div>
                         </div>
 
-                        <label class="w-100" for="">Description</label>
+                        <label class="w-100" for="">Description <span class="ml-2"><i class="fa fa-question"   matTooltip="You may like to add a short description for your customers.This is used in event listings." aria-hidden="true"></i></span> </label>
                         <div class="form-group">
                             <ck-editor formControlName="description" skin="moono-lisa" language="en" [fullPage]="true">
                             </ck-editor>
@@ -282,7 +282,7 @@
 
                         <label class="w-100" for="">Choose or upload an images</label>
                         <div class="row">
-                            <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == 'defaultImage'}" (click)="fnSelectImage('defaultImage'); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
+                            <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == allDefaultImages.id}" (click)="fnSelectImage(allDefaultImages.id); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
                                 alt="">
                             <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage'); fnUploadEventImage()" class="event-images m-2 text-center pointer">
                                 <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
@@ -354,7 +354,7 @@
                         <div>Event Settings</div>
                     </div>
 
-                    <label for="">Timezone</label>
+                    <label for="">Timezone <span><i class="fa fa-asterisk"></i></span>  </label>
                     <div class="form-group ">
                         <mat-select formControlName="timezone" class="form-control col-8 d-block">
                             <mat-option *ngFor="let allTimeZone of allTimeZone; let i=index" value="{{allTimeZone.id}}">({{allTimeZone.utc}}){{allTimeZone.name}}</mat-option>
@@ -364,7 +364,7 @@
                         </span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="">
                         <!-- <input type="checkbox" class="from-control mr-2"> Allow customers to make a donation -->
                         <mat-checkbox (change)="fnChangeDonation($event)" [checked]="false">Allow customers to make a donation</mat-checkbox>
                     </div>
@@ -381,10 +381,16 @@
                             <div class="donation-field ml-auto mt-2">
                                 <label for="">Suggested donation amount <i class="fa fa-question-circle"></i></label>
                                 <input formControlName="donation_amount" type="text" class="form-control" placeholder="0.00">
+                                <span class="error-wrap" *ngIf="addEventForm.get('donation_amount').touched || addEventForm.get('donation_amount').dirty">
+                                    <small *ngIf="addEventForm.get('donation_amount').hasError('required')" class="error">Amount is required.</small>
+                                </span>
                             </div>
                             <div class="donation-field mt-2">
                                 <label for="">Donation desciption <i class="fa fa-question-circle"></i></label>
                                 <input formControlName="donation_description" type="text" class="form-control">
+                                <span class="error-wrap" *ngIf="addEventForm.get('donation_description').touched || addEventForm.get('donation_description').dirty">
+                                    <small *ngIf="addEventForm.get('donation_description').hasError('required')" class="error">Description is required.</small>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -406,7 +412,7 @@
 
                     <div class="row mx-0">
                         <div class="ticket-available-unavailabel">
-                            <label for="">Tickets become availables</label>
+                            <label for="">Tickets become availables <span><i class="fa fa-asterisk"></i></span>  </label>
                             <div class="form-group">
                                 <mat-select class="form-control d-block" formControlName="ticket_available">
                                     <mat-option value="PB">When the event is published</mat-option>
@@ -420,7 +426,7 @@
                         </div>
 
                         <div class="ticket-available-unavailabel ml-auto">
-                            <label for="">Tickets become unavailables</label>
+                            <label for="">Tickets become unavailables <span><i class="fa fa-asterisk"></i></span>  </label>
                             <div class="form-group">
                                 <mat-select class="form-control d-block" formControlName="ticket_unavailable">
                                     <mat-option value="TOS">When the event is taken off, or the event passes</mat-option>
@@ -434,43 +440,49 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="">
                         <!-- <input type="checkbox" class="from-control mr-2"> Redirect order confirmation page -->
                         <mat-checkbox (change)="fnRedirectURL($event)" [checked]="false">Redirect order confirmation page</mat-checkbox>
                     </div>
 
                     <div *ngIf="redirectURL == 'Y'">
                         <label for="">Redirect to URL</label>
-                        <div class="form-group">
+                        <div class="my-2">
                             <input formControlName="redirect_url" type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
+                            <span class="error-wrap" *ngIf="addEventForm.get('redirect_url').touched || addEventForm.get('redirect_url').dirty">
+                                <small *ngIf="addEventForm.get('redirect_url').hasError('required')" class="error">Redirect URL is required.</small>
+                            </span>
                         </div>
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="">
                         <!-- <input type="checkbox" class="from-control mr-2"> Hide this event from your box office listings and search engines. -->
                         <mat-checkbox (change)="fnHideEventSearch($event)">Hide this event from your box office listings and search engines.</mat-checkbox>
                     </div>
 
-                    <div class="form-group">
+                    <div class="">
                         <!-- <input type="checkbox" class="from-control mr-2"> Customers need to enter an access code to buy tickets for this event -->
                         <mat-checkbox (change)="fnAccessCode($event)" [checked]="false">Customers need to enter an access code to buy tickets for this event</mat-checkbox>
                     </div>
 
                     <div *ngIf="accessCode == 'Y'">
                         <label for="">Access Code</label>
-                        <div class="form-group">
+                        <div class="my-2">
                             <input formControlName="access_code" type="text" class="form-control col-6">
+                            <span class="error-wrap" *ngIf="addEventForm.get('access_code').touched || addEventForm.get('access_code').dirty">
+                                <small *ngIf="addEventForm.get('access_code').hasError('required')" class="error">Access Code is required.</small>
+                            </span>
                         </div>
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="">
                         <!-- <input type="checkbox" class="from-control mr-2"> Hide share button on event page. -->
                         <mat-checkbox (change)="fnShareButtonStatus($event)">Hide share button on event page.</mat-checkbox>
                     </div>
 
-                    <div class="form-group">
+                    <div class="">
                         <!-- <input type="checkbox" class="from-control mr-2"> Set custom sales tax for this event -->
                         <mat-checkbox (change)="fnCustomSalesTax($event)" [checked]="false">Set custom sales tax for this event</mat-checkbox>
                     </div>
@@ -478,8 +490,7 @@
 
                 </div>
             </form>
-            
-            <div class="px-5 py-3 border rounded sales-tax-container bg-light">
+            <div class="px-5 pb-3 border rounded sales-tax-container bg-light">
                 <div *ngIf="customSalesTax == 'Y'">
                     <div class="row mx-0">
 
@@ -496,8 +507,8 @@
                         <input type="text" class="form-control" placeholder="VAT">
                     </div>
                 </div> -->
-                        <form [formGroup]="customSalesTaxForm">
-                            <div class="w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr').controls; let i = index">
+                        <form class="w-100" [formGroup]="customSalesTaxForm">
+                            <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr').controls; let i = index">
                                 <div [formGroupName]="i" class="row m-0">
                                     <div class="tax-input">
                                         <label for="">Sales tax amounts</label>

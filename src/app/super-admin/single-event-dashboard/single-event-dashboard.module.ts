@@ -16,7 +16,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { addBuyeronlyQuestionDialog} from './checkout-form/checkout-form.component';
 import { addAttendeeonlyQuestionDialog} from './checkout-form/checkout-form.component';
 import { editBuyerNameDialog} from './checkout-form/checkout-form.component';
-import { editAttendeeNameDialog} from './checkout-form/checkout-form.component';
+import { editAttendeeNameDialog} from './checkout-form/checkout-form.component'; 
+import { ExportDoorListComponent } from './issued-ticket/issued-ticket.component';
+import { IssuedTicketViewComponent } from './issued-ticket/issued-ticket.component';
+import { OrderViewComponent } from './issued-ticket/issued-ticket.component';
 
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
@@ -24,6 +27,8 @@ import { mySendBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
+import { NgxBarcodeModule } from 'ngx-barcode';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 @NgModule({
   declarations: [EventSummaryComponent,
@@ -40,7 +45,13 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
     editAttendeeNameDialog,
     BroadcastComponent,  
     mySendBroadcastDialog, 
-    DuplicateComponent],
+    DuplicateComponent,
+    ExportDoorListComponent,
+    IssuedTicketComponent,
+    IssuedTicketViewComponent,
+    ExportDoorListComponent,
+    OrderViewComponent
+  ],
     
     imports: [
       CommonModule,
@@ -50,9 +61,20 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
       FlexLayoutModule,
       MatExpansionModule,
       CKEditorModule,
-      MatTooltipModule,],
+      MatTooltipModule,
+      NgxBarcodeModule,
+      NgxQRCodeModule
+    ],
 
-    entryComponents: [mySendBroadcastDialog,addBuyeronlyQuestionDialog,addAttendeeonlyQuestionDialog,editBuyerNameDialog,editAttendeeNameDialog],
+    entryComponents: [mySendBroadcastDialog,
+      addBuyeronlyQuestionDialog,
+      addAttendeeonlyQuestionDialog,
+      editBuyerNameDialog,
+      editAttendeeNameDialog,
+      ExportDoorListComponent,
+      IssuedTicketViewComponent,
+      OrderViewComponent
+    ],
   
   
 })

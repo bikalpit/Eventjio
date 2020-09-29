@@ -1,235 +1,659 @@
-.mat-blue{
+.mat-blue {
     background-color: #1172F4;
-    color:#ffffff;
+    color: #ffffff;
 }
-.tickes-heading{
-    p{
+
+.tickes-heading {
+    p {
         margin-bottom: 24px!important;
     }
 }
-.void-btn{
+
+.void-btn {
     background-color: red;
     color: white;
     border-radius: 5px;
 }
-.search-bar{
+
+.search-bar {
     font-family: Poppins, Regular;
-    border:1px solid #CECECE;
+    border: 1px solid #CECECE;
     display: flex;
-    input{
-        
+    input {
         background-color: transparent;
         border: none;
         outline: none;
         width: 100%;
-    }   
-    
-}
-.mat_content{
-  background-color:#F6F6F645;
+    }
 }
 
-.matDate{
-    
-    position:relative;
+.mat_content {
+    background-color: #F6F6F645;
 }
-.dateIcon{
-     position: absolute;
+
+.matDate {
+    position: relative;
 }
-.matInputdate{
+
+.dateIcon {
+    position: absolute;
+}
+
+.matInputdate {
     padding-left: 40px;
 }
 
-.events{
+.events {
     padding-bottom: 30px;
     margin-top: 34px;
-.service-listing{
-             
-    .drageble-list {
-        width: 100%;
-        border-top: solid 1px #DDDDDD;
-        display: block;
-        // background: white;
-        // border-radius: 4px;
-        overflow: hidden;
-        font-size: 14px;
-        font-weight: 500;
-        padding-top: 16px;
+    .service-listing {
+        .drageble-list {
+            width: 100%;
+            border-top: solid 1px #DDDDDD;
+            display: block;
+            // background: white;
+            // border-radius: 4px;
+            overflow: hidden;
+            font-size: 14px;
+            font-weight: 500;
+            padding-top: 16px;
+        }
+        .main-heading-content {
+            border-top: solid 1px #DDDDDD;
+            padding: 8px 0px;
+            align-items: center;
+            font-size: 14px;
+            color: #595959;
+        }
+        .drageble-box {
+            align-items: center;
+            // border-bottom: 1px solid #ccc5c5;
+        }
+        .tb-data {
+            padding: 15px 0px;
+            color: #595959;
+        }
+        .cpn-title {
+            color: #181818;
+        }
+        .cpn-code {
+            color: #1172F4;
+        }
+        .cpn-bor {
+            color: #ffffff;
+            // padding: 2px 15px; 
+            border-radius: 10px;
+        }
+        .void-btn {
+            border-radius: 4px;
+            line-height: 24px;
+            margin-left: 12px !important;
+            box-shadow: none;
+        }
+        .action-icon {
+            color: #007BFF;
+            border-radius: 50%;
+            padding: 16px 16px;
+            background: #ABE6FD;
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            font-size: 30px;
+        }
     }
-   .main-heading-content{
-        border-top: solid 1px #DDDDDD;
-        padding: 8px 0px;
-        align-items: center;                
-        font-size: 14px;
-        color: #595959;
-    }
-    .drageble-box{
-        align-items: center;
-        // border-bottom: 1px solid #ccc5c5;
-    }
-    .tb-data{
-        padding: 15px 0px;
-        color: #595959;
-    }
-    .cpn-title{
-        color: #181818;
-    }
-    .cpn-code{
-        color: #1172F4;
-    }
-    .cpn-bor{
-        color: #ffffff;
-        // padding: 2px 15px; 
-        border-radius: 10px;
-    }
-    .void-btn{
-        border-radius: 4px;
-        line-height: 24px;
-        margin-left: 12px !important;
-        box-shadow: none;
-    }
-    .action-icon{
-        color: #007BFF;
-        border-radius: 50%;
-        padding: 16px 16px;
-        background: #ABE6FD;
-        width: 32px;
-        height: 32px;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        font-size: 30px;
-    }
-}
 }
 
 // ---------------------------------Export Doorlist CSS ---------------------------------------
-
-::ng-deep .export-door-list-field{
-        width:49%;
-    }
-
-::ng-deep .buyer-question{
-    width:50%;
+::ng-deep .export-door-list-field {
+    width: 49%;
 }
-::ng-deep .ques-checkbox{
+
+::ng-deep .buyer-question {
     width: 50%;
 }
-::ng-deep .cancel-btn{
+
+::ng-deep .ques-checkbox {
+    width: 50%;
+}
+
+::ng-deep .cancel-btn {
     background-color: #DDDDDD;
 }
-::ng-deep .export-btn{
+
+::ng-deep .export-btn {
     background-color: #1172F4;
-    color:#ffffff;
+    color: #ffffff;
 }
-::ng-deep .close-btn{
+
+::ng-deep .close-btn {
     outline: none;
     border: unset;
     border-radius: 20px;
-    background-color:#B4D4FF ;
-    color:#1172F4;
+    background-color: #B4D4FF;
+    color: #1172F4;
 }
 
 // --------------------------------- Issued ticket View CSS -----------------------------------------
-::ng-deep .mat-dialog-container{
+::ng-deep .mat-dialog-container {
     padding: 0px !important;
 }
-::ng-deep .issued-ticket-view-container{
-   
+
+::ng-deep .issued-ticket-view-container {
     max-height: 90vh;
-    .void-ticket-btn{
+    .void-ticket-btn {
         background-color: #1172F4;
         color: #ffffff;
     }
-    .print-ticket-btn{
-        background-color:#DDDDDD ;
+    .print-ticket-btn {
+        background-color: #DDDDDD;
     }
-     .re-issue-notify{
+    .re-issue-notify {
         width: 90%;
         background-color: #ABE6FD;
-    
-        .fa-bell{
+        .fa-bell {
             transform: rotate(-45deg);
             color: #FF6600;
         }
     }
-    .ticket-detail-title{
+    .ticket-detail-title {
         background-color: #EFEFEF;
     }
-    .ticket-detail{
+    .ticket-detail {
         width: 50%;
     }
-    .ticket-detail-field{
+    .ticket-detail-field {
         padding: 10px 0px;
         width: 50%;
     }
-
-    .ticket-voucher{
+    .ticket-voucher {
         width: 70%;
-        border:2px dashed #DDDDDD;
-        .ticket-title{
+        border: 2px dashed #DDDDDD;
+        .ticket-title {
             font-size: 20px;
             font-weight: bold;
         }
-
         .qrcode {
             background-color: aqua;
             width: 300px;
             height: 300px;
-            img{
-                width: 100%;    
+            img {
+                width: 100%;
             }
-
-           
-            
         }
-        label{
+        label {
             font-size: 12px;
         }
-        .date{
+        .date {
             font-size: 12px;
         }
-        .barcode{
-            transform: rotate(-45deg);  
+        .barcode {
+            transform: rotate(-45deg);
         }
-        
+        .void-label{
+            width: 50%;
+            height: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            position: absolute;
+            top: 600px;
+            left: 65px;
+            color:#ffffff;
+            transform: rotate(-20deg);
+        }
     }
-    .invalidate-ticket{
+    .invalidate-ticket {
         background-color: #ffe5e5;
         border-radius: 5px;
-
-        .fa-times-circle{
+        .fa-times-circle {
             color: #FF0000;
         }
     }
-    .main-div-ticket-code-type{
+    .main-div-ticket-code-type {
         width: 50%;
-        .ticket-code-type{
+        .ticket-code-type {
             width: 50%;
         }
     }
-    .void-ticket{
+    .void-ticket {
         background-color: #007BFF;
         color: #ffffff;
     }
-
-    .invalidate-ticket{
+    .invalidate-ticket {
         background-color: #ffe5e5;
         border-radius: 5px;
-
-        .fa-times-circle{
+        .fa-times-circle {
             color: #FF0000;
         }
     }
-    .main-div-ticket-code-type{
+    .main-div-ticket-code-type {
         width: 50%;
-        .ticket-code-type{
+        .ticket-code-type {
             width: 50%;
         }
-    
+    }
+}
+
+// ------------------------------ Order View -----------------------------------------------
+
+
+
+
+
+  //  Book-ticket modal css
+
+  ::ng-deep .new-order-table .service-listing{
+    .select-qty{
+      width: 56%;
+      height: 30px;
+    }   
+    .fw-600{
+        font-weight: 600;
+    }        
+  .drageble-list {
+      width: 100%;
+      border-bottom: solid 1px #DDDDDD;
+      display: block;
+      background: white;
+      overflow: hidden;
+      font-size: 14px;
+      font-weight: 500;
+  }
+ .main-heading-content{
+      border-bottom: solid 1px #DDDDDD;
+      // padding: 8px 8px;
+      align-items: center;                
+      font-size: 14px;
+      color: #595959;
+  }
+  .drageble-box{
+      align-items: center;
+  }
+  .th-data{
+      padding: 8px 8px;
+  }
+  .tb-data{
+      padding: 8px 8px;
+      color: #181818;
+  }
+  .cpn-title{
+      color: #181818;
+  }
+  .cpn-code{
+      color: #1172F4;
+  }
+  .cpn-bor{
+      border:1px dashed #1172F4;
+      padding: 6px 12px;
+      border-radius: 5px;
+  }
+  .action-icon{
+      color: #007BFF;
+      border-radius: 50%;
+      padding: 16px 16px;
+      background: #ABE6FD;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      font-size: 30px;
+  }
+}   
+
+::ng-deep .popover-body{
+  padding:  0px  !important;
+}
+
+::ng-deep .checkout-form{
+  h4{
+      text-align: left;
+      font-size: 17px;
+      letter-spacing: 0px;
+      color: #181818;
+      opacity: 1;
+      font-weight: 500;
+  }
+  .itemlist-table{
+      .service-listing{
+          .align-end{
+              text-align: end;
+          }
+          .select-qty{
+            width: 56%;
+            height: 30px;
+          }   
+          .fw-600{
+              font-weight: 600;
+          }   
+          .fs-15{
+              font-size: 15px;
+          } 
+        .drageble-list {
+            width: 100%;
+          //   border-bottom: solid 1px #DDDDDD;
+            display: block;
+            background: white;
+            overflow: hidden;
+            font-size: 14px;
+            font-weight: 500;
+        }
+       .main-heading-content{
+            border-bottom: solid 1px #DDDDDD;
+          //   padding: 8px 8px;
+            align-items: center;                
+            font-size: 14px;
+            color: #181818;
+            font-weight: 600;
+        }
+        .drageble-box{
+            align-items: center;
+        }
+        .order-item{
+            font-weight: 100;
+        }
+        .th-data{
+          padding: 8px 8px;
+      }
+        .tb-data{
+            padding: 8px 8px;
+            color: #181818;
+        }
+        .cpn-title{
+            color: #181818;
+        }
+        .cpn-code{
+            color: #1172F4;
+        }
+        .cpn-bor{
+            border:1px dashed #1172F4;
+            padding: 6px 12px;
+            border-radius: 5px;
+        }
+        .action-icon{
+            color: #007BFF;
+            border-radius: 50%;
+            padding: 16px 16px;
+            background: #ABE6FD;
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            font-size: 30px;
+        }
+    }  
+
+  }
+  .link{
+      color: #007BFF;
+  }
+     
+  .mt-16{
+      margin-top: 16px;
+  } 
+  .checkout form{
+       .fa-asterisk{
+          color: #FF0000;
+          font-size: 5px;
+          position: relative;
+          bottom: 6px;
+      }
+  }
+  .general-admission{
+      .fa-asterisk{
+          color: #FF0000;
+          font-size: 5px;
+          position: relative;
+          bottom: 6px;
+      }
+  }
+  
+}
+
+::ng-deep .book-order{
+  .print-order{
+      margin-left: auto;
+      a{
+          color: #181818;
+          display: flex;
+          align-items: center;
+          .link{
+              color: #007BFF;
+          }                 
+      }
+  }
+}
+
+::ng-deep .order-details{
+  .order-head{
+      padding: 11px 15px;
+      margin: 25px 0px 15px 0px;
+      background: #EFEFEF;
+      color: #181818;
+      a{
+          color: #181818;
+      }
+      p{
+          margin-bottom: 0px;
+      }
+      .dwnld-invoice{
+          margin-left: auto;
+      }
+  }
+  .order-desc{
+      label{
+          color: #181818;
+          font-weight: 500;
+          font-size: 14px;
+      }
+      p{
+          color: #595959;
+          font-size: 14px;
+      }
+  }
+  .order-table{
+      .service-listing{
+          .select-qty{
+            width: 56%;
+            height: 30px;
+          }   
+          .fw-600{
+              font-weight: 600;
+          }        
+        .drageble-list {
+            width: 100%;
+            border: solid 1px #DDDDDD;
+            display: block;
+            background: white;
+            overflow: hidden;
+            font-size: 14px;
+            font-weight: 500;
+        }
+       .main-heading-content{
+            border-bottom: solid 1px #DDDDDD;
+            border-top: solid 1px #DDDDDD;
+            border: solid 1px #DDDDDD;
+          //padding: 8px 8px;
+            align-items: center;                
+            font-size: 14px;
+            color: #181818;
+            font-weight: 500;
+        }
+        .drageble-box{
+            align-items: center;
+        }
+        .th-data{
+          padding: 8px 8px;
+      }
+        .tb-data{
+            padding: 8px 8px;
+            color: #181818;
+        }
+        .th-data{
+          padding: 8px 8px;
+      }
+        .cpn-title{
+            color: #181818;
+        }
+        .cpn-code{
+            color: #1172F4;
+        }
+        .cpn-bor{
+            border:1px dashed #1172F4;
+            padding: 6px 12px;
+            border-radius: 5px;
+        }
+        .action-icon{
+            color: #007BFF;
+            border-radius: 50%;
+            padding: 16px 16px;
+            background: #ABE6FD;
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            font-size: 30px;
+        }
+    }
+
+  }
+  
+}
+
+::ng-deep .buyer-details{
+  .buyer-head{
+      padding: 11px 15px;
+      margin: 25px 0px 15px 0px;
+      background: #EFEFEF;
+      color: #181818;
+      a{
+          color: #181818;
+      }
+      p{
+          margin-bottom: 0px;
+      }
+      .dwnld-invoice{
+          margin-left: auto;
+      }
+  }
+  .buyer-desc{
+      label{
+          color: #181818;
+          font-weight: 500;
+          font-size: 14px;
+      }
+      p{
+          color: #595959;
+          font-size: 14px;
+      }
+  }
+}
+
+::ng-deep .ticket-details{
+  .ticket-head{
+      padding: 11px 15px;
+      margin: 25px 0px 15px 0px;
+      background: #EFEFEF;
+      color: #181818;
+      a{
+          color: #181818;
+      }
+      p{
+          margin-bottom: 0px;
+      }
+      .dwnld-invoice{
+          margin-left: auto;
+      }
+  }
+  .ticket-desc{
+      label{
+          color: #181818;
+          font-weight: 500;
+          font-size: 14px;
+      }
+      p{
+          color: #595959;
+          font-size: 14px;
+      }
+  }
+}
+::ng-deep .cancel-order{
+  .cancel-warn{
+      .note-theme{
+          background: #ffe6e6;
+          border-radius: 5px;
+          padding: 16px 15px;
+          display: flex;
+          .notif-icon{
+              color: #FF0000;
+              margin-right: 15px;
+          }
+          .notification{
+              align-items: center;
+              display: flex;
+          }
+          .note-message{
+              margin-bottom: 0px;
+              color: #595959;
+              .notes{
+                  color: #2C2C2C;
+                  font-weight: bold;
+              }
+          }
+      }
+  }
+  
+  .cancel-order-detail{           
+      padding: 20px 26px 10px 20px;
+      .order-det{
+          label{
+              color: #181818;
+              font-weight: 600;
+              font-size: 14px;
+          }
+          p{
+              color: #595959;
+              font-size: 14px;
+          }
+      }
+  .cancel-order-note{
+      margin-top: 15px;
+      .fa-asterisk{
+          color: #FF0000;
+          font-size: 5px;
+          position: relative;
+          bottom: 6px;
+      }
+  }
+  .order-cancel{
+      .order-cancel-btn{
+          background: #FF0000;
+          color: #FFFFFF;
+          margin-top: 30px;
+      }
+  }
+
+}
+   
+}  
+    ::ng-deep .comm-btn {
+        background: #1172F4;
+        font-size: 14px;
+        color: #FFFFFF;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    ::ng-deep .comg-btn {
+        background: #DDDDDD;
+        font-size: 14px;
+        color: #181818;
+        border-radius: 5px;
+        text-align: center;
     }
     
     
-    
-
-}
+    // end Book-ticket modal css

@@ -82,6 +82,7 @@
     }
     
     .footer-action-btn {
+        background-color: white;
         position: fixed;
         bottom: 0;
         width: calc(100% - 380px);
@@ -92,6 +93,7 @@
         .can-save {
             display: flex;
             padding: 22px 40px;
+            background: #fff;
             .cancel-btn {
                 background: #E1E1E1;
                 border-radius: 5px;
@@ -118,6 +120,7 @@
         height: calc(100vh - 145px);
         overflow-y: scroll;
         z-index: 9;
+        margin-bottom: 75px;
     }
     
     .main-section {

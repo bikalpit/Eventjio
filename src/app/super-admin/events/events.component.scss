@@ -56,7 +56,40 @@
 }
 
 // .code-tab{
-// }   
+// }  
+
+::ng-deep .fa-asterisk {
+        color: #FF0000;
+        font-size: 5px;
+        position: relative;
+        bottom: 6px;
+            }
+    ::ng-deep .fa-question{
+        // background: #e8e8e8;
+        border-radius: 50%;
+        font-size: 9px;
+        padding: 3px 5px;
+        background: #CECECE;
+        opacity: 0.47;
+    }
+
+::ng-deep .events{
+    .mat-select-trigger{
+        line-height: 1.5;
+    }
+        .mat-select-trigger{
+            .mat-select-value{
+                color: #fff;
+            }
+            .mat-select-arrow-wrapper{
+                .mat-select-arrow{
+                    color: #fff;
+                }
+              }
+            }        
+    }
+
+
  ::ng-deep .code-tab .mat-tab-header {
     margin-bottom: 20px;
     border: none;
@@ -164,7 +197,7 @@
 }
 
 ::ng-deep .venue-info {
-    width: 30%;
+    width: 32%;
 }
 
 .after-save-general-admission {
@@ -243,6 +276,11 @@
     }
 }
 
+.status-select {
+    border-radius: 50px;
+    font-size: 12px;
+}
+
 ::ng-deep .popover {
     border: none;
     .popover-body {
@@ -253,6 +291,7 @@
         .border-bottom {
             border-bottom: 1px solid #7070701a !important;
             padding: 5px 0px;
+            cursor: pointer;
         }
     }
 }
@@ -267,6 +306,7 @@
         height: 32px;
         line-height: 1.2;
         border-radius: 30px;
+        border: none;
         .mat-select-trigger {
             .mat-select-value {
                 color: #fff;

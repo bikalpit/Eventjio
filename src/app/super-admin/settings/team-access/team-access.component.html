@@ -1,5 +1,5 @@
-<div id="team_access" class="">
-    <div class="team-access comm-back">
+<div id="team_access" class="main">
+    <div class="team-access">
         <div class="page-title">
             <h6>Team access</h6>
         </div>
@@ -17,7 +17,8 @@
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
-                                        <div class="" fxFlex="25">Name</div>
+                                        <div class="" fxFlex="5"></div>
+                                        <div class="" fxFlex="20">Name</div>
                                         <div class="" fxFlex="25">Roles</div>
                                         <div class="" fxFlex="25">Email address</div>
                                         <div class="" fxFlex="25">Last Seen</div>
@@ -26,13 +27,13 @@
                                     <div *ngFor="let tm of teammates">
                                         <div class="content" class="drageble-list">
                                             <div class="drageble-box"  fxLayout="row">
-                                                <div class="tb-data" fxFlex="25">
-                                                    <div>
-                                                        <div class="user-details">
-                                                            <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
-                                                            <p>{{tm.name}}</p>
-                                                        </div>
+                                                <div class="tb-data" fxFlex="5">
+                                                    <div class="user-details">
+                                                        <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
                                                     </div>
+                                                </div>
+                                                <div class="tb-data" fxFlex="20">
+                                                 {{tm.name}}
                                                 </div>
                                                 <div class="tb-data" fxFlex="25">{{tm.role}}</div>
                                                 <div class="tb-data" fxFlex="25">{{tm.email}}</div>
@@ -70,7 +71,18 @@
                                                 <div class="tb-data" fxFlex="20">{{in.lastseen}}</div>
                                                 <div class="tb-data status" fxFlex="20"><span class="pr-2"><i class="fa fa-circle" aria-hidden="true"></i></span>{{in.status}}</div>
                                                 <div class="tb-data" fxFlex="10">
-                                                    <mat-icon aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+                                                    <!-- <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
+                                                    <ng-template class="popover" #popContent>
+                                                        <divclass="px-3 pointer border-bottom">
+                                                            <i class="fa fa-pencil mr-2"></i><span>Edit</span>
+                                                        </div>
+                                                        <div class="px-3 pointer border-bottom">
+                                                            <i class="fa fa-ticket mr-2"></i><span>Assign to Ticket Type</span>
+                                                        </div>
+                                                        <div class="px-3 pointer border-bottom">
+                                                            <i class="fa fa-trash mr-2"></i><span>Delete</span>
+                                                        </div>
+                                                    </ng-template> -->
                                                 </div>
                                             </div>
                                         </div>

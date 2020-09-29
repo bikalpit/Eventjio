@@ -10,15 +10,15 @@
                 </div> <span>Event Page Appearance</span><i class="fa fa-angle-down pl-5 ml-2"></i>
             </div>
             <div [hidden]="isShowDiv">
-                <div routerLink="/super-admin/settings" class="py-2 active">
+                <div routerLink="/super-admin/settings" class="py-2 common-sub-menu" >
                     <span class="pl-4">Event Page Design</span>
                 </div>
 
-                <div routerLink="/super-admin/settings/buttons-and-links" class="py-2">
+                <div routerLink="/super-admin/settings/buttons-and-links" class="py-2 common-sub-menu">
                     <span class="pl-4">Buttons and Links</span>
                 </div>
 
-                <div routerLink="/super-admin/settings/websites-embed-codes" class="py-2">
+                <div routerLink="/super-admin/settings/websites-embed-codes" class="py-2 common-sub-menu">
                     <span class="pl-4">Website Embed Codes</span>
                 </div>
             </div>
@@ -30,13 +30,13 @@
                     </div><span>Contact Preferences</span>
                 </div>
 
-                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/checkout-form">
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/checkout-form" (click)="fnPostUrl('checkout-form')" [ngClass]="{'active': pageName == 'checkout-form'}">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/information/information.png" class="w-100" alt="">
                     </div> <span>Checkout form</span>
                 </div>
 
-            
+
                 <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/order-confirmation">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/order/order.png" class="w-100" alt="">
@@ -55,9 +55,9 @@
                 </div>
 
                 <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/seating-charts">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
-                        </div> <span>Seating Chart</span>
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/chair/chair.png" class="w-100" alt="">
+                    </div> <span>Seating Chart</span>
                 </div>
 
                 <div class="settins-title py-2">
@@ -65,40 +65,40 @@
                 </div>
 
                 <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/my-profile">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/user/user.png" class="w-100" alt="">
-                        </div> <span>My Profile</span>
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/user/user.png" class="w-100" alt="">
+                    </div> <span>My Profile</span>
                 </div>
 
                 <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/box-office">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/store/store.png" class="w-100" alt="">
-                        </div> <span>Box Office</span>
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/store/store.png" class="w-100" alt="">
+                    </div> <span>Box Office</span>
                 </div>
 
-            
+
                 <div class="settins-title py-2">
                     <span>Payment</span>
                 </div>
 
-                <div class="py-2 common-setting-menu">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                <div class="py-2">
+                    <div class="setting-menu-icon d-inline-block mr-2" routerLink="/super-admin/settings/payment-systems">
                         <img src="../../../assets/images/settings/pay/pay.png" class="w-100" alt="">
                     </div> <span>Payment Systems</span>
                 </div>
 
                 <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/billing">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/checklist/checklist.png" class="w-100" alt="">
-                        </div> <span>Billing</span>
-                    </div>
-                    
-                    <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/sales-tax">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/settings/invoice/invoice.png" class="w-100" alt="">
-                        </div> <span>Sales tax</span>
-                    </div>
-           
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/checklist/checklist.png" class="w-100" alt="">
+                    </div> <span>Billing</span>
+                </div>
+
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/sales-tax">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/settings/invoice/invoice.png" class="w-100" alt="">
+                    </div> <span>Sales tax</span>
+                </div>
+
                 <div class="settins-title py-2">
                     <span>General Setting</span>
                 </div>
@@ -115,7 +115,7 @@
                     </div> <span>Check in app users</span>
                 </div>
 
-                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/privacy-policy"> 
+                <div class="py-2 common-setting-menu" routerLink="/super-admin/settings/privacy-policy">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/PrivacyPolicy/Privacy-Policy.png" class="w-100" alt="">
                     </div> <span>Privacy Policy</span>

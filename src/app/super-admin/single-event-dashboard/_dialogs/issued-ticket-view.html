@@ -1,136 +1,142 @@
 <div class="issued-ticket-view-container">
-   
-    
+
+
     <div class="p-3 mt-3 ">
-    <div class="modal-header pl-3 py-0 border-0">
-      <p class="font-weight-bold">Ticket : 5h92H</p>
-      
-      <button type="button" *ngIf="!voidTicket" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
-        <span aria-hidden="true" class="white-text">&times;</span>
-      </button>
+        <div class="modal-header pl-3 py-0 border-0">
+            <p class="font-weight-bold">Ticket : 5h92H</p>
 
-      <button type="button" *ngIf="voidTicket" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="fnVoidTicket()">
-        <span aria-hidden="true" class="white-text">&times;</span>
-      </button>
+            <button type="button" *ngIf="ticketTypeView === 'normal'" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
+                <span aria-hidden="true" class="white-text">&times;</span>
+            </button>
 
-    </div>
-    </div>
+            <button type="button" *ngIf="ticketTypeView === 'confirm'"  data-dismiss="modal" aria-label="Close" class="close-btn" (click)="fnVoidTicket('normal')">
+                <span aria-hidden="true" class="white-text">&times;</span>
+            </button>
 
-<div *ngIf="!voidTicket " class="pb-3">
-  <div class="modal-body p-0">
-    <div class="px-3 mt-3">
-        <div class=" px-3">
-            <button mat-flat-button class="void-ticket-btn" (click)="fnVoidTicket()">Void Ticket</button>
-            <button mat-flat-button class="print-ticket-btn ml-2">Print Ticket</button>
-        </div>
-    
-        <div class="px-3 mt-4">
-            <div class="re-issue-notify p-3">
-                <i class="fa fa-bell fa-lg mr-2"></i> To re-issue or edit ticket details, click the order ID below.
-             </div>
+            <button type="button" *ngIf="ticketTypeView === 'voidview'"  data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
+                <span aria-hidden="true" class="white-text">&times;</span>
+            </button>
+
+           
+
         </div>
     </div>
 
-    <div class="mt-3 ticket-detail-title">
-        <div class="p-3">
-           <p class="pl-3 m-0 font-weight-bold">Ticket details</p> 
-        </div>
-    </div>
-
-    <div class="ticket-detail mt-2 p-3">
-        <div class="row m-0 pl-3">
-            <div class="ticket-detail-field font-weight-bold">
-                Order ID :
-            </div>
-            <div class="ticket-detail-field ml-auto">
-                <a href="">10771307</a>
-            </div>
-
-            <div class="ticket-detail-field font-weight-bold">
-                Ticket code :
-            </div>
-            <div class="ticket-detail-field ml-auto">
-                5h92H
-            </div>
-
-            <div class="ticket-detail-field font-weight-bold">
-                Status :
-            </div>
-            <div class="ticket-detail-field ml-auto">
-                Active
-            </div>
-
-            <div class="ticket-detail-field font-weight-bold">
-                Ticket type :
-            </div>
-            <div class="ticket-detail-field ml-auto">
-                General Admission
-            </div>
-        </div>
-    </div>
-
-    <div class="mt-3 ticket-detail-title">
-        <div class="p-3">
-           <p class="pl-3 m-0 font-weight-bold">Ticket voucher</p> 
-        </div>
-    </div>
-
-    <div class="mt-3 p-3">
-        <div class="pl-3">
-            <div class="p-3 ticket-voucher">
-                <div class="ticket-title">
-                    Ticket 1 of 1
+    <div *ngIf="ticketTypeView === 'normal'" class="pb-3">
+        <div class="modal-body p-0">
+            <div class="px-3 mt-3">
+                <div class=" px-3">
+                    <button mat-flat-button class="void-ticket-btn" (click)="fnVoidTicket('confirm')">Void Ticket</button>
+                    <button mat-flat-button class="print-ticket-btn ml-2">Print Ticket</button>
                 </div>
-                <div class="qrcodes">
-                    <div class="d-inline-block">
-                      <ngx-qrcode [elementType]="elementType" [value] = "value"></ngx-qrcode>
-                    </div>
-                    <div class=" barcode d-inline-block">
-                      <ngx-barcode [bc-value]="value" [bc-display-value]="true"></ngx-barcode>
-                    </div>
-                  </div>
 
-                  <div class="mt-3">
-                    <div class="">
-                        <label for="">TICKET CODE </label>
-                        <p class="m-0 font-weight-bold">5h92H</p>
+                <div class="px-3 mt-4">
+                    <div class="re-issue-notify p-3">
+                        <i class="fa fa-bell fa-lg mr-2"></i> To re-issue or edit ticket details, click the order ID below.
                     </div>
-
-                    <div class="mt-3">
-                        <label for="">TICKET TYPE</label>
-                        <p class="m-0 font-weight-bold">General Admission</p>
-                    </div>
-
-                    <div class="mt-3">
-                        <label for="">ATTENDEE NAME</label>
-                        <p class="m-0 font-weight-bold">Meet shah</p>
-                    </div>
-
-                    <div class="mt-3">
-                        <label for="">EVENT</label>
-                        <p class="m-0 font-weight-bold">Lajawab Cooking Class</p>
-                        <p class="m-0 date">Mon 27 July 2020</p>
-                    </div>
-
-                  </div>
-
-                
+                </div>
             </div>
+
+            <div class="mt-3 ticket-detail-title">
+                <div class="p-3">
+                    <p class="pl-3 m-0 font-weight-bold">Ticket details</p>
+                </div>
+            </div>
+
+            <div class="ticket-detail mt-2 p-3">
+                <div class="row m-0 pl-3">
+                    <div class="ticket-detail-field font-weight-bold">
+                        Order ID :
+                    </div>
+                    <div class="ticket-detail-field ml-auto">
+                        <a (click)="fnOrdertView()">10771307</a>
+                    </div>
+
+                    <div class="ticket-detail-field font-weight-bold">
+                        Ticket code :
+                    </div>
+                    <div class="ticket-detail-field ml-auto">
+                        5h92H
+                    </div>
+
+                    <div class="ticket-detail-field font-weight-bold">
+                        Status :
+                    </div>
+                    <div class="ticket-detail-field ml-auto">
+                        Active
+                    </div>
+
+                    <div class="ticket-detail-field font-weight-bold">
+                        Ticket type :
+                    </div>
+                    <div class="ticket-detail-field ml-auto">
+                        General Admission
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 ticket-detail-title">
+                <div class="p-3">
+                    <p class="pl-3 m-0 font-weight-bold">Ticket voucher</p>
+                </div>
+            </div>
+
+            <div class="mt-3 p-3">
+                <div class="pl-3">
+                    <div class="p-3 ticket-voucher">
+                        <div class="ticket-title">
+                            Ticket 1 of 1
+                        </div>
+                        <div class="qrcodes">
+                            <div class="d-inline-block">
+                                <ngx-qrcode [elementType]="elementType" [value]="value"></ngx-qrcode>
+                            </div>
+                            <div class=" barcode d-inline-block">
+                                <ngx-barcode [bc-value]="value" [bc-display-value]="true"></ngx-barcode>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <div class="">
+                                <label for="">TICKET CODE </label>
+                                <p class="m-0 font-weight-bold">5h92H</p>
+                            </div>
+
+                            <div class="mt-3">
+                                <label for="">TICKET TYPE</label>
+                                <p class="m-0 font-weight-bold">General Admission</p>
+                            </div>
+
+                            <div class="mt-3">
+                                <label for="">ATTENDEE NAME</label>
+                                <p class="m-0 font-weight-bold">Meet shah</p>
+                            </div>
+
+                            <div class="mt-3">
+                                <label for="">EVENT</label>
+                                <p class="m-0 font-weight-bold">Lajawab Cooking Class</p>
+                                <p class="m-0 date">Mon 27 July 2020</p>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     </div>
+    <!-- ------------------------------------------ -->
+    <div *ngIf="ticketTypeView === 'confirm'">
+        <div class="modal-body p-0">
+            <div class="px-3 mt-3">
 
-  </div>
-
-</div>
-<!-- ------------------------------------------ -->
-<div *ngIf="voidTicket">
-    <div class="modal-body p-0">
-        <div class="px-3 mt-3">
-              
                 <div class="px-3">
                     <div class="invalidate-ticket p-3">
                         <i class="fa fa-times-circle fa-lg mr-2"></i> This will invalidate the ticket for entry.
-                     </div>
+                    </div>
                 </div>
 
                 <div class="mt-2">
@@ -154,125 +160,127 @@
                         </div>
                     </div>
                 </div>
-            
+
+            </div>
+        </div>
+        <div class="modal-footer border-0">
+            <div class="px-3">
+                <button mat-flat-button class="void-ticket px-5" (click)="fnVoidTicket('voidview')">Void Ticket</button>
+            </div>
         </div>
     </div>
-    <div class="modal-footer border-0">
-        <div class="px-3">
-            <button mat-flat-button class="void-ticket px-5">Void Ticket</button>
-        </div>
-    </div>
-</div>
-<!-- ------------------------------------------ -->
-<div>
-    <div>
-        <div class="modal-body p-0">
-            <div class="px-3 mt-3">
-                <div class=" px-3">
-                    <button mat-flat-button class="void-ticket-btn" (click)="fnVoidTicket()">Void Ticket</button>
-                    <button mat-flat-button class="print-ticket-btn ml-2">Print Ticket</button>
-                </div>
-            
-                <div class="px-3 mt-4">
-                    <div class="re-issue-notify p-3">
-                        <i class="fa fa-bell fa-lg mr-2"></i> To re-issue or edit ticket details, click the order ID below.
-                     </div>
-                </div>
-            </div>
-        
-            <div class="mt-3 ticket-detail-title">
-                <div class="p-3">
-                   <p class="pl-3 m-0 font-weight-bold">Ticket details</p> 
-                </div>
-            </div>
-        
-            <div class="ticket-detail mt-2 p-3">
-                <div class="row m-0 pl-3">
-                    <div class="ticket-detail-field font-weight-bold">
-                        Order ID :
-                    </div>
-                    <div class="ticket-detail-field ml-auto">
-                        <a href="">10771307</a>
-                    </div>
-        
-                    <div class="ticket-detail-field font-weight-bold">
-                        Ticket code :
-                    </div>
-                    <div class="ticket-detail-field ml-auto">
-                        5h92H
-                    </div>
-        
-                    <div class="ticket-detail-field font-weight-bold">
-                        Status :
-                    </div>
-                    <div class="ticket-detail-field ml-auto">
-                        Active
-                    </div>
-        
-                    <div class="ticket-detail-field font-weight-bold">
-                        Ticket type :
-                    </div>
-                    <div class="ticket-detail-field ml-auto">
-                        General Admission
-                    </div>
-                </div>
-            </div>
-        
-            <div class="mt-3 ticket-detail-title">
-                <div class="p-3">
-                   <p class="pl-3 m-0 font-weight-bold">Ticket voucher</p> 
-                </div>
-            </div>
-        
-            <div class="mt-3 p-3">
-                <div class="pl-3">
-                    <div class="p-3 ticket-voucher">
-                        <div class="ticket-title">
-                            Ticket 1 of 1
+    <!-- ------------------------------------------ -->
+    <div *ngIf="ticketTypeView === 'voidview'">
+        <div>
+            <div class="modal-body p-0">
+                <div class="px-3 mt-3">
+                    <div class="px-3">
+                        <div class="invalidate-ticket p-3">
+                            <i class="fa fa-times-circle fa-lg mr-2"></i> This ticket was voided on: Jul 27, 2020 1:16 pm
                         </div>
-                        <div class="qrcodes">
-                            <div class="d-inline-block">
-                              <ngx-qrcode [elementType]="elementType" [value] = "value"></ngx-qrcode>
-                            </div>
-                            <div class=" barcode d-inline-block">
-                              <ngx-barcode [bc-value]="value" [bc-display-value]="true"></ngx-barcode>
-                            </div>
-                          </div>
-        
-                          <div class="mt-3">
-                            <div class="">
-                                <label for="">TICKET CODE </label>
-                                <p class="m-0 font-weight-bold">5h92H</p>
-                            </div>
-        
-                            <div class="mt-3">
-                                <label for="">TICKET TYPE</label>
-                                <p class="m-0 font-weight-bold">General Admission</p>
-                            </div>
-        
-                            <div class="mt-3">
-                                <label for="">ATTENDEE NAME</label>
-                                <p class="m-0 font-weight-bold">Meet shah</p>
-                            </div>
-        
-                            <div class="mt-3">
-                                <label for="">EVENT</label>
-                                <p class="m-0 font-weight-bold">Lajawab Cooking Class</p>
-                                <p class="m-0 date">Mon 27 July 2020</p>
-                            </div>
-        
-                          </div>
-        
-                        
+                    </div>
+
+                    <!-- <div class="px-3 mt-4">
+                        <div class="re-issue-notify p-3">
+                            <i class="fa fa-bell fa-lg mr-2"></i> To re-issue or edit ticket details, click the order ID below.
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="mt-3 ticket-detail-title">
+                    <div class="p-3">
+                        <p class="pl-3 m-0 font-weight-bold">Ticket details</p>
                     </div>
                 </div>
+
+                <div class="ticket-detail mt-2 p-3">
+                    <div class="row m-0 pl-3">
+                        <div class="ticket-detail-field font-weight-bold">
+                            Order ID :
+                        </div>
+                        <div class="ticket-detail-field ml-auto">
+                            <a href="">10771307</a>
+                        </div>
+
+                        <div class="ticket-detail-field font-weight-bold">
+                            Ticket code :
+                        </div>
+                        <div class="ticket-detail-field ml-auto">
+                            5h92H
+                        </div>
+
+                        <div class="ticket-detail-field font-weight-bold">
+                            Status :
+                        </div>
+                        <div class="ticket-detail-field ml-auto text-danger">
+                            Void
+                        </div>
+
+                        <div class="ticket-detail-field font-weight-bold">
+                            Ticket type :
+                        </div>
+                        <div class="ticket-detail-field ml-auto">
+                            General Admission
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 ticket-detail-title">
+                    <div class="p-3">
+                        <p class="pl-3 m-0 font-weight-bold">Ticket voucher</p>
+                    </div>
+                </div>
+
+                <div class="mt-3 p-3">
+                    <div class="pl-3">
+                        <div class="p-3 ticket-voucher">
+                            <div class="ticket-title">
+                                Ticket 1 of 1
+                            </div>
+                            <div class="qrcodes">
+                                <div class="d-inline-block">
+                                    <ngx-qrcode [elementType]="elementType" [value]="value"></ngx-qrcode>
+                                </div>
+                                <div class=" barcode d-inline-block">
+                                    <ngx-barcode [bc-value]="value" [bc-display-value]="true"></ngx-barcode>
+                                </div>
+                            </div>
+
+                            <div class="d-inline-block bg-danger text-center p-3 void-label"  >
+                                Void
+                            </div>
+
+                            <div class="mt-3">
+                                <div class="">
+                                    <label for="">TICKET CODE </label>
+                                    <p class="m-0 font-weight-bold">5h92H</p>
+                                </div>
+
+                                <div class="mt-3">
+                                    <label for="">TICKET TYPE</label>
+                                    <p class="m-0 font-weight-bold">General Admission</p>
+                                </div>
+
+                                <div class="mt-3">
+                                    <label for="">ATTENDEE NAME</label>
+                                    <p class="m-0 font-weight-bold">Meet shah</p>
+                                </div>
+
+                                <div class="mt-3">
+                                    <label for="">EVENT</label>
+                                    <p class="m-0 font-weight-bold">Lajawab Cooking Class</p>
+                                    <p class="m-0 date">Mon 27 July 2020</p>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        
-          </div>
+        </div>
     </div>
-</div>
-
-
-
 
 </div>
