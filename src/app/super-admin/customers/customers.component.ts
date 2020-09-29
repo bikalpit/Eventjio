@@ -34,6 +34,7 @@ export class CustomersComponent implements OnInit {
   isLoaderAdmin:boolean = false;
   selectedCustomerArr:any;
   addFormButtonDiv : boolean = true;
+  customerImageUrl:any;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -63,6 +64,7 @@ export class CustomersComponent implements OnInit {
 
   addFormButton(){
     this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
+    this.addCustomerForm.reset();
   }
   
   ngOnInit(): void {
@@ -82,6 +84,20 @@ export class CustomersComponent implements OnInit {
         //    }
      });
   }
+  fnChangeImage(){
+    const dialogRef = this.dialog.open(DialogCustomerImageUpload, {
+      width: '500px',
+      
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+            this.customerImageUrl = result;
+            console.log(result);
+           }
+     });
+  }
+
 
   submitForm(){
    
@@ -372,5 +388,53 @@ export class DialogImportFileUpload {
 
    
   }
+
+}
+
+@Component({
+  selector: 'customer-image-upload',
+  templateUrl: '../_dialogs/image-upload.html',
+})
+export class DialogCustomerImageUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: string;
+  profileImage: string;
+  
+constructor(
+  public dialogRef: MatDialogRef<DialogCustomerImageUpload>,
+  private _formBuilder:FormBuilder,
+  @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onNoClick(): void {
+      this.dialogRef.close(this.profileImage);
+    }
+    ngOnInit() {
+      this.uploadForm = this._formBuilder.group({
+        profile: ['']
+      });
+    }
+    get f() {
+      return this.uploadForm.controls;
+    }
+    
+onFileChange(event) {
+  const reader = new FileReader();
+  if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result as string;
+          this.uploadForm.patchValue({
+              fileSource: reader.result
+          });
+      };
+  }
+}
+uploadImage() {
+  this.profileImage = this.imageSrc
+  this.dialogRef.close(this.profileImage);
+}
+
 
 }

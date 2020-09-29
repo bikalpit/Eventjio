@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="col-8 pt-2 customer-email p-0 " (click)="fnSelectCustomer(customerDetails.unique_code)">
-                                    <span>{{customerDetails.firstname}}</span>
+                                    <span>{{customerDetails.firstname + " " + customerDetails.lastname}}</span>
                                     <p> {{customerDetails.email}}</p>
                                 </div>
                             </div>
@@ -141,8 +141,8 @@
                                         <label>Add Image</label>
                                     </div>
                                     <div class="row">
-                                        <div class="p-4 ml-3 image-upload">image
-                                           <input type="file" class="form-control" formControlName="image" >
+                                        <div class="p-4 ml-3 image-upload" (click)="fnChangeImage()">image
+                                           <input type="hidden" class="form-control" formControlName="image"  (click)="fnChangeImage()">
                                            <span class="error-wrap" *ngIf="addCustomerForm.get('image').dirty || addCustomerForm.get('image').touched"><small *ngIf="addCustomerForm.get('image').hasError('required')" class="error text-left ml-4">Image is required.</small></span>
                                         </div>
                                         <div class="px-3 py-42 add-customer-file">
