@@ -112,13 +112,13 @@ export class CustomersComponent implements OnInit {
       return false;
     }else{
       if(this.editCustomerForm == true){
-
+         this.isLoaderAdmin = true;
         let requestObject={
           "firstname":this.addCustomerForm.get('firstname').value,
           "lastname":this.addCustomerForm.get('lastname').value,
           "email":this.addCustomerForm.get('email').value,
           "phone":this.addCustomerForm.get('phone').value,
-          "image":this.addCustomerForm.get('image').value,
+          "image": this.customerImageUrl,
           "address":this.addCustomerForm.get('address').value,
           "unique_code": this.selectedCustomerCode,
           "boxoffice_id": this.boxofficeId,
@@ -127,6 +127,7 @@ export class CustomersComponent implements OnInit {
 
       
       }else if(this.editCustomerForm == false){
+      this.isLoaderAdmin = true;
       let requestObject={
         "firstname": this.addCustomerForm.get("firstname").value,
         "lastname": this.addCustomerForm.get("lastname").value,
