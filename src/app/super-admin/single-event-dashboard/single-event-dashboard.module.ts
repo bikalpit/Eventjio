@@ -53,6 +53,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     IssuedTicketViewComponent,
     ExportDoorListComponent,
     OrderViewComponent,
+    myPreviewBroadcastDialog,
     VoidOrderViewComponent
   ],
     
