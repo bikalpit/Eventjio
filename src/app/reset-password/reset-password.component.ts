@@ -72,7 +72,7 @@ get f() { return this.resetPasswordForm.controls; }
       catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
-          this._snackBar.open("Passward Successfully Reset", "X", {
+          this._snackBar.open("Passward Successfully Reset.", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']

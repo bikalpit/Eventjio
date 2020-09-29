@@ -61,6 +61,11 @@ forgotPwdSubmit(){
       catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
+          this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
           this.forgotPwdContainer =false
           this.emailSentContainer = true;
           setTimeout(() => {
