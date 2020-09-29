@@ -81,6 +81,10 @@ font-family: Poppins;
                    box-sizing: border-box;
                    display: flex;
                    padding: 10px 20px;
+                   a{
+                       color:#007BFF;
+                       cursor: pointer;
+                   }
                }
                .tb-data {
                     padding: 6px 0px;
@@ -139,7 +143,6 @@ font-family: Poppins;
     margin:0px;
       .modal-content .modal-header{
         border: none;
-         margin: 28px 24px 0px 30px;
         }
       .modal-content{
         border: none;

@@ -23,8 +23,7 @@ import { OrderViewComponent } from './issued-ticket/issued-ticket.component';
 
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
-import { mySendBroadcastDialog } from './broadcast/broadcast.component';
-import { myPreviewBroadcastDialog } from './broadcast/broadcast.component';
+import { mySendBroadcastDialog, myPreviewBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 

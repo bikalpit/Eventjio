@@ -30,7 +30,7 @@ export class BroadcastComponent implements OnInit {
   }
   sendBroadcast() {
     const dialogRef = this.dialog.open(mySendBroadcastDialog, {
-      width: '550px',
+      width: '700px',
     });
  
      dialogRef.afterClosed().subscribe(result => {
@@ -39,7 +39,7 @@ export class BroadcastComponent implements OnInit {
   }
   previewBroadcast() {
     const dialogRef = this.dialog.open(myPreviewBroadcastDialog, {
-      width: '550px',
+      width: '700px',
     });
  
      dialogRef.afterClosed().subscribe(result => {
@@ -69,7 +69,7 @@ export class mySendBroadcastDialog{
 
 @Component({
   selector: 'Preview-Broadcast',
-  templateUrl: '../_dialogs/Preview-broadcast.html',
+  templateUrl: '../_dialogs/preview-broadcast.html',
 })
 export class myPreviewBroadcastDialog{ 
   constructor(

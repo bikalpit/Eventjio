@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./single-event-dashboard.scss']
 })
 export class SingleEventDashboard implements OnInit {
+  pageName :any = '';
   eventStatus:any='draft';
  
   constructor() { }
@@ -16,8 +17,9 @@ export class SingleEventDashboard implements OnInit {
   fnChangeEventStatus(status){
     this.eventStatus = status
   }
-
-  
+  fnPostUrl(postUrl){
+    this.pageName = postUrl; 
+  }
 }
 
 
