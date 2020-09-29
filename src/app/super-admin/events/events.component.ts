@@ -687,6 +687,7 @@ export class AddNewTicketType {
     }
 
     let requestObject = {
+      'box_office_id': this.boxOfficeCode,
       'ticket_name': this.addTicketForm.get('title').value,
       'prize': this.addTicketForm.get('price').value,
       'qty': this.addTicketForm.get('qty').value,
