@@ -23,6 +23,7 @@ import { AddNewTicketGroup } from './events/events.component';
 import { myCreateDiscountCodeDialog } from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog } from './coupons/coupons.component';
 import { AssignToEventDialog } from './coupons/coupons.component';
+import { AssignToTicketTypeDialog } from './coupons/coupons.component';
 import { ExportOrderDialog } from './orders/orders.component';
 import { AddNewOrderDialog } from './orders/orders.component';
 import { BookTicketDialog } from './orders/orders.component';
@@ -31,6 +32,8 @@ import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
 import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.component';
 import { DialogEventImageUpload } from './events/events.component'
 import { MatTimepickerModule } from 'mat-timepicker';
+import { DialogImportFileUpload } from './customers/customers.component';
+import { DialogCustomerImageUpload } from './customers/customers.component';
 
 
 
@@ -54,7 +57,10 @@ import { MatTimepickerModule } from 'mat-timepicker';
       OrderInvoiceDialog,
       myCreateNewBoxofficeDialog,
       DialogEventImageUpload,
-      AssignToEventDialog
+      DialogImportFileUpload,
+      DialogCustomerImageUpload,
+      AssignToEventDialog,
+      AssignToTicketTypeDialog
   ],
   
   imports: [
@@ -76,7 +82,7 @@ import { MatTimepickerModule } from 'mat-timepicker';
   ],
   
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
-    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog,DialogEventImageUpload,AssignToEventDialog],
+    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog,DialogEventImageUpload,AssignToEventDialog,AssignToTicketTypeDialog,DialogImportFileUpload,DialogCustomerImageUpload],
 })
   
 export class SuperAdminModule {}

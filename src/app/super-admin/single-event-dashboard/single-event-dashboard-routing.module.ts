@@ -49,7 +49,7 @@ const routes: Routes = [
         component:OrderConfirmationComponent
       },
       {
-        path: 'broadCast',
+        path: 'broadcast',
         component:BroadcastComponent
       },
       {

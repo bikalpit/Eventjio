@@ -57,38 +57,37 @@
 
 // .code-tab{
 // }  
-
 ::ng-deep .fa-asterisk {
-        color: #FF0000;
-        font-size: 5px;
-        position: relative;
-        bottom: 6px;
-            }
-    ::ng-deep .fa-question{
-        // background: #e8e8e8;
-        border-radius: 50%;
-        font-size: 9px;
-        padding: 3px 5px;
-        background: #CECECE;
-        opacity: 0.47;
-    }
+    color: #FF0000;
+    font-size: 5px;
+    position: relative;
+    bottom: 6px;
+}
 
-::ng-deep .events{
-    .mat-select-trigger{
+ ::ng-deep .fa-question {
+    // background: #e8e8e8;
+    border-radius: 50%;
+    font-size: 9px;
+    padding: 3px 5px;
+    background: #CECECE;
+    opacity: 0.47;
+}
+
+::ng-deep .events {
+    .mat-select-trigger {
         line-height: 1.5;
     }
-        .mat-select-trigger{
-            .mat-select-value{
+    .mat-select-trigger {
+        .mat-select-value {
+            color: #fff;
+        }
+        .mat-select-arrow-wrapper {
+            .mat-select-arrow {
                 color: #fff;
             }
-            .mat-select-arrow-wrapper{
-                .mat-select-arrow{
-                    color: #fff;
-                }
-              }
-            }        
+        }
     }
-
+}
 
  ::ng-deep .code-tab .mat-tab-header {
     margin-bottom: 20px;
@@ -121,6 +120,7 @@
         font-size: 14px;
         font-weight: 500;
         height: calc(100vh - 255px);
+        overflow-y: scroll;
     }
     .main-heading-content {
         border-top: solid 1px #DDDDDD;
@@ -331,6 +331,7 @@
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
 }
+
 // ::ng-deep .mat-dialog-container {
 //          padding: 0px !important;
 // }

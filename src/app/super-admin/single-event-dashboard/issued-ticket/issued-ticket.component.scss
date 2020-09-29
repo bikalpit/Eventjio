@@ -272,6 +272,7 @@
   }
   .th-data{
       padding: 8px 8px;
+      border-right: 1px solid;
   }
   .tb-data{
       padding: 8px 8px;
@@ -662,3 +663,14 @@
     
     
     // end Book-ticket modal css
+
+
+    ::ng-deep .void-book-order{
+        .void-msg{
+            width: 90%;
+            background-color: #ffe5e5;
+        }
+        .fa-times-circle{
+            color: #ff0000;
+        }
+    }

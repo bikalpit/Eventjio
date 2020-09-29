@@ -2,7 +2,7 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div *ngIf="addNewEvents" class="bg-white events">
         <div class="row mx-0 p-3">
-            <div class="font-weight-bold page-title" (click)="test();">
+            <div class="font-weight-bold page-title">
                 Events
             </div>
 
@@ -28,7 +28,7 @@
 
                                 <div class="content" class="drageble-list">
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of allUpcomingEventListData">
-                                        <div class="tb-data " fxFlex="25"> <a routerLink="/super-admin/single-event-dashboard/"> {{element.event_title}} </a> <br> Mon Jul 27, 2020</div>
+                                        <div class="tb-data " fxFlex="25"> <a (click)="fnSelectSingleEvent(element.unique_code)"> {{element.event_title}} </a> <br> {{element.start_date}}</div>
                                         <div class="tb-data mat-common-radius" fxFlex="20">
                                             <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
 
@@ -93,7 +93,7 @@
 
                                 <div class="content" class="drageble-list">
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of allPastEventListData">
-                                        <div class="tb-data" fxFlex="25"><a href="#"> {{element.event}} </a> <br> Mon Jul 27, 2020</div>
+                                        <div class="tb-data" fxFlex="25"><a (click)="fnSelectSingleEvent(element.unique_code)"> {{element.event_title}} </a> <br> {{element.start_date}}</div>
                                         <div class="tb-data" fxFlex="20">
                                             <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="draft">Draft</mat-option>
@@ -214,6 +214,9 @@
                                     <label for="">Venue Name</label>
                                     <div class="form-group">
                                         <input formControlName="vanue_name" type="text" class="form-control" placeholder="e.g. Blues Star">
+                                        <span class="error-wrap" *ngIf="addEventForm.get('vanue_name').touched || addEventForm.get('vanue_name').dirty">
+                                            <small *ngIf="addEventForm.get('vanue_name').hasError('required')" class="error">Vanue is required.</small>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -221,6 +224,9 @@
                                     <label for="">Venue postalcode / Zip</label>
                                     <div class="form-group">
                                         <input formControlName="vanue_zip" type="text" class="form-control" placeholder="e.g. 400001">
+                                        <span class="error-wrap" *ngIf="addEventForm.get('vanue_zip').touched || addEventForm.get('vanue_zip').dirty">
+                                            <small *ngIf="addEventForm.get('vanue_zip').hasError('required')" class="error">Zip is required.</small>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -230,6 +236,9 @@
                                         <mat-select formControlName="vanue_country" class="form-control">
                                             <mat-option *ngFor="let allCountry of allCountry; let i=index" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
                                         </mat-select>
+                                        <span class="error-wrap" *ngIf="addEventForm.get('vanue_country').touched || addEventForm.get('vanue_country').dirty">
+                                            <small *ngIf="addEventForm.get('vanue_country').hasError('required')" class="error">Country is required.</small>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -250,6 +259,9 @@
                                             <mat-option value="SKY">Skype</mat-option>
                                             <mat-option value="OTH">Other</mat-option>
                                         </mat-select>
+                                        <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('online_platform').touched || addEventForm.get('online_platform').dirty">
+                                            <small *ngIf="addEventForm.get('online_platform').hasError('required')" class="error">Platform is required.</small>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -508,7 +520,7 @@
                     </div>
                 </div> -->
                         <form class="w-100" [formGroup]="customSalesTaxForm">
-                            <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr').controls; let i = index">
+                            <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr')['controls']; let i = index">
                                 <div [formGroupName]="i" class="row m-0">
                                     <div class="tax-input">
                                         <label for="">Sales tax amounts</label>

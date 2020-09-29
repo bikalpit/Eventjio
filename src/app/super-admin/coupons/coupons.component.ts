@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Subject } from 'rxjs';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { DatePipe} from '@angular/common';
-import { SuperadminService } from '../_services/superadmin.service';
-import { ErrorService } from '../../_services/error.service'
+ import { ErrorService } from '../../_services/error.service'
+ import { SuperadminService} from '../_services/superadmin.service';
 export interface DialogData {
   animal: string;
   name: string;
@@ -52,16 +52,23 @@ export class CouponsComponent implements OnInit {
  }
  
   onTabChanged(event){
-   let clickedIndex = event.index;
-   if(clickedIndex == 0){
-   this.clickedIndex = 'coupon'
-   }else if(clickedIndex == 1){
-   this.clickedIndex = 'voucher'
-   }
- }
+    let clickedIndex = event.index;
+    if(clickedIndex == 0){
+      this.clickedIndex = 'coupon'
+    }else if(clickedIndex == 1){
+      this.clickedIndex = 'voucher'
+    }
+    this.search.keyword = '';
+    this.getAllVoucherCodes()
+    this.getAllCouponCodes()
+  }
 
  couponSearch(){
-    this.getAllCouponCodes()
+   if(this.clickedIndex == 'coupon'){
+      this.getAllCouponCodes()
+   }else if(this.clickedIndex == 'voucher'){
+      this.getAllVoucherCodes()
+   }
  }
 
   getAllCouponCodes(){
@@ -209,6 +216,7 @@ export class CouponsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
      this.animal = result;
+     this.signleCouponDetail = null;
      this.getAllCouponCodes();
     });
     this.isLoaderAdmin = false;
@@ -232,6 +240,18 @@ export class CouponsComponent implements OnInit {
 
 assignToEvent() {
   const dialogRef = this.dialog.open(AssignToEventDialog, {
+    width: '550px',
+    data :{boxOfficeCode : this.boxOfficeCode,}
+  });
+
+   dialogRef.afterClosed().subscribe(result => {
+    this.animal = result;
+   });
+   this.isLoaderAdmin = false;
+}
+
+assignToTicketType() {
+  const dialogRef = this.dialog.open(AssignToTicketTypeDialog, {
     width: '550px',
     data :{boxOfficeCode : this.boxOfficeCode,}
   });
@@ -302,14 +322,11 @@ export class myCreateDiscountCodeDialog {
 
   fnChangeDiscountType(discountType){
     var discount_value = this.createCouponForm.get('discount').value; 
-    alert(discountType)
-    alert(discount_value)
     if(discountType=='P' && discount_value > 100){
       this.diccount_error = true;
     }else{
       this.diccount_error = false;
     }
-    alert(this.diccount_error)
   }
 
   discount_check(){
@@ -430,6 +447,7 @@ export class myCreateDiscountCodeDialog {
 @Component({
   selector: 'Create-Voucher-Code',
   templateUrl: '../_dialogs/create-voucher-code-dialog.html',
+  providers: [DatePipe]
 })
 export class myBatchVoucherCodeDialog { 
   isLoaderAdmin:boolean = false;
@@ -440,7 +458,7 @@ export class myBatchVoucherCodeDialog {
   constructor(
     private _formBuilder: FormBuilder,
     // private _snackBar: MatSnackBar,
-    // private datePipe: DatePipe,
+    private datePipe: DatePipe,
     private SuperadminService : SuperadminService,
     private ErrorService: ErrorService,
     public dialogRef: MatDialogRef<myBatchVoucherCodeDialog>,
@@ -468,23 +486,26 @@ export class myBatchVoucherCodeDialog {
     fnOnSubmitVoucher(){
       if(this.createVoucherForm.valid){
         if(this.signleVoucherDetail){
+
+         let  expiry_date=this.datePipe.transform(new Date(this.createVoucherForm.get('expiry_date').value),"yyyy-MM-dd")
           let updateVoucherCode = {
             'unique_code': this.signleVoucherDetail.unique_code,
             "boxoffice_id" : this.boxOfficeCode,
             "voucher_name" : this.createVoucherForm.get('voucher_name').value,
             "voucher_value" : this.createVoucherForm.get('voucher_value').value,
             "voucher_code" : this.createVoucherForm.get('voucher_code').value,
-            "expiry_date" : this.createVoucherForm.get('expiry_date').value,
+            "expiry_date" : expiry_date,
           }
             this.updateVoucherCode(updateVoucherCode);
             
         }else{
+          let  expiry_date=this.datePipe.transform(new Date(this.createVoucherForm.get('expiry_date').value),"yyyy-MM-dd")
           let createdVoucherCodeData = {
           "boxoffice_id" : this.boxOfficeCode,
           "voucher_name" : this.createVoucherForm.get('voucher_name').value,
           "voucher_value" : this.createVoucherForm.get('voucher_value').value,
           "voucher_code" : this.createVoucherForm.get('voucher_code').value,
-          "expiry_date" : this.createVoucherForm.get('expiry_date').value,
+          "expiry_date" : expiry_date,
           // "event_id" : this.eventId, 
         }
         this.createVoucherCode(createdVoucherCodeData);
@@ -551,14 +572,87 @@ export class myBatchVoucherCodeDialog {
   templateUrl: '../_dialogs/assign-to-event-dialog.html',
 })
 export class AssignToEventDialog { 
-  eventList = [ {name:'Mon 27 Jul: Lajawab Cooking Class',value:'Mon 27 Jul: Lajawab Cooking Class'},
-                {name:'Mon 27 Jul: Dracula Drinks',value:'Mon 27 Jul: Dracula Drinks'},
-                {name:'Mon 3 Aug - Mon 10 Aug: Kitty Party',value:'Mon 3 Aug - Mon 10 Aug: Kitty Party'}
-              ]
+  isLoaderAdmin:any;
+  boxOfficeCode:any;
+  getAllEventList:any;
+  
   constructor(
-    public dialogRef: MatDialogRef<AssignToEventDialog>
-  ){
+    public dialogRef: MatDialogRef<AssignToEventDialog>,
+    private SuperadminService : SuperadminService,
+    private ErrorService:ErrorService,
+  ) {
+    if(localStorage.getItem('boxoffice_id')){
+      this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+    }
   } 
+
+  getAllEvent(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      // 'search':this.search.keyword,
+      'filter' : 'upcoming',
+      'boxoffice_id' : this.boxOfficeCode
+    }
+    this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this. getAllEventList = response.response
+      // console.log(this.getAllEventList);
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      this. getAllEventList = null;
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() { 
+    this.getAllEvent();
+  }
+  
+}
+
+
+// ------------------------------------ Assign to Ticket Type --------------------------------------
+
+
+@Component({
+  selector: 'Assign-To-Ticket-type-Dialog',
+  templateUrl: '../_dialogs/assign-to-ticket-type-dialog.html',
+})
+export class AssignToTicketTypeDialog { 
+  isLoaderAdmin:any;
+  boxOfficeCode:any;
+  allticketType:any;
+   constructor(
+    public dialogRef: MatDialogRef<AssignToTicketTypeDialog>,
+    private SuperadminService:SuperadminService,
+    private ErrorService:ErrorService
+  ){
+    if(localStorage.getItem('boxoffice_id')){
+      this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+    }
+  } 
+
+  getAllTicket(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      // 'search':this.search.keyword,
+      'boxoffice_id' : this.boxOfficeCode
+    }
+    this.SuperadminService.getAllTicket(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this. allticketType = response.response
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      this. allticketType = null;
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -566,4 +660,3 @@ export class AssignToEventDialog {
   }
   
 }
-

@@ -15,6 +15,7 @@ import { User, Role } from '../_models';
 })
 export class LoginComponent implements OnInit {
   loginForm:FormGroup;
+  isLoaderAdmin:boolean = false;
   loading = false;
   submitted = false;
   returnUrl: string;
@@ -55,6 +56,7 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
+    
     this.submitted = true;
     if(this.loginForm.invalid){
         this.loginForm.get('email').markAsTouched();
@@ -62,6 +64,7 @@ export class LoginComponent implements OnInit {
 
         return false;
     }
+    this.isLoaderAdmin = true;
     this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
     .pipe(first()).subscribe(data => {
 
@@ -83,7 +86,7 @@ export class LoginComponent implements OnInit {
             this.error = "Database Connection Error."; 
             this.dataLoaded = true;
         }
-
+        this.isLoaderAdmin = false;
     },
     error => {  
         this.error = "Database Connection Error."; 
