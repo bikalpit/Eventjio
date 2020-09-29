@@ -37,12 +37,21 @@ export class BroadcastComponent implements OnInit {
       this.animal = result;
      });
   }
+  previewBroadcast() {
+    const dialogRef = this.dialog.open(myPreviewBroadcastDialog, {
+      width: '550px',
+    });
+ 
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }
 }
 @Component({
   selector: 'Send-Broadcast',
   templateUrl: '../_dialogs/send-broadcast.html',
 })
-export class mySendBroadcastDialog { 
+export class mySendBroadcastDialog{ 
   
   constructor(
     public dialogRef: MatDialogRef<mySendBroadcastDialog>,
@@ -56,4 +65,21 @@ export class mySendBroadcastDialog {
   ngOnInit() {
   }
   
+}
+
+@Component({
+  selector: 'Preview-Broadcast',
+  templateUrl: '../_dialogs/Preview-broadcast.html',
+})
+export class myPreviewBroadcastDialog{ 
+  constructor(
+    public dialogRef: MatDialogRef<myPreviewBroadcastDialog>,
+    private http: HttpClient,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+  }
 }

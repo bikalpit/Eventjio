@@ -31,9 +31,7 @@ export class DialogAuthentication {
     private _snackBar : MatSnackBar,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-        
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
         this.reAuthenticationForm = this._formBuilder.group({
          user_password : ['',[ Validators.required]],
         });

@@ -39,21 +39,21 @@ export class SettingService {
 
 
     getAllLanguages(){
-        return this.http.get(`${environment.apiUrl}/get-languages-api`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-languages`,{}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
 
-    getAllTimezone(requestObject){
-        return this.http.get(`${environment.apiUrl}/get-timezone-api`,{}).pipe(
+    getAllTimezone(){
+        return this.http.post(`${environment.apiUrl}/get-timezones`,{}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
     
     createNewBusiness(requestObject){
-        return this.http.get(`${environment.apiUrl}/create-boxoffice-api`).pipe(
+        return this.http.post(`${environment.apiUrl}/create-boxoffice-api`,{}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
@@ -73,6 +73,17 @@ export class SettingService {
         }),catchError(this.handleError));
     }
 
-    
+    updateMyProfile(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-profile-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 
+    getMyProfileData(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-profile-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 }

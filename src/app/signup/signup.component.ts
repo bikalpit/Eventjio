@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
   hide = true;
   adminSignUpData:any;
   termsCheckbox:boolean = false;
-
+  isLoaderAdmin:boolean = false;
 
 
   constructor( private formBuilder: FormBuilder,
@@ -60,13 +60,13 @@ export class SignupComponent implements OnInit {
     }
     
     if(this.signUpForm.invalid){
-      this.signUpForm.get('firstname').markAsTouched;
-      this.signUpForm.get('email').markAsTouched;
-      this.signUpForm.get('password').markAsTouched;
-      this.signUpForm.get('description').markAsTouched;
+      this.signUpForm.get('firstname').markAsTouched();
+      this.signUpForm.get('email').markAsTouched();
+      this.signUpForm.get('password').markAsTouched();
+      this.signUpForm.get('description').markAsTouched();
       return false;
     }
-
+	this.isLoaderAdmin = true;
       let requestObject = {
 				"firstname":this.signUpForm.get("firstname").value,
 				"email":this.signUpForm.get("email").value,
@@ -102,7 +102,7 @@ export class SignupComponent implements OnInit {
 					panelClass : ['red-snackbar']
 					});
 			  }
-			  
+			 
 			},
 			(err) =>{
 			  console.log(err)

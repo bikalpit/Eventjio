@@ -74,6 +74,18 @@
             background-color: #CECECE;
         }
     }
-
+    .edit-order-main{
+        display: flex;
+        align-items: center;
+    }
+    .main-top-heading{
+        display: flex;
+         justify-content: space-between;
+        .side-name{
+            display: flex;
+            align-items: center;
+            width: 30%;
+        }
+    }
 
 }

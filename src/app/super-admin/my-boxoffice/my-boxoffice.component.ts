@@ -32,7 +32,7 @@ export class MyBoxofficeComponent implements OnInit {
     public router: Router,
     public superadminService : SuperadminService,
     private authenticationService : AuthenticationService,
-
+    private ErrorService : ErrorService,
     ) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
       localStorage.setItem('isBoxoffice','true')
@@ -56,7 +56,7 @@ export class MyBoxofficeComponent implements OnInit {
         if(response.data == true){
           this.allBoxoffice = response.response
         }else if(response.data == false){
-
+          this.ErrorService.errorMessage(response.response)
         }
       });
       this.isLoaderAdmin = false;
@@ -143,6 +143,7 @@ export class myCreateNewBoxofficeDialog {
         this.allCurency = response.response
       }else if(response.data == false){
           
+        this.ErrorService.errorMessage(response.response)
       }
     });
 
@@ -179,7 +180,6 @@ export class myCreateNewBoxofficeDialog {
         this.dialogRef.close();
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
-          
       }
     });
 

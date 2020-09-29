@@ -229,6 +229,16 @@ button:focus {
     }
 }
 
+::ng-deep .matDate{
+    position: relative;
+   .mat-datepicker-toggle{
+    position: absolute;
+   } 
+   .form-control{
+    padding-left: 40px;
+}
+} 
+
 ::ng-deep .coupon-code-tabs {
     .mat-tab-labels {
         padding: 0 20px;
