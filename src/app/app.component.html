@@ -72,13 +72,21 @@
                 </div>
                 <!-- <span class="d-inline-block"> Administrator <i class="fa fa-angle-down fa-fw pl-1"></i></span> -->
             </div>
-            <mat-form-field class="admin-right-menu-select">
-                <mat-select [(ngModel)]="adminTopMenuselected" class="form-control head-dropdown" id="exampleFormControlSelect1" (selectionChange)="fnChangeTopMenu($event.value);">
-                    <mat-option value="{{currentUser.firstname}}" selected>{{currentUser.firstname}}</mat-option>
+            <div class="user-name-menu">
+                {{currentUser.firstname}}
+                <mat-icon *ngIf="!openLogoutMenuBox" (click)="openLogoutMenu()">keyboard_arrow_down</mat-icon>
+                <mat-icon *ngIf="openLogoutMenuBox" (click)="openLogoutMenu()">keyboard_arrow_up</mat-icon>
+                <div *ngIf="openLogoutMenuBox" class="sub-menubox">
+                    <label (click)="fnLogout()">Logout</label>
+                </div>
+            </div>
+            <!-- <mat-form-field class="admin-right-menu-select">
+                <mat-select [(value)]="adminTopMenuselected" class="form-control head-dropdown" id="exampleFormControlSelect1" (selectionChange)="fnChangeTopMenu($event.value);">
+                     <mat-option value="{{currentUser.firstname}}" selected>{{currentUser.firstname}}</mat-option>
                     <mat-option value="profile">My Profile</mat-option>
                     <mat-option value="logout">Logout</mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
         </mat-toolbar>
         <div class="right-toolbar-content">
             <router-outlet></router-outlet>
