@@ -144,13 +144,14 @@ export class CustomersComponent implements OnInit {
 }
 
   fnCreateCustomer(requestObject){
-      this.isLoaderAdmin = true;
-      this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
-        if(response.data == true){
-        this.ErrorService.successMessage(response.response);
-        this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
+    this.isLoaderAdmin = true;
+    this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
+    if(response.data == true){
+      this.ErrorService.successMessage(response.response);
+      this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
+      this.getAllCustomersDetails();
       }
     });
     this.isLoaderAdmin = false;
@@ -161,15 +162,16 @@ export class CustomersComponent implements OnInit {
     let requestObject ={
       "boxoffice_id": this.boxofficeId,
     };
-    // alert(this.boxofficeId);
      
-    this.SuperadminService. getAllCustomersDetails(requestObject).subscribe((response:any) => {
+    this.SuperadminService.getAllCustomersDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.customerDetails = response.response
         this.selectedCustomerCode=  this.customerDetails[0].unique_code
        this.fnSelectCustomer(this.selectedCustomerCode)
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
+        this.customerDetails = null;
+        this.addFormButtonDiv = false;
       }
       this.isLoaderAdmin = false;
     });
@@ -183,8 +185,7 @@ export class CustomersComponent implements OnInit {
   let requestObject = {
     "unique_code": this.selectedCustomerCode,
   };
-  // alert( this.selectedCustomerCode);
-  this.SuperadminService. getSingleCustomersDetails(requestObject).subscribe((response:any) => {
+  this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
     if(response.data == true){
       this.singleCustomerDetails = response.response[0]
       this.addCustomerForm.controls['firstname'].setValue(this.singleCustomerDetails.firstname)

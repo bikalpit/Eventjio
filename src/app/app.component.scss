@@ -157,8 +157,8 @@
 }
 
 .user-image-icon {
-    width: 34px;
-    height: 34px;
+    width: 60px;
+    height: 60px;
     img {
         border-radius: 30px;
     }
@@ -311,6 +311,16 @@
         color: white;
     }
 }
+
+::ng-deep .admin-right-menu-select {
+    .mat-form-field-underline {
+        display: none !important;
+    }
+    .mat-form-field-infix {
+        border-top: 0px;
+    }
+}
+
 ::ng-deep .mat-tab-label-active {
     opacity: 1 !important;
 }

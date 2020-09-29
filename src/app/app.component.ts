@@ -29,9 +29,7 @@ export class AppComponent {
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     if(this.currentUser && this.currentUser !== null){
       console.log(this.currentUser)
-      // alert("alert");
       this.adminTopMenuselected = this.currentUser.firstname
-      
       this.loadLocalStorage();
     }
     this.bnIdle.startWatching(6600).subscribe((res) => {
@@ -162,6 +160,9 @@ export class AppComponent {
   }
 
   fnChangeTopMenu(value){
+    if(value === 'profile'){
+      this.router.navigate(['/super-admin/settings/my-profile']);
+    }
     if(value === 'logout'){
       this.logout();
     }

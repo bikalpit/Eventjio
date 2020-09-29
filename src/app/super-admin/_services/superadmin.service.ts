@@ -108,6 +108,14 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    // -----------change API -------------
+   
+    getAllTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     changeCouponStaus(requestObject){
         return this.http.post(`${environment.apiUrl}/update-coupon-status-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {

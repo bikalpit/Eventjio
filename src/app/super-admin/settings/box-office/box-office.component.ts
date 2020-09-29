@@ -21,6 +21,7 @@ export class BoxOfficeComponent implements OnInit {
   allBoxofficeDetails:any;
   singleBoxofficeUpdate:any;
   boxofficeImageUrl:any;
+  allTimezones:any;
 
 
   constructor(
@@ -32,6 +33,10 @@ export class BoxOfficeComponent implements OnInit {
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
     }
+    this.getAllLanguages();
+    this.getAllTimezone();
+    this.getBoxofficeDetails();
+    
     this.singleBoxOffice=this.formBuilder.group({
       boxoffice_name:['',[Validators.required]],
       language:[''],
@@ -84,6 +89,13 @@ export class BoxOfficeComponent implements OnInit {
       }
     });
   }
+  getAllTimezone(){
+    this.settingService.getAllTimezone().subscribe((response:any) => {
+      if(response.data == true){
+        this.allTimezones = response.response
+      }
+    });
+  }
   
   // fnshowhide(){
   //   this.showHide =!this.showHide;
@@ -102,7 +114,7 @@ export class BoxOfficeComponent implements OnInit {
 
 fnSubmitBoxOffice(){
   if(this.singleBoxOffice.invalid){
-    alert("1");
+    
   }
 
     let requestObject = {

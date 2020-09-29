@@ -45,7 +45,7 @@ export class SettingService {
         }),catchError(this.handleError));
     }
 
-    getAllTimezone(requestObject){
+    getAllTimezone(){
         return this.http.get(`${environment.apiUrl}/get-timezone-api`,{}).pipe(
         map((res) => {
             return res;

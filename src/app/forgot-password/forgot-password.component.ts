@@ -51,7 +51,6 @@ forgotPwdSubmit(){
         "email":this.forgotEmail,
          "url" : site_url+"/reset-password?accessToken"
       };
-      alert('0');
   let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
@@ -62,12 +61,6 @@ forgotPwdSubmit(){
       catchError(this.handleError)
       ).subscribe((response:any) => {
         if(response.data == true){
-          // this._snackBar.open("Reset password link sent in your mail", "X", {
-          //   duration: 2000,
-          //   verticalPosition:'top',
-          //   panelClass :['green-snackbar']
-          // });
-          alert('2');
           this.forgotPwdContainer =false
           this.emailSentContainer = true;
           setTimeout(() => {
@@ -85,7 +78,6 @@ forgotPwdSubmit(){
         console.log(err)
       })
   }else{
-    alert('1');
    this.forgotForm.get('email').markAsTouched();
   }
   
