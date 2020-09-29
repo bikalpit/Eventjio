@@ -457,6 +457,7 @@ export class myBatchVoucherCodeDialog {
   eventId:any;
   signleVoucherDetail:any;
   createVoucherForm: FormGroup;
+  minExpiryDate = new Date();
   constructor(
     private _formBuilder: FormBuilder,
     // private _snackBar: MatSnackBar,
