@@ -28,7 +28,6 @@ import { mySendBroadcastDialog } from './broadcast/broadcast.component';
 import { myPreviewBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

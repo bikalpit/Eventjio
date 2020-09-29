@@ -1,6 +1,4 @@
 import {Component, OnInit, ViewChild,Inject} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
@@ -687,6 +685,7 @@ export class AddNewTicketType {
     }
 
     let requestObject = {
+      'box_office_id': this.boxOfficeCode,
       'ticket_name': this.addTicketForm.get('title').value,
       'prize': this.addTicketForm.get('price').value,
       'qty': this.addTicketForm.get('qty').value,
