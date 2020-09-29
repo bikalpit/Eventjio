@@ -39,21 +39,21 @@ export class SettingService {
 
 
     getAllLanguages(){
-        return this.http.get(`${environment.apiUrl}/get-languages`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-languages`,{}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
 
     getAllTimezone(){
-        return this.http.get(`${environment.apiUrl}/get-timezone-api`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-timezones`,{}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
     
     createNewBusiness(requestObject){
-        return this.http.get(`${environment.apiUrl}/create-boxoffice-api`,{}).pipe(
+        return this.http.post(`${environment.apiUrl}/create-boxoffice-api`,{}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

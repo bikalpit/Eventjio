@@ -7,14 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleEventDashboard implements OnInit {
   eventStatus:any='draft';
+  eventSideMenu:boolean = true;
  
-  constructor() { }
+  constructor() {
+    this.eventSideMenu = true;
+  }
 
   ngOnInit(): void {
   }
 
   fnChangeEventStatus(status){
     this.eventStatus = status
+  }
+
+  fnClickOnDuplicate(){
+    this.eventSideMenu = false;
   }
 
   
