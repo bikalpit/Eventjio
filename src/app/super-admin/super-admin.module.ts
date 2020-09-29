@@ -78,7 +78,6 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    MatTimepickerModule,
   ],
   
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
