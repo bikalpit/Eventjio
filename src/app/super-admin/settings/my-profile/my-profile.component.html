@@ -1,4 +1,4 @@
-<div class="main bg-white">
+<div class="main bg-white main-work-area main">
         <div class="row mx-0 mb-4 mt-2">
             <div class="col-12  mt-2">
                 <div class="font-weight-bold page-title">
@@ -23,26 +23,42 @@
         
     <div class="p-2">
         <div class="form-group">
-            <form [formGroup]="myProfileForm">
+            <form [formGroup]="myProfileForm" class="with-validation">
                 <div class="row mx-0 mt-4">
-                    <div class="col-6">
+                    <div class="form-group col-6">
                         <label for="first-name" class="">First Name</label>
                         <input type="text" class="form-control" formControlName="firstname" placeholder="Shabnamm">
+                        <span class="error-wrap" *ngIf="myProfileForm.get('firstname').touched || myProfileForm.get('firstname').dirty">
+                        <small *ngIf="myProfileForm.get('firstname').hasError('required')" class="error">First Name is required.</small>
+                        <small *ngIf="myProfileForm.get('firstname').hasError('maxlength')" class="error">First Name should be maximum 15 character.</small>
+                        </span>
                     </div>
 
-                    <div class="col-6">
-                        <label for="first-name" class="">Last Name</label>
+                    <div class="form-group  col-6">
+                        <label for="last-name" class="">Last Name</label>
                         <input type="text" class="form-control" formControlName="lastname" placeholder="Ansari">
+                        <span class="error-wrap" *ngIf="myProfileForm.get('lastname').touched || myProfileForm.get('lastname').dirty">
+                        <small *ngIf="myProfileForm.get('lastname').hasError('required')" class="error">Last Name is required.</small>
+                        <small *ngIf="myProfileForm.get('lastname').hasError('maxlength')" class="error">Last Name should be maximum 15 character.</small>
+                        </span>
                     </div>
 
-                    <div class="col-6">
-                        <label for="first-name" class="mt-4">Email</label>
+                    <div class="form-group  col-6">
+                        <label for="email" class="mt-4">Email</label>
                         <input type="text" class="form-control" formControlName="email" placeholder="dummy@gmail.com">
+                        <span class="error-wrap" *ngIf="myProfileForm.get('email').touched || myProfileForm.get('email').dirty">
+                        <small *ngIf="myProfileForm.get('email').hasError('required')" class="error">Email is required.</small>
+                        <small *ngIf="myProfileForm.get('email').hasError('email') || myProfileForm.get('email').hasError('pattern')" class="error">Enter a valid email address.</small>
+                        </span>
                     </div>
                     
-                    <div class="col-6">
+                    <div class="form-group  col-6">
                         <label for="first-name" class="mt-4">Phone</label>        
                         <input type="text" class="form-control" formControlName="phone" placeholder="+91 87678687">
+                        <span class="error-wrap" *ngIf="myProfileForm.get('phone').touched || myProfileForm.get('phone').dirty">
+                        <small *ngIf="myProfileForm.get('phone').hasError('required')" class="error">Phone Number is required.</small>
+                        <small *ngIf="myProfileForm.get('phone').hasError('phone') || myProfileForm.get('phone').hasError('pattern')" class="error">Enter a valid Phone Number.</small>
+                        </span>        
                     </div>
                 </div>
             </form>
@@ -52,9 +68,10 @@
     </div>
     </div>
     <div class="footer-action-btn">
+        
         <div class="can-save">
             <button mat-raised-button class="cancel-btn">Cancel</button>
-            <button mat-raised-button class="save-btn" (click)="fnUploadMyProfile()">Save</button>
+            <button mat-raised-button class="save-btn" >Save</button>
         </div>
     </div>
   

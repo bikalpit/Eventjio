@@ -73,11 +73,17 @@ export class SettingService {
         }),catchError(this.handleError));
     }
 
-    uploadMyProfile(requestObject){
+    updateMyProfile(requestObject){
         return this.http.post(`${environment.apiUrl}/update-profile-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
 
+    getMyProfileData(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-profile-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 }

@@ -2,7 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SettingService} from '../_services/setting.service';
-import { ErrorService } from '../../../_services/error.service'
+import { ErrorService } from '../../../_services/error.service';
+import { AuthenticationService } from '../../../_services/authentication.service'
+
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
@@ -12,22 +14,38 @@ export class MyProfileComponent implements OnInit {
   profileImageUrl:any;
   myProfileForm:FormGroup;
   isLoaderAdmin:any;
+  currentUser:any;
+  myProfileData:any;
 
   constructor(
     private _formBuilder: FormBuilder,
     private SettingService : SettingService,
     private ErrorService: ErrorService,
     public dialog: MatDialog,
+    private auth : AuthenticationService
   ) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
     this.myProfileForm = this._formBuilder.group({
-      firstname : [''],
-      lastname: [''],
-      email:[''],
-      phone:['']
-    })
+      firstname : ['',[Validators.required]],
+      lastname: ['',[Validators.required]],
+      email:['',[Validators.required]],
+      phone:['',[Validators.required]]
+    });
+
+    // if(this.myProfileData){
+    //   console.log(this.myProfileData)
+    //   this.myProfileForm.controls['firstname'].setValue(this.myProfileData.firstname)
+    //   this.myProfileForm.controls['lastname'].setValue(this.myProfileData.lastname)
+    //   this.myProfileForm.controls['email'].setValue(this.myProfileData.email)
+    //   this.myProfileForm.controls['phone'].setValue(this.myProfileData.phone)
+    // }
+
    }
 
   ngOnInit(): void {
+    this.getMyProfileData();
+    //this.updateMyProfile(this.myProfileData);
   }
 
   fnChangeImage(){
@@ -44,31 +62,51 @@ export class MyProfileComponent implements OnInit {
      });
   }
 
-  fnUploadMyProfile(){
-    let uploadProfileData ={
-      "firstname" : this.myProfileForm.get('firstname').value,
-      "lastname" : this.myProfileForm.get('lastname').value,
-      "email" : this.myProfileForm.get('email').value,
-      "phone" : this.myProfileForm.get('phone').value,
-    }
-    this.uploadMyProfile(uploadProfileData);
-  }
-
-  uploadMyProfile(uploadProfileData){
+  getMyProfileData(){
     this.isLoaderAdmin = true;
-    this.SettingService.uploadMyProfile(uploadProfileData).subscribe((response:any) => {
+    console.log(this.currentUser);
+    let requestObject = {
+      // 'search':this.search.keyword,
+       'unique_code' : this.currentUser.user_id
+    }
+    this.SettingService.getMyProfileData(requestObject).subscribe((response:any) => {
       if(response.data == true){
-       this.ErrorService.successMessage(response.response);
-        this.myProfileForm.reset();
-        // this.dialogRef.close();
-      }
-      else if(response.data == false){
-       this.ErrorService.errorMessage(response.response);
+         this.myProfileData = response.response;
+        //  console.log(this.myProfileData);
+
+         this.myProfileForm.controls['firstname'].setValue(this.myProfileData[0].firstname)
+         this.myProfileForm.controls['lastname'].setValue(this.myProfileData[0].lastname)
+         this.myProfileForm.controls['email'].setValue(this.myProfileData[0].email)
+         this.myProfileForm.controls['phone'].setValue(this.myProfileData[0].phone)
+
+      } else if(response.data == false){
+
+        this.ErrorService.errorMessage(response.response);
+        this. myProfileData = null;
+
       }
       this.isLoaderAdmin = false;
-      this.myProfileForm.reset();
     })
+    
   }
+  fnSubmitMyProfile(){
+    if(this.myProfileForm.valid){
+       
+        // "firstname" : this.myProfileForm.get('firstname').value,
+        // "lastname" : this.myProfileForm.get('lastname').value,
+        // "email" : this.myProfileForm.get('email').value,
+        // "phone" : this.myProfileForm.get('phone').value,
+      
+    }
+    else{
+      this.myProfileForm.get("firstname").markAsTouched();
+      this.myProfileForm.get("lastname").markAsTouched();
+      this.myProfileForm.get("email").markAsTouched();
+      this.myProfileForm.get("phone").markAsTouched();
+    }
+  }
+
+  
 
 
 
