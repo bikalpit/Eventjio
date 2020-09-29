@@ -19,6 +19,7 @@ export class AppComponent {
   currentUser: User;
   adminTopMenuselected:any
   currentUrl: string;
+  openLogoutMenuBox :boolean = false;
   
   constructor(
     private route: ActivatedRoute,
@@ -150,6 +151,10 @@ export class AppComponent {
       }
     }
   }
+
+  openLogoutMenu(){
+    this.openLogoutMenuBox = this.openLogoutMenuBox?false :true;
+  }
   
 
   initiateTimeout() {
@@ -159,13 +164,9 @@ export class AppComponent {
     }, 1080000);
   }
 
-  fnChangeTopMenu(value){
-    if(value === 'profile'){
-      this.router.navigate(['/super-admin/settings/my-profile']);
-    }
-    if(value === 'logout'){
+  fnLogout(){
       this.logout();
-    }
+      this.openLogoutMenuBox = false;
   }
 
   isBoxoffice() {

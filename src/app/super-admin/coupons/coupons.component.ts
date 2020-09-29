@@ -23,8 +23,8 @@ export class CouponsComponent implements OnInit {
   animal :any;
   clickedIndex: any = 'coupon'
   boxOfficeCode: any;
-  allCouponCodeList: any;
-  allVoucherCodeList:any;
+  allCouponCodeList: any = [];
+  allVoucherCodeList:any = [];
   couponCodeStatus: any;
   signleCouponDetail: any;
   signleVoucherDetail :  any;
@@ -79,11 +79,12 @@ export class CouponsComponent implements OnInit {
     }
     this.SuperadminService.getAllCouponCodes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-      this.allCouponCodeList = response.response
+        this.allCouponCodeList = response.response
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
-      this.allCouponCodeList = null;
+        this.ErrorService.errorMessage(response.response);
+        this.allCouponCodeList.length = 0
+      // this.allCouponCodeList = null;
       }
       this.isLoaderAdmin = false;
     })
@@ -97,11 +98,12 @@ export class CouponsComponent implements OnInit {
     }
     this.SuperadminService.getAllVoucherCodes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-      this. allVoucherCodeList = response.response
+        this. allVoucherCodeList = response.response
       }
       else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
-      this. allVoucherCodeList = null;
+      this.allVoucherCodeList.length = 0
+      // this. allVoucherCodeList = null;
       }
       this.isLoaderAdmin = false;
     })
