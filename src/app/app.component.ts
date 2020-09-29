@@ -19,6 +19,7 @@ export class AppComponent {
   currentUser: User;
   adminTopMenuselected:any
   currentUrl: string;
+  openLogoutMenuBox :boolean = false;
   
   constructor(
     private route: ActivatedRoute,
@@ -29,9 +30,7 @@ export class AppComponent {
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     if(this.currentUser && this.currentUser !== null){
       console.log(this.currentUser)
-      // alert("alert");
       this.adminTopMenuselected = this.currentUser.firstname
-      
       this.loadLocalStorage();
     }
     this.bnIdle.startWatching(6600).subscribe((res) => {
@@ -152,6 +151,10 @@ export class AppComponent {
       }
     }
   }
+
+  openLogoutMenu(){
+    this.openLogoutMenuBox = this.openLogoutMenuBox?false :true;
+  }
   
 
   initiateTimeout() {
@@ -161,10 +164,9 @@ export class AppComponent {
     }, 1080000);
   }
 
-  fnChangeTopMenu(value){
-    if(value === 'logout'){
+  fnLogout(){
       this.logout();
-    }
+      this.openLogoutMenuBox = false;
   }
 
   isBoxoffice() {

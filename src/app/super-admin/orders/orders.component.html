@@ -14,14 +14,14 @@
                         <div class="sub-title font-weight-bold">
                             Manage
                         </div>
-                
+
                         <div class="ml-auto ">
                             <button mat-flat-button class=" px-3 mr-2 bg-primary text-light" (click)="exportOredr()">Export orders</button>
-                            <button mat-flat-button class=" px-3 ml-2 bg-primary text-light" (click)="addNewOredr()">Add new order</button>         
+                            <button mat-flat-button class=" px-3 ml-2 bg-primary text-light" (click)="addNewOredr()">Add new order</button>
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-12 searchbox p-0 search-bar rounded">
                     <i class="fa fa-search "></i>
                     <input matInput type="text" class="form-control" placeholder="Search by name, email, transaction id, or ticket code">   
@@ -34,30 +34,30 @@
                                 <mat-option>All Events</mat-option>
                                 <mat-option>Lajavab Cooking Classes (Mon 17 Jun 2020)</mat-option>
                                 <mat-option>Dracula Drink (Mon 17 Jun 2020)</mat-option>
-                                <mat-option>The Ladies Kitty Party  (Mon 17 Jun 2020)</mat-option>
+                                <mat-option>The Ladies Kitty Party (Mon 17 Jun 2020)</mat-option>
                             </mat-select>
                         </div>
                     </div>
-                    
+
                     <div class="ml-4" fxFlex="20">
                         <label class="mb-0">Order date form</label>
-                        <div class="matDate">                    
+                        <div class="matDate">
                             <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon"> </mat-datepicker-toggle>
-                            <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker"  (click)="ticketIssuedDatePicker.open()"  class="form-control matInputdate ">               
+                            <input type="text" [matDatepicker]="ticketIssuedDatePicker" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate ">
                             <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
-                        </div>          
+                        </div>
                     </div>
-                    
+
                     <div class="mx-4" fxFlex="20">
                         <label class="mb-0">Order date to</label>
-                        <div class="matDate"> 
+                        <div class="matDate">
                             <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
-                            <input type="text" matInput [matDatepicker]="ticketIssuedTo"  (click)="ticketIssuedTo.open()"  class="form-control matInputdate">
+                            <input type="text" [matDatepicker]="ticketIssuedTo" (click)="ticketIssuedTo.open()" class="form-control matInputdate">
                             <mat-datepicker #ticketIssuedTo></mat-datepicker>
-                            </div>
+                        </div>
                     </div>
-                    
-                   <div class="" fxFlex="20">
+
+                    <div class="" fxFlex="20">
                         <label class="mb-0">Order Status</label>
                         <div class="">
                             <mat-select class="form-control ">
@@ -68,63 +68,63 @@
                                 <mat-option>Complete order</mat-option>
                             </mat-select>
                         </div>
-                   </div> 
-                    
+                    </div>
+
                 </div>
-                
+
             </div>
         </div>
 
         <div class="events ">
-          <div class="service-listing">
-            <div class="main-table-content main-cust-table-content ">
-                <div class="">
-                    <div class="heads main-heading-content drageble py-3" fxLayout="row">
-                        <div class="ml-5" fxFlex="10">Order ID</div>
-                        <div class="" fxFlex="10">Status</div>
-                        <div class="" fxFlex="13">Name</div>
-                        <div class="" fxFlex="15">Date / Time</div>
-                        <div class="" fxFlex="32">Event</div>
-                        <div class="" fxFlex="10">Value</div>
-                        <div class="" fxFlex="10">Action</div>
+            <div class="service-listing">
+                <div class="main-table-content main-cust-table-content ">
+                    <div class="">
+                        <div class="heads main-heading-content drageble py-3" fxLayout="row">
+                            <div class="ml-5" fxFlex="10">Order ID</div>
+                            <div class="" fxFlex="10">Status</div>
+                            <div class="" fxFlex="13">Name</div>
+                            <div class="" fxFlex="15">Date / Time</div>
+                            <div class="" fxFlex="32">Event</div>
+                            <div class="" fxFlex="10">Value</div>
+                            <div class="" fxFlex="10">Action</div>
+                        </div>
+
+                        <div class="drageble-list">
+                            <div class="drageble-box" fxLayout="row" *ngFor="let element of orderData">
+                                <div class="tb-data ml-5 " fxFlex="10"> <a class="text-dark"> {{element.orderid}} </a></div>
+                                <div class="tb-data" fxFlex="10"><span class="cpn-bor" [ngStyle]="{'color':element.status === 'Completed' ? '#2BB800' : '#FF0000' }">{{element.status}}</span></div>
+                                <div class="tb-data" fxFlex="13">{{element.name}}</div>
+                                <div class="tb-data" fxFlex="15">{{element.datetime}}</div>
+                                <div class="tb-data" fxFlex="32">{{element.event}} <span class="order-data-date"> (Mon 17 Jun 2020) </span></div>
+                                <div class="tb-data" fxFlex="10">{{element.value}}</div>
+                                <div class="tb-data" fxFlex="10">
+                                    <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+                                    <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+                                    <ng-template class="popover" #popContent>
+                                        <div class="px-3  border-bottom">
+                                            <i class="fa fa-repeat mr-2"></i><span>Resend</span>
+                                        </div>
+
+                                        <div class="px-3  border-bottom">
+                                            <i class="fa fa-pencil mr-2"></i><span>Edit</span>
+                                        </div>
+
+                                        <div class="px-3  border-bottom">
+                                            <i class="fa fa-ticket mr-2"></i><span>Download Tickets</span>
+                                        </div>
+
+                                        <div class="px-3  border-bottom">
+                                            <i class="fa fa-times-circle mr-2"></i><span>Cancel</span>
+                                        </div>
+
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                   
-                  <div class="drageble-list">
-                      <div class="drageble-box"  fxLayout="row" *ngFor="let element of orderData">
-                          <div class="tb-data ml-5 " fxFlex="10"> <a href="" class="text-dark"> {{element.orderid}} </a></div>
-                          <div class="tb-data" fxFlex="10"><span class="cpn-bor" [ngStyle]="{'color':element.status === 'Completed' ? '#2BB800' : '#FF0000' }">{{element.status}}</span></div>
-                          <div class="tb-data" fxFlex="13">{{element.name}}</div>
-                          <div class="tb-data" fxFlex="15">{{element.datetime}}</div>
-                          <div class="tb-data" fxFlex="32">{{element.event}} <span class="order-data-date"> (Mon 17 Jun 2020) </span></div>
-                          <div class="tb-data" fxFlex="10">{{element.value}}</div>
-                          <div class="tb-data" fxFlex="10">
-                            <mat-icon [ngbPopover]="popContent" placement="bottom"  aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
-                            <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
-                            <ng-template class="popover" #popContent>
-                                <div class="px-3  border-bottom">
-                                    <i class="fa fa-repeat mr-2"></i><span>Resend</span>
-                                </div>
 
-                                <div class="px-3  border-bottom">
-                                    <i class="fa fa-pencil mr-2"></i><span>Edit</span>
-                                </div>
-
-                                <div class="px-3  border-bottom">
-                                    <i class="fa fa-ticket mr-2"></i><span>Download Tickets</span>
-                                </div>
-
-                                <div class="px-3  border-bottom">
-                                    <i class="fa fa-times-circle mr-2"></i><span>Cancel</span>
-                                </div>
-
-                            </ng-template>
-                          </div>
-                      </div>
-                    </div>
                 </div>
-
             </div>
         </div>
-        </div>        
     </div>
 </div>

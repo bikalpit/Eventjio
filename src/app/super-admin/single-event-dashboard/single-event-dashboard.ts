@@ -8,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class SingleEventDashboard implements OnInit {
   pageName :any = '';
   eventStatus:any='draft';
+  eventSideMenu:boolean = true;
  
-  constructor() { }
+  constructor() {
+    this.eventSideMenu = true;
+  }
 
   ngOnInit(): void {
   }
@@ -20,6 +23,12 @@ export class SingleEventDashboard implements OnInit {
   fnPostUrl(postUrl){
     this.pageName = postUrl; 
   }
+
+  fnClickOnDuplicate(){
+    this.eventSideMenu = false;
+  }
+
+  
 }
 
 

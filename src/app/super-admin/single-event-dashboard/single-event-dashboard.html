@@ -34,10 +34,11 @@
     <div class="row">
 
         <div class="p-3 bg-light child-left-content">
-            <div class="ml-4 py-2" (click)="fnPostUrl('event-summary')" [ngClass]="{'active': pageName == 'event-summary'}" routerLink="event-summary">
+        <div *ngIf="eventSideMenu" class="p-3 bg-light child-left-content">
+            <div class="ml-4 py-2" (click)="fnPostUrl('event-summary')" [ngClass]="{'active': pageName == 'event-summary'}"routerLink="event-summary">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block py-2 mr-2">
-                        <img src="../../../assets/images/events/graph.png" class="w-100" alt=""> 
+                        <img src="../../../assets/images/events/graph.png" class="w-100" alt="">
                     </div>
                     <span>Event Summary</span>
                 </div>
@@ -50,11 +51,11 @@
             <div>
                 <div (click)="fnPostUrl('issued-ticket')" [ngClass]="{'active': pageName == 'issued-ticket'}" class="ml-4 py-2" routerLink="issued-ticket">
                     <div class="event-menu">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
+                        <div class="setting-menu-icon d-inline-block mr-2 ">
+                            <img src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
+                        </div>
+                        <span>Issued Tickets (1)</span>
                     </div>
-                    <span>Issued Tickets (1)</span>
-                </div>
                 </div>
 
                 <div (click)="fnPostUrl('waitilist-signup')" [ngClass]="{'active': pageName == 'waitilist-signup'}"  class="ml-4 py-2" routerLink="waitilist-signup">
@@ -70,8 +71,8 @@
                     <div class="event-menu">
                         <div class="setting-menu-icon d-inline-block mr-2 ">
                             <img src="../../../assets/images/events/shout.png" class="w-100" alt="">
-                        </div> 
-                      <span>Broadcast</span>
+                        </div>
+                        <span>Broadcast</span>
                     </div>
                 </div>
 
@@ -85,9 +86,9 @@
                     <div class="event-menu">
                         <div class="setting-menu-icon d-inline-block mr-2 ">
                             <img src="../../../assets/images/events/events-tickes.png" class="w-100" alt="">
-                        </div> 
+                        </div>
                         <span>Event and ticket types</span>
-                    </div> 
+                    </div>
                 </div>
 
                 <div (click)="fnPostUrl('order-confirmation')" [ngClass]="{'active': pageName == 'order-confirmation'}" class="ml-4 py-2" routerLink="order-confirmation">
@@ -96,7 +97,7 @@
                             <img src="../../../assets/images/events/Order-Confirmation.png" class="w-100" alt="">
                         </div>
                         <span>Order Confirmation</span>
-                    </div> 
+                    </div>
                 </div>
 
                 <div (click)="fnPostUrl('checkout-form')" [ngClass]="{'active': pageName == 'checkout-form'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/checkout-form">
@@ -114,23 +115,23 @@
                             <img src="../../../assets/images/events/Duplicate.png" class="w-100" alt="">
                         </div>
                         <span>Duplicate</span>
-                    </div> 
+                    </div>
                 </div>
 
                 <div (click)="fnPostUrl('delete')" [ngClass]="{'active': pageName == 'delete'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/delete">
                     <div class="event-menu">
                         <div class="setting-menu-icon d-inline-block mr-2 ">
-                             <img src="../../../assets/images/events/Icon material-delete.png" class="w-100" alt="">
-                        </div> 
+                            <img src="../../../assets/images/events/Icon material-delete.png" class="w-100" alt="">
+                        </div>
                         <span>Delete</span>
-                    </div> 
+                    </div>
                 </div>
 
 
             </div>
         </div>
 
-        <div class="col-9 p-0 bg-white side-event">
+        <div [ngClass]="{'col-9 side-event':eventSideMenu === true,'col-12':eventSideMenu === false}" class="p-0 bg-white">
             <router-outlet></router-outlet>
         </div>
 

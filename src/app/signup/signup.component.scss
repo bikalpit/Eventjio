@@ -1,30 +1,33 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
+@import "../../styling/variables";
 .main {
     font-family: Poppins, Regular;
 }
-.signin-main{
+
+.signin-main {
     height: calc(100vh);
 }
-::ng-deep .sign-up{
-    .signup-left{
+
+::ng-deep .sign-up {
+    .signup-left {
         // padding: 30px 50px;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
         padding: 30px 50px;
-        .logo-image{
+        .logo-image {
             position: fixed;
             left: 50px;
             top: 40px;
-            .logo-img{
+            .logo-img {
                 width: 10%;
-            } 
+            }
         }
         .user-details {
             // padding: 3% 20%;                  
-            input{
-                border:none;
+            input {
+                border: none;
                 background-color: transparent;
             }
             input:focus,
@@ -32,7 +35,7 @@
             textarea:focus,
             button:focus {
                 outline: none;
-            }          
+            }
             .input-group {
                 margin: 10px 0px;
                 .field-list {
@@ -44,31 +47,31 @@
                     width: 100%;
                 }
             }
-            .signup-head{
-                h5{
-                    color:#007BFF;
+            .signup-head {
+                h5 {
+                    color: #007BFF;
                     font-size: 20px;
                 }
-                p{
+                p {
                     color: #808080;
                     margin-bottom: 0;
                 }
-                h6{
+                h6 {
                     color: #595959;
                     margin: 25px 0px;
                     font-size: 14px;
                     font-weight: 500;
-                    a{
+                    a {
                         color: #FF8800;
                     }
-                }               
-        }
-            .signup-details{
-                textarea{
+                }
+            }
+            .signup-details {
+                textarea {
                     border-radius: 10px;
-                } 
-                input{
-                    border:none;
+                }
+                input {
+                    border: none;
                     background-color: transparent;
                 }
                 input:focus,
@@ -76,10 +79,10 @@
                 textarea:focus,
                 button:focus {
                     outline: none;
-                }          
-                .login-icon{
+                }
+                .login-icon {
                     color: #FF8800;
-                }          
+                }
                 .input-group {
                     margin: 10px 0px;
                     .field-list {
@@ -91,19 +94,20 @@
                         width: 100%;
                     }
                 }
-                .hide-show-pswd{
-                    color: #B4B4B4;;
+                .hide-show-pswd {
+                    color: #B4B4B4;
+                    ;
                 }
-                .fr-pswd-link{
+                .fr-pswd-link {
                     float: right;
                 }
-                a{
+                a {
                     color: #808080;
                 }
-                .mat-checkbox-label{
-                    color: #808080 ;
-                }               
-                .signin-btn{
+                .mat-checkbox-label {
+                    color: #808080;
+                }
+                .signin-btn {
                     background: #0088FF;
                     color: #FFFFFF;
                     padding: 6px 12px;
@@ -111,31 +115,51 @@
                     border-radius: 37px;
                     margin: 15px 0px;
                 }
-                .signup-link{
+                .signup-link {
                     text-align: center;
-                    p{
+                    p {
                         color: #595959;
-                        a{
+                        a {
                             color: #FF8800;
                         }
                     }
                 }
             }
-            .signup-btn{
+            .signup-btn {
                 background: #0088FF;
                 color: #FFFFFF;
                 padding: 6px 12px;
                 width: 100%;
                 border-radius: 37px;
                 margin: 15px 0px;
-            }  
+            }
+        }
     }
-}
-    .signup-right{
-        .signup-image{
+    .signup-right {
+        .signup-image {
             width: 100%;
             height: 100%;
-        } 
-    }     
+        }
+    }
+}
 
+::ng-deep .with-validation {
+    .input-group {
+        position: relative;
+        padding-bottom: 15px;
+        margin-bottom: 5px !important;
+        margin-top: 0 !important;
+        .error-wrap {
+            position: absolute;
+            bottom: -2px;
+        }
+    }
+    .error {
+        color: $error;
+        font-size: 12px;
+        display: block;
+    }
+    .error-wrap {
+        width: 100%;
+    }
 }

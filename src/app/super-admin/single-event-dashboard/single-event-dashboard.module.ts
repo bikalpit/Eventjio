@@ -20,15 +20,16 @@ import { editAttendeeNameDialog} from './checkout-form/checkout-form.component';
 import { ExportDoorListComponent } from './issued-ticket/issued-ticket.component';
 import { IssuedTicketViewComponent } from './issued-ticket/issued-ticket.component';
 import { OrderViewComponent } from './issued-ticket/issued-ticket.component';
+import { VoidOrderViewComponent } from './issued-ticket/issued-ticket.component';
 
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 import { mySendBroadcastDialog, myPreviewBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [EventSummaryComponent,
@@ -51,6 +52,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     IssuedTicketViewComponent,
     ExportDoorListComponent,
     OrderViewComponent,
+    VoidOrderViewComponent,
     myPreviewBroadcastDialog
   ],
     
@@ -64,7 +66,9 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
       CKEditorModule,
       MatTooltipModule,
       NgxBarcodeModule,
-      NgxQRCodeModule
+      NgxQRCodeModule,
+      FormsModule,
+      ReactiveFormsModule
     ],
 
     entryComponents: [mySendBroadcastDialog,
@@ -75,7 +79,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
       editAttendeeNameDialog,
       ExportDoorListComponent,
       IssuedTicketViewComponent,
-      OrderViewComponent
+      OrderViewComponent,
+      VoidOrderViewComponent
     ],
   
   

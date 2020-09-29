@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewChild,Inject} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
 import { ErrorService } from '../../_services/error.service';
 import { DatePipe} from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 
 interface Status {
   value: string;
@@ -65,6 +64,7 @@ export class EventsComponent implements OnInit {
     public dialog: MatDialog,
     private ErrorService: ErrorService,
     private datePipe: DatePipe,
+    private router: Router,
     private SuperadminService: SuperadminService,
     ) {
       if(localStorage.getItem('boxoffice_id')){
@@ -112,27 +112,6 @@ export class EventsComponent implements OnInit {
     this.fnGetPastEventList();
     this.getTimeSlote();
     
-  }
-
-  test(){
-    alert();
-    this.addEventForm.controls["access_code"].setValidators(Validators.required);
-    this.addEventForm.controls["access_code"].updateValueAndValidity();
-
-    this.addEventForm.controls["event_name"].setValidators(null);
-    this.addEventForm.controls["event_name"].updateValueAndValidity();
-
-
-    //  this.addEventForm.get('event_name').setValidators(null);
-    // this.addEventForm.controls.event_name.setValidators([]);
-    // console.log(this.addEventForm.controls);
-
-
-    //this.addEventForm.controls.event_name.updateValueAndValidity();
-    this.addEventForm.updateValueAndValidity();
-    console.log(this.addEventForm.controls);
-
-   
   }
 
   createSalesTaxItem() {
@@ -209,6 +188,9 @@ export class EventsComponent implements OnInit {
     this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allUpcomingEventListData = response.response
+        this.allUpcomingEventListData.forEach(element => {
+          element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
+        });
         this.addNewEvents = true;
       }else if(response.data == false){
         this.allUpcomingEventListData.length = 0;
@@ -228,6 +210,9 @@ export class EventsComponent implements OnInit {
     this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allPastEventListData = response.response
+        this.allPastEventListData.forEach(element => {
+          element.start_date =  this.datePipe.transform(element.start_date,"EEE MMM d, y")
+        });
         this.addNewEvents = true;
       }else if(response.data == false){
         this.allPastEventListData.lenght = 0
@@ -235,7 +220,11 @@ export class EventsComponent implements OnInit {
       }
     });
     this.isLoaderAdmin = false;
+  }
 
+  fnSelectSingleEvent(eventCode){
+    localStorage.setItem('selectedEventCode', eventCode);
+    this.router.navigate(["/super-admin/single-event-dashboard/"]);
   }
 
 
@@ -368,24 +357,20 @@ export class EventsComponent implements OnInit {
     if(event.checked == true){
       this.olPlatForm = 'Y';
       this.addEventForm.controls["online_platform"].setValidators(Validators.required);
-      this.addEventForm.controls["online_link"].setValidators(Validators.required);
       this.addEventForm.controls["vanue_name"].setValidators(null);
       this.addEventForm.controls["vanue_zip"].setValidators(null);
       this.addEventForm.controls["vanue_country"].setValidators(null);
       this.addEventForm.controls["online_platform"].updateValueAndValidity();
-      this.addEventForm.controls["online_link"].updateValueAndValidity();
       this.addEventForm.controls["vanue_name"].updateValueAndValidity();
       this.addEventForm.controls["vanue_zip"].updateValueAndValidity();
       this.addEventForm.controls["vanue_country"].updateValueAndValidity();
     }else{
       this.olPlatForm = 'N';
       this.addEventForm.controls["online_platform"].setValidators(null);
-      this.addEventForm.controls["online_link"].setValidators(null);
       this.addEventForm.controls["vanue_name"].setValidators(Validators.required);
       this.addEventForm.controls["vanue_zip"].setValidators(Validators.required);
       this.addEventForm.controls["vanue_country"].setValidators(Validators.required);
       this.addEventForm.controls["online_platform"].updateValueAndValidity();
-      this.addEventForm.controls["online_link"].updateValueAndValidity();
       this.addEventForm.controls["vanue_name"].updateValueAndValidity();
       this.addEventForm.controls["vanue_zip"].updateValueAndValidity();
       this.addEventForm.controls["vanue_country"].updateValueAndValidity();
@@ -397,7 +382,7 @@ export class EventsComponent implements OnInit {
     console.log(this.addEventForm)
     console.log(this.salesTax)
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
-    this.customSalesTaxArr.push(this.createSalesTaxItem());
+    // this.customSalesTaxArr.push(this.createSalesTaxItem());
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
 
     if(this.addEventForm.invalid){
@@ -700,6 +685,7 @@ export class AddNewTicketType {
     }
 
     let requestObject = {
+      'box_office_id': this.boxOfficeCode,
       'ticket_name': this.addTicketForm.get('title').value,
       'prize': this.addTicketForm.get('price').value,
       'qty': this.addTicketForm.get('qty').value,

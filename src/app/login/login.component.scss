@@ -137,12 +137,24 @@
     }
 }
 
-.error {
-    color: $error;
-    font-size: 12px;
-    display: block;
-}
-
-.error-wrap {
-    width: 100%;
+// for Error messages
+::ng-deep .with-validation {
+    .input-group {
+        position: relative;
+        padding-bottom: 15px;
+        margin-bottom: 5px !important;
+        margin-top: 0 !important;
+        .error-wrap {
+            position: absolute;
+            bottom: -2px;
+        }
+    }
+    .error {
+        color: $error;
+        font-size: 12px;
+        display: block;
+    }
+    .error-wrap {
+        width: 100%;
+    }
 }

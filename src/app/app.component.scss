@@ -157,8 +157,8 @@
 }
 
 .user-image-icon {
-    width: 34px;
-    height: 34px;
+    width: 60px;
+    height: 60px;
     img {
         border-radius: 30px;
     }
@@ -262,6 +262,38 @@
     display: table;
 }
 
+.user-name-menu {
+    width: 150px;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    margin-bottom: 0;
+    position: relative;
+    mat-icon {
+        margin-left: auto;
+        cursor: pointer;
+    }
+    .sub-menubox {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
+        background-color: #fff;
+        width: 170px;
+        border-radius: 4px;
+        z-index: 99;
+        label {
+            width: 100%;
+            margin-bottom: 0;
+            padding: 13px;
+            cursor: pointer;
+            &:hover {
+                background-color: #e3e3e3;
+            }
+        }
+    }
+}
+
 // for modal auto
 ::ng-deep .cdk-global-overlay-wrapper .cdk-overlay-pane {
     overflow: auto;
@@ -311,6 +343,16 @@
         color: white;
     }
 }
+
+::ng-deep .admin-right-menu-select {
+    .mat-form-field-underline {
+        display: none !important;
+    }
+    .mat-form-field-infix {
+        border-top: 0px;
+    }
+}
+
 ::ng-deep .mat-tab-label-active {
     opacity: 1 !important;
 }
