@@ -59,7 +59,7 @@ export class SettingService {
         }),catchError(this.handleError));
     }
     
-    getBoxofficeDetails(requestObject){
+    getSingleBoxofficeDetails(requestObject){
         return this.http.post(`${environment.apiUrl}/get-single-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
