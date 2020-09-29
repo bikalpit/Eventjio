@@ -647,7 +647,7 @@ export class AssignToTicketTypeDialog {
       this. allticketType = response.response
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
+      this.ErrorService.errorMessage(response.response); 
       this. allticketType = null;
       }
       this.isLoaderAdmin = false;
@@ -657,6 +657,7 @@ export class AssignToTicketTypeDialog {
     this.dialogRef.close();
   }
   ngOnInit() { 
+    this.getAllTicket();
   }
   
 }

@@ -12,7 +12,7 @@ export class MyProfileComponent implements OnInit {
   profileImageUrl:any;
   myProfileForm:FormGroup;
   isLoaderAdmin:any;
-
+  onlyNumaric = "[0-9]+"
   constructor(
     private _formBuilder: FormBuilder,
     private SettingService : SettingService,
@@ -20,10 +20,10 @@ export class MyProfileComponent implements OnInit {
     public dialog: MatDialog,
   ) {
     this.myProfileForm = this._formBuilder.group({
-      firstname : [''],
-      lastname: [''],
-      email:[''],
-      phone:['']
+      firstname : ['',[Validators.required]],
+      lastname: ['',[Validators.required]],
+      email:['',[Validators.required]],
+      phone:['',[Validators.required,Validators.pattern(this.onlyNumaric)]]
     })
    }
 

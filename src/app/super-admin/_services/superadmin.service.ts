@@ -111,7 +111,7 @@ export class SuperadminService {
     // -----------change API -------------
    
     getAllTicket(requestObject){
-        return this.http.post(`${environment.apiUrl}/`,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/get-all-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
