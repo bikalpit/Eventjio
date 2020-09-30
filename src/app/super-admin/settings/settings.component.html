@@ -82,7 +82,7 @@
                     <span>Payment</span>
                 </div>
 
-                <div(click)="fnPostUrl('payment-systems')" [ngClass]="{'active': pageName == 'payment-systems'}" class="py-2 common-setting-menu"  routerLink="/super-admin/settings/payment-systems">
+                <div (click)="fnPostUrl('payment-systems')" [ngClass]="{'active': pageName == 'payment-systems'}" class="py-2 common-setting-menu"  routerLink="/super-admin/settings/payment-systems">
                     <div class="setting-menu-icon d-inline-block mr-2">
                         <img src="../../../assets/images/settings/pay/pay.png" class="w-100" alt="">
                     </div> <span>Payment Systems</span>
@@ -94,7 +94,7 @@
                     </div> <span>Billing</span>
                 </div>
 
-                <div (click)="fnPostUrl('billing')" [ngClass]="{'active': pageName == 'billing'}"class="py-2 common-setting-menu" routerLink="/super-admin/settings/sales-tax">
+                <div (click)="fnPostUrl('sales-tax')" [ngClass]="{'active': pageName == 'sales-tax'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/sales-tax">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/invoice/invoice.png" class="w-100" alt="">
                     </div> <span>Sales tax</span>
@@ -127,7 +127,7 @@
                         <img src="../../../assets/images/settings/coding/coding.png" class="w-100" alt="">
                     </div> <span>API</span>
                 </div>
-            </div>
+        </div>
         </div>
 
         <div class="setting-right-container p-0 bg-white">
