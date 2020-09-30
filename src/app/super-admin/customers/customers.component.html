@@ -196,6 +196,7 @@
                                                 <label for="">Full Address</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="address" />
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('address').dirty || addCustomerForm.get('address').touched"><small *ngIf="addCustomerForm.get('address').hasError('required')" class="error text-left ml-4">Address is required.</small></span>
                                                 </div>
                                             </div>
 

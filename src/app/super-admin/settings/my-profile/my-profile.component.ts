@@ -14,6 +14,7 @@ export class MyProfileComponent implements OnInit {
   profileImageUrl:any;
   myProfileForm:FormGroup;
   isLoaderAdmin:any;
+  onlyNumaric = "[0-9]+"
   currentUser:any;
   myProfileData:any;
 
@@ -30,17 +31,8 @@ export class MyProfileComponent implements OnInit {
       firstname : ['',[Validators.required]],
       lastname: ['',[Validators.required]],
       email:['',[Validators.required]],
-      phone:['',[Validators.required]]
-    });
-
-    // if(this.myProfileData){
-    //   console.log(this.myProfileData)
-    //   this.myProfileForm.controls['firstname'].setValue(this.myProfileData.firstname)
-    //   this.myProfileForm.controls['lastname'].setValue(this.myProfileData.lastname)
-    //   this.myProfileForm.controls['email'].setValue(this.myProfileData.email)
-    //   this.myProfileForm.controls['phone'].setValue(this.myProfileData.phone)
-    // }
-
+      phone:['',[Validators.required,Validators.pattern(this.onlyNumaric)]]
+    })
    }
 
   ngOnInit(): void {
@@ -64,7 +56,6 @@ export class MyProfileComponent implements OnInit {
 
   getMyProfileData(){
     this.isLoaderAdmin = true;
-    console.log(this.currentUser);
     let requestObject = {
       // 'search':this.search.keyword,
        'unique_code' : this.currentUser.user_id

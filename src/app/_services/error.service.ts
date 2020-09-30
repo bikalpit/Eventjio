@@ -59,7 +59,6 @@ export class ErrorService {
   }
   
   checkAuthentication(){
-    console.log(this.currentUser);
     let requestObject = {
       "user_type": JSON.parse(localStorage.getItem('currentUser')).user_type,
       "user_id" : JSON.parse(localStorage.getItem('currentUser')).user_id,
