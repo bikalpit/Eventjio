@@ -18,10 +18,15 @@ export class BoxOfficeComponent implements OnInit {
   singleBoxOffice:FormGroup;
   allLanguage:any;
   allTimezone:any;
-  allBoxofficeDetails:any;
+  singleBoxofficeDetails:any;
   singleBoxofficeUpdate:any;
   boxofficeImageUrl:any;
   allTimezones:any;
+  isLoaderAdmin:boolean = false;
+  accountOwner:any = 'N';
+  emailOrderNotification:any = "N";
+  hideLogo:any ="N";
+  
 
 
   constructor(
@@ -33,24 +38,50 @@ export class BoxOfficeComponent implements OnInit {
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
     }
-    this.getAllLanguages();
-    this.getAllTimezone();
-    this.getBoxofficeDetails();
-    
+    let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
     this.singleBoxOffice=this.formBuilder.group({
       boxoffice_name:['',[Validators.required]],
       language:[''],
       timezone:[''],
-      add_email:[''],
+      add_email:['',Validators.pattern(emailPattern)],
+      box_office_link:[''],
+      account_owner:[''],
 
-    });
-    
+    }); 
   }
 
   ngOnInit(): void {
-    this.getBoxofficeDetails();
+    this.getAllLanguages();
+    this.getAllTimezone();
+    this.getSingleBoxofficeDetails();
   }
   
+  
+  fnAccountOwner(event){
+    if(event.checked == true){
+      this.accountOwner = 'Y' 
+    }else{
+      this.accountOwner = 'N' 
+    }
+  }
+
+  fnHideLogo(event){
+    if(event.checked == true){
+      this.hideLogo = 'Y' 
+    }else{
+      this.hideLogo = 'N' 
+    }
+  }
+
+  fnEmailOrderNotification(event){
+    if(event.checked == true){
+      this.emailOrderNotification = 'Y' 
+    }else{
+      this.emailOrderNotification = 'N' 
+    }
+  }
+  
+
   fnChangeImage(){
     const dialogRef = this.dialog.open(DialogAdminBoxofficeImageUpload, {
       width: '500px',
@@ -65,15 +96,16 @@ export class BoxOfficeComponent implements OnInit {
      });
   }
 
-  getBoxofficeDetails(){
+  getSingleBoxofficeDetails(){
     let requestObject = {
         'unique_code' : this.boxOfficeCode
     };
-    this.settingService.getBoxofficeDetails(requestObject).subscribe((response:any) => {
+    this.settingService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allBoxofficeDetails = response.response[0]
-        console.log(this.allBoxofficeDetails);
-        this.singleBoxOffice.controls['boxoffice_name'].setValue(this.allBoxofficeDetails.box_office_name)
+        this.singleBoxofficeDetails = response.response[0]
+        console.log(this.singleBoxofficeDetails);
+        this.singleBoxOffice.controls['boxoffice_name'].setValue(this.singleBoxofficeDetails.box_office_name)
+        this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
 
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -116,28 +148,33 @@ fnSubmitBoxOffice(){
   if(this.singleBoxOffice.invalid){
     
   }
-
+  this.isLoaderAdmin = true;
     let requestObject = {
-      
-      "box_office_name" : this.allBoxofficeDetails.box_office_name,
-      "country":this.allBoxofficeDetails.country,
-      "currency":this.allBoxofficeDetails.currency,
-      "genre":this.allBoxofficeDetails.genre,
-      "genre_type":this.allBoxofficeDetails.genre_type,
-      "type":this.allBoxofficeDetails.type,
+      "country":this.singleBoxofficeDetails.country,
+      "currency":this.singleBoxofficeDetails.currency,
+      "genre":this.singleBoxofficeDetails.genre,
+      "genre_type":this.singleBoxofficeDetails.genre_type,
+      "type":this.singleBoxofficeDetails.type,
       "unique_code":this.boxOfficeCode,
+      "account_owner":this.accountOwner,
+      "email_order_notification":this.emailOrderNotification,
+      "hide_tailor_logo": this.hideLogo,
+      "box_office_name" : this.singleBoxOffice.get('boxoffice_name').value,
       "language":this.singleBoxOffice.get('language').value,
       "timezone":this.singleBoxOffice.get('timezone').value,
       "add_email":this.singleBoxOffice.get('add_email').value,
+      "box_office_link":this.singleBoxOffice.get('box_office_link').value,
       
     }
         this.settingService.updateBoxoffice(requestObject).subscribe((response:any) => {
           if(response.data == true){
           this.ErrorService.successMessage(response.response);
-          this. getBoxofficeDetails();
+          this. getSingleBoxofficeDetails();
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
         }
+        this.isLoaderAdmin = false;
+        this. getSingleBoxofficeDetails();
     });
   }
 }

@@ -14,6 +14,7 @@ export class MyProfileComponent implements OnInit {
   profileImageUrl:any;
   myProfileForm:FormGroup;
   isLoaderAdmin:any;
+  onlyNumaric = "[0-9]+"
   currentUser:any;
   myProfileData:any;
   

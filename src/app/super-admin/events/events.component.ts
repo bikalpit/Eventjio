@@ -1,6 +1,4 @@
 import {Component, OnInit, ViewChild,Inject} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
@@ -233,9 +231,9 @@ export class EventsComponent implements OnInit {
   // add Event Fns
   
   fnChangeEventStartDate(){
-    // this.minEventEndDate = this.addEventForm.get('event_start_date').value;
-    // this.addEventForm.get('event_end_date').setValue('');
-    // this.addEventForm.get('event_end_time').setValue('');
+    this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+    this.addEventForm.get('event_end_date').setValue('');
+    this.addEventForm.get('event_end_time').setValue('');
   }
   
   fnChangeEventEndDate(){

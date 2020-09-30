@@ -95,7 +95,7 @@
                                     <div class="py-2">
                                         <label for="">Address</label>
                                         <p>
-
+                                         {{selectedCustomerDetails.address}}
                                         </p>
                                     </div>
                                     <hr class="m-0">
@@ -132,7 +132,7 @@
 
                         <div class="px-3">
                             <div class="row">
-                                <form class="p-3" action="" [formGroup]="addCustomerForm">
+                                <form class="p-3" action="" [formGroup]="addCustomerForm" class="with-validation">
                                     <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title">
                                         Add Customer
                                     </div>
@@ -145,8 +145,8 @@
                                             <label>Add Image</label>
                                         </div>
                                         <div class="row">
-                                            <div class="p-4 ml-3 image-upload">image
-                                                <input type="file" class="form-control" formControlName="image">
+                                            <div class="p-4 ml-3 image-upload hover"  (click)="fnChangeImage()"  formControlName="image">image
+                                                <input type="hidden" class="form-control" formControlName="image" (click)="fnChangeImage()" >
                                                 <span class="error-wrap" *ngIf="addCustomerForm.get('image').dirty || addCustomerForm.get('image').touched"><small *ngIf="addCustomerForm.get('image').hasError('required')" class="error text-left ml-4">Image is required.</small></span>
                                             </div>
                                             <div class="px-3 py-42 add-customer-file">
@@ -196,6 +196,7 @@
                                                 <label for="">Full Address</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="address" />
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('address').dirty || addCustomerForm.get('address').touched"><small *ngIf="addCustomerForm.get('address').hasError('required')" class="error text-left ml-4">Address is required.</small></span>
                                                 </div>
                                             </div>
 

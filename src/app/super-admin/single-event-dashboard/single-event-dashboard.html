@@ -34,7 +34,7 @@
     <div class="row">
 
         <div *ngIf="eventSideMenu" class="p-3 bg-light child-left-content">
-            <div class="ml-4 py-2" routerLink="event-summary">
+            <div class="ml-4 py-2" (click)="fnPostUrl('event-summary')" [ngClass]="{'active': pageName == 'event-summary'}" routerLink="event-summary">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block py-2 mr-2">
                         <img src="../../../assets/images/events/graph.png" class="w-100" alt="">
@@ -46,91 +46,85 @@
             <div class="ml-4 py-2">
                 <span class="fw-bold">Manage</span>
             </div>
-
-            <div>
-                <div class="ml-4 py-2" routerLink="issued-ticket">
-                    <div class="event-menu">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
-                        </div>
-                        <span>Issued Tickets (1)</span>
+            <div (click)="fnPostUrl('issued-ticket')" [ngClass]="{'active': pageName == 'issued-ticket'}" class="ml-4 py-2" routerLink="issued-ticket">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
                     </div>
+                    <span>Issued Tickets (1)</span>
                 </div>
+            </div>
 
-                <div class="ml-4 py-2" routerLink="waitilist-signup">
-                    <div class="event-menu">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/events/waitlist.png" class="w-100" alt="">
-                        </div>
-                        <span>Waitlist Signups</span>
+            <div (click)="fnPostUrl('waitilist-signup')" [ngClass]="{'active': pageName == 'waitilist-signup'}" class="ml-4 py-2" routerLink="waitilist-signup">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/events/waitlist.png" class="w-100" alt="">
                     </div>
+                    <span>Waitlist Signups</span>
                 </div>
+            </div>
 
-                <div class="ml-4 py-2" routerLink="broadcast">
-                    <div class="event-menu">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/events/shout.png" class="w-100" alt="">
-                        </div>
-                        <span>Broadcast</span>
+            <div (click)="fnPostUrl('broadcast')" [ngClass]="{'active': pageName == 'broadcast'}" class="ml-4 py-2" routerLink="broadcast">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/events/shout.png" class="w-100" alt="">
                     </div>
+                    <span>Broadcast</span>
                 </div>
+            </div>
 
 
-                <div class="ml-4 py-2">
-                    <span class="fw-bold">Edit</span>
-                </div>
+            <div class="ml-4 py-2">
+                <span class="fw-bold">Edit</span>
+            </div>
 
 
-                <div class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/event-and-ticket-types">
-                    <div class="event-menu">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/events/events-tickes.png" class="w-100" alt="">
-                        </div>
-                        <span>Event and ticket types</span>
+            <div (click)="fnPostUrl('event-and-ticket-types')" [ngClass]="{'active': pageName == 'event-and-ticket-types'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/event-and-ticket-types">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/events/events-tickes.png" class="w-100" alt="">
                     </div>
+                    <span>Event and ticket types</span>
                 </div>
+            </div>
 
-                <div class="ml-4 py-2" routerLink="order-confirmation">
-                    <div class="event-menu">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/events/Order-Confirmation.png" class="w-100" alt="">
-                        </div>
-                        <span>Order Confirmation</span>
+            <div (click)="fnPostUrl('order-confirmation')" [ngClass]="{'active': pageName == 'order-confirmation'}" class="ml-4 py-2" routerLink="order-confirmation">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/events/Order-Confirmation.png" class="w-100" alt="">
                     </div>
+                    <span>Order Confirmation</span>
                 </div>
+            </div>
 
-                <div class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/checkout-form">
-                    <div class="event-menu">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/events/Checkout-form.png" class="w-100" alt="">
-                        </div>
-                        <span>Checkout form</span>
+            <div (click)="fnPostUrl('checkout-form')" [ngClass]="{'active': pageName == 'checkout-form'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/checkout-form">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/events/Checkout-form.png" class="w-100" alt="">
                     </div>
+                    <span>Checkout form</span>
                 </div>
+            </div>
 
-                <div class="ml-4 py-2" (click)="fnClickOnDuplicate()" routerLink="duplicate">
-                    <div class="event-menu">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/events/Duplicate.png" class="w-100" alt="">
-                        </div>
-                        <span>Duplicate</span>
+            <div (click)="fnPostUrl('duplicate'); fnClickOnDuplicate()" [ngClass]="{'active': pageName == 'duplicate'}" class="ml-4 py-2" routerLink="duplicate">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/events/Duplicate.png" class="w-100" alt="">
                     </div>
+                    <span>Duplicate</span>
                 </div>
+            </div>
 
-                <div class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/delete">
-                    <div class="event-menu">
-                        <div class="setting-menu-icon d-inline-block mr-2 ">
-                            <img src="../../../assets/images/events/Icon material-delete.png" class="w-100" alt="">
-                        </div>
-                        <span>Delete</span>
+            <div (click)="fnPostUrl('delete')" [ngClass]="{'active': pageName == 'delete'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/delete">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img src="../../../assets/images/events/Icon material-delete.png" class="w-100" alt="">
                     </div>
+                    <span>Delete</span>
                 </div>
-
-
             </div>
         </div>
-
-        <div [ngClass]="{'col-9 side-event':eventSideMenu === true,'col-12':eventSideMenu === false}" class="p-0 bg-white">
+        <div [ngClass]="{'side-event':eventSideMenu === true,'col-12':eventSideMenu === false}" class="p-0 bg-white">
             <router-outlet></router-outlet>
         </div>
 

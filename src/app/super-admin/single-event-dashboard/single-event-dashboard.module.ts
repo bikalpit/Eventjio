@@ -24,13 +24,12 @@ import { VoidOrderViewComponent } from './issued-ticket/issued-ticket.component'
 
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
-import { mySendBroadcastDialog } from './broadcast/broadcast.component';
-import { myPreviewBroadcastDialog } from './broadcast/broadcast.component';
+import { mySendBroadcastDialog, myPreviewBroadcastDialog } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [EventSummaryComponent,
@@ -53,8 +52,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     IssuedTicketViewComponent,
     ExportDoorListComponent,
     OrderViewComponent,
-    myPreviewBroadcastDialog,
-    VoidOrderViewComponent
+    VoidOrderViewComponent,
+    myPreviewBroadcastDialog
   ],
     
     imports: [
@@ -67,7 +66,9 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
       CKEditorModule,
       MatTooltipModule,
       NgxBarcodeModule,
-      NgxQRCodeModule
+      NgxQRCodeModule,
+      FormsModule,
+      ReactiveFormsModule
     ],
 
     entryComponents: [mySendBroadcastDialog,

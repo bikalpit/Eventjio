@@ -254,6 +254,12 @@
         margin: 0 auto;
         display: table;
     }
+    .text-green{color: #30A81E !important;}
+    a{
+        color: #007BFF !important;
+        text-decoration: none;
+        cursor: pointer;
+    }
     
     
     /* Importing Bootstrap SCSS file. */
