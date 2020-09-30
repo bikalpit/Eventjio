@@ -77,6 +77,7 @@ export class MyProfileComponent implements OnInit {
         //  this.myProfileForm.controls['lastname'].setValue(this.myProfileData[0].lastname)
          this.myProfileForm.controls['email'].setValue(this.myProfileData[0].email)
          this.myProfileForm.controls['phone'].setValue(this.myProfileData[0].phone)
+          
 
       } else if(response.data == false){
 
