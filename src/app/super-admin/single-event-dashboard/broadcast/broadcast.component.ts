@@ -24,6 +24,7 @@ export class BroadcastComponent implements OnInit {
   isLoaderAdmin:any;
   eventId:any;
   createBroadcastData:any;
+  differentEmailIdEnter:any;
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
     private http: HttpClient,
@@ -63,6 +64,10 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.get('terms').markAllAsTouched();
 
     }
+  }
+
+  fnselectionchange(event){
+    this.differentEmailIdEnter = event.value;
   }
 
 
