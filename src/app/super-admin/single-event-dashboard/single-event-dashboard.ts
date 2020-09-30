@@ -15,10 +15,11 @@ import { SingleEventServiceService } from './_services/single-event-service.serv
 })
 export class SingleEventDashboard implements OnInit {
   pageName :any = '';
-  eventStatus:any='draft';
+  eventStatus='draft';
   eventSideMenu:boolean = true;
   eventId:string = localStorage.getItem('selectedEventCode');
   eventDetail:any;
+  boxOfficeDetail:any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -34,6 +35,7 @@ export class SingleEventDashboard implements OnInit {
 
   ngOnInit(): void {
     this.fnGetEventDetail();
+    this.fnGetBoxOfficeDetail();
   }
 
   fnGetEventDetail(){
@@ -41,9 +43,11 @@ export class SingleEventDashboard implements OnInit {
     let requestObject = {
       'unique_code' : this.eventId,
     }
+
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response[0];
+        this.eventStatus = this.eventDetail.event_status;
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -51,16 +55,27 @@ export class SingleEventDashboard implements OnInit {
 
   }
 
-  fnChangeEventStatus(status){
+  fnGetBoxOfficeDetail(){
+    let requestObject = {
+      'unique_code' : localStorage.getItem('boxoffice_id'),
+    }
+    this.SingleEventServiceService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.boxOfficeDetail = response.response[0];
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+  }
 
-    this.eventStatus = status
+  fnChangeEventStatus(status){
 
     let requestObject = {
       'unique_code' : this.eventId,
       'event_status' : status
     }
 
-    this.SingleEventServiceService.updateSingleEvent(requestObject).subscribe((response:any) => {
+    this.SingleEventServiceService.updateEventStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
       } else if(response.data == false){
@@ -78,6 +93,9 @@ export class SingleEventDashboard implements OnInit {
     this.eventSideMenu = false;
   }
 
+  PreviewPage(){
+    window.open(environment.APPURL+this.boxOfficeDetail.box_office_link+'/'+this.eventId);
+  }
   
 }
 

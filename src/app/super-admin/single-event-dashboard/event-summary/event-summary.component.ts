@@ -19,6 +19,7 @@ export class EventSummaryComponent implements OnInit {
   eventDetail:any;
   eventURL;
   dataArray:any = [];
+  boxOfficeDetail:any = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -30,7 +31,7 @@ export class EventSummaryComponent implements OnInit {
 
   ) {
 
-    this.eventURL = environment.APPURL+this.eventId;
+
 
    }
   
@@ -38,11 +39,13 @@ export class EventSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.fnGetEventDetail();
-    // this.fnTicketsales();   
-    // this.fnEventView();
+    this.fnGetBoxOfficeDetail();   
+    this.chart_one();
+   // this.chart_two();
+
   }
   
-  ngAfterViewInit(){
+  chart_one(){
 
     let chartData = {
       "items": [
@@ -58,48 +61,74 @@ export class EventSummaryComponent implements OnInit {
               ]
     }
 
-    let data:any,
-    options:any,
-    chart:any,
-    ctx:any = document.getElementById('areaChart') as HTMLElement;
 
-        for(let key in chartData.items){
-          if(chartData.items.hasOwnProperty(key)){
-            this.dataArray.push(chartData.items[key])
+    for(let key in chartData.items){
+      if(chartData.items.hasOwnProperty(key)){
+        this.dataArray.push(chartData.items[key])
+      }
+    } 
+
+    
+    
+
+    let chart  = new Chart(document.getElementById('areaChart1') as HTMLElement, {
+      type: "line",
+      data: {
+        labels: ["10/9", "11/9", "12/9",'13/9',"14/9", "15/9", "16/9",'17/9'],
+        datasets: this.dataArray
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+          display: true,
+          position: "left",
+          text:"TIcket sold",
+          fontSize:12,
+          fontColor: "#666"
+        },
+        legend: {
+          display: true,
+          position: "bottom",
+          labels: {
+            fontColor: "#999",
+            fontSize: 14
           }
-        } // Stackblitz errors. Don't get these in VS Code
-
-        data = {
-          labels: ["10/9", "11/9", "12/9",'13/9',"14/9", "15/9", "16/9",'17/9'],
-          datasets: this.dataArray
         }
+      }
+    });
 
-        options = {
-          responsive: true,
-          maintainAspectRatio: false,
-          title: {
-            display: true,
-            position: "left",
-            text:"TIcket sold",
-            fontSize:12,
-            fontColor: "#666"
-          },
-          legend: {
-            display: true,
-            position: "bottom",
-            labels: {
-              fontColor: "#999",
-              fontSize: 14
-            }
+
+    let areaChart = new Chart(document.getElementById('areaChart2') as HTMLElement, {
+      type: "line",
+      data: {
+        labels: ["2/2020", "3/2020", "4/2020",'5/2020',"6/2020", "7/2020", "8/2020",'9/2020'],
+        datasets: this.dataArray
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+          display: true,
+          position: "left",
+          text:"Event Views",
+          fontSize:12,
+          fontColor: "#666"
+        },
+        legend: {
+          display: false,
+          position: "bottom",
+          labels: {
+            fontColor: "#999",
+            fontSize: 14
           }
         }
+      }
+    });
 
-        chart  = new Chart(ctx, {
-          type: "line",
-          data: data,
-          options: options
-        });
   }
+
+ 
 
   fnGetEventDetail(){
 
@@ -117,6 +146,20 @@ export class EventSummaryComponent implements OnInit {
 
   }
 
+  fnGetBoxOfficeDetail(){
+    let requestObject = {
+      'unique_code' : localStorage.getItem('boxoffice_id'),
+    }
+    this.SingleEventServiceService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.boxOfficeDetail = response.response[0];
+        this.eventURL = environment.APPURL+this.boxOfficeDetail.box_office_link+'/'+this.eventId;
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+  }
+
   fnShare(type) {
     if(type=='facebook'){
       window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(this.eventURL), "_blank", "width=600,height=600");
@@ -125,7 +168,9 @@ export class EventSummaryComponent implements OnInit {
     }
   }
 
-
-
-
+  
+  PreviewPage(){
+    window.open(this.eventURL,'_blank');
+  }
+  
 }
