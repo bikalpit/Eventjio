@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 @Component({
   selector: 'app-waitilist-signup',
   templateUrl: './waitilist-signup.component.html',
@@ -7,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WaitilistSignupComponent implements OnInit {
   activeWaitlist:boolean=false;
-  constructor() { }
+  waitListForm:FormGroup;
+  constructor(
+    private formBuilder: FormBuilder,
+  ) 
+  {
+    this.waitListForm =this.formBuilder.group({
+      join_list:['',Validators.required],
+      notified_waitlist:['',Validators.required],
+      confirmation_msg:['',Validators.required],
+    });
+   }
 
   ngOnInit(): void {
   }
@@ -16,5 +26,13 @@ export class WaitilistSignupComponent implements OnInit {
     this.activeWaitlist=event.checked
   }
 
+  fnSavewaitlist(){
+    if(this.waitListForm.invalid){
+      alert(1);
+    }
+    else{
+      alert(2);
+    }
+  }
 
 }
