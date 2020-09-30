@@ -97,7 +97,7 @@
                 Event page link
             </div>
             <div class="ml-auto">
-                <button mat-flat-button color="primary">Preview Event Page</button>
+                <button mat-flat-button color="primary" (click)="PreviewPage();">Preview Event Page</button>
             </div>
 
         </div>
@@ -146,14 +146,13 @@
                     <p class="font-weight-bold mt-3">$5,000.00</p>
                 </div>
             </div>
+
+            
+            <div class="row areaChart mt-4">
+                <canvas id="areaChart1"></canvas>
+            </div>
+            
         </div>
-        <!-- <div class="mt-3">
-                <div id="ticketsales"  style="height: 300px; width: 100%;"></div>
-            </div> -->
-        <!-- <div class="chart-wrapper">
-                <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
-                </canvas>
-            </div> -->
     </div>
 
     <div class="referral-sales-summary border p-3">
@@ -178,8 +177,9 @@
                 </mat-select>
             </div>
         </div>
-        <div class="row areaChart">
-            <canvas id="areaChart"></canvas>
+        <div class="areaChart mt-4">
+            <canvas id="areaChart2"></canvas>
         </div>
+
     </div>
 </div>

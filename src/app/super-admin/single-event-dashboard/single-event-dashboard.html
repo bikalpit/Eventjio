@@ -4,21 +4,21 @@
     </div>
     <div class="event-title">
         <p class="event-name mb-0 mt-2">
-            Lajawab Cooking Classes
+            {{eventDetail?eventDetail.event_title:''}}
         </p>
         <p class="event-date-time-palce">
-            Mon 27 July 2020 at The Garnd Hayyat
+            {{eventDetail?eventDetail.start_date:''}} {{eventDetail?eventDetail.start_time:''}} at  {{eventDetail?eventDetail.venue_name:''}}
         </p>
     </div>
-    <div class="event-status" [ngClass]="{'published':eventStatus == 'published', 'draft':eventStatus == 'draft'}">
-        <mat-select (selectionChange)="fnChangeEventStatus($event.value)" class="custome-mat-set mt-2">
+    <div class="event-status"  [ngClass]="{'published':eventStatus == 'publish', 'draft':eventStatus == 'draft'}">
+        <mat-select [(ngModel)]="eventStatus" name='eventStatus' (selectionChange)="fnChangeEventStatus($event.value)" class="custome-mat-set mt-2">
             <mat-option value="draft">Draft</mat-option>
-            <mat-option value="published">Published</mat-option>
+            <mat-option value="publish" >Published</mat-option>
         </mat-select>
     </div>
     <div class="ml-auto mr-5 mt-2">
         <div class="preview-btn d-inline-block">
-            <button mat-flat-button>Preview Event Page</button>
+            <button mat-flat-button (click)="PreviewPage();">Preview Event Page</button>
         </div>
 
         <div class=" d-inline-block">
