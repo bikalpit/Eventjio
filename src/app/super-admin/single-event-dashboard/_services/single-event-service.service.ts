@@ -80,6 +80,22 @@ export class SingleEventServiceService {
     map((res) => {
         return res;
     }),catchError(this.handleError));
-}
+  }
+
+  updateEventStatus(requestObject){
+    return this.http.post(`${environment.apiUrl}/update-event-status`,requestObject,{headers:this.globalHeaders}).pipe(
+    map((res) => {
+        return res;
+    }),catchError(this.handleError));
+  }
+
+  getSingleBoxofficeDetails(requestObject){
+    return this.http.post(`${environment.apiUrl}/get-single-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
+    map((res) => {
+        return res;
+    }),catchError(this.handleError));
+  }
+
+
   
 }
