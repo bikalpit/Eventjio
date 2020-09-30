@@ -13,6 +13,7 @@ import { environment } from '../../../environments/environment'
   styleUrls: ['./single-event-dashboard.scss']
 })
 export class SingleEventDashboard implements OnInit {
+  pageName :any = '';
   eventStatus:any='draft';
   eventSideMenu:boolean = true;
   eventId:string = localStorage.getItem('selectedEventCode');
@@ -45,6 +46,9 @@ export class SingleEventDashboard implements OnInit {
       }
     });
 
+  }
+  fnPostUrl(postUrl){
+    this.pageName = postUrl; 
   }
 
   fnClickOnDuplicate(){

@@ -60,7 +60,8 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
       DialogImportFileUpload,
       DialogCustomerImageUpload,
       AssignToEventDialog,
-      AssignToTicketTypeDialog
+      AssignToTicketTypeDialog,
+      DialogImportFileUpload
   ],
   
   imports: [

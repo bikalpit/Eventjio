@@ -2,16 +2,56 @@
         <div class="page-title">
             Event Summary
         </div>
-        <div class="set-up-payment p-3">
-            <div>
-                <i class="fa fa-bell mr-3"></i><span class="font-weight-bold">Set up your payment system</span>
+        <div class="mt-2">
+            To allow your customers to buy tickets for your event, you’ll need to choose how you want to take payments. We support the following options:
+        </div>
+
+        <div class="mt-3 font-weight-bold">
+            1. Stripe (recommended)
+        </div>
+        <div class="mt-2">
+            Easy to set up, great support and a simple purchase experience for your customers to pay by card. Stripe has low fees and typically pays out to your bank account 7 days after the money was paid to you.
+        </div>
+        <div class="mt-3">
+            <button mat-flat-button color="primary" class="mr-3">Set up Stripe to take payments</button> <a>Learn more about Stripe</a>
+        </div>
+
+        <div class="mt-3 font-weight-bold">
+            2. PayPal
+        </div>
+        <div class="mt-2">
+            Gives your customers the option to pay via PayPal or card. A convenient option if you already have a PayPal account set up.
+        </div>
+        <div class="mt-3">
+            <button mat-flat-button color="primary" class="mr-3">Set up Paypal to take payments</button> <a>Learn more about PayPal</a>
+        </div>
+
+        <div class="mt-3 font-weight-bold">
+            3. Offline payments
+        </div>
+        <div class="mt-2">
+            Allow your customers to pay by bank transfer, cheque or by any other means that isn't online.
+        </div>
+        <div class="mt-3">
+            <button mat-flat-button color="primary" class="mr-3">Set up offline payments</button> <a>Learn more about offline payments</a>
+        </div>
+
+        <div class="mt-3">
+            <a>Learn more about processing card payments.</a>
+        </div>
+    </div>
+
+    <div class="total-summary border p-3" fxLayout="row">
+        
+        <div class="total-ticket-summary text-center border-right" fxFlex="25">
+            <div class="title">
+                TOTAL ISSUED TICKETS
             </div>
             <div class="mt-2">
                 To allow your customers to buy tickets for your event, you’ll need to choose how you want to take payments. We support the following options:
             </div>
-
-            <div class="mt-3 font-weight-bold">
-                1. Stripe (recommended)
+            <div class="more-link">
+                <a>View issued tickets</a>
             </div>
             <div class="mt-2">
                 Easy to set up, great support and a simple purchase experience for your customers to pay by card. Stripe has low fees and typically pays out to your bank account 7 days after the money was paid to you.
@@ -19,9 +59,8 @@
             <div class="mt-3">
                 <button mat-flat-button color="primary" class="mr-3">Set up Stripe to take payments</button> <a href="#">Learn more about Stripe</a>
             </div>
-
-            <div class="mt-3 font-weight-bold">
-                2. PayPal
+            <div class="more-link">
+                <a>View orders</a>
             </div>
             <div class="mt-2">
                 Gives your customers the option to pay via PayPal or card. A convenient option if you already have a PayPal account set up.
@@ -36,8 +75,8 @@
             <div class="mt-2">
                 Allow your customers to pay by bank transfer, cheque or by any other means that isn't online.
             </div>
-            <div class="mt-3">
-                <button mat-flat-button color="primary" class="mr-3">Set up offline payments</button> <a href="#">Learn more about offline payments</a>
+            <div class="more-link">
+                <a>View chart</a>
             </div>
 
             <div class="mt-3">
@@ -68,6 +107,11 @@
                 <div class="more-link">
                     <a href="#">View orders</a>
                 </div>
+            <div class="mt-3 ml-2">
+                <a class="ml-3 "><i class="fa fa-facebook mr-2"></i>Share it</a>
+                <a class="ml-3 "><i class="fa fa-twitter mr-2"></i>Tweet it</a>
+                <a class="ml-3 "><i class="fa fa-link mr-2"></i>Create tracking Link</a><br class="m-0">
+                <a class="ml-3 "><i class="fa fa-code mr-2"></i>Embed booking Widget</a>
             </div>
             <div class="total-ticket-summary text-center border-right" fxFlex="25">
                 <div class="title">
@@ -77,16 +121,8 @@
                     3 Days
                 </div>
             </div>
-            <div class="total-ticket-summary text-center" fxFlex="25">
-                <div class="title">
-                    EVENT VIEWS
-                </div>
-                <div class="count">
-                    19
-                </div>
-                <div class="more-link">
-                    <a href="#">View chart</a>
-                </div>
+            <div class="ml-auto">
+                <a>Manage ticket types</a>
             </div>
 
         </div>

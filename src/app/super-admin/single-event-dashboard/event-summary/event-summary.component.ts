@@ -1,5 +1,8 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
  import { Chart } from 'chart.js';
+import { SingleEventServiceService } from '../_services/single-event-service.service';
+import { DatePipe} from '@angular/common';
+// import { ChartDataSets, ChartOptions } from 'chart.js';
 // import { Color, Label } from 'ng2-charts';
 // import * as CanvasJS from '../../../../assets/canvasjs.min';
 
@@ -26,14 +29,17 @@ export class EventSummaryComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
     private ErrorService: ErrorService,
-   // private datePipe: DatePipe,
     private router: Router,
     private SuperadminService: SuperadminService,
+    private SingleEventServiceService: SingleEventServiceService,
+
   ) {
 
     this.eventURL = environment.APPURL+this.eventId;
 
    }
+  
+  
 
   ngOnInit(): void {
     this.fnGetEventDetail();
@@ -126,93 +132,5 @@ export class EventSummaryComponent implements OnInit {
 
 
 
-  // lineChartData: ChartDataSets[] = [
-  //   { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
-  // ];
-
-  // lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
-
-  // lineChartOptions = {
-  //   responsive: true,
-  // };
-
-  // lineChartColors: Color[] = [
-  //   {
-  //     borderColor: 'black',
-  //     backgroundColor: 'rgba(255,255,0,0.28)',
-  //   },
-  // ];
-
-  // lineChartLegend = true;
-  // lineChartPlugins = [];
-  // lineChartType = 'line';
-
-  
-
-  // fnTicketsales() : void{
-  //   window.onload = function () {
-
-  //     var ticket = new CanvasJS.Chart("ticketsales", {
-  //       animationEnabled: true,
-  //       theme: "light2",
-  //       // title:{
-  //       //   text: "Simple Line Chart"
-  //       // },
-  //       data: [{        
-  //         type: "line",
-  //             indexLabelFontSize: 16,
-  //         dataPoints: [
-  //           { y: 450 },
-  //           { y: 414},
-  //           { y: 520 },
-  //           { y: 460 },
-  //           { y: 450 },
-  //           { y: 500 },
-  //           { y: 480 },
-  //           { y: 480 },
-  //           { y: 500 },
-  //           { y: 480 },
-  //           { y: 510 }
-  //         ]
-  //       }]
-  //     });
-      
-  //     ticket.render();
-      
-  //     }
-  // }
-
-//   fnEventView(): void{
-//     window.onload = function () {
-
-//       var event = new CanvasJS.Chart("eventview", {
-//         animationEnabled: true,
-//         theme: "light2",
-//         // title:{
-//         //   text: "Simple Line Chart"
-//         // },
-//         data: [{        
-//           type: "line",
-//               indexLabelFontSize: 16,
-//           dataPoints: [
-//             { y: 450 },
-//             { y: 414},
-//             { y: 520 },
-//             { y: 460 },
-//             { y: 450 },
-//             { y: 500 },
-//             { y: 480 },
-//             { y: 480 },
-//             { y: 500 },
-//             { y: 480 },
-//             { y: 510 }
-//           ]
-//         }]
-//       });
-      
-//       event.render();
-      
-//       }
-//   }
 
 }
