@@ -6,7 +6,7 @@
             <div class="form-radio-btn">
                 <div class="">
                     <mat-radio-group aria-label="Select an option" (change)="fnCheckoutForm($event)" class="row mx-0">
-                        <div class="global-checkout col-md-3">
+                        <div class="global-checkout col-md-4">
                             <mat-radio-button value="global"  [checked]="reportType === 'global'">Global checkout form</mat-radio-button>
                             <p>(Applies to all events)</p>
                         </div>
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="event-checkout-preview"  *ngIf="reportType === 'eventspecific'">
-                <div class="checkout-form main-work-area">                  
+                <div class="checkout-form">                  
                   <div class="buyer-que">
                     <!-- <div class="d-flex byr-qn">
                         <button mat-raised-button class="byr-qn-btn" (click)="addBuyerQuestion()">Add a buyer only question</button>

@@ -356,3 +356,8 @@
 ::ng-deep .mat-tab-label-active {
     opacity: 1 !important;
 }
+
+::ng-deep textarea{
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem !important;
+}

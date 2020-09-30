@@ -17,6 +17,7 @@ export interface DialogData {
 export class CheckoutFormComponent implements OnInit {
   animal :any;
   allBusiness: any;
+  
 
   reportType:any = 'global';
   buyerQuestion = [{persondetail:'Name'},{persondetail:'Email'},{persondetail:'Mobile Phone Number'},{persondetail:'Address'}]
@@ -38,6 +39,11 @@ export class CheckoutFormComponent implements OnInit {
   fnCheckoutForm(event){
     this.reportType=event.value
   }
+
+  
+  
+ 
+
   addBuyerQuestion() {
     const dialogRef = this.dialog.open(addBuyeronlyQuestionDialog, {
       width: '550px',
@@ -81,7 +87,8 @@ export class CheckoutFormComponent implements OnInit {
   templateUrl: '../_dialogs/add-buyer-question.html',
 })
 export class addBuyeronlyQuestionDialog { 
-  
+  buyerResponse: any;
+
   constructor(
     public dialogRef: MatDialogRef<addBuyeronlyQuestionDialog>,
     private http: HttpClient,
@@ -92,6 +99,9 @@ export class addBuyeronlyQuestionDialog {
     this.dialogRef.close();
   }
   ngOnInit() {
+  }
+  fnBuyerResponse(event){
+    this.buyerResponse=event.value;
   }
   
 }
@@ -119,7 +129,7 @@ export class editBuyerNameDialog {
   templateUrl: '../_dialogs/add-attendee-question.html',
 })
 export class addAttendeeonlyQuestionDialog { 
-  
+  optionValue:any;
   constructor(
     public dialogRef: MatDialogRef<addAttendeeonlyQuestionDialog>,
     private http: HttpClient,
@@ -131,7 +141,9 @@ export class addAttendeeonlyQuestionDialog {
   }
   ngOnInit() {
   }
-  
+  fnAttendeeResponse(event){
+    this.optionValue=event;
+  }
 }
 @Component({
   selector: 'add-buyer-question',
