@@ -6,6 +6,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { Role } from './_models';
 import { AuthGuard } from './_helpers/auth.guard';
+import { PreviewEventsComponent } from './preview-events/preview-events.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'reset-password', 
     component: ResetPasswordComponent 
+  },
+  {
+    path: 'preview-events', 
+    component: PreviewEventsComponent
   },
 ];
 
