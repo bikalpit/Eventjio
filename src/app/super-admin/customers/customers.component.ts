@@ -54,7 +54,7 @@ export class CustomersComponent implements OnInit {
       phone:['',Validators.required],
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
       image:['',Validators.required],
-      address:[''],
+      address:['',Validators.required],
       addTag:[''],
     });
    
@@ -194,6 +194,7 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.controls['email'].setValue(this.singleCustomerDetails.email)
       this.addCustomerForm.controls['phone'].setValue(this.singleCustomerDetails.phone)
       this.addCustomerForm.controls['addTag'].setValue(this.singleCustomerDetails.addTag)
+      this.addCustomerForm.controls['address'].setValue(this.singleCustomerDetails.address)
 
     }
     else if(response.data == false){
@@ -367,14 +368,14 @@ export class DialogImportFileUpload {
   this.isLoaderAdmin = true;
   const formData: FormData = new FormData();
   formData.append('file', this.fileToUpload);
-  formData.append('boxoffice_id',this.boxofficeId);
+  formData.append('boxoffice_id',(this.boxofficeId));
 
-  let Headers = new HttpHeaders({
+  let headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'admin-id' : this.currentUser.user_id,
     'api-token' : this.currentUser.token
 });
-  this.http.post(`${environment.apiUrl}/import-customers`,formData, {headers:Headers} ).pipe(map((response : any) =>{
+  this.http.post(`${environment.apiUrl}/import-customers`,formData ,{headers:headers}).pipe(map((response : any) =>{
     this.isLoaderAdmin = false;
     if(response.data  == true){
       this._snackBar.open("CSV file is uploaded", "X", {
