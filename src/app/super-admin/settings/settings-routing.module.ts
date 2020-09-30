@@ -26,6 +26,10 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                             path:'',
                             component:EventPageDesignComponent
                           },
+                          {
+                            path:'event-page-design',
+                            component:ButttonAndLinksComponent
+                          },
 
                           {
                             path:'buttons-and-links',
