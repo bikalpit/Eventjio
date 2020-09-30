@@ -348,6 +348,7 @@ export class DialogImportFileUpload {
   }
 
   fileupload(){
+    alert( this.fileToUpload );
     
     if(this.fileToUpload.type != "application/vnd.ms-excel"){
 
@@ -359,38 +360,49 @@ export class DialogImportFileUpload {
       return;
 
     }
-  //  let requestObject={
-  //    "boxoffice_id":this.boxofficeId,
-  //    "file":this.fileToUpload,
-  //  }
+    
+   let requestObject={
+     "boxoffice_id":this.boxofficeId,
+     "file":this.fileToUpload,
+   }
    
    
-  this.isLoaderAdmin = true;
-  const formData: FormData = new FormData();
-  formData.append('file', this.fileToUpload);
-  formData.append('boxoffice_id',(this.boxofficeId));
+//   this.isLoaderAdmin = true;
+//   const formData: FormData = new FormData();
+//   formData.append('file', this.fileToUpload);
+//   formData.append('boxoffice_id',(this.boxofficeId));
 
-  let headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'admin-id' : this.currentUser.user_id,
-    'api-token' : this.currentUser.token
-});
-  this.http.post(`${environment.apiUrl}/import-customers`,formData ,{headers:headers}).pipe(map((response : any) =>{
-    this.isLoaderAdmin = false;
-    if(response.data  == true){
-      this._snackBar.open("CSV file is uploaded", "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-      });
-      this.dialogRef.close();
-    }
-  }),catchError(this.handleError)).subscribe((res) => {
-    this.isLoaderAdmin = false;
-  });  
+//   let headers = new HttpHeaders({
+//     'Content-Type': 'application/json',
+//     'admin-id' : this.currentUser.user_id,
+//     'api-token' : this.currentUser.token
+// });
+//   this.http.post(`${environment.apiUrl}/import-customers`,formData ,{headers:headers}).pipe(map((response : any) =>{
+//     this.isLoaderAdmin = false;
+//     if(response.data  == true){
+//       this._snackBar.open("CSV file is uploaded", "X", {
+//         duration: 2000,
+//         verticalPosition:'top',
+//         panelClass :['green-snackbar']
+//       });
+//       this.dialogRef.close();
+//     }
+//   }),catchError(this.handleError)).subscribe((res) => {
+//     this.isLoaderAdmin = false;
+//   });  
+  
+this.SuperadminService.fnImportCustomer(requestObject).subscribe((response:any)=>{
+  if(response.data == true){
+    this.importCustomer = response.response
+    this.ErrorService.successMessage(response.response);
+  }else if(response.data == false){
+    this.ErrorService.errorMessage(response.response);
 
-   
   }
+  this.isLoaderAdmin = false;
+});
+
+}
 
 }
 
