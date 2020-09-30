@@ -106,6 +106,9 @@ export class BoxOfficeComponent implements OnInit {
         console.log(this.singleBoxofficeDetails);
         this.singleBoxOffice.controls['boxoffice_name'].setValue(this.singleBoxofficeDetails.box_office_name)
         this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
+        this.singleBoxOffice.controls['language'].setValue(this.singleBoxofficeDetails.language)
+        this.singleBoxOffice.controls['timezone'].setValue(this.singleBoxofficeDetails.timezone)
+
 
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);

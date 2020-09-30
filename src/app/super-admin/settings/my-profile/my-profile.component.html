@@ -25,25 +25,25 @@
         <div class="form-group">
             <form [formGroup]="myProfileForm" class="with-validation">
                 <div class="row mx-0 mt-4">
-                    <div class="form-group col-6">
-                        <label for="first-name" class="">First Name</label>
+                    <div class="col-12">
+                        <label for="first-name" class="">Full Name</label>
                         <input type="text" class="form-control" formControlName="firstname" placeholder="Shabnamm">
                         <span class="error-wrap" *ngIf="myProfileForm.get('firstname').touched || myProfileForm.get('firstname').dirty">
-                        <small *ngIf="myProfileForm.get('firstname').hasError('required')" class="error">First Name is required.</small>
-                        <small *ngIf="myProfileForm.get('firstname').hasError('maxlength')" class="error">First Name should be maximum 15 character.</small>
+                        <small *ngIf="myProfileForm.get('firstname').hasError('required')" class="error">Full Name is required.</small>
+                        <small *ngIf="myProfileForm.get('firstname').hasError('maxlength')" class="error">Full Name should be maximum 15 character.</small>
                         </span>
                     </div>
 
-                    <div class="form-group  col-6">
+                    <!-- <div class="col-6">
                         <label for="last-name" class="">Last Name</label>
                         <input type="text" class="form-control" formControlName="lastname" placeholder="Ansari">
                         <span class="error-wrap" *ngIf="myProfileForm.get('lastname').touched || myProfileForm.get('lastname').dirty">
                         <small *ngIf="myProfileForm.get('lastname').hasError('required')" class="error">Last Name is required.</small>
                         <small *ngIf="myProfileForm.get('lastname').hasError('maxlength')" class="error">Last Name should be maximum 15 character.</small>
                         </span>
-                    </div>
+                    </div> -->
 
-                    <div class="form-group  col-6">
+                    <div class="col-6">
                         <label for="email" class="mt-4">Email</label>
                         <input type="text" class="form-control" formControlName="email" placeholder="dummy@gmail.com">
                         <span class="error-wrap" *ngIf="myProfileForm.get('email').touched || myProfileForm.get('email').dirty">
@@ -52,12 +52,14 @@
                         </span>
                     </div>
                     
-                    <div class="form-group  col-6">
+                    <div class="col-6">
                         <label for="first-name" class="mt-4">Phone</label>        
                         <input type="text" class="form-control" formControlName="phone" placeholder="+91 87678687">
                         <span class="error-wrap" *ngIf="myProfileForm.get('phone').touched || myProfileForm.get('phone').dirty">
                         <small *ngIf="myProfileForm.get('phone').hasError('required')" class="error">Phone Number is required.</small>
-                        <small *ngIf="myProfileForm.get('phone').hasError('phone') || myProfileForm.get('phone').hasError('pattern')" class="error">Enter a valid Phone Number.</small>
+                        <small *ngIf="myProfileForm.get('phone').hasError('pattern') || myProfileForm.get('phone').hasError('pattern')" class="error">Phone Number Should in numbers</small>
+                        <small *ngIf="myProfileForm.get('phone').hasError('maxlength')" class="error">Phone Number Should only 10 digits.</small>
+                        <small *ngIf="myProfileForm.get('phone').hasError('minlength')" class="error">Phone Number Should only 10 digits.</small>
                         </span>        
                     </div>
                 </div>
@@ -70,8 +72,8 @@
     <div class="footer-action-btn">
         
         <div class="can-save">
-            <button mat-raised-button class="cancel-btn">Cancel</button>
-            <button mat-raised-button class="save-btn" >Save</button>
+            <button mat-raised-button class="cancel-btn" (click)="onCancel()">Cancel</button>
+            <button mat-raised-button (click)=" fnOnSubmitMyProfile()" class="save-btn" >Save</button>
         </div>
     </div>
   

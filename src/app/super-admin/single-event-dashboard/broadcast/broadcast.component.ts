@@ -3,7 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { ErrorService } from '../../../_services/error.service'
-import {SingleEventDashboardService} from '../_services/single-event-dashboard.service';
+import {SingleEventServiceService} from '../_services/single-event-service.service';
 
 export interface DialogData {
   animal: string;
@@ -24,11 +24,12 @@ export class BroadcastComponent implements OnInit {
   isLoaderAdmin:any;
   eventId:any;
   createBroadcastData:any;
+  differentEmailIdEnter:any;
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
     private http: HttpClient,
     private ErrorService:ErrorService,
-    private SingleEventDashboardService : SingleEventDashboardService,
+    private SingleEventServiceService : SingleEventServiceService,
     ) { 
       if(localStorage.getItem('selectedEventCode')){
         this.eventId = localStorage.getItem('selectedEventCode');
@@ -65,6 +66,10 @@ export class BroadcastComponent implements OnInit {
     }
   }
 
+  fnselectionchange(event){
+    this.differentEmailIdEnter = event.value;
+  }
+      
 
   fnCreateBroadcast(){
     this.createBroadcast = !this.createBroadcast;
@@ -76,7 +81,7 @@ export class BroadcastComponent implements OnInit {
   sendBroadcast() {
     this.fnOnSubmitForm()
     const dialogRef = this.dialog.open(mySendBroadcastDialog, {
-      width: '700px',
+      width: '550px',
       data:{createBroadcastData: this.createBroadcastData}
       
     });
@@ -87,7 +92,7 @@ export class BroadcastComponent implements OnInit {
   }
   previewBroadcast() {
     const dialogRef = this.dialog.open(myPreviewBroadcastDialog, {
-      width: '700px',
+      width: '550px',
       data:{ createBroadcastData : this.createBroadcastData}
     });
  
@@ -125,7 +130,7 @@ export class mySendBroadcastDialog{
 
 @Component({
   selector: 'Preview-Broadcast',
-  templateUrl: '../_dialogs/preview-broadcast.html',
+  templateUrl: '../_dialogs/Preview-broadcast.html',
 })
 
 export class myPreviewBroadcastDialog{ 
