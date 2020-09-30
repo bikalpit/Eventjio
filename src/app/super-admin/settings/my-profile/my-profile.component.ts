@@ -37,7 +37,7 @@ export class MyProfileComponent implements OnInit {
       firstname : ['',[Validators.required,Validators.maxLength(15)]],
       // lastname: ['',[Validators.required,Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
-      phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(10),Validators.maxLength(10)]],
+      phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
     });
 
    }
@@ -70,13 +70,13 @@ export class MyProfileComponent implements OnInit {
     }
     this.SettingService.getMyProfileData(requestObject).subscribe((response:any) => {
       if(response.data == true){
-         this.myProfileData = response.response;
+         this.myProfileData = response.response[0];
         //  console.log(this.myProfileData);
 
-         this.myProfileForm.controls['firstname'].setValue(this.myProfileData[0].firstname)
+         this.myProfileForm.controls['firstname'].setValue(this.myProfileData.firstname)
         //  this.myProfileForm.controls['lastname'].setValue(this.myProfileData[0].lastname)
-         this.myProfileForm.controls['email'].setValue(this.myProfileData[0].email)
-         this.myProfileForm.controls['phone'].setValue(this.myProfileData[0].phone)
+         this.myProfileForm.controls['email'].setValue(this.myProfileData.email)
+         this.myProfileForm.controls['phone'].setValue(this.myProfileData.phone)
 
       } else if(response.data == false){
 
@@ -90,15 +90,24 @@ export class MyProfileComponent implements OnInit {
   }
   fnOnSubmitMyProfile(){
     if(this.myProfileForm.valid){
-      let updateMyProfile = {
-        'unique_code': this.currentUser.user_id,
-        "firstname" : this.myProfileForm.get('firstname').value,
-        // "lastname" : this.myProfileForm.get('lastname').value,
-        "email" : this.myProfileForm.get('email').value,
-        "phone" : this.myProfileForm.get('phone').value,
-      
-      }
+      if(this.profileImageUrl){
+        let updateMyProfile = {
+          'unique_code': this.currentUser.user_id,
+          "firstname" : this.myProfileForm.get('firstname').value,
+          "email" : this.myProfileForm.get('email').value,
+          "phone" : this.myProfileForm.get('phone').value,
+          "image" : this.profileImageUrl
+        }
         this.updateMyProfile(updateMyProfile);
+      }else {
+        let updateMyProfile = {
+          'unique_code': this.currentUser.user_id,
+          "firstname" : this.myProfileForm.get('firstname').value,
+          "email" : this.myProfileForm.get('email').value,
+          "phone" : this.myProfileForm.get('phone').value,
+        }
+        this.updateMyProfile(updateMyProfile);
+      }
       
     }
     else{
