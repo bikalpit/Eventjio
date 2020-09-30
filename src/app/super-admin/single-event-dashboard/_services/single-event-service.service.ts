@@ -26,4 +26,25 @@ export class SingleEventServiceService {
         'api-token' : this.currentUser.token
     });
   }
+
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    return throwError('Error! something went wrong.');
+  }
+
+  getSingleEvent(requestObject){
+    return this.http.post(`${environment.apiUrl}/get-single-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+    map((res) => {
+        return res;
+    }),catchError(this.handleError));
+}
+
+
+updateSingleEvent(requestObject){
+    return this.http.post(`${environment.apiUrl}/update-event-status`,requestObject,{headers:this.globalHeaders}).pipe(
+    map((res) => {
+        return res;
+    }),catchError(this.handleError));
+}
+
 }

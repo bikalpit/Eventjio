@@ -1,11 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
  import { Chart } from 'chart.js';
 import { SingleEventServiceService } from '../_services/single-event-service.service';
-import { DatePipe} from '@angular/common';
-// import { ChartDataSets, ChartOptions } from 'chart.js';
-// import { Color, Label } from 'ng2-charts';
-// import * as CanvasJS from '../../../../assets/canvasjs.min';
-
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../../_services/superadmin.service';
@@ -109,10 +104,10 @@ export class EventSummaryComponent implements OnInit {
   fnGetEventDetail(){
 
     let requestObject = {
-      'unique_code' : this.eventId
+      'unique_code' : this.eventId,
     }
 
-    this.SuperadminService.getSingleEvent(requestObject).subscribe((response:any) => {
+    this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response[0];
       } else if(response.data == false){
