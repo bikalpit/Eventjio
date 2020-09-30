@@ -64,7 +64,6 @@ export class MyProfileComponent implements OnInit {
 
   getMyProfileData(){
     this.isLoaderAdmin = true;
-    console.log(this.currentUser);
     let requestObject = {
       // 'search':this.search.keyword,
        'unique_code' : this.currentUser.user_id
