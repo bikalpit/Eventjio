@@ -60,7 +60,8 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
       DialogImportFileUpload,
       DialogCustomerImageUpload,
       AssignToEventDialog,
-      AssignToTicketTypeDialog
+      AssignToTicketTypeDialog,
+      DialogImportFileUpload
   ],
   
   imports: [
@@ -78,7 +79,6 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    MatTimepickerModule,
   ],
   
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,

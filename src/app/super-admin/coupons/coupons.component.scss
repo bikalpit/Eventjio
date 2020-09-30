@@ -239,14 +239,16 @@ button:focus {
 }
 } 
 
-::ng-deep .coupon-code-tabs {
-    .mat-tab-labels {
-        padding: 0 20px;
-        .mat-tab-label {
-            opacity: 1;
-        }
-    }
+::ng-deep .matDate{
+    position: relative;
+   .mat-datepicker-toggle{
+    position: absolute;
+   } 
+   .form-control{
+    padding-left: 40px;
 }
+} 
+
 
 ::ng-deep .popover {
     border: none;

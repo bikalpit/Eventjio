@@ -29,6 +29,12 @@
             padding: 30px 60px;
             .searchbox{
                 margin-top:30px;
+                i{
+
+                }
+                .form-control{
+
+                }
             }
             .order-event{
                 margin-top: 15px;
@@ -411,13 +417,16 @@
     font-family: Poppins, Regular;
     border:1px solid #CECECE;
     input{
-        width: 97%;
+        width: 100%;
+        padding-left: 30px;
         background-color: transparent;
         border: none;
         outline: none;
     }   
     i{
-        width: 3%;
+        position: absolute;
+        top: 10px;
+        left: 8px;
     }
 }
 
