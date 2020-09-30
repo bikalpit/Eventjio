@@ -1,0 +1,162 @@
+#preview-event 
+     {
+     background-color: #EEEEEE;
+     height: 100%;
+     overflow: auto;
+     .preview-bg{
+          background: url(/assets/images/Event-preview/preview-main.png);
+          background-size: cover;
+          height: 270px;
+          backdrop-filter: blur(4px);
+           position: relative;
+          .preview-blur{
+               background: url(/assets/images/Event-preview/preview-main.png);
+               background-size: cover;
+               position: absolute;
+               height: 100%;
+               width: 100%;
+               z-index: -1;
+               filter: blur(4px);
+               display: flex;
+          }
+          .close-preview{
+               .close-btn{
+                    background-color: #fff;
+                    padding: 2px;
+                    border-radius: 50%;
+                    width: 26px;
+                    height: 26px;
+                    z-index: 99999999;
+                    margin: 16px 24px;
+                    opacity: 1;
+               }
+          }
+          .main-preview-section{
+               padding: 0px 28px;
+               .top-preview-image{
+                    background: url(/assets/images/Event-preview/preview-main.png);
+                    background-size: cover;
+                    height: 240px;
+                    .draf-btn-side{
+                         text-align: end;
+                         padding: 12px;
+                         .btn{
+                              background-color: #CFE7FF !important;
+                              color: #007BFF;
+                         }
+                    }
+               }
+               .main-preview-wrap{
+                    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+               }
+               .bottom-deatils{
+                    background-color: #fff;
+                    padding: 34px 26px;
+                    display: flow-root;
+                    .heading-preview-name{
+                         h3{
+                              font-size: 28px;
+                              color: #000;
+                              margin: 0px;
+                         }
+                    }
+                    .bottom-booking-deatils{
+                         margin-top: 4rem;
+                         border-bottom: 0.5px solid #7070703d;
+                         display: flow-root;
+                         padding-bottom: 20px;
+                          .side-form-deatils{
+                              border-right: 2px dashed #cccc;
+                              padding: 18px 32px;
+                         
+                              .preview-datetime{
+                                   margin-bottom: 32px;
+                              }
+                              .preview-common-deatils{
+                                   background-color: #d9d9d942;
+                                   display: flex;
+                                   align-items: center;
+                                   padding: 14px 36px;
+                                   border-radius: 5px;
+                                   p{
+                                        margin: 0px;
+                                        color: #2C2C2C;
+                                        margin-left: 12px;
+                                        font-weight: 600;
+                                   }
+                              }
+                         }
+                         .book-ticket-side{
+                              padding: 18px 32px;
+                              .book-tickets-btn{
+                                   text-align: center;
+                                   .btn{
+                                        background-color: #004FA1 !important;
+                                        color: #fff;
+                                        padding: 6px 14px;
+                                        border-radius: 30px;
+                                        width: 250px;
+                                   }
+                              }
+                              .share-link-main{
+                                   margin-top: 18px;
+                                   text-align: center;
+                                   p{
+                                        margin: 0px;
+                                        font-size: 18px;
+                                        color: #2C2C2C;
+                                        margin-bottom: 8px;
+                                   }
+                                   .event-icone-link{
+                                        i{
+                                             font-size: 32px;
+                                             margin: 0 8px;
+                                             cursor: pointer;
+                                        }
+                                        .fa-facebook-square{color: #375096;}
+                                        .fa-twitter-square{color:#359DF7}
+                                        .fa-linkedin-square{color: #357B9E;}
+                                        
+                                   }
+                              }
+                         }
+                    
+                    }
+                    .deatils-preview-events{
+                         padding: 48px;
+                         .commmon-top-main{
+                              h3{
+                                   text-align: justify;
+                                   font-weight: 500;
+                                   font-size: 16px;
+                                   color: #2C2C2C;
+                                   margin-bottom: 6px;
+                              }
+                              p{
+                                   color: #595959;
+                                   font-size: 14px;
+                              }
+                              .map-main-div{
+                                   height: 230px;
+                                   margin-top: 20px;
+                              }
+                         }
+                    }
+               }
+               .bottom-help-tickets{
+                    background-color: #E4F1FF;
+                    padding: 34px 26px;
+                    display: flow-root;
+                    text-align: center;
+                    h3{
+                         font-weight: 500;
+                         color: #2C2C2C;
+                    }
+                    .btn{
+                         padding: 4px 60px;
+                         color: #fff;
+                    }
+               }
+          }
+     }
+}
