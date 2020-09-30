@@ -26,4 +26,60 @@ export class SingleEventServiceService {
         'api-token' : this.currentUser.token
     });
   }
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    return throwError('Error! something went wrong.');
+  }
+
+  ngOnInit() {
+    
+  }
+
+
+  getAllCountry(){
+      return this.http.post(`${environment.apiUrl}/get-country-api`,{headers:this.globalHeaders}).pipe(
+      map((res) => {
+          return res;
+      }),catchError(this.handleError));
+  }
+
+  getAllCurrancy(){
+      return this.http.post(`${environment.apiUrl}/get-currancy-api`,{headers:this.globalHeaders}).pipe(
+      map((res) => {
+          return res;
+      }),catchError(this.handleError));
+  }
+  getAllTimeZone(){
+      return this.http.post(`${environment.apiUrl}/get-timezones`,{headers:this.globalHeaders}).pipe(
+      map((res) => {
+          return res;
+      }),catchError(this.handleError));
+  }
+  getDefaultImages(){
+      return this.http.post(`${environment.apiUrl}/get-default-images`,{headers:this.globalHeaders}).pipe(
+      map((res) => {
+          return res;
+      }),catchError(this.handleError));
+  }
+  getTimeSlote(requestObject){
+      return this.http.post(`${environment.apiUrl}/get-timeslots`,requestObject,{headers:this.globalHeaders}).pipe(
+      map((res) => {
+          return res;
+      }),catchError(this.handleError));
+  }
+
+
+  getSingleEvent(requestObject){
+      return this.http.post(`${environment.apiUrl}/get-single-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+      map((res) => {
+          return res;
+      }),catchError(this.handleError));
+  }
+  createBroadcastfrm(requestObject){
+    return this.http.post(`${environment.apiUrl}/create-broadcast-api`,requestObject,{headers:this.globalHeaders}).pipe(
+    map((res) => {
+        return res;
+    }),catchError(this.handleError));
+}
+  
 }

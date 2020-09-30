@@ -36,7 +36,6 @@ export class MyBoxofficeComponent implements OnInit {
     ) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
       localStorage.setItem('isBoxoffice','true')
-      console.log(this.currentUser)
      }
 
     ngOnInit(): void {

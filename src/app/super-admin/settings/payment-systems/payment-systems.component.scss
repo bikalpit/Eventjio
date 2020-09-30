@@ -3,7 +3,7 @@
         display: block;
     }
     ::ng-deep .mat-expansion-panel-header{
-        height: 100% !important;
+        height: 140px;
         padding: 20px;
     }
     mat-icon{
@@ -22,9 +22,6 @@
         border-top: 1px solid #ededed;
         padding: 15px 0px;
     }
-    .payment-label{
-        // line-height: 5;
-    }
     .action-btn{
         margin-left: auto;
         display: flex;
@@ -42,9 +39,8 @@
             color: white;
         }
     }
-    .payment-image{
-        width: 230px;
-        height: 55px;
+    .mat-accordion .mat-expansion-panel {
+        margin-bottom: 18px;
     }
 }
 ::ng-deep  .payment-gateways{

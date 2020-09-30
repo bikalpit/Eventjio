@@ -231,9 +231,9 @@ export class EventsComponent implements OnInit {
   // add Event Fns
   
   fnChangeEventStartDate(){
-    // this.minEventEndDate = this.addEventForm.get('event_start_date').value;
-    // this.addEventForm.get('event_end_date').setValue('');
-    // this.addEventForm.get('event_end_time').setValue('');
+    this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+    this.addEventForm.get('event_end_date').setValue('');
+    this.addEventForm.get('event_end_time').setValue('');
   }
   
   fnChangeEventEndDate(){
