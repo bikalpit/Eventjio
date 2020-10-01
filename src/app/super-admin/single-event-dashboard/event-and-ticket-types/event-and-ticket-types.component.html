@@ -1,284 +1,419 @@
 <div class="event-tickets main">
     <div class="event-main">
         <div class="event-head">
-            <h5 >Edit Event and Tickets</h5>
+            <h5>Edit Event and Tickets</h5>
         </div>
-        <div class="add-event-info">
-            <div class="event-content">
-                <h6 class="col-md-12">Add event info</h6>
-                <div class="event-info row mx-0">
-                    <div class="form-group col-md-12">
-                        <label for="">Event name<span><i class="fa fa-asterisk asterisk"></i></span> </label>
-                        <input type="text" class="form-control" id="" placeholder="Lajawab Cooking Class">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Starts <span><i class="fa fa-asterisk asterisk"></i></span> </label>
-                        <div class="row mx-0">
-                            <div  class="col-md-7 pl-0">
-                                <select id=""  class="form-control">
-                                    <option>Thu Jul 30, 2020 </option>
-                                </select>
-                            </div>
-                            <div  class="col-md-5">
-                                <select class="form-control" id="">
-                                    <option> 6:00 pm</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Ends <span><i class="fa fa-asterisk asterisk"></i></span> </label>
-                        <div class="row mx-0">
-                            <div  class="col-md-7 pl-0">
-                                <select class="form-control" id="">
-                                    <option>Thu Jul 30, 2020 </option>
-                                </select>
-                            </div>
-                            <div  class="col-md-5">
-                                <select class="form-control" id="">
-                                    <option>  10:30 pm</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="">Venue name</label>
-                        <input type="text" class="form-control" id="" placeholder="e.g. Blues bar">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="">Venue postcode / zip</label>
-                        <input type="text" class="form-control" id="" placeholder="e.g. 400 101">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="">Venue country</label>
-                        <select class="form-control" id="">
-                          <option>Indian </option>
-                        </select>
-                    </div>
-                    <section class="form-group col-md-12">
-                        <mat-checkbox class="">This is an online event</mat-checkbox>
-                    </section>
-                    <div class="form-group col-md-12">
-                        <label for="">Description <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
-                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></label>
-                        <ck-editor name="editor1" 
-                            skin="moono-lisa" 
-                            language="en" [fullPage]="true">
-                        </ck-editor>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="">Choose or upload an image</label>
-                        <div class="d-flex">
-                            <div class="events">
-                                <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="event-image" alt="">
-                            </div>
-                            <div class="events">
-                                <img src="../assets/images/Single Event/event-ticket-type/event2.png" class="event-image" alt="">
-                            </div>
-                            <div class="events">
-                                <img src="../assets/images/Single Event/event-ticket-type/event3.png" class="event-image" alt="">
-                            </div>
-                            <div class="events">
-                                <img src="../assets/images/Single Event/event-ticket-type/event4.png" class="event-image" alt="">
-                            </div>
-                            <div class="events">
-                                <img src="../assets/images/Single Event/event-ticket-type/event4.png" class="event-image" alt="">
-                            </div>
-                            <a href="" class="upload-link">
-                                <div class="upload">
-                                    <div>
-                                        <div class="d-flex align-items-center justify-content-center"><mat-icon class="upload-icon">cloud_upload</mat-icon></div>
-                                        <div class="d-flex align-items-center justify-content-center"><p class="mb-0">Upload</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="" class="no-image-link">
-                                <div class="no-image">
-                                    <div>
-                                        <img src="../assets/images/Single Event/event-ticket-type/block.png" class="no-img d-flex mx-auto">
-                                        <!-- <div class="d-flex align-items-center justify-content-center"><mat-icon class="upload-icon">cloud_upload</mat-icon></div> -->
-                                        <div class="d-flex align-items-center justify-content-center"><p class="mb-0">No image</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12 mt-2">
-                        <label for="">Choose or upload an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
-                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
-                        </label>
-                        <div class="select-event-img-sm row mx-0">
-                            <div class="">
-                                <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="select-event-image" alt="">
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center mx-3">
-                                <div>
-                                    <div class="image-status">
-
-                                    </div>
-                                    <div class="">
-                                        <button mat-raised-button class="delete-button">Delete Image</button>
-                                        <button mat-raised-button class="choose-img-btn">Choose Image</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
-                    <div class="form-group col-md-12 mt-2">
-                        <label for="">Choose or upload an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
-                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
-                        </label>
-                        <div class="select-event-img-lg row mx-0">
-                            <div class="">
-                                <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="select-event-image" alt="">
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center mx-3">
-                                <div>
-                                    <div class="image-status">
-
-                                    </div>
-                                    <div class="">
-                                        <button mat-raised-button class="delete-button">Delete Image</button>
-                                        <button mat-raised-button class="choose-img-btn">Choose Image</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="create-ticket">
-            <div class="event-content">
-                <h6>Create ticket types</h6>
-                <div class="event-info d-flex">
-                    <div class="mr-3">
-                        <button mat-raised-button class="ticket-type-btn">Add a new ticket type</button>
-                    </div>
-                    <div>
-                        <button mat-raised-button class="ticket-grp-btn">Add a new ticket group</button>
-                    </div>
-                </div>
-                <div class="ticket-details">
-                    <div class="row">
-                        <p class="col-md-4 mb-0">General Admission</p>
-                        <div class="sold-ticket col-md-4">
-                            <p class="mb-0"><span class="mx-2"><i class="fa fa-ticket" aria-hidden="true"></i></span>1 Ticket Sold</p>
-                        </div>
-                        <div class="remaining-ticket col-md-4 d-flex">
-                            <p class="mb-0 ml-auto"><span class="mx-2"><i class="fa fa-ticket" aria-hidden="true"></i></span>500 Tickets Remaining</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="event-settings">
-            <div class="event-content">
-                <h6 class="col-md-12">Event Settings</h6>
-                <div class="event-info row mx-0">
-                    <div class="form-group col-md-6">
-                        <label for="">Timezone<span><i class="fa fa-asterisk asterisk"></i></span> </label>
-                        <select class="form-control" id="">
-                            <option>(GMT+05:30) Calcutta </option>
-                        </select>                    
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Transaction fee<span matTooltip="You can add a transactionfee to orders.This is charged pnce per order as opposed to ticket booking fees which are charged once per ticket."
-                            matTooltipPosition="above" class="tooltip-btn info"><i class="fa fa-question" aria-hidden="true"></i></span></label>
-                        <input type="text" class="form-control" id="" placeholder="0.00">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="">Currency <span class="info tooltip-btn" matTooltip="Note that once your tickets have gone on sale you won't be able to change the currency."
-                            matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></label>
-                        <select class="form-control" id="">
-                            <option>$ United States Dollar </option>
-                        </select> 
-                    </div>
-                    <section class="col-md-12 form-group allow-donation">
-                        <mat-checkbox [(ngModel)]="allowDonation" [checked]="false" class="">Allow customers to make a donation</mat-checkbox>
-                    </section>
-                    <div *ngIf="allowDonation" class="row mx-0 w-100">
-                        <div class="form-group col-md-6" >
-                            <label for="">Donation title <span><i class="fa fa-asterisk asterisk"></i></span>  <span class="info tooltip-btn" matTooltip="This is what will be displayed when asking for a donation, and will also show on their order receipt."
-                                matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
-                            <input type="text" class="form-control" id="" placeholder="Please make a donation">
+        <form [formGroup]="editEventForm" class="with-validation">
+            <div class="add-event-info">
+                <div class="event-content">
+                    <h6 class="col-md-12">Add event info</h6>
+                    <div class="event-info row mx-0">
+                        <div class="form-group col-12">
+                            <input type="text" class="form-control" formControlName="event_name" placeholder="Enter the name of your event">
+                            <span class="error-wrap" *ngIf="editEventForm.get('event_name').touched || editEventForm.get('event_name').dirty">
+                                <small *ngIf="editEventForm.get('event_name').hasError('required')" class="error">Event Name is required.</small>
+                            </span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="">Suggested donation amount <span class="info tooltip-btn" matTooltip="Set an amount you would like people to donate.This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."
-                                matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                            <div class="row mx-0">
+                                <div class="col-md-7 pl-0">
+                                    <label for="">Start Date <span><i class="fa fa-asterisk"></i></span> </label>
+                                    <div class="form-group">
+                                        <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY">
+                                        <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_start_date').touched || editEventForm.get('event_start_date').dirty">
+                                            <small *ngIf="editEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 px-0">
+                                    <label class="ml-2" for="">Start Time <span><i class="fa fa-asterisk"></i></span> </label>
+                                    <div class="form-group">
+                                        <mat-datepicker #event_start_date_picker></mat-datepicker>
+                                        <mat-select (selectionChange)="fnChangeStartTime($event)" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                        </mat-select>
+                                        <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_start_time').touched || editEventForm.get('event_start_time').dirty">
+                                            <small *ngIf="editEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mx-0">
+                                <div class="col-md-7 form-group pl-0">
+                                    <label for="">Ends Date<span><i class="fa fa-asterisk"></i></span> </label>
+                                    <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY">
+                                    <mat-datepicker #event_end_date_picker></mat-datepicker>
+                                    <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_end_date').touched || editEventForm.get('event_end_date').dirty">
+                                        <small *ngIf="editEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
+                                    </span>
+                                </div>
+                                <div class="col-md-5 form-group px-0">
+                                    <label class="ml-2" for="">Ends Time <span><i class="fa fa-asterisk"></i></span> </label>
+                                    <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                    </mat-select>
+                                    <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                        <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                    </mat-select>
+                                    <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_end_time').touched || editEventForm.get('event_end_time').dirty">
+                                        <small *ngIf="editEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-100" *ngIf="olPlatForm == 'N'">
+                            <div class="row m-0">
+                                <div class="col-4">
+                                    <label for="">Venue Name</label>
+                                    <div class="form-group">
+                                        <input formControlName="vanue_name" type="text" class="form-control" placeholder="e.g. Blues Star">
+                                        <span class="error-wrap" *ngIf="editEventForm.get('vanue_name').touched || editEventForm.get('vanue_name').dirty">
+                                            <small *ngIf="editEventForm.get('vanue_name').hasError('required')" class="error">Vanue is required.</small>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <label for="">Venue postalcode / Zip</label>
+                                    <div class="form-group">
+                                        <input formControlName="vanue_zip" type="text" class="form-control" placeholder="e.g. 400001">
+                                        <span class="error-wrap" *ngIf="editEventForm.get('vanue_zip').touched || editEventForm.get('vanue_zip').dirty">
+                                            <small *ngIf="editEventForm.get('vanue_zip').hasError('required')" class="error">Zip is required.</small>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <label for="">Venue Country</label>
+                                    <div class="form-group">
+                                        <mat-select formControlName="vanue_country" class="form-control">
+                                            <mat-option *ngFor="let allCountry of allCountry; let i=index" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
+                                        </mat-select>
+                                        <span class="error-wrap" *ngIf="editEventForm.get('vanue_country').touched || editEventForm.get('vanue_country').dirty">
+                                            <small *ngIf="editEventForm.get('vanue_country').hasError('required')" class="error">Country is required.</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="w-100" *ngIf="olPlatForm == 'Y'">
+                            <div class="row m-0">
+                                <div class="col-4">
+                                    <label for="">Platform</label>
+                                    <div class="form-group">
+                                        <mat-select formControlName="online_platform" class="form-control" placeholder="Please select platform">
+                                            <mat-option value="Z">Zoom</mat-option>
+                                            <mat-option value="GH">Google Hangout</mat-option>
+                                            <mat-option value="YU">Youtube</mat-option>
+                                            <mat-option value="HP">Hopin</mat-option>
+                                            <mat-option value="VM">Vimeo</mat-option>
+                                            <mat-option value="SKY">Skype</mat-option>
+                                            <mat-option value="OTH">Other</mat-option>
+                                        </mat-select>
+                                        <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('online_platform').touched || editEventForm.get('online_platform').dirty">
+                                            <small *ngIf="editEventForm.get('online_platform').hasError('required')" class="error">Platform is required.</small>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-4 ml-2">
+                                    <label for="">Online event link (Can be added later) <span class="ml-2"><i class="fa fa-question"   matTooltip="Enter the link where attendees can join your online event. If you don't know this yet, just leave this blank." aria-hidden="true"></i></span> </label>
+                                    <div class="form-group">
+                                        <input formControlName="online_link" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <section class="form-group col-md-12">
+                            <mat-checkbox class="" (change)="fnolPlatform($event)">This is on online event</mat-checkbox>
+                        </section>
+                        <div class="form-group col-md-12">
+                            <label for="">Description <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
+                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                            <ck-editor formControlName="description" skin="moono-lisa" language="en" [fullPage]="true">
+                            </ck-editor>
+                            <span class="error-wrap" *ngIf="editEventForm.get('description').touched || editEventForm.get('description').dirty">
+                                <small *ngIf="editEventForm.get('description').hasError('required')" class="error">Description is required.</small>
+                            </span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="">Choose or upload an image</label>
+                            <div class="row">
+                                <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == allDefaultImages.id}" (click)="fnSelectImage(allDefaultImages.id); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
+                                    alt="">
+                                <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage'); fnUploadEventImage()" class="event-images m-2 text-center pointer">
+                                    <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
+                                    <p>Upload</p>
+                                </div>
+                                <div [ngClass]="{'active-image':eventImageType == 'noImage'}" (click)="fnSelectImage('noImage')" class="event-images m-2 text-center pointer">
+                                    <i class="fa fa-ban fa-2x pt-2 "></i>
+                                    <p>No image</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 mt-2">
+                            <label for="">Choose or upload an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
+                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
+                        </label>
+                            <div class="select-event-img-sm row mx-0">
+                                <div class="">
+                                    <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="select-event-image" alt="">
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center mx-3">
+                                    <div>
+                                        <div class="image-status">
+
+                                        </div>
+                                        <div class="">
+                                            <button mat-raised-button class="delete-button">Delete Image</button>
+                                            <button mat-raised-button class="choose-img-btn">Choose Image</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 mt-2">
+                            <label for="">Choose or upload an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
+                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
+                        </label>
+                            <div class="select-event-img-lg row mx-0">
+                                <div class="">
+                                    <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="select-event-image" alt="">
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center mx-3">
+                                    <div>
+                                        <div class="image-status">
+
+                                        </div>
+                                        <div class="">
+                                            <button mat-raised-button class="delete-button">Delete Image</button>
+                                            <button mat-raised-button class="choose-img-btn">Choose Image</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="create-ticket">
+                <div class="event-content">
+                    <h6>Create ticket types</h6>
+                    <div class="event-info d-flex">
+                        <div class="mr-3">
+                            <button mat-raised-button class="ticket-type-btn">Add a new ticket type</button>
+                        </div>
+                        <div>
+                            <button mat-raised-button class="ticket-grp-btn">Add a new ticket group</button>
+                        </div>
+                    </div>
+                    <div *ngIf="eventTicketAlertMSG" class="p-3 mt-3 add-ticket-notification rounded">
+                        <div> <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
+                        </div>
+                    </div>
+
+                    <div *ngFor="let eventTicketList of eventTicketList; let i=index;" class="after-save-general-admission p-3 mt-2 rounded">
+                        <div class="tickets-main-wrap">
+                            <div>
+                                {{eventTicketList.ticket_name}}
+                            </div>
+                            <div class="ticket-status ml-auto">
+                                <div class="d-inline-block ">
+                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>0 Ticket Sold</span>
+                                </div>
+                                <div class="d-inline-block ml-2 mr-2">
+                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Remaining</span>
+                                </div>
+                                <button mat-flat-button class="mr-1 edit-btn"><i class="fa fa-pencil pr-2"></i>Edit</button>
+                                <button mat-flat-button class="ml-1 delete-btn"><i class="fa fa-trash pr-2"></i>Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-settings mb-0">
+                <div class="event-content">
+                    <h6 class="col-md-12">Event Settings</h6>
+                    <div class="event-info row mx-0">
+                        <div class="col-md-6">
+                            <label for="">Timezone<span><i class="fa fa-asterisk asterisk"></i></span> </label>
+                            <div class="form-group ">
+                                <mat-select formControlName="timezone" class="form-control col-8 d-block">
+                                    <mat-option *ngFor="let allTimeZone of allTimeZone; let i=index" value="{{allTimeZone.id}}">({{allTimeZone.utc}}){{allTimeZone.name}}</mat-option>
+                                </mat-select>
+                                <span class="error-wrap" *ngIf="editEventForm.get('timezone').touched || editEventForm.get('timezone').dirty">
+                                    <small *ngIf="editEventForm.get('timezone').hasError('required')" class="error">Timezone is required.</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Transaction fee<span matTooltip="You can add a transactionfee to orders.This is charged pnce per order as opposed to ticket booking fees which are charged once per ticket."
+                            matTooltipPosition="above" class="tooltip-btn info"><i class="fa fa-question" aria-hidden="true"></i></span></label>
                             <input type="text" class="form-control" id="" placeholder="0.00">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="">Donation desciption <span class="info tooltip-btn" matTooltip="Tell people more about the donation here. "
-                                matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
-                            <input type="text" class="form-control" id="" placeholder="">
+                            <label for="">Currency <span class="info tooltip-btn" matTooltip="Note that once your tickets have gone on sale you won't be able to change the currency."
+                            matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                            <select class="form-control" id="">
+                            <option>$ United States Dollar </option>
+                        </select>
                         </div>
+                        <section class="col-md-12 form-group allow-donation">
+                            <mat-checkbox (change)="fnChangeDonation($event)" [checked]="false">Allow customers to make a donation</mat-checkbox>
+                        </section>
+
+                        <div class="w-100" *ngIf="donation == 'Y'">
+                            <div class="row m-0">
+                                <div class="col-md-6 form-group">
+                                    <label for="">Donation title  <span><i class="fa fa-asterisk asterisk"></i></span>  <span class="info tooltip-btn" matTooltip="This is what will be displayed when asking for a donation, and will also show on their order receipt."
+                                        matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                                    <input formControlName="donation_title" type="text" class="form-control" placeholder="Please make a donation">
+                                    <span class="error-wrap" *ngIf="editEventForm.get('donation_title').touched || editEventForm.get('donation_title').dirty">
+                                        <small *ngIf="editEventForm.get('donation_title').hasError('required')" class="error">Donation title is required.</small>
+                                    </span>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="">Suggested donation amount <span class="info tooltip-btn" matTooltip="Set an amount you would like people to donate.This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."
+                                        matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                                    <input formControlName="donation_amount" type="text" class="form-control" placeholder="0.00">
+                                    <span class="error-wrap" *ngIf="editEventForm.get('donation_amount').touched || editEventForm.get('donation_amount').dirty">
+                                        <small *ngIf="editEventForm.get('donation_amount').hasError('required')" class="error">Amount is required.</small>
+                                    </span>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="">Donation desciption <span class="info tooltip-btn" matTooltip="Tell people more about the donation here. "
+                                        matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                                    <input formControlName="donation_description" type="text" class="form-control">
+                                    <span class="error-wrap" *ngIf="editEventForm.get('donation_description').touched || editEventForm.get('donation_description').dirty">
+                                        <small *ngIf="editEventForm.get('donation_description').hasError('required')" class="error">Description is required.</small>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                    <div class="form-group col-md-12 mt-2 mb-0">
-                        <label for="">Customise the text that appears on the event button and in the title of the event page</label>
-                        <input type="text" class="form-control" id="" placeholder="Book Tickets">                        
-                        <p class="mb-0 pt-2 text-italic">Example: Book Ticket for Lajawab Cooking Class..</p>
+
+
+                        <div class="form-group col-md-12 mt-2 mb-0">
+                            <label for="">Customise the text that appears on the event button and in the title of the event page</label>
+                            <div class="form-group">
+                                <input formControlName="book_btn_title" type="text" class="form-control" placeholder="Book Tickets">
+                                <span class="error-wrap" *ngIf="editEventForm.get('book_btn_title').touched || editEventForm.get('book_btn_title').dirty">
+                                    <small *ngIf="editEventForm.get('book_btn_title').hasError('required')" class="error">Button title is required.</small>
+                                </span>
+                            </div>
+                        </div>
+
                     </div>
-                    
-                </div>
-                <div>                        
-                    <h6 class="col-md-12 mb-0 py-3">Advance Settings</h6>
-                    <div class="event-info row mx-0">
-                        <div class="form-group col-md-6">
-                            <label for="">Tickets become available <span><i class="fa fa-asterisk asterisk"></i></span> </label>
-                            <select class="form-control" id="">
-                                <option>When the event is published </option>
-                            </select>                    
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Tickets become unavailable <span><i class="fa fa-asterisk asterisk"></i></span> </label>
-                            <select class="form-control" id="">
-                                <option>When the event is taken off sale, or the event passes</option>
-                            </select>                    
-                        </div>
-                        <section class="col-md-12">
-                            <mat-checkbox  [(ngModel)]="redirectPage" [checked]="false" class="mb-0">Redirect order confirmation page <span class="info tooltip-btn" matTooltip="Redirect ticket buyers to a customer order confirmation page on your own website."
-                                matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
-                        </section>
-                        <div class="form-group col-md-6" *ngIf="redirectPage">
-                            <label for="">Redirect to URL <span class="info tooltip-btn" matTooltip="Enter the URL that you would like ticketbuyers to be redirected to after sucessfully completing an order"
-                                matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
-                            <input type="text" class="form-control" id="" placeholder="http://yourwebsite.com/order-complete">                        
-                        </div>
-                        <section class="col-md-12">
-                            <mat-checkbox  class="">Hide this event from your box office listings and search engines <span class="info tooltip-btn" matTooltip="Tick this box if you don't want this event listing to appear within your box office listings or within search engine result."
-                                matTooltipPosition="above" class=""><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
-                        </section>
-                        <section class=" col-md-12">
-                            <mat-checkbox  [(ngModel)]="accessCode" [checked]="false" class="">Customers need to enter an access code to buy tickets for this event <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
-                                matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
-                        </section>
-                        <div class="form-group col-md-6" *ngIf="accessCode">
-                            <label for="">Access Code</label>
-                            <input type="text" class="form-control" id="" placeholder="0.00">                        
-                        </div>
-                        <section class=" col-md-12">
-                            <mat-checkbox  class="">Hide share buttons on event page</mat-checkbox>
-                        </section>
-                        <section class="col-md-12">
-                            <mat-checkbox [(ngModel)]="salesTax" [checked]="false" class="">Set custom sales tax for this event</mat-checkbox>
-                        </section>
-                        <div class="row mx-0 w-100" *ngIf="salesTax">
-                            <div class="form-group col-md-6">
-                                <label for="">Sales tax amount</label>
-                                <input type="text" class="form-control" id="" placeholder="0.00">                        
+                    <div class="">
+                        <h6 class="col-md-12 mb-0 py-3">Advance Settings</h6>
+                        <div class="event-info row mx-0">
+                            <div class="col-md-6">
+                                <label for="">Tickets become availables <span><i class="fa fa-asterisk"></i></span>  </label>
+                                <div class="form-group">
+                                    <mat-select class="form-control d-block" formControlName="ticket_available">
+                                        <mat-option value="PB">When the event is published</mat-option>
+                                        <mat-option value="SDT">At a scheduled date and time</mat-option>
+                                        <mat-option value="SIB">At a scheduled interval before the event starts</mat-option>
+                                    </mat-select>
+                                    <span class="error-wrap" *ngIf="editEventForm.get('ticket_available').touched || editEventForm.get('ticket_available').dirty">
+                                        <small *ngIf="editEventForm.get('ticket_available').hasError('required')" class="error">Tickets availablity is required.</small>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="">Sales tax label </label>
-                                <input type="text" class="form-control" id="" placeholder="VAT">                        
+                            <div class="col-md-6">
+                                <label for="">Tickets become unavailables <span><i class="fa fa-asterisk"></i></span>  </label>
+                                <div class="form-group">
+                                    <mat-select class="form-control d-block" formControlName="ticket_unavailable">
+                                        <mat-option value="TOS">When the event is taken off, or the event passes</mat-option>
+                                        <mat-option value="SDT">At a scheduled date and time</mat-option>
+                                        <mat-option value="SIB">At a scheduled interval before the event starts</mat-option>
+                                    </mat-select>
+                                    <span class="error-wrap" *ngIf="editEventForm.get('ticket_unavailable').touched || editEventForm.get('ticket_unavailable').dirty">
+                                        <small *ngIf="editEventForm.get('ticket_unavailable').hasError('required')" class="error">Tickets unavailablity is required.</small>
+                                    </span>
+                                </div>
                             </div>
+                            <section class="col-md-12">
+                                <mat-checkbox (change)="fnRedirectURL($event)" [checked]="false">Redirect order confirmation page <span class="info tooltip-btn" matTooltip="Redirect ticket buyers to a customer order confirmation page on your own website." matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                            </section>
+                            <div class="col-md-6" *ngIf="redirectURL == 'Y'">
+                                <label for="">Redirect to URL <span class="info tooltip-btn" matTooltip="Enter the URL that you would like ticketbuyers to be redirected to after sucessfully completing an order"
+                                    matTooltipPosition="above" ><i class="fa fa-question" aria-hidden="true"></i></span></label>
+                                <div class="my-2 form-group">
+                                    <input formControlName="redirect_url" type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
+                                    <span class="error-wrap" *ngIf="editEventForm.get('redirect_url').touched || editEventForm.get('redirect_url').dirty">
+                                        <small *ngIf="editEventForm.get('redirect_url').hasError('required')" class="error">Redirect URL is required.</small>
+                                    </span>
+                                </div>
+                            </div>
+                            <section class="col-md-12">
+                                <mat-checkbox (change)="fnHideEventSearch($event)">Hide this event from your box office listings and search engines. <span class="info tooltip-btn" matTooltip="Tick this box if you don't want this event listing to appear within your box office listings or within search engine result."
+                                        matTooltipPosition="above" class=""><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                            </section>
+                            <section class=" col-md-12">
+                                <mat-checkbox (change)="fnAccessCode($event)" [checked]="false">Customers need to enter an access code to buy tickets for this event<span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings." matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                            </section>
+                            <div class="col-md-6" *ngIf="accessCode == 'Y'">
+                                <label for="">Access Code</label>
+                                <div class="my-2 form-group">
+                                    <input formControlName="access_code" type="text" class="form-control col-6">
+                                    <span class="error-wrap" *ngIf="editEventForm.get('access_code').touched || editEventForm.get('access_code').dirty">
+                                        <small *ngIf="editEventForm.get('access_code').hasError('required')" class="error">Access Code is required.</small>
+                                    </span>
+                                </div>
+                            </div>
+                            <section class=" col-md-12">
+                                <mat-checkbox (change)="fnShareButtonStatus($event)">Hide share button on event page.</mat-checkbox>
+                            </section>
+                            <section class="col-md-12">
+                                <mat-checkbox (change)="fnCustomSalesTax($event)" [checked]="false">Set custom sales tax for this event</mat-checkbox>
+                            </section>
+
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
+        <div class="px-4 pb-3 border rounded sales-tax-container">
+            <div *ngIf="customSalesTax == 'Y'">
+                <div class="row mx-0">
+                    <form class="w-100" [formGroup]="customSalesTaxForm">
+                        <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr')['controls']; let i = index">
+                            <div [formGroupName]="i" class="row m-0">
+                                <div class="tax-input col-6">
+                                    <label for="">Sales tax amounts</label>
+                                    <div class="form-group">
+                                        <input formControlName="amount" type="text" class="form-control" placeholder="0.00%">
+                                    </div>
+                                </div>
+
+                                <div class="tax-input col-6">
+                                    <label for="">Sales tax label</label>
+                                    <div class="form-group">
+                                        <input formControlName="label" type="text" class="form-control" placeholder="VAT">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="w-100 px-3">
+                        <div (click)="fnSalesTaxAdd()" class="tax-add-btn">
+                            <i class="fa fa-plus-circle"></i><span class="ml-2">Add Tax</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        
+
         <div class="cancel-save">
             <button mat-raised-button class="cancel-btn">Cancel</button>
             <button mat-raised-button class="save-btn">Save Event</button>

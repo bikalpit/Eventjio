@@ -174,50 +174,50 @@
                             <div class="w-100">
                                 <label for="">Start Date <span><i class="fa fa-asterisk"></i></span> </label>
                                 <div class="form-group">
-                                <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY">
-                                <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_start_date').touched || addEventForm.get('event_start_date').dirty">
+                                    <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY">
+                                    <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_start_date').touched || addEventForm.get('event_start_date').dirty">
                                     <small *ngIf="addEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
                                 </span>
-                                 </div>
+                                </div>
                             </div>
                             <div class="w-100">
                                 <label class="ml-2" for="">Start Time <span><i class="fa fa-asterisk"></i></span> </label>
                                 <div class="form-group">
-                                <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                <mat-select (selectionChange)="fnChangeStartTime($event)" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
-                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
-                                </mat-select>
-                                <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
+                                    <mat-datepicker #event_start_date_picker></mat-datepicker>
+                                    <mat-select (selectionChange)="fnChangeStartTime($event)" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                    </mat-select>
+                                    <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
                                     <small *ngIf="addEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
                                 </span>
+                                </div>
                             </div>
-                        </div>
-                            
+
                         </div>
 
                         <div class=" date-and-time ml-2">
-                            
-                                <div class="w-100">
-                                    <label for="">Ends Date<span><i class="fa fa-asterisk"></i></span> </label>
-                                    <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY">
-                                    <mat-datepicker #event_end_date_picker></mat-datepicker>
-                                    <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_end_date').touched || addEventForm.get('event_end_date').dirty">
+
+                            <div class="w-100">
+                                <label for="">Ends Date<span><i class="fa fa-asterisk"></i></span> </label>
+                                <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY">
+                                <mat-datepicker #event_end_date_picker></mat-datepicker>
+                                <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_end_date').touched || addEventForm.get('event_end_date').dirty">
                                         <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
                                     </span>
-                                </div>
-                                <div class="w-100">
-                                    <label class="ml-2" for="">Ends Time <span><i class="fa fa-asterisk"></i></span> </label>
-                                    <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
-                                    <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
-                                    </mat-select>
-                                    <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                        <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
-                                    </mat-select>
-                                    <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_end_time').touched || addEventForm.get('event_end_time').dirty">
+                            </div>
+                            <div class="w-100">
+                                <label class="ml-2" for="">Ends Time <span><i class="fa fa-asterisk"></i></span> </label>
+                                <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
+                                <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                </mat-select>
+                                <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                    <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                </mat-select>
+                                <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_end_time').touched || addEventForm.get('event_end_time').dirty">
                                         <small *ngIf="addEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
                                     </span>
-                                </div>
+                            </div>
                         </div>
 
                         <div class="w-100" *ngIf="olPlatForm == 'N'">
@@ -333,8 +333,8 @@
                     </div>
 
                     <div *ngIf="eventTicketAlertMSG" class="p-3 mt-3 add-ticket-notification rounded">
-                       <div> <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
-                       </div>
+                        <div> <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
+                        </div>
                     </div>
 
                     <div *ngFor="let eventTicketList of eventTicketList; let i=index;" class="after-save-general-admission p-3 mt-2 rounded">
@@ -510,7 +510,6 @@
                     </div>
 
                     <div class="">
-                        <!-- <input type="checkbox" class="from-control mr-2"> Set custom sales tax for this event -->
                         <mat-checkbox (change)="fnCustomSalesTax($event)" [checked]="false">Set custom sales tax for this event</mat-checkbox>
                     </div>
 
@@ -520,20 +519,6 @@
             <div class="px-5 pb-3 border rounded sales-tax-container bg-light">
                 <div *ngIf="customSalesTax == 'Y'">
                     <div class="row mx-0">
-
-                        <!-- <div class="tax-input">
-                    <label for="">Sales tax amounts</label>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="0.00%">
-                    </div>
-                </div>
-
-                <div class="tax-input ml-auto">
-                    <label for="">Sales tax label</label>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="VAT">
-                    </div>
-                </div> -->
                         <form class="w-100" [formGroup]="customSalesTaxForm">
                             <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr')['controls']; let i = index">
                                 <div [formGroupName]="i" class="row m-0">
