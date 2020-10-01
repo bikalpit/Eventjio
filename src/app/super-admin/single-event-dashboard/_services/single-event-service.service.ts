@@ -95,7 +95,12 @@ export class SingleEventServiceService {
         return res;
     }),catchError(this.handleError));
   }
-
-
+  
+  waitList(requestObject){
+    return this.http.post(`${environment.apiUrl}/set-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+      }),catchError(this.handleError));
+  }
   
 }
