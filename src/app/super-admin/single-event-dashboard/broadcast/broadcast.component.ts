@@ -23,8 +23,9 @@ export class BroadcastComponent implements OnInit {
   createBroadcastForm: FormGroup;
   isLoaderAdmin:any;
   eventId:any;
+  fullDayTimeSlote:any;
   createBroadcastData:any;
-  differentEmailIdEnter:any;
+  sendOptions:any;
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
     private http: HttpClient,
@@ -40,6 +41,9 @@ export class BroadcastComponent implements OnInit {
         subject:['',[]],
         message:['',[]],
         send:['',[]],
+        scheduledDate:['',[]],
+        scheduledTime:['',[]],
+        scheduledInterval:['',[]],
         terms:['',[]]
     });
   }
@@ -51,6 +55,9 @@ export class BroadcastComponent implements OnInit {
         "subject" : this.createBroadcastForm.get('subject').value,
         "message" : this.createBroadcastForm.get('message').value,
         "send" : this.createBroadcastForm.get('send').value,
+        "scheduledDate" : this.createBroadcastForm.get('scheduledDate').value,
+        "scheduledTime" : this.createBroadcastForm.get('scheduledTime').value,
+        "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
         "terms" : this.createBroadcastForm.get('terms').value,
         "event_id" : this.eventId, 
       }
@@ -61,13 +68,29 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.get('subject').markAllAsTouched();
       this.createBroadcastForm.get('message').markAllAsTouched();
       this.createBroadcastForm.get('send').markAllAsTouched();
+      this.createBroadcastForm.get('scheduledDate').markAllAsTouched();
+      this.createBroadcastForm.get('scheduledTime').markAllAsTouched();
+      this.createBroadcastForm.get('scheduledInterval').markAllAsTouched();
       this.createBroadcastForm.get('terms').markAllAsTouched();
 
     }
   }
 
-  fnselectionchange(event){
-    this.differentEmailIdEnter = event.value;
+  fnSelectionChange(event){
+    this.sendOptions = event.value;
+    
+  }
+
+  getTimeSlote(){
+    let requestObject = {
+      'interval'  :'30',
+    }
+    this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fullDayTimeSlote= response.response
+      //  console.log(this.fullDayTimeSlote)
+      }
+    });
   }
       
 
@@ -75,7 +98,7 @@ export class BroadcastComponent implements OnInit {
     this.createBroadcast = !this.createBroadcast;
   }
   ngOnInit(): void {
-    
+    this.getTimeSlote();
   }
   
   sendBroadcast() {
