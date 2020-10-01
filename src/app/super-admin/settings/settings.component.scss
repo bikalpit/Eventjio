@@ -29,7 +29,12 @@
 }
 .common-setting-menu{
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 .common-sub-menu{
     cursor: pointer;
+}
+.ml-auto{
+    margin-left: auto;
 }

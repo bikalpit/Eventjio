@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SettingsComponent implements OnInit {
   
   pageName :any = '';
+  openEventMenuBox :boolean = false;
  
   constructor() { }
 
@@ -23,6 +24,9 @@ export class SettingsComponent implements OnInit {
   fnPostUrl(postUrl){
     this.pageName = postUrl; 
   }
+  openEventMenu(){
+    this.openEventMenuBox = this.openEventMenuBox?false :true;
+  } 
 
 }
 

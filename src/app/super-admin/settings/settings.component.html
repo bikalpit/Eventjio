@@ -8,7 +8,9 @@
                 <div class="setting-menu-icon d-inline-block mr-2">
                     <img [ngStyle]="{'display':pageName === ''  || 'websites-embed-codes' || 'buttons-and-links' ? 'none' : 'block'}" src="../../../assets/images/settings/school/school.png" class="w-100" alt="">
                     <img [ngStyle]="{'display':pageName === '' || 'websites-embed-codes' || 'buttons-and-links' ? 'block' : 'none'}" src="../../../assets/images/settings/school/school_active.png" class="w-100" alt="">
-                </div> <span>Event Page Appearance</span><i class="fa fa-angle-down pl-5 ml-2"></i> 
+                </div> <span>Event Page Appearance</span>
+                <mat-icon class="ml-auto" *ngIf="!openEventMenuBox" (click)="openEventMenu()">keyboard_arrow_down</mat-icon>
+                <mat-icon class="ml-auto" *ngIf="openEventMenuBox" (click)="openEventMenu()">keyboard_arrow_up</mat-icon>
             </div>
             <div [hidden]="isShowDiv">
                 <div (click)="fnPostUrl('')" [ngClass]="{'active': pageName == ''}" routerLink="/super-admin/settings" class="py-2 common-sub-menu">
