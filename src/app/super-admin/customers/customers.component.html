@@ -37,8 +37,8 @@
                                 <div class="check-col p-1">
                                     <mat-checkbox class=""></mat-checkbox>
                                 </div>
-                                <div class="customer-image-icon p-1 pointer" (click)="fnSelectCustomer(customerDetails.unique_code)">
-                                    <img src="../../../assets/images/admin/user.png" class="w-100">
+                                <div class="customer-image-icon pointer" (click)="fnSelectCustomer(customerDetails.unique_code)">
+                                    <img src="{{customerDetails.image}}" class="w-100 h-100">
                                 </div>
                                 <div class="col-8 customer-email p-0 " (click)="fnSelectCustomer(customerDetails.unique_code)">
                                     <span>{{customerDetails.firstname + " " + customerDetails.lastname}}</span>
@@ -61,7 +61,7 @@
                             <div class="col-12 py-3">
                                 <div class="row">
                                     <div class="customer-dp">
-                                        <img src="../../../assets/images/admin/user.png" class="w-100" alt="">
+                                        <img src="{{selectedCustomerDetails.image}}" class="w-100 h-100" alt="">
                                     </div>
                                     <div class="px-3 py-4 customer-name">
                                         <span> {{selectedCustomerDetails.firstname + " " + selectedCustomerDetails.lastname}} </span>
@@ -95,7 +95,7 @@
                                     <div class="py-2">
                                         <label for="">Address</label>
                                         <p>
-                                         {{selectedCustomerDetails.address}}
+                                            {{selectedCustomerDetails.address}}
                                         </p>
                                     </div>
                                     <hr class="m-0">
@@ -145,9 +145,14 @@
                                             <label>Add Image</label>
                                         </div>
                                         <div class="row">
-                                            <div class="p-4 ml-3 image-upload hover"  (click)="fnChangeImage()"  formControlName="image">image
-                                                <input type="hidden" class="form-control" formControlName="image" (click)="fnChangeImage()" >
-                                                <span class="error-wrap" *ngIf="addCustomerForm.get('image').dirty || addCustomerForm.get('image').touched"><small *ngIf="addCustomerForm.get('image').hasError('required')" class="error text-left ml-4">Image is required.</small></span>
+                                            <div *ngIf="!customerImageUrl && !editCustomerForm" class="p-4 ml-3 image-upload hover pointer" (click)="fnChangeImage()">
+                                                <img src="../../../assets/images/admin/customer-default.svg">
+                                            </div>
+                                            <div *ngIf="customerImageUrl" class="ml-3 image-uploaded hover pointer" (click)="fnChangeImage()">
+                                                <img class="w-100 h-100" src="{{customerImageUrl}}">
+                                            </div>
+                                            <div *ngIf="!customerImageUrl && editCustomerForm" class="ml-3 image-uploaded hover pointer" (click)="fnChangeImage()">
+                                                <img class="w-100 h-100" src="{{singleCustomerDetails.image}}">
                                             </div>
                                             <div class="px-3 py-42 add-customer-file">
                                                 <span>No file Choosen</span>
@@ -164,7 +169,7 @@
                                                 <label for="">First Name</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="firstname" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('firstname').dirty || addCustomerForm.get('firstname').touched"><small *ngIf="addCustomerForm.get('firstname').hasError('required')" class="error text-left ml-4">First name is required.</small></span>
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('firstname').dirty || addCustomerForm.get('firstname').touched"><small *ngIf="addCustomerForm.get('firstname').hasError('required')" class="error text-left">First name is required.</small></span>
                                                 </div>
                                             </div>
 
@@ -172,7 +177,7 @@
                                                 <label for="">Last Name</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="lastname" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('lastname').dirty || addCustomerForm.get('lastname').touched"><small *ngIf="addCustomerForm.get('lastname').hasError('required')" class="error text-left ml-4">Last name is required.</small></span>
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('lastname').dirty || addCustomerForm.get('lastname').touched"><small *ngIf="addCustomerForm.get('lastname').hasError('required')" class="error text-left">Last name is required.</small></span>
                                                 </div>
                                             </div>
 
@@ -180,7 +185,7 @@
                                                 <label for="">Phone No.</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="phone" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('phone').dirty || addCustomerForm.get('phone').touched"><small *ngIf="addCustomerForm.get('phone').hasError('required')" class="error text-left ml-4">Phone Number is required.</small></span>
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('phone').dirty || addCustomerForm.get('phone').touched"><small *ngIf="addCustomerForm.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small></span>
                                                 </div>
                                             </div>
 
@@ -188,7 +193,7 @@
                                                 <label for="">Email ID</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="email" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('email').dirty || addCustomerForm.get('email').touched"><small *ngIf="addCustomerForm.get('email').hasError('required')" class="error text-left ml-4">Email is required.</small><small *ngIf="addCustomerForm.get('email').hasError('pattern')" class="error">Enter valid email.</small><small *ngIf="addCustomerForm.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small></span>
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('email').dirty || addCustomerForm.get('email').touched"><small *ngIf="addCustomerForm.get('email').hasError('required')" class="error text-left">Email is required.</small><small *ngIf="addCustomerForm.get('email').hasError('pattern')" class="error">Enter valid email.</small><small *ngIf="addCustomerForm.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small></span>
                                                 </div>
                                             </div>
 
@@ -196,7 +201,7 @@
                                                 <label for="">Full Address</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="address" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('address').dirty || addCustomerForm.get('address').touched"><small *ngIf="addCustomerForm.get('address').hasError('required')" class="error text-left ml-4">Address is required.</small></span>
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('address').dirty || addCustomerForm.get('address').touched"><small *ngIf="addCustomerForm.get('address').hasError('required')" class="error text-left">Address is required.</small></span>
                                                 </div>
                                             </div>
 

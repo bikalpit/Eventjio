@@ -16,6 +16,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { DialogAuthentication } from './_services/auth.component';
+import { PreviewEventsComponent } from './preview-events/preview-events.component';
 
 
 
@@ -27,6 +28,7 @@ import { DialogAuthentication } from './_services/auth.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     DialogAuthentication,
+    PreviewEventsComponent,
   ],
   imports: [
     BrowserModule,

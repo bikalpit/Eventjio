@@ -17,6 +17,10 @@ export class MyProfileComponent implements OnInit {
   onlyNumaric = "[0-9]+"
   currentUser:any;
   myProfileData:any;
+  
+  emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
+
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -25,14 +29,17 @@ export class MyProfileComponent implements OnInit {
     public dialog: MatDialog,
     private auth : AuthenticationService
   ) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.auth.currentUser.subscribe(x => this.currentUser = x);
+    // console.log(this.currentUser)
+    // alert(this.currentUser.unique_code)
     this.myProfileForm = this._formBuilder.group({
-      firstname : ['',[Validators.required]],
-      lastname: ['',[Validators.required]],
-      email:['',[Validators.required]],
-      phone:['',[Validators.required,Validators.pattern(this.onlyNumaric)]]
-    })
+      firstname : ['',[Validators.required,Validators.maxLength(15)]],
+      // lastname: ['',[Validators.required,Validators.maxLength(15)]],
+      email:['',[Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
+      phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(10),Validators.maxLength(10)]],
+    });
+
    }
 
   ngOnInit(): void {
@@ -56,6 +63,7 @@ export class MyProfileComponent implements OnInit {
 
   getMyProfileData(){
     this.isLoaderAdmin = true;
+    // console.log(this.currentUser);
     let requestObject = {
       // 'search':this.search.keyword,
        'unique_code' : this.currentUser.user_id
@@ -66,9 +74,10 @@ export class MyProfileComponent implements OnInit {
         //  console.log(this.myProfileData);
 
          this.myProfileForm.controls['firstname'].setValue(this.myProfileData[0].firstname)
-         this.myProfileForm.controls['lastname'].setValue(this.myProfileData[0].lastname)
+        //  this.myProfileForm.controls['lastname'].setValue(this.myProfileData[0].lastname)
          this.myProfileForm.controls['email'].setValue(this.myProfileData[0].email)
          this.myProfileForm.controls['phone'].setValue(this.myProfileData[0].phone)
+          
 
       } else if(response.data == false){
 
@@ -80,32 +89,47 @@ export class MyProfileComponent implements OnInit {
     })
     
   }
-  fnSubmitMyProfile(){
+  fnOnSubmitMyProfile(){
     if(this.myProfileForm.valid){
-       
-        // "firstname" : this.myProfileForm.get('firstname').value,
+      let updateMyProfile = {
+        'unique_code': this.currentUser.user_id,
+        "firstname" : this.myProfileForm.get('firstname').value,
         // "lastname" : this.myProfileForm.get('lastname').value,
-        // "email" : this.myProfileForm.get('email').value,
-        // "phone" : this.myProfileForm.get('phone').value,
+        "email" : this.myProfileForm.get('email').value,
+        "phone" : this.myProfileForm.get('phone').value,
+      
+      }
+        this.updateMyProfile(updateMyProfile);
       
     }
     else{
       this.myProfileForm.get("firstname").markAsTouched();
-      this.myProfileForm.get("lastname").markAsTouched();
+      // this.myProfileForm.get("lastname").markAsTouched();
       this.myProfileForm.get("email").markAsTouched();
-      this.myProfileForm.get("phone").markAsTouched();
+      this.myProfileForm.get("phone").markAsTouched();      
     }
   }
 
+  updateMyProfile(updateMyProfile){
+    this.isLoaderAdmin = true;
+    this.SettingService.updateMyProfile(updateMyProfile).subscribe((response:any) => {
+      if(response.data == true){
+       this.ErrorService.successMessage(response.response);
+        this.myProfileForm.reset();
+      }
+      else if(response.data == false){
+       this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+  onCancel(){
+    this.getMyProfileData();
+  }
+
+  }
   
-
-
-
-
-}
-
-
-
 @Component({
   selector: 'profile-image-upload',
   templateUrl: '../_dialogs/image-upload.html',

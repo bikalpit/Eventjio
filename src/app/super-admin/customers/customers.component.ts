@@ -53,7 +53,6 @@ export class CustomersComponent implements OnInit {
       lastname:['',Validators.required],
       phone:['',Validators.required],
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
-      image:['',Validators.required],
       address:['',Validators.required],
       addTag:[''],
     });
@@ -100,7 +99,6 @@ export class CustomersComponent implements OnInit {
 
 
   submitForm(){
-   
     if(this.addCustomerForm.invalid){
       this.addCustomerForm.get("firstname").markAsTouched();
       this.addCustomerForm.get("lastname").markAsTouched();
@@ -108,41 +106,63 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.get("email").markAsTouched();
       this.addCustomerForm.get("address").markAsTouched();
       this.addCustomerForm.get("addTag").markAsTouched();
-      this.addCustomerForm.get("image").markAsTouched();
       return false;
     }else{
       if(this.editCustomerForm == true){
-         this.isLoaderAdmin = true;
-        let requestObject={
-          "firstname":this.addCustomerForm.get('firstname').value,
-          "lastname":this.addCustomerForm.get('lastname').value,
-          "email":this.addCustomerForm.get('email').value,
-          "phone":this.addCustomerForm.get('phone').value,
-          "image": this.customerImageUrl,
-          "address":this.addCustomerForm.get('address').value,
-          "unique_code": this.selectedCustomerCode,
-          "boxoffice_id": this.boxofficeId,
-        };
-        this.fnUpdateCustomer(requestObject)
+        if(this.customerImageUrl){
+          let requestObject={
+            "firstname":this.addCustomerForm.get('firstname').value,
+            "lastname":this.addCustomerForm.get('lastname').value,
+            "email":this.addCustomerForm.get('email').value,
+            "phone":this.addCustomerForm.get('phone').value,
+            "image": this.customerImageUrl,
+            "address":this.addCustomerForm.get('address').value,
+            "unique_code": this.selectedCustomerCode,
+            "boxoffice_id": this.boxofficeId,
+          };
+          this.fnUpdateCustomer(requestObject)
+        }else{
+          let requestObject={
+            "firstname":this.addCustomerForm.get('firstname').value,
+            "lastname":this.addCustomerForm.get('lastname').value,
+            "email":this.addCustomerForm.get('email').value,
+            "phone":this.addCustomerForm.get('phone').value,
+            "address":this.addCustomerForm.get('address').value,
+            "unique_code": this.selectedCustomerCode,
+            "boxoffice_id": this.boxofficeId,
+          };
+          this.fnUpdateCustomer(requestObject)
+        }
 
-      
       }else if(this.editCustomerForm == false){
-      this.isLoaderAdmin = true;
-      let requestObject={
-        "firstname": this.addCustomerForm.get("firstname").value,
-        "lastname": this.addCustomerForm.get("lastname").value,
-        "phone": this.addCustomerForm.get("phone").value,
-        "email": this.addCustomerForm.get("email").value,
-        "address": this.addCustomerForm.get("address").value,
-        "addTag": this.addCustomerForm.get("addTag").value,
-        "image": this.addCustomerForm.get("image").value,
-        "boxoffice_id": this.boxofficeId,
-        
+
+        if(this.customerImageUrl){
+          let requestObject={
+            "firstname": this.addCustomerForm.get("firstname").value,
+            "lastname": this.addCustomerForm.get("lastname").value,
+            "phone": this.addCustomerForm.get("phone").value,
+            "email": this.addCustomerForm.get("email").value,
+            "address": this.addCustomerForm.get("address").value,
+            "addTag": this.addCustomerForm.get("addTag").value,
+            "image": this.customerImageUrl,
+            "boxoffice_id": this.boxofficeId,
+          }
+          this.fnCreateCustomer(requestObject)
+        }else{
+          let requestObject={
+            "firstname": this.addCustomerForm.get("firstname").value,
+            "lastname": this.addCustomerForm.get("lastname").value,
+            "phone": this.addCustomerForm.get("phone").value,
+            "email": this.addCustomerForm.get("email").value,
+            "address": this.addCustomerForm.get("address").value,
+            "addTag": this.addCustomerForm.get("addTag").value,
+            "boxoffice_id": this.boxofficeId,
+          }
+          this.fnCreateCustomer(requestObject)
+        }
       }
-      this.fnCreateCustomer(requestObject)
-      }
- }
-}
+    }
+  }
 
   fnCreateCustomer(requestObject){
     this.isLoaderAdmin = true;
@@ -150,9 +170,9 @@ export class CustomersComponent implements OnInit {
     if(response.data == true){
       this.ErrorService.successMessage(response.response);
       this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
+      this.getAllCustomersDetails();
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
-      this.getAllCustomersDetails();
       }
     });
     this.isLoaderAdmin = false;
@@ -348,6 +368,7 @@ export class DialogImportFileUpload {
   }
 
   fileupload(){
+    alert( this.fileToUpload );
     
     if(this.fileToUpload.type != "application/vnd.ms-excel"){
 
@@ -359,38 +380,49 @@ export class DialogImportFileUpload {
       return;
 
     }
-  //  let requestObject={
-  //    "boxoffice_id":this.boxofficeId,
-  //    "file":this.fileToUpload,
-  //  }
+    
+   let requestObject={
+     "boxoffice_id":this.boxofficeId,
+     "file":this.fileToUpload,
+   }
    
    
-  this.isLoaderAdmin = true;
-  const formData: FormData = new FormData();
-  formData.append('file', this.fileToUpload);
-  formData.append('boxoffice_id',(this.boxofficeId));
+//   this.isLoaderAdmin = true;
+//   const formData: FormData = new FormData();
+//   formData.append('file', this.fileToUpload);
+//   formData.append('boxoffice_id',(this.boxofficeId));
 
-  let headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'admin-id' : this.currentUser.user_id,
-    'api-token' : this.currentUser.token
-});
-  this.http.post(`${environment.apiUrl}/import-customers`,formData ,{headers:headers}).pipe(map((response : any) =>{
-    this.isLoaderAdmin = false;
-    if(response.data  == true){
-      this._snackBar.open("CSV file is uploaded", "X", {
-        duration: 2000,
-        verticalPosition:'top',
-        panelClass :['green-snackbar']
-      });
-      this.dialogRef.close();
-    }
-  }),catchError(this.handleError)).subscribe((res) => {
-    this.isLoaderAdmin = false;
-  });  
+//   let headers = new HttpHeaders({
+//     'Content-Type': 'application/json',
+//     'admin-id' : this.currentUser.user_id,
+//     'api-token' : this.currentUser.token
+// });
+//   this.http.post(`${environment.apiUrl}/import-customers`,formData ,{headers:headers}).pipe(map((response : any) =>{
+//     this.isLoaderAdmin = false;
+//     if(response.data  == true){
+//       this._snackBar.open("CSV file is uploaded", "X", {
+//         duration: 2000,
+//         verticalPosition:'top',
+//         panelClass :['green-snackbar']
+//       });
+//       this.dialogRef.close();
+//     }
+//   }),catchError(this.handleError)).subscribe((res) => {
+//     this.isLoaderAdmin = false;
+//   });  
+  
+this.SuperadminService.fnImportCustomer(requestObject).subscribe((response:any)=>{
+  if(response.data == true){
+    this.importCustomer = response.response
+    this.ErrorService.successMessage(response.response);
+  }else if(response.data == false){
+    this.ErrorService.errorMessage(response.response);
 
-   
   }
+  this.isLoaderAdmin = false;
+});
+
+}
 
 }
 
