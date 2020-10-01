@@ -167,6 +167,13 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.editEventForm.controls['ticket_unavailable'].setValue(this.singleEventDetail.ticket_unavilable)
         this.editEventForm.controls['redirect_url'].setValue(this.singleEventDetail.redirect_url)
         this.editEventForm.controls['access_code'].setValue(this.singleEventDetail.access_code)
+        this.redirectURL= this.singleEventDetail.redirect_confirm_page;
+        this.hideEventSearch= this.singleEventDetail.hide_office_listing;
+        this.customSalesTax= this.singleEventDetail.custom_sales_tax;
+        this.accessCode= this.singleEventDetail.customer_access_code;
+        this.donation= this.singleEventDetail.make_donation;
+        this.shareButtonStatus= this.singleEventDetail.hide_share_button;
+        this.olPlatForm = this.singleEventDetail.online_event;
       }
     });
   }
