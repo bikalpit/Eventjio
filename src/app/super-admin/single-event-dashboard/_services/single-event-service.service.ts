@@ -75,6 +75,14 @@ export class SingleEventServiceService {
           return res;
       }),catchError(this.handleError));
   }
+ 
+  getWaitingList(requestObject){
+    return this.http.post(`${environment.apiUrl}/get-waiting-list`,requestObject,{headers:this.globalHeaders}).pipe(
+    map((res) => {
+        return res;
+    }),catchError(this.handleError));
+}
+
   createBroadcastfrm(requestObject){
     return this.http.post(`${environment.apiUrl}/create-broadcast-api`,requestObject,{headers:this.globalHeaders}).pipe(
     map((res) => {
