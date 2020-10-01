@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { ErrorService } from '../../../_services/error.service'
 import {SingleEventServiceService} from '../_services/single-event-service.service';
-
+import { AuthenticationService } from '../../../_services/authentication.service'
 export interface DialogData {
   animal: string;
   name: string;
@@ -25,28 +25,39 @@ export class BroadcastComponent implements OnInit {
   eventId:any;
   fullDayTimeSlote:any;
   createBroadcastData:any;
+  allWaitingListData:any;
+  BoxofficeId:any;
   sendOptions:any;
+  startDate:any = new Date();
+  getAllBroadcastData:any;
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
     private http: HttpClient,
     private ErrorService:ErrorService,
     private SingleEventServiceService : SingleEventServiceService,
+    private auth : AuthenticationService
     ) { 
+     
+      if(localStorage.getItem('boxoffice_id')){
+        this.BoxofficeId = localStorage.getItem('boxoffice_id');
+      }
       if(localStorage.getItem('selectedEventCode')){
         this.eventId = localStorage.getItem('selectedEventCode');
-      }
-    
+      }      
+     
     this.createBroadcastForm = this._formBuilder.group({
-        recipients:['',[]],
-        subject:['',[]],
-        message:['',[]],
-        send:['',[]],
-        scheduledDate:['',[]],
-        scheduledTime:['',[]],
-        scheduledInterval:['',[]],
-        terms:['',[]]
+        recipients:['',[Validators.required]],
+        subject:['',[Validators.required]],
+        message:['',[Validators.required]],
+        send:['',[Validators.required]],
+        scheduledDate:['',[Validators.required]],
+        scheduledTime:['',[Validators.required]],
+        scheduledInterval:['',[Validators.required]],
+        terms:['',[Validators.required]]
     });
   }
+
+
 
   fnOnSubmitForm(){
     if(this.createBroadcastForm.valid){
@@ -60,9 +71,9 @@ export class BroadcastComponent implements OnInit {
         "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
         "terms" : this.createBroadcastForm.get('terms').value,
         "event_id" : this.eventId, 
+      
       }
-      this.createBroadcastForm.reset();
-      // console.log(this.createBroadcastData)
+      this.sendBroadcast();
     }else{
       this.createBroadcastForm.get('recipients').markAllAsTouched();
       this.createBroadcastForm.get('subject').markAllAsTouched();
@@ -78,7 +89,10 @@ export class BroadcastComponent implements OnInit {
 
   fnSelectionChange(event){
     this.sendOptions = event.value;
-    
+  }
+
+  fnChangeEventStartDate(){
+    this.startDate = this.createBroadcastForm.get('scheduledDate').value;
   }
 
   getTimeSlote(){
@@ -92,13 +106,61 @@ export class BroadcastComponent implements OnInit {
       }
     });
   }
-      
+   
+  getWaitingList(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+       'boxoffice_id' : this.BoxofficeId,
+       'event_id' : this.eventId
+    }
+    this.SingleEventServiceService.getWaitingList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+         this.allWaitingListData = response.response;
+         console.log(this.allWaitingListData)
+
+      } else if(response.data == false){
+
+        this.ErrorService.errorMessage(response.response);
+        this. allWaitingListData = null;
+
+      }
+      this.isLoaderAdmin = false;
+    })
+    
+  }
+
+  getAllBroadcast(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+       'event_id' : this.eventId
+    }
+    this.SingleEventServiceService.getAllBroadcast(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+         this.getAllBroadcastData = response.response;
+         console.log(this.getAllBroadcastData);
+
+      } else if(response.data == false){
+
+        this.ErrorService.errorMessage(response.response);
+        this. getAllBroadcastData = null;
+
+      }
+      this.isLoaderAdmin = false;
+    })
+    
+  }
+
+
+
 
   fnCreateBroadcast(){
     this.createBroadcast = !this.createBroadcast;
+    this.getWaitingList();
   }
   ngOnInit(): void {
     this.getTimeSlote();
+    this.getAllBroadcast();
+    this.getWaitingList();
   }
   
   sendBroadcast() {
