@@ -17,8 +17,8 @@
         </mat-select>
     </div>
     <div class="ml-auto mr-5 mt-2">
-        <div class="preview-btn d-inline-block">
-            <button mat-flat-button (click)="PreviewPage();">Preview Event Page</button>
+        <div class="preview-btn d-inline-block" routerLink="preview-events">
+            <button mat-flat-button>Preview Event Page</button>
         </div>
 
         <div class=" d-inline-block">
@@ -37,7 +37,8 @@
             <div class="ml-4 py-2" (click)="fnPostUrl('event-summary')" [ngClass]="{'active': pageName == 'event-summary'}" routerLink="event-summary">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block py-2 mr-2">
-                        <img src="../../../assets/images/events/graph.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'event-summary' ? 'none' : 'block'}" src="../../../assets/images/events/graph.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'event-summary' ? 'block' : 'none'}" src="../../../assets/images/events/graph_active.png" class="w-100" alt="">
                     </div>
                     <span>Event Summary</span>
                 </div>
@@ -49,7 +50,8 @@
             <div (click)="fnPostUrl('issued-ticket')" [ngClass]="{'active': pageName == 'issued-ticket'}" class="ml-4 py-2" routerLink="issued-ticket">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
+                        <img  [ngStyle]="{'display':pageName === 'issued-ticket' ? 'none' : 'block'}" src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'issued-ticket' ? 'block' : 'none'}" src="../../../assets/images/events/Icon awesome-ticket-alt_active.png" class="w-100" alt="">
                     </div>
                     <span>Issued Tickets (1)</span>
                 </div>
@@ -58,7 +60,8 @@
             <div (click)="fnPostUrl('waitilist-signup')" [ngClass]="{'active': pageName == 'waitilist-signup'}" class="ml-4 py-2" routerLink="waitilist-signup">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/events/waitlist.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'waitilist-signup' ? 'none' : 'block'}" src="../../../assets/images/events/waitlist.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'waitilist-signup' ? 'block' : 'none'}" src="../../../assets/images/events/waitlist_active.png" class="w-100" alt="">
                     </div>
                     <span>Waitlist Signups</span>
                 </div>
@@ -67,7 +70,8 @@
             <div (click)="fnPostUrl('broadcast')" [ngClass]="{'active': pageName == 'broadcast'}" class="ml-4 py-2" routerLink="broadcast">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/events/shout.png" class="w-100" alt="">
+                        <img  [ngStyle]="{'display':pageName === 'broadcast' ? 'none' : 'block'}" src="../../../assets/images/events/shout.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'broadcast' ? 'block' : 'none'}" src="../../../assets/images/events/shout_active.png" class="w-100" alt="">
                     </div>
                     <span>Broadcast</span>
                 </div>
@@ -82,7 +86,8 @@
             <div (click)="fnPostUrl('event-and-ticket-types')" [ngClass]="{'active': pageName == 'event-and-ticket-types'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/event-and-ticket-types">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/events/events-tickes.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'event-and-ticket-types' ? 'none' : 'block'}" src="../../../assets/images/events/events-tickes.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'event-and-ticket-types' ? 'block' : 'none'}" src="../../../assets/images/events/events-tickes_active.png" class="w-100" alt="">
                     </div>
                     <span>Event and ticket types</span>
                 </div>
@@ -91,7 +96,8 @@
             <div (click)="fnPostUrl('order-confirmation')" [ngClass]="{'active': pageName == 'order-confirmation'}" class="ml-4 py-2" routerLink="order-confirmation">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/events/Order-Confirmation.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'order-confirmation' ? 'none' : 'block'}" src="../../../assets/images/events/Order-Confirmation.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'order-confirmation' ? 'block' : 'none'}" src="../../../assets/images/events/Order-Confirmation_active.png" class="w-100" alt="">
                     </div>
                     <span>Order Confirmation</span>
                 </div>
@@ -100,7 +106,8 @@
             <div (click)="fnPostUrl('checkout-form')" [ngClass]="{'active': pageName == 'checkout-form'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/checkout-form">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/events/Checkout-form.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'checkout-form' ? 'none' : 'block'}" src="../../../assets/images/events/Checkout-form.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'checkout-form' ? 'block' : 'none'}" src="../../../assets/images/events/Checkout-form_active.png" class="w-100" alt="">
                     </div>
                     <span>Checkout form</span>
                 </div>
@@ -109,7 +116,8 @@
             <div (click)="fnPostUrl('duplicate'); fnClickOnDuplicate()" [ngClass]="{'active': pageName == 'duplicate'}" class="ml-4 py-2" routerLink="duplicate">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/events/Duplicate.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'duplicate' ? 'none' : 'block'}" src="../../../assets/images/events/Duplicate.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'duplicate' ? 'block' : 'none'}" src="../../../assets/images/events/Duplicate_active.png" class="w-100" alt="">
                     </div>
                     <span>Duplicate</span>
                 </div>
@@ -118,7 +126,8 @@
             <div (click)="fnPostUrl('delete')" [ngClass]="{'active': pageName == 'delete'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/delete">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/events/Icon material-delete.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'delete' ? 'none' : 'block'}" src="../../../assets/images/events/Icon material-delete.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'delete' ? 'block' : 'none'}" src="../../../assets/images/events/Icon material-delete_active.png" class="w-100" alt="">
                     </div>
                     <span>Delete</span>
                 </div>

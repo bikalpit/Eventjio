@@ -187,8 +187,8 @@
 }
 
 .date-and-time {
-    width: 40%;
-    // background-color: red;
+    width: 38%;
+    display: flex;
 }
 
 ::ng-deep .matDate {
@@ -212,6 +212,11 @@
     font-weight: bold;
     .ticket-status {
         color: #007BFF;
+    }
+    .tickets-main-wrap{
+        display: flex;
+    align-items: center;
+    justify-content: space-between;
     }
 }
 
@@ -249,10 +254,17 @@
     }
     .add-ticket-notification {
         background-color: #CEE6FF;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     .fa-bell {
         transform: rotate(-45deg);
         color: #FF6600;
+    }
+    .delete-btn{
+        background-color: #fff;
+        color: #212529;
     }
 }
 

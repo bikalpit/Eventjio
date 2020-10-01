@@ -24,17 +24,7 @@
                 <label for="">What question do you want to ask? <span><i class="fa fa-asterisk"></i></span> </label>
                 <input type="text" class="form-control" id="" placeholder="">
             </div>
-            <div class="form-group col-md-12" *ngIf = "buyerResponse == 'fromCheckbox'">
-              <label for="">Options for answer (Enter one answer per line)</label>
-              <textarea name="" id="" rows="3" class="w-100"></textarea>
-              <label for="">Please enter the options the customer should select from</label>
-            </div>
-            <div class="form-group col-md-12" *ngIf = "buyerResponse == 'fromradiobutton'">
-              <label for="">Options for answer (Enter one answer per line)</label>
-              <textarea name="" id="" rows="3" class="w-100"></textarea>
-              <label for="">Please enter the options the customer should select from</label>
-            </div>
-            <div class="form-group col-md-12" *ngIf = "buyerResponse == 'fromdropdown'">
+            <div class="form-group col-md-12" *ngIf = "buyerResponse == 'fromCheckbox' || buyerResponse == 'fromradiobutton' || buyerResponse == 'fromdropdown'">
               <label for="">Options for answer (Enter one answer per line)</label>
               <textarea name="" id="" rows="3" class="w-100"></textarea>
               <label for="">Please enter the options the customer should select from</label>
