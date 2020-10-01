@@ -27,7 +27,11 @@
 .active {
     color: #007BFF;
 }
-.event-menu{cursor: pointer;}
+.event-menu{cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding-bottom: 2px;
+}
 .fixed-wrap{margin-top: 8.7rem;}
 .side-event{
     width: calc(100% - 300px);
