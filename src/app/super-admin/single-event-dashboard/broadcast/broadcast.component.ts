@@ -60,21 +60,8 @@ export class BroadcastComponent implements OnInit {
 
 
   fnOnSubmitForm(){
-    if(this.createBroadcastForm.valid){
-      this.createBroadcastData = { 
-        "recipients" : this.createBroadcastForm.get('recipients').value,
-        "subject" : this.createBroadcastForm.get('subject').value,
-        "message" : this.createBroadcastForm.get('message').value,
-        "send" : this.createBroadcastForm.get('send').value,
-        "scheduledDate" : this.createBroadcastForm.get('scheduledDate').value,
-        "scheduledTime" : this.createBroadcastForm.get('scheduledTime').value,
-        "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
-        "terms" : this.createBroadcastForm.get('terms').value,
-        "event_id" : this.eventId, 
-      
-      }
-      this.sendBroadcast();
-    }else{
+
+    if(this.createBroadcastForm.invalid){
       this.createBroadcastForm.get('recipients').markAllAsTouched();
       this.createBroadcastForm.get('subject').markAllAsTouched();
       this.createBroadcastForm.get('message').markAllAsTouched();
@@ -83,8 +70,57 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.get('scheduledTime').markAllAsTouched();
       this.createBroadcastForm.get('scheduledInterval').markAllAsTouched();
       this.createBroadcastForm.get('terms').markAllAsTouched();
-
+      return false;
     }
+
+    this.createBroadcastData = { 
+          "recipients" : this.createBroadcastForm.get('recipients').value,
+          "subject" : this.createBroadcastForm.get('subject').value,
+          "message" : this.createBroadcastForm.get('message').value,
+          "send" : this.createBroadcastForm.get('send').value,
+          "scheduledDate" : this.createBroadcastForm.get('scheduledDate').value,
+          "scheduledTime" : this.createBroadcastForm.get('scheduledTime').value,
+          "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
+          "terms" : this.createBroadcastForm.get('terms').value,
+          "event_id" : this.eventId, 
+        
+        }
+
+        const dialogRef = this.dialog.open(mySendBroadcastDialog, {
+          width: '550px',
+          data:{createBroadcastData: this.createBroadcastData}
+          
+        });
+     
+        //  dialogRef.afterClosed().subscribe(result => {
+        //   this.animal = result;
+        //  });
+
+    // if(this.createBroadcastForm.valid){
+    //   this.createBroadcastData = { 
+    //     "recipients" : this.createBroadcastForm.get('recipients').value,
+    //     "subject" : this.createBroadcastForm.get('subject').value,
+    //     "message" : this.createBroadcastForm.get('message').value,
+    //     "send" : this.createBroadcastForm.get('send').value,
+    //     "scheduledDate" : this.createBroadcastForm.get('scheduledDate').value,
+    //     "scheduledTime" : this.createBroadcastForm.get('scheduledTime').value,
+    //     "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
+    //     "terms" : this.createBroadcastForm.get('terms').value,
+    //     "event_id" : this.eventId, 
+      
+    //   }
+    //   this.sendBroadcast();
+    // }else{
+    //   this.createBroadcastForm.get('recipients').markAllAsTouched();
+    //   this.createBroadcastForm.get('subject').markAllAsTouched();
+    //   this.createBroadcastForm.get('message').markAllAsTouched();
+    //   this.createBroadcastForm.get('send').markAllAsTouched();
+    //   this.createBroadcastForm.get('scheduledDate').markAllAsTouched();
+    //   this.createBroadcastForm.get('scheduledTime').markAllAsTouched();
+    //   this.createBroadcastForm.get('scheduledInterval').markAllAsTouched();
+    //   this.createBroadcastForm.get('terms').markAllAsTouched();
+
+    // }
   }
 
   fnSelectionChange(event){
@@ -153,7 +189,7 @@ export class BroadcastComponent implements OnInit {
 
 
 
-  fnCreateBroadcast(){
+fnCreateBroadcast(){
     this.createBroadcast = !this.createBroadcast;
     this.getWaitingList();
   }
@@ -163,18 +199,10 @@ export class BroadcastComponent implements OnInit {
     this.getWaitingList();
   }
   
-  sendBroadcast() {
-    this.fnOnSubmitForm()
-    const dialogRef = this.dialog.open(mySendBroadcastDialog, {
-      width: '550px',
-      data:{createBroadcastData: this.createBroadcastData}
-      
-    });
- 
-     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-     });
+sendBroadcast() {
+    
   }
+
   previewBroadcast() {
     const dialogRef = this.dialog.open(myPreviewBroadcastDialog, {
       width: '550px',
