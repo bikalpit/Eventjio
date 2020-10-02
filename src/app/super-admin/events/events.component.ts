@@ -582,6 +582,7 @@ export class AddNewTicketType {
   soldOut:any = 'N';
   showDes:any = 'N';
   fullDayTimeSlote:any;
+  newTicketData:any;
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
@@ -684,7 +685,7 @@ export class AddNewTicketType {
       return false;
     }
 
-    let requestObject = {
+    this.newTicketData = {
       'box_office_id': this.boxOfficeCode,
       'ticket_name': this.addTicketForm.get('title').value,
       'prize': this.addTicketForm.get('price').value,
@@ -707,26 +708,27 @@ export class AddNewTicketType {
       'untill_interval':  this.addTicketForm.get('until_interval').value,
       'after_interval':  this.addTicketForm.get('after_interval').value,
     }
+    this.dialogRef.close(this.newTicketData);
     
-    this.createNewTicket(requestObject)
+    //this.createNewTicket(requestObject)
     console.log(this.addTicketForm)
   }
 
 
-  createNewTicket(requestObject){
-    this.isLoaderAdmin = true;
-    this.SuperadminService.createNewTicket(requestObject).subscribe((response:any) => {
-      if(response.data == true){
+  // createNewTicket(requestObject){
+  //   this.isLoaderAdmin = true;
+  //   this.SuperadminService.createNewTicket(requestObject).subscribe((response:any) => {
+  //     if(response.data == true){
 
-        this.ErrorService.successMessage('Ticket created succesfully.');
-        this.dialogRef.close(response.response);
-      }
-      else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
-      }
-      this.isLoaderAdmin = false;
-    })
-  }
+  //       this.ErrorService.successMessage('Ticket created succesfully.');
+  //       this.dialogRef.close(response.response);
+  //     }
+  //     else if(response.data == false){
+  //       this.ErrorService.errorMessage(response.response);
+  //     }
+  //     this.isLoaderAdmin = false;
+  //   })
+  // }
  
 }
 
