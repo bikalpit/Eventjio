@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { SingleEventServiceService } from '../_services/single-event-service.service';
 import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
@@ -35,6 +35,13 @@ export class EventAndTicketTypesComponent implements OnInit {
   donation:any = 'N';
   shareButtonStatus: any = 'N';
   olPlatForm : any = 'N';
+  eventStartTime:any;
+  minEventStartDate:any = new Date();
+  minEventEndDate:any = new Date();
+  startEndSameDate:boolean = false;
+  eventTicketAlertMSG :boolean = true;
+  eventTicketList= [];
+  newEventImageUrl :any;
 
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
@@ -185,6 +192,34 @@ export class EventAndTicketTypesComponent implements OnInit {
   fnSelectDefaultImage(imageName){
     this.selecetdDefaultImage = imageName;
   }
+
+  
+
+  // add Event Fns
+  
+  fnChangeEventStartDate(){
+    this.minEventEndDate = this.editEventForm.get('event_start_date').value;
+    this.editEventForm.get('event_end_date').setValue('');
+    this.editEventForm.get('event_end_time').setValue('');
+  }
+  
+  fnChangeEventEndDate(){
+    // let startDate = this.addEventForm.get('event_start_date').value;
+    // let endDate = this.addEventForm.get('event_end_date').value;
+    // if(startDate == endDate){
+    //   this.startEndSameDate = true;
+    // }else{
+    //   this.startEndSameDate = false;
+    // }
+    // this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+    // this.addEventForm.get('event_end_date').setValue('');
+    // this.addEventForm.get('event_end_time').setValue('');
+  }
+
+  fnChangeStartTime(event){
+   // this.eventStartTime = this.addEventForm.get('event_start_time').value;
+  }
+
   
   fnChangeDonation(event){
     if(event.checked == true){
@@ -283,5 +318,69 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.editEventForm.updateValueAndValidity();
   }
   
+
+  fnUploadEventImage(){
+    const dialogRef = this.dialog.open(DialogEditEventImageUpload, {
+      width: '500px',
+      
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+            this.newEventImageUrl = result;
+            console.log(result);
+           }
+     });
+  }
+
+}
+
+
+
+@Component({
+  selector: 'profile-image-upload',
+  templateUrl: '../_dialogs/image-upload.html',
+})
+export class DialogEditEventImageUpload {
+
+  uploadForm: FormGroup;  
+  imageSrc: string;
+  profileImage: string;
+  
+constructor(
+  public dialogRef: MatDialogRef<DialogEditEventImageUpload>,
+  private _formBuilder:FormBuilder,
+  @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onNoClick(): void {
+      this.dialogRef.close(this.profileImage);
+    }
+    ngOnInit() {
+      this.uploadForm = this._formBuilder.group({
+        profile: ['']
+      });
+    }
+    get f() {
+      return this.uploadForm.controls;
+    }
+    
+onFileChange(event) {
+  const reader = new FileReader();
+  if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result as string;
+          this.uploadForm.patchValue({
+              fileSource: reader.result
+          });
+      };
+  }
+}
+uploadImage() {
+  this.profileImage = this.imageSrc
+  this.dialogRef.close(this.profileImage);
+}
+
 
 }

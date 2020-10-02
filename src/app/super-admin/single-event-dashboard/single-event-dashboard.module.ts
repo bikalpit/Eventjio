@@ -21,7 +21,7 @@ import { ExportDoorListComponent } from './issued-ticket/issued-ticket.component
 import { IssuedTicketViewComponent } from './issued-ticket/issued-ticket.component';
 import { OrderViewComponent } from './issued-ticket/issued-ticket.component';
 import { VoidOrderViewComponent } from './issued-ticket/issued-ticket.component';
-
+import { DialogEditEventImageUpload } from './event-and-ticket-types/event-and-ticket-types.component'
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 import { mySendBroadcastDialog, myPreviewBroadcastDialog } from './broadcast/broadcast.component';
@@ -53,7 +53,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ExportDoorListComponent,
     OrderViewComponent,
     VoidOrderViewComponent,
-    myPreviewBroadcastDialog
+    myPreviewBroadcastDialog,
+    DialogEditEventImageUpload
   ],
     
     imports: [
@@ -80,7 +81,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       ExportDoorListComponent,
       IssuedTicketViewComponent,
       OrderViewComponent,
-      VoidOrderViewComponent
+      VoidOrderViewComponent,
+      DialogEditEventImageUpload
     ],
   
   
