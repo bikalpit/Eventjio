@@ -75,6 +75,13 @@ export class SingleEventServiceService {
           return res;
       }),catchError(this.handleError));
   }
+
+  getAllBroadcast(requestObject){
+    return this.http.post(`${environment.apiUrl}/get-all-broadcast-api`,requestObject,{headers:this.globalHeaders}).pipe(
+    map((res) => {
+        return res;
+    }),catchError(this.handleError));
+}
  
   getWaitingList(requestObject){
     return this.http.post(`${environment.apiUrl}/get-waiting-list`,requestObject,{headers:this.globalHeaders}).pipe(
