@@ -25,7 +25,10 @@
                  <h3> Reciepients: </h3>
              </div>
              <div class="col-md-12 col-lg-8 col-sm-12 col-12 float-left">
-               <p> {{createBroadcastData.createBroadcastData.recipients}} </p>
+               <p *ngIf="createBroadcastData.createBroadcastData.recipients == 'BUY'"> All ticket buyers </p>
+               <p *ngIf="createBroadcastData.createBroadcastData.recipients == 'ALL'"> All waitlist signups </p>
+               <p *ngIf="createBroadcastData.createBroadcastData.recipients == 'NEW'"> New waitlist signups </p>
+               <p *ngIf="createBroadcastData.createBroadcastData.recipients == 'NOTIFY'"> Notified waitlist signups </p>
              </div>
            </div>
            <div class="col-md-12 col-lg-12 col-sm-12 col-12 common-preview">
@@ -45,7 +48,7 @@
        </div>
        <div class="botttom-buttons send-broadcast-wrap">
          <button mat-flat-button class="save-draf-btn mr-2" color="primary"> Cancel </button>
-         <button mat-flat-button  color="primary"> Send Broadcast </button>
+         <button mat-flat-button  color="primary" (click)="createBroadcastfrm(createBroadcastData)"> Send Broadcast </button>
       </div>
    
      </div>
