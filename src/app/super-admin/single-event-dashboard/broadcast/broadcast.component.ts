@@ -86,15 +86,7 @@ export class BroadcastComponent implements OnInit {
         
         }
 
-        const dialogRef = this.dialog.open(mySendBroadcastDialog, {
-          width: '550px',
-          data:{createBroadcastData: this.createBroadcastData}
-          
-        });
-     
-        //  dialogRef.afterClosed().subscribe(result => {
-        //   this.animal = result;
-        //  });
+        
 
     // if(this.createBroadcastForm.valid){
     //   this.createBroadcastData = { 
@@ -200,7 +192,15 @@ fnCreateBroadcast(){
   }
   
 sendBroadcast() {
+  const dialogRef = this.dialog.open(mySendBroadcastDialog, {
+    width: '550px',
+    data:{createBroadcastData: this.createBroadcastData}
     
+  });
+
+   dialogRef.afterClosed().subscribe(result => {
+    this.animal = result;
+   });
   }
 
   previewBroadcast() {
