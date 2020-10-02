@@ -3,13 +3,19 @@
     font-family: Poppins, Regular;
 }
 
-.title-btn-content {
+.top-fixed-customer {
+    width: calc(100% - 80px);
     background-color: #FFE2B7;
+    /* display: flex; */
+    position: fixed;
+    z-index: 9999;
+    top: 60px;
     .add-customer {
         background-color: #007BFF;
         border-radius: 30px;
     }
 }
+
 
 .page-title {
     font-size: 16px;
@@ -158,20 +164,21 @@ table {
 }
 
 .single-customer-detail {
-    height: calc(100vh - 140px);
-    overflow: auto;
-    overflow-x: hidden;
     padding: 5px 30px;
 }
 
 .customer-detail-container {
-    width: calc(100% - 315px);
+    width: calc(100% - 300px);
+    margin-left: 300px;
 }
 
 .customer-list-container {
-    width: 315px;
-    height: calc(100vh - 130px);
+    height: calc(100vh - 70px);
     overflow-y: auto;
+    width: 300px;
+    position: fixed;
+    z-index: 9;
+    top: 126px;
 }
 
 .Details {

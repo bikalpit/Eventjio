@@ -18,12 +18,12 @@
         .second {
             justify-content: flex-end;
             display: flex;
-            a {
+            button {
                 background-color: #f87912;
-                padding: 7px 20px;
                 font-size: 12px;
-                color: #fff;
+                color: #fff !important;
                 border-radius: 25px;
+                text-decoration: none;
                 i {
                     margin-right: 10px;
                 }
