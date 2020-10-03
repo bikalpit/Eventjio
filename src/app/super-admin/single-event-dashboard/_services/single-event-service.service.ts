@@ -97,13 +97,6 @@ export class SingleEventServiceService {
     }),catchError(this.handleError));
   }
 
-  getSingleBroadcast(requestObject){
-    return this.http.post(`${environment.apiUrl}/get-single-broadcast-api`,requestObject,{headers:this.globalHeaders}).pipe(
-    map((res) => {
-        return res;
-    }),catchError(this.handleError));
-  }
-
   updateEventStatus(requestObject){
     return this.http.post(`${environment.apiUrl}/update-event-status`,requestObject,{headers:this.globalHeaders}).pipe(
     map((res) => {
