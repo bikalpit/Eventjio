@@ -49,11 +49,6 @@ export class BroadcastComponent implements OnInit {
       if(localStorage.getItem('selectedEventCode')){
         this.eventId = localStorage.getItem('selectedEventCode');
       }  
-      if(localStorage.getItem('unique_code')){
-        this.unique_id = localStorage.getItem('unique_code');
-      }    
-
-      alert(this.unique_id);
      
     this.createBroadcastForm = this._formBuilder.group({
         recipients:['',[Validators.required]],
@@ -93,10 +88,12 @@ export class BroadcastComponent implements OnInit {
         "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
         "terms" : this.createBroadcastForm.get('terms').value,
         "event_id" : this.eventId, 
+        "unique_code" : this.unique_id
       }
       this.sendBroadcast();
       this.createBroadcastForm.reset();
     }
+   
 
     // console.log(this.createBroadcastData)
   }
@@ -157,7 +154,8 @@ export class BroadcastComponent implements OnInit {
   getAllBroadcast(){
     this.isLoaderAdmin = true;
     let requestObject = {
-       'event_id' : this.eventId
+       'event_id' : this.eventId,
+       'unique_code' : this.unique_id
     }
     this.SingleEventServiceService.getAllBroadcast(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -168,25 +166,27 @@ export class BroadcastComponent implements OnInit {
         this. getAllBroadcastData = null;
       }
       this.isLoaderAdmin = false;
-    })   
+    })
   }
 
-  getSingleBroadcast(){
-    this.isLoaderAdmin = true;
-    let requestObject = {
-       'event_id' : this.eventId
-    }
-    this.SingleEventServiceService.getSingleBroadcast(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-         this.getAllBroadcastData = response.response;
-         console.log(this.getAllBroadcastData);
-      } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
-        this. getAllBroadcastData = null;
-      }
-      this.isLoaderAdmin = false;
-    })   
-  }
+  // getSingleBroadcast(){
+  //   this.isLoaderAdmin = true;
+  //   let requestObject = {
+  //      'event_id' : this.eventId,
+  //      'unique_code' : this.unique_id
+  //   }
+  //   this.SingleEventServiceService.getSingleBroadcast(requestObject).subscribe((response:any) => {
+  //     if(response.data == true){
+  //        this.getAllBroadcastData = response.response;
+  //        console.log(this.getAllBroadcastData);
+  //     } else if(response.data == false){
+  //       this.ErrorService.errorMessage(response.response);
+  //       this. getAllBroadcastData = null;
+  //     }
+  //     this.isLoaderAdmin = false;
+  //   }) 
+    
+  // }
 
 
 fnCreateBroadcast(){
@@ -198,15 +198,15 @@ fnCreateBroadcast(){
     this.getTimeSlote();
     this.getAllBroadcast();
     this.getWaitingList();
-    this.getSingleBroadcast();
+    // this.getSingleBroadcast();
   }
   
 sendBroadcast() {
   const dialogRef = this.dialog.open(mySendBroadcastDialog, {
     width: '550px',
     data:{createBroadcastData : this.createBroadcastData}
+    
   });
-
    dialogRef.afterClosed().subscribe(result => {
     this.animal = result;
    });
