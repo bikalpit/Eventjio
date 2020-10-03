@@ -107,17 +107,12 @@
                                         <button mat-flat-button class="border m-1">Completed Events</button>
                                         <button mat-flat-button class="border ml-1">Upcoming Events</button>
                                     </div>
-                                    <div class="">
+                                    <div class="" >
                                         <table class="table">
-                                            <tr>
-                                                <td>Lajavab Cooking Classes</td>
-                                                <td>Mon Sep 01 2020</td>
+                                            <tr *ngFor="let element of allUpcomingEventListData">
+                                                <td>{{element.event_title}} </td>
+                                                <td>{{element.start_date}}</td>
                                                 <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dracula Drinks</td>
-                                                <td>Mon Aug 20 2020</td>
-                                                <td><span class="px-3 py-1 text-white  completed-event">Completed</span></td>
                                             </tr>
                                         </table>
                                     </div>
