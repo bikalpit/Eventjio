@@ -32,22 +32,22 @@
                         </div>
 
                         <form [formGroup]="duplicateForm" class="with-validation">
-                        <div class="content" class="drageble-list" formArrayName="items" *ngFor="let item of duplicateForm.get('items').controls; let i = index;">
-                         <div class="drageble-box main-drageble"  fxLayout="row" [formGroupName]="i">
+                        <div class="content" class="drageble-list" *ngFor="let duplicate of duplicateArray, let i = index">
+                         <div class="drageble-box main-drageble"  fxLayout="row">
                              <div class="tb-data heading-table clr-black" fxFlex="20"> New </div>
 
-                             <div class="tb-data heading-table form-group" fxFlex="20">
-                                 <input class="form-control" formControlName="event_title" placeholder="Interior Expo">
-                                  <!-- <span class="error-wrap" *ngIf="duplicateForm.get('event_title').dirty || duplicateForm.get('event_title').touched"><small *ngIf="duplicateForm.get('event_title').hasError('required')" class="error text-left">Event Name is required.</small></span> -->
-                             </div>
-                            
+                                 <div class="tb-data heading-table form-group" fxFlex="20">
+                                    <input class="form-control" formControlName="event_title" placeholder="Interior Expo">
+                                    <span class="error-wrap" *ngIf="duplicateForm.get('event_title').dirty || duplicateForm.get('event_title').touched"><small *ngIf="duplicateForm.get('event_title').hasError('required')" class="error text-left">Event Name is required.</small></span>
+                                 </div>
+                                
                             
                              <div class="tb-data heading-table text-purple" fxFlex="20">
                                 <div class="matDate">                    
                                     <mat-datepicker-toggle matPrefix [for]="duplicateStartDatePicker" class="dateIcon"> </mat-datepicker-toggle>
                                     <input type="text"  (dateChange)="fnChangeValideFrom()" matInput [matDatepicker]="duplicateStartDatePicker"  [min]="minDate" (click)="duplicateStartDatePicker.open()"  class="form-control matInputdate" formControlName="start_date">    
                                     <mat-datepicker #duplicateStartDatePicker></mat-datepicker>
-                                    <!-- <span class="error-wrap" *ngIf="duplicateForm.get('start_date').dirty || duplicateForm.get('start_date').touched"><small *ngIf="duplicateForm.get('start_date').hasError('required')" class="error text-left">Start Date is required.</small></span>            -->
+                                    <span class="error-wrap" *ngIf="duplicateForm.get('start_date').dirty || duplicateForm.get('start_date').touched"><small *ngIf="duplicateForm.get('start_date').hasError('required')" class="error text-left">Start Date is required.</small></span>           
                                 </div>
                              </div>
                              
@@ -56,7 +56,7 @@
                                     <mat-datepicker-toggle matPrefix [for]="duplicateEndDatePicker" class="dateIcon"> </mat-datepicker-toggle>
                                     <input type="text" matInput [matDatepicker]="duplicateEndDatePicker"  [min]="minTillDate"  (click)="duplicateEndDatePicker.open()"  class="form-control matInputdate" formControlName="end_date">               
                                     <mat-datepicker #duplicateEndDatePicker></mat-datepicker>
-                                    <!-- <span class="error-wrap" *ngIf="duplicateForm.get('end_date').dirty || duplicateForm.get('end_date').touched"><small *ngIf="duplicateForm.get('end_date').hasError('required')" class="error text-left">End Date is required.</small></span>  -->
+                                    <span class="error-wrap" *ngIf="duplicateForm.get('end_date').dirty || duplicateForm.get('end_date').touched"><small *ngIf="duplicateForm.get('end_date').hasError('required')" class="error text-left">End Date is required.</small></span> 
                                 </div>
                              </div>
                            
@@ -65,10 +65,10 @@
                                      <mat-option value="draft">Draft</mat-option>
                                      <mat-option value="publish">Published</mat-option>                                    
                                 </mat-select>
-                                <!-- <span class="error-wrap" *ngIf="duplicateForm.get('event_status').dirty || duplicateForm.get('event_status').touched"><small *ngIf="duplicateForm.get('event_status').hasError('required')" class="error text-left">Status is required.</small></span>  -->
-                              <div class="delete-duplicate"> 
-                                <i class="fa fa-times-circle" (click)="fnRemoveDuplicate(i)"></i>
-                              </div>
+                                <span class="error-wrap" *ngIf="duplicateForm.get('event_status').dirty || duplicateForm.get('event_status').touched"><small *ngIf="duplicateForm.get('event_status').hasError('required')" class="error text-left">Status is required.</small></span> 
+                                <div class="delete-duplicate"> 
+                                    <i class="fa fa-times-circle" (click)="fnRemoveDuplicate(i)"></i>
+                                </div>
                             </div>
                          </div>
                      </div>
