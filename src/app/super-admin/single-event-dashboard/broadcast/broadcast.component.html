@@ -29,7 +29,7 @@
                             </div>
                             <div class="content" class="drageble-list" *ngFor="let getAllBroadcastData of getAllBroadcastData; let i=index">
                                 <div class="drageble-box" fxLayout="row">
-                                    <div class="tb-data heading-table" (click)="sendBroadcast()" fxFlex="25"> <a> {{getAllBroadcastData.subject}} </a> </div>
+                                    <div class="tb-data heading-table" (click)="previewBroadcast(i)" fxFlex="25"> <a> {{getAllBroadcastData.subject}} </a> </div>
                                     <div class="tb-data heading-table" fxFlex="25"> {{getAllBroadcastData.recipients}} </div>
                                     <div class="tb-data heading-table text-green" fxFlex="25">{{getAllBroadcastData.status}}</div>
                                     <div class="tb-data heading-table" fxFlex="25">{{getAllBroadcastData.created_at}}</div>
@@ -155,9 +155,8 @@
                         <div class="terms-privicy-main">
                             <mat-checkbox class="example-margin" formControlName="terms">I have read and agree to the following terms:</mat-checkbox>
                             <p> <span class="clr-black"> (1)</span> This email is not a marketing communication.<span class="clr-black"> (2) </span> This is an essential service email relating to the event my ticket buyers have purchased tickets for.
-                                <span
-                                    class="clr-black"> (3) </span> Replies to this email will go to 'iitstudent2018@gmail.com' I am aware this email address will be visible to the recipients of the email. <span class="clr-black"> (4) </span> The email address 'iitstudent2018@gmail.com'
-                                    is a valid email address that can receive emails and is in my control.<span class="clr-black">(5) </span> I will handle any responses and/or complaints in relation to this email. </p>
+                                <span class="clr-black"> (3) </span> Replies to this email will go to 'iitstudent2018@gmail.com' I am aware this email address will be visible to the recipients of the email. <span class="clr-black"> (4) </span> The email
+                                address 'iitstudent2018@gmail.com' is a valid email address that can receive emails and is in my control.<span class="clr-black">(5) </span> I will handle any responses and/or complaints in relation to this email. </p>
                         </div>
                         <span class="error-wrap" *ngIf="createBroadcastForm.get('terms').touched || createBroadcastForm.get('terms').dirty">
                             <small *ngIf="createBroadcastForm.get('terms').hasError('required')" class="error">T & C is required.</small>

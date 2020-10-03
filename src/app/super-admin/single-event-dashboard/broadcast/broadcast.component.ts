@@ -90,7 +90,7 @@ export class BroadcastComponent implements OnInit {
         "event_id" : this.eventId, 
         "unique_code" : this.unique_id
       }
-      this.sendBroadcast();
+      this.sendBroadcast(this.createBroadcastData);
       this.createBroadcastForm.reset();
     }
    
@@ -200,11 +200,15 @@ fnCreateBroadcast(){
     this.getWaitingList();
     // this.getSingleBroadcast();
   }
+
+  previewBroadcast(index){
+    this.sendBroadcast(this.getAllBroadcastData[index]);
+  }
   
-sendBroadcast() {
+sendBroadcast(broadcastData) {
   const dialogRef = this.dialog.open(mySendBroadcastDialog, {
     width: '550px',
-    data:{createBroadcastData : this.createBroadcastData}
+    data:{createBroadcastData : broadcastData}
     
   });
    dialogRef.afterClosed().subscribe(result => {
