@@ -63,9 +63,12 @@ export class WaitilistSignupComponent implements OnInit {
 
   fnSavewaitlist(){
     if(this.waitListForm.invalid){
-      alert(1);
+     this.waitListForm.get('join_list').markAllAsTouched();
+     this.waitListForm.get('notified_waitlist').markAllAsTouched();
+     this.waitListForm.get('confirmation_msg').markAllAsTouched();
+     return false;
     }
-     alert(2);
+    
      this.waitinglistObject = {
       "active_watlist":this.checkActiveWaitlist,
       "show_ticket":this.showTicket,
@@ -76,8 +79,7 @@ export class WaitilistSignupComponent implements OnInit {
 
     let requestObject ={
       "boxoffice_id": this.boxofficeId,
-      "event_id": this.eventId,
-      "option_key":'waiting_list',
+      "option_key":'waitListForm',
       "option_value":this.waitinglistObject,
       "json_type":"Y",
   }
