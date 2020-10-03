@@ -29,10 +29,10 @@
                             </div>
                             <div class="content" class="drageble-list" *ngFor="let getAllBroadcastData of getAllBroadcastData; let i=index">
                                 <div class="drageble-box" fxLayout="row">
-                                    <div class="tb-data heading-table" (click)="previewBroadcast()" fxFlex="25"> <a> {{getAllBroadcastData.subject}} </a> </div>
+                                    <div class="tb-data heading-table" (click)="sendBroadcast()" fxFlex="25"> <a> {{getAllBroadcastData.subject}} </a> </div>
                                     <div class="tb-data heading-table" fxFlex="25"> {{getAllBroadcastData.recipients}} </div>
                                     <div class="tb-data heading-table text-green" fxFlex="25">{{getAllBroadcastData.status}}</div>
-                                    <div class="tb-data heading-table" fxFlex="25">{{getAllBroadcastData.updated_at}}</div>
+                                    <div class="tb-data heading-table" fxFlex="25">{{getAllBroadcastData.created_at}}</div>
                                 </div>
                             </div>
                         </div>

@@ -33,6 +33,7 @@ export class BroadcastComponent implements OnInit {
   startDate:any = new Date();
   getAllBroadcastData:any;
   scheduledDate:any;
+  unique_id:any;
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
     private http: HttpClient,
@@ -47,7 +48,12 @@ export class BroadcastComponent implements OnInit {
       }
       if(localStorage.getItem('selectedEventCode')){
         this.eventId = localStorage.getItem('selectedEventCode');
-      }      
+      }  
+      if(localStorage.getItem('unique_code')){
+        this.unique_id = localStorage.getItem('unique_code');
+      }    
+
+      alert(this.unique_id);
      
     this.createBroadcastForm = this._formBuilder.group({
         recipients:['',[Validators.required]],
@@ -165,6 +171,24 @@ export class BroadcastComponent implements OnInit {
     })   
   }
 
+  getSingleBroadcast(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+       'event_id' : this.eventId
+    }
+    this.SingleEventServiceService.getSingleBroadcast(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+         this.getAllBroadcastData = response.response;
+         console.log(this.getAllBroadcastData);
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+        this. getAllBroadcastData = null;
+      }
+      this.isLoaderAdmin = false;
+    })   
+  }
+
+
 fnCreateBroadcast(){
     this.createBroadcast = !this.createBroadcast;
     this.getWaitingList();
@@ -174,6 +198,7 @@ fnCreateBroadcast(){
     this.getTimeSlote();
     this.getAllBroadcast();
     this.getWaitingList();
+    this.getSingleBroadcast();
   }
   
 sendBroadcast() {
@@ -187,15 +212,15 @@ sendBroadcast() {
    });
 }
 
-previewBroadcast() {
-    const dialogRef = this.dialog.open(myPreviewBroadcastDialog, {
-      width: '550px',
-    });
+// previewBroadcast() {
+//     const dialogRef = this.dialog.open(myPreviewBroadcastDialog, {
+//       width: '550px',
+//     });
  
-     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-     });
-  }
+//      dialogRef.afterClosed().subscribe(result => {
+//       this.animal = result;
+//      });
+//   }
 }
 
 // --------------------------------------- Send-Broadcast -------------------------------------------
@@ -247,22 +272,22 @@ export class mySendBroadcastDialog{
 
 // --------------------------------------- Preview-Broadcast -------------------------------------------
 
-@Component({
-  selector: 'Preview-Broadcast',
-  templateUrl: '../_dialogs/Preview-broadcast.html',
-})
+// @Component({
+//   selector: 'Preview-Broadcast',
+//   templateUrl: '../_dialogs/Preview-broadcast.html',
+// })
 
-export class myPreviewBroadcastDialog{ 
-  createBroadcastData:any[] = [] ;
-  constructor(
-    public dialogRef: MatDialogRef<myPreviewBroadcastDialog>,
-    private http: HttpClient,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
+// export class myPreviewBroadcastDialog{ 
+//   createBroadcastData:any[] = [] ;
+//   constructor(
+//     public dialogRef: MatDialogRef<myPreviewBroadcastDialog>,
+//     private http: HttpClient,
+//     @Inject(MAT_DIALOG_DATA) public data: any) {
+//     }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
 
-  ngOnInit() { }
-}
+//   ngOnInit() { }
+// }

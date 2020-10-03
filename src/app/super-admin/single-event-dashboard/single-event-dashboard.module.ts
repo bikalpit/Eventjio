@@ -25,7 +25,7 @@ import { DialogEditEventImageUpload } from './event-and-ticket-types/event-and-t
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 // import { mySendBroadcastDialog, myPreviewBroadcastDialog } from './broadcast/broadcast.component';
-import { mySendBroadcastDialog,  } from './broadcast/broadcast.component';
+import { mySendBroadcastDialog, } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { NgxBarcodeModule } from 'ngx-barcode';
@@ -73,8 +73,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       ReactiveFormsModule
     ],
 
-    entryComponents: [mySendBroadcastDialog,
-      //myPreviewBroadcastDialog,
+    entryComponents: [
+      mySendBroadcastDialog,
+      // myPreviewBroadcastDialog,
       addBuyeronlyQuestionDialog,
       addAttendeeonlyQuestionDialog,
       editBuyerNameDialog,
