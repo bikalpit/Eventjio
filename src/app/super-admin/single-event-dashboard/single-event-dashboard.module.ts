@@ -74,7 +74,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ],
 
     entryComponents: [mySendBroadcastDialog,
-      myPreviewBroadcastDialog,
+      //myPreviewBroadcastDialog,
       addBuyeronlyQuestionDialog,
       addAttendeeonlyQuestionDialog,
       editBuyerNameDialog,

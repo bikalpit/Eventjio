@@ -51,12 +51,12 @@
                                 </div>
                                 <div class="col-md-5 form-group px-0">
                                     <label class="ml-2" for="">Ends Time <span><i class="fa fa-asterisk"></i></span> </label>
-                                    <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                    <mat-select formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
                                         <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                     </mat-select>
-                                    <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                    <!-- <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
                                         <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00">{{fullDayTimeSlote}}</mat-option>
-                                    </mat-select>
+                                    </mat-select> -->
                                     <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_end_time').touched || editEventForm.get('event_end_time').dirty">
                                         <small *ngIf="editEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
                                     </span>
