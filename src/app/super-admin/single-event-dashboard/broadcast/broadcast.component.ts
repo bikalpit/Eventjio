@@ -94,8 +94,6 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.reset();
     }
    
-
-    // console.log(this.createBroadcastData)
   }
 
   fnSelectionChange(event){
@@ -160,7 +158,7 @@ export class BroadcastComponent implements OnInit {
     this.SingleEventServiceService.getAllBroadcast(requestObject).subscribe((response:any) => {
       if(response.data == true){
          this.getAllBroadcastData = response.response;
-         console.log(this.getAllBroadcastData);
+        //  console.log(this.getAllBroadcastData);
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
         this. getAllBroadcastData = null;
@@ -169,24 +167,7 @@ export class BroadcastComponent implements OnInit {
     })
   }
 
-  // getSingleBroadcast(){
-  //   this.isLoaderAdmin = true;
-  //   let requestObject = {
-  //      'event_id' : this.eventId,
-  //      'unique_code' : this.unique_id
-  //   }
-  //   this.SingleEventServiceService.getSingleBroadcast(requestObject).subscribe((response:any) => {
-  //     if(response.data == true){
-  //        this.getAllBroadcastData = response.response;
-  //        console.log(this.getAllBroadcastData);
-  //     } else if(response.data == false){
-  //       this.ErrorService.errorMessage(response.response);
-  //       this. getAllBroadcastData = null;
-  //     }
-  //     this.isLoaderAdmin = false;
-  //   }) 
-    
-  // }
+  
 
 
 fnCreateBroadcast(){
@@ -198,12 +179,13 @@ fnCreateBroadcast(){
     this.getTimeSlote();
     this.getAllBroadcast();
     this.getWaitingList();
-    // this.getSingleBroadcast();
   }
 
-  previewBroadcast(index){
+  previewBroadcast(index){    
     this.sendBroadcast(this.getAllBroadcastData[index]);
   }
+
+  
   
 sendBroadcast(broadcastData) {
   const dialogRef = this.dialog.open(mySendBroadcastDialog, {
@@ -216,15 +198,7 @@ sendBroadcast(broadcastData) {
    });
 }
 
-// previewBroadcast() {
-//     const dialogRef = this.dialog.open(myPreviewBroadcastDialog, {
-//       width: '550px',
-//     });
- 
-//      dialogRef.afterClosed().subscribe(result => {
-//       this.animal = result;
-//      });
-//   }
+
 }
 
 // --------------------------------------- Send-Broadcast -------------------------------------------
@@ -236,6 +210,7 @@ sendBroadcast(broadcastData) {
 export class mySendBroadcastDialog{ 
   createBroadcastData:any;
   isLoaderAdmin:any;
+  buttonHide:any = false;
   constructor(
     public dialogRef: MatDialogRef<mySendBroadcastDialog>,
     private http: HttpClient,
@@ -243,7 +218,6 @@ export class mySendBroadcastDialog{
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.createBroadcastData = this.data;
-      console.log(this.createBroadcastData)
     }
 
     createBroadcastfrm(createBroadcastData){
@@ -251,18 +225,14 @@ export class mySendBroadcastDialog{
       this.SingleEventServiceService.createBroadcastfrm(createBroadcastData.createBroadcastData).subscribe((response:any) => {
         if(response.data == true){
          this.ErrorService.successMessage(response.response);
-          // this.createVoucherForm.reset();
-          this.dialogRef.close();
+         this.dialogRef.close();
         }
         else if(response.data == false){
          this.ErrorService.errorMessage(response.response);
         }
         this.isLoaderAdmin = false;
-        // this.createVoucherForm.reset();
       })
     }
-
-
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -271,27 +241,9 @@ export class mySendBroadcastDialog{
 
 
 
-  ngOnInit() { }
+  ngOnInit() { 
+   
+  }
   }
 
-// --------------------------------------- Preview-Broadcast -------------------------------------------
 
-// @Component({
-//   selector: 'Preview-Broadcast',
-//   templateUrl: '../_dialogs/Preview-broadcast.html',
-// })
-
-// export class myPreviewBroadcastDialog{ 
-//   createBroadcastData:any[] = [] ;
-//   constructor(
-//     public dialogRef: MatDialogRef<myPreviewBroadcastDialog>,
-//     private http: HttpClient,
-//     @Inject(MAT_DIALOG_DATA) public data: any) {
-//     }
-
-//   onNoClick(): void {
-//     this.dialogRef.close();
-//   }
-
-//   ngOnInit() { }
-// }
