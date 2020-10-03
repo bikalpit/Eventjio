@@ -38,7 +38,6 @@ export class DuplicateComponent implements OnInit {
     this.duplicateForm = this.formBuilder.group({
       items: this.formBuilder.array([this.createItem()])
     });
-
   }
   
   fnAddDuplicate(){

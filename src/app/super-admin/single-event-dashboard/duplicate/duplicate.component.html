@@ -32,7 +32,7 @@
                         </div>
 
                         <form [formGroup]="duplicateForm" class="with-validation">
-                        <div class="content" class="drageble-list" formArrayName="items" *ngFor="let item of duplicateForm.get('items')['controls']; let i = index;">
+                        <div class="content" class="drageble-list" formArrayName="items" *ngFor="let item of duplicateForm.get('items').controls; let i = index;">
                          <div class="drageble-box main-drageble"  fxLayout="row" [formGroupName]="i">
                              <div class="tb-data heading-table clr-black" fxFlex="20"> New </div>
 
@@ -42,7 +42,7 @@
                              </div>
                             
                             
-                             <div class="tb-data heading-table text-purple form-group" fxFlex="20">
+                             <div class="tb-data heading-table text-purple" fxFlex="20">
                                 <div class="matDate">                    
                                     <mat-datepicker-toggle matPrefix [for]="duplicateStartDatePicker" class="dateIcon"> </mat-datepicker-toggle>
                                     <input type="text"  (dateChange)="fnChangeValideFrom()" matInput [matDatepicker]="duplicateStartDatePicker"  [min]="minDate" (click)="duplicateStartDatePicker.open()"  class="form-control matInputdate" formControlName="start_date">    
@@ -51,7 +51,7 @@
                                 </div>
                              </div>
                              
-                             <div class="tb-data heading-table form-group" fxFlex="20">
+                             <div class="tb-data heading-table" fxFlex="20">
                                 <div class="matDate">                    
                                     <mat-datepicker-toggle matPrefix [for]="duplicateEndDatePicker" class="dateIcon"> </mat-datepicker-toggle>
                                     <input type="text" matInput [matDatepicker]="duplicateEndDatePicker"  [min]="minTillDate"  (click)="duplicateEndDatePicker.open()"  class="form-control matInputdate" formControlName="end_date">               
@@ -60,7 +60,7 @@
                                 </div>
                              </div>
                            
-                             <div class="tb-data heading-table form-group" fxFlex="20"> 
+                             <div class="tb-data heading-table" fxFlex="20"> 
                                  <mat-select class="form-control clr-black custom-fc-width" id="exampleFormControlSelect1" formControlName="event_status">
                                      <mat-option value="draft">Draft</mat-option>
                                      <mat-option value="publish">Published</mat-option>                                    
