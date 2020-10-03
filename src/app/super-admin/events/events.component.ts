@@ -440,7 +440,8 @@ export class EventsComponent implements OnInit {
       'hide_share_button':this.shareButtonStatus,
       'custom_sales_tax':this.customSalesTax,
       'sales_tax':this.salesTax,
-      'ticket_ids':this.assignedTicketId,
+      // 'ticket_ids':this.assignedTicketId,
+      'tickets':this.eventTicketList,
       'image' : this.newEventImageUrl,
       'default-image' : this.selecetdDefaultImage,
       };
@@ -482,8 +483,8 @@ export class EventsComponent implements OnInit {
       if(result){
         this.eventTicketList.push(result)
         console.log(this.eventTicketList)
-        this.assignedTicketId.push(result.id)
-        console.log(this.assignedTicketId)
+        // this.assignedTicketId.push(result.id)
+        // console.log(this.assignedTicketId)
         this.eventTicketAlertMSG = false;
       }
     });
