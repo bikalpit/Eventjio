@@ -47,21 +47,21 @@
                 <h4>Create Broadcast</h4>
             </div>
             <form [formGroup]="createBroadcastForm" class="with-validation">
-               
-               
+
+
                 <div class="bottom-create-form">
-                   
-                   
+
+
                     <div class="form-group col-md-12 col-lg-12 col-sm-12">
                         <label>Recipients<span class="text-danger">*</span> <i class="fa fa-question-circle" aria-hidden="true"  
                                     matTooltip="When your customers have a question they can either contact you via contact form that forwards on to you can specify your own contact instructions." ></i> 
                         </label>
-                        <mat-select class="form-control clr-black" formControlName="recipients" id="exampleFormControlSelect1" >
+                        <mat-select class="form-control clr-black" formControlName="recipients" id="exampleFormControlSelect1">
                             <!-- <mat-option value="select Recipients">select Recipients</mat-option> -->
                             <mat-option value="BUY">All ticket buyers ({{allWaitingListData.BUY}})</mat-option>
                             <mat-option value="ALL">All waitlist signups ({{allWaitingListData.ALL}})</mat-option>
-                            <mat-option value="NEW">New waitlist signups ({{allWaitingListData.NEW}})</mat-option> 
-                            <mat-option value="NOTIFY">Notified waitlist signups ({{allWaitingListData.NOTIFY}})</mat-option> 
+                            <mat-option value="NEW">New waitlist signups ({{allWaitingListData.NEW}})</mat-option>
+                            <mat-option value="NOTIFY">Notified waitlist signups ({{allWaitingListData.NOTIFY}})</mat-option>
                         </mat-select><br>
                         <span class="error-wrap" *ngIf="createBroadcastForm.get('recipients').touched || createBroadcastForm.get('recipients').dirty">
                             <small *ngIf="createBroadcastForm.get('recipients').hasError('required')" class="error">Recipients is required.</small>
@@ -78,8 +78,8 @@
                             <small *ngIf="createBroadcastForm.get('subject').hasError('required')" class="error">Subject is required.</small>
                         </span>
                     </div>
-                       
-                    
+
+
                     <div class="form-group col-md-12 col-lg-12 col-sm-12">
                         <label>Message<span class="text-danger">*</span> </label>
                         <ck-editor name="editor1" skin="moono-lisa" language="en" [fullPage]="true" formControlName="message">
@@ -104,9 +104,9 @@
                     </div>
 
                     <div class="mb-2 d-flex col-md-12 col-lg-12 col-sm-12" *ngIf="sendOptions === 'AT_SED_DATE_TIME'">
-                            
+
                         <div class="col-3 p-0 d-inline-block">
-                            <label for="">Date :</label>    
+                            <label for="">Date :</label>
                             <div class="matDate ">
                                 <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
                                 <input type="text" formControlName="scheduledDate" (dateChange)="fnChangeEventStartDate()" [min]="startDate" [matDatepicker]="ticketIssuedTo" (click)="ticketIssuedTo.open()" class="form-control matInputdate">
@@ -116,18 +116,18 @@
                                 <small *ngIf="createBroadcastForm.get('scheduledDate').hasError('required')" class="error">Scheduled date is required.</small>
                             </span>
                         </div>
-                            
+
                         <div class="col-3 d-inline-block">
                             <label for="">Time :</label>
                             <mat-select formControlName="scheduledTime" class="form-control">
-                                <mat-option  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                             </mat-select><br>
                             <span class="error-wrap" *ngIf="createBroadcastForm.get('scheduledTime').touched || createBroadcastForm.get('scheduledTime').dirty">
                                 <small *ngIf="createBroadcastForm.get('scheduledTime').hasError('required')" class="error">Scheduled time is required.</small>
                             </span>
                         </div>
-                               
-                              
+
+
                     </div>
 
                     <div class="form-group col-md-12 col-lg-12 col-sm-12" *ngIf="sendOptions === 'AT_SED_ITR_BFO_EVT_ST' || sendOptions === 'AT_SED_ITR_AFT_EVT_ND'">
@@ -144,17 +144,20 @@
                             <mat-option value="10">10</mat-option>
                             <mat-option value="11">11</mat-option>
                             <mat-option value="12">12</mat-option>
-                        </mat-select> 
+                        </mat-select>
                         <span class="ml-2">/  Hours</span><br>
                         <span class="error-wrap" *ngIf="createBroadcastForm.get('scheduledInterval').touched || createBroadcastForm.get('scheduledInterval').dirty">
                             <small *ngIf="createBroadcastForm.get('scheduledInterval').hasError('required')" class="error">Scheduled time is required.</small>
-                        </span> 
+                        </span>
                     </div>
 
                     <div class="form-group col-md-12 col-lg-12 col-sm-12">
                         <div class="terms-privicy-main">
                             <mat-checkbox class="example-margin" formControlName="terms">I have read and agree to the following terms:</mat-checkbox>
-                            <p> <span class="clr-black"> (1)</span> This email is not a marketing communication.<span class="clr-black"> (2) </span>  This is an essential service email relating to the event my ticket buyers have purchased tickets for. <span class="clr-black"> (3) </span> Replies to this email will go to 'iitstudent2018@gmail.com' I am aware this email address will be visible to the recipients of the email. <span class="clr-black"> (4) </span> The email address 'iitstudent2018@gmail.com' is a valid email address that can receive emails and is in my control.<span class="clr-black">(5) </span> I will handle any responses and/or complaints in relation to this email. </p>
+                            <p> <span class="clr-black"> (1)</span> This email is not a marketing communication.<span class="clr-black"> (2) </span> This is an essential service email relating to the event my ticket buyers have purchased tickets for.
+                                <span
+                                    class="clr-black"> (3) </span> Replies to this email will go to 'iitstudent2018@gmail.com' I am aware this email address will be visible to the recipients of the email. <span class="clr-black"> (4) </span> The email address 'iitstudent2018@gmail.com'
+                                    is a valid email address that can receive emails and is in my control.<span class="clr-black">(5) </span> I will handle any responses and/or complaints in relation to this email. </p>
                         </div>
                         <span class="error-wrap" *ngIf="createBroadcastForm.get('terms').touched || createBroadcastForm.get('terms').dirty">
                             <small *ngIf="createBroadcastForm.get('terms').hasError('required')" class="error">T & C is required.</small>
@@ -162,8 +165,8 @@
                     </div>
 
                 </div>
-                   
-                   
+
+
                 <div class="form-group col-md-12 col-lg-12 col-sm-12">
                     <div class="botttom-buttons">
                         <button mat-flat-button class="save-draf-btn mr-2" color="primary"> Save Draft </button>
