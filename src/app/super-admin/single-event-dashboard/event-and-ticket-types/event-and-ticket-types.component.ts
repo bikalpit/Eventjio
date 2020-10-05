@@ -18,6 +18,8 @@ export class EventAndTicketTypesComponent implements OnInit {
   salesTax = [ ];
   selectedEvent : any;
   singleEventDetail:any;
+  singleEventSetting:any;
+  singleEventTickets:any;
   allCountry:any;
   allTimeZone:any;
   allDefaultImages:any;
@@ -153,6 +155,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.singleEventDetail= response.response[0];
+        this.singleEventSetting= this.singleEventDetail.event_setting;
+        this.eventTicketList= this.singleEventDetail.event_tickets;
         console.log(this.singleEventDetail)
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
@@ -165,22 +169,25 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.editEventForm.controls['online_platform'].setValue(this.singleEventDetail.platform)
         this.editEventForm.controls['online_link'].setValue(this.singleEventDetail.event_link)
         this.editEventForm.controls['description'].setValue(this.singleEventDetail.description)
-        this.editEventForm.controls['timezone'].setValue(this.singleEventDetail.timezone)
-        this.editEventForm.controls['donation_title'].setValue(this.singleEventDetail.donation_title)
-        this.editEventForm.controls['donation_amount'].setValue(this.singleEventDetail.donation_amt)
-        this.editEventForm.controls['donation_description'].setValue(this.singleEventDetail.donation_description)
-        this.editEventForm.controls['book_btn_title'].setValue(this.singleEventDetail.event_button_title)
-        this.editEventForm.controls['ticket_available'].setValue(this.singleEventDetail.ticket_avilable)
-        this.editEventForm.controls['ticket_unavailable'].setValue(this.singleEventDetail.ticket_unavilable)
-        this.editEventForm.controls['redirect_url'].setValue(this.singleEventDetail.redirect_url)
-        this.editEventForm.controls['access_code'].setValue(this.singleEventDetail.access_code)
-        this.redirectURL= this.singleEventDetail.redirect_confirm_page;
-        this.hideEventSearch= this.singleEventDetail.hide_office_listing;
-        this.customSalesTax= this.singleEventDetail.custom_sales_tax;
-        this.accessCode= this.singleEventDetail.customer_access_code;
-        this.donation= this.singleEventDetail.make_donation;
-        this.shareButtonStatus= this.singleEventDetail.hide_share_button;
+        this.editEventForm.controls['timezone'].setValue(this.singleEventSetting.timezone)
+        this.editEventForm.controls['donation_title'].setValue(this.singleEventSetting.donation_title)
+        this.editEventForm.controls['donation_amount'].setValue(this.singleEventSetting.donation_amt)
+        this.editEventForm.controls['donation_description'].setValue(this.singleEventSetting.donation_description)
+        this.editEventForm.controls['book_btn_title'].setValue(this.singleEventSetting.event_button_title)
+        this.editEventForm.controls['ticket_available'].setValue(this.singleEventSetting.ticket_avilable)
+        this.editEventForm.controls['ticket_unavailable'].setValue(this.singleEventSetting.ticket_unavilable)
+        this.editEventForm.controls['redirect_url'].setValue(this.singleEventSetting.redirect_url)
+        this.editEventForm.controls['access_code'].setValue(this.singleEventSetting.access_code)
+        this.redirectURL= this.singleEventSetting.redirect_confirm_page;
+        this.hideEventSearch= this.singleEventSetting.hide_office_listing;
+        this.customSalesTax= this.singleEventSetting.custom_sales_tax;
+        this.accessCode= this.singleEventSetting.customer_access_code;
+        this.donation= this.singleEventSetting.make_donation;
+        this.shareButtonStatus= this.singleEventSetting.hide_share_button;
         this.olPlatForm = this.singleEventDetail.online_event;
+        this.salesTax = JSON.parse(this.singleEventSetting.sales_tax);
+        
+        console.log(this.salesTax)
       }
     });
   }
