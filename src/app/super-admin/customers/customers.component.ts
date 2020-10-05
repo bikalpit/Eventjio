@@ -60,11 +60,16 @@ export class CustomersComponent implements OnInit {
       // image:['',Validators.required],
       address:['',Validators.required],
       addTag:[''],
-    });
-   
-    
+    });  
    }
-
+   
+   onTabChange(event){
+    let clickedIndex = event.index;
+    if(clickedIndex == 0){      
+    }else if(clickedIndex == 1){      
+    }
+  }
+   
 
   addFormButton(){
     this.addFormButtonDiv = this.addFormButtonDiv ? false : true;

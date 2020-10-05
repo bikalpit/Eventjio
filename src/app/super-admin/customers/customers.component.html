@@ -102,7 +102,7 @@
                                 </mat-tab>
 
                                 <mat-tab label="Events">
-                                    <div class="py-3">
+                                    <div class="py-3" (selectedTabChange)="onTabChange($event)">
                                         <button mat-flat-button class="border mr-1">All Events</button>
                                         <button mat-flat-button class="border m-1">Completed Events</button>
                                         <button mat-flat-button class="border ml-1">Upcoming Events</button>
