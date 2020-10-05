@@ -117,5 +117,12 @@ export class SingleEventServiceService {
             return res;
       }),catchError(this.handleError));
   }
+
+  duplicateForm(requestObject){
+      return this.http.post(`${environment.apiUrl}/duplicate-event`,requestObject,{headers:this.globalHeaders}).pipe(
+          map ((res) => {
+              return res;
+          }),catchError(this.handleError));
+  }
   
 }
