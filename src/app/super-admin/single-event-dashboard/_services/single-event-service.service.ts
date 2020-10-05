@@ -124,5 +124,23 @@ export class SingleEventServiceService {
               return res;
           }),catchError(this.handleError));
   }
+    getAllCouponCodes(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-all-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    UpdateTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    deleteTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
   
 }

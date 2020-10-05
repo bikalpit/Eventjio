@@ -17,6 +17,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   bufferValue = 75;
   salesTax = [ ];
   selectedEvent : any;
+  boxOfficeCode : any;
   singleEventDetail:any;
   singleEventSetting:any;
   singleEventTickets:any;
@@ -44,6 +45,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   eventTicketAlertMSG :boolean = true;
   eventTicketList= [];
   newEventImageUrl :any;
+  selectedTicketDetail:any;
 
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
@@ -53,6 +55,10 @@ export class EventAndTicketTypesComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
   ) { 
+    
+    if(localStorage.getItem('boxoffice_id')){
+      this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+    }
     if(localStorage.getItem('selectedEventCode')){
       this.selectedEvent = localStorage.getItem('selectedEventCode')
     }
@@ -157,6 +163,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.singleEventDetail= response.response[0];
         this.singleEventSetting= this.singleEventDetail.event_setting;
         this.eventTicketList= this.singleEventDetail.event_tickets;
+        console.log(this.eventTicketList)
         console.log(this.singleEventDetail)
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
@@ -186,7 +193,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.shareButtonStatus= this.singleEventSetting.hide_share_button;
         this.olPlatForm = this.singleEventDetail.online_event;
         this.salesTax = JSON.parse(this.singleEventSetting.sales_tax);
-        
+
         console.log(this.salesTax)
       }
     });
@@ -324,6 +331,63 @@ export class EventAndTicketTypesComponent implements OnInit {
     }
     this.editEventForm.updateValueAndValidity();
   }
+
+  fnEditTicket(index){
+    this.selectedTicketDetail = this.eventTicketList[index];
+    const dialogRef = this.dialog.open(AddNewTicketType,{
+      width: '1100px',
+      data : {
+        boxOfficeCode : this.boxOfficeCode,
+        fullDayTimeSlote : this.fullDayTimeSlote,
+        selectedTicketDetail : this.selectedTicketDetail,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.eventTicketList.push(result)
+        console.log(this.eventTicketList)
+        // this.assignedTicketId.push(result.id)
+        // console.log(this.assignedTicketId)
+        this.eventTicketAlertMSG = false;
+      }
+    });
+  }
+
+
+  
+  
+  openAddNewTicketTypeDialog() {
+    const dialogRef = this.dialog.open(AddNewTicketType,{
+      width: '1100px',
+      data : {
+        boxOfficeCode : this.boxOfficeCode,
+        fullDayTimeSlote : this.fullDayTimeSlote,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.eventTicketList.push(result)
+        console.log(this.eventTicketList)
+        this.eventTicketAlertMSG = false;
+      }else{
+        this.getSingleEvent();
+      }
+    });
+  }
+
+  openAddNewTicketGroupDialog() {
+    const dialogRef = this.dialog.open(AddNewTicketGroup,{
+      width: '700px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   
 
   fnUploadEventImage(){
@@ -371,23 +435,277 @@ constructor(
       return this.uploadForm.controls;
     }
     
-onFileChange(event) {
-  const reader = new FileReader();
-  if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-          this.imageSrc = reader.result as string;
-          this.uploadForm.patchValue({
-              fileSource: reader.result
-          });
-      };
+  onFileChange(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+        const [file] = event.target.files;
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.imageSrc = reader.result as string;
+            this.uploadForm.patchValue({
+                fileSource: reader.result
+            });
+        };
+    }
   }
-}
-uploadImage() {
-  this.profileImage = this.imageSrc
-  this.dialogRef.close(this.profileImage);
+  uploadImage() {
+    this.profileImage = this.imageSrc
+    this.dialogRef.close(this.profileImage);
+  }
+
+
 }
 
 
+
+
+@Component({
+  selector: 'add-new-ticket-type',
+  templateUrl: '../_dialogs/add-new-ticket-type.html',
+  providers: [DatePipe]
+})
+export class AddNewTicketType {
+  isLoaderAdmin:boolean = false;
+  allCouponCodeList:any;
+  boxOfficeCode:any
+  addTicketForm:FormGroup;
+  minDate= new Date();
+  assignedCouponCodes :any = [];
+  showQTY:any = 'N';
+  soldOut:any = 'N';
+  showDes:any = 'N';
+  advanceSetting:any = 'N';
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  fullDayTimeSlote:any;
+  newTicketData:any;
+  selectedTicketDetail:any;
+  editTicket : boolean = false;
+  constructor(
+    public dialogRef: MatDialogRef<AddNewTicketType>,
+    private _formBuilder: FormBuilder,
+    private ErrorService: ErrorService,
+    private datePipe: DatePipe,
+    private SingleEventServiceService: SingleEventServiceService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.boxOfficeCode = this.data.boxOfficeCode
+      this.fullDayTimeSlote = this.data.fullDayTimeSlote
+      this.selectedTicketDetail = this.data.selectedTicketDetail
+      this.advanceSetting = this.selectedTicketDetail.advance_setting
+      if(this.selectedTicketDetail){
+        this.editTicket = true;
+        this.addTicketForm = this._formBuilder.group({
+          title: [this.selectedTicketDetail.tickets.ticket_name,[Validators.required]],
+          price: [this.selectedTicketDetail.tickets.prize,[Validators.required]],
+          qty: [this.selectedTicketDetail.tickets.qty,[Validators.required]],
+          description: [this.selectedTicketDetail.tickets.description,[]],
+          fee: [this.selectedTicketDetail.tickets.booking_fee,[Validators.pattern(this.onlynumeric)]],
+          status: [this.selectedTicketDetail.tickets.status,[]],
+          min_order: [this.selectedTicketDetail.tickets.max_per_order,[Validators.pattern(this.onlynumeric)]],
+          max_order: [this.selectedTicketDetail.tickets.min_per_order,[Validators.pattern(this.onlynumeric)]],
+          until_date: [this.selectedTicketDetail.tickets.untill_date,[Validators.required]],
+          until_time: [this.selectedTicketDetail.tickets.untill_time,[Validators.required]],
+          until_interval: [this.selectedTicketDetail.tickets.untill_interval,[Validators.required]],
+          after_date: [this.selectedTicketDetail.tickets.after_date,[Validators.required]],
+          after_time: [this.selectedTicketDetail.tickets.after_time,[Validators.required]],
+          after_interval: [this.selectedTicketDetail.tickets.after_interval,[Validators.required]]
+        });
+      }else{
+        this.editTicket = false;
+        this.addTicketForm = this._formBuilder.group({
+          title: ['',[Validators.required]],
+          price: ['',[Validators.required]],
+          qty: ['',[Validators.required]],
+          description: [null,[Validators.required]],
+          fee: [null,[Validators.pattern(this.onlynumeric)]],
+          status: [null,[Validators.required]],
+          min_order: [null,[Validators.pattern(this.onlynumeric)]],
+          max_order: [null,[Validators.pattern(this.onlynumeric)]],
+          until_date: ['',[Validators.required]],
+          until_time: ['',[Validators.required]],
+          until_interval: ['',[Validators.required]],
+          after_date: ['',[Validators.required]],
+          after_time: ['',[Validators.required]],
+          after_interval: ['',[Validators.required]]
+        });
+      } 
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+    this.getAllCouponCodes();
+  }
+
+  getAllCouponCodes(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'search':'',
+      'boxoffice_id' : this.boxOfficeCode
+    }
+    this.SingleEventServiceService.getAllCouponCodes(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this.allCouponCodeList = response.response
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      this.allCouponCodeList = null;
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+  fnAddCoupon(event, couponCode){
+    if(event.checked == true){
+      this.assignedCouponCodes.push(couponCode)
+    }else{
+      const index = this.assignedCouponCodes.indexOf(couponCode, 0);
+      if (index > -1) {
+          this.assignedCouponCodes.splice(index, 1);
+      }
+    }
+  }
+
+  fnChangeShowQTY(event){
+    if(event.checked == true){
+      this.showQTY = 'Y';
+    }else{
+      this.showQTY = 'N';
+    }
+  }
+
+  fnChangeSoldOut(event){
+    if(event.checked == true){
+      this.soldOut = 'Y';
+    }else{
+      this.soldOut = 'N';
+    }
+  }
+
+  fnChangeAdvSetting(event){
+    if(event.checked == true){
+      this.advanceSetting = 'Y';
+    }else{
+      this.advanceSetting = 'N';
+    }
+  }
+
+  fnDeleteTicket(index){
+
+  }
+
+  fnSubmitAddTicketForm(){
+    console.log(this.addTicketForm)
+    if(this.addTicketForm.invalid){
+      this.addTicketForm.get('title').markAsTouched;
+      this.addTicketForm.get('price').markAsTouched;
+      this.addTicketForm.get('qty').markAsTouched;
+      this.addTicketForm.get('description').markAsTouched;
+      this.addTicketForm.get('fee').markAsTouched;
+      this.addTicketForm.get('status').markAsTouched;
+      this.addTicketForm.get('min_order').markAsTouched;
+      this.addTicketForm.get('max_order').markAsTouched;
+      this.addTicketForm.get('until_date').markAsTouched;
+      this.addTicketForm.get('until_time').markAsTouched;
+      this.addTicketForm.get('after_date').markAsTouched;
+      this.addTicketForm.get('after_time').markAsTouched;
+      this.addTicketForm.get('until_interval').markAsTouched;
+      this.addTicketForm.get('after_interval').markAsTouched;
+
+      return false;
+    }
+
+    if(this.editTicket){
+      let requestObject = {
+        'box_office_id': this.boxOfficeCode,
+        'ticket_name': this.addTicketForm.get('title').value,
+        'prize': this.addTicketForm.get('price').value,
+        'qty': this.addTicketForm.get('qty').value,
+        'advance_setting': this.advanceSetting,
+        'description':  this.addTicketForm.get('description').value,
+        'booking_fee':  this.addTicketForm.get('fee').value,
+        'status':  this.addTicketForm.get('status').value,
+        'min_per_order':  this.addTicketForm.get('min_order').value,
+        'max_per_order':this.addTicketForm.get('max_order').value,
+        'hide_untill': 'Y',
+        'hide_after':  'Y',
+        'untill_date': this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"),
+        'untill_time': this.addTicketForm.get('until_time').value,
+        'after_date':  this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"),
+        'after_time':  this.addTicketForm.get('after_time').value,
+        'sold_out':  this.soldOut,
+        'show_qty':  this.showQTY,
+        'discount':  this.assignedCouponCodes,
+        'untill_interval':  this.addTicketForm.get('until_interval').value,
+        'after_interval':  this.addTicketForm.get('after_interval').value,
+      }
+      this.UpdateTicket(requestObject);
+    }else {
+      
+    this.newTicketData = {
+      'box_office_id': this.boxOfficeCode,
+      'ticket_name': this.addTicketForm.get('title').value,
+      'prize': this.addTicketForm.get('price').value,
+      'qty': this.addTicketForm.get('qty').value,
+      'advance_setting': this.advanceSetting,
+      'description':  this.addTicketForm.get('description').value,
+      'booking_fee':  this.addTicketForm.get('fee').value,
+      'status':  this.addTicketForm.get('status').value,
+      'min_per_order':  this.addTicketForm.get('min_order').value,
+      'max_per_order':this.addTicketForm.get('max_order').value,
+      'hide_untill': 'Y',
+      'hide_after':  'Y',
+      'untill_date': this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"),
+      'untill_time': this.addTicketForm.get('until_time').value,
+      'after_date':  this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"),
+      'after_time':  this.addTicketForm.get('after_time').value,
+      'sold_out':  this.soldOut,
+      'show_qty':  this.showQTY,
+      'discount':  this.assignedCouponCodes,
+      'untill_interval':  this.addTicketForm.get('until_interval').value,
+      'after_interval':  this.addTicketForm.get('after_interval').value,
+    }
+    this.dialogRef.close(this.newTicketData);
+    }
+    console.log(this.newTicketData)
+  }
+
+
+  UpdateTicket(requestObject){
+    this.isLoaderAdmin = true;
+    this.SingleEventServiceService.UpdateTicket(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+        this.dialogRef.close(response.response);
+        this.dialogRef.close();
+      }
+      else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+  
+ 
+}
+
+
+@Component({
+  selector: 'add-new-ticket-group',
+  templateUrl: '../_dialogs/add-new-ticket-group.html',
+  providers: [DatePipe]
+})
+export class AddNewTicketGroup {
+  constructor(
+    public dialogRef: MatDialogRef<AddNewTicketGroup>,
+    private datePipe: DatePipe,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+  }
+ 
 }

@@ -169,7 +169,7 @@
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
                                         <div class="image-status">
-
+                                            <mat-slider class="image-slider" min="1" max="5" step="1" value="1"></mat-slider>
                                         </div>
                                         <div class="">
                                             <button mat-raised-button class="delete-button">Delete Image</button>
@@ -190,7 +190,7 @@
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
                                         <div class="image-status">
-
+                                            <mat-slider class="image-slider" min="1" max="5" step="1" value="1"></mat-slider>
                                         </div>
                                         <div class="">
                                             <button mat-raised-button class="delete-button">Delete Image</button>
@@ -209,10 +209,10 @@
                     <h6>Create ticket types</h6>
                     <div class="event-info d-flex">
                         <div class="mr-3">
-                            <button mat-raised-button class="ticket-type-btn">Add a new ticket type</button>
+                            <button mat-raised-button (click)="openAddNewTicketTypeDialog()" class="ticket-type-btn">Add a new ticket type</button>
                         </div>
                         <div>
-                            <button mat-raised-button class="ticket-grp-btn">Add a new ticket group</button>
+                            <button mat-raised-button (click)="openAddNewTicketGroupDialog()" class="ticket-grp-btn">Add a new ticket group</button>
                         </div>
                     </div>
                     <div *ngIf="eventTicketAlertMSG" class="p-3 mt-3 add-ticket-notification rounded">
@@ -223,7 +223,7 @@
                     <div *ngFor="let eventTicketList of eventTicketList; let i=index;" class="after-save-general-admission p-3 mt-2 rounded">
                         <div class="tickets-main-wrap">
                             <div>
-                                {{eventTicketList.ticket_name}}
+                                {{eventTicketList.tickets.ticket_name}}
                             </div>
                             <div class="ticket-status ml-auto">
                                 <div class="d-inline-block ">
@@ -232,8 +232,8 @@
                                 <div class="d-inline-block ml-2 mr-2">
                                     <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Remaining</span>
                                 </div>
-                                <button mat-flat-button class="mr-1 edit-btn"><i class="fa fa-pencil pr-2"></i>Edit</button>
-                                <button mat-flat-button class="ml-1 delete-btn"><i class="fa fa-trash pr-2"></i>Delete</button>
+                                <button mat-flat-button class="mr-1 edit-btn" (click)="fnEditTicket(i)"><i class="fa fa-pencil pr-2"></i>Edit</button>
+                                <button mat-flat-button class="ml-1 delete-btn" (click)="fnDeleteTicket(i)"><i class="fa fa-trash pr-2"></i>Delete</button>
                             </div>
                         </div>
                     </div>
