@@ -34,6 +34,8 @@ export class BroadcastComponent implements OnInit {
   getAllBroadcastData:any;
   scheduledDate:any;
   unique_id:any;
+  messageContent:any;
+  status:string = "draft";
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
     private http: HttpClient,
@@ -88,7 +90,8 @@ export class BroadcastComponent implements OnInit {
         "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
         "terms" : this.createBroadcastForm.get('terms').value,
         "event_id" : this.eventId, 
-        "unique_code" : this.unique_id
+        "unique_code" : this.unique_id,
+        "status": this.status
       }
       this.sendBroadcast(this.createBroadcastData);
       this.createBroadcastForm.reset();
@@ -102,9 +105,20 @@ export class BroadcastComponent implements OnInit {
       this.sendOptions = event.value;
       this.createBroadcastForm.controls["scheduledInterval"].setValidators(null);
       this.createBroadcastForm.controls["scheduledInterval"].updateValueAndValidity();
-       if(this.createBroadcastForm.get('scheduledDate').value !== null){
+      if(this.createBroadcastForm.get('scheduledDate').value !== null){
         this.scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd")
-      }
+      };
+    } else if(event.value == 'IMM'){
+      this.sendOptions = event.value;
+      this.createBroadcastForm.controls["scheduledInterval"].setValidators(null);
+      this.createBroadcastForm.controls["scheduledDate"].setValidators(null);
+      this.createBroadcastForm.controls["scheduledTime"].setValidators(null);
+      this.createBroadcastForm.controls["scheduledInterval"].updateValueAndValidity();
+      this.createBroadcastForm.controls["scheduledDate"].updateValueAndValidity();
+      this.createBroadcastForm.controls["scheduledTime"].updateValueAndValidity();
+      if(this.createBroadcastForm.get('scheduledDate').value !== null){
+        this.scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd")
+      };
     }else{
       this.sendOptions = event.value;
       this.createBroadcastForm.controls["scheduledDate"].setValidators(null);
@@ -189,7 +203,7 @@ fnCreateBroadcast(){
   
 sendBroadcast(broadcastData) {
   const dialogRef = this.dialog.open(mySendBroadcastDialog, {
-    width: '550px',
+    width: '650px',
     data:{createBroadcastData : broadcastData}
     
   });
@@ -211,6 +225,10 @@ export class mySendBroadcastDialog{
   createBroadcastData:any;
   isLoaderAdmin:any;
   buttonHide:any = false;
+  editor1 = 'Angular 4';
+  datav: any = `<p>Hello, world!</p>`;
+  editorValue: string = '';
+
   constructor(
     public dialogRef: MatDialogRef<mySendBroadcastDialog>,
     private http: HttpClient,
@@ -218,8 +236,9 @@ export class mySendBroadcastDialog{
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.createBroadcastData = this.data;
+      this.editorValue = this.createBroadcastData.createBroadcastData.message;
+      console.log(this.editorValue);
     }
-
     createBroadcastfrm(createBroadcastData){
       this.isLoaderAdmin = true;
       this.SingleEventServiceService.createBroadcastfrm(createBroadcastData.createBroadcastData).subscribe((response:any) => {
@@ -233,6 +252,7 @@ export class mySendBroadcastDialog{
         this.isLoaderAdmin = false;
       })
     }
+    
 
   onNoClick(): void {
     this.dialogRef.close();
