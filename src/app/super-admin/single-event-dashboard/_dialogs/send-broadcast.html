@@ -43,11 +43,12 @@
              <h3> Preview </h3>
            </div>
            <div class="preview-deatils-describtion">
-               <p>{{createBroadcastData.createBroadcastData.message}} </p>
-           </div>
+               <!-- <p>{{createBroadcastData.createBroadcastData.message}} </p> -->
+               <ck-editor  [(ngModel)]="editorValue"  skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+           </div> 
        </div>
        <div class="botttom-buttons send-broadcast-wrap">
-         <button mat-flat-button class="save-draf-btn mr-2" color="primary"> Cancel </button>
+         <button mat-flat-button class="save-draf-btn mr-2" color="primary" (click)="onNoClick()"> Cancel </button>
          <button mat-flat-button  color="primary" *ngIf="createBroadcastData.createBroadcastData.status === 'draft'" (click)="createBroadcastfrm(createBroadcastData)"> Send Broadcast </button>
       </div>
    
