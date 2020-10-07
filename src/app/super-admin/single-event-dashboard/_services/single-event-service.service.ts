@@ -142,5 +142,11 @@ export class SingleEventServiceService {
             return res;
         }),catchError(this.handleError));
     }
+    updateEvent(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
   
 }

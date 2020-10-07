@@ -5,6 +5,7 @@ import { DatePipe} from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-event-and-ticket-types',
@@ -16,6 +17,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   value = 50;
   bufferValue = 75;
   salesTax = [ ];
+  salesTaxVal = [];
   selectedEvent : any;
   boxOfficeCode : any;
   singleEventDetail:any;
@@ -62,7 +64,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     if(localStorage.getItem('selectedEventCode')){
       this.selectedEvent = localStorage.getItem('selectedEventCode')
     }
-     this.salesTax.length = 1;
+    
 
       this.editEventForm = this._formBuilder.group({
         event_name: ['',[Validators.required]],
@@ -86,11 +88,9 @@ export class EventAndTicketTypesComponent implements OnInit {
         redirect_url: [''],
         access_code: [''],
       });
-
-    this.customSalesTaxForm = this._formBuilder.group({
-      customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
-    });
-
+      this.customSalesTaxForm = this._formBuilder.group({
+        customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
+      });
   }
 
   ngOnInit(): void {
@@ -102,10 +102,10 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   }
 
-  createSalesTaxItem() {
+  createSalesTaxItem(amount=null, label=null) {
     return this._formBuilder.group({
-      amount: [''],
-      label: ['']
+      amount: [amount],
+      label: [label]
     })
   }
 
@@ -141,7 +141,6 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fullDayTimeSlote= response.response
-       // console.log(this.fullDayTimeSlote)
       }
     });
   }
@@ -160,11 +159,12 @@ export class EventAndTicketTypesComponent implements OnInit {
     }
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.singleEventDetail= response.response[0];
+        this.singleEventDetail= response.response.event[0];
         this.singleEventSetting= this.singleEventDetail.event_setting;
-        this.eventTicketList= this.singleEventDetail.event_tickets;
-        console.log(this.eventTicketList)
-        console.log(this.singleEventDetail)
+        this.eventTicketList= response.response.tickets;
+        if(this.eventTicketList){
+          this.eventTicketAlertMSG= false;
+        }
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
         this.editEventForm.controls['event_start_time'].setValue(this.singleEventDetail.start_time)
@@ -192,9 +192,21 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.donation= this.singleEventSetting.make_donation;
         this.shareButtonStatus= this.singleEventSetting.hide_share_button;
         this.olPlatForm = this.singleEventDetail.online_event;
-        this.salesTax = JSON.parse(this.singleEventSetting.sales_tax);
-
-        console.log(this.salesTax)
+        this.salesTaxVal = JSON.parse(this.singleEventSetting.sales_tax);
+        this.salesTax.length = 0;
+        // this.customSalesTaxForm = null;
+        this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
+        this.salesTaxVal.forEach(element=>{
+          // this.createSalesTaxItem(element.amount, element.label)
+          // this._formBuilder.group({
+          //   amount: [element.amount],
+          //   label: [element.label]
+          // });
+          this.customSalesTaxArr.push(this.createSalesTaxItem(element.amount, element.label));
+        })
+        this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
+        this.customSalesTaxArr.removeAt(this.createSalesTaxItem[0]);
+        this.salesTax.shift();
       }
     });
   }
@@ -218,20 +230,20 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
   
   fnChangeEventEndDate(){
-    // let startDate = this.addEventForm.get('event_start_date').value;
-    // let endDate = this.addEventForm.get('event_end_date').value;
+    // let startDate = this.editEventForm.get('event_start_date').value;
+    // let endDate = this.editEventForm.get('event_end_date').value;
     // if(startDate == endDate){
     //   this.startEndSameDate = true;
     // }else{
     //   this.startEndSameDate = false;
     // }
-    // this.minEventEndDate = this.addEventForm.get('event_start_date').value;
-    // this.addEventForm.get('event_end_date').setValue('');
-    // this.addEventForm.get('event_end_time').setValue('');
+    // this.minEventEndDate = this.editEventForm.get('event_start_date').value;
+    // this.editEventForm.get('event_end_date').setValue('');
+    // this.editEventForm.get('event_end_time').setValue('');
   }
 
   fnChangeStartTime(event){
-   // this.eventStartTime = this.addEventForm.get('event_start_time').value;
+   // this.eventStartTime = this.editEventForm.get('event_start_time').value;
   }
 
   
@@ -331,6 +343,102 @@ export class EventAndTicketTypesComponent implements OnInit {
     }
     this.editEventForm.updateValueAndValidity();
   }
+  
+  fnDeleteTicket(ticketCode, index){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'unique_code' : ticketCode
+    }
+    this.SingleEventServiceService.deleteTicket(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+        if (index > -1) {
+            this.eventTicketList.splice(index, 1);
+        }
+      }
+      else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+  fnSaveEvent(){
+    this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
+    this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
+    if(this.editEventForm.invalid){
+      this.editEventForm.get('event_name').markAsTouched();
+      this.editEventForm.get('event_start_date').markAsTouched();
+      this.editEventForm.get('event_start_time').markAsTouched();
+      this.editEventForm.get('event_end_date').markAsTouched();
+      this.editEventForm.get('event_end_time').markAsTouched();
+      this.editEventForm.get('description').markAsTouched();
+      this.editEventForm.get('timezone').markAsTouched();
+      this.editEventForm.get('book_btn_title').markAsTouched();
+      this.editEventForm.get('ticket_available').markAsTouched();
+      this.editEventForm.get('ticket_unavailable').markAsTouched();
+      this.editEventForm.get('donation_title').markAsTouched();
+      this.editEventForm.get('donation_amount').markAsTouched();
+      this.editEventForm.get('donation_description').markAsTouched();
+      this.editEventForm.get('redirect_url').markAsTouched();
+      this.editEventForm.get('access_code').markAsTouched();
+      this.editEventForm.get('vanue_name').markAsTouched();
+      this.editEventForm.get('vanue_zip').markAsTouched();
+      this.editEventForm.get('vanue_country').markAsTouched();
+      return false;
+    }
+    let requestObject = {
+      'unique_code' : this.singleEventDetail.unique_code,
+      'boxoffice_id':this.boxOfficeCode,
+      'event_title':this.editEventForm.get('event_name').value,
+      'start_date':this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd"),
+      'end_date': this.datePipe.transform(new Date(this.editEventForm.get('event_end_date').value),"yyyy-MM-dd"),
+      'start_time':this.editEventForm.get('event_start_time').value,
+      'end_time':this.editEventForm.get('event_end_time').value,
+      'venue_name':this.editEventForm.get('vanue_name').value,
+      'postal_code':this.editEventForm.get('vanue_zip').value,
+      'country':this.editEventForm.get('vanue_country').value,
+      'online_event':this.olPlatForm,
+      'description':this.editEventForm.get('description').value,
+      'platform':this.editEventForm.get('online_platform').value,
+      'event_link':this.editEventForm.get('online_link').value,
+      'event_status':'draft',
+      'timezone':this.editEventForm.get('timezone').value,
+      'make_donation':this.donation,
+      'event_button_title':this.editEventForm.get('book_btn_title').value,
+      'donation_title':this.editEventForm.get('donation_title').value,
+      'donation_amt':this.editEventForm.get('donation_amount').value,
+      'donation_description':this.editEventForm.get('donation_description').value,
+      'ticket_avilable':this.editEventForm.get('ticket_available').value,
+      'ticket_unavilable':this.editEventForm.get('ticket_unavailable').value,
+      'redirect_confirm_page':this.redirectURL,
+      'redirect_url':this.editEventForm.get('redirect_url').value,
+      'hide_office_listing':this.hideEventSearch,
+      'customer_access_code':this.accessCode,
+      'access_code':this.editEventForm.get('access_code').value,
+      'hide_share_button':this.shareButtonStatus,
+      'custom_sales_tax':this.customSalesTax,
+      'sales_tax':this.salesTax,
+      'tickets':this.eventTicketList,
+      'image' : this.newEventImageUrl,
+      'default-image' : this.selecetdDefaultImage,
+      };
+      this.updateEvent(requestObject);
+  }
+
+  updateEvent(requestObject){
+    this.isLoaderAdmin = true;
+    this.SingleEventServiceService.updateEvent(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+        this.getSingleEvent();
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
+
+  }
 
   fnEditTicket(index){
     this.selectedTicketDetail = this.eventTicketList[index];
@@ -344,12 +452,11 @@ export class EventAndTicketTypesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       if(result){
+        if (index > -1) {
+            this.eventTicketList.splice(index, 1);
+        }
         this.eventTicketList.push(result)
-        console.log(this.eventTicketList)
-        // this.assignedTicketId.push(result.id)
-        // console.log(this.assignedTicketId)
         this.eventTicketAlertMSG = false;
       }
     });
@@ -368,10 +475,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       if(result){
         this.eventTicketList.push(result)
-        console.log(this.eventTicketList)
         this.eventTicketAlertMSG = false;
       }else{
         this.getSingleEvent();
@@ -385,7 +490,6 @@ export class EventAndTicketTypesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
   
@@ -399,7 +503,6 @@ export class EventAndTicketTypesComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
             this.newEventImageUrl = result;
-            console.log(result);
            }
      });
   }
@@ -475,7 +578,8 @@ export class AddNewTicketType {
   soldOut:any = 'N';
   showDes:any = 'N';
   advanceSetting:any = 'N';
-  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  // onlynumeric = /^-?(0|[1-9]\d*)?$/
+  onlynumeric = /^[0-9]+(?:\.[0-9]+)?$/
   fullDayTimeSlote:any;
   newTicketData:any;
   selectedTicketDetail:any;
@@ -490,24 +594,24 @@ export class AddNewTicketType {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.fullDayTimeSlote = this.data.fullDayTimeSlote
       this.selectedTicketDetail = this.data.selectedTicketDetail
-      this.advanceSetting = this.selectedTicketDetail.advance_setting
       if(this.selectedTicketDetail){
         this.editTicket = true;
+        this.advanceSetting = this.selectedTicketDetail.advance_setting
         this.addTicketForm = this._formBuilder.group({
-          title: [this.selectedTicketDetail.tickets.ticket_name,[Validators.required]],
-          price: [this.selectedTicketDetail.tickets.prize,[Validators.required]],
-          qty: [this.selectedTicketDetail.tickets.qty,[Validators.required]],
-          description: [this.selectedTicketDetail.tickets.description,[]],
-          fee: [this.selectedTicketDetail.tickets.booking_fee,[Validators.pattern(this.onlynumeric)]],
-          status: [this.selectedTicketDetail.tickets.status,[]],
-          min_order: [this.selectedTicketDetail.tickets.max_per_order,[Validators.pattern(this.onlynumeric)]],
-          max_order: [this.selectedTicketDetail.tickets.min_per_order,[Validators.pattern(this.onlynumeric)]],
-          until_date: [this.selectedTicketDetail.tickets.untill_date,[Validators.required]],
-          until_time: [this.selectedTicketDetail.tickets.untill_time,[Validators.required]],
-          until_interval: [this.selectedTicketDetail.tickets.untill_interval,[Validators.required]],
-          after_date: [this.selectedTicketDetail.tickets.after_date,[Validators.required]],
-          after_time: [this.selectedTicketDetail.tickets.after_time,[Validators.required]],
-          after_interval: [this.selectedTicketDetail.tickets.after_interval,[Validators.required]]
+          title: [this.selectedTicketDetail.ticket_name,[Validators.required]],
+          price: [this.selectedTicketDetail.prize,[Validators.required]],
+          qty: [this.selectedTicketDetail.qty,[Validators.required]],
+          description: [this.selectedTicketDetail.description,[]],
+          fee: [this.selectedTicketDetail.booking_fee,[Validators.pattern(this.onlynumeric)]],
+          status: [this.selectedTicketDetail.status,[]],
+          min_order: [this.selectedTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
+          max_order: [this.selectedTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
+          until_date: [this.selectedTicketDetail.untill_date,[Validators.required]],
+          until_time: [this.selectedTicketDetail.untill_time,[Validators.required]],
+          until_interval: [this.selectedTicketDetail.untill_interval,[Validators.required]],
+          after_date: [this.selectedTicketDetail.after_date,[Validators.required]],
+          after_time: [this.selectedTicketDetail.after_time,[Validators.required]],
+          after_interval: [this.selectedTicketDetail.after_interval,[Validators.required]]
         });
       }else{
         this.editTicket = false;
@@ -590,12 +694,8 @@ export class AddNewTicketType {
     }
   }
 
-  fnDeleteTicket(index){
-
-  }
 
   fnSubmitAddTicketForm(){
-    console.log(this.addTicketForm)
     if(this.addTicketForm.invalid){
       this.addTicketForm.get('title').markAsTouched;
       this.addTicketForm.get('price').markAsTouched;
@@ -617,6 +717,7 @@ export class AddNewTicketType {
 
     if(this.editTicket){
       let requestObject = {
+        'unique_code': this.selectedTicketDetail.unique_code,
         'box_office_id': this.boxOfficeCode,
         'ticket_name': this.addTicketForm.get('title').value,
         'prize': this.addTicketForm.get('price').value,
@@ -667,7 +768,6 @@ export class AddNewTicketType {
     }
     this.dialogRef.close(this.newTicketData);
     }
-    console.log(this.newTicketData)
   }
 
 
@@ -676,8 +776,8 @@ export class AddNewTicketType {
     this.SingleEventServiceService.UpdateTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
-        this.dialogRef.close(response.response);
-        this.dialogRef.close();
+        this.dialogRef.close(requestObject);
+        // this.dialogRef.close();
       }
       else if(response.data == false){
         this.ErrorService.errorMessage(response.response);

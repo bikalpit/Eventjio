@@ -223,7 +223,7 @@
                     <div *ngFor="let eventTicketList of eventTicketList; let i=index;" class="after-save-general-admission p-3 mt-2 rounded">
                         <div class="tickets-main-wrap">
                             <div>
-                                {{eventTicketList.tickets.ticket_name}}
+                                {{eventTicketList.ticket_name}}
                             </div>
                             <div class="ticket-status ml-auto">
                                 <div class="d-inline-block ">
@@ -233,7 +233,7 @@
                                     <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Remaining</span>
                                 </div>
                                 <button mat-flat-button class="mr-1 edit-btn" (click)="fnEditTicket(i)"><i class="fa fa-pencil pr-2"></i>Edit</button>
-                                <button mat-flat-button class="ml-1 delete-btn" (click)="fnDeleteTicket(i)"><i class="fa fa-trash pr-2"></i>Delete</button>
+                                <button mat-flat-button class="ml-1 delete-btn" (click)="fnDeleteTicket(eventTicketList.unique_code,i)"><i class="fa fa-trash pr-2"></i>Delete</button>
                             </div>
                         </div>
                     </div>
@@ -416,7 +416,7 @@
 
         <div class="cancel-save">
             <button mat-raised-button class="cancel-btn">Cancel</button>
-            <button mat-raised-button class="save-btn">Save Event</button>
+            <button mat-raised-button (click)="fnSaveEvent()" class="save-btn">Save Event</button>
         </div>
     </div>
 </div>

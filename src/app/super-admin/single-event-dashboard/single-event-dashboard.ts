@@ -46,7 +46,7 @@ export class SingleEventDashboard implements OnInit {
 
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.eventDetail = response.response[0];
+        this.eventDetail = response.response.event[0];
         this.eventStatus = this.eventDetail.event_status;
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
