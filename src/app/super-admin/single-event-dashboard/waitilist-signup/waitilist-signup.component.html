@@ -67,9 +67,16 @@
                             </div>
                             <div *ngFor="let getAllWaitingListData of getAllWaitingListData.data;let index = i;">
                                 <div class="content" fxLayout="row" >
-                                        <div class="tb-data" fxFlex="30">{{getAllWaitingListData.email}}</div>
-                                        <div class="tb-data" fxFlex="30"><div *ngIf="getAllWaitingListData.signed_up === 'Y'">YES</div></div>
-                                        <div class="tb-data" fxFlex="30" ><div *ngIf="getAllWaitingListData.signed_up === 'N'">YES</div></div>
+                                    <div class="tb-data" fxFlex="30">{{getAllWaitingListData.email}}</div>
+                                    <div class="tb-data" fxFlex="30">
+                                        <div *ngIf="getAllWaitingListData.signed_up === 'Y'">YES</div>
+                                        <div *ngIf="getAllWaitingListData.signed_up === 'N'">NO</div>
+                                    </div>
+                                    <div class="tb-data" fxFlex="30" >
+                                        <!-- <div *ngIf="getAllWaitingListData.status === 'ALL'">NO</div>
+                                        <div *ngIf="getAllWaitingListData.status === 'NEW'">NO</div> -->
+                                        <div *ngIf="getAllWaitingListData.status === 'NOTIFY'">YES</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -86,13 +93,15 @@
                         <div class="">
                             <div class="heads main-heading-content" fxLayout="row">
                                 <div class="" fxFlex="30">Email</div>
-                                <div class="" fxFlex="30">Notified</div>
+                                <div class="" fxFlex="30">Signed up</div>
                             </div>
                             <div *ngFor="let getNewWaitingListData of getNewWaitingListData.data;let index = i;">
                                 <div class="content" fxLayout="row">
-                                        <div class="tb-data" fxFlex="30">{{getNewWaitingListData.email}}</div>
-                                        <div class="tb-data" fxFlex="30" *ngIf="getNewWaitingListData.signed_up === 'Y'">YES</div>
-                                        <div class="tb-data" fxFlex="30" *ngIf="getNewWaitingListData.signed_up === 'N'">NO</div>
+                                    <div class="tb-data" fxFlex="30">{{getNewWaitingListData.email}}</div>
+                                    <div class="tb-data" fxFlex="30">
+                                        <div *ngIf="getNewWaitingListData.signed_up === 'Y'">YES</div>
+                                        <div *ngIf="getNewWaitingListData.signed_up === 'N'">NO</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -112,9 +121,12 @@
                         </div>
                         <div *ngFor="let getNotifyWaitingListData of getNotifyWaitingListData.data;let index = i;">
                             <div class="content" fxLayout="row">
-                                    <div class="tb-data" fxFlex="30">{{getNotifyWaitingListData.email}}</div>
-                                    <div class="tb-data" fxFlex="30" *ngIf="getNotifyWaitingListData.signed_up === 'Y'">YES</div>
-                                    <div class="tb-data" fxFlex="30" *ngIf="getNotifyWaitingListData.signed_up === 'N'">NO</div>
+                                <div class="tb-data" fxFlex="30">{{getNotifyWaitingListData.email}}</div>
+                                <div class="tb-data" fxFlex="30">
+                                    <!-- <div *ngIf="getNotifyWaitingListData.status === 'ALL'">NO</div>
+                                    <div *ngIf="getNotifyWaitingListData.status === 'NEW'">NO</div> -->
+                                    <div *ngIf="getNotifyWaitingListData.status === 'NOTIFY'">YES</div>
+                                </div>
                             </div>
                         </div>
                     </div>
