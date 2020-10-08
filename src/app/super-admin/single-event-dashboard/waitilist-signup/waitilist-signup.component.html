@@ -98,8 +98,9 @@
                                 <div class="content" fxLayout="row">
                                     <div class="tb-data" fxFlex="30">{{getNewWaitingListData.email}}</div>
                                     <div class="tb-data" fxFlex="30">
-                                        <div *ngIf="getNewWaitingListData.signed_up === 'Y'">YES</div>
-                                        <div *ngIf="getNewWaitingListData.signed_up === 'N'">NO</div>
+                                        <!-- <div *ngIf="getNewWaitingListData.signed_up === 'Y'">YES</div>
+                                        <div *ngIf="getNewWaitingListData.signed_up === 'N'">NO</div> -->
+                                        <div *ngIf="getNewWaitingListData.status === 'NEW'">YES</div>
                                     </div>
                                 </div>
                             </div>
