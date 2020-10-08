@@ -190,6 +190,11 @@ export class EventsComponent implements OnInit {
         this.allUpcomingEventListData = response.response
         this.allUpcomingEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
+          if(element.event_tickets.length === 0){
+            element.soldout = undefined
+            element.final_revenue = undefined
+            element.remaining = undefined
+          }
         });
         this.addNewEvents = true;
       }else if(response.data == false){
@@ -212,6 +217,11 @@ export class EventsComponent implements OnInit {
         this.allPastEventListData = response.response
         this.allPastEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(element.start_date,"EEE MMM d, y")
+          if(element.event_tickets.length === 0){
+            element.soldout = undefined
+            element.final_revenue = undefined
+            element.remaining = undefined
+          }
         });
         this.addNewEvents = true;
       }else if(response.data == false){
