@@ -51,7 +51,7 @@
                 <button mat-flat-button color="primary" routerLink="../broadcast"> Create Broadcast </button>
             </div>
             <mat-tab-group>
-                <mat-tab label="All (0)"> 
+                <mat-tab label="All ({{getAllWaitingListData ? getAllWaitingListData.count : 0}})"> 
                     <div class="top-search-bar">
                         <div class="form-group col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12">
                             <span class="fa fa-search search-form"></span>
@@ -65,17 +65,24 @@
                                 <div class="" fxFlex="30">Signed up</div>
                                 <div class="" fxFlex="30">Notified</div>
                             </div>
-                            <div>
-                                <div class="content" fxLayout="row">
-                                        <div class="tb-data" fxFlex="30"></div>
-                                        <div class="tb-data" fxFlex="30"></div>
-                                        <div class="tb-data" fxFlex="30"></div>
+                            <div *ngFor="let getAllWaitingListData of getAllWaitingListData.data;let index = i;">
+                                <div class="content" fxLayout="row" >
+                                    <div class="tb-data" fxFlex="30">{{getAllWaitingListData.email}}</div>
+                                    <div class="tb-data" fxFlex="30">
+                                        <div *ngIf="getAllWaitingListData.signed_up === 'Y'">YES</div>
+                                        <div *ngIf="getAllWaitingListData.signed_up === 'N'">NO</div>
+                                    </div>
+                                    <div class="tb-data" fxFlex="30" >
+                                        <!-- <div *ngIf="getAllWaitingListData.status === 'ALL'">NO</div>
+                                        <div *ngIf="getAllWaitingListData.status === 'NEW'">NO</div> -->
+                                        <div *ngIf="getAllWaitingListData.status === 'NOTIFY'">YES</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
               </mat-tab>
-                <mat-tab label="New signups (0)">
+                <mat-tab label="New signups ({{getNewWaitingListData ? getNewWaitingListData.count : 0}})">
                     <div class="top-search-bar">
                         <div class="form-group col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12">
                             <span class="fa fa-search search-form"></span>
@@ -87,19 +94,20 @@
                             <div class="heads main-heading-content" fxLayout="row">
                                 <div class="" fxFlex="30">Email</div>
                                 <div class="" fxFlex="30">Signed up</div>
-                                <div class="" fxFlex="30">Notified</div>
                             </div>
-                            <div>
+                            <div *ngFor="let getNewWaitingListData of getNewWaitingListData.data;let index = i;">
                                 <div class="content" fxLayout="row">
-                                        <div class="tb-data" fxFlex="30"></div>
-                                        <div class="tb-data" fxFlex="30"></div>
-                                        <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data" fxFlex="30">{{getNewWaitingListData.email}}</div>
+                                    <div class="tb-data" fxFlex="30">
+                                        <div *ngIf="getNewWaitingListData.signed_up === 'Y'">YES</div>
+                                        <div *ngIf="getNewWaitingListData.signed_up === 'N'">NO</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div> 
                 </mat-tab>
-                <mat-tab label="Notified signups (0)"><div class="top-search-bar">
+                <mat-tab label="Notified signups ({{getNotifyWaitingListData ? getNotifyWaitingListData.count : 0}})"><div class="top-search-bar">
                     <div class="form-group col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12">
                         <span class="fa fa-search search-form"></span>
                         <input  class="form-control" placeholder="Search by email">
@@ -109,14 +117,16 @@
                     <div class="">
                         <div class="heads main-heading-content" fxLayout="row">
                             <div class="" fxFlex="30">Email</div>
-                            <div class="" fxFlex="30">Signed up</div>
                             <div class="" fxFlex="30">Notified</div>
                         </div>
-                        <div>
+                        <div *ngFor="let getNotifyWaitingListData of getNotifyWaitingListData.data;let index = i;">
                             <div class="content" fxLayout="row">
-                                    <div class="tb-data" fxFlex="30"></div>
-                                    <div class="tb-data" fxFlex="30"></div>
-                                    <div class="tb-data" fxFlex="30"></div>
+                                <div class="tb-data" fxFlex="30">{{getNotifyWaitingListData.email}}</div>
+                                <div class="tb-data" fxFlex="30">
+                                    <!-- <div *ngIf="getNotifyWaitingListData.status === 'ALL'">NO</div>
+                                    <div *ngIf="getNotifyWaitingListData.status === 'NEW'">NO</div> -->
+                                    <div *ngIf="getNotifyWaitingListData.status === 'NOTIFY'">YES</div>
+                                </div>
                             </div>
                         </div>
                     </div>
