@@ -73,8 +73,7 @@
                                         <div *ngIf="getAllWaitingListData.signed_up === 'N'">NO</div>
                                     </div>
                                     <div class="tb-data" fxFlex="30" >
-                                        <!-- <div *ngIf="getAllWaitingListData.status === 'ALL'">NO</div>
-                                        <div *ngIf="getAllWaitingListData.status === 'NEW'">NO</div> -->
+                                        <div *ngIf="getAllWaitingListData.status === 'BUY' || getAllWaitingListData.status === 'NEW'">NO</div>
                                         <div *ngIf="getAllWaitingListData.status === 'NOTIFY'">YES</div>
                                     </div>
                                 </div>
@@ -123,8 +122,7 @@
                             <div class="content" fxLayout="row">
                                 <div class="tb-data" fxFlex="30">{{getNotifyWaitingListData.email}}</div>
                                 <div class="tb-data" fxFlex="30">
-                                    <!-- <div *ngIf="getNotifyWaitingListData.status === 'ALL'">NO</div>
-                                    <div *ngIf="getNotifyWaitingListData.status === 'NEW'">NO</div> -->
+                                    <div *ngIf="getNotifyWaitingListData.status === 'BUY' || getNotifyWaitingListData.status === 'NEW'">NO</div>
                                     <div *ngIf="getNotifyWaitingListData.status === 'NOTIFY'">YES</div>
                                 </div>
                             </div>
