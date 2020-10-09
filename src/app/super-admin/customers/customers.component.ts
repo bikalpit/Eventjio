@@ -59,7 +59,7 @@ export class CustomersComponent implements OnInit {
       lastname:['',Validators.required],
       phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
-      // image:['',Validators.required],
+       image:['',Validators.required],
       address:['',Validators.required],
       tags:['',Validators.required],
     });  
@@ -76,7 +76,7 @@ export class CustomersComponent implements OnInit {
   addFormButton(){
     this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     this.addCustomerForm.reset();
-    this.customerImageUrl = undefined;
+    this.customerImageUrl.reset();
   }
   
   ngOnInit(): void {
@@ -203,6 +203,7 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.controls['phone'].setValue(this.singleCustomerDetails.phone)
       this.addCustomerForm.controls['tags'].setValue(this.singleCustomerDetails.tags)
       this.addCustomerForm.controls['address'].setValue(this.singleCustomerDetails.address)
+      this.addCustomerForm.controls['image'].setValue(this.singleCustomerDetails.image)
 
     }  else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
