@@ -186,6 +186,7 @@ button:focus {
             font-size: 14px;
             height: calc(100vh - 320px);
             font-weight: 500;
+            overflow-y: scroll;
         }
         .main-heading-content {
             border-top: solid 1px #DDDDDD;
@@ -264,8 +265,10 @@ button:focus {
         }
     }
 }
-
  ::ng-deep .bs-popover-bottom>.arrow::before,
 .bs-popover-auto[x-placement^=bottom]>.arrow::before {
     border-bottom-color: transparent;
+}
+.sub-container {
+    overflow: hidden;
 }

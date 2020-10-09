@@ -36,9 +36,12 @@
                                                 <mat-option value="publish">Published</mat-option>
                                             </mat-select>
                                         </div>
-                                        <div class="tb-data" fxFlex="13">0</div>
-                                        <div class="tb-data" fxFlex="15">100</div>
-                                        <div class="tb-data" fxFlex="17">300</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined">{{element.soldout[0].Sold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout === undefined">No Tickets</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining !== undefined">{{element.remaining[0].Remaining}}</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining === undefined">No Tickets</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue !== undefined">{{element.final_revenue[0].Revenue}}</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue === undefined">No Tickets</div>
                                         <div class="tb-data" fxFlex="10">
                                             <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
@@ -100,9 +103,12 @@
                                                 <mat-option value="publish">Published</mat-option>
                                             </mat-select>
                                         </div>
-                                        <div class="tb-data" fxFlex="13">0</div>
-                                        <div class="tb-data" fxFlex="15">100</div>
-                                        <div class="tb-data" fxFlex="17">300</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined">{{element.soldout[0].Sold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout === undefined">No Tickets</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining !== undefined">{{element.remaining[0].Remaining}}</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining === undefined">No Tickets</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue !== undefined">{{element.final_revenue[0].Revenue}}</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue === undefined">No Tickets</div>
                                         <div class="tb-data" fxFlex="10">
                                             <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->

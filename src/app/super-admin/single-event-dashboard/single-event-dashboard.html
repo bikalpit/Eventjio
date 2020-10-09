@@ -7,13 +7,13 @@
             {{eventDetail?eventDetail.event_title:''}}
         </p>
         <p class="event-date-time-palce">
-            {{eventDetail?eventDetail.start_date:''}} {{eventDetail?eventDetail.start_time:''}} at  {{eventDetail?eventDetail.venue_name:''}}
+            {{eventDetail?eventDetail.start_date:''}} {{eventDetail?eventDetail.start_time:''}} at {{eventDetail?eventDetail.venue_name:''}}
         </p>
     </div>
-    <div class="event-status"  [ngClass]="{'published':eventStatus == 'publish', 'draft':eventStatus == 'draft'}">
-        <mat-select [(ngModel)]="eventStatus" name='eventStatus' (selectionChange)="fnChangeEventStatus($event.value)" class="custome-mat-set mt-2">
+    <div class="event-status" [ngClass]="{'published':eventStatus == 'publish', 'draft':eventStatus == 'draft'}">
+        <mat-select [ngStyle]="{'backgroundColor':eventStatus === 'draft' ? '#595959' : '#52C03B'}" [(ngModel)]="eventStatus" name='eventStatus' (selectionChange)="fnChangeEventStatus($event.value)" class="custome-mat-set mt-2">
             <mat-option value="draft">Draft</mat-option>
-            <mat-option value="publish" >Published</mat-option>
+            <mat-option value="publish">Published</mat-option>
         </mat-select>
     </div>
     <div class="ml-auto mr-5 mt-2">
@@ -50,7 +50,7 @@
             <div (click)="fnPostUrl('issued-ticket')" [ngClass]="{'active': pageName == 'issued-ticket'}" class="ml-4 py-2" routerLink="issued-ticket">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img  [ngStyle]="{'display':pageName === 'issued-ticket' ? 'none' : 'block'}" src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'issued-ticket' ? 'none' : 'block'}" src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
                         <img [ngStyle]="{'display':pageName === 'issued-ticket' ? 'block' : 'none'}" src="../../../assets/images/events/Icon awesome-ticket-alt_active.png" class="w-100" alt="">
                     </div>
                     <span>Issued Tickets (1)</span>
@@ -70,7 +70,7 @@
             <div (click)="fnPostUrl('broadcast')" [ngClass]="{'active': pageName == 'broadcast'}" class="ml-4 py-2" routerLink="broadcast">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img  [ngStyle]="{'display':pageName === 'broadcast' ? 'none' : 'block'}" src="../../../assets/images/events/shout.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'broadcast' ? 'none' : 'block'}" src="../../../assets/images/events/shout.png" class="w-100" alt="">
                         <img [ngStyle]="{'display':pageName === 'broadcast' ? 'block' : 'none'}" src="../../../assets/images/events/shout_active.png" class="w-100" alt="">
                     </div>
                     <span>Broadcast</span>

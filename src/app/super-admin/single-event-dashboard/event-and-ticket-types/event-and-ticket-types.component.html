@@ -52,7 +52,7 @@
                                 <div class="col-md-5 form-group px-0">
                                     <label class="ml-2" for="">Ends Time <span><i class="fa fa-asterisk"></i></span> </label>
                                     <mat-select formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00">{{fullDayTimeSlote}}</mat-option>
                                     </mat-select>
                                     <!-- <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
                                         <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00">{{fullDayTimeSlote}}</mat-option>
@@ -132,7 +132,7 @@
                             </div>
                         </div>
                         <section class="form-group col-md-12">
-                            <mat-checkbox class="" (change)="fnolPlatform($event)">This is on online event</mat-checkbox>
+                            <mat-checkbox [checked]="olPlatForm == 'Y'" class="" (change)="fnolPlatform($event)">This is on online event</mat-checkbox>
                         </section>
                         <div class="form-group col-md-12">
                             <label for="">Description <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
@@ -169,7 +169,7 @@
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
                                         <div class="image-status">
-
+                                            <mat-slider class="image-slider" min="1" max="5" step="1" value="1"></mat-slider>
                                         </div>
                                         <div class="">
                                             <button mat-raised-button class="delete-button">Delete Image</button>
@@ -190,7 +190,7 @@
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
                                         <div class="image-status">
-
+                                            <mat-slider class="image-slider" min="1" max="5" step="1" value="1"></mat-slider>
                                         </div>
                                         <div class="">
                                             <button mat-raised-button class="delete-button">Delete Image</button>
@@ -209,10 +209,10 @@
                     <h6>Create ticket types</h6>
                     <div class="event-info d-flex">
                         <div class="mr-3">
-                            <button mat-raised-button class="ticket-type-btn">Add a new ticket type</button>
+                            <button mat-raised-button (click)="openAddNewTicketTypeDialog()" class="ticket-type-btn">Add a new ticket type</button>
                         </div>
                         <div>
-                            <button mat-raised-button class="ticket-grp-btn">Add a new ticket group</button>
+                            <button mat-raised-button (click)="openAddNewTicketGroupDialog()" class="ticket-grp-btn">Add a new ticket group</button>
                         </div>
                     </div>
                     <div *ngIf="eventTicketAlertMSG" class="p-3 mt-3 add-ticket-notification rounded">
@@ -232,8 +232,8 @@
                                 <div class="d-inline-block ml-2 mr-2">
                                     <i class="fa fa-ticket fa-lg mr-2"></i><span>200 Tickets Remaining</span>
                                 </div>
-                                <button mat-flat-button class="mr-1 edit-btn"><i class="fa fa-pencil pr-2"></i>Edit</button>
-                                <button mat-flat-button class="ml-1 delete-btn"><i class="fa fa-trash pr-2"></i>Delete</button>
+                                <button mat-flat-button class="mr-1 edit-btn" (click)="fnEditTicket(i)"><i class="fa fa-pencil pr-2"></i>Edit</button>
+                                <button mat-flat-button class="ml-1 delete-btn" (click)="fnDeleteTicket(eventTicketList.unique_code,i)"><i class="fa fa-trash pr-2"></i>Delete</button>
                             </div>
                         </div>
                     </div>
@@ -268,7 +268,7 @@
                         </select>
                         </div>
                         <section class="col-md-12 form-group allow-donation">
-                            <mat-checkbox (change)="fnChangeDonation($event)" [checked]="false">Allow customers to make a donation</mat-checkbox>
+                            <mat-checkbox [checked]="donation == 'Y'" (change)="fnChangeDonation($event)" [checked]="false">Allow customers to make a donation</mat-checkbox>
                         </section>
 
                         <div class="w-100" *ngIf="donation == 'Y'">
@@ -342,7 +342,7 @@
                                 </div>
                             </div>
                             <section class="col-md-12">
-                                <mat-checkbox (change)="fnRedirectURL($event)" [checked]="false">Redirect order confirmation page <span class="info tooltip-btn" matTooltip="Redirect ticket buyers to a customer order confirmation page on your own website." matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                                <mat-checkbox [checked]="redirectURL == 'Y'" (change)="fnRedirectURL($event)" [checked]="false">Redirect order confirmation page <span class="info tooltip-btn" matTooltip="Redirect ticket buyers to a customer order confirmation page on your own website." matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
                             </section>
                             <div class="col-md-6" *ngIf="redirectURL == 'Y'">
                                 <label for="">Redirect to URL <span class="info tooltip-btn" matTooltip="Enter the URL that you would like ticketbuyers to be redirected to after sucessfully completing an order"
@@ -355,11 +355,11 @@
                                 </div>
                             </div>
                             <section class="col-md-12">
-                                <mat-checkbox (change)="fnHideEventSearch($event)">Hide this event from your box office listings and search engines. <span class="info tooltip-btn" matTooltip="Tick this box if you don't want this event listing to appear within your box office listings or within search engine result."
+                                <mat-checkbox [checked]="hideEventSearch == 'Y'" (change)="fnHideEventSearch($event)">Hide this event from your box office listings and search engines. <span class="info tooltip-btn" matTooltip="Tick this box if you don't want this event listing to appear within your box office listings or within search engine result."
                                         matTooltipPosition="above" class=""><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
                             </section>
                             <section class=" col-md-12">
-                                <mat-checkbox (change)="fnAccessCode($event)" [checked]="false">Customers need to enter an access code to buy tickets for this event<span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings." matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                                <mat-checkbox [checked]="accessCode == 'Y'" (change)="fnAccessCode($event)" [checked]="false">Customers need to enter an access code to buy tickets for this event<span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings." matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
                             </section>
                             <div class="col-md-6" *ngIf="accessCode == 'Y'">
                                 <label for="">Access Code</label>
@@ -371,10 +371,10 @@
                                 </div>
                             </div>
                             <section class=" col-md-12">
-                                <mat-checkbox (change)="fnShareButtonStatus($event)">Hide share button on event page.</mat-checkbox>
+                                <mat-checkbox [checked]="shareButtonStatus == 'Y'" (change)="fnShareButtonStatus($event)">Hide share button on event page.</mat-checkbox>
                             </section>
                             <section class="col-md-12">
-                                <mat-checkbox (change)="fnCustomSalesTax($event)" [checked]="false">Set custom sales tax for this event</mat-checkbox>
+                                <mat-checkbox [checked]="customSalesTax == 'Y'" (change)="fnCustomSalesTax($event)" [checked]="false">Set custom sales tax for this event</mat-checkbox>
                             </section>
 
                         </div>
@@ -416,7 +416,7 @@
 
         <div class="cancel-save">
             <button mat-raised-button class="cancel-btn">Cancel</button>
-            <button mat-raised-button class="save-btn">Save Event</button>
+            <button mat-raised-button (click)="fnSaveEvent()" class="save-btn">Save Event</button>
         </div>
     </div>
 </div>

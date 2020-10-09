@@ -156,6 +156,24 @@
                     }
                 }
             }
+            button {
+                background-color: #1172F4;
+                color: #ffffff;
+            }
+            .add-ticket-notification {
+                background-color: #CEE6FF;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .fa-bell {
+                transform: rotate(-45deg);
+                color: #FF6600;
+            }
+            .delete-btn {
+                background-color: #fff;
+                color: #212529;
+            }
         }
         .event-settings {
             background: #F6F6F645;
@@ -219,6 +237,29 @@
             }
         }
     }
+}
+
+.after-save-general-admission {
+    background-color: #CEE6FF;
+    font-weight: bold;
+    .ticket-status {
+        color: #007BFF;
+    }
+    .tickets-main-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+::ng-deep .cancel-btn {
+    background-color: #E1E1E1;
+    outline: none;
+}
+
+ ::ng-deep .save-btn {
+    background-color: #1172F4;
+    color: #ffffff;
 }
 
 ::ng-deep .info {

@@ -19,7 +19,7 @@
 // }
 .setting-menu-icon {
     width: 20px;
-    height: 20px;
+    height: auto;
     // background-color: yellow;
 }
 .child-left-content i{color: #808080;}
@@ -42,7 +42,7 @@
     background-color: #FFE2B7;
     display: flex;
     position: fixed;
-    z-index: 9999;
+    z-index: 99;
     top: 60px;
     .event-image {
         width: 100px;

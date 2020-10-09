@@ -4,4 +4,5 @@ export const environment = {
     apiUrl:         'https://api.eventjio.com/api',
     authApiUrl:     'https://api.eventjio.com/api',
     urlForLink :    'https://app.eventjio.com',
+    APPURL:     'https://app.eventjio.com/',
 };

@@ -124,6 +124,36 @@ export class SingleEventServiceService {
               return res;
           }),catchError(this.handleError));
   }
+  getSignupWaitingList(requestObject){
+    return this.http.post(`${environment.apiUrl}/waiting-list`,requestObject,{headers:this.globalHeaders}).pipe(
+        map ((res) => {
+            return res;
+        }),catchError(this.handleError));
+} 
+    getAllCouponCodes(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-all-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    UpdateTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    deleteTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    updateEvent(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
   
   issuedTickets(requestObject){
     return this.http.post(`${environment.apiUrl}/get-all-issue-ticket`,requestObject,{headers:this.globalHeaders}).pipe(

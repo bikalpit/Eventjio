@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {SingleEventServiceService} from '../_services/single-event-service.service';
 import { ErrorService } from '../../../_services/error.service'
+
 @Component({
   selector: 'app-waitilist-signup',
   templateUrl: './waitilist-signup.component.html',
@@ -15,9 +16,12 @@ export class WaitilistSignupComponent implements OnInit {
   showTicket:any = "N";
   boxofficeId:any;
   eventId:any;
-  
+  isLoaderAdmin:any;  
   waitinglistObject:any;
-
+  getAllWaitingListData:any;
+  getNewWaitingListData:any;
+  getNotifyWaitingListData:any;
+  
   constructor(
     private formBuilder: FormBuilder,
     private SingleEventServiceService:SingleEventServiceService,
@@ -31,6 +35,11 @@ export class WaitilistSignupComponent implements OnInit {
       this.eventId = localStorage.getItem('selectedEventCode')
     }
 
+    // if(localStorage.getItem('currentUser')){
+    //   this.tokenId = localStorage.getItem('token')
+    // }
+    // alert(this.tokenId)
+
     this.waitListForm =this.formBuilder.group({
       join_list:['', Validators.required],
       notified_waitlist:['',Validators.required],
@@ -39,6 +48,38 @@ export class WaitilistSignupComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getSignupWaitingList('NEW');
+    this.getSignupWaitingList('ALL');
+    this.getSignupWaitingList('NOTIFY');
+    
+  }
+
+  getSignupWaitingList(status){
+
+    this.isLoaderAdmin = true;
+    let requestObject = {
+       'event_id' : this.eventId,
+       'boxoffice_id': this.boxofficeId,
+       'status': status,
+    }
+    this.SingleEventServiceService.getSignupWaitingList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        if(status == 'ALL'){
+          this.getAllWaitingListData = response.response;
+        }else if(status == 'NEW'){
+          this.getNewWaitingListData = response.response;
+        }else{ 
+          this.getNotifyWaitingListData = response.response;
+        }
+
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+        this. getAllWaitingListData = null;
+      }
+      this.isLoaderAdmin = false;
+    })
+
+    
   }
 
   
