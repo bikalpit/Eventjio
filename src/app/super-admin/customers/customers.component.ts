@@ -164,7 +164,7 @@ export class CustomersComponent implements OnInit {
             "firstname": this.addCustomerForm.get("firstname").value,
             "lastname": this.addCustomerForm.get("lastname").value,
             "phone": this.addCustomerForm.get("phone").value,
-            "email": this.addCustomerForm.get("email").values,
+            "email": this.addCustomerForm.get("email").value,
             "address": this.addCustomerForm.get("address").value,
             "addTag": this.addCustomerForm.get("addTag").value,
             "boxoffice_id": this.boxofficeId,

@@ -142,18 +142,17 @@ export class BookTicketDialog {
   bookTickets: FormGroup;
   onlynumeric = /^-?(0|[1-9]\d*)?$/;
   discount:any;
-  singleEventDetails:any;
+  allEventlist:any;
   selectedEventCode:any;
   totalCost:any;
   customer_data:any;
   event_id:any;
   boxOfficeCode:any;
   selectedEventDate:any;
-  valuesType = ['flat', 'percent'];
-  ticket = { "price": 5000, "adultcount":0,"fee":200};
+  ticket = { "price": 5000, "qty":0,"fee":200};
 
   calculate() : any {
-    return this.ticket.price * this.ticket.adultcount;
+    return this.ticket.price * this.ticket.qty;
 }
 
 grandtotal() :any{
@@ -184,9 +183,6 @@ grandtotal() :any{
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
-      if(localStorage.getItem('selectedEventCode')){
-        this.event_id = localStorage.getItem('selectedEventCode')
-      }
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
       }
@@ -223,9 +219,10 @@ fnGetAllEventList(){
   }
   this.superadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
     if(response.data == true){
-      this.singleEventDetails = response.response
-      console.log(this.singleEventDetails);
-      this.selectedEventCode=  this.singleEventDetails[0].unique_code
+      alert(1);
+      this.allEventlist = response.response
+      console.log(this.allEventlist);
+      this.selectedEventCode=  this.allEventlist[0].event_id
      console.log(this.selectedEventCode);
     }else{
       alert(2)
@@ -247,9 +244,9 @@ fnGetAllEventList(){
       "phone":this.bookTickets.get("phone").value,
       "address_1":this.bookTickets.get("address_1").value,
       "postcode":this.bookTickets.get("postcode").value,
-      "event_id":this.selectedEventCode,
+      "event_id": this.event_id,
       "ticket_id":this.event_id,
-      "qty":this.ticket.adultcount,
+      "qty":this.ticket.qty,
       "sub_total":this.calculate(),
       "order_date":"2020-10-01",
       "order_time":"04:37",
@@ -259,7 +256,7 @@ fnGetAllEventList(){
       "payment_method":"cash",
       
     }
-    this.superadminService. createOrder(requestObject).subscribe((response:any) => {
+    this.superadminService.createOrder(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
  
