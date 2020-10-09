@@ -118,7 +118,7 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.get("phone").markAsTouched();
       this.addCustomerForm.get("email").markAsTouched();
       this.addCustomerForm.get("address").markAsTouched();
-      this.addCustomerForm.get("addTag").markAsTouched();
+      this.addCustomerForm.get("tags").markAsTouched();
       return false;
     }else{
       if(this.editCustomerForm == true){
@@ -131,17 +131,7 @@ export class CustomersComponent implements OnInit {
             "image": this.customerImageUrl,
             "address":this.addCustomerForm.get('address').value,
             "unique_code": this.selectedCustomerCode,
-            "boxoffice_id": this.boxofficeId,
-          };
-          this.fnUpdateCustomer(requestObject)
-        }else{
-          let requestObject={
-            "firstname":this.addCustomerForm.get('firstname').value,
-            "lastname":this.addCustomerForm.get('lastname').value,
-            "email":this.addCustomerForm.get('email').value,
-            "phone":this.addCustomerForm.get('phone').value,
-            "address":this.addCustomerForm.get('address').value,
-            "unique_code": this.selectedCustomerCode,
+            "tags": this.addCustomerForm.get("tags").value,
             "boxoffice_id": this.boxofficeId,
           };
           this.fnUpdateCustomer(requestObject)
@@ -154,19 +144,8 @@ export class CustomersComponent implements OnInit {
             "phone": this.addCustomerForm.get("phone").value,
             "email": this.addCustomerForm.get("email").value,
             "address": this.addCustomerForm.get("address").value,
-            "addTag": this.addCustomerForm.get("addTag").value,
+            "tags": this.addCustomerForm.get("tags").value,
             "image": this.customerImageUrl,
-            "boxoffice_id": this.boxofficeId,
-          }
-          this.fnCreateCustomer(requestObject)
-        }else{
-          let requestObject={
-            "firstname": this.addCustomerForm.get("firstname").value,
-            "lastname": this.addCustomerForm.get("lastname").value,
-            "phone": this.addCustomerForm.get("phone").value,
-            "email": this.addCustomerForm.get("email").value,
-            "address": this.addCustomerForm.get("address").value,
-            "addTag": this.addCustomerForm.get("addTag").value,
             "boxoffice_id": this.boxofficeId,
           }
           this.fnCreateCustomer(requestObject)
