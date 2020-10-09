@@ -103,23 +103,47 @@ export class ExportOrderDialog {
 })
 export class AddNewOrderDialog { 
   animal :any;
+  allEventlist:any;
+  boxOfficeCode:any;
 
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddNewOrderDialog>,
     private http: HttpClient,
+    public superadminService : SuperadminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      if(localStorage.getItem('boxoffice_id')){
+        this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
+      }
     }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
   ngOnInit() {
-  }
+    }
+
   fnBookTicketType(){
     this.bookTicket();
     this.dialogRef.close();
   }
+  
+  fnGetAllEventList(){
+    let requestObject={
+      "boxoffice_id": this.boxOfficeCode,
+      "filter":'upcoming',
+    }
+    this.superadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        alert(1);
+        this.allEventlist = response.response
+        console.log(this.allEventlist);
+      }else{
+        alert(2)
+      }
+     });
+  }
+  
   
   bookTicket() {
     const dialogRef = this.dialog.open(BookTicketDialog, {

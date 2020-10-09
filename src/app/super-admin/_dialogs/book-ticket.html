@@ -62,7 +62,7 @@
                         <div class="tb-data order-item fw-100" fxFlex="30" *ngFor="let package of packagesArray">{{package.ticket_type}}</div>
                         <div class="tb-data" fxFlex="20">${{ticket.price}}</div>
                         <div class="tb-data" fxFlex="15">${{ticket.fee}}</div>
-                        <div class="tb-data" fxFlex="15">{{ticket.adultcount}}</div>
+                        <div class="tb-data" fxFlex="15">{{ticket.qty}}</div>
                         <div class="tb-data align-end" fxFlex="20">${{ calculate() }}</div>                        
                     </div>
                 </div>     
@@ -78,9 +78,7 @@
               <div class="content" class="drageble-list">
                 <div class="drageble-box fw-600"  fxLayout="row">
                       <div class="tb-data order-item fw-100" fxFlex="20">
-                        <mat-select name=" " id="" class="form-control col-12" placeholder="select discount type">
-                          <mat-option value=" " *ngFor="let value of valuesType">{{ value }}</mat-option>
-                        </mat-select>   
+                        
                       </div>       
                       <div class="tb-data" fxFlex="20"></div>  
                       <div class="tb-data" fxFlex="20">
@@ -235,7 +233,7 @@
                       <div class="tb-data order-item fw-100" fxFlex="50" *ngFor="let package of packagesArray">{{package.ticket_type}}</div>
                       <div class="tb-data" fxFlex="30">${{ticket.price}}</div>
                       <div class="tb-data" fxFlex="20">${{ticket.fee}}</div>
-                      <div class="tb-data" fxFlex="30">{{ticket.adultcount}}</div>
+                      <div class="tb-data" fxFlex="30">{{ticket.qty}}</div>
                       <div class="tb-data align-end" fxFlex="30">${{ calculate() }}</div>                        
                   </div>
               </div>    
