@@ -388,6 +388,7 @@ export class EventsComponent implements OnInit {
     this.addEventForm.updateValueAndValidity();
   }
   
+  
   fnAddNewEvent(){
     console.log(this.addEventForm)
     console.log(this.salesTax)
@@ -592,8 +593,10 @@ export class AddNewTicketType {
   showQTY:any = 'N';
   soldOut:any = 'N';
   showDes:any = 'N';
+  advanceSetting:any = 'N';
   fullDayTimeSlote:any;
   newTicketData:any;
+  onlynumeric = /^[0-9]+(?:\.[0-9]+)?$/
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
@@ -606,13 +609,13 @@ export class AddNewTicketType {
 
       this.addTicketForm = this._formBuilder.group({
         title: ['',[Validators.required]],
-        price: ['',[Validators.required]],
-        qty: ['',[Validators.required]],
-        description: ['',[Validators.required]],
-        fee: [''],
-        status: ['',[Validators.required]],
-        min_order: ['',[Validators.required]],
-        max_order: ['',[Validators.required]],
+        price: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+        qty: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+        description: [''],
+        fee: ['',[Validators.pattern(this.onlynumeric)]],
+        status: [''],
+        min_order: ['',[Validators.pattern(this.onlynumeric)]],
+        max_order: ['',[Validators.pattern(this.onlynumeric)]],
         until_date: ['',[Validators.required]],
         until_time: ['',[Validators.required]],
         until_interval: ['',[Validators.required]],
@@ -674,6 +677,14 @@ export class AddNewTicketType {
     }
   }
 
+  fnChangeAdvSetting(event){
+    if(event.checked == true){
+      this.advanceSetting = 'Y';
+    }else{
+      this.advanceSetting = 'N';
+    }
+  }
+
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
@@ -701,7 +712,7 @@ export class AddNewTicketType {
       'ticket_name': this.addTicketForm.get('title').value,
       'prize': this.addTicketForm.get('price').value,
       'qty': this.addTicketForm.get('qty').value,
-      'advance_setting': 'Y',
+      'advance_setting': this.advanceSetting,
       'description':  this.addTicketForm.get('description').value,
       'booking_fee':  this.addTicketForm.get('fee').value,
       'status':  this.addTicketForm.get('status').value,
