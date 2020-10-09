@@ -234,6 +234,13 @@ export class SuperadminService {
         }),catchError(this.handleError));
     }
 
+    createOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/create-order`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
   
 
 }

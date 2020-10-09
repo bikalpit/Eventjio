@@ -83,12 +83,12 @@
                            </div>
                      
                            <div class="drageble-list">
-                              <div class="drageble-box"  fxLayout="row" *ngFor="let element of orderData">
-                                <div class="tb-data" fxFlex="20"><span class="cpn-bor" (click)="fnIssuedTicketView()" [ngStyle]="{'color':element.Ticket_Code === 'Completed' ? '#0000ff' : '#0000ff' }">{{element.Ticket_Code}}</span> <button mat-raised-button class="mx-1 void-btn">void</button></div>      
-                                <div class="tb-data" fxFlex="20">{{element.Ticket_Type}}</div>
-                                <div class="tb-data" fxFlex="20">{{element.name}}</div>
-                                <div class="tb-data" fxFlex="20">{{element.Orderid}}</div>
-                                <div class="tb-data" fxFlex="20">{{element.Issued}}</div>
+                              <div class="drageble-box"  fxLayout="row" *ngFor="let getIssuedTicket of getIssuedTicket; let i=index">
+                                <div class="tb-data" fxFlex="20"><span class="cpn-bor" (click)="fnIssuedTicketView()" [ngStyle]="{'color':getIssuedTicket.Ticket_Code === 'Completed' ? '#0000ff' : '#0000ff' }">{{getIssuedTicket.Ticket_Code}}</span> <button mat-raised-button class="mx-1 void-btn">void</button></div>      
+                                <div class="tb-data" fxFlex="20">{{getIssuedTicket.Ticket_Type}}</div>
+                                <div class="tb-data" fxFlex="20">{{getIssuedTicket.name}}</div>
+                                <div class="tb-data" fxFlex="20">{{getIssuedTicket.Orderid}}</div>
+                                <div class="tb-data" fxFlex="20">{{getIssuedTicket.Issued}}</div>
                               </div>
                            </div>
                     </div>
