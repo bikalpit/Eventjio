@@ -37,6 +37,7 @@ export class CustomersComponent implements OnInit {
   selectedCustomerArr:any;
   addFormButtonDiv : boolean = true;
   customerImageUrl:any;
+  onlynumeric = "[0-9]+";
   allUpcomingEventListData:any;
 
   constructor(
@@ -52,17 +53,18 @@ export class CustomersComponent implements OnInit {
       this.boxofficeId = localStorage.getItem('boxoffice_id');   
     }
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+    let onlynumeric = /^-?(0|[1-9]\d*)?$/
     this.addCustomerForm = this.formBuilder.group({
       firstname:['',Validators.required],
       lastname:['',Validators.required],
-      phone:['',Validators.required],
+      phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
       // image:['',Validators.required],
       address:['',Validators.required],
-      addTag:[''],
+      tags:['',Validators.required],
     });  
    }
-   
+
    onTabChange(event){
     let clickedIndex = event.index;
     if(clickedIndex == 0){      
@@ -74,6 +76,7 @@ export class CustomersComponent implements OnInit {
   addFormButton(){
     this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     this.addCustomerForm.reset();
+    this.customerImageUrl = undefined;
   }
   
   ngOnInit(): void {
@@ -116,35 +119,35 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.get("phone").markAsTouched();
       this.addCustomerForm.get("email").markAsTouched();
       this.addCustomerForm.get("address").markAsTouched();
-      this.addCustomerForm.get("addTag").markAsTouched();
+      this.addCustomerForm.get("tags").markAsTouched();
       this.addCustomerForm.get("image").markAsTouched();
+      alert(1);
       return false;
     }else{
-      if(this.editCustomerForm == true){
-         this.isLoaderAdmin = true;
+      if(this.editCustomerForm == true){         
         let requestObject={
           "firstname":this.addCustomerForm.get('firstname').value,
           "lastname":this.addCustomerForm.get('lastname').value,
           "email":this.addCustomerForm.get('email').value,
           "phone":this.addCustomerForm.get('phone').value,
           "image": this.customerImageUrl,
+          "tags":this.addCustomerForm.get('tags').value,
           "address":this.addCustomerForm.get('address').value,
           "unique_code": this.selectedCustomerCode,
           "boxoffice_id": this.boxofficeId,
+          
         };
         this.fnUpdateCustomer(requestObject)
 
       
       }else if(this.editCustomerForm == false){
-      this.isLoaderAdmin = true;
       let requestObject={
         "firstname": this.addCustomerForm.get("firstname").value,
         "lastname": this.addCustomerForm.get("lastname").value,
         "phone": this.addCustomerForm.get("phone").value,
         "email": this.addCustomerForm.get("email").value,
         "address": this.addCustomerForm.get("address").value,
-        "addTag": this.addCustomerForm.get("addTag").value,
-        // "image": this.addCustomerForm.get("image").value,
+        "tags": this.addCustomerForm.get("tags").value,
         "boxoffice_id": this.boxofficeId,
         
       }
@@ -154,17 +157,15 @@ export class CustomersComponent implements OnInit {
 }
 
   fnCreateCustomer(requestObject){
-    this.isLoaderAdmin = true;
     this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
     if(response.data == true){
       this.ErrorService.successMessage(response.response);
+      this.getAllCustomersDetails();
       this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     }else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
-      this.getAllCustomersDetails();
+      this.ErrorService.errorMessage(response.response);     
       }
     });
-    this.isLoaderAdmin = false;
  }
 //this is for all details of customer in table
  getAllCustomersDetails(){
@@ -191,39 +192,44 @@ export class CustomersComponent implements OnInit {
   
   this.addFormButtonDiv = this.addFormButtonDiv ? false : true;  
   this.editCustomerForm = true;
-  this.isLoaderAdmin = true;
   let requestObject = {
     "unique_code": this.selectedCustomerCode,
   };
   this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
     if(response.data == true){
-      this.singleCustomerDetails = response.response[0]
+      this.singleCustomerDetails = response.response;
       this.addCustomerForm.controls['firstname'].setValue(this.singleCustomerDetails.firstname)
       this.addCustomerForm.controls['lastname'].setValue(this.singleCustomerDetails.lastname)
       this.addCustomerForm.controls['email'].setValue(this.singleCustomerDetails.email)
       this.addCustomerForm.controls['phone'].setValue(this.singleCustomerDetails.phone)
-      this.addCustomerForm.controls['addTag'].setValue(this.singleCustomerDetails.addTag)
+      this.addCustomerForm.controls['tags'].setValue(this.singleCustomerDetails.tags)
       this.addCustomerForm.controls['address'].setValue(this.singleCustomerDetails.address)
 
-    }
-    else if(response.data == false){
+    }  else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
     }
-    this.isLoaderAdmin = false;
   });
 }
 
 //this is for showing a single data on page
 fnSelectCustomer(selectedCustomerCode){
+
   this.selectedCustomerCode = selectedCustomerCode;
+    
+  if(!selectedCustomerCode){
+    return false;
+  }
+
   this.isLoaderAdmin = true;
-  let requestObject ={
-    "unique_code": this.selectedCustomerCode,
+
+  let requestObject =  {
+    "unique_code": selectedCustomerCode,
   };
 
   this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
     if(response.data == true){
-      this.selectedCustomerDetails = response.response
+      this.selectedCustomerDetails = response.response;
+
       console.log(this.selectedCustomerDetails);
 
     }else if(response.data == false){

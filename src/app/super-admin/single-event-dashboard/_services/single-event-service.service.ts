@@ -125,4 +125,10 @@ export class SingleEventServiceService {
           }),catchError(this.handleError));
   }
   
+  issuedTickets(requestObject){
+    return this.http.post(`${environment.apiUrl}/get-all-issue-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
+        map ((res) => {
+            return res;
+        }),catchError(this.handleError));
+  }
 }
