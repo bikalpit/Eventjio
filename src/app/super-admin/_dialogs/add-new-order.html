@@ -11,9 +11,9 @@
       <div class="add-new-order">
         <div class="booking">
           <div class="row ticket">
-            <div class="col-md-8 ticket-details">
+            <div class="col-md-8 ticket-details" *ngFor="let event of allEventlist">
               <p>Mon Jul 27</p>
-              <label>Lajawab Cooking Class</label>
+              <label>{{event.event_title}}</label>
             </div>
             <div class="col-md-4">
               <button mat-raised-button class="ticket-btn comm-btn" (click)="fnBookTicketType()">Book Ticket</button>
