@@ -48,6 +48,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   eventTicketList= [];
   newEventImageUrl :any;
   selectedTicketDetail:any;
+  getCurrancy:any;
 
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
@@ -99,6 +100,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.getAllTimeZone();
     this.getDefaultImages();
     this.getTimeSlote();
+    this.getAllCurrancy();
 
   }
 
@@ -134,6 +136,14 @@ export class EventAndTicketTypesComponent implements OnInit {
     });
   }
 
+  getAllCurrancy(){
+    this.SingleEventServiceService.getAllCurrancy().subscribe((response:any) => {
+      if(response.data == true){
+        this.getCurrancy= response.response
+      }
+    });
+  }
+
   getTimeSlote(){
     let requestObject = {
       'interval'  :'30',
@@ -160,6 +170,9 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.singleEventDetail= response.response.event[0];
+        if(this.singleEventDetail.images[0].type == 'default'){
+          this.eventImageType = this.singleEventDetail.images[0].id
+        }
         this.singleEventSetting= this.singleEventDetail.event_setting;
         this.eventTicketList= response.response.tickets;
         if(this.eventTicketList){
@@ -402,7 +415,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       'description':this.editEventForm.get('description').value,
       'platform':this.editEventForm.get('online_platform').value,
       'event_link':this.editEventForm.get('online_link').value,
-      'event_status':'draft',
+      'event_status':this.singleEventDetail.event_status,
       'timezone':this.editEventForm.get('timezone').value,
       'make_donation':this.donation,
       'event_button_title':this.editEventForm.get('book_btn_title').value,
@@ -419,7 +432,6 @@ export class EventAndTicketTypesComponent implements OnInit {
       'hide_share_button':this.shareButtonStatus,
       'custom_sales_tax':this.customSalesTax,
       'sales_tax':this.salesTax,
-      'tickets':this.eventTicketList,
       'image' : this.newEventImageUrl,
       'default-image' : this.selecetdDefaultImage,
       };
@@ -471,6 +483,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       data : {
         boxOfficeCode : this.boxOfficeCode,
         fullDayTimeSlote : this.fullDayTimeSlote,
+        selectedEventId : this.singleEventDetail.unique_code
       }
     });
 
@@ -584,6 +597,7 @@ export class AddNewTicketType {
   newTicketData:any;
   selectedTicketDetail:any;
   editTicket : boolean = false;
+  selectedEventId:any;
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
@@ -594,6 +608,7 @@ export class AddNewTicketType {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.fullDayTimeSlote = this.data.fullDayTimeSlote
       this.selectedTicketDetail = this.data.selectedTicketDetail
+      this.selectedEventId = this.data.selectedEventId
       if(this.selectedTicketDetail){
         this.editTicket = true;
         this.advanceSetting = this.selectedTicketDetail.advance_setting
@@ -617,8 +632,8 @@ export class AddNewTicketType {
         this.editTicket = false;
         this.addTicketForm = this._formBuilder.group({
           title: ['',[Validators.required]],
-          price: ['',[Validators.required]],
-          qty: ['',[Validators.required]],
+          price: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+          qty: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
           description: [null,[Validators.required]],
           fee: [null,[Validators.pattern(this.onlynumeric)]],
           status: [null,[Validators.required]],
@@ -711,7 +726,7 @@ export class AddNewTicketType {
       this.addTicketForm.get('after_time').markAsTouched;
       this.addTicketForm.get('until_interval').markAsTouched;
       this.addTicketForm.get('after_interval').markAsTouched;
-
+      console.log(this.addTicketForm)
       return false;
     }
 
@@ -744,6 +759,7 @@ export class AddNewTicketType {
     }else {
       
     this.newTicketData = {
+      'event_id' : this.selectedEventId,
       'box_office_id': this.boxOfficeCode,
       'ticket_name': this.addTicketForm.get('title').value,
       'prize': this.addTicketForm.get('price').value,
@@ -766,7 +782,7 @@ export class AddNewTicketType {
       'untill_interval':  this.addTicketForm.get('until_interval').value,
       'after_interval':  this.addTicketForm.get('after_interval').value,
     }
-    this.dialogRef.close(this.newTicketData);
+    this.createTicket(this.newTicketData)
     }
   }
 
@@ -778,6 +794,20 @@ export class AddNewTicketType {
         this.ErrorService.successMessage(response.response);
         this.dialogRef.close(requestObject);
         // this.dialogRef.close();
+      }
+      else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+  createTicket(requestObject){
+    this.isLoaderAdmin = true;
+    this.SingleEventServiceService.createTicket(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+        this.dialogRef.close(this.newTicketData);
       }
       else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
