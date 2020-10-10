@@ -7,6 +7,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SuperadminService } from '../_services/superadmin.service';
+import { DatePipe} from '@angular/common';
 
 export interface DialogData {
   animal: string;
@@ -100,21 +101,24 @@ export class ExportOrderDialog {
 @Component({
   selector: 'Add-New-Orders',
   templateUrl: '../_dialogs/add-new-order.html',
+  providers: [DatePipe]
 })
 export class AddNewOrderDialog { 
   animal :any;
   allEventlist:any;
   boxOfficeCode:any;
-
+  selectedEvent :any;
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddNewOrderDialog>,
     private http: HttpClient,
+    private datePipe: DatePipe,
     public superadminService : SuperadminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
       }
+      this.fnGetAllEventList();
     }
 
   onNoClick(): void {
@@ -123,7 +127,8 @@ export class AddNewOrderDialog {
   ngOnInit() {
     }
 
-  fnBookTicketType(){
+  fnBookTicketType(selecetedEvent){
+    this.selectedEvent = selecetedEvent
     this.bookTicket();
     this.dialogRef.close();
   }
@@ -135,11 +140,11 @@ export class AddNewOrderDialog {
     }
     this.superadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        alert(1);
+     
         this.allEventlist = response.response
-        console.log(this.allEventlist);
+        // console.log(this.allEventlist);
       }else{
-        alert(2)
+        // alert(2)
       }
      });
   }
@@ -148,6 +153,7 @@ export class AddNewOrderDialog {
   bookTicket() {
     const dialogRef = this.dialog.open(BookTicketDialog, {
       width: '700px',
+      data :{selecetedEvent : this.selectedEvent}
     });
   
      dialogRef.afterClosed().subscribe(result => {
@@ -167,8 +173,10 @@ export class BookTicketDialog {
   onlynumeric = /^-?(0|[1-9]\d*)?$/;
   discount:any;
   allEventlist:any;
+  singleTicket:any;
   selectedEventCode:any;
   totalCost:any;
+  eventTicket:any;
   customer_data:any;
   event_id:any;
   boxOfficeCode:any;
@@ -206,7 +214,8 @@ grandtotal() :any{
     private authenticationService : AuthenticationService,
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-
+      this.selectedEventCode = this.data.selecetedEvent;
+      alert(this.selectedEventCode)
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
       }
@@ -233,27 +242,21 @@ grandtotal() :any{
 
   }
   ngOnInit() {
-    this.fnGetAllEventList();
-}
-
-fnGetAllEventList(){
-  let requestObject={
-    "boxoffice_id": this.boxOfficeCode,
-    "filter":'upcoming',
+    this.fnGeteventTicket();
   }
-  this.superadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
-    if(response.data == true){
-      alert(1);
-      this.allEventlist = response.response
-      console.log(this.allEventlist);
-      this.selectedEventCode=  this.allEventlist[0].event_id
-     console.log(this.selectedEventCode);
-    }else{
-      alert(2)
+  fnGeteventTicket(){
+    let requestObject={
+      "event_id":this.selectedEventCode,
     }
-   });
-}
-
+    this.superadminService.fnGeteventTicket(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.eventTicket = response.response
+        console.log(this.eventTicket);
+      }else{
+        // alert(2)
+      }
+     });
+  }
 
   fnTicketCheckout(fromType){
     this.addOrderFormType = fromType;
@@ -268,7 +271,7 @@ fnGetAllEventList(){
       "phone":this.bookTickets.get("phone").value,
       "address_1":this.bookTickets.get("address_1").value,
       "postcode":this.bookTickets.get("postcode").value,
-      "event_id": this.event_id,
+      "event_id": this.selectedEventCode,
       "ticket_id":this.event_id,
       "qty":this.ticket.qty,
       "sub_total":this.calculate(),
@@ -280,12 +283,13 @@ fnGetAllEventList(){
       "payment_method":"cash",
       
     }
+    console.log(requestObject);
     this.superadminService.createOrder(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
  
       }else{
-        alert(2)
+        // alert(2)
       }
      });
    }

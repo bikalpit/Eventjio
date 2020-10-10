@@ -116,6 +116,21 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+
+    fnGetsingleTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-ticket `,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    fnGeteventTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-event-tickets `,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+            }),catchError(this.handleError));
+        }
+    
     changeCouponStaus(requestObject){
         return this.http.post(`${environment.apiUrl}/update-coupon-status-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
