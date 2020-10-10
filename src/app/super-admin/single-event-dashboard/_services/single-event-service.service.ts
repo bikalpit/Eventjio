@@ -61,27 +61,35 @@ export class SingleEventServiceService {
           return res;
       }),catchError(this.handleError));
   }
-  getTimeSlote(requestObject){
-      return this.http.post(`${environment.apiUrl}/get-timeslots`,requestObject,{headers:this.globalHeaders}).pipe(
-      map((res) => {
-          return res;
-      }),catchError(this.handleError));
-  }
+
+    getTimeSlote(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-timeslots`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 
 
-  getSingleEvent(requestObject){
-      return this.http.post(`${environment.apiUrl}/get-single-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
-      map((res) => {
-          return res;
-      }),catchError(this.handleError));
-  }
+    getSingleEvent(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 
-  getAllBroadcast(requestObject){
-    return this.http.post(`${environment.apiUrl}/get-all-broadcast-api`,requestObject,{headers:this.globalHeaders}).pipe(
-    map((res) => {
-        return res;
-    }),catchError(this.handleError));
-}
+    getSingleSummery(requestObject){
+        return this.http.post(`${environment.apiUrl}/event-summery`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getAllBroadcast(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-all-broadcast-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
  
   getWaitingList(requestObject){
     return this.http.post(`${environment.apiUrl}/get-waiting-list`,requestObject,{headers:this.globalHeaders}).pipe(
@@ -106,6 +114,13 @@ export class SingleEventServiceService {
 
   getSingleBoxofficeDetails(requestObject){
     return this.http.post(`${environment.apiUrl}/get-single-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
+    map((res) => {
+        return res;
+    }),catchError(this.handleError));
+  }
+  
+  getSettings(requestObject){
+    return this.http.post(`${environment.apiUrl}/get-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
     map((res) => {
         return res;
     }),catchError(this.handleError));
@@ -154,6 +169,19 @@ export class SingleEventServiceService {
             return res;
         }),catchError(this.handleError));
     }
+    createTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/add-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    getSettingsValue(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-all-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+  
   
   issuedTickets(requestObject){
     return this.http.post(`${environment.apiUrl}/get-all-issue-ticket`,requestObject,{headers:this.globalHeaders}).pipe(

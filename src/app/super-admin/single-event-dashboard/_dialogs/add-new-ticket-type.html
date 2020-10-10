@@ -28,6 +28,7 @@
                                 <input type="text" formControlName="price" class="form-control" placeholder="0.00">
                                 <span class="error-wrap" *ngIf="addTicketForm.get('price').touched || addTicketForm.get('price').dirty">
                                     <small *ngIf="addTicketForm.get('price').hasError('required')" class="error">Price is required.</small>
+                                    <small *ngIf="addTicketForm.get('price').hasError('pattern')" class="error">Price is should numeric only.</small>
                                 </span>
                             </div>
                         </div>
@@ -37,7 +38,8 @@
                             <div class="form-group">
                                 <input type="text" formControlName="qty" class="form-control" placeholder="General Adminssion">
                                 <span class="error-wrap" *ngIf="addTicketForm.get('qty').touched || addTicketForm.get('qty').dirty">
-                                    <small *ngIf="addTicketForm.get('qty').hasError('required')" class="error">Quantity required.</small>
+                                    <small *ngIf="addTicketForm.get('qty').hasError('required')" class="error">Quantity is required.</small>
+                                    <small *ngIf="addTicketForm.get('qty').hasError('pattern')" class="error">Quantity is should numeric only.</small>
                                 </span>
                             </div>
                         </div>
@@ -51,9 +53,9 @@
                         <label for="">Description</label>
                         <div class="form-group">
                             <input type="text" formControlName="description" class="form-control" placeholder="General Admission">
-                            <span class="error-wrap" *ngIf="addTicketForm.get('description').touched || addTicketForm.get('description').dirty">
+                            <!-- <span class="error-wrap" *ngIf="addTicketForm.get('description').touched || addTicketForm.get('description').dirty">
                             <small *ngIf="addTicketForm.get('description').hasError('required')" class="error">Description is required.</small>
-                        </span>
+                        </span> -->
                         </div>
 
 
@@ -62,6 +64,9 @@
                                 <label for="">Booking Fee</label>
                                 <div class="form-group">
                                     <input type="text" formControlName="fee" class="form-control" placeholder="0.00">
+                                    <span class="error-wrap" *ngIf="addTicketForm.get('fee').touched || addTicketForm.get('fee').dirty">
+                                        <small *ngIf="addTicketForm.get('fee').hasError('pattern')" class="error">Booking Fee is should numeric only.</small>
+                                    </span>
                                 </div>
                             </div>
 
@@ -76,9 +81,9 @@
                                         <mat-option value="DU">Display as unavailable</mat-option>
                                         <mat-option value="OVA">Only visoble to admin</mat-option>
                                     </mat-select>
-                                    <span class="error-wrap" *ngIf="addTicketForm.get('status').touched || addTicketForm.get('status').dirty">
+                                    <!-- <span class="error-wrap" *ngIf="addTicketForm.get('status').touched || addTicketForm.get('status').dirty">
                                     <small *ngIf="addTicketForm.get('status').hasError('required')" class="error">Status is required.</small>
-                                </span>
+                                </span> -->
                                 </div>
                             </div>
 
@@ -87,7 +92,7 @@
                                 <div class="form-group">
                                     <input formControlName="min_order" type="text" class="form-control" placeholder="1">
                                     <span class="error-wrap" *ngIf="addTicketForm.get('min_order').touched || addTicketForm.get('min_order').dirty">
-                                    <small *ngIf="addTicketForm.get('min_order').hasError('required')" class="error">Min per order is required.</small>
+                                    <small *ngIf="addTicketForm.get('min_order').hasError('pattern')" class="error">Min per order is should numeric only.</small>
                                 </span>
                                 </div>
                             </div>
@@ -97,7 +102,7 @@
                                 <div class="form-group">
                                     <input formControlName="max_order" type="text" class="form-control" placeholder="20">
                                     <span class="error-wrap" *ngIf="addTicketForm.get('max_order').touched || addTicketForm.get('max_order').dirty">
-                                    <small *ngIf="addTicketForm.get('max_order').hasError('required')" class="error">Max per order is required.</small>
+                                    <small *ngIf="addTicketForm.get('max_order').hasError('pattern')" class="error">Max per order is should numeric only.</small>
                                 </span>
                                 </div>
                             </div>
