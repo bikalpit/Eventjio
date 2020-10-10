@@ -129,8 +129,8 @@
             <div class="form-group">
               <label for="">Repeat Email <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
               <input type="email" class="form-control" id=""  placeholder="" formControlName = "repeat_email">
-              <span class="error-wrap" *ngIf="bookTickets.get('repeat_email').dirty || bookTickets.get('repeat_email').touched"><small *ngIf="bookTickets.get('repeat_email').hasError('required')" class="error text-left">Email is required.</small><small *ngIf="bookTickets.get('repeat_email').hasError('pattern')" class="error">Enter valid email.</small></span>
-              <small *ngIf="!bookTickets.get('repeat_email').hasError('required') && bookTickets.hasError('notSame')" class="error text-left ml-4">emails do not match.</small>
+              <span class="error-wrap" *ngIf="bookTickets.get('repeat_email').dirty || bookTickets.get('repeat_email').touched"><small *ngIf="bookTickets.get('repeat_email').hasError('required')" class="error text-left">Email is required.</small><small *ngIf="bookTickets.get('repeat_email').hasError('required') && bookTickets.hasError('notSame')" class="error text-left ml-4">Confirm password is required.</small>
+              <small *ngIf="!bookTickets.get('repeat_email').hasError('required') && bookTickets.hasError('notSame')" class="error text-left ml-4">emails do not match.</small></span>
             </div>
           <div class="form-group">
             <label for="">Mobile Phone Number <span><i class="fa fa-asterisk"></i></span> </label>
