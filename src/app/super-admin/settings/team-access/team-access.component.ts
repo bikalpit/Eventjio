@@ -116,23 +116,23 @@ export class TeamAccessComponent implements OnInit {
 
       fnOnchecked(event){
         console.log(event);
-        alert(event.target.value);
-        if(event.target.value === "A"){
+        alert(event.source.value);
+        if(event.source.value === "A"){
           this.inviteForm.controls['checkGroup.admin'].value == true 
           this.inviteForm.controls['checkGroup.eventManager'].value == false 
           this.inviteForm.controls['checkGroup.orderManager'].value == false 
           this.inviteForm.controls['checkGroup.overView'].value == false 
-        }else if(event.target.value === "EM"){
+        }else if(event.source.value === "EM"){
           this.inviteForm.controls['checkGroup.admin'].value == false 
           this.inviteForm.controls['checkGroup.eventManager'].value == true 
           this.inviteForm.controls['checkGroup.orderManager'].value == false 
           this.inviteForm.controls['checkGroup.overView'].value == false 
-        }else if(event.target.value === "OM"){
+        }else if(event.source.value === "OM"){
           this.inviteForm.controls['checkGroup.admin'].value == false 
           this.inviteForm.controls['checkGroup.eventManager'].value == false 
           this.inviteForm.controls['checkGroup.orderManager'].value == true 
           this.inviteForm.controls['checkGroup.overView'].value == false 
-        }else if(event.target.value === "OV"){
+        }else if(event.source.value === "OV"){
           this.inviteForm.controls['checkGroup.admin'].value == false 
           this.inviteForm.controls['checkGroup.eventManager'].value == false 
           this.inviteForm.controls['checkGroup.orderManager'].value == false 

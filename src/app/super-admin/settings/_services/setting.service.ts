@@ -109,4 +109,20 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+
+    getAllInviter(requestObject){
+        return this.http.post(`${environment.apiUrl}/all-requested-inviter-api
+        `,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    inviteform(requestObject){
+        return this.http.post(`${environment.apiUrl}/request-inviter-api
+        `,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 }
