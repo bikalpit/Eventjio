@@ -8,39 +8,41 @@
       </div>
   
       <div class="modal-body"> 
-        <div class="row">            
+        <form [formGroup]="inviteForm">
+          <div class="row">            
             <div class="form-group  col-md-12">
                 <label for="">Email  <span><i class="fa fa-asterisk"></i></span> </label>
-                <input type="text" class="form-control" id="" placeholder="">
+                <input type="text" formControlName="email_id" class="form-control" id="" placeholder="">
             </div>
             <div class="roles">
               <div class="col-md-12 form-group">
                 <p class="mb-0 team-role">Roles</p>
               </div>
                 <section class="col-md-12 form-group">
-                    <mat-checkbox class="mb-0">Admin</mat-checkbox>
+                    <mat-checkbox formControlName="admin" value="A" (change)="fnOnchecked($event)" class="mb-0">Admin</mat-checkbox>
                     <p class="pl-25">Access everything (can not delete account owner)</p>
                 </section>
                 <section class="col-md-12 form-group">
-                    <mat-checkbox class="mb-0">Even Manager</mat-checkbox>
+                    <mat-checkbox formControlName="eventManager" value="EM" (change)="fnOnchecked($event)" class="mb-0">Even Manager</mat-checkbox>
                     <p class="pl-25">Create, edit and manage anything related to an event</p>
-                    <mat-checkbox class="mb-0 pl-25">Allow access to customer data (Doorlist, Waitlists, Broadcasts)</mat-checkbox>
+                    <mat-checkbox formControlName="sub_permission" value="AACD" class="mb-0 pl-25">Allow access to customer data (Doorlist, Waitlists, Broadcasts)</mat-checkbox>
                 </section>
                 <section class="col-md-12 form-group">
-                    <mat-checkbox class="mb-0">Order manager</mat-checkbox>
+                    <mat-checkbox formControlName="orderManager" value="OM" (change)="fnOnchecked($event)" class="mb-0">Order manager</mat-checkbox>
                     <p class="pl-25">View and search orders, and resend tickets</p>
-                    <mat-checkbox class="mb-0 pl-25">Allow user to edit and cancel orders</mat-checkbox>
-                    <mat-checkbox class="mb-0 pl-25">Allow user to export reports</mat-checkbox>
+                    <mat-checkbox formControlName="sub_permission" value="AUEC" class="mb-0 pl-25">Allow user to edit and cancel orders</mat-checkbox>
+                    <mat-checkbox formControlName="sub_permission" value="AUER" class="mb-0 pl-25">Allow user to export reports</mat-checkbox>
                 </section>
                 <section class="col-md-12 form-group">
-                    <mat-checkbox class="mb-0">Overview</mat-checkbox>
+                    <mat-checkbox formControlName="overView" value="OM" (change)="fnOnchecked($event)" class="mb-0">Overview</mat-checkbox>
                     <p class="pl-25">View sales and revenue figures</p>
                 </section>
             </div>
             <div class="ml-auto mt-3">
-                <button mat-raised-button class="mx-3 invite-btn">Invite</button>
+                <button mat-raised-button (click)="fnOnSubmit()" class="mx-3 invite-btn">Invite</button>
             </div>
         </div>
+        </form>
       </div>
   
     </div>

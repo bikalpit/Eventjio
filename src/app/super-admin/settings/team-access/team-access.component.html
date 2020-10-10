@@ -54,24 +54,29 @@
                                 <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
                                         <div class="" fxFlex="25">Email Address</div>
-                                        <div class="" fxFlex="25">Roles</div>
-                                        <div class="" fxFlex="20">Last Seen</div>
+                                        <div class="" fxFlex="20">Roles</div>
+                                        <div class="" fxFlex="35">Last Seen</div>
                                         <div class="" fxFlex="20">Status</div>
-                                        <div class="" fxFlex="10"></div>
+                                        <!-- <div class="" fxFlex="10"></div> -->
                                     </div>
-                                    <div *ngFor="let in of invite">
+                                    <div *ngFor="let allInviterData of allInviterData">
                                         <div class="content" class="drageble-list">
                                             <div class="drageble-box"  fxLayout="row">
-                                                <div class="tb-data cpn-title" fxFlex="25">{{in.email}}</div>
-                                                <div class="tb-data cpn-code" fxFlex="25">                                                    
-                                                    <p>{{in.roles}}</p>
-                                                    <p>{{in.editrole}}</p>
-                                                    <p>{{in.exportrole}}</p>
+                                                <div class="tb-data cpn-title" fxFlex="25">{{allInviterData.email_id}}</div>
+                                                <div class="tb-data cpn-code" fxFlex="20">
+                                                    <p *ngIf="allInviterData.role === 'A'">Admin</p>
+                                                    <p *ngIf="allInviterData.role === 'EO'">Event organisers </p>
+                                                    <p *ngIf="allInviterData.role === 'OM'">Event manager</p>
+                                                    <p *ngIf="allInviterData.role === 'OV'">Over view</p>
                                                 </div>
-                                                <div class="tb-data" fxFlex="20">{{in.lastseen}}</div>
-                                                <div class="tb-data status" fxFlex="20"><span class="pr-2"><i class="fa fa-circle" aria-hidden="true"></i></span>{{in.status}}</div>
-                                                <div class="tb-data" fxFlex="10">
-                                                    <!-- <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
+                                                <div class="tb-data" fxFlex="35">{{allInviterData.updated_at}}</div>
+                                                <div class="tb-data status" fxFlex="20">
+                                                    <p *ngIf="allInviterData.status === 'APR'" [ngStyle]="{'color':allInviterData.status === 'APR' ? '#2BB800':'' }">Approved</p>
+                                                    <p *ngIf="allInviterData.status === 'R'" [ngStyle]="{'color':allInviterData.status === 'R' ? '#FF0000':'' }">Rejected</p>
+                                                    <p *ngIf="allInviterData.status === 'P'" [ngStyle]="{'color':allInviterData.status === 'P' ? '#FF7700':'' }">Pending</p>
+                                                </div>
+                                                <!-- <div class="tb-data" fxFlex="10">
+                                                    <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
                                                     <ng-template class="popover" #popContent>
                                                         <divclass="px-3 pointer border-bottom">
                                                             <i class="fa fa-pencil mr-2"></i><span>Edit</span>
@@ -82,8 +87,8 @@
                                                         <div class="px-3 pointer border-bottom">
                                                             <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                                         </div>
-                                                    </ng-template> -->
-                                                </div>
+                                                    </ng-template>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
