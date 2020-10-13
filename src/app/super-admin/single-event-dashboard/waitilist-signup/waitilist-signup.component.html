@@ -47,7 +47,7 @@
         </div>
         <div class="bottom-hide-waiting">
             <div class="side-common-btn">
-                <button mat-flat-button color="primary"> Export Data </button>
+                <button mat-flat-button (click)="fnExportData()" color="primary"> Export Data </button>
                 <button mat-flat-button color="primary" routerLink="../broadcast"> Create Broadcast </button>
             </div>
             <mat-tab-group>
@@ -55,7 +55,7 @@
                     <div class="top-search-bar">
                         <div class="form-group col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12">
                             <span class="fa fa-search search-form"></span>
-                            <input  class="form-control" placeholder="Search by email">
+                            <input [(ngModel)]="search.keyword" (keyup)="fnALLSearch()" class="form-control" placeholder="Search by email">
                         </div>
                     </div> 
                     <div class="main-table-content waitlist-table mt-4">
@@ -85,7 +85,7 @@
                     <div class="top-search-bar">
                         <div class="form-group col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12">
                             <span class="fa fa-search search-form"></span>
-                            <input  class="form-control" placeholder="Search by email">
+                            <input [(ngModel)]="search.keyword" (keyup)="fnNewSearch()" class="form-control" placeholder="Search by email">
                         </div>
                     </div> 
                     <div class="main-table-content waitlist-table mt-4">
@@ -110,7 +110,7 @@
                 <mat-tab label="Notified signups ({{getNotifyWaitingListData ? getNotifyWaitingListData.count : 0}})"><div class="top-search-bar">
                     <div class="form-group col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12">
                         <span class="fa fa-search search-form"></span>
-                        <input  class="form-control" placeholder="Search by email">
+                        <input [(ngModel)]="search.keyword" (keyup)="fnNotitySearch()" class="form-control" placeholder="Search by email">
                     </div>
                 </div> 
                 <div class="main-table-content waitlist-table mt-4">

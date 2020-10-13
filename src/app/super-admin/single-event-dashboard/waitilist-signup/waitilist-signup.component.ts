@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {SingleEventServiceService} from '../_services/single-event-service.service';
 import { ErrorService } from '../../../_services/error.service'
+import { ExportToCsv } from 'export-to-csv';
+import { Stats } from 'fs';
 
 @Component({
   selector: 'app-waitilist-signup',
@@ -21,6 +23,10 @@ export class WaitilistSignupComponent implements OnInit {
   getAllWaitingListData:any;
   getNewWaitingListData:any;
   getNotifyWaitingListData:any;
+  clickedIndex: any = 'ALL'
+  search = {
+    keyword: ""
+  };
   
   constructor(
     private formBuilder: FormBuilder,
@@ -51,21 +57,53 @@ export class WaitilistSignupComponent implements OnInit {
     this.getSignupWaitingList('NEW');
     this.getSignupWaitingList('ALL');
     this.getSignupWaitingList('NOTIFY');
+  }
+
+  fnALLSearch(){
+    this.getSignupWaitingList('ALL');   
+    this.search.keyword;
+  }
+  fnNewSearch(){
+    this.getSignupWaitingList('NEW');   
+    this.search.keyword;
+  }
+  fnNotitySearch(){
+    this.getSignupWaitingList('NOTIFY');   
+    this.search.keyword;
+  }
+
+
+  fnExportData(){
     
+    const options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true, 
+      showTitle: true,
+      title: 'waiting-signup-list CSV',
+      useTextFile: false,
+      useBom: true,
+      useKeysAsHeaders: true,
+    };
+    const csvExporter = new ExportToCsv(options);
+
+    csvExporter.generateCsv(this.getAllWaitingListData.data);
+   
   }
 
   getSignupWaitingList(status){
-
     this.isLoaderAdmin = true;
     let requestObject = {
        'event_id' : this.eventId,
        'boxoffice_id': this.boxofficeId,
        'status': status,
+       'search':this.search.keyword,
     }
     this.SingleEventServiceService.getSignupWaitingList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         if(status == 'ALL'){
-          this.getAllWaitingListData = response.response;
+          this.getAllWaitingListData = response.response ;
         }else if(status == 'NEW'){
           this.getNewWaitingListData = response.response;
         }else{ 

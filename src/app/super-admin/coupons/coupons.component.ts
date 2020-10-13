@@ -592,7 +592,6 @@ export class AssignToEventDialog {
   getAllEvent(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      // 'search':this.search.keyword,
       'filter' : 'upcoming',
       'boxoffice_id' : this.boxOfficeCode
     }
@@ -642,7 +641,6 @@ export class AssignToTicketTypeDialog {
   getAllTicket(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      // 'search':this.search.keyword,
       'boxoffice_id' : this.boxOfficeCode
     }
     this.SuperadminService.getAllTicket(requestObject).subscribe((response:any) => {
