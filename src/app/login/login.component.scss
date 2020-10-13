@@ -18,7 +18,6 @@
             align-items: center;
             justify-content: center;
             // padding: 95px 120px;
-            .login-content {}
             .login-head {
                 text-align: center;
                 h5 {
@@ -100,8 +99,9 @@
             }
         }
         .login-right {
-            background: url(/assets/images/login/login-bg.jpg);
+            background: url(/assets/images/login/login-bg.png);
             background-size: cover;
+            background-position: center;
             .login-image {
                 width: 100%;
             }
@@ -110,7 +110,7 @@
                 top: 53px;
                 position: relative;
                 position: absolute;
-                right: 178px;
+                right: 220px;
                 color: #FFFFFF;
                 //bottom: 0;
                 // top: 118px;
