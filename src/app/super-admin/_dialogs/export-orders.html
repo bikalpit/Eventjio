@@ -54,7 +54,7 @@
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <section class="tab-checkbox">
-                  <mat-checkbox class="">ORDER DETAILS</mat-checkbox>
+                  <mat-checkbox class="" (change)="fnOrdersDetails($event)">ORDER DETAILS</mat-checkbox>
                 </section>
               </mat-panel-title>
               <mat-panel-description>
@@ -82,7 +82,7 @@
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <section class="tab-checkbox">
-                  <mat-checkbox class="">EVENT DETAILS</mat-checkbox>
+                  <mat-checkbox class="" (change)="fnEventDetails($event)" >EVENT DETAILS</mat-checkbox>
                 </section>
               </mat-panel-title>
             </mat-expansion-panel-header>
@@ -99,7 +99,7 @@
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <section class=" tab-checkbox">
-                  <mat-checkbox class="">BUYER DETAILS</mat-checkbox>
+                  <mat-checkbox class="" (change)="fnBuyersDetails($event)">BUYER DETAILS</mat-checkbox>
                 </section>
               </mat-panel-title>
             </mat-expansion-panel-header>
@@ -269,7 +269,7 @@
 
       <div class="d-flex mt-4">
         <button mat-raised-button class="cancel-btn ml-auto">Cancel</button>
-        <button mat-raised-button class="ml-3 comm-btn">Download Report</button>
+        <button mat-raised-button class="ml-3 comm-btn" (click)="exportOrder()">Download Report</button>
       </div>
 
     </div>

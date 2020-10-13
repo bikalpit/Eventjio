@@ -230,6 +230,14 @@ export class SuperadminService {
         catchError(this.handleError));
     }
 
+    fnExportOrders(requestObject){
+        return this.http.post(`${environment.apiUrl}/export-orders`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
     createVoucherCode(requestObject){
         return this.http.post(`${environment.apiUrl}/create-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {

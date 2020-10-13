@@ -180,7 +180,9 @@
                                                 <label for="">Phone No.</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="phone" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('phone').dirty || addCustomerForm.get('phone').touched"><small *ngIf="addCustomerForm.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small></span>
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('phone').dirty || addCustomerForm.get('phone').touched"><small *ngIf="addCustomerForm.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
+                                                      <small *ngIf="addCustomerForm.get('phone').hasError('pattern') || addCustomerForm.get('phone').hasError('pattern') && (addCustomerForm.get('phone').hasError('maxlength') || addCustomerForm.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
+                                                      <small *ngIf="addCustomerForm.get('phone').hasError('maxlength') || addCustomerForm.get('phone').hasError('minlength')" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small></span>
                                                 </div>
                                             </div>
 

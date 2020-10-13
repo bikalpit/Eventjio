@@ -7,6 +7,7 @@
       </button>
     </div>
       
+    
     <div class="modal-body pb-0 px-0"> 
       <div class="new-order-table" *ngIf="addOrderFormType === 'selectTicket'">
         <div class="code-tab">
@@ -14,16 +15,22 @@
                   <div class="main-table-content main-cust-table-content">
                       <div class="">
                           <div class="heads main-heading-content drageble" fxLayout="row">
-                            <div class="th-data" fxFlex="50">TICKET TYPE</div>                           
-                            <div class="th-data" fxFlex="30">PRICE</div>
+                            <div class="th-data" fxFlex="10"></div> 
+                            <div class="th-data" fxFlex="30">TICKET TYPE</div>                           
+                            <div class="th-data" fxFlex="20">PRICE</div>
+                            <div class="th-data" fxFlex="20">Fee</div>
                             <div class="th-data" fxFlex="20">QUANTITY</div>
                           </div>
-                          <div class="content" class="drageble-list" *ngFor="let package of packagesArray">
+                          <div class="content" class="drageble-list" *ngFor="let eventTicket of eventTicket;let i=index">
                             <div class="drageble-box" fxLayout="row">
-                                <div class="tb-data" fxFlex="50">{{package.ticket_type}}</div>                               
-                                <div class="tb-data" fxFlex="30"><input type="hidden" [(ngModel)]="ticket.price" name="price" (ngModelChange)="calculate()" class="form-control">${{ticket.price}}</div>
+                                <div class="tb-data" fxFlex="10">
+                                  <mat-checkbox  (change)="fnBookTicket($event,i)" ></mat-checkbox>
+                                </div>   
+                                <div class="tb-data" fxFlex="30">{{eventTicket.ticket_name}}</div>                               
+                                <div class="tb-data" fxFlex="20"><input type="hidden" class="form-control" >{{eventTicket.prize}}</div>
+                                <div class="th-data" fxFlex="20">{{eventTicket.booking_fee}}</div>
                                 <div class="tb-data" fxFlex="20">
-                                  <input type="number" [(ngModel)]="ticket.qty" name="price" (ngModelChange)="calculate()" class="form-control">   
+                                  <input type="number"  class="form-control" (change)="fnAddQty(i,$event);" >      
                                 </div>
                             </div>
                         </div>
@@ -31,7 +38,7 @@
                           <div class="drageble-box" fxLayout="row">
                               <div class="tb-data fw-600" fxFlex="50">Subtotal</div>
                               <div class="tb-data" fxFlex="30"></div>
-                              <div class="tb-data fw-600" fxFlex="20" >${{ calculate() }}</div>
+                              <div class="tb-data fw-600" fxFlex="20" >$</div>
                           </div>
                       </div>
                       </div>
@@ -43,6 +50,7 @@
             </div>
       </div>   
   </div>
+  
   <form [formGroup]="bookTickets" class="with-validation checkout-form">
   <div *ngIf="addOrderFormType === 'checoutForm'">
     <h4 class="main-head">Checkout</h4>
@@ -58,12 +66,12 @@
                     <div class="th-data" fxFlex="20" class="align-end">Subtotal</div>
                 </div>
                 <div class="content" class="drageble-list">
-                    <div class="drageble-box fw-600" fxLayout="row">
-                        <div class="tb-data order-item fw-100" fxFlex="30" *ngFor="let package of packagesArray">{{package.ticket_type}}</div>
-                        <div class="tb-data" fxFlex="20">${{ticket.price}}</div>
-                        <div class="tb-data" fxFlex="15">${{ticket.fee}}</div>
-                        <div class="tb-data" fxFlex="15">{{ticket.qty}}</div>
-                        <div class="tb-data align-end" fxFlex="20">${{ calculate() }}</div>                        
+                    <div class="drageble-box fw-600" fxLayout="row"  *ngFor="let eventTicket of eventTicket">
+                        <div class="tb-data order-item fw-100" fxFlex="30" >{{eventTicket.ticket_name}}</div>
+                        <div class="tb-data" fxFlex="20">{{eventTicket.prize}}</div>
+                        <div class="tb-data" fxFlex="15">${{eventTicket.booking_fee}}</div>
+                        <div class="tb-data" fxFlex="15"></div>
+                        <div class="tb-data align-end" fxFlex="20">$</div>                        
                     </div>
                 </div>     
                 <div class="content" class="drageble-list">
@@ -72,7 +80,7 @@
                       <div class="tb-data" fxFlex="20"></div>
                       <div class="tb-data" fxFlex="15"></div>
                       <div class="tb-data" fxFlex="15"></div>
-                      <div class="tb-data align-end fs-15" fxFlex="20">${{ grandtotal() }}</div>                        
+                      <div class="tb-data align-end fs-15" fxFlex="20">$</div>                        
                   </div>
               </div>  
               <div class="content" class="drageble-list">
@@ -145,12 +153,12 @@
             <span class="error-wrap" *ngIf="bookTickets.get('address_1').dirty || bookTickets.get('address_1').touched"><small *ngIf="bookTickets.get('address_1').hasError('required')" class="error text-left">Address is required.</small></span>
           </div>
           <div class="form-group">
-            <label for="">Address Line 2 <span><i class="fa fa-asterisk" ></i></span> </label>
+            <label for="">Address Line 2 </label>
             <input type="text" class="form-control" id=""  placeholder="" formControlName = "address_2">
             <span class="error-wrap" *ngIf="bookTickets.get('address_2').dirty || bookTickets.get('address_2').touched"><small *ngIf="bookTickets.get('address_2').hasError('required')" class="error text-left">Address is required.</small></span>
           </div>
           <div class="form-group">
-            <label for="">Address Line 3 <span><i class="fa fa-asterisk" ></i></span> </label>
+            <label for="">Address Line 3 </label>
             <input type="text" class="form-control" id=""  placeholder="" formControlName ="address_3">
             <span class="error-wrap" *ngIf="bookTickets.get('address_3').dirty || bookTickets.get('address_3').touched"><small *ngIf="bookTickets.get('address_3').hasError('required')" class="error text-left">Address is required.</small></span>
           </div>
@@ -228,13 +236,13 @@
                         <div class="tb-data" fxFlex="20"></div>
                     </div>
                 </div>
-                <div class="content" class="drageble-list">
+                <div class="content" class="drageble-list"  *ngFor="let eventTicket of eventTicket">
                   <div class="drageble-box fw-600" fxLayout="row">
-                      <div class="tb-data order-item fw-100" fxFlex="50" *ngFor="let package of packagesArray">{{package.ticket_type}}</div>
-                      <div class="tb-data" fxFlex="30">${{ticket.price}}</div>
-                      <div class="tb-data" fxFlex="20">${{ticket.fee}}</div>
-                      <div class="tb-data" fxFlex="30">{{ticket.qty}}</div>
-                      <div class="tb-data align-end" fxFlex="30">${{ calculate() }}</div>                        
+                      <div class="tb-data order-item fw-100" fxFlex="50" >{{eventTicket.ticket_name}}</div>
+                      <div class="tb-data" fxFlex="30">${{eventTicket.prize}}</div>
+                      <div class="tb-data" fxFlex="20">${{eventTicket.booking_fee}}</div>
+                      <div class="tb-data" fxFlex="30"></div>
+                      <div class="tb-data align-end" fxFlex="30">$</div>                        
                   </div>
               </div>    
               <div class="content" class="drageble-list">
@@ -243,7 +251,7 @@
                     <div class="tb-data" fxFlex="30"></div>
                     <div class="tb-data" fxFlex="20"></div>
                     <div class="tb-data" fxFlex="30"></div>
-                    <div class="tb-data fw-600" fxFlex="20">${{ grandtotal() }}</div>
+                    <div class="tb-data fw-600" fxFlex="20">$</div>
                 </div>
             </div>
               </div>

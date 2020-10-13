@@ -26,6 +26,7 @@ export interface DialogData {
 })
 export class CustomersComponent implements OnInit {
   addCustomerForm:FormGroup;
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
   boxofficeId:any;
   customerDetails:any;
   singleCustomerDetails:any;
@@ -37,7 +38,6 @@ export class CustomersComponent implements OnInit {
   selectedCustomerArr:any;
   addFormButtonDiv : boolean = true;
   customerImageUrl:any;
-  onlynumeric = "[0-9]+";
   allUpcomingEventListData:any;
 
   constructor(
@@ -52,14 +52,13 @@ export class CustomersComponent implements OnInit {
     if(localStorage.getItem('boxoffice_id')){
       this.boxofficeId = localStorage.getItem('boxoffice_id');   
     }
-    let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-    let onlynumeric = /^-?(0|[1-9]\d*)?$/
+    let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/ 
     this.addCustomerForm = this.formBuilder.group({
       firstname:['',Validators.required],
       lastname:['',Validators.required],
       phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
-       image:['',Validators.required],
+     // image:['',Validators.required],
       address:['',Validators.required],
       tags:['',Validators.required],
     });  
@@ -76,7 +75,8 @@ export class CustomersComponent implements OnInit {
   addFormButton(){
     this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     this.addCustomerForm.reset();
-    this.customerImageUrl.reset();
+    this.customerImageUrl = undefined;
+    
   }
   
   ngOnInit(): void {
@@ -119,6 +119,7 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.get("email").markAsTouched();
       this.addCustomerForm.get("address").markAsTouched();
       this.addCustomerForm.get("tags").markAsTouched();
+      alert(1);
       return false;
     }else{
       if(this.editCustomerForm == true){
