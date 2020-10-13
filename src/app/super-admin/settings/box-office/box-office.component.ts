@@ -152,6 +152,7 @@ fnSubmitBoxOffice(){
     
   }
   this.isLoaderAdmin = true;
+  if(this.boxofficeImageUrl){
     let requestObject = {
       "country":this.singleBoxofficeDetails.country,
       "currency":this.singleBoxofficeDetails.currency,
@@ -167,18 +168,41 @@ fnSubmitBoxOffice(){
       "timezone":this.singleBoxOffice.get('timezone').value,
       "add_email":this.singleBoxOffice.get('add_email').value,
       "box_office_link":this.singleBoxOffice.get('box_office_link').value,
-      
+      "image":this.boxofficeImageUrl, 
+    }  
+    this.updateBoxoffice(requestObject);
+   }else{
+    let requestObject = { 
+      "country":this.singleBoxofficeDetails.country,
+      "currency":this.singleBoxofficeDetails.currency,
+      "genre":this.singleBoxofficeDetails.genre,
+      "genre_type":this.singleBoxofficeDetails.genre_type,
+      "type":this.singleBoxofficeDetails.type,
+      "unique_code":this.boxOfficeCode,
+      "account_owner":this.accountOwner,
+      "email_order_notification":this.emailOrderNotification,
+      "hide_tailor_logo": this.hideLogo,
+      "box_office_name" : this.singleBoxOffice.get('boxoffice_name').value,
+      "language":this.singleBoxOffice.get('language').value,
+      "timezone":this.singleBoxOffice.get('timezone').value,
+      "add_email":this.singleBoxOffice.get('add_email').value,
+      "box_office_link":this.singleBoxOffice.get('box_office_link').value,
     }
-        this.settingService.updateBoxoffice(requestObject).subscribe((response:any) => {
-          if(response.data == true){
-          this.ErrorService.successMessage(response.response);
-          this. getSingleBoxofficeDetails();
-      } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
-        }
-        this.isLoaderAdmin = false;
+    this.updateBoxoffice(requestObject);
+   }
+  }
+  
+    updateBoxoffice(requestObject){
+      this.settingService.updateBoxoffice(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+        this.ErrorService.successMessage(response.response);
         this. getSingleBoxofficeDetails();
-    });
+    } else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+      this. getSingleBoxofficeDetails();
+  });
   }
 }
 

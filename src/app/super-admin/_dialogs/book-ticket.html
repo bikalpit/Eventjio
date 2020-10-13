@@ -7,6 +7,7 @@
       </button>
     </div>
       
+    
     <div class="modal-body pb-0 px-0"> 
       <div class="new-order-table" *ngIf="addOrderFormType === 'selectTicket'">
         <div class="code-tab">
@@ -14,24 +15,22 @@
                   <div class="main-table-content main-cust-table-content">
                       <div class="">
                           <div class="heads main-heading-content drageble" fxLayout="row">
-                            <div class="th-data" fxFlex="50">TICKET TYPE</div>
-                            <div class="th-data" fxFlex="30">PRICE</div>
+                            <div class="th-data" fxFlex="10"></div> 
+                            <div class="th-data" fxFlex="30">TICKET TYPE</div>                           
+                            <div class="th-data" fxFlex="20">PRICE</div>
+                            <div class="th-data" fxFlex="20">Fee</div>
                             <div class="th-data" fxFlex="20">QUANTITY</div>
                           </div>
-                          <div class="content" class="drageble-list">
+                          <div class="content" class="drageble-list" *ngFor="let eventTicket of eventTicket;let i=index">
                             <div class="drageble-box" fxLayout="row">
-                                <div class="tb-data" fxFlex="50">General Admission</div>
-                                <div class="tb-data fw-600" fxFlex="30">$5,000.00</div>
+                                <div class="tb-data" fxFlex="10">
+                                  <mat-checkbox  (change)="fnBookTicket($event,i)" ></mat-checkbox>
+                                </div>   
+                                <div class="tb-data" fxFlex="30">{{eventTicket.ticket_name}}</div>                               
+                                <div class="tb-data" fxFlex="20"><input type="hidden" class="form-control" >{{eventTicket.prize}}</div>
+                                <div class="th-data" fxFlex="20">{{eventTicket.booking_fee}}</div>
                                 <div class="tb-data" fxFlex="20">
-                                  <div class="">
-                                    <mat-select class="form-control select-qty" id="">
-                                      <mat-option>1</mat-option>
-                                      <mat-option>2</mat-option>
-                                      <mat-option>3</mat-option>
-                                      <mat-option>4</mat-option>
-                                      <mat-option>5</mat-option>
-                                    </mat-select>
-                                  </div>
+                                  <input type="number"  class="form-control" (change)="fnAddQty(i,$event);" >      
                                 </div>
                             </div>
                         </div>
@@ -39,7 +38,7 @@
                           <div class="drageble-box" fxLayout="row">
                               <div class="tb-data fw-600" fxFlex="50">Subtotal</div>
                               <div class="tb-data" fxFlex="30"></div>
-                              <div class="tb-data fw-600" fxFlex="20">$5,000.00</div>
+                              <div class="tb-data fw-600" fxFlex="20" >$</div>
                           </div>
                       </div>
                       </div>
@@ -49,11 +48,11 @@
                 <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="fnTicketCheckout('checoutForm')">Next</button>
               </div>
             </div>
-      </div>
-
-      
+      </div>   
   </div>
-  <div *ngIf="addOrderFormType === 'checoutForm'" class="checkout-form">
+  
+  <form [formGroup]="bookTickets" class="with-validation checkout-form">
+  <div *ngIf="addOrderFormType === 'checoutForm'">
     <h4 class="main-head">Checkout</h4>
     <div class="itemlist-table">
       <div class="service-listing">
@@ -67,12 +66,12 @@
                     <div class="th-data" fxFlex="20" class="align-end">Subtotal</div>
                 </div>
                 <div class="content" class="drageble-list">
-                    <div class="drageble-box fw-600" fxLayout="row">
-                        <div class="tb-data order-item fw-100" fxFlex="30">General Admission</div>
-                        <div class="tb-data" fxFlex="20">$5,000.00</div>
-                        <div class="tb-data" fxFlex="15">$0.00</div>
-                        <div class="tb-data" fxFlex="15">1</div>
-                        <div class="tb-data align-end" fxFlex="20">$5,000.00</div>                        
+                    <div class="drageble-box fw-600" fxLayout="row"  *ngFor="let eventTicket of eventTicket">
+                        <div class="tb-data order-item fw-100" fxFlex="30" >{{eventTicket.ticket_name}}</div>
+                        <div class="tb-data" fxFlex="20">{{eventTicket.prize}}</div>
+                        <div class="tb-data" fxFlex="15">${{eventTicket.booking_fee}}</div>
+                        <div class="tb-data" fxFlex="15"></div>
+                        <div class="tb-data align-end" fxFlex="20">$</div>                        
                     </div>
                 </div>     
                 <div class="content" class="drageble-list">
@@ -81,9 +80,22 @@
                       <div class="tb-data" fxFlex="20"></div>
                       <div class="tb-data" fxFlex="15"></div>
                       <div class="tb-data" fxFlex="15"></div>
-                      <div class="tb-data align-end fs-15" fxFlex="20">$5,000.00</div>                        
+                      <div class="tb-data align-end fs-15" fxFlex="20">$</div>                        
                   </div>
-              </div>           
+              </div>  
+              <div class="content" class="drageble-list">
+                <div class="drageble-box fw-600"  fxLayout="row">
+                      <div class="tb-data order-item fw-100" fxFlex="20">
+                        
+                      </div>       
+                      <div class="tb-data" fxFlex="20"></div>  
+                      <div class="tb-data" fxFlex="20">
+                        <input type="text" class="form-control" name="discount">                                     
+                      </div>  
+                      <div class="tb-data" fxFlex="25"></div>
+                      <div class="b-data align-end fs-15" fxFlex="15"></div>       
+                </div>
+            </div>             
             </div>
 
         </div>
@@ -95,55 +107,81 @@
     <div class="mt-16">
       <div class="form-group">
         <label for="" class="main-head fw-600">Do you have a promo code?</label>
-        <input type="email" class="form-control" id="" placeholder="Enter promo code">
+        <div class="row">
+          <div class="col-10 pr-1">
+              <input type="text" class="form-control" formControlName="promo_code" >
+              <span class="error-wrap" *ngIf="bookTickets.get('promo_code').dirty || bookTickets.get('promo_code').touched"><small *ngIf="bookTickets.get('promo_code').hasError('required')" class="error text-left">Promo Code is required.</small><small *ngIf="bookTickets.get('promo_code').hasError('maxlength') || bookTickets.get('promo_code').hasError('minlength')" class="error">Promo Code Should be of 6 digits.</small></span>
+          </div>
+          <div class="col-2 pl-1">
+            <button mat-raised-button class="ticket-btn comm-btn">Apply</button>
+          </div>
       </div>
-      <div class="checkout form mt-4">
+      </div>
+      <div class="checkout mt-2">
         <label class="main-head mb-3 fw-600">Please complete the form below to checkout</label>
-        <form>
-          <div class="form-group">
-            <label for="">Name <span><i class="fa fa-asterisk"></i></span> </label>
-            <input type="text" class="form-control" id="" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="">Email address <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
-            <input type="email" class="form-control" id="" placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="">Repeat Email <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
-            <input type="email" class="form-control" id=""  placeholder="">
-          </div>
+            <div class="form-group">
+              <label for="">First Name <span><i class="fa fa-asterisk"></i></span> </label>
+              <input type="text" class="form-control" id="" placeholder="" formControlName ="firstname">
+              <span class="error-wrap" *ngIf="bookTickets.get('firstname').dirty || bookTickets.get('firstname').touched"><small *ngIf="bookTickets.get('firstname').hasError('required')" class="error text-left">First Name is required.</small></span>
+            </div>
+            <div class="form-group">
+              <label for="">Last Name <span><i class="fa fa-asterisk"></i></span> </label>
+              <input type="text" class="form-control" id="" placeholder="" formControlName ="lastname">
+              <span class="error-wrap" *ngIf="bookTickets.get('lastname').dirty || bookTickets.get('lastname').touched"><small *ngIf="bookTickets.get('lastname').hasError('required')" class="error text-left">Last Name is required.</small></span>
+            </div>
+            <div class="form-group">
+              <label for="">Email address <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
+              <input type="email" class="form-control" id="" placeholder="" formControlName ="email">
+              <span class="error-wrap" *ngIf="bookTickets.get('email').dirty || bookTickets.get('email').touched"><small *ngIf="bookTickets.get('email').hasError('required')" class="error text-left">Email is required.</small><small *ngIf="bookTickets.get('email').hasError('pattern')" class="error">Enter valid email.</small><small *ngIf="bookTickets.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small></span>
+            </div>
+            <div class="form-group">
+              <label for="">Repeat Email <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
+              <input type="email" class="form-control" id=""  placeholder="" formControlName = "repeat_email">
+              <span class="error-wrap" *ngIf="bookTickets.get('repeat_email').dirty || bookTickets.get('repeat_email').touched"><small *ngIf="bookTickets.get('repeat_email').hasError('required')" class="error text-left">Email is required.</small><small *ngIf="bookTickets.get('repeat_email').hasError('required') && bookTickets.hasError('notSame')" class="error text-left ml-4">Confirm password is required.</small>
+              <small *ngIf="!bookTickets.get('repeat_email').hasError('required') && bookTickets.hasError('notSame')" class="error text-left ml-4">emails do not match.</small></span>
+            </div>
           <div class="form-group">
             <label for="">Mobile Phone Number <span><i class="fa fa-asterisk"></i></span> </label>
-            <input type="number" class="form-control" id=""  placeholder="">
+            <input type="text" class="form-control" id=""  placeholder="" formControlName = "phone">
+             <span class="error-wrap" *ngIf="bookTickets.get('phone').dirty || bookTickets.get('phone').touched"><small *ngIf="bookTickets.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
+             <small *ngIf="bookTickets.get('phone').hasError('pattern') || bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
+             <small *ngIf="bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength')" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small></span>
           </div>
           <div class="form-group">
             <label for="">Address Line 1 <span><i class="fa fa-asterisk" ></i></span> </label>
-            <input type="text" class="form-control" id="" placeholder="">
+            <input type="text" class="form-control" id="" placeholder="" formControlName = "address_1">
+            <span class="error-wrap" *ngIf="bookTickets.get('address_1').dirty || bookTickets.get('address_1').touched"><small *ngIf="bookTickets.get('address_1').hasError('required')" class="error text-left">Address is required.</small></span>
           </div>
           <div class="form-group">
-            <label for="">Address Line 2 <span><i class="fa fa-asterisk" ></i></span> </label>
-            <input type="text" class="form-control" id=""  placeholder="">
+            <label for="">Address Line 2 </label>
+            <input type="text" class="form-control" id=""  placeholder="" formControlName = "address_2">
+            <span class="error-wrap" *ngIf="bookTickets.get('address_2').dirty || bookTickets.get('address_2').touched"><small *ngIf="bookTickets.get('address_2').hasError('required')" class="error text-left">Address is required.</small></span>
           </div>
           <div class="form-group">
-            <label for="">Address Line 3 <span><i class="fa fa-asterisk" ></i></span> </label>
-            <input type="text" class="form-control" id=""  placeholder="">
+            <label for="">Address Line 3 </label>
+            <input type="text" class="form-control" id=""  placeholder="" formControlName ="address_3">
+            <span class="error-wrap" *ngIf="bookTickets.get('address_3').dirty || bookTickets.get('address_3').touched"><small *ngIf="bookTickets.get('address_3').hasError('required')" class="error text-left">Address is required.</small></span>
           </div>
           <div class="form-group">
             <label for="">Postcode <span><i class="fa fa-asterisk" ></i></span> </label>
-            <input type="text" class="form-control" id=""  placeholder="">
+            <input type="text" class="form-control" id=""  placeholder="" formControlName ="postcode">
+            <span class="error-wrap" *ngIf="bookTickets.get('postcode').dirty || bookTickets.get('postcode').touched"><small *ngIf="bookTickets.get('postcode').hasError('required')" class="error text-left">Postcode is required.</small>
+              <small *ngIf="bookTickets.get('postcode').hasError('pattern') || bookTickets.get('postcode').hasError('pattern') && (bookTickets.get('postcode').hasError('maxlength') || bookTickets.get('postcode').hasError('minlength'))" class="error">Postcode  Should be in numbers</small>
+            </span>
           </div>
-        </form>
-      </div>
+        </div>
       <div class="general-admission">
         <label class="main-head">General Admission 1</label>
-        <div class="form-group">
-          <label for="">Attendee name <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
-          <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="">
-        </div>
+           <div class="form-group">
+            <label for="">Attendee name <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
+            <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="" formControlName ="attendee_name">
+            <span class="error-wrap" *ngIf="bookTickets.get('attendee_name').dirty || bookTickets.get('attendee_name').touched"><small *ngIf="bookTickets.get('attendee_name').hasError('required')" class="error text-left">Attendee Name is required.</small></span>
+           </div>
       </div>
     </div>
     <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="fnTicketCheckout('book-order')">Next</button>
   </div>
+</form>
 
 
   <div *ngIf="addOrderFormType === 'book-order'">
@@ -198,22 +236,22 @@
                         <div class="tb-data" fxFlex="20"></div>
                     </div>
                 </div>
-                <div class="content" class="drageble-list">
-                  <div class="drageble-box" fxLayout="row">
-                      <div class="tb-data" fxFlex="50">General Admission</div>
-                      <div class="tb-data" fxFlex="30">$5,000.00</div>
-                      <div class="tb-data" fxFlex="20">$0.00</div>
-                      <div class="tb-data" fxFlex="30">1</div>
-                      <div class="tb-data" fxFlex="20">$5,000.00</div>
+                <div class="content" class="drageble-list"  *ngFor="let eventTicket of eventTicket">
+                  <div class="drageble-box fw-600" fxLayout="row">
+                      <div class="tb-data order-item fw-100" fxFlex="50" >{{eventTicket.ticket_name}}</div>
+                      <div class="tb-data" fxFlex="30">${{eventTicket.prize}}</div>
+                      <div class="tb-data" fxFlex="20">${{eventTicket.booking_fee}}</div>
+                      <div class="tb-data" fxFlex="30"></div>
+                      <div class="tb-data align-end" fxFlex="30">$</div>                        
                   </div>
-              </div>
+              </div>    
               <div class="content" class="drageble-list">
                 <div class="drageble-box" fxLayout="row">
                     <div class="tb-data fw-600" fxFlex="50">Grand Total</div>
                     <div class="tb-data" fxFlex="30"></div>
                     <div class="tb-data" fxFlex="20"></div>
                     <div class="tb-data" fxFlex="30"></div>
-                    <div class="tb-data fw-600" fxFlex="20">$5,000.00</div>
+                    <div class="tb-data fw-600" fxFlex="20">$</div>
                 </div>
             </div>
               </div>
@@ -321,5 +359,6 @@
     </div>
   </div>
  
+  </div>
+  </div>
 </div>
-    

@@ -1,78 +1,79 @@
 <div id="preview-event">
+     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
      <div class="preview-bg">
-          <div class="preview-blur">
-          </div>
+          <div class="preview-blur"></div>
           <div class="close-preview">
                <button type="button" class="close close-btn">
                     <span aria-hidden="true" class="white-text">&times;</span>
-                  </button>
+               </button>
           </div>
           <div class="container">
                <div class="main-preview-section">
                   <div class="top-preview-image">
                     <div class="draf-btn-side">
-                         <button mat-flat-button class="bg-primary btn">DRAFT</button>
+                         <button mat-flat-button class="bg-primary btn">{{eventDetail?eventDetail.event_status:'-'}}</button>
                     </div>
                   </div>
                   <div class="main-preview-wrap">
-                  <div class="bottom-deatils">
-                         <div class="heading-preview-name">
-                              <h3> Laajawab Cooking Class </h3>
-                         </div>
-                         <div class="bottom-booking-deatils">
-                              <div class="col-12 col-xl-6 col-md-6 col-sm-6 float-left">
-                                   <div class="side-form-deatils">
-                                        <div class="preview-datetime preview-common-deatils">
-                                             <span class="material-icons">
-                                                  calendar_today
-                                             </span>
-                                            <p> Mon Jul 27, 2020 6:00 pm - 10:30 pm </p>
-                                        </div>
-                                        <div class="preview-common-deatils">
-                                             <span class="material-icons">
-                                                  location_on
-                                             </span>
-                                            <p> The Grand Hyatt, 400101 </p>
+                         <div class="bottom-deatils">
+                              <div class="heading-preview-name">
+                                   <h3> {{ eventDetail ? eventDetail.event_title : '-' }} </h3>
+                              </div>
+                              <div class="bottom-booking-deatils">
+                                   <div class="col-12 col-xl-6 col-md-6 col-sm-6 float-left">
+                                        <div class="side-form-deatils">
+                                             <div class="preview-datetime preview-common-deatils">
+                                                  <span class="material-icons">
+                                                       calendar_today
+                                                  </span>
+                                                  <p>
+                                                       {{eventStartTime}} - {{eventEndTime}} 
+                                                  </p>
+                                             </div>
+                                             <div class="preview-common-deatils">
+                                                  <span class="material-icons">
+                                                       location_on
+                                                  </span>
+                                             <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                             </div>
                                         </div>
                                    </div>
-                              </div>
-                              <div class="col-12 col-xl-6 col-md-6 col-sm-6 float-left">
-                                   <div class="book-ticket-side">
-                                        <div class="book-tickets-btn">
-                                             <button mat-flat-button class="bg-primary btn">Book Ticket</button>
-                                        </div>
-                                        <div class="share-link-main">
-                                             <p> Share this event </p>
-                                             <div class="event-icone-link">
-                                                  <i class="fa fa-facebook-square" aria-hidden="true"></i>
-                                                  <i class="fa fa-twitter-square" aria-hidden="true"></i>
-                                                  <i class="fa fa-linkedin-square" aria-hidden="true"></i>
-
+                                   <div class="col-12 col-xl-6 col-md-6 col-sm-6 float-left">
+                                        <div class="book-ticket-side">
+                                             <div class="book-tickets-btn">
+                                                  <button mat-flat-button class="bg-primary btn">Book Ticket</button>
+                                             </div>
+                                             <div class="share-link-main">
+                                                  <p> Share this event </p>
+                                                  <div class="event-icone-link">
+                                                       <i class="fa fa-facebook-square"  (click)="fnShare('facebook');" aria-hidden="true"></i>
+                                                       <i class="fa fa-twitter-square"  (click)="fnShare('twitter');" aria-hidden="true"></i>
+                                                       <i class="fa fa-linkedin-square"  (click)="fnShare('linkedin');" aria-hidden="true"></i>
+                                                  </div>
                                              </div>
                                         </div>
                                    </div>
                               </div>
-                         </div>
-                         <div class="deatils-preview-events">
-                              <div class="commmon-top-main">
-                                   <h3> DESCRIPTION </h3>
-                                   <p> Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.</p>
-                              </div>
-                              <div class="commmon-top-main map-location">
-                                   <h3> Location  </h3>
-                                   <p> Broadview innovation, 394221 </p>
-                                   <div class="map-main-div">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.0770194330316!2d72.83157731536802!3d21.149332985933174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be051deb35ae21f%3A0x8631d2dbb632de33!2sBroadview+Innovation+Pvt+Ltd.!5e0!3m2!1sen!2sin!4v1558512277080!5m2!1sen!2sin" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe> 
+                              <div class="deatils-preview-events">
+                                   <div class="commmon-top-main">
+                                        <h3> DESCRIPTION </h3>
+                                        <p>{{ eventDetail ? eventDetail.description : '-' }}</p>
                                    </div>
+                                   <div class="commmon-top-main map-location">
+                                        <h3> Location  </h3>
+                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }},  {{ eventDetail.country ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                        <div class="map-main-div">
+                                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.0770194330316!2d72.83157731536802!3d21.149332985933174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be051deb35ae21f%3A0x8631d2dbb632de33!2sBroadview+Innovation+Pvt+Ltd.!5e0!3m2!1sen!2sin!4v1558512277080!5m2!1sen!2sin" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe> 
+                                        </div>
+                                   </div>
+
+
                               </div>
-
-
                          </div>
-                  </div>
-                  <div class="bottom-help-tickets">
-                    <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                    <button mat-flat-button class="bg-primary btn"> Contact the Event Organizer </button>
-                  </div>
+                         <div class="bottom-help-tickets">
+                              <h3> NEED HELP OR LOST YOUR TICKET? </h3>
+                              <button mat-flat-button class="bg-primary btn"> Contact the Event Organizer </button>
+                         </div>
                   </div>
                </div>
           </div>

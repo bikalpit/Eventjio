@@ -116,6 +116,21 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+
+    fnGetsingleTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-ticket `,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    fnGeteventTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-event-tickets `,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+            }),catchError(this.handleError));
+        }
+    
     changeCouponStaus(requestObject){
         return this.http.post(`${environment.apiUrl}/update-coupon-status-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -215,6 +230,14 @@ export class SuperadminService {
         catchError(this.handleError));
     }
 
+    fnExportOrders(requestObject){
+        return this.http.post(`${environment.apiUrl}/export-orders`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
     createVoucherCode(requestObject){
         return this.http.post(`${environment.apiUrl}/create-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -234,6 +257,19 @@ export class SuperadminService {
         }),catchError(this.handleError));
     }
 
+    createOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/create-order`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+   
+    fnDeleteEvent(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+         }),catchError(this.handleError));
+    }
   
 
 }

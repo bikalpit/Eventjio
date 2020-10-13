@@ -10,14 +10,14 @@
     <div class="modal-body px-0"> 
       <div class="add-new-order">
         <div class="booking">
-          <div class="row ticket">
-            <div class="col-md-8 ticket-details">
-              <p>Mon Jul 27</p>
-              <label>Lajawab Cooking Class</label>
+          <div class="row ticket" *ngFor="let event of allEventlist; let i of index;">
+            <div class="col-md-8 ticket-details" >
+              <p>{{event.start_date|date}}</p>
+              <label>{{event.event_title}}</label>
             </div>
             <div class="col-md-4">
-              <button mat-raised-button class="ticket-btn comm-btn" (click)="fnBookTicketType()">Book Ticket</button>
-            </div>
+              <button mat-raised-button class="ticket-btn comm-btn" (click)="fnBookTicketType(event.unique_code)">Book Ticket</button>           
+            </div>   
           </div>
           <div class="line"></div>
           <div class="row ticket">

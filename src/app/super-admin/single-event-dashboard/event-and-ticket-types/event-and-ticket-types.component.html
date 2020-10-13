@@ -264,7 +264,7 @@
                             <label for="">Currency <span class="info tooltip-btn" matTooltip="Note that once your tickets have gone on sale you won't be able to change the currency."
                             matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></label>
                             <select class="form-control" id="">
-                            <option>$ United States Dollar </option>
+                            <option *ngFor="let getCurrancy of getCurrancy; let i=index"> {{getCurrancy.CurrencyName}}</option>
                         </select>
                         </div>
                         <section class="col-md-12 form-group allow-donation">
@@ -414,7 +414,7 @@
             </div>
         </div>
 
-        <div class="cancel-save">
+        <div class="py-3 mt-3 event-setting-btn text-right">
             <button mat-raised-button class="cancel-btn">Cancel</button>
             <button mat-raised-button (click)="fnSaveEvent()" class="save-btn">Save Event</button>
         </div>

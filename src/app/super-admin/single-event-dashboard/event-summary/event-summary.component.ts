@@ -17,9 +17,14 @@ export class EventSummaryComponent implements OnInit {
 
   eventId:string = localStorage.getItem('selectedEventCode');
   eventDetail:any;
+  eventSummery:any;
   eventURL;
   dataArray:any = [];
   boxOfficeDetail:any = [];
+  Settings:any = [];
+  setupStripe:boolean  = false;
+  setupPayPal:boolean  = false;
+  setupOffline:boolean  = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -29,38 +34,31 @@ export class EventSummaryComponent implements OnInit {
     private SuperadminService: SuperadminService,
     private SingleEventServiceService: SingleEventServiceService,
 
-  ) {
-
-
-
-   }
+  ) {}
   
   
 
   ngOnInit(): void {
     this.fnGetEventDetail();
     this.fnGetBoxOfficeDetail();   
-    this.chart_one();
-   // this.chart_two();
-
+    this.fnGetSettings();
   }
   
-  chart_one(){
+  fnChartView(data,arrayLable){
 
     let chartData = {
       "items": [
                 {
                   "label":"TIcket sold",
-                  "data": [0,3,0,4,0,0,5,0],
+                  "data": data,
                   "backgroundColor": "#D9EBFF",
                   "borderColor": "rgb(40,100,200)",
                   "fill": true,
                   "lineTension": 0,
                   "radius": 5
                 }
-              ]
+        ]
     }
-
 
     for(let key in chartData.items){
       if(chartData.items.hasOwnProperty(key)){
@@ -68,13 +66,11 @@ export class EventSummaryComponent implements OnInit {
       }
     } 
 
-    
-    
 
     let chart  = new Chart(document.getElementById('areaChart1') as HTMLElement, {
       type: "line",
       data: {
-        labels: ["10/9", "11/9", "12/9",'13/9',"14/9", "15/9", "16/9",'17/9'],
+        labels: arrayLable,
         datasets: this.dataArray
       },
       options: {
@@ -98,12 +94,40 @@ export class EventSummaryComponent implements OnInit {
       }
     });
 
+  }
+
+
+  fnChartView2(data,arrayLable){
+
+    let chartData = {
+      "items": [
+                {
+                  "label":"TIcket sold",
+                  "data": data,
+                  "backgroundColor": "#D9EBFF",
+                  "borderColor": "rgb(40,100,200)",
+                  "fill": true,
+                  "lineTension": 0,
+                  "radius": 5
+                }
+        ]
+    }
+
+    let dataArray1:any = [];
+
+    for(let key in chartData.items){
+      if(chartData.items.hasOwnProperty(key)){
+        dataArray1.push(chartData.items[key])
+      }
+    } 
+
+ 
 
     let areaChart = new Chart(document.getElementById('areaChart2') as HTMLElement, {
       type: "line",
       data: {
-        labels: ["2/2020", "3/2020", "4/2020",'5/2020',"6/2020", "7/2020", "8/2020",'9/2020'],
-        datasets: this.dataArray
+        labels: arrayLable,
+        datasets: dataArray1
       },
       options: {
         responsive: true,
@@ -128,14 +152,13 @@ export class EventSummaryComponent implements OnInit {
 
   }
 
- 
 
   fnGetEventDetail(){
 
     let requestObject = {
       'unique_code' : this.eventId,
     }
-
+    
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response[0];
@@ -144,20 +167,87 @@ export class EventSummaryComponent implements OnInit {
       }
     });
 
-  }
-
-  fnGetBoxOfficeDetail(){
-    let requestObject = {
-      'unique_code' : localStorage.getItem('boxoffice_id'),
+    let request = {
+      'event_id' : this.eventId,
     }
-    this.SingleEventServiceService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
+
+    this.SingleEventServiceService.getSingleSummery(request).subscribe((response:any) => {
       if(response.data == true){
-        this.boxOfficeDetail = response.response[0];
-        this.eventURL = environment.APPURL+this.boxOfficeDetail.box_office_link+'/'+this.eventId;
+        this.eventSummery = response.response;
+
+        let data = [];
+        let arrayLable = [];
+        if(this.eventSummery.graphSale){
+          this.eventSummery.graphSale.forEach(element => {
+            data.push(element.sale);
+            arrayLable.push(element.date);
+          });
+          this.fnChartView(data,arrayLable);
+        }
+
+        data = [];
+        arrayLable = [];
+
+        if(this.eventSummery.graphViews){
+          this.eventSummery.graphViews.forEach(element => {
+            data.push(element.sale);
+            arrayLable.push(element.date);
+          });
+          this.fnChartView2(data,arrayLable);
+        }
+        
+
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
     });
+
+
+  }
+
+  fnGetBoxOfficeDetail(){
+
+    let requestObject = {
+      'unique_code' : localStorage.getItem('boxoffice_id'),
+    }
+
+    this.SingleEventServiceService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.boxOfficeDetail = response.response[0];
+        this.eventURL = environment.urlForLink+'/preview-events/'+this.eventId;
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
+  }
+
+  fnGetSettings(){
+
+    let requestObject={
+      "boxoffice_id"  : localStorage.getItem('boxoffice_id'),
+      "event_id" : ''
+    }
+
+    this.SingleEventServiceService.getSettingsValue(requestObject).subscribe((response:any) => {
+
+        if(response.data == true){
+          this.boxOfficeDetail = response.response;
+          this.boxOfficeDetail.forEach(element => {
+            if(element.option_key == 'Stripe'){
+              this.setupStripe = true;
+            }
+            if(element.option_key == 'Paypal'){
+              this.setupPayPal = true;
+            }
+          });
+
+        } else if(response.data == false){
+
+          this.ErrorService.errorMessage(response.response);
+        }
+    });
+
   }
 
   fnShare(type) {
