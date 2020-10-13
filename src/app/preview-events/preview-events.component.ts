@@ -49,6 +49,9 @@ export class PreviewEventsComponent implements OnInit {
         this.eventStartTime = moment(this.eventDetail.start_date + ' '+ this.eventDetail.start_time).format('MMMM Do YYYY, h:mm a');
         this.eventEndTime = moment(this.eventDetail.end_date +' '+this.eventDetail.end_time).format('MMMM Do YYYY, h:mm a');
 
+        this.eventDetail.description = this.eventDetail.description.replace(/< \/?[^>]+>/gi, '');
+        console.log(this.eventDetail.description.replace(/< \/?[^>]+>/gi, ''));
+        
       } else if(response.data == false){
         this.errorService.errorMessage(response.response);
       }
