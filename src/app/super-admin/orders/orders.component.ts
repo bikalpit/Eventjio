@@ -157,10 +157,10 @@ export class ExportOrderDialog {
     "buyer_details": this.buyerDetails
   };
   this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
-    if(response.data == true){
-      this.ErrorService.successMessage("orders exported successfully");
+    if(response.data == true){   
       this.selectedOrderArr = response.response
       csvExporter.generateCsv(this.selectedOrderArr);
+      this.ErrorService.successMessage("orders exported successfully");
     }
     else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.ErrorService.errorMessage(response.response);

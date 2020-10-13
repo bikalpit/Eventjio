@@ -17,6 +17,7 @@ export class MyProfileComponent implements OnInit {
   onlyNumaric = "[0-9]+"
   currentUser:any;
   myProfileData:any;
+  profileId:any;
   
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^-?(0|[1-9]\d*)?$/
@@ -71,6 +72,7 @@ export class MyProfileComponent implements OnInit {
     this.SettingService.getMyProfileData(requestObject).subscribe((response:any) => {
       if(response.data == true){
          this.myProfileData = response.response[0];
+         this.profileId = this.myProfileData.id       
         //  console.log(this.myProfileData);
 
          this.myProfileForm.controls['firstname'].setValue(this.myProfileData.firstname)
@@ -96,7 +98,8 @@ export class MyProfileComponent implements OnInit {
           "firstname" : this.myProfileForm.get('firstname').value,
           "email" : this.myProfileForm.get('email').value,
           "phone" : this.myProfileForm.get('phone').value,
-          "image" : this.profileImageUrl
+          "image" : this.profileImageUrl,
+          "id":this.profileId,
         }
         this.updateMyProfile(updateMyProfile);
       }else {
@@ -105,6 +108,7 @@ export class MyProfileComponent implements OnInit {
           "firstname" : this.myProfileForm.get('firstname').value,
           "email" : this.myProfileForm.get('email').value,
           "phone" : this.myProfileForm.get('phone').value,
+          "id":this.profileId,
         }
         this.updateMyProfile(updateMyProfile);
       }
