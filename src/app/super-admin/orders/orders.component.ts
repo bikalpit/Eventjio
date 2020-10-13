@@ -8,6 +8,8 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SuperadminService } from '../_services/superadmin.service';
 import { DatePipe} from '@angular/common';
+import { ExportToCsv } from 'export-to-csv';
+
 
 export interface DialogData {
   animal: string;
@@ -57,6 +59,7 @@ orderData = [{orderid:'012345',status:'Completed',name:'Shabnam Ansari',datetime
    dialogRef.afterClosed().subscribe(result => {
     this.animal = result;
    });
+  
 }
 
 addNewOredr() {
@@ -80,10 +83,21 @@ addNewOredr() {
 export class ExportOrderDialog { 
   
   reportType:any = 'overview';
+  boxOfficeCode:any;
+  selectedOrderArr:any;
+  orderDetails:any = "N";
+  eventDetails:any = "N";
+  buyerDetails:any = "N";
+
   constructor(
     public dialogRef: MatDialogRef<ExportOrderDialog>,
     private http: HttpClient,
+    public superadminService : SuperadminService,
+    private ErrorService: ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      if(localStorage.getItem('boxoffice_id')){
+        this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
+      }
     }
 
   onNoClick(): void {
@@ -91,10 +105,77 @@ export class ExportOrderDialog {
   }
   ngOnInit() {
   }
+
+  fnOrdersDetails(event){
+    if(event.checked == true){
+      this.orderDetails = 'Y' 
+    }else{
+      this.orderDetails = 'N' 
+    }
+  }
+
+  fnEventDetails(event){
+    if(event.checked == true){
+      this.eventDetails = 'Y' 
+    }else{
+      this.eventDetails = 'N' 
+    }
+  }
+
+  fnBuyersDetails(event){
+    if(event.checked == true){
+      this.buyerDetails = 'Y' 
+    }else{
+      this.buyerDetails = 'N' 
+    }
+  }
+
   fnExportOrderType(event){
     this.reportType=event.value
-  }
-  
+ }
+
+ exportOrder(){
+   
+  const options = { 
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalSeparator: '.',
+    showLabels: true, 
+    showTitle: true,
+    title: 'My Awesome CSV',
+    useTextFile: false,
+    useBom: true,
+    useKeysAsHeaders: true,
+  };
+  const csvExporter = new ExportToCsv(options);
+  if(this.reportType=="overview"){
+  let requestObject ={
+    "boxoffice_id": this.boxOfficeCode,
+    "report_type":"O",
+    "order_details":this.orderDetails,
+    "event_details":this.eventDetails,
+    "buyer_details": this.buyerDetails
+  };
+  this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
+    if(response.data == true){
+      this.ErrorService.successMessage("orders exported successfully");
+      this.selectedOrderArr = response.response
+      csvExporter.generateCsv(this.selectedOrderArr);
+    }
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
+      this.ErrorService.errorMessage(response.response);
+      // this._snackBar.open(response.response, "X", {
+      //   duration: 2000,
+      //   verticalPosition: 'top',
+      //   panelClass : ['red-snackbar']
+      // });
+    }
+   });
+   }
+   if(this.reportType=="lineItem"){
+     alert(1);
+   }
+ }
 }
 
 
@@ -172,38 +253,28 @@ export class BookTicketDialog {
   bookTickets: FormGroup;
   onlynumeric = /^-?(0|[1-9]\d*)?$/;
   discount:any;
-  allEventlist:any;
-  singleTicket:any;
   selectedEventCode:any;
-  totalCost:any;
   eventTicket:any;
-  customer_data:any;
   event_id:any;
   boxOfficeCode:any;
-  selectedEventDate:any;
-  ticket = { "price": 5000, "qty":0,"fee":200};
+  selecetdTickets : any =[];
+  subTotal :any = '0';
+//   subTotal() : any {
+//     return this.ticketPrice * this.ticket.qty;
+// }
 
-  calculate() : any {
-    return this.ticket.price * this.ticket.qty;
-}
-
-grandtotal() :any{
-  return this.ticket.fee + this.calculate();
-}
+// grandtotal() :any{
+//   return this.ticketFee + this.subTotal();
+// }
 
 // onChange(selectedValue):any{
 
 //   if (selectedValue == 'flat') {
 //     this.totalCost = this.discount;
 //   } else if (selectedValue == 'percent') {
-//     this.totalCost =((this. calculate()* this.discount) / 100); 
+//     this.totalCost =((this. subTotal()* this.discount) / 100); 
 //   }
 // }
-
-  packagesArray:any = [
-      {  'ticket_type': 'General Admission' },  
-  ];
-      
      
   constructor(
     public dialog: MatDialog,
@@ -215,7 +286,7 @@ grandtotal() :any{
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.selectedEventCode = this.data.selecetedEvent;
-      alert(this.selectedEventCode)
+
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
       }
@@ -227,8 +298,8 @@ grandtotal() :any{
         repeat_email:["", [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
         phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
         address_1:["", Validators.required],
-        address_2:["", Validators.required],
-        address_3:["", Validators.required],
+        address_2:[""],
+        address_3:[""],
         postcode:["", [Validators.required, Validators.pattern(this.onlynumeric)]],
         attendee_name:["", Validators.required],
         promo_code:["",[Validators.minLength(6),Validators.maxLength(6)]],
@@ -240,23 +311,67 @@ grandtotal() :any{
   onNoClick(): void {
     this.dialogRef.close();
 
+
   }
   ngOnInit() {
     this.fnGeteventTicket();
   }
+ 
   fnGeteventTicket(){
     let requestObject={
       "event_id":this.selectedEventCode,
     }
     this.superadminService.fnGeteventTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.eventTicket = response.response
-        console.log(this.eventTicket);
+        this.eventTicket = response.response;
       }else{
         // alert(2)
       }
      });
   }
+
+  fnAddQty(index,event){
+    console.log(event)
+
+    if(event.key >= this.eventTicket[index].min_per_order){
+      this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+    }else{
+
+      event.key = this.eventTicket[index].min_per_order
+     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+    }
+    if(event.key <= this.eventTicket[index].max_per_order){
+      this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+    }else{
+
+      event.key = this.eventTicket[index].max_per_order
+     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+    }
+
+      alert(this.subTotal)
+      console.log(index,event);
+      this.eventTicket[index].qty = event.key;
+
+   this.subTotal =0;
+   this.eventTicket.forEach(element=>{
+   this.subTotal =this.eventTicket[index].prize
+    // alert( this.subTotal );
+  })
+  }
+
+
+  fnBookTicket(event, index){
+    if(event.checked){
+      this.selecetdTickets.push(index);
+    }else{
+      const indexArr = this.selecetdTickets.indexOf(index, 0);
+      if (indexArr > -1) {
+          this.selecetdTickets.splice(indexArr, 1);
+      }
+    }
+    console.log(this.selecetdTickets)
+  }
+  
 
   fnTicketCheckout(fromType){
     this.addOrderFormType = fromType;
@@ -273,11 +388,11 @@ grandtotal() :any{
       "postcode":this.bookTickets.get("postcode").value,
       "event_id": this.selectedEventCode,
       "ticket_id":this.event_id,
-      "qty":this.ticket.qty,
-      "sub_total":this.calculate(),
+      "qty":"",
+      "sub_total":this.subTotal(),
       "order_date":"2020-10-01",
       "order_time":"04:37",
-      "grand_total":this.grandtotal(),
+      // "grand_total":this.grandtotal(),
       "attendee_name":this.bookTickets.get('attendee_name').value,
       "payment_status":"unpaid",
       "payment_method":"cash",
