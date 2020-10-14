@@ -29,16 +29,15 @@ export class CustomersComponent implements OnInit {
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   boxofficeId:any;
   customerDetails:any;
-  singleCustomerDetails:any;
-  selectedCustomerCode:any;
   selectedCustomerDetails:any;
+  selectedCustomerCode:any;
   editCustomerForm:boolean = false;
   deleteCustomer:any;
   isLoaderAdmin:boolean = false;
   selectedCustomerArr:any;
   addFormButtonDiv : boolean = true;
   customerImageUrl:any;
-  allUpcomingEventListData:any;
+  allEventListData:any;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -190,21 +189,23 @@ export class CustomersComponent implements OnInit {
 
  editCustomerDetails(){
   
+
   this.addFormButtonDiv = this.addFormButtonDiv ? false : true;  
   this.editCustomerForm = true;
   let requestObject = {
     "unique_code": this.selectedCustomerCode,
   };
   this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
+    
     if(response.data == true){
-      this.singleCustomerDetails = response.response;
-      this.addCustomerForm.controls['firstname'].setValue(this.singleCustomerDetails.firstname)
-      this.addCustomerForm.controls['lastname'].setValue(this.singleCustomerDetails.lastname)
-      this.addCustomerForm.controls['email'].setValue(this.singleCustomerDetails.email)
-      this.addCustomerForm.controls['phone'].setValue(this.singleCustomerDetails.phone)
-      this.addCustomerForm.controls['tags'].setValue(this.singleCustomerDetails.tags)
-      this.addCustomerForm.controls['address'].setValue(this.singleCustomerDetails.address)
-      this.addCustomerForm.controls['image'].setValue(this.singleCustomerDetails.image)
+      this.selectedCustomerDetails = response.response.customer;
+      this.addCustomerForm.controls['firstname'].setValue(this.selectedCustomerDetails.firstname)
+      this.addCustomerForm.controls['lastname'].setValue(this.selectedCustomerDetails.lastname)
+      this.addCustomerForm.controls['email'].setValue(this.selectedCustomerDetails.email)
+      this.addCustomerForm.controls['phone'].setValue(this.selectedCustomerDetails.phone)
+      this.addCustomerForm.controls['tags'].setValue(this.selectedCustomerDetails.tags)
+      this.addCustomerForm.controls['address'].setValue(this.selectedCustomerDetails.address)
+      // this.customerImageUrl.setValue(this.selectedCustomerDetails.image)
 
     }  else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
@@ -222,16 +223,14 @@ fnSelectCustomer(selectedCustomerCode){
   }
 
   this.isLoaderAdmin = true;
-
   let requestObject =  {
     "unique_code": selectedCustomerCode,
   };
-
   this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
     if(response.data == true){
-      this.selectedCustomerDetails = response.response;
+      this.selectedCustomerDetails = response.response.customer;
 
-      console.log(this.selectedCustomerDetails);
+ //     console.log(this.selectedCustomerDetails);
 
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
@@ -241,11 +240,12 @@ fnSelectCustomer(selectedCustomerCode){
   
 }
 
+
 fnUpdateCustomer(requestObject){
     this.SuperadminService.updateCustomerDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.customerDetails = response.response
-        console.log(this.customerDetails);
+       // console.log(this.customerDetails);
         this.editCustomerForm = false;
         this.ErrorService.successMessage(response.response);
         this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
@@ -310,21 +310,21 @@ fnUpdateCustomer(requestObject){
     });
   }
   
-  fnGetUpcomingEventList(){
+  eventList(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      'boxoffice_id'  : this.boxofficeId,
-      'filter' : 'upcoming'
+      "unique_code": this.selectedCustomerCode
     }
     this.isLoaderAdmin = true;
-    this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+    this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allUpcomingEventListData = response.response
-        this.allUpcomingEventListData.forEach(element => {
-          element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
-        });
+        this.allEventListData = response.response.all
+        console.log( this.allEventListData);
+        // this.allEventListData.forEach(element => {
+        //   element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
+        // });
       }else if(response.data == false){
-        this.allUpcomingEventListData.length = 0;
+        this.allEventListData.length = 0;
         this.ErrorService.errorMessage(response.response);
       }
     });

@@ -125,4 +125,18 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+   
+    removeImage(requestObject){
+        return this.http.post(`${environment.apiUrl}/remove-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
+    removeProfileImage(requestObject){
+        return this.http.post(`${environment.apiUrl}/remove-user-image`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 }
