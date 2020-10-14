@@ -38,6 +38,9 @@ export class CustomersComponent implements OnInit {
   addFormButtonDiv : boolean = true;
   customerImageUrl:any;
   allEventListData:any;
+  search = {
+    keyword: ""
+  };
 
   constructor(
     private formBuilder:FormBuilder,
@@ -76,6 +79,10 @@ export class CustomersComponent implements OnInit {
     this.addCustomerForm.reset();
     this.customerImageUrl = undefined;
     
+  }
+
+  customerSearch(){
+    this. getAllCustomersDetails();
   }
   
   ngOnInit(): void {
@@ -135,6 +142,18 @@ export class CustomersComponent implements OnInit {
             "boxoffice_id": this.boxofficeId,
           };
           this.fnUpdateCustomer(requestObject)
+        }else{
+          let requestObject={
+            "firstname":this.addCustomerForm.get('firstname').value,
+            "lastname":this.addCustomerForm.get('lastname').value,
+            "email":this.addCustomerForm.get('email').value,
+            "phone":this.addCustomerForm.get('phone').value,
+            "address":this.addCustomerForm.get('address').value,
+            "unique_code": this.selectedCustomerCode,
+            "tags": this.addCustomerForm.get("tags").value,
+            "boxoffice_id": this.boxofficeId,
+          };
+          this.fnUpdateCustomer(requestObject)
         }
       }else if(this.editCustomerForm == false){
         if(this.customerImageUrl){
@@ -146,6 +165,17 @@ export class CustomersComponent implements OnInit {
             "address": this.addCustomerForm.get("address").value,
             "tags": this.addCustomerForm.get("tags").value,
             "image": this.customerImageUrl,
+            "boxoffice_id": this.boxofficeId,
+          }
+          this.fnCreateCustomer(requestObject)
+        }else{
+          let requestObject={
+            "firstname": this.addCustomerForm.get("firstname").value,
+            "lastname": this.addCustomerForm.get("lastname").value,
+            "phone": this.addCustomerForm.get("phone").value,
+            "email": this.addCustomerForm.get("email").value,
+            "address": this.addCustomerForm.get("address").value,
+            "tags": this.addCustomerForm.get("tags").value,
             "boxoffice_id": this.boxofficeId,
           }
           this.fnCreateCustomer(requestObject)
@@ -170,6 +200,7 @@ export class CustomersComponent implements OnInit {
  getAllCustomersDetails(){
   this.isLoaderAdmin = true;
     let requestObject ={
+      'search':this.search.keyword,
       "boxoffice_id": this.boxofficeId,
     };
      

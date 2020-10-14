@@ -15,6 +15,7 @@ export class DeleteComponent implements OnInit {
   selectedEvent:any;
   isLoaderAdmin = true;
   eventdetails:any = "N";
+  eventName:any;
 
   constructor(
     private SingleEventServiceService:SingleEventServiceService,
@@ -32,6 +33,7 @@ export class DeleteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fnGetEventDetail();
   }
 
   fnDeleteEvents(event){
@@ -42,10 +44,27 @@ export class DeleteComponent implements OnInit {
     }
   }
 
+  fnGetEventDetail(){
+
+    let requestObject = {
+      'unique_code' : this.selectedEvent,
+    }
+
+    this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.eventName = response.response.event[0];
+        // this.eventStatus = this.eventDetail.event_status;
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
+  }
+
   deleteEvent(){
     if(this.eventdetails=='Y'){
           let requestObject ={
-          "unique_code":  this.selectedEvent
+          "unique_code":  this.selectedEvent,
           } 
 
       this.SingleEventServiceService.fnDeleteEvent(requestObject).subscribe((response:any)=>{
@@ -67,6 +86,7 @@ export class DeleteComponent implements OnInit {
         });
       }
     }
+
 
   } 
 

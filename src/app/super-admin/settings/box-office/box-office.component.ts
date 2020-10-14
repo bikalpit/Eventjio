@@ -26,6 +26,7 @@ export class BoxOfficeComponent implements OnInit {
   accountOwner:any = 'N';
   emailOrderNotification:any = "N";
   hideLogo:any ="N";
+  boxOfficeId:any;
   
 
 
@@ -118,7 +119,8 @@ export class BoxOfficeComponent implements OnInit {
     };
     this.settingService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.singleBoxofficeDetails = response.response[0]
+        this.singleBoxofficeDetails = response.response[0];
+        this.boxOfficeId = this.singleBoxofficeDetails.id     
         console.log(this.singleBoxofficeDetails);
         this.singleBoxOffice.controls['boxoffice_name'].setValue(this.singleBoxofficeDetails.box_office_name)
         this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
@@ -185,6 +187,7 @@ fnSubmitBoxOffice(){
       "add_email":this.singleBoxOffice.get('add_email').value,
       "box_office_link":this.singleBoxOffice.get('box_office_link').value,
       "image":this.boxofficeImageUrl, 
+      "id":this.boxOfficeId ,
     }  
     this.updateBoxoffice(requestObject);
    }else{
@@ -203,6 +206,7 @@ fnSubmitBoxOffice(){
       "timezone":this.singleBoxOffice.get('timezone').value,
       "add_email":this.singleBoxOffice.get('add_email').value,
       "box_office_link":this.singleBoxOffice.get('box_office_link').value,
+      "id":this.boxOfficeId,
     }
     this.updateBoxoffice(requestObject);
    }
