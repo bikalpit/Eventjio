@@ -28,7 +28,7 @@
                     <div class="row mx-0 mt-4">
                         <div class="col-12">
                             <label for="first-name" class="">Full Name</label>
-                            <input type="text" class="form-control" formControlName="firstname" placeholder="Shabnamm">
+                            <input type="text" class="form-control" formControlName="firstname">
                             <span class="error-wrap" *ngIf="myProfileForm.get('firstname').touched || myProfileForm.get('firstname').dirty">
                         <small *ngIf="myProfileForm.get('firstname').hasError('required')" class="error">Full Name is required.</small>
                         <small *ngIf="myProfileForm.get('firstname').hasError('maxlength')" class="error">Full Name should be maximum 15 character.</small>
@@ -46,7 +46,7 @@
 
                         <div class="col-6">
                             <label for="email" class="mt-4">Email</label>
-                            <input type="text" class="form-control" formControlName="email" placeholder="dummy@gmail.com">
+                            <input type="text" class="form-control" formControlName="email">
                             <span class="error-wrap" *ngIf="myProfileForm.get('email').touched || myProfileForm.get('email').dirty">
                         <small *ngIf="myProfileForm.get('email').hasError('required')" class="error">Email is required.</small>
                         <small *ngIf="myProfileForm.get('email').hasError('email') || myProfileForm.get('email').hasError('pattern')" class="error">Enter a valid email address.</small>
@@ -55,7 +55,7 @@
 
                         <div class="col-6">
                             <label for="first-name" class="mt-4">Phone</label>
-                            <input type="text" class="form-control" formControlName="phone" placeholder="+91 87678687">
+                            <input type="text" class="form-control" formControlName="phone">
                             <span class="error-wrap" *ngIf="myProfileForm.get('phone').touched || myProfileForm.get('phone').dirty">
                         <small *ngIf="myProfileForm.get('phone').hasError('required')" class="error">Phone Number is required.</small>
                         <small *ngIf="myProfileForm.get('phone').hasError('pattern') || myProfileForm.get('phone').hasError('pattern') && (myProfileForm.get('phone').hasError('maxlength') || myProfileForm.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>

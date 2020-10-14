@@ -27,7 +27,7 @@
                         </mat-select>
 
                         <div class="mt-2 p-2 bg-white border search-btn">
-                            <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2" />
+                            <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2"  [(ngModel)]="search.keyword" (keyup)="customerSearch()" placeholder="Search by name,phone and email id">
                         </div>
                     </div>
 
