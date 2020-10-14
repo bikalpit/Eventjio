@@ -13,7 +13,7 @@
                     <mat-select class="form-control" (selectionChange)="fnSelectionChange($event)" id="">
                         <mat-option value="To my account email address">To my account email address</mat-option>
                         <mat-option value="To a diffrent email address">To a diffrent email address</mat-option>
-                        <mat-option value="I would like to provide instructions">I would like to provide instructions</mat-option>
+                        <!-- <mat-option value="I would like to provide instructions">I would like to provide instructions</mat-option> -->
                     </mat-select>
                 </div>
                 
@@ -26,14 +26,14 @@
                     </span>
                 </div>
 
-                <div class="form-group col-md-8" *ngIf="contactPreferenceOption === 'I would like to provide instructions'">
+                <!-- <div class="form-group col-md-8" *ngIf="contactPreferenceOption === 'I would like to provide instructions'">
                     <label  class="sub-head">Please enter contact instructions</label>
                     <textarea formControlName="instructions" class="form-control"></textarea>
                     <span class="error-wrap" *ngIf="contactPreferenceFrom.get('instructions').touched || contactPreferenceFrom.get('instructions').dirty">
                         <small *ngIf="contactPreferenceFrom.get('instructions').hasError('required')" class="error">Instructions is required.</small>
                     </span>
                     <p>Some basic HTML is allowed so you can add links and headings</p>
-                </div>
+                </div> -->
 
                 <div class="col-md-8 mt-4" *ngIf="contactPreferenceOption === 'To my account email address' || contactPreferenceOption === 'To a diffrent email address'">
                     <div class="note-theme m-0">

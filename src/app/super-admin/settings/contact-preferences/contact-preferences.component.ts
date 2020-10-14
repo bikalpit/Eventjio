@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl,FormArray,FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormControl,FormArray,FormGroup, FormBuilder, Validators, ValidatorFn} from '@angular/forms';
 import { SettingService } from '../_services/setting.service';
 import { ErrorService } from '../../../_services/error.service';
 
@@ -20,7 +20,7 @@ export class ContactPreferencesComponent implements OnInit {
   ) { 
     this.contactPreferenceFrom = this._formBuilder.group({
       email_id:['',[Validators.required, Validators.email]],
-      instructions:['',[Validators.required]],
+      // instructions:['',[Validators.required]],
     })
   }
 
@@ -30,7 +30,7 @@ export class ContactPreferencesComponent implements OnInit {
 
         let contactPreferenceSetting = {
           "email_id":this.contactPreferenceFrom.get('email_id').value,
-          "instructions":this.contactPreferenceFrom.get('instructions').value,
+          // "instructions":this.contactPreferenceFrom.get('instructions').value,
         }
         let requestObject = {
           "boxoffice_id"  : localStorage.getItem('boxoffice_id'),
@@ -43,7 +43,7 @@ export class ContactPreferencesComponent implements OnInit {
         this.contactPreferenceFrom.reset();
     }else{
       this.contactPreferenceFrom.get('email_id').markAllAsTouched();
-      this.contactPreferenceFrom.get('instructions').markAllAsTouched();
+      // this.contactPreferenceFrom.get('instructions').markAllAsTouched();
       return false;
     }
 
@@ -64,17 +64,24 @@ export class ContactPreferencesComponent implements OnInit {
 
   fnSelectionChange(event){
     this.contactPreferenceOption = event.value;
-    if(event.value === "To a diffrent email address"){
-      this.contactPreferenceFrom.controls["instructions"].setValidators(null);
-      this.contactPreferenceFrom.controls["instructions"].updateValueAndValidity();
-    }else if(event.value === "I would like to provide instructions"){
+    if(event.value === "To a diffrent email address")
+    {
+    //   this.contactPreferenceFrom.controls["instructions"].setValidators(null);
+    //   this.contactPreferenceFrom.controls["instructions"].updateValueAndValidity();
+      this.contactPreferenceFrom.controls["email_id"].setValidators([Validators.required,Validators.email])
+    }
+    // else if(event.value === "I would like to provide instructions")
+    // {
+    //   this.contactPreferenceFrom.controls["email_id"].setValidators(null);
+    //   this.contactPreferenceFrom.controls["email_id"].updateValueAndValidity();
+    //   this.contactPreferenceFrom.controls["instructions"].setValidators(Validators.required);
+    // }
+    else
+    {
       this.contactPreferenceFrom.controls["email_id"].setValidators(null);
       this.contactPreferenceFrom.controls["email_id"].updateValueAndValidity();
-    }else{
-      this.contactPreferenceFrom.controls["email_id"].setValidators(null);
-      this.contactPreferenceFrom.controls["email_id"].updateValueAndValidity();
-      this.contactPreferenceFrom.controls["instructions"].setValidators(null);
-      this.contactPreferenceFrom.controls["instructions"].updateValueAndValidity();
+      // this.contactPreferenceFrom.controls["instructions"].setValidators(null);
+      // this.contactPreferenceFrom.controls["instructions"].updateValueAndValidity();
     }
     this.contactPreferenceFrom.updateValueAndValidity();
   }
