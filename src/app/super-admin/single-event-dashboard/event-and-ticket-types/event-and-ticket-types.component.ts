@@ -627,11 +627,11 @@ export class AddNewTicketType {
       this.fullDayTimeSlote = this.data.fullDayTimeSlote
       this.selectedTicketDetail = this.data.selectedTicketDetail
       this.selectedEventId = this.data.selectedEventId
-      if(this.data.selectedTicketDetail.discount.length !== 0){
-        this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
-      }
       
       if(this.selectedTicketDetail){
+        if(this.data.selectedTicketDetail.discount.length !== 0){
+          this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
+        }
         this.editTicket = true;
         this.advanceSetting = this.selectedTicketDetail.advance_setting
         this.addTicketForm = this._formBuilder.group({
