@@ -96,6 +96,22 @@ export class BoxOfficeComponent implements OnInit {
      });
   }
 
+  fnRemoveImage(){
+    
+    let requestObject={
+      'unique_code' : this.boxOfficeCode
+    }
+    this.settingService.removeImage(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this.ErrorService.successMessage(response.response);
+      this. getSingleBoxofficeDetails();
+     
+  } else if(response.data == false){
+    this.ErrorService.errorMessage(response.response);
+    }
+  });
+}
+
   getSingleBoxofficeDetails(){
     let requestObject = {
         'unique_code' : this.boxOfficeCode
@@ -200,7 +216,7 @@ fnSubmitBoxOffice(){
     } else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
+     this.isLoaderAdmin = false;
       this. getSingleBoxofficeDetails();
   });
   }

@@ -90,6 +90,24 @@ export class MyProfileComponent implements OnInit {
     })
     
   }
+
+
+  fnRemoveImage(){
+    
+    let requestObject={
+      'unique_code' :  this.currentUser.user_id
+    }
+    this.SettingService.removeProfileImage(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this.ErrorService.successMessage(response.response);
+      this. getMyProfileData();
+     
+  } else if(response.data == false){
+    this.ErrorService.errorMessage(response.response);
+    }
+  });
+}
+
   fnOnSubmitMyProfile(){
     if(this.myProfileForm.valid){
       if(this.profileImageUrl){

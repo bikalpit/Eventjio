@@ -16,7 +16,7 @@
                 <img *ngIf="profileImageUrl" src="{{profileImageUrl}}" alt="">
                 <div class="col-4 py-2">
                     <button mat-flat-button (click)="fnChangeImage()" class="change-photo">Change Image</button>
-                    <button mat-flat-button class="remove-photo mt-2">Remove Image</button>
+                    <button mat-flat-button class="remove-photo mt-2" (click)="fnRemoveImage()">Remove Image</button>
                 </div>
             </div>
         </div>
