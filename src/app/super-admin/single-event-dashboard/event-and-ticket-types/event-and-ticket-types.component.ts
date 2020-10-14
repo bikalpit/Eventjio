@@ -627,7 +627,9 @@ export class AddNewTicketType {
       this.fullDayTimeSlote = this.data.fullDayTimeSlote
       this.selectedTicketDetail = this.data.selectedTicketDetail
       this.selectedEventId = this.data.selectedEventId
-      this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
+      if(this.data.selectedTicketDetail.discount.length !== 0){
+        this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
+      }
       
       if(this.selectedTicketDetail){
         this.editTicket = true;
