@@ -27,7 +27,7 @@
                     </mat-expansion-panel-header>
                     <div class="top-border">
                       
-                        <div class="d-flex pt-3 pb-1">
+                        <div class="d-flex pt-3 pb-1 common-filed-center">
                             <label class="payment-label">Client Id</label>
                             <form class=" ml-auto" [formGroup]="paypal">                                       
                                 <input  formControlName="clientId" class="form-control" > 
@@ -37,44 +37,44 @@
                             </form>
                         </div>
 
-                        <div class="d-flex flex-wrap mt-3">
+                        <div class="d-flex flex-wrap mt-3 common-filed-center">
                             <label class="">Test Mode</label>
                             <mat-slide-toggle [checked]="paypalTestStatus" (change)="fnPaypalTest($event.checked)" class="ml-auto"></mat-slide-toggle>
                         </div>
-                        <!-- <div class="d-flex py-1">
+                        <!-- <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">API Password</label>
                             <form class=" ml-auto">                                       
                                 <input  class="ml-auto form-control"  placeholder="" value="">                                        
                             </form>
                         </div>
-                        <div class="d-flex">
+                        <div class="d-flex common-filed-center">
                             <label class="payment-label">Signature</label>
                             <form class=" ml-auto">                                       
                                 <input class="form-control" placeholder="" value="">                                        
                             </form>
                         </div>
-                        <div class="d-flex py-2">
+                        <div class="d-flex py-2 common-filed-center">
                             <label class="">Paypal guest payment</label>
                             <mat-slide-toggle class="ml-auto"></mat-slide-toggle>
                         </div>
-                        <div class="d-flex py-2">
+                        <div class="d-flex py-2 common-filed-center">
                             <label class="">Text Mode</label>
                             <mat-slide-toggle class="ml-auto"></mat-slide-toggle>
                         </div> -->
                         <div class="">
-                            <button  class="float-right save-btn my-3" (click)="fnSubmitPaypal()">Save</button>
+                            <button mat-flat-button class="float-right save-btn my-3 btn" (click)="fnSubmitPaypal()">Save</button>
                         </div>
                        
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
 
-            <mat-accordion class="col-md-6 pl-0">
+          <!-- <mat-accordion class="col-md-6 pl-0">
                 <mat-expansion-panel>
 
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <div class="d-flex">
+                            <div class="d-flex common-filed-center">
                                 <div>
                                     <img src="/assets/images/admin/authorize.png" class="payment-image">
                                 </div>
@@ -89,76 +89,75 @@
                     </mat-expansion-panel-header>
                     
                     <div class="top-border">
-                        <div class="d-flex pt-3 pb-1">
+                        <div class="d-flex pt-3 pb-1 common-filed-center">
                             <label class="payment-label">API Login ID</label>
                             <form class="ml-auto">                                        
                                 <input class="form-control" placeholder="" value="">                                        
                             </form>
                         </div>
-                        <div class="d-flex py-1">
+                        <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">Transaction Key</label>
                             <form class="ml-auto">                                        
                                 <input  class="ml-auto form-control"  placeholder="" value="">                                        
                             </form>
                         </div>
-                        <div class="d-flex py-2">
+                        <div class="d-flex py-2 common-filed-center">
                             <label class="">Sandbox Mode</label>
                             <mat-slide-toggle class="ml-auto"></mat-slide-toggle>
                         </div>
                     </div>
                 
                 </mat-expansion-panel>
+            </mat-accordion> -->
+            <mat-accordion class="col-md-6 pl-0">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div class="d-flex">
+                                <div>
+                                    <img src="/assets/images/admin/stripe.png" class="payment-image">
+                                </div>
+                                <div class="payment-toggle-btn">
+                                    <mat-slide-toggle class="" [checked]="stripeStatus" (change)="fnStripeStatus($event.checked)"  ></mat-slide-toggle>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-0 pt-2">Stripe Payment Form</p>
+                            </div>
+                        </mat-panel-title>
+                        <mat-panel-description>  </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="top-border">
+                        <form [formGroup]="stripe" class="">
+                            <div class="d-flex pt-3 pb-1 common-filed-center">
+                                <label class="payment-label">Secret Key</label>
+                                <div class="ml-auto">                                    
+                                    <input class="form-control" formControlName="secretKey" placeholder="" value="">                                    
+                                </div>
+                                <span class="w-100 error-wrap" *ngIf="stripe.get('secretKey').dirty || stripe.get('secretKey').touched">
+                                    <small *ngIf="stripe.get('secretKey').hasError('required')" class="error">Secret key is required.</small>
+                                </span>
+                            </div>
+                            <div class="d-flex py-1 common-filed-center">
+                                <label class="payment-label">Publishable Key</label>
+                                <div class="ml-auto">                                   
+                                    <input  formControlName="publishableKey" class="ml-auto form-control"  placeholder="" value="">                                    
+                                </div>
+                                <span class="w-100 error-wrap" *ngIf="stripe.get('publishableKey').dirty || stripe.get('publishableKey').touched">
+                                    <small *ngIf="stripe.get('publishableKey').hasError('required')" class="error">Publishable key is required.</small>
+                                </span>
+                            </div>
+                            <div class="">
+                                <button mat-flat-button class="float-right save-btn btn my-3" (click)="fnSubmitStripe()">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </mat-expansion-panel>
             </mat-accordion>
         </div>
 
     <div class="row mx-0">
-        <mat-accordion class="col-md-6 pl-0">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <div class="d-flex">
-                            <div>
-                                <img src="/assets/images/admin/stripe.png" class="payment-image">
-                            </div>
-                            <div class="payment-toggle-btn">
-                                <mat-slide-toggle class="" [checked]="stripeStatus" (change)="fnStripeStatus($event.checked)"  ></mat-slide-toggle>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="mb-0 pt-2">Stripe Payment Form</p>
-                        </div>
-                    </mat-panel-title>
-                    <mat-panel-description>  </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div class="top-border">
-                    <form [formGroup]="stripe" class="">
-                        <div class="d-flex pt-3 pb-1">
-                            <label class="payment-label">Secret Key</label>
-                            <div class="ml-auto">                                    
-                                <input class="form-control" formControlName="secretKey" placeholder="" value="">                                    
-                            </div>
-                            <span class="w-100 error-wrap" *ngIf="stripe.get('secretKey').dirty || stripe.get('secretKey').touched">
-                                <small *ngIf="stripe.get('secretKey').hasError('required')" class="error">Secret key is required.</small>
-                            </span>
-                        </div>
-                        <div class="d-flex py-1">
-                            <label class="payment-label">Publishable Key</label>
-                            <div class="ml-auto">                                   
-                                <input  formControlName="publishableKey" class="ml-auto form-control"  placeholder="" value="">                                    
-                            </div>
-                            <span class="w-100 error-wrap" *ngIf="stripe.get('publishableKey').dirty || stripe.get('publishableKey').touched">
-                                <small *ngIf="stripe.get('publishableKey').hasError('required')" class="error">Publishable key is required.</small>
-                            </span>
-                        </div>
-                        <div class="">
-                            <button  class="float-right save-btn my-3" (click)="fnSubmitStripe()">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-
-        <mat-accordion class="col-md-6 pl-0">
+        <!-- <mat-accordion class="col-md-6 pl-0">
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -177,38 +176,36 @@
                 </mat-expansion-panel-header>
             
                     <div class="top-border">
-                        <div class="d-flex pt-3 pb-1">
+                        <div class="d-flex pt-3 pb-1 common-filed-center">
                             <label class="payment-label">Publishable Key</label>
                             <form class=" ml-auto">                                   
                                 <input class="form-control" placeholder="" value="">                                    
                             </form>
                         </div>
-                        <div class="d-flex py-1">
+                        <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">Private key</label>
                             <form class=" ml-auto">                                   
                                 <input  class="ml-auto form-control"  placeholder="" value="">
                             </form>
                         </div>
-                        <div class="d-flex py-1">
+                        <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">Seller ID</label>
                             <form class=" ml-auto">                                   
                                 <input class="form-control" placeholder="" value="">                                    
                             </form>
                         </div>
-                        <div class="d-flex py-2">
+                        <div class="d-flex py-2 common-filed-center">
                             <label class="">Test Mode</label>
                             <mat-slide-toggle class="ml-auto"></mat-slide-toggle>
                         </div>
                     </div>
                     
             </mat-expansion-panel>
-        </mat-accordion>
+        </mat-accordion> -->
     </div>
 
     <div class="row mx-0">
-
         <mat-accordion class="col-md-6 pl-0">
-
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -232,7 +229,7 @@
             
                 <div class="top-border">
                     <form [formGroup]="payumoney">
-                        <div class="d-flex pt-3 pb-1">
+                        <div class="d-flex pt-3 pb-1 common-filed-center">
                             <label class="payment-label">Merchant Key</label>
                             <div class=" ml-auto">                                   
                                 <input class="form-control" formControlName="merchantKey"  placeholder="" value="">                                    
@@ -241,7 +238,7 @@
                                 <small *ngIf="payumoney.get('merchantKey').hasError('required')" class="error">Merchant key is required.</small>
                             </span>
                         </div>
-                        <div class="d-flex py-1">
+                        <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">Salt Key</label>
                             <div class=" ml-auto">                                   
                                 <input  class="ml-auto form-control" formControlName="saltKey"   placeholder="" value="">                                    
@@ -251,7 +248,7 @@
                             </span>
                         </div>
                         <div class="">
-                            <button mat-button class="float-right save-btn my-3" (click)="fnSubmitPayumoney()">Save</button>
+                            <button mat-button class="float-right save-btn my-3 btn" (click)="fnSubmitPayumoney()">Save</button>
                         </div>
                     </form>
                 </div>
@@ -278,7 +275,7 @@
             
                 <div class="top-border">
                     <form [formGroup]="bankTransfer" >
-                        <div class="d-flex pt-3 pb-1">
+                        <div class="d-flex pt-3 pb-1 common-filed-center">
                             <label class="payment-label">Bank Name</label>
                             <div class=" ml-auto">                                       
                                 <input class="form-control" placeholder="" value="">                                        
@@ -287,7 +284,7 @@
                                 <small *ngIf="bankTransfer.get('bankName').hasError('required')" class="error">Bank name is required.</small>
                             </span>
                         </div>
-                        <div class="d-flex py-1">
+                        <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">Account Name</label>
                             <div class=" ml-auto">                                       
                                 <input  class="ml-auto form-control"  placeholder="" value="">                                        
@@ -296,7 +293,7 @@
                                 <small *ngIf="bankTransfer.get('accountName').hasError('required')" class="error">Account name is required.</small>
                             </span>
                         </div>
-                        <div class="d-flex py-1">
+                        <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">Account Number</label>
                             <div class=" ml-auto">                                       
                                 <input class="form-control" placeholder="" value="">                                        
@@ -305,13 +302,13 @@
                                 <small *ngIf="bankTransfer.get('accountNumber').hasError('required')" class="error">Account number is required.</small>
                             </span>
                         </div>
-                        <div class="d-flex py-1">
+                        <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">Branch Code</label>
                             <div class=" ml-auto">                                       
                                 <input  class="ml-auto form-control"  placeholder="" value="">                                        
                             </div>
                         </div>
-                        <div class="d-flex py-1">
+                        <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">IFSC Code</label>
                             <div class="ml-auto">                                       
                                 <input  class="ml-auto form-control" formControlName="IFSCCode" placeholder="" value=""> 
@@ -320,14 +317,14 @@
                                 </span>                                       
                             </div>
                         </div>
-                        <div class="d-flex py-1">
+                        <div class="d-flex py-1 common-filed-center">
                             <label class="payment-label">Bank Description</label>
                             <div class="ml-auto">                                       
                                 <textarea class="form-control" formControlName="bankDescription" placeholder=""></textarea>                                        
                             </div>
                         </div>
                         <div class="">
-                            <button mat-button class="float-right save-btn my-3" (click)="fnSubmitBankTransfer()">Save</button>
+                            <button mat-button class="float-right save-btn my-3 btn" (click)="fnSubmitBankTransfer()">Save</button>
                         </div>  
                     </form>
                 </div>

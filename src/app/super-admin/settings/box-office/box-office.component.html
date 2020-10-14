@@ -10,6 +10,7 @@
                             <div class="">
                                 <div class="d-flex justify-content-center align-items-center">
                                     <div class="col-md-3 pl-0">
+                                        <img *ngIf="!boxofficeImageUrl" src="{{singleBoxofficeDetails.image}}" alt="">
                                         <img *ngIf="boxofficeImageUrl" src="{{boxofficeImageUrl}}" alt="">
                                     </div>
                                     <div class="col-md-9">
@@ -17,7 +18,7 @@
                                             <button mat-flat-button class="change-logo" (click)="fnChangeImage()">Change logo</button>
                                         </div>
                                         <div>
-                                            <button mat-flat-button class="remove-logo mt-2">Remove logo</button>
+                                            <button mat-flat-button class="remove-logo mt-2" (click)="fnRemoveImage()">Remove logo</button>
                                         </div>
                                     </div>
                                 </div>

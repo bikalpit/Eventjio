@@ -90,8 +90,27 @@ export class MyProfileComponent implements OnInit {
     })
     
   }
+
+
+  fnRemoveImage(){
+    
+    let requestObject={
+      'unique_code' :  this.currentUser.user_id
+    }
+    this.SettingService.removeProfileImage(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this.ErrorService.successMessage(response.response);
+      this. getMyProfileData();
+     
+  } else if(response.data == false){
+    this.ErrorService.errorMessage(response.response);
+    }
+  });
+}
+
   fnOnSubmitMyProfile(){
     if(this.myProfileForm.valid){
+      this.isLoaderAdmin = true;
       if(this.profileImageUrl){
         let updateMyProfile = {
           'unique_code': this.currentUser.user_id,
@@ -102,6 +121,7 @@ export class MyProfileComponent implements OnInit {
           "id":this.profileId,
         }
         this.updateMyProfile(updateMyProfile);
+        this.isLoaderAdmin = false;
       }else {
         let updateMyProfile = {
           'unique_code': this.currentUser.user_id,
@@ -111,6 +131,7 @@ export class MyProfileComponent implements OnInit {
           "id":this.profileId,
         }
         this.updateMyProfile(updateMyProfile);
+       
       }
       
     }
@@ -127,7 +148,7 @@ export class MyProfileComponent implements OnInit {
     this.SettingService.updateMyProfile(updateMyProfile).subscribe((response:any) => {
       if(response.data == true){
        this.ErrorService.successMessage(response.response);
-        this.myProfileForm.reset();
+       this. getMyProfileData();
       }
       else if(response.data == false){
        this.ErrorService.errorMessage(response.response);

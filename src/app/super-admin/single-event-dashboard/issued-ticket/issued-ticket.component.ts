@@ -13,8 +13,8 @@ import { ErrorService } from '../../../_services/error.service';
   styleUrls: ['./issued-ticket.component.scss']
 })
 export class IssuedTicketComponent implements OnInit {
-  event_ticket: string[] = ['Select all','General admission'];
-  status_ticket: string[] =['All issued ticket','Valid','Void'];
+  event_ticket: string = 'all';
+  status_ticket: string = 'all';
   selected = -1;
   exportdoorlist:any;
   issuedticketView:any;
@@ -41,6 +41,7 @@ export class IssuedTicketComponent implements OnInit {
                {Ticket_Code:'5h92H',Ticket_Type:'General Admission',name:'Shabnam Ansari',Orderid:'10771307',Issued:'Jul 22, 2020'},]
 
   ngOnInit(): void {
+    this.issuedTickets();
   }
 
   fnExportDoorList() {
@@ -68,13 +69,14 @@ export class IssuedTicketComponent implements OnInit {
   }
     
   issuedTickets(){
-    let requestObject ={
-      "event_id":this.event_id,
+
+    let requestObject = {
+      "event_id": this.event_id,
       "ticket_type": this.event_ticket,
-      "issued_status":this.status_ticket,
-      "global_search":" ",
-      "issued_fromdate": " ",
-      "issued_todate":" ",
+      "issued_status": this.status_ticket,
+      "global_search": "",
+      "issued_fromdate": "",
+      "issued_todate": "",
     }
     this.SingleEventServiceService.issuedTickets(requestObject).subscribe((response:any)=>{
       if(response.data == true){
