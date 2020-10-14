@@ -170,8 +170,10 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.singleEventDetail= response.response.event[0];
-        if(this.singleEventDetail.images[0].type == 'default'){
-          this.eventImageType = this.singleEventDetail.images[0].id
+        if(this.singleEventDetail.images.length !== 0){
+          if(this.singleEventDetail.images[0].type == 'default'){
+            this.eventImageType = this.singleEventDetail.images[0].image_name
+          }
         }
         this.singleEventSetting= this.singleEventDetail.event_setting;
         this.eventTicketList= response.response.tickets;
@@ -205,16 +207,31 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.donation= this.singleEventSetting.make_donation;
         this.shareButtonStatus= this.singleEventSetting.hide_share_button;
         this.olPlatForm = this.singleEventDetail.online_event;
+        
+        if(this.redirectURL == 'Y'){
+          this.fnRedirectURL(true);
+        }else{
+          this.fnRedirectURL(false);
+        }
+        if(this.accessCode == 'Y'){
+          this.fnAccessCode(true);
+        }else{
+          this.fnAccessCode(false);
+        }
+        if(this.donation == 'Y'){
+          this.fnChangeDonation(true);
+        }else{
+          this.fnChangeDonation(false);
+        }
+        if(this.olPlatForm == 'Y'){
+          this.fnolPlatform(true);
+        }else{
+          this.fnolPlatform(false);
+        }
         this.salesTaxVal = JSON.parse(this.singleEventSetting.sales_tax);
         this.salesTax.length = 0;
-        // this.customSalesTaxForm = null;
         this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
         this.salesTaxVal.forEach(element=>{
-          // this.createSalesTaxItem(element.amount, element.label)
-          // this._formBuilder.group({
-          //   amount: [element.amount],
-          //   label: [element.label]
-          // });
           this.customSalesTaxArr.push(this.createSalesTaxItem(element.amount, element.label));
         })
         this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
@@ -260,8 +277,8 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
 
   
-  fnChangeDonation(event){
-    if(event.checked == true){
+  fnChangeDonation(checked){
+    if(checked == true){
       this.donation = 'Y' ;
       this.editEventForm.controls["donation_title"].setValidators(Validators.required);
       this.editEventForm.controls["donation_amount"].setValidators(Validators.required);
@@ -281,8 +298,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.editEventForm.updateValueAndValidity();
   }
 
-  fnRedirectURL(event){
-    if(event.checked == true){
+  fnRedirectURL(checked){
+    if(checked == true){
       this.redirectURL = 'Y' 
       this.editEventForm.controls["redirect_url"].setValidators(Validators.required);
       this.editEventForm.controls["redirect_url"].updateValueAndValidity();
@@ -294,8 +311,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.editEventForm.updateValueAndValidity();
   }
 
-  fnAccessCode(event){
-    if(event.checked == true){
+  fnAccessCode(checked){
+    if(checked == true){
       this.accessCode = 'Y' 
       this.editEventForm.controls["access_code"].setValidators(Validators.required);
       this.editEventForm.controls["access_code"].updateValueAndValidity();
@@ -332,8 +349,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     }
   }
   
-  fnolPlatform(event){
-    if(event.checked == true){
+  fnolPlatform(checked){
+    if(checked == true){
       this.olPlatForm = 'Y';
       this.editEventForm.controls["online_platform"].setValidators(Validators.required);
       this.editEventForm.controls["vanue_name"].setValidators(null);
@@ -377,6 +394,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
 
   fnSaveEvent(){
+  console.log(this.editEventForm)
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
     if(this.editEventForm.invalid){
@@ -433,12 +451,12 @@ export class EventAndTicketTypesComponent implements OnInit {
       'custom_sales_tax':this.customSalesTax,
       'sales_tax':this.salesTax,
       'image' : this.newEventImageUrl,
-      'default-image' : this.selecetdDefaultImage,
+      'default_img' : this.selecetdDefaultImage,
       };
       this.updateEvent(requestObject);
   }
 
-  updateEvent(requestObject){
+  updateEvent(requestObject){ 
     this.isLoaderAdmin = true;
     this.SingleEventServiceService.updateEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -609,6 +627,8 @@ export class AddNewTicketType {
       this.fullDayTimeSlote = this.data.fullDayTimeSlote
       this.selectedTicketDetail = this.data.selectedTicketDetail
       this.selectedEventId = this.data.selectedEventId
+      this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
+      
       if(this.selectedTicketDetail){
         this.editTicket = true;
         this.advanceSetting = this.selectedTicketDetail.advance_setting
@@ -618,7 +638,7 @@ export class AddNewTicketType {
           qty: [this.selectedTicketDetail.qty,[Validators.required]],
           description: [this.selectedTicketDetail.description,[]],
           fee: [this.selectedTicketDetail.booking_fee,[Validators.pattern(this.onlynumeric)]],
-          status: [this.selectedTicketDetail.status,[]],
+          status: [this.selectedTicketDetail.status],
           min_order: [this.selectedTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
           max_order: [this.selectedTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
           until_date: [this.selectedTicketDetail.untill_date,[Validators.required]],
@@ -634,9 +654,9 @@ export class AddNewTicketType {
           title: ['',[Validators.required]],
           price: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
           qty: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
-          description: [null,[Validators.required]],
+          description: [null],
           fee: [null,[Validators.pattern(this.onlynumeric)]],
-          status: [null,[Validators.required]],
+          status: [null],
           min_order: [null,[Validators.pattern(this.onlynumeric)]],
           max_order: [null,[Validators.pattern(this.onlynumeric)]],
           until_date: ['',[Validators.required]],

@@ -454,7 +454,7 @@ export class EventsComponent implements OnInit {
       // 'ticket_ids':this.assignedTicketId,
       'tickets':this.eventTicketList,
       'image' : this.newEventImageUrl,
-      'default-image' : this.selecetdDefaultImage,
+      'default_img' : this.selecetdDefaultImage,
       };
       this.createNewEvent(requestObject);
   }

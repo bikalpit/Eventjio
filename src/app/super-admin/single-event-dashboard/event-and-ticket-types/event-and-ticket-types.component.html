@@ -132,7 +132,7 @@
                             </div>
                         </div>
                         <section class="form-group col-md-12">
-                            <mat-checkbox [checked]="olPlatForm == 'Y'" class="" (change)="fnolPlatform($event)">This is on online event</mat-checkbox>
+                            <mat-checkbox [checked]="olPlatForm == 'Y'" class="" (change)="fnolPlatform($event.checked)">This is on online event</mat-checkbox>
                         </section>
                         <div class="form-group col-md-12">
                             <label for="">Description <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
@@ -146,7 +146,7 @@
                         <div class="form-group col-md-12">
                             <label for="">Choose or upload an image</label>
                             <div class="row">
-                                <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == allDefaultImages.id}" (click)="fnSelectImage(allDefaultImages.id); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
+                                <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == allDefaultImages.name}" (click)="fnSelectImage(allDefaultImages.id); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
                                     alt="">
                                 <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage'); fnUploadEventImage()" class="event-images m-2 text-center pointer">
                                     <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
@@ -164,7 +164,7 @@
                         </label>
                             <div class="select-event-img-sm row mx-0">
                                 <div class="">
-                                    <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="select-event-image" alt="">
+                                    <img *ngIf="singleEventDetail.images.length !== 0" src="{{singleEventDetail.images[0].image}}" class="select-event-image" alt="">
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
@@ -185,7 +185,7 @@
                         </label>
                             <div class="select-event-img-lg row mx-0">
                                 <div class="">
-                                    <img src="../assets/images/Single Event/event-ticket-type/event1.png" class="select-event-image" alt="">
+                                    <img *ngIf="singleEventDetail.images.length !== 0" src="{{singleEventDetail.images[0].image}}" class="select-event-image" alt="">
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
@@ -268,7 +268,7 @@
                         </select>
                         </div>
                         <section class="col-md-12 form-group allow-donation">
-                            <mat-checkbox [checked]="donation == 'Y'" (change)="fnChangeDonation($event)" [checked]="false">Allow customers to make a donation</mat-checkbox>
+                            <mat-checkbox [checked]="donation == 'Y'" (change)="fnChangeDonation($event.checked)" [checked]="false">Allow customers to make a donation</mat-checkbox>
                         </section>
 
                         <div class="w-100" *ngIf="donation == 'Y'">
@@ -342,7 +342,7 @@
                                 </div>
                             </div>
                             <section class="col-md-12">
-                                <mat-checkbox [checked]="redirectURL == 'Y'" (change)="fnRedirectURL($event)" [checked]="false">Redirect order confirmation page <span class="info tooltip-btn" matTooltip="Redirect ticket buyers to a customer order confirmation page on your own website." matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                                <mat-checkbox [checked]="redirectURL == 'Y'" (change)="fnRedirectURL($event.checked)" [checked]="false">Redirect order confirmation page <span class="info tooltip-btn" matTooltip="Redirect ticket buyers to a customer order confirmation page on your own website." matTooltipPosition="above"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
                             </section>
                             <div class="col-md-6" *ngIf="redirectURL == 'Y'">
                                 <label for="">Redirect to URL <span class="info tooltip-btn" matTooltip="Enter the URL that you would like ticketbuyers to be redirected to after sucessfully completing an order"
@@ -359,7 +359,7 @@
                                         matTooltipPosition="above" class=""><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
                             </section>
                             <section class=" col-md-12">
-                                <mat-checkbox [checked]="accessCode == 'Y'" (change)="fnAccessCode($event)" [checked]="false">Customers need to enter an access code to buy tickets for this event<span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings." matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
+                                <mat-checkbox [checked]="accessCode == 'Y'" (change)="fnAccessCode($event.checked)" [checked]="false">Customers need to enter an access code to buy tickets for this event<span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings." matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></mat-checkbox>
                             </section>
                             <div class="col-md-6" *ngIf="accessCode == 'Y'">
                                 <label for="">Access Code</label>

@@ -6,7 +6,7 @@ export const environment = {
     production: false,
   	apiUrl:         'https://api.eventjio.com/api',
     authApiUrl:     'https://api.eventjio.com/api',
-    urlForLink :    'http://localhost:4200',
+    urlForLink :    'http://localhost:4500',
     APPURL:     'https://app.eventjio.com/',
 
 };
