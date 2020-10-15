@@ -105,12 +105,12 @@
                             </div>
                         </div>
                         <div class="pt-2">
-                            <mat-checkbox class="" (change)="fnEmailOrderNotification($event)">Send new order notifications by email </mat-checkbox>
+                            <mat-checkbox class="" [checked]="singleBoxofficeDetails && singleBoxofficeDetails.email_order_notification == 'Y'" (change)="fnEmailOrderNotification($event)">Send new order notifications by email </mat-checkbox>
                         </div>
                         <div class="">
                             <label for="" class="pt-2">Who should receive notifications?</label>
                             <div class="">
-                                <mat-checkbox class="" (change)="fnAccountOwner($event)" formControlName="account_owner">Account Owner</mat-checkbox>
+                                <mat-checkbox class="" [checked]="singleBoxofficeDetails && singleBoxofficeDetails.account_owner == 'Y'" (change)="fnAccountOwner($event)" formControlName="account_owner">Account Owner</mat-checkbox>
                             </div>
                         </div>
                         <div class="form-group pt-2">
@@ -132,7 +132,7 @@
                             </div>
                         </div>
                         <div class="">
-                            <mat-checkbox class="" (change)="fnHideLogo($event)">Hide Eventjio logo <span class="ml-2"><i class="fa fa-question-circle ml-2"  matTooltip="Hide the Event Jio logo from your box office pages. This feature is only available on certain plans." aria-hidden="true"></i></span></mat-checkbox>
+                            <mat-checkbox [checked]="singleBoxofficeDetails && singleBoxofficeDetails.hide_tailor_logo == 'Y'" class="" (change)="fnHideLogo($event)">Hide Eventjio logo <span class="ml-2"><i class="fa fa-question-circle ml-2"  matTooltip="Hide the Event Jio logo from your box office pages. This feature is only available on certain plans." aria-hidden="true"></i></span></mat-checkbox>
                         </div>
 
                     </div>

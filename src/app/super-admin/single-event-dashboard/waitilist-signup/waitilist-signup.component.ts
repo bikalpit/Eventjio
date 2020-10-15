@@ -17,6 +17,7 @@ export class WaitilistSignupComponent implements OnInit {
   hideLogo:any ="N";
   showTicket:any = "N";
   boxofficeId:any;
+  getSavedlist:any;
   eventId:any;
   isLoaderAdmin:any;  
   waitinglistObject:any;
@@ -57,6 +58,7 @@ export class WaitilistSignupComponent implements OnInit {
     this.getSignupWaitingList('NEW');
     this.getSignupWaitingList('ALL');
     this.getSignupWaitingList('NOTIFY');
+    this. fngetSavedwaitlist();
   }
 
   fnALLSearch(){
@@ -116,8 +118,6 @@ export class WaitilistSignupComponent implements OnInit {
       }
       this.isLoaderAdmin = false;
     })
-
-    
   }
 
   
@@ -172,6 +172,26 @@ export class WaitilistSignupComponent implements OnInit {
     }
 });
 
+  }
+
+  fngetSavedwaitlist(){
+   
+    let requestObject= {
+      "event_id":"NULL",
+      "option_key":'waitListForm',
+      "boxoffice_id": this.boxofficeId,
+    }
+        this.SingleEventServiceService.getSavedlist(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+          this.getSavedlist = JSON.parse(response.response);       
+          this.waitListForm.controls['join_list'].setValue(this.getSavedlist.join_list)
+          this.waitListForm.controls['notified_waitlist'].setValue(this.getSavedlist.notified_waitlist)
+          this.waitListForm.controls['confirmation_msg'].setValue(this.getSavedlist.confirmation_msg)
+          
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+        }
+    });
   }
 
 }

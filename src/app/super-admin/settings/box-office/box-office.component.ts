@@ -128,6 +128,7 @@ export class BoxOfficeComponent implements OnInit {
         this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
         this.singleBoxOffice.controls['language'].setValue(this.singleBoxofficeDetails.language)
         this.singleBoxOffice.controls['timezone'].setValue(this.singleBoxofficeDetails.timezone)
+        this.singleBoxOffice.controls['add_email'].setValue(this.singleBoxofficeDetails.add_email)
 
 
       }else if(response.data == false){

@@ -25,10 +25,10 @@
                         <div class="content" class="drageble-list">
                             <div class="drageble-box" fxLayout="row">
                                 <div class="tb-data heading-table clr-black" fxFlex="20"> Original </div>
-                                <div class="tb-data heading-table" fxFlex="20"> Interior Expo </div>
-                                <div class="tb-data heading-table text-green" fxFlex="20">Thu Aug 13, 2020</div>
-                                <div class="tb-data heading-table" fxFlex="20">Wed Aug 26, 2020</div>
-                                <div class="tb-data heading-table" fxFlex="20">Draft</div>
+                                <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.event_title:''}} </div>
+                                <div class="tb-data heading-table text-green" fxFlex="20">{{eventName?eventName.start_date:'' | date}}</div>
+                                <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.end_date:''}}</div>
+                                <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.event_status:''}}</div>
                             </div>
                         </div>
 
@@ -37,8 +37,8 @@
                          <div class="drageble-box main-drageble"  fxLayout="row">
                              <div class="tb-data heading-table clr-black" fxFlex="20"> New </div>
 
-                                 <div class="tb-data heading-table" fxFlex="20">
-                                    <input class="form-control" formControlName="event_title" placeholder="Interior Expo">
+                                 <div class="tb-data heading-table form-group" fxFlex="20">
+                                    <input class="form-control" formControlName="event_title" placeholder="{{eventName?eventName.event_title:''}}">
                                     <span class="error-wrap" *ngIf="duplicateForm.get('event_title').dirty || duplicateForm.get('event_title').touched"><small *ngIf="duplicateForm.get('event_title').hasError('required')" class="error text-left">Event Name is required.</small></span>
                                  </div>
                                 

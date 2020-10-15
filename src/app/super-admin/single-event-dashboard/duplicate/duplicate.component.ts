@@ -5,6 +5,7 @@ import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-duplicate',
   templateUrl: './duplicate.component.html',
@@ -20,6 +21,7 @@ export class DuplicateComponent implements OnInit {
   minTillDate :any = new Date();
   isLoaderAdmin:boolean = false;
   duplicateId:any;
+  eventName:any;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -44,7 +46,7 @@ export class DuplicateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this. fnGetEventDetail();
   }
   
   fnAddDuplicate(){
@@ -58,6 +60,26 @@ export class DuplicateComponent implements OnInit {
   fnChangeValideFrom(){
     this.minTillDate =this.duplicateForm.get('start_date').value;
     this.duplicateForm.get('end_date').setValue('');
+  }
+
+  fnGetEventDetail(){
+
+    let requestObject = {
+      'unique_code' :this.duplicateId,
+    }
+
+    this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.eventName = response.response.event[0];
+        this.eventName.start_date =  this.datePipe.transform(this.eventName.start_date,"EEE MMM d, y")
+        this.eventName.end_date =  this.datePipe.transform(this.eventName.end_date,"EEE MMM d, y")
+        console.log(this.eventName);
+        // this.eventStatus = this.eventDetail.event_status;
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
   }
 
   saveDuplicate(){

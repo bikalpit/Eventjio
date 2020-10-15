@@ -60,7 +60,7 @@ export class CustomersComponent implements OnInit {
       lastname:['',Validators.required],
       phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
-     // image:['',Validators.required],
+      // image:[''],
       address:['',Validators.required],
       tags:['',Validators.required],
     });  
@@ -125,7 +125,7 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.get("email").markAsTouched();
       this.addCustomerForm.get("address").markAsTouched();
       this.addCustomerForm.get("tags").markAsTouched();
-      alert(1);
+      // alert(1);
       return false;
     }else{
       if(this.editCustomerForm == true){
@@ -183,6 +183,7 @@ export class CustomersComponent implements OnInit {
       }
     }
   }
+  
 
   fnCreateCustomer(requestObject){
     this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
@@ -287,6 +288,7 @@ fnUpdateCustomer(requestObject){
       this.isLoaderAdmin = false;
     });
 }
+
 
 
 
