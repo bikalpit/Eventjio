@@ -474,11 +474,6 @@ export class EventsComponent implements OnInit {
     this.isLoaderAdmin = false;
 
   }
-
-
-
-
-  
   
   openAddNewTicketTypeDialog() {
     const dialogRef = this.dialog.open(AddNewTicketType,{

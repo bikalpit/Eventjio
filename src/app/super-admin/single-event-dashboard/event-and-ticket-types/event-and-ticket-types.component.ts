@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { element } from 'protractor';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-event-and-ticket-types',
@@ -15,6 +16,7 @@ import { element } from 'protractor';
 })
 export class EventAndTicketTypesComponent implements OnInit {
   value = 50;
+  apiUrl = environment.apiFolderUrl; 
   bufferValue = 75;
   salesTax = [ ];
   salesTaxVal = [];
@@ -49,6 +51,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   newEventImageUrl :any;
   selectedTicketDetail:any;
   getCurrancy:any;
+  selectedImage:any;
 
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
@@ -174,6 +177,8 @@ export class EventAndTicketTypesComponent implements OnInit {
           if(this.singleEventDetail.images[0].type == 'default'){
             this.eventImageType = this.singleEventDetail.images[0].image_name
           }
+        }else{
+          this.singleEventDetail.images = undefined
         }
         this.singleEventSetting= this.singleEventDetail.event_setting;
         this.eventTicketList= response.response.tickets;
@@ -246,6 +251,8 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
   
   fnSelectDefaultImage(imageName){
+    alert(imageName)
+    this.selectedImage = imageName
     this.selecetdDefaultImage = imageName;
   }
 
