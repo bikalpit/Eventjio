@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { SettingService } from '../_services/setting.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ErrorService } from '../../../_services/error.service';
+import { environment } from '../../../../environments/environment'
 
 @Component({
   selector: 'app-box-office',
@@ -19,7 +20,9 @@ export class BoxOfficeComponent implements OnInit {
   allLanguage:any;
   allTimezone:any;
   singleBoxofficeDetails:any;
+  editEventLink:boolean =false;
   singleBoxofficeUpdate:any;
+  frontUrl = environment.urlForLink
   boxofficeImageUrl:any;
   allTimezones:any;
   isLoaderAdmin:boolean = false;
@@ -105,7 +108,7 @@ export class BoxOfficeComponent implements OnInit {
     this.settingService.removeImage(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this.ErrorService.successMessage(response.response);
-      this. getSingleBoxofficeDetails();
+      this.getSingleBoxofficeDetails();
      
   } else if(response.data == false){
     this.ErrorService.errorMessage(response.response);
@@ -120,8 +123,7 @@ export class BoxOfficeComponent implements OnInit {
     this.settingService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.singleBoxofficeDetails = response.response[0];
-        this.boxOfficeId = this.singleBoxofficeDetails.id     
-        console.log(this.singleBoxofficeDetails);
+        this.boxOfficeId = this.singleBoxofficeDetails.id    
         this.singleBoxOffice.controls['boxoffice_name'].setValue(this.singleBoxofficeDetails.box_office_name)
         this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
         this.singleBoxOffice.controls['language'].setValue(this.singleBoxofficeDetails.language)
