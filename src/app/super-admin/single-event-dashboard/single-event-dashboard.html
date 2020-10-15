@@ -1,5 +1,5 @@
 <div class="event-title-bar">
-    <div *ngIf="eventDetail.images.length !== 0" class="event-image ">
+    <div *ngIf="eventDetail.images !== undefined" class="event-image ">
         <img src="{{eventDetail.images[0].image}}" class="w-100" alt="">
     </div>
     <div class="event-title">

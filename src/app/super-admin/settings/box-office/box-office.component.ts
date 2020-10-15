@@ -124,6 +124,10 @@ export class BoxOfficeComponent implements OnInit {
       if(response.data == true){
         this.singleBoxofficeDetails = response.response[0];
         this.boxOfficeId = this.singleBoxofficeDetails.id    
+        if(this.singleBoxofficeDetails.add_email !== ''){
+          this.Emailshow = true;
+          this.showHide = true;
+        }
         this.singleBoxOffice.controls['boxoffice_name'].setValue(this.singleBoxofficeDetails.box_office_name)
         this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
         this.singleBoxOffice.controls['language'].setValue(this.singleBoxofficeDetails.language)
@@ -153,9 +157,6 @@ export class BoxOfficeComponent implements OnInit {
     });
   }
   
-  // fnshowhide(){
-  //   this.showHide =!this.showHide;
-  // }
 
   fnshowHide(){
     this.showHide = !this.showHide;
