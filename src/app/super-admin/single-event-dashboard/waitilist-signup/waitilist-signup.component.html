@@ -10,10 +10,10 @@
         <form [formGroup]="waitListForm" class="with-validation">
             <div class="waitilist-deatils-top">
                 <h4> Settings </h4>
-                <mat-checkbox class="example-margin" (change)="fnActiveWaitlist($event)" >Activate waitlist</mat-checkbox>
+                <mat-checkbox class="example-margin" [checked]="getSavedlist && getSavedlist.active_watlist == 'Y'" (change)="fnActiveWaitlist($event)" >Activate waitlist</mat-checkbox>
             </div>
             <div class="bottom-hide-show-wrap" *ngIf="activeWaitlist">
-                <mat-checkbox class="example-margin" (change)="fnShowTicket($event)">Show only when no tickets are available</mat-checkbox>
+                <mat-checkbox class="example-margin" [checked]="getSavedlist && getSavedlist.show_ticket == 'Y'"  (change)="fnShowTicket($event)">Show only when no tickets are available</mat-checkbox>
                 
                 <div class="fileds-main">
                     <div class="form-group col-md-12 col-lg-12 col-sm-12">

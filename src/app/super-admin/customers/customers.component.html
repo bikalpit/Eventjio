@@ -10,8 +10,8 @@
                 <div class="ml-auto p-3">
                     <button mat-flat-button class="mx-2" (click)="ImportFileUpload()">Import Customers</button>
                     <button mat-flat-button class="mx-2" (click)="ExportFile()">Export Customers</button>
-                    <button *ngIf="addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" (click)="addFormButton()">Add Customer</button>
-                    <button *ngIf="!addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" (click)="addFormButton()">View Customer</button>
+                    <button *ngIf="addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" type=reset (click)="addFormButton()">Add Customer</button>
+                    <button *ngIf="!addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" type=reset (click)="addFormButton()">View Customer</button>
                 </div>
             </div>
         </div>
@@ -61,10 +61,11 @@
                             <div class="col-12 py-3">
                                 <div class="row">
                                     <div class="customer-dp">
-                                        <img src="{{selectedCustomerDetails.image}}" class="w-100 h-100" alt="">
+                                        <img src="{{selectedCustomerDetails && selectedCustomerDetails.image ? selectedCustomerDetails.image : ''}}" class="w-100 h-100" alt="">
+                                        <!-- <img  src="{{selectedCustomerDetails && selectedCustomerDetails.image ? selectedCustomerDetails.image : customerImageUrl}}" alt=""> -->
                                     </div>
                                     <div class="px-3 py-4 customer-name">
-                                        <span> {{ selectedCustomerDetails.firstname  + " " + selectedCustomerDetails.lastname}} </span>
+                                        <span> {{ selectedCustomerDetails.firstname + " " + selectedCustomerDetails.lastname}} </span>
                                     </div>
 
                                     <div class="ml-auto p-3 customer-edit-delete-btn">
@@ -128,8 +129,11 @@
                         <div class="px-3">
                             <div class="row">
                                 <form class="p-3" action="" [formGroup]="addCustomerForm" class="with-validation">
-                                    <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title">
+                                    <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title" *ngIf="!editCustomerForm">
                                         Add Customer
+                                    </div>
+                                    <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title" *ngIf="editCustomerForm">
+                                      Edit Customer
                                     </div>
                                     <div class="col-12 px-3 sub-heading">
                                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
@@ -212,9 +216,9 @@
 
                                             <div class="col-12 mb-3 text-right">
                                                 <button mat-flat-button class="mr-2 px-5 cancel-btn" (click)="addFormButton()">Cancel</button>
-                                                <button mat-flat-button class="ml-2 px-5 create-btn" (click)="submitForm()">Create</button>
+                                                <button *ngIf="!editCustomerForm" mat-flat-button class="ml-2 px-5 create-btn" (click)="submitForm()">Create</button>
+                                                <button *ngIf="editCustomerForm" mat-flat-button class="ml-2 px-5 create-btn" (click)="submitForm()">Save</button>
                                             </div>
-
                                         </div>
                                     </div>
                                 </form>
