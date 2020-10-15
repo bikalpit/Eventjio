@@ -67,18 +67,18 @@
                                      <mat-option value="publish">Published</mat-option>                                    
                                 </mat-select>
                                 <span class="error-wrap" *ngIf="duplicateForm.get('event_status').dirty || duplicateForm.get('event_status').touched"><small *ngIf="duplicateForm.get('event_status').hasError('required')" class="error text-left">Status is required.</small></span> 
-                                <div class="delete-duplicate"> 
+                                <!-- <div class="delete-duplicate"> 
                                     <i class="fa fa-times-circle" (click)="fnRemoveDuplicate(i)"></i>
-                                </div>
+                                </div> -->
                             </div>
                          </div>
                      </div>
                     </form>
 
                     </div>
-                    <div class="w-100 my-3">
+                    <!-- <div class="w-100 my-3">
                         <a class="add-row" (click)="fnAddDuplicate()"> Add another row  </a>
-                    </div>
+                    </div> -->
 
                 </div>
                 <div class="form-group col-md-12 col-lg-12 col-sm-12">

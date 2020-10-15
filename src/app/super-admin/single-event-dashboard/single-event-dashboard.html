@@ -1,6 +1,6 @@
 <div class="event-title-bar">
-    <div class="event-image ">
-        <img src="../../../assets/images/admin/Image 40.png" class="w-100" alt="">
+    <div *ngIf="eventDetail.images.length !== 0" class="event-image ">
+        <img src="{{eventDetail.images[0].image}}" class="w-100" alt="">
     </div>
     <div class="event-title">
         <p class="event-name mb-0 mt-2">

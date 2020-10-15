@@ -454,7 +454,7 @@ export class EventsComponent implements OnInit {
       // 'ticket_ids':this.assignedTicketId,
       'tickets':this.eventTicketList,
       'image' : this.newEventImageUrl,
-      'default-image' : this.selecetdDefaultImage,
+      'default_img' : this.selecetdDefaultImage,
       };
       this.createNewEvent(requestObject);
   }
@@ -474,11 +474,6 @@ export class EventsComponent implements OnInit {
     this.isLoaderAdmin = false;
 
   }
-
-
-
-
-  
   
   openAddNewTicketTypeDialog() {
     const dialogRef = this.dialog.open(AddNewTicketType,{

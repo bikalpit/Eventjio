@@ -1,4 +1,3 @@
-
 .single-event-summary-title {
     font-size: 16px;
     font-weight: bold;
@@ -22,20 +21,30 @@
     height: auto;
     // background-color: yellow;
 }
-.child-left-content i{color: #808080;}
+
+.child-left-content i {
+    color: #808080;
+}
 
 .active {
     color: #007BFF;
 }
-.event-menu{cursor: pointer;
+
+.event-menu {
+    cursor: pointer;
     display: flex;
     align-items: center;
     padding-bottom: 2px;
 }
-.fixed-wrap{margin-top: 8.7rem;}
-.side-event{
+
+.fixed-wrap {
+    margin-top: 8.7rem;
+}
+
+.side-event {
     width: calc(100% - 300px);
-    margin-left: 300px;}
+    margin-left: 300px;
+}
 
 .event-title-bar {
     width: calc(100% - 80px);
@@ -54,6 +63,7 @@
         img {
             width: 100%;
             height: 100%;
+            border-radius: 10px;
         }
     }
     .event-title {
@@ -85,25 +95,26 @@
     .fa-link {
         transform: rotate(80deg);
     }
-   
 }
-::ng-deep .event-status{
-    .custome-mat-set{
+
+::ng-deep .event-status {
+    .custome-mat-set {
         background-color: #595959;
         padding: 8px !important;
         border-radius: 30px;
-        .mat-select-trigger{
-            .mat-select-value{
+        .mat-select-trigger {
+            .mat-select-value {
                 color: #fff;
             }
-            .mat-select-arrow-wrapper{
-                .mat-select-arrow{
+            .mat-select-arrow-wrapper {
+                .mat-select-arrow {
                     color: #fff;
                 }
-              }
-            } 
+            }
+        }
     }
 }
+
 .active {
     color: #007BFF;
 }

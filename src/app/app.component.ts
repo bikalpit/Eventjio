@@ -20,6 +20,7 @@ export class AppComponent {
   adminTopMenuselected:any
   currentUrl: string;
   openLogoutMenuBox :boolean = false;
+  pageSlug:any;
   
   constructor(
     private route: ActivatedRoute,
@@ -82,6 +83,7 @@ export class AppComponent {
 
   private getUrl(event: any) {
     if (event) {
+      this.pageSlug = event.url.split('/' , 2)
       const url = event.url;
       const state = (event.state) ? event.state.url : null;
       const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
@@ -94,7 +96,6 @@ export class AppComponent {
     if (url) {
       let cleanUrl = url.substr(1);
       const slashIndex = cleanUrl.indexOf("/");
-      console.log(slashIndex)
       if (slashIndex >= 0) {
         cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
         return cleanUrl;

@@ -1,5 +1,5 @@
 <mat-drawer-container class="main-container">
-    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="isAdminUser() && (!isBoxoffice() && !boxofficeComponent)">
+    <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="isAdminUser() && (!isBoxoffice() && !boxofficeComponent) && (pageSlug && pageSlug[1] !== 'preview-events')">
         <mat-toolbar class="app-title">
             <div class="text-light text-center company-logo">
                 <img src="/assets/images/logo/eventjio-icon.png" class="company-img" alt="">
@@ -55,7 +55,7 @@
         </div>
     </mat-drawer>
     <mat-drawer-content class="bg-white h-100vh">
-        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser(), 'business_toolbar': (isAdminUser() && isBoxoffice()) }" *ngIf="isLogin() && currentUser" class="py-3 right-toolbar toolbar menu-comman">
+        <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser(), 'business_toolbar': (isAdminUser() && isBoxoffice()) }" *ngIf="isLogin() && currentUser && pageSlug[1] !== 'preview-events'" class="py-3 right-toolbar toolbar menu-comman">
             <div>
                 {{pageName}}
             </div>
@@ -88,7 +88,7 @@
                 </mat-select>
             </mat-form-field> -->
         </mat-toolbar>
-        <div class="right-toolbar-content h-100">
+        <div class="right-toolbar-content " [ngClass]="{'h-100': pageSlug[1] === 'preview-events'}">
             <router-outlet></router-outlet>
         </div>
     </mat-drawer-content>

@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { element } from 'protractor';
+import { SingleEventDashboard } from '../single-event-dashboard'
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-event-and-ticket-types',
@@ -15,11 +17,14 @@ import { element } from 'protractor';
 })
 export class EventAndTicketTypesComponent implements OnInit {
   value = 50;
+  apiUrl = environment.apiFolderUrl; 
   bufferValue = 75;
   salesTax = [ ];
   salesTaxVal = [];
   selectedEvent : any;
   boxOfficeCode : any;
+  thumbZoomLavel:any = '0'
+  bannerZoomLavel:any = '0'
   singleEventDetail:any;
   singleEventSetting:any;
   singleEventTickets:any;
@@ -49,11 +54,13 @@ export class EventAndTicketTypesComponent implements OnInit {
   newEventImageUrl :any;
   selectedTicketDetail:any;
   getCurrancy:any;
+  selectedImage:any;
 
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,
     private datePipe: DatePipe,
+    private SingleEventDashboard: SingleEventDashboard,
     private router: Router,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -163,6 +170,34 @@ export class EventAndTicketTypesComponent implements OnInit {
     });
   }
 
+  fnChangeThumbZoom(event){
+    console.log(event)
+    this.thumbZoomLavel = event.value
+    this.bannerStyle1()
+  }
+
+  fnChangeBannerZoom(event){
+    console.log(event)
+    this.bannerZoomLavel = event.value
+  }
+
+  bannerStyle1(){
+    if (this.thumbZoomLavel > 1){
+      console.log(this.thumbZoomLavel)
+      return {
+        backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
+        backgroundSize: this.thumbZoomLavel+'00'
+      }
+    }else{
+      console.log(this.thumbZoomLavel)
+      return {
+        backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
+        backgroundSize: 'cover'
+      }
+    }
+    return {}
+  }
+
   getSingleEvent(){
     let requestObject = {
       'unique_code'  :this.selectedEvent,
@@ -170,8 +205,12 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.singleEventDetail= response.response.event[0];
-        if(this.singleEventDetail.images[0].type == 'default'){
-          this.eventImageType = this.singleEventDetail.images[0].id
+        if(this.singleEventDetail.images.length !== 0){
+          if(this.singleEventDetail.images[0].type == 'default'){
+            this.eventImageType = this.singleEventDetail.images[0].image_name
+          }
+        }else{
+          this.singleEventDetail.images = undefined
         }
         this.singleEventSetting= this.singleEventDetail.event_setting;
         this.eventTicketList= response.response.tickets;
@@ -185,7 +224,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.editEventForm.controls['event_end_time'].setValue(this.singleEventDetail.end_time)
         this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
         this.editEventForm.controls['vanue_zip'].setValue(this.singleEventDetail.postal_code)
-        this.editEventForm.controls['vanue_country'].setValue(this.singleEventDetail.country)
+        this.editEventForm.controls['vanue_country'].setValue(this.singleEventDetail.country[0].id)
         this.editEventForm.controls['online_platform'].setValue(this.singleEventDetail.platform)
         this.editEventForm.controls['online_link'].setValue(this.singleEventDetail.event_link)
         this.editEventForm.controls['description'].setValue(this.singleEventDetail.description)
@@ -205,16 +244,31 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.donation= this.singleEventSetting.make_donation;
         this.shareButtonStatus= this.singleEventSetting.hide_share_button;
         this.olPlatForm = this.singleEventDetail.online_event;
+        
+        if(this.redirectURL == 'Y'){
+          this.fnRedirectURL(true);
+        }else{
+          this.fnRedirectURL(false);
+        }
+        if(this.accessCode == 'Y'){
+          this.fnAccessCode(true);
+        }else{
+          this.fnAccessCode(false);
+        }
+        if(this.donation == 'Y'){
+          this.fnChangeDonation(true);
+        }else{
+          this.fnChangeDonation(false);
+        }
+        if(this.olPlatForm == 'Y'){
+          this.fnolPlatform(true);
+        }else{
+          this.fnolPlatform(false);
+        }
         this.salesTaxVal = JSON.parse(this.singleEventSetting.sales_tax);
         this.salesTax.length = 0;
-        // this.customSalesTaxForm = null;
         this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
         this.salesTaxVal.forEach(element=>{
-          // this.createSalesTaxItem(element.amount, element.label)
-          // this._formBuilder.group({
-          //   amount: [element.amount],
-          //   label: [element.label]
-          // });
           this.customSalesTaxArr.push(this.createSalesTaxItem(element.amount, element.label));
         })
         this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
@@ -226,9 +280,16 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   fnSelectImage(imageType){
     this.eventImageType = imageType
+    if(this.eventImageType == 'newUploadImage'){
+      this.newEventImageUrl = undefined;
+    }else if(this.eventImageType == 'noImage'){
+      this.newEventImageUrl = undefined;
+      this.selecetdDefaultImage = undefined;
+    }
   }
   
   fnSelectDefaultImage(imageName){
+    this.selectedImage = imageName
     this.selecetdDefaultImage = imageName;
   }
 
@@ -260,8 +321,8 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
 
   
-  fnChangeDonation(event){
-    if(event.checked == true){
+  fnChangeDonation(checked){
+    if(checked == true){
       this.donation = 'Y' ;
       this.editEventForm.controls["donation_title"].setValidators(Validators.required);
       this.editEventForm.controls["donation_amount"].setValidators(Validators.required);
@@ -281,8 +342,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.editEventForm.updateValueAndValidity();
   }
 
-  fnRedirectURL(event){
-    if(event.checked == true){
+  fnRedirectURL(checked){
+    if(checked == true){
       this.redirectURL = 'Y' 
       this.editEventForm.controls["redirect_url"].setValidators(Validators.required);
       this.editEventForm.controls["redirect_url"].updateValueAndValidity();
@@ -294,8 +355,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.editEventForm.updateValueAndValidity();
   }
 
-  fnAccessCode(event){
-    if(event.checked == true){
+  fnAccessCode(checked){
+    if(checked == true){
       this.accessCode = 'Y' 
       this.editEventForm.controls["access_code"].setValidators(Validators.required);
       this.editEventForm.controls["access_code"].updateValueAndValidity();
@@ -332,8 +393,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     }
   }
   
-  fnolPlatform(event){
-    if(event.checked == true){
+  fnolPlatform(checked){
+    if(checked == true){
       this.olPlatForm = 'Y';
       this.editEventForm.controls["online_platform"].setValidators(Validators.required);
       this.editEventForm.controls["vanue_name"].setValidators(null);
@@ -377,6 +438,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
 
   fnSaveEvent(){
+  console.log(this.editEventForm)
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
     if(this.editEventForm.invalid){
@@ -433,16 +495,17 @@ export class EventAndTicketTypesComponent implements OnInit {
       'custom_sales_tax':this.customSalesTax,
       'sales_tax':this.salesTax,
       'image' : this.newEventImageUrl,
-      'default-image' : this.selecetdDefaultImage,
+      'default_img' : this.selecetdDefaultImage,
       };
       this.updateEvent(requestObject);
   }
 
-  updateEvent(requestObject){
+  updateEvent(requestObject){ 
     this.isLoaderAdmin = true;
     this.SingleEventServiceService.updateEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
+        this.SingleEventDashboard.fnGetEventDetail();
         this.getSingleEvent();
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -516,6 +579,7 @@ export class EventAndTicketTypesComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
             this.newEventImageUrl = result;
+            this.selecetdDefaultImage  = undefined;
            }
      });
   }
@@ -609,7 +673,11 @@ export class AddNewTicketType {
       this.fullDayTimeSlote = this.data.fullDayTimeSlote
       this.selectedTicketDetail = this.data.selectedTicketDetail
       this.selectedEventId = this.data.selectedEventId
+      
       if(this.selectedTicketDetail){
+        if(this.data.selectedTicketDetail.discount.length !== 0){
+          this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
+        }
         this.editTicket = true;
         this.advanceSetting = this.selectedTicketDetail.advance_setting
         this.addTicketForm = this._formBuilder.group({
@@ -618,7 +686,7 @@ export class AddNewTicketType {
           qty: [this.selectedTicketDetail.qty,[Validators.required]],
           description: [this.selectedTicketDetail.description,[]],
           fee: [this.selectedTicketDetail.booking_fee,[Validators.pattern(this.onlynumeric)]],
-          status: [this.selectedTicketDetail.status,[]],
+          status: [this.selectedTicketDetail.status],
           min_order: [this.selectedTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
           max_order: [this.selectedTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
           until_date: [this.selectedTicketDetail.untill_date,[Validators.required]],
@@ -634,9 +702,9 @@ export class AddNewTicketType {
           title: ['',[Validators.required]],
           price: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
           qty: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
-          description: [null,[Validators.required]],
+          description: [null],
           fee: [null,[Validators.pattern(this.onlynumeric)]],
-          status: [null,[Validators.required]],
+          status: [null],
           min_order: [null,[Validators.pattern(this.onlynumeric)]],
           max_order: [null,[Validators.pattern(this.onlynumeric)]],
           until_date: ['',[Validators.required]],
