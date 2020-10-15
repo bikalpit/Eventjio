@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { element } from 'protractor';
+import { SingleEventDashboard } from '../single-event-dashboard'
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -22,6 +23,8 @@ export class EventAndTicketTypesComponent implements OnInit {
   salesTaxVal = [];
   selectedEvent : any;
   boxOfficeCode : any;
+  thumbZoomLavel:any = '0'
+  bannerZoomLavel:any = '0'
   singleEventDetail:any;
   singleEventSetting:any;
   singleEventTickets:any;
@@ -57,6 +60,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,
     private datePipe: DatePipe,
+    private SingleEventDashboard: SingleEventDashboard,
     private router: Router,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -166,6 +170,34 @@ export class EventAndTicketTypesComponent implements OnInit {
     });
   }
 
+  fnChangeThumbZoom(event){
+    console.log(event)
+    this.thumbZoomLavel = event.value
+    this.bannerStyle1()
+  }
+
+  fnChangeBannerZoom(event){
+    console.log(event)
+    this.bannerZoomLavel = event.value
+  }
+
+  bannerStyle1(){
+    if (this.thumbZoomLavel > 1){
+      console.log(this.thumbZoomLavel)
+      return {
+        backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
+        backgroundSize: this.thumbZoomLavel+'00'
+      }
+    }else{
+      console.log(this.thumbZoomLavel)
+      return {
+        backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
+        backgroundSize: 'cover'
+      }
+    }
+    return {}
+  }
+
   getSingleEvent(){
     let requestObject = {
       'unique_code'  :this.selectedEvent,
@@ -192,7 +224,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.editEventForm.controls['event_end_time'].setValue(this.singleEventDetail.end_time)
         this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
         this.editEventForm.controls['vanue_zip'].setValue(this.singleEventDetail.postal_code)
-        this.editEventForm.controls['vanue_country'].setValue(this.singleEventDetail.country)
+        this.editEventForm.controls['vanue_country'].setValue(this.singleEventDetail.country[0].id)
         this.editEventForm.controls['online_platform'].setValue(this.singleEventDetail.platform)
         this.editEventForm.controls['online_link'].setValue(this.singleEventDetail.event_link)
         this.editEventForm.controls['description'].setValue(this.singleEventDetail.description)
@@ -248,10 +280,15 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   fnSelectImage(imageType){
     this.eventImageType = imageType
+    if(this.eventImageType == 'newUploadImage'){
+      this.newEventImageUrl = undefined;
+    }else if(this.eventImageType == 'noImage'){
+      this.newEventImageUrl = undefined;
+      this.selecetdDefaultImage = undefined;
+    }
   }
   
   fnSelectDefaultImage(imageName){
-    alert(imageName)
     this.selectedImage = imageName
     this.selecetdDefaultImage = imageName;
   }
@@ -468,6 +505,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.updateEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
+        this.SingleEventDashboard.fnGetEventDetail();
         this.getSingleEvent();
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -541,6 +579,7 @@ export class EventAndTicketTypesComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
             this.newEventImageUrl = result;
+            this.selecetdDefaultImage  = undefined;
            }
      });
   }
