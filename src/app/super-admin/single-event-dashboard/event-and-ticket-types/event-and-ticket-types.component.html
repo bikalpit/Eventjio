@@ -92,7 +92,7 @@
                                         <mat-select formControlName="vanue_country" class="form-control">
                                             <mat-option *ngFor="let allCountry of allCountry; let i=index" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
                                         </mat-select>
-                                        <span class="error-wrap" *ngIf="editEventForm.get('vanue_country').touched || editEventForm.get('vanue_country').dirty">
+                                        <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('vanue_country').touched || editEventForm.get('vanue_country').dirty">
                                             <small *ngIf="editEventForm.get('vanue_country').hasError('required')" class="error">Country is required.</small>
                                         </span>
                                     </div>
@@ -163,19 +163,19 @@
                             matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
                         </label>
                             <div class="select-event-img-sm row mx-0">
-                                <div *ngIf="!selectedImage && singleEventDetail.images !== undefined" class="">
-                                    <img src="{{singleEventDetail.images[0].image}}" class="select-event-image" alt="">
+                                <div *ngIf="!selectedImage && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="bannerStyle1()" class="select-event-image">
+                                    <!-- <img src="{{singleEventDetail.images[0].image}}" class="select-event-image" alt=""> -->
                                 </div>
-                                <div *ngIf="selectedImage && !newEventImageUrl" class="">
-                                    <img src="{{apiUrl}}/event-images/{{selectedImage}}" class="select-event-image" alt="">
+                                <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background': 'url(' + apiUrl +'/event-images/'+ selectedImage + ')'}" class="select-event-image">
+                                    <!-- <img src="{{apiUrl}}/event-images/{{selectedImage}}" class="select-event-image" alt=""> -->
                                 </div>
-                                <div *ngIf="newEventImageUrl" class="">
-                                    <img src="{{newEventImageUrl}}" class="select-event-image" alt="">
+                                <div *ngIf="selectedImage && newEventImageUrl && singleEventDetail.images !== undefined" [ngStyle]="{'background': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
+                                    <!-- <img src="{{newEventImageUrl}}" class="select-event-image" alt=""> -->
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
                                         <div class="image-status">
-                                            <mat-slider class="image-slider" min="1" max="5" step="1" value="1"></mat-slider>
+                                            <mat-slider (change)="fnChangeThumbZoom($event)" class="image-slider" min="1" max="5" step="1" value="1"></mat-slider>
                                         </div>
                                         <!-- <div class="">
                                             <button mat-raised-button class="delete-button">Delete Image</button>
@@ -190,19 +190,19 @@
                             matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
                         </label>
                             <div class="select-event-img-lg row mx-0">
-                                <div *ngIf="!selectedImage && singleEventDetail.images !== undefined" class="">
-                                    <img src="{{singleEventDetail.images[0].image}}" class="select-event-image" alt="">
+                                <div *ngIf="!selectedImage && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="{'background': 'url(' + singleEventDetail.images[0].image + ')', 'backgroundSize': 'cover'}" class="select-event-image">
+                                    <!-- <img src="{{singleEventDetail.images[0].image}}" class="select-event-image" alt=""> -->
                                 </div>
-                                <div *ngIf="selectedImage && !newEventImageUrl" class="">
-                                    <img src="{{apiUrl}}/event-images/{{selectedImage}}" class="select-event-image" alt="">
+                                <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background': 'url(' + apiUrl +'/event-images/'+ selectedImage + ')', 'backgroundSize': bannerZoomLavel > 1 ? bannerZoomLavel+'00' : 'cover'}" class="select-event-image">
+                                    <!-- <img src="{{apiUrl}}/event-images/{{selectedImage}}" class="select-event-image" alt=""> -->
                                 </div>
-                                <div *ngIf="newEventImageUrl" class="">
-                                    <img src="{{newEventImageUrl}}" class="select-event-image" alt="">
+                                <div *ngIf="selectedImage && newEventImageUrl && singleEventDetail.images !== undefined" [ngStyle]="{'background': 'url(' + newEventImageUrl + ')', 'backgroundSize': bannerZoomLavel > 1 ? bannerZoomLavel+'00' : 'cover'}" class="select-event-image">
+                                    <!-- <img src="{{newEventImageUrl}}" class="select-event-image" alt=""> -->
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
                                         <div class="image-status">
-                                            <mat-slider class="image-slider" min="1" max="5" step="1" value="1"></mat-slider>
+                                            <mat-slider (change)="fnChangeBannerZoom($event)" class="image-slider" min="1" max="5" step="1" value="1"></mat-slider>
                                         </div>
                                         <!-- <div class="">
                                             <button mat-raised-button class="delete-button">Delete Image</button>
