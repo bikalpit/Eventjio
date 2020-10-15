@@ -20,17 +20,17 @@
                 </label>
                         <input type="text" class="form-control" formControlName="voucher_name">
                         <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_name').touched || createVoucherForm.get('voucher_name').dirty">
-                  <small *ngIf="createVoucherForm.get('voucher_name').hasError('required')" class="error">Voucher name is required.</small>
-                  <small *ngIf="createVoucherForm.get('voucher_name').hasError('maxlength')" class="error">Voucher name should be maximum 15 character.</small>
-                </span>
+                            <small *ngIf="createVoucherForm.get('voucher_name').hasError('required')" class="error">Voucher name is required.</small>
+                            <small *ngIf="createVoucherForm.get('voucher_name').hasError('maxlength')" class="error">Voucher name should be maximum 15 character.</small>
+                        </span>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Value <span><i class="fa fa-asterisk"></i></span> 
-                  <span mat-raised-button
-                        matTooltip="How much money do these vouchers discount from an order?"
-                        matTooltipPosition="above" class="tooltip-btn ml-1">
-                        <span class="info"><i class="fa fa-question"></i></span>
-                  </span>
+                        <span mat-raised-button
+                                matTooltip="How much money do these vouchers discount from an order?"
+                                matTooltipPosition="above" class="tooltip-btn ml-1">
+                                <span class="info"><i class="fa fa-question"></i></span>
+                        </span>
                 </label>
                         <input type="text" class="form-control" formControlName="voucher_value">
                         <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_value').touched || createVoucherForm.get('voucher_value').dirty">
@@ -67,15 +67,10 @@
                     <div class="col-md-12 mt-2">
                         <label class="mb-1 mt-2">Events these voucher codes can be redeemed against.</label>
                     </div>
-                    <section class="col-md-12 ">
-                        <mat-checkbox>Mon 27 JUl: Lajawab Cooking Class</mat-checkbox>
+                    <section *ngFor="let getAllEventList of getAllEventList; let i=index" class="col-md-12 ">
+                        <mat-checkbox [checked]="assignedEvent.indexOf(getAllEventList.unique_code) > -1" (change)="fnAssignEvent($event, event.unique_code)">{{getAllEventList.start_date}} {{getAllEventList.event_title}}</mat-checkbox>
                     </section>
-                    <section class="col-md-12 ">
-                        <mat-checkbox>Mon 27 JUl:Dracula Drinks </mat-checkbox>
-                    </section>
-                    <section class="col-md-12 ">
-                        <mat-checkbox>Mon 3 Aug - Mon 10 Aug: Kitty Party</mat-checkbox>
-                    </section>
+
                     <div class="example-button-row ml-auto mt-2">
                         <button mat-raised-button class="cancel-btn" (click)="onNoClick()">Cancel</button>
                         <button *ngIf="!signleVoucherDetail" mat-raised-button (click)="fnOnSubmitVoucher()" class="mx-3 cupon-btn">Create voucher codes</button>

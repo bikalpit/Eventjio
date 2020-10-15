@@ -3,6 +3,7 @@ import {FormControl, FormBuilder, FormGroup, Validators, FormArray, CheckboxCont
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { SettingService } from '../_services/setting.service';
+import { DatePipe} from '@angular/common';
 import { ErrorService } from '../../../_services/error.service';
 
 export interface DialogData {
@@ -14,20 +15,17 @@ export interface DialogData {
 @Component({
   selector: 'app-team-access',
   templateUrl: './team-access.component.html',
-  styleUrls: ['./team-access.component.scss']
+  styleUrls: ['./team-access.component.scss'],
+  providers: [DatePipe]
 })
 export class TeamAccessComponent implements OnInit {
   animal :any;
   allBusiness: any;
   isLoaderAdmin:any;
-  allInviterData:any;
+  approvedInviterData:any =[];
+  pendingInviterData:any =[];
   boxofficeId:any;
 
-  teammates = [{name:'Meet Shah',role:'Owner',email:'abc@gmail.com',lastseen:'14 Jul 2020 4:30 pm'},
-  {name:'Monoj Tiwari',role:'Event Manager',email:'abc@gmail.com',lastseen:'14 Jul 2020 4:30 pm'},
-  {name:'Parth Bishnoi',role:'Order Manager',email:'abc@gmail.com',lastseen:'14 Jul 2020 4:30 pm'}
-]
- 
 
 
   constructor(
@@ -35,6 +33,7 @@ export class TeamAccessComponent implements OnInit {
     private http: HttpClient,
     private SettingService : SettingService,
     private ErrorService : ErrorService,
+    private datePipe: DatePipe,
     private change : ChangeDetectorRef
   ) { 
     if(localStorage.getItem('boxoffice_id')){
@@ -43,19 +42,45 @@ export class TeamAccessComponent implements OnInit {
 
   }
 
-  getAllInviter(){
+  getAPRInviter(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      'boxoffice_id' : this.boxofficeId
+      'boxoffice_id' : this.boxofficeId,
+      'status': 'APR'
     }
     this.SettingService.getAllInviter(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this. allInviterData = response.response
-        console.log(this.allInviterData)
+        this.approvedInviterData = response.response
+        this.approvedInviterData.forEach(element => {
+          element.updated_at =  this.datePipe.transform(element.updated_at,"MMM d, y, h:mm a")
+        });
+        console.log(this.approvedInviterData)
       }
       else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
-      this.allInviterData.length = 0
+      this.approvedInviterData.length = 0
+      // this. allVoucherCodeList = null;
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+  getPENDInviter(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'boxoffice_id' : this.boxofficeId,
+      'status': 'P'
+    }
+    this.SettingService.getAllInviter(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.pendingInviterData = response.response
+        this.pendingInviterData.forEach(element => {
+          element.updated_at =  this.datePipe.transform(element.updated_at,"MMM d, y, h:mm a")
+        });
+        console.log(this.pendingInviterData)
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response);
+      this.pendingInviterData.length = 0
       // this. allVoucherCodeList = null;
       }
       this.isLoaderAdmin = false;
@@ -63,7 +88,8 @@ export class TeamAccessComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllInviter();
+    this.getAPRInviter();
+    this.getPENDInviter();
   }
 
   inviteTeammate() {
@@ -73,6 +99,8 @@ export class TeamAccessComponent implements OnInit {
 
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
+      this.getAPRInviter();
+      this.getPENDInviter();
      });
   }
 
