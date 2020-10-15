@@ -171,7 +171,9 @@ export class BoxOfficeComponent implements OnInit {
 
 fnSubmitBoxOffice(){
   if(this.singleBoxOffice.invalid){
-    
+    this.singleBoxOffice.get('timezone').markAsTouched();
+    this.singleBoxOffice.get('boxoffice_name').markAsTouched();
+    return false;
   }
   this.isLoaderAdmin = true;
   if(this.boxofficeImageUrl){
@@ -239,7 +241,7 @@ export class DialogAdminBoxofficeImageUpload {
 
   uploadForm: FormGroup;  
   imageSrc: string;
-  profileImage: string;
+  boxOfficeImage: string;
   
 constructor(
   public dialogRef: MatDialogRef<DialogAdminBoxofficeImageUpload>,
@@ -247,7 +249,7 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
-      this.dialogRef.close(this.profileImage);
+      this.dialogRef.close(this.boxOfficeImage);
     }
     ngOnInit() {
       this.uploadForm = this._formBuilder.group({
@@ -272,8 +274,8 @@ onFileChange(event) {
   }
 }
 uploadImage() {
-  this.profileImage = this.imageSrc
-  this.dialogRef.close(this.profileImage);
+  this.boxOfficeImage = this.imageSrc
+  this.dialogRef.close(this.boxOfficeImage);
 }
 
 

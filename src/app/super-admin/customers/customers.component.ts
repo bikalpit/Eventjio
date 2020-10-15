@@ -30,6 +30,7 @@ export class CustomersComponent implements OnInit {
   boxofficeId:any;
   customerDetails:any;
   selectedCustomerDetails:any;
+  updateResponseMsg:any;
   selectedCustomerCode:any;
   editCustomerForm:boolean = false;
   deleteCustomer:any;
@@ -276,10 +277,11 @@ fnSelectCustomer(selectedCustomerCode){
 fnUpdateCustomer(requestObject){
     this.SuperadminService.updateCustomerDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.customerDetails = response.response
+        this.updateResponseMsg = JSON.stringify(response.response)
        // console.log(this.customerDetails);
         this.editCustomerForm = false;
-        this.ErrorService.successMessage(response.response);
+        this.ErrorService.successMessage(this.updateResponseMsg);
+        this.getAllCustomersDetails();
         this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
 
       }else if(response.data == false){
