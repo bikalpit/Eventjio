@@ -119,8 +119,7 @@ export class SettingService {
     }
 
     inviteform(requestObject){
-        return this.http.post(`${environment.apiUrl}/request-inviter-api
-        `,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/request-inviter-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
