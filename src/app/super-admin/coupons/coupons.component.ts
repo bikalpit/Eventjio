@@ -630,7 +630,7 @@ export class AssignToEventDialog {
   ){
     if(this.data.assignedEvent.length !== 0){
       console.log(this.data.assignedEvent)
-      this.assignedEvent= JSON.parse(this.data.assignedEvent)
+      this.assignedEvent= this.data.assignedEvent
       console.log(this.assignedEvent)
     }
     this.selectedVoucher= this.data.selectedVoucher
@@ -718,7 +718,8 @@ export class AssignToTicketTypeDialog {
     @Inject(MAT_DIALOG_DATA) public data: any
   ){
     if(this.data.assignedTicket.length !== 0){
-      this.assignedTicket = JSON.parse(this.data.assignedTicket)
+      console.log(this.data.assignedTicket)
+      this.assignedTicket = this.data.assignedTicket
     }
     this.selectedCoupon = this.data.selectedCoupon
     if(localStorage.getItem('boxoffice_id')){

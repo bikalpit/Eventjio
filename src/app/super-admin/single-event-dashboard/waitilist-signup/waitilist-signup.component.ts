@@ -166,6 +166,7 @@ export class WaitilistSignupComponent implements OnInit {
     this.SingleEventServiceService.waitList(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this.ErrorService.successMessage(response.response);
+      this.fngetSavedwaitlist();
       
   } else if(response.data == false){
     this.ErrorService.errorMessage(response.response);
@@ -187,7 +188,11 @@ export class WaitilistSignupComponent implements OnInit {
           this.waitListForm.controls['join_list'].setValue(this.getSavedlist.join_list)
           this.waitListForm.controls['notified_waitlist'].setValue(this.getSavedlist.notified_waitlist)
           this.waitListForm.controls['confirmation_msg'].setValue(this.getSavedlist.confirmation_msg)
-          
+          if(this.getSavedlist.active_watlist == 'Y'){
+            this.activeWaitlist = true;
+          }else{
+              this.activeWaitlist = false;
+          }
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
         }
