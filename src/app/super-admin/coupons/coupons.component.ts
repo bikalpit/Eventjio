@@ -517,7 +517,7 @@ export class myBatchVoucherCodeDialog {
       })
     }
     
-  fnAssignTicket(event, eventCode){
+  fnAssignEvent(event, eventCode){
     if(event.checked == true){
       this.assignedEvent.push(eventCode)
     }else{

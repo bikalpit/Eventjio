@@ -68,7 +68,7 @@
                         <label class="mb-1 mt-2">Events these voucher codes can be redeemed against.</label>
                     </div>
                     <section *ngFor="let getAllEventList of getAllEventList; let i=index" class="col-md-12 ">
-                        <mat-checkbox [checked]="assignedEvent.indexOf(getAllEventList.unique_code) > -1" (change)="fnAssignEvent($event, event.unique_code)">{{getAllEventList.start_date}} {{getAllEventList.event_title}}</mat-checkbox>
+                        <mat-checkbox [checked]="assignedEvent.indexOf(getAllEventList.unique_code) > -1" (change)="fnAssignEvent($event, getAllEventList.unique_code)">{{getAllEventList.start_date}} {{getAllEventList.event_title}}</mat-checkbox>
                     </section>
 
                     <div class="example-button-row ml-auto mt-2">
