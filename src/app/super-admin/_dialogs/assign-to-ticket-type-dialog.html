@@ -1,7 +1,7 @@
-<div class="modal-dialog modal-notify modal-info voucher-code py-3" role="document" >
+<div class="modal-dialog modal-notify modal-info voucher-code py-3" role="document">
     <div class="modal-content ">
         <div class="modal-header modal-bcolor-primary">
-            <p class="heading lead  work-content" >Assign to Ticket</p>
+            <p class="heading lead  work-content">Assign to Ticket</p>
             <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
             <span aria-hidden="true" class="white-text">&times;</span>
             </button>
@@ -9,12 +9,14 @@
         <div class="modal-body pb-0">
             <div class="p-3 border rounded">
                 <div class="w-100 d-inline-block py-2" *ngFor="let ticket of allticketType">
-                    <mat-checkbox class="" >{{ticket}}</mat-checkbox>
+                    <mat-checkbox [checked]="assignedTicket.indexOf(ticket.unique_code) > -1" (change)="fnAssignTicket($event, ticket.unique_code)" class="">{{ticket.ticket_name}}</mat-checkbox>
                 </div>
+            </div>
+            <div class="mt-3 d-flex">
+                <button (click)="fnAssignTicketToCoupon()" mat-raised-button class="cupon-btn ml-auto">Save</button>
             </div>
         </div>
 
-       
+
     </div>
 </div>
-      

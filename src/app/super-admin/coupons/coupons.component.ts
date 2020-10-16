@@ -98,7 +98,7 @@ export class CouponsComponent implements OnInit {
     }
     this.SuperadminService.getAllVoucherCodes(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this. allVoucherCodeList = response.response
+        this.allVoucherCodeList = response.response
       }
       else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
@@ -240,26 +240,36 @@ export class CouponsComponent implements OnInit {
    this.isLoaderAdmin = false;
 }
 
-assignToEvent() {
+assignToEvent(index, voucherCode) {
   const dialogRef = this.dialog.open(AssignToEventDialog, {
     width: '550px',
-    data :{boxOfficeCode : this.boxOfficeCode,}
+    data :{
+      boxOfficeCode : this.boxOfficeCode,
+      assignedEvent : this.allVoucherCodeList[index].Events,
+      selectedVoucher : voucherCode
+    }
   });
 
    dialogRef.afterClosed().subscribe(result => {
     this.animal = result;
+    this.getAllVoucherCodes();
    });
    this.isLoaderAdmin = false;
 }
 
-assignToTicketType() {
+assignToTicketType(index, selectedCoupon) {
   const dialogRef = this.dialog.open(AssignToTicketTypeDialog, {
     width: '550px',
-    data :{boxOfficeCode : this.boxOfficeCode,}
+    data :{
+      boxOfficeCode : this.boxOfficeCode,
+      assignedTicket : this.allCouponCodeList[index].Tickets,
+      selectedCoupon : selectedCoupon,
+    }
   });
 
    dialogRef.afterClosed().subscribe(result => {
     this.animal = result;
+    this.getAllCouponCodes();
    });
    this.isLoaderAdmin = false;
 }
@@ -457,7 +467,9 @@ export class myBatchVoucherCodeDialog {
   eventId:any;
   signleVoucherDetail:any;
   createVoucherForm: FormGroup;
+  getAllEventList:any;
   minExpiryDate = new Date();
+  assignedEvent=[];
   constructor(
     private _formBuilder: FormBuilder,
     // private _snackBar: MatSnackBar,
@@ -469,7 +481,8 @@ export class myBatchVoucherCodeDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.signleVoucherDetail = this.data.signleVoucherDetail
-
+      this.assignedEvent = this.signleVoucherDetail.Events
+      this.getAllEvent();
       this.createVoucherForm = this._formBuilder.group({
         voucher_name:['',[Validators.required,Validators.maxLength(15)]],
         voucher_value:['',[Validators.required,Validators.maxLength(15)]],
@@ -485,6 +498,35 @@ export class myBatchVoucherCodeDialog {
       }
 
     }
+    getAllEvent(){
+      this.isLoaderAdmin = true;
+      let requestObject = {
+        'filter' : 'upcoming',
+        'boxoffice_id' : this.boxOfficeCode
+      }
+      this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+        this.getAllEventList = response.response
+        // console.log(this.getAllEventList);
+        }
+        else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+        this.getAllEventList = null;
+        }
+        this.isLoaderAdmin = false;
+      })
+    }
+    
+  fnAssignEvent(event, eventCode){
+    if(event.checked == true){
+      this.assignedEvent.push(eventCode)
+    }else{
+      const index = this.assignedEvent.indexOf(eventCode, 0);
+      if (index > -1) {
+          this.assignedEvent.splice(index, 1);
+      }
+    }
+  }
 
     fnOnSubmitVoucher(){
       if(this.createVoucherForm.valid){
@@ -578,12 +620,20 @@ export class AssignToEventDialog {
   isLoaderAdmin:any;
   boxOfficeCode:any;
   getAllEventList:any;
-  
+  assignedEvent:any = [];
+  selectedVoucher:any;
   constructor(
     public dialogRef: MatDialogRef<AssignToEventDialog>,
     private SuperadminService : SuperadminService,
     private ErrorService:ErrorService,
-  ) {
+     @Inject(MAT_DIALOG_DATA) public data: any
+  ){
+    if(this.data.assignedEvent.length !== 0){
+      console.log(this.data.assignedEvent)
+      this.assignedEvent= this.data.assignedEvent
+      console.log(this.assignedEvent)
+    }
+    this.selectedVoucher= this.data.selectedVoucher
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
     }
@@ -607,6 +657,37 @@ export class AssignToEventDialog {
       this.isLoaderAdmin = false;
     })
   }
+
+  fnAssignEventToVoucher(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'voucher_id': this.selectedVoucher,
+      'event_id' : this.assignedEvent
+    }
+    this.SuperadminService.fnAssignEventToVoucher(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response); 
+        this.dialogRef.close();
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response); 
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+
+  fnAssignEvent(event, eventCode){
+    if(event.checked == true){
+      this.assignedEvent.push(eventCode)
+    }else{
+      const index = this.assignedEvent.indexOf(eventCode, 0);
+      if (index > -1) {
+          this.assignedEvent.splice(index, 1);
+      }
+    }
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -625,14 +706,22 @@ export class AssignToEventDialog {
   templateUrl: '../_dialogs/assign-to-ticket-type-dialog.html',
 })
 export class AssignToTicketTypeDialog { 
-  isLoaderAdmin:any;
+  isLoaderAdmin:boolean = false;
   boxOfficeCode:any;
   allticketType:any;
+  assignedTicket:any = [];
+  selectedCoupon:any;
    constructor(
     public dialogRef: MatDialogRef<AssignToTicketTypeDialog>,
     private SuperadminService:SuperadminService,
-    private ErrorService:ErrorService
+    private ErrorService:ErrorService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ){
+    if(this.data.assignedTicket.length !== 0){
+      console.log(this.data.assignedTicket)
+      this.assignedTicket = this.data.assignedTicket
+    }
+    this.selectedCoupon = this.data.selectedCoupon
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
     }
@@ -654,6 +743,37 @@ export class AssignToTicketTypeDialog {
       this.isLoaderAdmin = false;
     })
   }
+
+  fnAssignTicketToCoupon(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'coupon_id': this.selectedCoupon,
+      'ticket_ids' : this.assignedTicket
+    }
+    this.SuperadminService.fnAssignTicketToCoupon(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response); 
+        this.dialogRef.close();
+      }
+      else if(response.data == false){
+      this.ErrorService.errorMessage(response.response); 
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+ 
+  fnAssignTicket(event, TicketCode){
+    if(event.checked == true){
+      this.assignedTicket.push(TicketCode)
+    }else{
+      const index = this.assignedTicket.indexOf(TicketCode, 0);
+      if (index > -1) {
+          this.assignedTicket.splice(index, 1);
+      }
+    }
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }

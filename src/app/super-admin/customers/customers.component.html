@@ -26,7 +26,7 @@
                         </mat-select>
 
                         <div class="mt-2 p-2 bg-white border search-btn">
-                            <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2"  [(ngModel)]="search.keyword" (keyup)="customerSearch()" placeholder="Search by name,phone and email id">
+                            <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2" [(ngModel)]="search.keyword" (keyup)="customerSearch()" placeholder="Search by name,phone and email id">
                         </div>
                     </div>
 
@@ -59,9 +59,9 @@
                     </div>
 
                 </div>
-                
+
                 <div class="customer-detail-container bg-white p-0">
-           
+
                     <div class="p-3" class="single-customer-detail" *ngIf="addFormButtonDiv">
                         <div>
                             <div class="col-12 py-3">
@@ -114,7 +114,7 @@
                                         <button mat-flat-button class="border m-1">Completed Events</button>
                                         <button mat-flat-button class="border ml-1">Upcoming Events</button>
                                     </div>
-                                    <div class="" >
+                                    <div class="">
                                         <table class="table">
                                             <tr *ngFor="let element of allEventListData">
                                                 <td>{{element.event_title}} </td>
@@ -139,7 +139,7 @@
                                         Add Customer
                                     </div>
                                     <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title" *ngIf="editCustomerForm">
-                                      Edit Customer
+                                        Edit Customer
                                     </div>
                                     <div class="col-12 px-3 sub-heading">
                                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
@@ -159,14 +159,14 @@
                                             <div *ngIf="!customerImageUrl && editCustomerForm" class="ml-3 image-uploaded hover pointer" (click)="fnChangeImage()">
                                                 <img class="w-100 h-100" src="{{selectedCustomerDetails.image}}">
                                             </div>
-                                            <div class="px-3 py-42 add-customer-file" *ngIf="!customerImageUrl"> 
+                                            <div class="px-3 py-42 add-customer-file" *ngIf="!customerImageUrl">
                                                 <span>No file Choosen</span>
                                                 <p class="mt-2">
                                                     Upload image (in .jpg, .jpeg or .png format), <br /> and the image size should not exceed 200x200.
                                                 </p>
                                             </div>
-                                            <div class="px-3 py-42 add-customer-file" *ngIf="customerImageUrl"> 
-                                                <span>{{customerImageUrl}}</span>
+                                            <div class="px-3 py-42 add-customer-file" *ngIf="customerImageUrl">
+                                                <!-- <span>{{customerImageUrl}}</span> -->
                                                 <!-- <p class="mt-2">
                                                     Upload image (in .jpg, .jpeg or .png format), <br /> and the image size should not exceed 200x200.
                                                 </p> -->
