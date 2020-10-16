@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { element } from 'protractor';
+import { SingleEventDashboard } from '../single-event-dashboard'
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-event-and-ticket-types',
@@ -15,11 +17,14 @@ import { element } from 'protractor';
 })
 export class EventAndTicketTypesComponent implements OnInit {
   value = 50;
+  apiUrl = environment.apiFolderUrl; 
   bufferValue = 75;
   salesTax = [ ];
   salesTaxVal = [];
   selectedEvent : any;
   boxOfficeCode : any;
+  thumbZoomLavel:any = '0'
+  bannerZoomLavel:any = '0'
   singleEventDetail:any;
   singleEventSetting:any;
   singleEventTickets:any;
@@ -49,11 +54,13 @@ export class EventAndTicketTypesComponent implements OnInit {
   newEventImageUrl :any;
   selectedTicketDetail:any;
   getCurrancy:any;
+  selectedImage:any;
 
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,
     private datePipe: DatePipe,
+    private SingleEventDashboard: SingleEventDashboard,
     private router: Router,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -163,6 +170,34 @@ export class EventAndTicketTypesComponent implements OnInit {
     });
   }
 
+  fnChangeThumbZoom(event){
+    console.log(event)
+    this.thumbZoomLavel = event.value
+    this.bannerStyle1()
+  }
+
+  fnChangeBannerZoom(event){
+    console.log(event)
+    this.bannerZoomLavel = event.value
+  }
+
+  bannerStyle1(){
+    if (this.thumbZoomLavel > 1){
+      console.log(this.thumbZoomLavel)
+      return {
+        backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
+        backgroundSize: this.thumbZoomLavel+'00'
+      }
+    }else{
+      console.log(this.thumbZoomLavel)
+      return {
+        backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
+        backgroundSize: 'cover'
+      }
+    }
+    return {}
+  }
+
   getSingleEvent(){
     let requestObject = {
       'unique_code'  :this.selectedEvent,
@@ -174,6 +209,8 @@ export class EventAndTicketTypesComponent implements OnInit {
           if(this.singleEventDetail.images[0].type == 'default'){
             this.eventImageType = this.singleEventDetail.images[0].image_name
           }
+        }else{
+          this.singleEventDetail.images = undefined
         }
         this.singleEventSetting= this.singleEventDetail.event_setting;
         this.eventTicketList= response.response.tickets;
@@ -187,7 +224,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.editEventForm.controls['event_end_time'].setValue(this.singleEventDetail.end_time)
         this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
         this.editEventForm.controls['vanue_zip'].setValue(this.singleEventDetail.postal_code)
-        this.editEventForm.controls['vanue_country'].setValue(this.singleEventDetail.country)
+        this.editEventForm.controls['vanue_country'].setValue(this.singleEventDetail.country[0].id)
         this.editEventForm.controls['online_platform'].setValue(this.singleEventDetail.platform)
         this.editEventForm.controls['online_link'].setValue(this.singleEventDetail.event_link)
         this.editEventForm.controls['description'].setValue(this.singleEventDetail.description)
@@ -243,9 +280,16 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   fnSelectImage(imageType){
     this.eventImageType = imageType
+    if(this.eventImageType == 'newUploadImage'){
+      this.newEventImageUrl = undefined;
+    }else if(this.eventImageType == 'noImage'){
+      this.newEventImageUrl = undefined;
+      this.selecetdDefaultImage = undefined;
+    }
   }
   
   fnSelectDefaultImage(imageName){
+    this.selectedImage = imageName
     this.selecetdDefaultImage = imageName;
   }
 
@@ -461,6 +505,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.updateEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
+        this.SingleEventDashboard.fnGetEventDetail();
         this.getSingleEvent();
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -534,6 +579,7 @@ export class EventAndTicketTypesComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
             this.newEventImageUrl = result;
+            this.selecetdDefaultImage  = undefined;
            }
      });
   }
@@ -627,11 +673,15 @@ export class AddNewTicketType {
       this.fullDayTimeSlote = this.data.fullDayTimeSlote
       this.selectedTicketDetail = this.data.selectedTicketDetail
       this.selectedEventId = this.data.selectedEventId
-      this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
       
       if(this.selectedTicketDetail){
+        if(this.data.selectedTicketDetail.discount.length !== 0){
+          this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
+        }
         this.editTicket = true;
         this.advanceSetting = this.selectedTicketDetail.advance_setting
+        this.soldOut = this.selectedTicketDetail.sold_out
+        this.showQTY = this.selectedTicketDetail.show_qty
         this.addTicketForm = this._formBuilder.group({
           title: [this.selectedTicketDetail.ticket_name,[Validators.required]],
           price: [this.selectedTicketDetail.prize,[Validators.required]],

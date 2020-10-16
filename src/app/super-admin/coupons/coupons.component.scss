@@ -272,3 +272,8 @@ button:focus {
 .sub-container {
     overflow: hidden;
 }
+
+::ng-deep .save-btn{
+    background-color: #1172F4;
+    color:#FFFFFF
+}

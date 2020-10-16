@@ -257,13 +257,32 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
-
     createOrder(requestObject){
         return this.http.post(`${environment.apiUrl}/create-order`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
+<<<<<<< Updated upstream
+    fnAssignEventToVoucher(requestObject){
+=======
+    
+    fnAssignToEvent(requestObject){
+>>>>>>> Stashed changes
+        return this.http.post(`${environment.apiUrl}/assign-voucher-to-event`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+<<<<<<< Updated upstream
+    fnAssignTicketToCoupon(requestObject){
+        return this.http.post(`${environment.apiUrl}/coupon-apply-to-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+=======
+>>>>>>> Stashed changes
 
 }
 

@@ -7,12 +7,12 @@
             <div class="row">
                 <p class="col-sm-12 col-12 col-lg-9 col-md-9 col-xl-9 float-left">Team access allows you to invite your teammates to access and help manage your Ticket Tailor box office. This is useful if you work within a team and more than one person needs access.</p>
                 <div class="col-sm-12 col-12 col-lg-3 col-md-3 col-xl-3 float-left">
-                    <button mat-raised-button color="primary"  (click)="inviteTeammate()" class="cd-code-btn ml-auto  d-flex">Invite Teammate</button>
+                    <button mat-raised-button color="primary" (click)="inviteTeammate()" class="cd-code-btn ml-auto  d-flex">Invite Teammate</button>
                 </div>
             </div>
             <div class="row code-tab">
                 <mat-tab-group class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left">
-                    <mat-tab label="Teammates (5)" class="">
+                    <mat-tab label="Teammates ({{approvedInviterData.length}})" class="">
                         <div class="service-listing teammates">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
@@ -24,31 +24,36 @@
                                         <div class="" fxFlex="25">Last Seen</div>
                                     </div>
 
-                                    <div *ngFor="let tm of teammates">
+                                    <div *ngFor="let approvedInviterData of approvedInviterData">
                                         <div class="content" class="drageble-list">
-                                            <div class="drageble-box"  fxLayout="row">
+                                            <div class="drageble-box" fxLayout="row">
                                                 <div class="tb-data" fxFlex="5">
                                                     <div class="user-details">
                                                         <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="tb-data" fxFlex="20">
-                                                 {{tm.name}}
+                                                    {{approvedInviterData.name}}
                                                 </div>
-                                                <div class="tb-data" fxFlex="25">{{tm.role}}</div>
-                                                <div class="tb-data" fxFlex="25">{{tm.email}}</div>
-                                                <div class="tb-data" fxFlex="25">{{tm.lastseen}}</div>
+                                                <div class="tb-data cpn-code" fxFlex="25">
+                                                    <p *ngIf="approvedInviterData.role === 'A'">Admin</p>
+                                                    <p *ngIf="approvedInviterData.role === 'EO'">Event organisers </p>
+                                                    <p *ngIf="approvedInviterData.role === 'OM'">Event manager</p>
+                                                    <p *ngIf="approvedInviterData.role === 'OV'">Over view</p>
+                                                </div>
+                                                <div class="tb-data" fxFlex="25">{{approvedInviterData.email_id}}</div>
+                                                <div class="tb-data" fxFlex="25">{{approvedInviterData.updated_at}}</div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
                             </div>
                         </div>
 
                     </mat-tab>
-                    <mat-tab label="Invites(1)">
+                    <mat-tab label="Invites({{pendingInviterData.length}})">
                         <div class="service-listing invites">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
@@ -59,21 +64,21 @@
                                         <div class="" fxFlex="20">Status</div>
                                         <!-- <div class="" fxFlex="10"></div> -->
                                     </div>
-                                    <div *ngFor="let allInviterData of allInviterData">
+                                    <div *ngFor="let pendingInviterData of pendingInviterData">
                                         <div class="content" class="drageble-list">
-                                            <div class="drageble-box"  fxLayout="row">
-                                                <div class="tb-data cpn-title" fxFlex="25">{{allInviterData.email_id}}</div>
+                                            <div class="drageble-box" fxLayout="row">
+                                                <div class="tb-data cpn-title" fxFlex="25">{{pendingInviterData.email_id}}</div>
                                                 <div class="tb-data cpn-code" fxFlex="20">
-                                                    <p *ngIf="allInviterData.role === 'A'">Admin</p>
-                                                    <p *ngIf="allInviterData.role === 'EO'">Event organisers </p>
-                                                    <p *ngIf="allInviterData.role === 'OM'">Event manager</p>
-                                                    <p *ngIf="allInviterData.role === 'OV'">Over view</p>
+                                                    <p *ngIf="pendingInviterData.role === 'A'">Admin</p>
+                                                    <p *ngIf="pendingInviterData.role === 'EO'">Event organisers </p>
+                                                    <p *ngIf="pendingInviterData.role === 'OM'">Event manager</p>
+                                                    <p *ngIf="pendingInviterData.role === 'OV'">Over view</p>
                                                 </div>
-                                                <div class="tb-data" fxFlex="35">{{allInviterData.updated_at}}</div>
+                                                <div class="tb-data" fxFlex="35">{{pendingInviterData.updated_at}}</div>
                                                 <div class="tb-data status" fxFlex="20">
-                                                    <p *ngIf="allInviterData.status === 'APR'" [ngStyle]="{'color':allInviterData.status === 'APR' ? '#2BB800':'' }">Approved</p>
-                                                    <p *ngIf="allInviterData.status === 'R'" [ngStyle]="{'color':allInviterData.status === 'R' ? '#FF0000':'' }">Rejected</p>
-                                                    <p *ngIf="allInviterData.status === 'P'" [ngStyle]="{'color':allInviterData.status === 'P' ? '#FF7700':'' }">Pending</p>
+                                                    <p *ngIf="pendingInviterData.status === 'APR'" [ngStyle]="{'color':pendingInviterData.status === 'APR' ? '#2BB800':'' }">Approved</p>
+                                                    <p *ngIf="pendingInviterData.status === 'R'" [ngStyle]="{'color':pendingInviterData.status === 'R' ? '#FF0000':'' }">Rejected</p>
+                                                    <p *ngIf="pendingInviterData.status === 'P'" [ngStyle]="{'color':pendingInviterData.status === 'P' ? '#FF7700':'' }">Pending</p>
                                                 </div>
                                                 <!-- <div class="tb-data" fxFlex="10">
                                                     <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>

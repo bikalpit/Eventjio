@@ -23,6 +23,7 @@ export class EventSummaryComponent implements OnInit {
   boxOfficeDetail:any = [];
   Settings:any = [];
   setupStripe:boolean  = false;
+  setupPayumoney:boolean  = false;
   setupPayPal:boolean  = false;
   setupOffline:boolean  = false;
 
@@ -239,6 +240,9 @@ export class EventSummaryComponent implements OnInit {
             }
             if(element.option_key == 'Paypal'){
               this.setupPayPal = true;
+            }
+            if(element.option_key == 'Payumoney'){
+              this.setupPayumoney = true;
             }
           });
 

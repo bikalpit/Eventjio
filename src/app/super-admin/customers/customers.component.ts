@@ -30,6 +30,7 @@ export class CustomersComponent implements OnInit {
   boxofficeId:any;
   customerDetails:any;
   selectedCustomerDetails:any;
+  updateResponseMsg:any;
   selectedCustomerCode:any;
   editCustomerForm:boolean = false;
   deleteCustomer:any;
@@ -60,7 +61,7 @@ export class CustomersComponent implements OnInit {
       lastname:['',Validators.required],
       phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
-     // image:['',Validators.required],
+      // image:[''],
       address:['',Validators.required],
       tags:['',Validators.required],
     });  
@@ -125,7 +126,7 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.get("email").markAsTouched();
       this.addCustomerForm.get("address").markAsTouched();
       this.addCustomerForm.get("tags").markAsTouched();
-      alert(1);
+      // alert(1);
       return false;
     }else{
       if(this.editCustomerForm == true){
@@ -183,6 +184,7 @@ export class CustomersComponent implements OnInit {
       }
     }
   }
+  
 
   fnCreateCustomer(requestObject){
     this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
@@ -275,10 +277,11 @@ fnSelectCustomer(selectedCustomerCode){
 fnUpdateCustomer(requestObject){
     this.SuperadminService.updateCustomerDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.customerDetails = response.response
+        this.updateResponseMsg = JSON.stringify(response.response)
        // console.log(this.customerDetails);
         this.editCustomerForm = false;
-        this.ErrorService.successMessage(response.response);
+        this.ErrorService.successMessage(this.updateResponseMsg);
+        this.getAllCustomersDetails();
         this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
 
       }else if(response.data == false){
@@ -287,6 +290,7 @@ fnUpdateCustomer(requestObject){
       this.isLoaderAdmin = false;
     });
 }
+
 
 
 

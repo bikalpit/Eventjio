@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { SettingService } from '../_services/setting.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ErrorService } from '../../../_services/error.service';
+import { environment } from '../../../../environments/environment'
 
 @Component({
   selector: 'app-box-office',
@@ -19,7 +20,9 @@ export class BoxOfficeComponent implements OnInit {
   allLanguage:any;
   allTimezone:any;
   singleBoxofficeDetails:any;
+  editEventLink:boolean =false;
   singleBoxofficeUpdate:any;
+  frontUrl = environment.urlForLink
   boxofficeImageUrl:any;
   allTimezones:any;
   isLoaderAdmin:boolean = false;
@@ -105,7 +108,7 @@ export class BoxOfficeComponent implements OnInit {
     this.settingService.removeImage(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this.ErrorService.successMessage(response.response);
-      this. getSingleBoxofficeDetails();
+      this.getSingleBoxofficeDetails();
      
   } else if(response.data == false){
     this.ErrorService.errorMessage(response.response);
@@ -120,12 +123,16 @@ export class BoxOfficeComponent implements OnInit {
     this.settingService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.singleBoxofficeDetails = response.response[0];
-        this.boxOfficeId = this.singleBoxofficeDetails.id     
-        console.log(this.singleBoxofficeDetails);
+        this.boxOfficeId = this.singleBoxofficeDetails.id    
+        if(this.singleBoxofficeDetails.add_email !== ''){
+          this.Emailshow = true;
+          this.showHide = true;
+        }
         this.singleBoxOffice.controls['boxoffice_name'].setValue(this.singleBoxofficeDetails.box_office_name)
         this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
         this.singleBoxOffice.controls['language'].setValue(this.singleBoxofficeDetails.language)
         this.singleBoxOffice.controls['timezone'].setValue(this.singleBoxofficeDetails.timezone)
+        this.singleBoxOffice.controls['add_email'].setValue(this.singleBoxofficeDetails.add_email)
 
 
       }else if(response.data == false){
@@ -150,9 +157,6 @@ export class BoxOfficeComponent implements OnInit {
     });
   }
   
-  // fnshowhide(){
-  //   this.showHide =!this.showHide;
-  // }
 
   fnshowHide(){
     this.showHide = !this.showHide;
@@ -167,7 +171,9 @@ export class BoxOfficeComponent implements OnInit {
 
 fnSubmitBoxOffice(){
   if(this.singleBoxOffice.invalid){
-    
+    this.singleBoxOffice.get('timezone').markAsTouched();
+    this.singleBoxOffice.get('boxoffice_name').markAsTouched();
+    return false;
   }
   this.isLoaderAdmin = true;
   if(this.boxofficeImageUrl){
@@ -235,7 +241,7 @@ export class DialogAdminBoxofficeImageUpload {
 
   uploadForm: FormGroup;  
   imageSrc: string;
-  profileImage: string;
+  boxOfficeImage: string;
   
 constructor(
   public dialogRef: MatDialogRef<DialogAdminBoxofficeImageUpload>,
@@ -243,7 +249,7 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
-      this.dialogRef.close(this.profileImage);
+      this.dialogRef.close(this.boxOfficeImage);
     }
     ngOnInit() {
       this.uploadForm = this._formBuilder.group({
@@ -268,8 +274,8 @@ onFileChange(event) {
   }
 }
 uploadImage() {
-  this.profileImage = this.imageSrc
-  this.dialogRef.close(this.profileImage);
+  this.boxOfficeImage = this.imageSrc
+  this.dialogRef.close(this.boxOfficeImage);
 }
 
 

@@ -58,7 +58,7 @@
                                                     <div (click)="fnEditCoupon(allCouponCodeList.unique_code)" class="px-3 pointer border-bottom">
                                                         <i class="fa fa-pencil mr-2"></i><span>Edit</span>
                                                     </div>
-                                                    <div class="px-3 pointer border-bottom" (click)="assignToTicketType()">
+                                                    <div class="px-3 pointer border-bottom" (click)="assignToTicketType(i, allCouponCodeList.unique_code)">
                                                         <i class="fa fa-ticket mr-2"></i><span>Assign to Ticket Type</span>
                                                     </div>
                                                     <div (click)="fnDeleteCoupon(allCouponCodeList.unique_code)" class="px-3 pointer border-bottom">
@@ -90,7 +90,7 @@
                                         <div class="" fxFlex="20">Expiry Date</div>
                                         <div class="" fxFlex="10">Action</div>
                                     </div>
-                                    <div class="content" class="drageble-list">
+                                    <div *ngIf="allVoucherCodeList.length !== 0" class="content" class="drageble-list">
                                         <div *ngFor="let allVoucherCodeList of allVoucherCodeList; let i=index;" class="drageble-box" fxLayout="row">
                                             <div class="tb-data cpn-title" fxFlex="25">{{allVoucherCodeList.voucher_name}}</div>
                                             <div class="tb-data cpn-code" fxFlex="25"><span class="cpn-bor">{{allVoucherCodeList.voucher_code}}</span></div>
@@ -103,7 +103,7 @@
                                                     <div (click)=" fnEditVoucher(allVoucherCodeList.unique_code)" class="px-3 pointer border-bottom">
                                                         <i class="fa fa-pencil mr-2"></i><span>Edit</span>
                                                     </div>
-                                                    <div class="px-3 pointer border-bottom" (click)="assignToEvent()">
+                                                    <div class="px-3 pointer border-bottom" (click)="assignToEvent(i, allVoucherCodeList.unique_code)">
                                                         <i class="fa fa-star mr-2"></i><span>Assign to Event</span>
                                                     </div>
                                                     <div (click)="fnDeleteVoucher(allVoucherCodeList.unique_code)" class="px-3 pointer border-bottom">
@@ -114,7 +114,7 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="allCouponCodeList === null || allCouponCodeList === ''" class="content" class="drageble-list">
+                                    <div *ngIf="allVoucherCodeList.length === 0" class="content" class="drageble-list">
                                         <p class="text-center my-3" style="font-size: 16px;">Record not found.</p>
                                     </div>
                                 </div>
