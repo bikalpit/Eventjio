@@ -698,7 +698,7 @@ export class AddNewTicketType {
       this.addTicketForm.get('after_time').markAsTouched;
       this.addTicketForm.get('until_interval').markAsTouched;
       this.addTicketForm.get('after_interval').markAsTouched;
-
+      console.log(this.addTicketForm)
       return false;
     }
 
