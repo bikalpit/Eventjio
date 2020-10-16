@@ -9,12 +9,19 @@
         <div class="modal-body pb-0">
             <div class="p-3 border rounded">
                 <div class="w-100 d-inline-block py-2" *ngFor="let ticket of allticketType">
+<<<<<<< Updated upstream
                     <mat-checkbox [checked]="assignedTicket.indexOf(ticket.unique_code) > -1" (change)="fnAssignTicket($event, ticket.unique_code)" class="">{{ticket.ticket_name}}</mat-checkbox>
+=======
+                    <mat-checkbox class="" >{{ticket.ticket_name}}</mat-checkbox>
+>>>>>>> Stashed changes
                 </div>
             </div>
             <div class="mt-3 d-flex">
                 <button (click)="fnAssignTicketToCoupon()" mat-raised-button class="cupon-btn ml-auto">Save</button>
             </div>
+        </div>
+        <div class="modal-footer border-0">
+            <button mat-flat-button class="save-btn" (click)="fnAssignToEvent()">Save</button>
         </div>
 
 

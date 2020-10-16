@@ -105,6 +105,10 @@ export class BroadcastComponent implements OnInit {
       this.sendOptions = event.value;
       this.createBroadcastForm.controls["scheduledInterval"].setValidators(null);
       this.createBroadcastForm.controls["scheduledInterval"].updateValueAndValidity();
+      this.createBroadcastForm.controls["scheduledDate"].setValidators(Validators.required)
+      this.createBroadcastForm.controls["scheduledTime"].setValidators(Validators.required)
+      this.createBroadcastForm.controls["scheduledDate"].updateValueAndValidity();
+      this.createBroadcastForm.controls["scheduledTime"].updateValueAndValidity();
       if(this.createBroadcastForm.get('scheduledDate').value !== null){
         this.scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd")
       };
@@ -125,6 +129,7 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.controls["scheduledTime"].setValidators(null);
       this.createBroadcastForm.controls["scheduledDate"].updateValueAndValidity();
       this.createBroadcastForm.controls["scheduledTime"].updateValueAndValidity();
+      this.createBroadcastForm.controls["scheduledInterval"].setValidators(Validators.required);
     }
     this.createBroadcastForm.updateValueAndValidity();
     

@@ -619,13 +619,21 @@ export class myBatchVoucherCodeDialog {
 export class AssignToEventDialog { 
   isLoaderAdmin:any;
   boxOfficeCode:any;
+  eventId:any;
   getAllEventList:any;
+<<<<<<< Updated upstream
   assignedEvent:any = [];
   selectedVoucher:any;
+=======
+  assignEventsData:any;
+  assignEventData:any = [];
+
+>>>>>>> Stashed changes
   constructor(
     public dialogRef: MatDialogRef<AssignToEventDialog>,
     private SuperadminService : SuperadminService,
     private ErrorService:ErrorService,
+<<<<<<< Updated upstream
      @Inject(MAT_DIALOG_DATA) public data: any
   ){
     if(this.data.assignedEvent.length !== 0){
@@ -634,10 +642,32 @@ export class AssignToEventDialog {
       console.log(this.assignedEvent)
     }
     this.selectedVoucher= this.data.selectedVoucher
+=======
+    private _formBuilder:FormBuilder
+  ) {
+>>>>>>> Stashed changes
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
     }
+    if(localStorage.getItem('event_id')){
+      this.eventId = localStorage.getItem('event_id');
+    }
+    
+
   } 
+  
+  fnAssignEvents(event, eventId){
+    if(event.checked == true){
+      this.assignEventData.push(eventId)
+      console.log(this.assignEventData);
+    }else{
+      const index = this.assignEventData.indexOf(eventId, 0);
+      if (index > -1) {
+          this.assignEventData.splice(index, 1);
+      }
+    }
+  }
+  
 
   getAllEvent(){
     this.isLoaderAdmin = true;
@@ -648,7 +678,7 @@ export class AssignToEventDialog {
     this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this. getAllEventList = response.response
-      // console.log(this.getAllEventList);
+      console.log(this.getAllEventList);
       }
       else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
@@ -734,7 +764,8 @@ export class AssignToTicketTypeDialog {
     this.SuperadminService.getAllTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this. allticketType = response.response
-      }
+      console.log(this.allticketType);
+    }
       else if(response.data == false){
       this.ErrorService.errorMessage(response.response); 
       this. allticketType = null;

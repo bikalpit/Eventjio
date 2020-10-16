@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {SingleEventServiceService} from '../_services/single-event-service.service';
 import { ErrorService } from '../../../_services/error.service'
 import { ExportToCsv } from 'export-to-csv';
-import { Stats } from 'fs';
 
 @Component({
   selector: 'app-waitilist-signup',
