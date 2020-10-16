@@ -684,20 +684,20 @@ export class AddNewTicketType {
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
       
-      this.addTicketForm.get('title').markAsTouched;
-      this.addTicketForm.get('price').markAsTouched;
-      this.addTicketForm.get('qty').markAsTouched;
-      this.addTicketForm.get('description').markAsTouched;
-      this.addTicketForm.get('fee').markAsTouched;
-      this.addTicketForm.get('status').markAsTouched;
-      this.addTicketForm.get('min_order').markAsTouched;
-      this.addTicketForm.get('max_order').markAsTouched;
-      this.addTicketForm.get('until_date').markAsTouched;
-      this.addTicketForm.get('until_time').markAsTouched;
-      this.addTicketForm.get('after_date').markAsTouched;
-      this.addTicketForm.get('after_time').markAsTouched;
-      this.addTicketForm.get('until_interval').markAsTouched;
-      this.addTicketForm.get('after_interval').markAsTouched;
+      this.addTicketForm.get('title').markAsTouched();
+      this.addTicketForm.get('price').markAsTouched();
+      this.addTicketForm.get('qty').markAsTouched();
+      this.addTicketForm.get('description').markAsTouched();
+      this.addTicketForm.get('fee').markAsTouched();
+      this.addTicketForm.get('status').markAsTouched();
+      this.addTicketForm.get('min_order').markAsTouched();
+      this.addTicketForm.get('max_order').markAsTouched();
+      this.addTicketForm.get('until_date').markAsTouched();
+      this.addTicketForm.get('until_time').markAsTouched();
+      this.addTicketForm.get('after_date').markAsTouched();
+      this.addTicketForm.get('after_time').markAsTouched();
+      this.addTicketForm.get('until_interval').markAsTouched();
+      this.addTicketForm.get('after_interval').markAsTouched();
       console.log(this.addTicketForm)
       return false;
     }

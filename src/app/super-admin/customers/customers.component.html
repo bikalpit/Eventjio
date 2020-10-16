@@ -21,8 +21,8 @@
                     <div class="border-bottom p-3">
                         <mat-select (selectionChange)="fnFilterCustomer($event)" class=" form-control">
                             <mat-option value="">All Customers</mat-option>
-                            <mat-option *ngFor="let filterEventlist of filterEventlist" value="filterEventlist.unique_code">{{filterEventlist.event_title}}</mat-option>
-                            
+                            <mat-option *ngFor="let filterEventlist of filterEventlist" value="{{filterEventlist.unique_code}}">{{filterEventlist.event_title}}</mat-option>
+
                         </mat-select>
 
                         <div class="mt-2 p-2 bg-white border search-btn">
@@ -36,17 +36,17 @@
                                 <div class="check-col p-1">
                                     <mat-checkbox class=""></mat-checkbox>
                                 </div>
-                                <div class="customer-image-icon pointer"  *ngIf="!editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code)">
+                                <div class="customer-image-icon pointer" *ngIf="!editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code)">
                                     <img src="{{customerDetails.image}}" class="w-100 h-100">
                                 </div>
-                                <div class="col-8 customer-email p-0 "  *ngIf="!editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code)">
+                                <div class="col-8 customer-email p-0 " *ngIf="!editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code)">
                                     <span>{{customerDetails.firstname + " " + customerDetails.lastname}}</span>
                                     <p> {{customerDetails.email}}</p>
                                 </div>
                                 <div class="customer-image-icon pointer" *ngIf="editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code);addFormButton()">
                                     <img src="{{customerDetails.image}}" class="w-100 h-100">
                                 </div>
-                                <div class="col-8 customer-email p-0 "  *ngIf="editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code);addFormButton()">
+                                <div class="col-8 customer-email p-0 " *ngIf="editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code);addFormButton()">
                                     <span>{{customerDetails.firstname + " " + customerDetails.lastname}}</span>
                                     <p> {{customerDetails.email}}</p>
                                 </div>

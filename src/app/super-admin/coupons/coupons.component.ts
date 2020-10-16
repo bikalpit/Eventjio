@@ -174,7 +174,6 @@ export class CouponsComponent implements OnInit {
     this.SuperadminService.fnGetSignleCouponDetail(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.signleCouponDetail = response.response[0];
-        console.log(this.signleCouponDetail)
         this.creatDiscountCode();
       }
       else if(response.data == false){
@@ -193,8 +192,18 @@ export class CouponsComponent implements OnInit {
     this.SuperadminService.fnGetSignleVoucherDetail(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.signleVoucherDetail = response.response[0];
-        console.log(this.signleVoucherDetail)
-        this.creatVoucherCode();
+        const dialogRef = this.dialog.open(myBatchVoucherCodeDialog, {
+          width: '550px',
+          data :{boxOfficeCode : this.boxOfficeCode,
+          signleVoucherDetail : this.signleVoucherDetail
+        }
+        });
+      
+         dialogRef.afterClosed().subscribe(result => {
+          this.animal = result;
+          this.signleVoucherDetail = null
+          this.getAllVoucherCodes();
+         });
       }
       else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
@@ -228,7 +237,6 @@ export class CouponsComponent implements OnInit {
   const dialogRef = this.dialog.open(myBatchVoucherCodeDialog, {
     width: '550px',
     data :{boxOfficeCode : this.boxOfficeCode,
-    signleVoucherDetail : this.signleVoucherDetail
   }
   });
 
@@ -481,7 +489,9 @@ export class myBatchVoucherCodeDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.signleVoucherDetail = this.data.signleVoucherDetail
-      this.assignedEvent = this.signleVoucherDetail.Events
+      if(this.signleVoucherDetail){
+        this.assignedEvent = this.signleVoucherDetail.event_id.split(',')
+      }
       this.getAllEvent();
       this.createVoucherForm = this._formBuilder.group({
         voucher_name:['',[Validators.required,Validators.maxLength(15)]],
@@ -507,7 +517,6 @@ export class myBatchVoucherCodeDialog {
       this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
         if(response.data == true){
         this.getAllEventList = response.response
-        // console.log(this.getAllEventList);
         }
         else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -554,8 +563,6 @@ export class myBatchVoucherCodeDialog {
           // "event_id" : this.eventId, 
         }
         this.createVoucherCode(createdVoucherCodeData);
-        
-        // console.log(this.createVoucherCode(createdVoucherCodeData))
       }
   
       }else{
@@ -629,9 +636,7 @@ export class AssignToEventDialog {
      @Inject(MAT_DIALOG_DATA) public data: any
   ){
     if(this.data.assignedEvent.length !== 0){
-      console.log(this.data.assignedEvent)
       this.assignedEvent= this.data.assignedEvent
-      console.log(this.assignedEvent)
     }
     this.selectedVoucher= this.data.selectedVoucher
     if(localStorage.getItem('boxoffice_id')){
@@ -648,7 +653,6 @@ export class AssignToEventDialog {
     this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this. getAllEventList = response.response
-      // console.log(this.getAllEventList);
       }
       else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
@@ -718,7 +722,6 @@ export class AssignToTicketTypeDialog {
     @Inject(MAT_DIALOG_DATA) public data: any
   ){
     if(this.data.assignedTicket.length !== 0){
-      console.log(this.data.assignedTicket)
       this.assignedTicket = this.data.assignedTicket
     }
     this.selectedCoupon = this.data.selectedCoupon
