@@ -39,6 +39,8 @@ export class CustomersComponent implements OnInit {
   addFormButtonDiv : boolean = true;
   customerImageUrl:any;
   allEventListData:any;
+  filterEventlist:any;
+  filterCustomerEvent:any = '';
   search = {
     keyword: ""
   };
@@ -78,7 +80,7 @@ export class CustomersComponent implements OnInit {
   addFormButton(){
     this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     this.addCustomerForm.reset();
-    this.customerImageUrl = undefined;
+    this.editCustomerForm =false; 
     
   }
 
@@ -88,6 +90,7 @@ export class CustomersComponent implements OnInit {
   
   ngOnInit(): void {
     this.getAllCustomersDetails();
+    this. fngetCustomersEventlist();
   }
 
   ImportFileUpload() {
@@ -204,6 +207,7 @@ export class CustomersComponent implements OnInit {
     let requestObject ={
       'search':this.search.keyword,
       "boxoffice_id": this.boxofficeId,
+      "event_id":this.filterCustomerEvent,
     };
      
     this.SuperadminService.getAllCustomersDetails(requestObject).subscribe((response:any) => {
@@ -221,8 +225,6 @@ export class CustomersComponent implements OnInit {
 }
 
  editCustomerDetails(){
-  
-
   this.addFormButtonDiv = this.addFormButtonDiv ? false : true;  
   this.editCustomerForm = true;
   let requestObject = {
@@ -281,7 +283,8 @@ fnUpdateCustomer(requestObject){
        // console.log(this.customerDetails);
         this.editCustomerForm = false;
         this.ErrorService.successMessage(this.updateResponseMsg);
-        this.getAllCustomersDetails();
+        this.fnSelectCustomer(this.selectedCustomerCode);
+        // this.getAllCustomersDetails();
         this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
 
       }else if(response.data == false){
@@ -303,7 +306,7 @@ fnUpdateCustomer(requestObject){
       if(response.data == true){
         this.deleteCustomer = response.response
         this.ErrorService.successMessage(response.response);
-        this.getAllCustomersDetails()
+        this.getAllCustomersDetails();
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
 
@@ -364,6 +367,24 @@ fnUpdateCustomer(requestObject){
       }
     });
     this.isLoaderAdmin = false;
+  }
+
+  fnFilterCustomer(event){
+    alert(event.value)
+    this.filterCustomerEvent = event.value
+    this.getAllCustomersDetails();
+  }
+
+  fngetCustomersEventlist(){
+    let requestObject ={
+      "boxoffice_id":this.boxofficeId,
+    }
+    this.SuperadminService. fngetCustomersEventlist(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this.filterEventlist = response.response
+        console.log(this.filterEventlist);
+      }
+    })
   }
 
 }

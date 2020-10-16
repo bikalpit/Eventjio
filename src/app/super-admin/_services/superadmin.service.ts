@@ -265,6 +265,13 @@ export class SuperadminService {
         }),catchError(this.handleError));
     }
 
+    fngetCustomersEventlist(requestObject){
+         return this.http.post(`${environment.apiUrl}/get-events-list`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+         return res;
+         }),catchError(this.handleError));
+    }
+
 }
 
 

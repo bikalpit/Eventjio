@@ -119,7 +119,6 @@ export class MyProfileComponent implements OnInit {
           "id":this.profileId,
         }
         this.updateMyProfile(updateMyProfile);
-        this.isLoaderAdmin = false;
       }else {
         let updateMyProfile = {
           'unique_code': this.currentUser.user_id,
@@ -142,7 +141,6 @@ export class MyProfileComponent implements OnInit {
   }
 
   updateMyProfile(updateMyProfile){
-    this.isLoaderAdmin = true;
     this.SettingService.updateMyProfile(updateMyProfile).subscribe((response:any) => {
       if(response.data == true){
        this.ErrorService.successMessage(response.response);
