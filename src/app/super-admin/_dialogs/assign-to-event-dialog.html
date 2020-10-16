@@ -9,25 +9,14 @@
         <div class="modal-body pb-0">
             <div class="p-3 border rounded">
                 <div class="w-100 d-inline-block py-2" *ngFor="let event of getAllEventList">
-<<<<<<< Updated upstream
                     <mat-checkbox [checked]="assignedEvent.indexOf(event.unique_code) > -1" (change)="fnAssignEvent($event, event.unique_code)" class="">{{event.event_title}}</mat-checkbox>
-=======
-                    <mat-checkbox class="" [checked]="assignEventData.indexOf(getAllEventList.eventId) > -1" (change)="fnAssignEvents($event,getAllEventList.eventId)">{{event.event_title}}</mat-checkbox>
->>>>>>> Stashed changes
                 </div>
             </div>
             <div class="mt-3 d-flex">
                 <button (click)="fnAssignEventToVoucher()" mat-raised-button class="cupon-btn ml-auto">Save</button>
             </div>
         </div>
-<<<<<<< Updated upstream
 
 
-=======
-        <div class="modal-footer border-0">
-            <button mat-flat-button class="save-btn" (click)="fnAssignToEvent()">Save</button>
-        </div>
-       
->>>>>>> Stashed changes
     </div>
 </div>
