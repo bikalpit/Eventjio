@@ -476,7 +476,7 @@ export class myBatchVoucherCodeDialog {
   signleVoucherDetail:any;
   createVoucherForm: FormGroup;
   getAllEventList:any;
-  minExpiryDate = new Date();
+  minExpiryDate = new Date("yyyy-MM-dd");
   assignedEvent=[];
   constructor(
     private _formBuilder: FormBuilder,
@@ -489,7 +489,11 @@ export class myBatchVoucherCodeDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.signleVoucherDetail = this.data.signleVoucherDetail
-      if(this.signleVoucherDetail){
+      // this.minExpiryDate=this.datePipe.transform(new Date(this.minExpiryDate),"yyyy-MM-dd")
+      if(this.signleVoucherDetail.expiry_date < this.minExpiryDate){
+        this.signleVoucherDetail.expiry_date = this.minExpiryDate
+      }
+      if(this.signleVoucherDetail && this.signleVoucherDetail.event_id !== null){
         this.assignedEvent = this.signleVoucherDetail.event_id.split(',')
       }
       this.getAllEvent();
@@ -497,7 +501,7 @@ export class myBatchVoucherCodeDialog {
         voucher_name:['',[Validators.required,Validators.maxLength(15)]],
         voucher_value:['',[Validators.required,Validators.maxLength(15)]],
         voucher_code:['',[Validators.required,Validators.maxLength(15)]],
-        expiry_date:['' ,Validators.required],
+        expiry_date:['' ,[Validators.required]],
       })
 
       if(this.signleVoucherDetail){
@@ -538,6 +542,7 @@ export class myBatchVoucherCodeDialog {
   }
 
     fnOnSubmitVoucher(){
+      console.log(this.createVoucherForm)
       if(this.createVoucherForm.valid){
         if(this.signleVoucherDetail){
 

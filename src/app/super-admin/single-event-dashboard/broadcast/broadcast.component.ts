@@ -109,9 +109,8 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.controls["scheduledTime"].setValidators(Validators.required)
       this.createBroadcastForm.controls["scheduledDate"].updateValueAndValidity();
       this.createBroadcastForm.controls["scheduledTime"].updateValueAndValidity();
-      if(this.createBroadcastForm.get('scheduledDate').value !== null){
-        this.scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd")
-      };
+      alert(this.createBroadcastForm.get('scheduledDate').value)
+     
     } else if(event.value == 'IMM'){
       this.sendOptions = event.value;
       this.createBroadcastForm.controls["scheduledInterval"].setValidators(null);
@@ -120,9 +119,9 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.controls["scheduledInterval"].updateValueAndValidity();
       this.createBroadcastForm.controls["scheduledDate"].updateValueAndValidity();
       this.createBroadcastForm.controls["scheduledTime"].updateValueAndValidity();
-      if(this.createBroadcastForm.get('scheduledDate').value !== null){
-        this.scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd")
-      };
+      // if(this.createBroadcastForm.get('scheduledDate').value !== null){
+      //   this.scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd")
+      // };
     }else{
       this.sendOptions = event.value;
       this.createBroadcastForm.controls["scheduledDate"].setValidators(null);
@@ -136,6 +135,9 @@ export class BroadcastComponent implements OnInit {
   }
 
   fnChangeEventStartDate(){
+    if(this.createBroadcastForm.get('scheduledDate').value !== null){
+      this.scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd")
+    };
     this.startDate = this.createBroadcastForm.get('scheduledDate').value;
   }
 
