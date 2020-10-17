@@ -1,143 +1,100 @@
 <div id="checkout_form" class="main-section">
-        <div class="checkout-form main-work-area main">
-            <h6 class="main-head col-md-12">Global checkout form</h6>
-            <p class="col-md-12">Customise the questions that your customers get asked when making an order. You can also override this message for particular events if you wish by going to <span> Events -> Your Event -> Edit checkout form editing </span>  the checkout form from there.    </p>
-            <div class="buyer-que">
-                <div class="byr-qn">
-                  <h5>Buyer only questions</h5>
-                    <button mat-raised-button class="byr-qn-btn">Add a buyer only question</button>
-                </div>
-                <div class="col-md-12 mt-3">
-                    <p>Buyer questions are asked once per order.</p>
-                </div>
-                <div class="col-md-12">
-                    <div class="" >
-                      <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="drop($event)">
-                        <div class="" *ngFor="let element of buyerQuestion" cdkDrag>
-                          <div class="" *cdkDragPlaceholder></div>
-                          <div  class="buyer" >
-                            <div class="buyer-card">
-                              <div class="main-buyer-wrap">
-                                <div class="">
-                                  <p class="mb-0">{{element.persondetail}}<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
-                                </div>
-                                <div class="">
-                                  <div class="ml-auto buyer-action ">
-                                    <i class="fa fa-pencil pencil-icone" aria-hidden="true"></i>
-                                    <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
-                                            <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                    </button>
-                                    <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                            <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                    </button>
-                                </div>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                <!-- <div class="col-md-12">
-                    <div class="buyer" *ngFor="let element of buyerQuestion">
-                    <mat-accordion>
-                        <mat-expansion-panel>
-                          <mat-expansion-panel-header class="buyer-card">
-                            <mat-panel-title>
-                                <div>
-                                    <p class="mb-0">{{element.persondetail}}<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
-                                </div>
-                            </mat-panel-title>
-                            <mat-panel-description>
-                                <div class="ml-auto buyer-action ">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
-                                            <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                    </button>
-                                    <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                            <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                    </button>
-                                </div>
-                            </mat-panel-description>
-                          </mat-expansion-panel-header>
-                          <p>Name content</p>
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                </div> -->
-                </div>
-            
-
-            <div class="att-qn">
-                <div class="d-flex byr-qn">
-                  <h5>Attended questions</h5>
-                    <button mat-raised-button class="byr-qn-btn">Add a attendee question</button>
-                </div>
-                <div class="col-md-12 mt-3">
-                    <p>Attendee questions are asked for every ticket purchased.</p>
-                </div>
-                <div class="col-md-12">
-                    <div class="" >
-                      <div cdkDropList class="buyerqn-list" (cdkDropListDropped)="drop($event)">
-                        <div class=""  cdkDrag>
-                          <div class="" *cdkDragPlaceholder></div>
-                          <div  class="buyer" >
-                            <div class="buyer-card">
-                              <div class="main-buyer-wrap">
-                                <div class="">
-                                  <p class="mb-0">Attendee Name<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>                                </div>
-                                <div class="">
-                                  <div class="ml-auto buyer-action ">
-                                    <i class="fa fa-pencil pencil-icone" aria-hidden="true"></i>
-                                    <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
-                                            <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                    </button>
-                                    <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                            <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                    </button>
-                                </div>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                        </div>
-                      </div>
-                  </div>
-                    <!-- <div class="col-md-12">
-                        <mat-accordion>
-                            <mat-expansion-panel>
-                            <mat-expansion-panel-header class="buyer-card">
-                                <mat-panel-title>
-                                    <div>
-                                        <p class="mb-0">Attendee Name<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
-                                    </div>
-                                </mat-panel-title>
-                                <mat-panel-description>
-                                    <div class="ml-auto buyer-action ">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn">
-                                                <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                        </button>
-                                        <button mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                                <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                        </button>
-                                    </div>
-                                </mat-panel-description>
-                            </mat-expansion-panel-header>
-                            <p>Name content</p>
-                            </mat-expansion-panel>
-                        </mat-accordion>
-                    </div> -->
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="checkout-form main-work-area main">
+        <h6 class="main-head col-md-12">Global checkout form</h6>
+        <p class="col-md-12">Customise the questions that your customers get asked when making an order. You can also override this message for particular events if you wish by going to <span> Events -> Your Event -> Edit checkout form editing </span> the checkout form from
+            there. </p>
+        <div class="buyer-que">
+            <div class="byr-qn">
+                <h5>Buyer only questions</h5>
+                <button mat-raised-button class="byr-qn-btn" (click)="fnAddBuyerQuestion()">Add a buyer only question</button>
             </div>
-        </div>
-      </div>
-
-        <div class="footer-action-btn">
-            <div class="can-save">
-                <button mat-raised-button class="cancel-btn">Cancel</button>
-                <button mat-raised-button class="save-btn">Save</button>
+            <div class="col-md-12 mt-3">
+                <p>Buyer questions are asked once per order.</p>
+            </div>
+            <div class="col-md-12">
+                <div class="">
+                    <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="buyerQuestionDrop($event)">
+                        <div class="" *ngFor="let element of buyerQuestionList" cdkDrag>
+                            <div class="" *cdkDragPlaceholder></div>
+                            <div class="buyer">
+                                <div class="buyer-card">
+                                    <div class="main-buyer-wrap">
+                                        <div class="">
+                                            <p class="mb-0">{{element.label}}<span class="asterisk-icon">
+                                              <i *ngIf="element.required" class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
+                                        </div>
+                                        <div class="">
+                                            <div class="ml-auto buyer-action ">
+                                                <button mat-raised-button class="tooltip-btn pointer mx-1">
+                                                <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
+                                              </button>
+                                                <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                  <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                                </button>
+                                                <button cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                  <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        
+
+        <div class="att-qn">
+            <div class="d-flex byr-qn">
+                <h5>Attended questions</h5>
+                <button mat-raised-button class="byr-qn-btn" (click)="fnAddAttendeeQuestion()">Add a attendee question</button>
+            </div>
+            <div class="col-md-12 mt-3">
+                <p>Attendee questions are asked for every ticket purchased.</p>
+            </div>
+            <div class="col-md-12">
+                <div class="">
+                    <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="attendeeQuestionDrop($event)">
+                        <div class="" *ngFor="let element of attendeeQuestionList" cdkDrag>
+                            <div class="" *cdkDragPlaceholder></div>
+                            <div class="buyer">
+                                <div class="buyer-card">
+                                    <div class="main-buyer-wrap">
+                                        <div class="">
+                                            <p class="mb-0">{{element.label}}<span *ngIf="element.required" class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
+                                        </div>
+                                        <div class="">
+                                            <div class="ml-auto buyer-action ">
+                                                <button mat-raised-button class="tooltip-btn pointer mx-1">
+                                                <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
+                                              </button>
+                                                <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                  <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                                </button>
+                                                <button cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                  <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-action-btn">
+        <div class="can-save">
+            <button mat-raised-button class="cancel-btn">Cancel</button>
+            <button mat-raised-button class="save-btn">Save</button>
+        </div>
+    </div>
+
+
 </div>

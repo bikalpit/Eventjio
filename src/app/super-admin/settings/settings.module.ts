@@ -28,7 +28,7 @@ import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component
 import { DialogAdminBoxofficeImageUpload } from './box-office/box-office.component';
 import { HttpClientModule} from '@angular/common/http';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
-
+import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-form/checkout-form.component';
 
 
 @NgModule({
@@ -39,6 +39,8 @@ import { PaymentSystemsComponent } from './payment-systems/payment-systems.compo
     DialogAdminProfileImageUpload,
     DialogAdminBoxofficeImageUpload,
     PaymentSystemsComponent,
+    addBuyerQuestionDialog, 
+    addAttendeeQuestionDialog,
   ],
 
 
@@ -58,6 +60,13 @@ import { PaymentSystemsComponent } from './payment-systems/payment-systems.compo
     HttpClientModule,
     
   ],
-  entryComponents: [AddSalesTax,DialogAdminProfileImageUpload,DialogAdminBoxofficeImageUpload,inviteTeamMateDialog]
+  entryComponents: [
+    AddSalesTax,
+    DialogAdminProfileImageUpload,
+    DialogAdminBoxofficeImageUpload,
+    inviteTeamMateDialog,
+    addBuyerQuestionDialog, 
+    addAttendeeQuestionDialog,
+  ]
 })
 export class SettingsModule { }

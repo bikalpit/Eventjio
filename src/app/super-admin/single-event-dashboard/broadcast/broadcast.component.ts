@@ -109,7 +109,6 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.controls["scheduledTime"].setValidators(Validators.required)
       this.createBroadcastForm.controls["scheduledDate"].updateValueAndValidity();
       this.createBroadcastForm.controls["scheduledTime"].updateValueAndValidity();
-      alert(this.createBroadcastForm.get('scheduledDate').value)
      
     } else if(event.value == 'IMM'){
       this.sendOptions = event.value;
@@ -216,6 +215,9 @@ sendBroadcast(broadcastData) {
   });
    dialogRef.afterClosed().subscribe(result => {
     this.animal = result;
+    if(result == 'sent'){
+      this.createBroadcast = true;
+    }
    });
 }
 
@@ -251,7 +253,7 @@ export class mySendBroadcastDialog{
       this.SingleEventServiceService.createBroadcastfrm(createBroadcastData.createBroadcastData).subscribe((response:any) => {
         if(response.data == true){
          this.ErrorService.successMessage(response.response);
-         this.dialogRef.close();
+         this.dialogRef.close('sent');
         }
         else if(response.data == false){
          this.ErrorService.errorMessage(response.response);
