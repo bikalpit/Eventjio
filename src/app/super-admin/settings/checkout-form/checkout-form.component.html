@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="">
                     <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="buyerQuestionDrop($event)">
-                        <div class="" *ngFor="let element of buyerQuestionList" cdkDrag>
+                        <div class="" *ngFor="let element of buyerQuestionList; let i=index" cdkDrag>
                             <div class="" *cdkDragPlaceholder></div>
                             <div class="buyer">
                                 <div class="buyer-card">
@@ -26,13 +26,13 @@
                                         </div>
                                         <div class="">
                                             <div class="ml-auto buyer-action ">
-                                                <button mat-raised-button class="tooltip-btn pointer mx-1">
+                                                <button (click)="fnEditBuyerQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
                                                 <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
                                               </button>
-                                                <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                <button (click)="fnDeleteBuyerQuestion(element, i)" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                                 </button>
-                                                <button cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                <button [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
                                                 </button>
                                             </div>
@@ -68,15 +68,15 @@
                                         </div>
                                         <div class="">
                                             <div class="ml-auto buyer-action ">
-                                                <button mat-raised-button class="tooltip-btn pointer mx-1">
-                                                <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
-                                              </button>
-                                                <button mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
-                                                  <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                                                </button>
-                                                <button cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
-                                                  <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
-                                                </button>
+                                                <button (click)="fnEditAttendeeQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
+                                                    <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
+                                                  </button>
+                                                <button (click)="fnDeleteAttendeeQuestion(element, i)" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                      <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                                    </button>
+                                                <button [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                      <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
+                                                    </button>
                                             </div>
                                         </div>
                                     </div>
@@ -91,8 +91,8 @@
 
     <div class="footer-action-btn">
         <div class="can-save">
-            <button mat-raised-button class="cancel-btn">Cancel</button>
-            <button mat-raised-button class="save-btn">Save</button>
+            <button mat-raised-button class="cancel-btn" (click)="fnCancelSave()">Cancel</button>
+            <button mat-raised-button class="save-btn" (click)="fnSaveCheckoutForm()">Save</button>
         </div>
     </div>
 

@@ -138,10 +138,5 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
-    getAllCheckoutQuestions(requestObject){
-        return this.http.post(`${environment.apiUrl}/get-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
-        map((res) => {
-            return res;
-        }),catchError(this.handleError));
-    }
+ 
 }

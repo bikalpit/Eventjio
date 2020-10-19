@@ -59,7 +59,7 @@ export class CheckoutFormComponent implements OnInit {
       'event_id' :'NULL',
       'option_key':'checkout_form',
     }   
-    this.SettingService.getAllCheckoutQuestions(requestObject).subscribe((response:any) => {
+    this.SettingService.getSettingsValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allQuestionlist = JSON.parse(response.response)
         console.log(this.allQuestionlist[0])
@@ -70,26 +70,120 @@ export class CheckoutFormComponent implements OnInit {
       }
       this.isLoaderAdmin = false;
     });
-    }
+  }
+  
+  fnDeleteBuyerQuestion(selectedQuestion){
+    alert('delete')
+    const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
+    this.allQuestionlist[0].buyer_questions.splice(index, 1);
+    console.log(this.allQuestionlist)
+  }
+
+  fnEditBuyerQuestion(question, index){
+    console.log(question)
+    const dialogRef = this.dialog.open(addBuyerQuestionDialog,{
+      width: '700px',
+      data:{
+        boxofficeId: this.boxofficeId,
+        allQuestionlist: this.allQuestionlist,
+        singleQuestion : question
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        this.allQuestionlist = result
+      }else{
+        this.getAllQuestions();
+      }
+    });
+  }
+
+  fnDeleteAttendeeQuestion(selectedQuestion){
+    alert('delete')
+    const index: number = this.allQuestionlist[0].attendee_questions.indexOf(selectedQuestion);
+    this.allQuestionlist[0].attendee_questions.splice(index, 1);
+    console.log(this.allQuestionlist)
+  }
+
+  fnEditAttendeeQuestion(question, index){
+    console.log(question)
+    const dialogRef = this.dialog.open(addAttendeeQuestionDialog,{
+      width: '700px',
+      data:{
+        boxofficeId: this.boxofficeId,
+        allQuestionlist: this.allQuestionlist,
+        singleQuestion : question
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined){
+        this.allQuestionlist = result
+      }else{
+        this.getAllQuestions();
+      }
+    });
+  }
 
   fnAddBuyerQuestion(){
     const dialogRef = this.dialog.open(addBuyerQuestionDialog,{
       width: '700px',
+      data:{
+        boxofficeId: this.boxofficeId,
+        allQuestionlist: this.allQuestionlist
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if(result != undefined){
+        this.allQuestionlist = result
+      }else{
+        this.getAllQuestions();
+      }
     });
   }
 
   fnAddAttendeeQuestion(){
     const dialogRef = this.dialog.open(addAttendeeQuestionDialog,{
       width: '700px',
+      data:{
+        boxofficeId: this.boxofficeId,
+        allQuestionlist: this.allQuestionlist
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if(result != undefined){
+        this.allQuestionlist = result
+      }else{
+        this.getAllQuestions();
+      }
     });
+  }
+
+  fnSaveCheckoutForm(){
+    this.isLoaderAdmin = true;
+    let requestObject ={
+      'boxoffice_id' : this.boxofficeId,
+      'event_id' :'',
+      'option_key':'checkout_form',
+      'option_value':this.allQuestionlist,
+      'json_type' : 'Y',
+    }   
+    this.SettingService.updateSetting(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+        this.getAllQuestions();
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
+  }
+
+  fnCancelSave(){
+    this.getAllQuestions();
   }
 
 
@@ -104,16 +198,51 @@ export class addBuyerQuestionDialog {
   status = true;
   newBuyerQForm: FormGroup
   isLoaderAdmin:boolean = false;
+  questionRequired:boolean = false;
+  boxofficeId:any;
+  optionField:boolean = false;
+  termsField:boolean = false;
+  defaultQuestion:boolean = false;
+  allQuestionlist:any = [];
+  singleQuestion:any;
   constructor(
     public dialogRef: MatDialogRef<addBuyerQuestionDialog>,
     private http: HttpClient,
+    private SettingService : SettingService,
+    private ErrorService : ErrorService,
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.boxofficeId = this.data.boxofficeId
+      this.allQuestionlist = this.data.allQuestionlist
+      this.singleQuestion = this.data.singleQuestion
+      console.log(this.singleQuestion)
+      console.log(this.allQuestionlist)
       this.newBuyerQForm = this._formBuilder.group({
         type: ['',[Validators.required]],
         label: ['',[Validators.required]],
-        options: ['']
+        options: [''],
+        terms: [''],
       });
+      
+      if(this.singleQuestion){
+        this.defaultQuestion = this.singleQuestion.default
+        this.newBuyerQForm.controls['label'].setValue(this.singleQuestion.label);
+        this.newBuyerQForm.controls['type'].setValue(this.singleQuestion.type);
+        this.newBuyerQForm.controls['options'].setValue(this.singleQuestion.options);
+        this.newBuyerQForm.controls['terms'].setValue(this.singleQuestion.terms);
+        this.questionRequired = this.singleQuestion.required
+        if(this.singleQuestion.type == 'text' || this.singleQuestion.type == 'marketing'){
+          this.optionField = false;
+          this.termsField = false;
+        }else if(this.singleQuestion.type == 'terms'){
+          this.optionField = false;
+          this.termsField = true;
+        }else{
+          this.optionField = true;
+          this.termsField = false;
+        }
+      }
+     
     }
 
   onNoClick(): void {
@@ -124,14 +253,55 @@ export class addBuyerQuestionDialog {
 
   fnChangeQType(event){
     console.log(event)
+    if(event.value == 'text' || event.value == 'marketing'){
+      this.optionField = false;
+      this.termsField = false;
+    }else if(event.value == 'terms'){
+      this.optionField = false;
+      this.termsField = true;
+    }else{
+      this.optionField = true;
+      this.termsField = false;
+    }
   }
 
   fnChangeRequired(event){
-    console.log(event)
+    this.questionRequired = event.checked
   }
 
   createNewBuyerQuestion(){
     console.log(this.newBuyerQForm)
+    if(this.newBuyerQForm.invalid){
+      this.newBuyerQForm.get('label').markAsTouched();
+      this.newBuyerQForm.get('type').markAsTouched();
+      return false;
+    }
+    if(this.singleQuestion){
+      let newQuestion = {
+        'label' : this.newBuyerQForm.get('label').value,
+        'required' : this.questionRequired,
+        'type' : this.newBuyerQForm.get('type').value,
+        'options' : this.newBuyerQForm.get('options').value,
+        'terms' : this.newBuyerQForm.get('terms').value,
+        'index' : this.singleQuestion.index,
+      }
+      const index: number = this.allQuestionlist[0].buyer_questions.indexOf(this.singleQuestion);
+      this.allQuestionlist[0].buyer_questions.splice(index, 1);
+      this.allQuestionlist[0].buyer_questions.push(newQuestion);
+    }else{
+      let newQuestion = {
+        'label' : this.newBuyerQForm.get('label').value,
+        'required' : this.questionRequired,
+        'type' : this.newBuyerQForm.get('type').value,
+        'options' : this.newBuyerQForm.get('options').value,
+        'terms' : this.newBuyerQForm.get('terms').value,
+        'index' : this.allQuestionlist[0].buyer_questions.length+1,
+      }
+      this.allQuestionlist[0].buyer_questions.push(newQuestion);
+    }
+   
+    console.log(this.allQuestionlist)
+    this.dialogRef.close(this.allQuestionlist);
   }
   
  
@@ -144,10 +314,54 @@ export class addBuyerQuestionDialog {
 })
 export class addAttendeeQuestionDialog {
   status = true;
+  newAttendeeQForm: FormGroup
+  isLoaderAdmin:boolean = false;
+  questionRequired:boolean = false;
+  boxofficeId:any;
+  optionField:boolean = false;
+  termsField:boolean = false;
+  defaultQuestion:boolean = false;
+  allQuestionlist:any = [];
+  singleQuestion:any;
   constructor(
     public dialogRef: MatDialogRef<addAttendeeQuestionDialog>,
     private http: HttpClient,
+    private SettingService : SettingService,
+    private ErrorService : ErrorService,
+    private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.boxofficeId = this.data.boxofficeId
+      this.allQuestionlist = this.data.allQuestionlist
+      this.singleQuestion = this.data.singleQuestion
+      console.log(this.singleQuestion)
+      console.log(this.allQuestionlist)
+      this.newAttendeeQForm = this._formBuilder.group({
+        type: ['',[Validators.required]],
+        label: ['',[Validators.required]],
+        options: [''],
+        terms: [''],
+      });
+
+      
+      if(this.singleQuestion){
+        this.defaultQuestion = this.singleQuestion.default
+        this.newAttendeeQForm.controls['label'].setValue(this.singleQuestion.label);
+        this.newAttendeeQForm.controls['type'].setValue(this.singleQuestion.type);
+        this.newAttendeeQForm.controls['options'].setValue(this.singleQuestion.options);
+        this.newAttendeeQForm.controls['terms'].setValue(this.singleQuestion.terms);
+        this.questionRequired = this.singleQuestion.required
+        if(this.singleQuestion.type == 'text' || this.singleQuestion.type == 'marketing'){
+          this.optionField = false;
+          this.termsField = false;
+        }else if(this.singleQuestion.type == 'terms'){
+          this.optionField = false;
+          this.termsField = true;
+        }else{
+          this.optionField = true;
+          this.termsField = false;
+        }
+      }
+
     }
 
   onNoClick(): void {
@@ -155,6 +369,45 @@ export class addAttendeeQuestionDialog {
   }
   ngOnInit() {
   }
+
+  fnChangeQType(event){
+    console.log(event)
+    if(event.value == 'text' || event.value == 'marketing'){
+      this.optionField = false;
+      this.termsField = false;
+    }else if(event.value == 'terms'){
+      this.optionField = false;
+      this.termsField = true;
+    }else{
+      this.optionField = true;
+      this.termsField = false;
+    }
+  }
+  
+  fnChangeRequired(event){
+    this.questionRequired = event.checked
+  }
+
+  createNewAttendeeQuestion(){
+    console.log(this.newAttendeeQForm)
+    if(this.newAttendeeQForm.invalid){
+      this.newAttendeeQForm.get('label').markAsTouched();
+      this.newAttendeeQForm.get('type').markAsTouched();
+      return false;
+    }
+    let newQuestion = {
+      'label' : this.newAttendeeQForm.get('label').value,
+      'required' : this.questionRequired,
+      'type' : this.newAttendeeQForm.get('type').value,
+      'options' : this.newAttendeeQForm.get('options').value,
+      'terms' : this.newAttendeeQForm.get('terms').value,
+      'index' : this.allQuestionlist[0].attendee_questions.length+1,
+    }
+    this.allQuestionlist[0].attendee_questions.push(newQuestion);
+    console.log(this.allQuestionlist)
+    this.dialogRef.close(this.allQuestionlist);
+  }
+  
  
 }
 
