@@ -29,17 +29,19 @@
                     class="specific-msg-content"
                     name="editor1" 
                     skin="moono-lisa" 
+                    [(ngModel)]="globalOrderEmail" 
                     language="en" [fullPage]="true">
                 </ck-editor>    
             </div>
+        
         </div>
     </div>
 
     <div class="invoice-preview mt-3">
                 
         <div class="invoive-details">
-            <mat-checkbox>Attach ticket vouchers as a PDF <i class="fa fa-question-circle"></i></mat-checkbox><br>
-            <mat-checkbox [checked]="attachInvoice">Attach invoice <i class="fa fa-question-circle"></i></mat-checkbox>
+            <mat-checkbox   [(ngModel)]="ticketVouchersPDF"  matTooltip="Attaching ticket vouchers as a PDF can make it easier for your  ticket buyer  to print. share and download tickets to their phone" >Attach ticket vouchers as a PDF <i class="fa fa-question-circle"></i></mat-checkbox><br>
+            <mat-checkbox   [(ngModel)]="attachInvoice" matTooltip="include an invoice with the order confirmation" >Attach invoice <i class="fa fa-question-circle"></i></mat-checkbox>
             
             <div class="title mt-2">
                 Invoice preview
@@ -58,8 +60,12 @@
                         <div class="blank-bar ml-auto"> </div>
                         <div class="blank-bar"> </div>
                         <div class="blank-bar ml-auto"> </div>
+                        <!-- {{globalOrderEmail}} -->
                     </div>
                 </div>
+            </div>
+            <div class="col-12 text-center">
+                <button mat-flat-button (click)="fnGlobleEmail()" class="save-btn  remove-photo mt-4" style="color: #fff;">Save</button>
             </div>
 
         </div>
