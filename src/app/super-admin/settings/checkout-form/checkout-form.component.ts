@@ -85,7 +85,7 @@ export class CheckoutFormComponent implements OnInit {
     });
   }
   
-  fnDeleteBuyerQuestion(selectedQuestion){
+  fnDeleteBuyerQuestion(selectedQuestion,index){
     alert('delete')
     const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
     this.allQuestionlist[0].buyer_questions.splice(index, 1);
