@@ -36,3 +36,15 @@
     padding: 16px 10px;
     border-radius: 6px;
  }
+
+ ::ng-deep .previewContent{
+    
+    height: 250px;
+    overflow: hidden;
+    overflow-y: scroll;
+
+ }
+
+::ng-deep h3{
+    font-weight: bold !important;
+}

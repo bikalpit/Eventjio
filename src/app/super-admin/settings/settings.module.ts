@@ -15,6 +15,7 @@ import { SeatingChartsComponent } from './seating-charts/seating-charts.componen
 import { TeamAccessComponent } from './team-access/team-access.component';
 import { BillingComponent } from './billing/billing.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { PrivacyPolicyGenerateDialog } from './privacy-policy/privacy-policy.component';
 import { MatExpansionModule} from '@angular/material/expansion';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
@@ -39,6 +40,7 @@ import { PaymentSystemsComponent } from './payment-systems/payment-systems.compo
     DialogAdminProfileImageUpload,
     DialogAdminBoxofficeImageUpload,
     PaymentSystemsComponent,
+    PrivacyPolicyGenerateDialog,
   ],
 
 
@@ -58,6 +60,6 @@ import { PaymentSystemsComponent } from './payment-systems/payment-systems.compo
     HttpClientModule,
     
   ],
-  entryComponents: [AddSalesTax,DialogAdminProfileImageUpload,DialogAdminBoxofficeImageUpload,inviteTeamMateDialog]
+  entryComponents: [AddSalesTax,DialogAdminProfileImageUpload,DialogAdminBoxofficeImageUpload,inviteTeamMateDialog,PrivacyPolicyGenerateDialog]
 })
 export class SettingsModule { }
