@@ -7,7 +7,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SuperadminService } from '../_services/superadmin.service';
-import { DatePipe} from '@angular/common';
+import { DatePipe, JsonPipe} from '@angular/common';
 import { ExportToCsv } from 'export-to-csv';
 
 
@@ -85,9 +85,38 @@ export class ExportOrderDialog {
   reportType:any = 'overview';
   boxOfficeCode:any;
   selectedOrderArr:any;
+  selectedOrderArryyy:any;
   orderDetails:any = "N";
   eventDetails:any = "N";
   buyerDetails:any = "N";
+  orderDetails_id:any = "N";
+  orderDetailsticket_check:any = "N";
+  orderDetailOrder_cancel:any = "N";
+  orderDetailOrder_date:any = "N";
+  orderDetailTax_amount:any = "N";
+  orderDetailVoucher_code:any = "N";
+  orderDetailTicket_charge:any = "N";
+  eventDetailsEvent_id:any = "N";
+  eventDetailsEvent_name:any = "N";
+  eventDetailsEvent_start:any = "N";
+  eventDetailsEvent_end:any = "N";
+  buyerDetailsFirstname:any = "N";
+  buyerDetailsLastname:any = "N";
+  buyerDetailsemail:any = "N";
+  buyerDetailsPhone:any = "N";
+  buyerDetailsAddress1:any = "N";
+  buyerDetailsAddress2:any = "N";
+  buyerDetailsAddress3:any = "N";
+  buyerDetailsPostcode:any = "N";
+  eventName:any;
+  buyerArray:any;
+  orderArray:any;
+  eventArray:any;
+  orderuniqueCode:any;
+  buyers:any =[];
+  orderFieldList:any =[];
+  eventFieldList:any =[];
+  buyerFieldList:any =[];
 
   constructor(
     public dialogRef: MatDialogRef<ExportOrderDialog>,
@@ -98,6 +127,9 @@ export class ExportOrderDialog {
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
       }
+      if(localStorage.getItem('selectedEventCode')){
+        this.orderuniqueCode = localStorage.getItem('selectedEventCode')
+      }
     }
 
   onNoClick(): void {
@@ -106,11 +138,94 @@ export class ExportOrderDialog {
   ngOnInit() {
   }
 
+  // fnAddOrderFields(event, fieldName){
+  //   if(event.checked == true){
+  //     this.orderFieldList.push(fieldName)
+  //   }else{
+  //     const index = this.orderFieldList.indexOf(fieldName, 0);
+  //     if (index > -1) {
+  //         this.orderFieldList.splice(index, 1);
+  //     }
+  //   }
+  // }
+
+  // fnExportevent(event, fieldName){
+  //   if(event.checked == true){
+  //     this.eventFieldList.push(fieldName)
+  //   }else{
+  //     const index = this.eventFieldList.indexOf(fieldName, 0);
+  //     if (index > -1) {
+  //    this.eventFieldList.splice(index, 1);
+  //     }
+  //   }
+  // }
+
+  // fnBuyerSubcomponentdetail(event, buyerdetails){
+  //   if(event.checked == true){
+  //     this.buyerFieldList.push(buyerdetails)
+  //   }else{
+  //     const index = this.buyerFieldList.indexOf(buyerdetails, 0);
+  //     if (index > -1) {
+  //    this.buyerFieldList.splice(index, 1);
+  //     }
+  //   }
+  // }
+
   fnOrdersDetails(event){
     if(event.checked == true){
-      this.orderDetails = 'Y' 
+    this.orderDetails = 'Y'
     }else{
       this.orderDetails = 'N' 
+    }
+  }
+
+  fnOrdersDetailsOrder_id(event){
+    if(event.checked == true){
+      this.orderDetails_id = 'Y'
+      }else{
+        this.orderDetails_id = 'N' 
+    }
+  }
+  fnOrdersDetailsticket_check(event){
+    if(event.checked == true){
+      this.orderDetailsticket_check = 'Y'
+      }else{
+        this.orderDetailsticket_check = 'N' 
+    }
+  }
+  fnOrdersDetailsOrder_cancel(event){
+    if(event.checked == true){
+      this.orderDetailOrder_cancel = 'Y'
+      }else{
+     this.orderDetailOrder_cancel = 'N' 
+    }
+  }
+  fnOrdersDetailsVoucherCode(event){
+    if(event.checked == true){
+      this.orderDetailVoucher_code = 'Y'
+      }else{
+     this.orderDetailVoucher_code = 'N' 
+    }
+  }
+  fnOrdersDetailsTax_amont(event){
+    if(event.checked == true){
+      this.orderDetailTax_amount = 'Y'
+      }else{
+     this.orderDetailTax_amount = 'N' 
+    }
+  }
+  fnOrdersDetailsOrder_date(event){
+    if(event.checked == true){
+      this.orderDetailOrder_date = 'Y'
+      }else{
+     this.orderDetailOrder_date = 'N' 
+    }
+  }
+  fnOrdersDetailsTicket_charge(event){
+    if(event.checked == true){
+      this.orderDetailTicket_charge = 'Y'
+      }else{
+     this.orderDetailTicket_charge = 'N' 
     }
   }
 
@@ -122,11 +237,102 @@ export class ExportOrderDialog {
     }
   }
 
+  fnEventDetailsEvent_id(event){
+    if(event.checked == true){
+      this.eventDetailsEvent_id = 'Y' 
+    }else{
+      this.eventDetailsEvent_id = 'N' 
+    }
+  }
+
+  fnEventDetailsEvent_name(event){
+    if(event.checked == true){
+      this.eventDetailsEvent_name = 'Y' 
+    }else{
+      this.eventDetailsEvent_name = 'N' 
+    }
+  }
+
+  fnEventDetailsEvent_end(event){
+    if(event.checked == true){
+      this.eventDetailsEvent_end = 'Y' 
+    }else{
+      this.eventDetailsEvent_end = 'N' 
+    }
+  }
+  fnEventDetailsEvent_start(event){
+    if(event.checked == true){
+      this.eventDetailsEvent_start = 'Y' 
+    }else{
+      this.eventDetailsEvent_start = 'N' 
+    }
+  }
+
   fnBuyersDetails(event){
     if(event.checked == true){
       this.buyerDetails = 'Y' 
     }else{
       this.buyerDetails = 'N' 
+    }
+  }
+  fnBuyersDetailsFirstname(event){
+    if(event.checked == true){
+      this.buyerDetailsFirstname = 'Y' 
+    }else{
+      this.buyerDetailsFirstname = 'N' 
+    }
+  }
+  fnBuyersDetailsLastname(event){
+    if(event.checked == true){
+      this.buyerDetailsLastname = 'Y' 
+    }else{
+      this.buyerDetailsLastname = 'N' 
+    }
+  }
+  fnBuyersDetailsEmail(event){
+    if(event.checked == true){
+      this.buyerDetailsemail = 'Y' 
+    }else{
+      this.buyerDetailsemail = 'N' 
+    }
+  }
+  fnBuyersDetailsPhone(event){
+    if(event.checked == true){
+      this.buyerDetailsPhone = 'Y' 
+    }else{
+      this.buyerDetailsPhone = 'N' 
+    }
+  }
+
+  fnBuyersDetailsAdd1(event){
+    if(event.checked == true){
+      this.buyerDetailsAddress1 = 'Y' 
+    }else{
+      this.buyerDetailsAddress1 = 'N' 
+    }
+  }
+
+  fnBuyersDetailsAdd2(event){
+    if(event.checked == true){
+      this.buyerDetailsAddress2 = 'Y' 
+    }else{
+      this.buyerDetailsAddress2 = 'N' 
+    }
+  }
+
+  fnBuyersDetailsAdd3(event){
+    if(event.checked == true){
+      this.buyerDetailsAddress3 = 'Y' 
+    }else{
+      this.buyerDetailsAddress3 = 'N' 
+    }
+  }
+  
+  fnBuyersDetailsPostcode(event){
+    if(event.checked == true){
+      this.buyerDetailsPostcode = 'Y' 
+    }else{
+      this.buyerDetailsPostcode = 'N' 
     }
   }
 
@@ -148,17 +354,44 @@ export class ExportOrderDialog {
     useKeysAsHeaders: true,
   };
   const csvExporter = new ExportToCsv(options);
+  // this.buyerArray=this.buyerFieldList.concat('unique_code');
+  // this.orderArray=this.orderFieldList.concat('unique_code').concat('customer_id');
+  // this.eventArray= this.eventFieldList.concat('unique_code');
+
   if(this.reportType=="overview"){
   let requestObject ={
-    "boxoffice_id": this.boxOfficeCode,
+    "boxoffice_id":'box16014425204331',
     "report_type":"O",
+    "buyer_details": this.buyerDetails,
     "order_details":this.orderDetails,
-    "event_details":this.eventDetails,
-    "buyer_details": this.buyerDetails
+    "event_details": this.eventDetails,
+    "order_id":this.orderDetails_id,
+    "tickets_checked_in":this.orderDetailsticket_check,
+    "order_canceled":this.orderDetailOrder_cancel,
+    "order_date":this.orderDetailOrder_date,
+    "tax_amount":this.orderDetailTax_amount,
+    "voucher_code_amt":this.orderDetailVoucher_code,
+    "ticket_charges":this.orderDetailTicket_charge,
+    "event_id":this.eventDetailsEvent_id,
+    "event_name":this.eventDetailsEvent_name ,
+    "event_start":this.eventDetailsEvent_start,
+    "event_end":this.eventDetailsEvent_end,
+    "firstname":this.buyerDetailsFirstname,
+    "lastname":this.buyerDetailsLastname,
+    "email":this.buyerDetailsemail,
+    "mobile":this.buyerDetailsPhone,
+    "address1":this.buyerDetailsAddress1,
+    "address2":this.buyerDetailsAddress2,
+    "address3":this.buyerDetailsAddress3,
+    "zip":this.buyerDetailsPostcode,
   };
+
   this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
     if(response.data == true){   
       this.selectedOrderArr = response.response
+      // this.selectedOrderArryyy=this.selectedOrderArr.split(" ",20);
+      console.log(this.selectedOrderArr);
+
       csvExporter.generateCsv(this.selectedOrderArr);
       this.ErrorService.successMessage("orders exported successfully");
     }
