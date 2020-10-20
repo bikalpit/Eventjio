@@ -333,8 +333,6 @@ export class addAttendeeQuestionDialog {
       this.boxofficeId = this.data.boxofficeId
       this.allQuestionlist = this.data.allQuestionlist
       this.singleQuestion = this.data.singleQuestion
-      console.log(this.singleQuestion)
-      console.log(this.allQuestionlist)
       this.newAttendeeQForm = this._formBuilder.group({
         type: ['',[Validators.required]],
         label: ['',[Validators.required]],
@@ -395,15 +393,30 @@ export class addAttendeeQuestionDialog {
       this.newAttendeeQForm.get('type').markAsTouched();
       return false;
     }
-    let newQuestion = {
-      'label' : this.newAttendeeQForm.get('label').value,
-      'required' : this.questionRequired,
-      'type' : this.newAttendeeQForm.get('type').value,
-      'options' : this.newAttendeeQForm.get('options').value,
-      'terms' : this.newAttendeeQForm.get('terms').value,
-      'index' : this.allQuestionlist[0].attendee_questions.length+1,
+    if(this.singleQuestion){
+      let newQuestion = {
+        'label' : this.newAttendeeQForm.get('label').value,
+        'required' : this.questionRequired,
+        'type' : this.newAttendeeQForm.get('type').value,
+        'options' : this.newAttendeeQForm.get('options').value,
+        'terms' : this.newAttendeeQForm.get('terms').value,
+        'index' : this.singleQuestion.index,
+      }
+      const index: number = this.allQuestionlist[0].attendee_questions.indexOf(this.singleQuestion);
+      this.allQuestionlist[0].attendee_questions.splice(index, 1);
+      this.allQuestionlist[0].attendee_questions.push(newQuestion);
+    }else{
+      let newQuestion = {
+        'label' : this.newAttendeeQForm.get('label').value,
+        'required' : this.questionRequired,
+        'type' : this.newAttendeeQForm.get('type').value,
+        'options' : this.newAttendeeQForm.get('options').value,
+        'terms' : this.newAttendeeQForm.get('terms').value,
+        'index' : this.allQuestionlist[0].attendee_questions.length+1,
+      }
+      this.allQuestionlist[0].attendee_questions.push(newQuestion);
     }
-    this.allQuestionlist[0].attendee_questions.push(newQuestion);
+    
     console.log(this.allQuestionlist)
     this.dialogRef.close(this.allQuestionlist);
   }
