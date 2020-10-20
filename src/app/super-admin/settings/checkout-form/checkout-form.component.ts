@@ -38,6 +38,17 @@ export class CheckoutFormComponent implements OnInit {
       'name': 'Name'
     }
   }
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
 
   buyerQuestionDrop(event: CdkDragDrop<string[]>) {
     console.log(event)
@@ -64,7 +75,9 @@ export class CheckoutFormComponent implements OnInit {
         this.allQuestionlist = JSON.parse(response.response)
         console.log(this.allQuestionlist[0])
         this.buyerQuestionList = this.allQuestionlist[0].buyer_questions
+        this.buyerQuestionList = this.buyerQuestionList.sort(this.dynamicSort("index"))
         this.attendeeQuestionList = this.allQuestionlist[0].attendee_questions
+        this.attendeeQuestionList = this.attendeeQuestionList.sort(this.dynamicSort("index"))
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -245,6 +258,17 @@ export class addBuyerQuestionDialog {
      
     }
 
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -288,6 +312,7 @@ export class addBuyerQuestionDialog {
       const index: number = this.allQuestionlist[0].buyer_questions.indexOf(this.singleQuestion);
       this.allQuestionlist[0].buyer_questions.splice(index, 1);
       this.allQuestionlist[0].buyer_questions.push(newQuestion);
+      this.allQuestionlist[0].buyer_questions = this.allQuestionlist[0].buyer_questions.sort(this.dynamicSort("index"))
     }else{
       let newQuestion = {
         'label' : this.newBuyerQForm.get('label').value,
@@ -298,6 +323,7 @@ export class addBuyerQuestionDialog {
         'index' : this.allQuestionlist[0].buyer_questions.length+1,
       }
       this.allQuestionlist[0].buyer_questions.push(newQuestion);
+      this.allQuestionlist[0].buyer_questions = this.allQuestionlist[0].buyer_questions.sort(this.dynamicSort("index"))
     }
    
     console.log(this.allQuestionlist)
@@ -361,6 +387,18 @@ export class addAttendeeQuestionDialog {
       }
 
     }
+  
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -405,6 +443,7 @@ export class addAttendeeQuestionDialog {
       const index: number = this.allQuestionlist[0].attendee_questions.indexOf(this.singleQuestion);
       this.allQuestionlist[0].attendee_questions.splice(index, 1);
       this.allQuestionlist[0].attendee_questions.push(newQuestion);
+      this.allQuestionlist[0].attendee_questions = this.allQuestionlist[0].attendee_questions.sort(this.dynamicSort("index"))
     }else{
       let newQuestion = {
         'label' : this.newAttendeeQForm.get('label').value,
@@ -415,6 +454,7 @@ export class addAttendeeQuestionDialog {
         'index' : this.allQuestionlist[0].attendee_questions.length+1,
       }
       this.allQuestionlist[0].attendee_questions.push(newQuestion);
+      this.allQuestionlist[0].attendee_questions = this.allQuestionlist[0].attendee_questions.sort(this.dynamicSort("index"))
     }
     
     console.log(this.allQuestionlist)
