@@ -30,13 +30,9 @@ export class MyProfileComponent implements OnInit {
     public dialog: MatDialog,
     private auth : AuthenticationService
   ) {
-    // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.auth.currentUser.subscribe(x => this.currentUser = x);
-    // console.log(this.currentUser)
-    // alert(this.currentUser.unique_code)
     this.myProfileForm = this._formBuilder.group({
       firstname : ['',[Validators.required,Validators.maxLength(15)]],
-      // lastname: ['',[Validators.required,Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
     });
