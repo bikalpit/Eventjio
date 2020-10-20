@@ -58,7 +58,7 @@
             <div class="col-md-12">
                 <div class="">
                     <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="attendeeQuestionDrop($event)">
-                        <div class="" *ngFor="let element of attendeeQuestionList" cdkDrag>
+                        <div class="" *ngFor="let element of attendeeQuestionList; let i=index" cdkDrag>
                             <div class="" *cdkDragPlaceholder></div>
                             <div class="buyer">
                                 <div class="buyer-card">
