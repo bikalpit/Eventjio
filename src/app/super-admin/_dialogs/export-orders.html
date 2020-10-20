@@ -63,15 +63,16 @@
             </mat-expansion-panel-header>
 
             <section class="row">
-              <mat-checkbox class="col-md-4">Order ID</mat-checkbox>
-              <mat-checkbox class="col-md-4">Order ID</mat-checkbox>
-              <mat-checkbox class="col-md-4">Order ID</mat-checkbox>
+              <mat-checkbox (change)="fnOrdersDetailsOrder_id($event)" class="col-md-4" >Order ID</mat-checkbox>
+              <mat-checkbox (change)="fnOrdersDetailsticket_check($event)" class="col-md-4">Tickets checked in</mat-checkbox>
+              <mat-checkbox (change)="fnOrdersDetailsOrder_cancel($event)" class="col-md-4">Order cancelled</mat-checkbox>
             </section>
 
             <section class="row">
-              <mat-checkbox class="col-md-4">Order date</mat-checkbox>
-              <mat-checkbox class="col-md-4">Order date</mat-checkbox>
-              <mat-checkbox class="col-md-4">Order date</mat-checkbox>
+              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsOrder_date($event)">Order date</mat-checkbox>
+              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsTax_amont($event)">Tax amount</mat-checkbox>
+              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsVoucherCode($event)">Voucher codes amount</mat-checkbox>
+              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsTicket_charge($event)">Ticket charges</mat-checkbox>
             </section>
 
             
@@ -87,11 +88,11 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <section class=" row">
-              <mat-checkbox class=" col-md-4">Event ID</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Event name</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Event start</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Event end</mat-checkbox>
-            </section>
+              <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_id($event)">Event ID</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_name($event)">Event name</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_start($event)">Event start</mat-checkbox>
+             <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_end($event)">Event end</mat-checkbox>
+             </section>
           </mat-expansion-panel>
         </mat-accordion>
         <mat-accordion class="" multi>
@@ -104,13 +105,14 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <section class=" row">
-              <mat-checkbox class=" col-md-4">Name</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Email</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Mobile number</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Address 1</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Address 2</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Address 3</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Postcode / Zip</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsFirstname($event)">FirstName</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsLastname($event)">LastName</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsEmail($event)">Email</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsPhone($event)">Mobile number</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd1($event)">Address 1</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd2($event)">Address 2</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd3($event)">Address 3</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsPostcode($event)">Postcode / Zip</mat-checkbox>
               <mat-checkbox class=" col-md-4">Postcode / Zip</mat-checkbox>
             </section>
           </mat-expansion-panel>
@@ -250,7 +252,8 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <section class=" row">
-                <mat-checkbox class=" col-md-4">Name</mat-checkbox>
+                <mat-checkbox class=" col-md-4">FirstName</mat-checkbox>
+                <mat-checkbox class=" col-md-4">LastName</mat-checkbox>
                 <mat-checkbox class=" col-md-4">Email</mat-checkbox>
                 <mat-checkbox class=" col-md-4">Mobile number</mat-checkbox>
                 <mat-checkbox class=" col-md-4">Address 1</mat-checkbox>

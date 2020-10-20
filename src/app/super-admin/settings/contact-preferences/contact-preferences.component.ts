@@ -11,7 +11,8 @@ import { ErrorService } from '../../../_services/error.service';
 export class ContactPreferencesComponent implements OnInit {
   contactPreferenceOption:any;
   contactPreferenceFrom : FormGroup;
-  isLoaderAdmin:any;
+  isLoaderAdmin:boolean = false;
+  boxOfficeCode:any;
 
   constructor(
     private _formBuilder : FormBuilder,
@@ -22,6 +23,9 @@ export class ContactPreferencesComponent implements OnInit {
       email_id:['',[Validators.required, Validators.email]],
       // instructions:['',[Validators.required]],
     })
+    if(localStorage.getItem('boxoffice_id')){
+      this.boxOfficeCode = localStorage.getItem('boxoffice_id')
+    }
   }
 
   fnSubmitContactPreference(){
@@ -33,7 +37,7 @@ export class ContactPreferencesComponent implements OnInit {
           // "instructions":this.contactPreferenceFrom.get('instructions').value,
         }
         let requestObject = {
-          "boxoffice_id"  : localStorage.getItem('boxoffice_id'),
+          "boxoffice_id"  : this.boxOfficeCode,
           "option_key"    :  "contactPreference",
           "option_value" : contactPreferenceSetting,
           "event_id" :  null,

@@ -49,6 +49,8 @@ export class SingleEventDashboard implements OnInit {
         this.eventDetail = response.response.event[0];
         if(this.eventDetail.images.length === 0){
           this.eventDetail.images = undefined
+        }else{
+          alert()
         }
         this.eventStatus = this.eventDetail.event_status;
       } else if(response.data == false){

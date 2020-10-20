@@ -10,7 +10,7 @@
         <div class="modal-body pb-0">
             <form [formGroup]="createVoucherForm" class="with-validation">
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="col-md-6">
                         <label for="">Name <span><i class="fa fa-asterisk"></i></span> 
                   <span mat-raised-button
                         matTooltip="what would you like to call this batch of codes? This name will be displayed to the customer when enter a code at checkout."
@@ -18,13 +18,15 @@
                         <span class="info"><i class="fa fa-question"></i></span>
                 </span>
                 </label>
-                        <input type="text" class="form-control" formControlName="voucher_name">
-                        <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_name').touched || createVoucherForm.get('voucher_name').dirty">
+                        <div class="form-group ">
+                            <input type="text" class="form-control" formControlName="voucher_name">
+                            <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_name').touched || createVoucherForm.get('voucher_name').dirty">
                             <small *ngIf="createVoucherForm.get('voucher_name').hasError('required')" class="error">Voucher name is required.</small>
                             <small *ngIf="createVoucherForm.get('voucher_name').hasError('maxlength')" class="error">Voucher name should be maximum 15 character.</small>
                         </span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="col-md-6">
                         <label>Value <span><i class="fa fa-asterisk"></i></span> 
                         <span mat-raised-button
                                 matTooltip="How much money do these vouchers discount from an order?"
@@ -32,11 +34,13 @@
                                 <span class="info"><i class="fa fa-question"></i></span>
                         </span>
                 </label>
-                        <input type="text" class="form-control" formControlName="voucher_value">
-                        <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_value').touched || createVoucherForm.get('voucher_value').dirty">
+                        <div class="form-group ">
+                            <input type="text" class="form-control" formControlName="voucher_value">
+                            <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_value').touched || createVoucherForm.get('voucher_value').dirty">
                   <small *ngIf="createVoucherForm.get('voucher_value').hasError('required')" class="error">Voucher value is required.</small>
                   <small *ngIf="createVoucherForm.get('voucher_value').hasError('maxlength')" class="error">Voucher value should be maximum 15 character.</small>
                 </span>
+                        </div>
                     </div>
                     <div class="form-group col-md-12">
                         <label>Voucher Codes <span><i class="fa fa-asterisk"></i></span> 
@@ -46,15 +50,17 @@
                         <span class="info"><i class="fa fa-question"></i></span>
                 </span>
                 </label>
-                        <textarea class="form-control" formControlName="voucher_code" rows="3"></textarea>
-                        <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_code').touched || createVoucherForm.get('voucher_code').dirty">
+                        <div class="form-group ">
+                            <textarea class="form-control" formControlName="voucher_code" rows="3"></textarea>
+                            <span class="error-wrap" *ngIf="createVoucherForm.get('voucher_code').touched || createVoucherForm.get('voucher_code').dirty">
                   <small *ngIf="createVoucherForm.get('voucher_code').hasError('required')" class="error">Voucher code is required.</small>
                   <small *ngIf="createVoucherForm.get('voucher_code').hasError('maxlength')" class="error">Voucher code should be maximum 15 character.</small>
                 </span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-12 mt-2">
+                    <div class=" col-md-12 mt-2">
                         <label>Expire Date <span><i class="fa fa-asterisk"></i></span> </label>
-                        <div class="matDate">
+                        <div class="matDate form-group">
                             <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
                             <input type="text" [min]="minExpiryDate" [matDatepicker]="ticketIssuedTo" formControlName="expiry_date" (click)="ticketIssuedTo.open()" class="form-control matInputdate">
                             <mat-datepicker #ticketIssuedTo></mat-datepicker>
