@@ -129,7 +129,6 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.get("email").markAsTouched();
       this.addCustomerForm.get("address").markAsTouched();
       this.addCustomerForm.get("tags").markAsTouched();
-      // alert(1);
       return false;
     }else{
       if(this.editCustomerForm == true){
@@ -369,7 +368,6 @@ fnUpdateCustomer(requestObject){
   }
 
   fnFilterCustomer(event){
-    alert(event.value)
     this.filterCustomerEvent = event.value
     this.getAllCustomersDetails();
   }
@@ -440,7 +438,6 @@ export class DialogImportFileUpload {
   }
 
   fileupload(){
-    alert( this.fileToUpload );
     
     if(this.fileToUpload.type != "application/vnd.ms-excel"){
 

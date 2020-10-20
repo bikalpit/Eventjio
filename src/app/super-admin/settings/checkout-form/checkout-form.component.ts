@@ -51,16 +51,35 @@ export class CheckoutFormComponent implements OnInit {
   }
 
   buyerQuestionDrop(event: CdkDragDrop<string[]>) {
-    console.log(event)
-    if(event.previousIndex === 0 || event.previousIndex === 1 || event.previousIndex === 2 || event.previousIndex === 3){
+    if(event.previousIndex < 4){
+      return false
+    }else if(event.previousIndex > 3 && event.currentIndex < 4){
       return false
     }else{
       moveItemInArray(this.buyerQuestionList, event.previousIndex, event.currentIndex);
+      let arrayIndex = 0
+      this.buyerQuestionList.forEach(element => {
+        element.index = arrayIndex+1
+        arrayIndex++;
+      });
+      this.allQuestionlist[0].buyer_questions = this.buyerQuestionList
     }
 
   }
   attendeeQuestionDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.attendeeQuestionList, event.previousIndex, event.currentIndex);
+    if(event.previousIndex < 1){
+      return false
+    }else if(event.previousIndex > 0 && event.currentIndex < 1){
+      return false
+    }else{
+      moveItemInArray(this.attendeeQuestionList, event.previousIndex, event.currentIndex);
+      let arrayIndex = 0
+      this.attendeeQuestionList.forEach(element => {
+        element.index = arrayIndex+1
+        arrayIndex++;
+      });
+      this.allQuestionlist[0].buyer_questions = this.attendeeQuestionList
+    }
   }
 
   getAllQuestions(){
@@ -85,8 +104,7 @@ export class CheckoutFormComponent implements OnInit {
     });
   }
   
-  fnDeleteBuyerQuestion(selectedQuestion){
-    alert('delete')
+  fnDeleteBuyerQuestion(selectedQuestion, i){
     const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
     this.allQuestionlist[0].buyer_questions.splice(index, 1);
     console.log(this.allQuestionlist)
@@ -112,8 +130,7 @@ export class CheckoutFormComponent implements OnInit {
     });
   }
 
-  fnDeleteAttendeeQuestion(selectedQuestion){
-    alert('delete')
+  fnDeleteAttendeeQuestion(selectedQuestion, i){
     const index: number = this.allQuestionlist[0].attendee_questions.indexOf(selectedQuestion);
     this.allQuestionlist[0].attendee_questions.splice(index, 1);
     console.log(this.allQuestionlist)

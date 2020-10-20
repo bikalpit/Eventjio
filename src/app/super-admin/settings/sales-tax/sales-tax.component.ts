@@ -195,7 +195,6 @@ export class AddSalesTax {
       else if(event.checked == false){
         this.taxStatus = 'N';
       }
-      alert(this.taxStatus)
     }
 
     fnOnSubmit(){

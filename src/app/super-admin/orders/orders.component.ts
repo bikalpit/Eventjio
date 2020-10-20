@@ -406,7 +406,6 @@ export class ExportOrderDialog {
    });
    }
    if(this.reportType=="lineItem"){
-     alert(1);
    }
  }
 }
@@ -458,7 +457,6 @@ export class AddNewOrderDialog {
         this.allEventlist = response.response
         // console.log(this.allEventlist);
       }else{
-        // alert(2)
       }
      });
   }
@@ -558,7 +556,6 @@ export class BookTicketDialog {
       if(response.data == true){
         this.eventTicket = response.response;
       }else{
-        // alert(2)
       }
      });
   }
@@ -581,14 +578,12 @@ export class BookTicketDialog {
      this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
     }
 
-      alert(this.subTotal)
       console.log(index,event);
       this.eventTicket[index].qty = event.key;
 
    this.subTotal =0;
    this.eventTicket.forEach(element=>{
    this.subTotal =this.eventTicket[index].prize
-    // alert( this.subTotal );
   })
   }
 
@@ -637,7 +632,6 @@ export class BookTicketDialog {
         this.ErrorService.successMessage(response.response);
  
       }else{
-        // alert(2)
       }
      });
    }
