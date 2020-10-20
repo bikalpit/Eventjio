@@ -126,7 +126,7 @@ export class SingleEventServiceService {
     }),catchError(this.handleError));
   }
   
-  waitList(requestObject){
+  setSettingOption(requestObject){
     return this.http.post(`${environment.apiUrl}/set-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;

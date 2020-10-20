@@ -141,4 +141,47 @@ export class SettingService {
 
    
   
+    addTax(requestObject){
+        return this.http.post(`${environment.apiUrl}/addsaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getAllAddTax(requestObject){
+        return this.http.post(`${environment.apiUrl}/getsaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    updateTax(requestObject){
+        return this.http.post(`${environment.apiUrl}/updatesaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    deleteTax(requestObject){
+        return this.http.post(`${environment.apiUrl}/deletesaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getSingleTaxData(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-tax`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    changeTaxStaus(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-tax-status`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+
 }
