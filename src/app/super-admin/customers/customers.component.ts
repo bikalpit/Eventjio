@@ -264,8 +264,7 @@ fnSelectCustomer(selectedCustomerCode){
   this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
     if(response.data == true){
       this.selectedCustomerDetails = response.response.customer;
-
- //     console.log(this.selectedCustomerDetails);
+      this.addFormButtonDiv = true;
 
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);

@@ -167,7 +167,10 @@ export class PaymentSystemsComponent implements OnInit {
   }
 
   fnPaypalStatus(event){
-
+    if(this.paypal.invalid){
+      this.paypal.get('clientId').markAsTouched();
+      return false;
+    }
     this.paypalStatus = event;
 
     let PaypalSetting = {
@@ -203,7 +206,11 @@ export class PaymentSystemsComponent implements OnInit {
 
 
   fnStripeStatus(event){
-  
+    if(this.stripe.invalid){
+      this.stripe.get('secretKey').markAsTouched();
+      this.stripe.get('publishableKey').markAsTouched();
+      return false;
+    }
     this.stripeStatus = event;
 
     let stripeSetting = {
@@ -243,6 +250,10 @@ export class PaymentSystemsComponent implements OnInit {
       };
 
       this.updateStripeSetting(requestObject);
+    }else if(this.stripe.invalid){
+      this.stripe.get('secretKey').markAsTouched();
+      this.stripe.get('publishableKey').markAsTouched();
+      return false;
     }
 
   }
@@ -267,6 +278,12 @@ export class PaymentSystemsComponent implements OnInit {
 
 
   fnPayumoneyStatus(event){
+    if(this.payumoney.invalid){
+      this.payumoney.get('merchantKey').markAsTouched();
+      this.payumoney.get('saltKey').markAsTouched();
+      return false;
+    }
+    
     this.payumoneyStatus = event;
 
     let stripeSetting = {
@@ -287,6 +304,11 @@ export class PaymentSystemsComponent implements OnInit {
   }
 
   fnSubmitPayumoney(){
+    if(this.payumoney.invalid){
+      this.payumoney.get('merchantKey').markAsTouched();
+      this.payumoney.get('saltKey').markAsTouched();
+      return false;
+    }
     if(this.payumoney.valid){
       
     let stripeSetting = {
@@ -325,7 +347,15 @@ export class PaymentSystemsComponent implements OnInit {
 
 
   fnBankTransferStatus(event){
-
+    if(this.bankTransfer.invalid){
+      this.bankTransfer.get('bankName').markAsTouched();
+      this.bankTransfer.get('accountName').markAsTouched();
+      this.bankTransfer.get('accountNumber').markAsTouched();
+      this.bankTransfer.get('IFSCCode').markAsTouched();
+      this.bankTransfer.get('branchCode').markAsTouched();
+      this.bankTransfer.get('bankDescription').markAsTouched();
+      return false;
+    }
     this.bankTransferStatus = event;
     let bankTransferSetting = {
       "bank_name":this.bankTransfer.get('bankName').value,
@@ -349,6 +379,15 @@ export class PaymentSystemsComponent implements OnInit {
 
   fnSubmitBankTransfer(){
 
+    if(this.bankTransfer.invalid){
+      this.bankTransfer.get('bankName').markAsTouched();
+      this.bankTransfer.get('accountName').markAsTouched();
+      this.bankTransfer.get('accountNumber').markAsTouched();
+      this.bankTransfer.get('IFSCCode').markAsTouched();
+      this.bankTransfer.get('branchCode').markAsTouched();
+      this.bankTransfer.get('bankDescription').markAsTouched();
+      return false;
+    }
     if(this.bankTransfer.valid){
 
       let bankTransferSetting = {

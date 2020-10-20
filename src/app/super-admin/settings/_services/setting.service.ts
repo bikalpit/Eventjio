@@ -138,4 +138,5 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+ 
 }
