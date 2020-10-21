@@ -126,7 +126,7 @@ export class SingleEventServiceService {
     }),catchError(this.handleError));
   }
   
-  waitList(requestObject){
+  setSettingOption(requestObject){
     return this.http.post(`${environment.apiUrl}/set-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
@@ -190,12 +190,12 @@ export class SingleEventServiceService {
         }),catchError(this.handleError));
   }
    
-  fnDeleteEvent(requestObject){
-    return this.http.post(`${environment.apiUrl}/delete-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
-        map((res) => {
-            return res;
-     }),catchError(this.handleError));
-}
+    fnDeleteEvent(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
 
     getSavedlist(requestObject){
         return this.http.post(`${environment.apiUrl}/get-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
@@ -204,4 +204,12 @@ export class SingleEventServiceService {
         }),catchError(this.handleError));
     }
 
+
+    updateSetting(requestObject){
+        return this.http.post(`${environment.apiUrl}/set-setting-option-api
+        `,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 }

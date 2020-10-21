@@ -93,3 +93,25 @@
     height: 400px;
     margin: 0 auto;
 }
+
+::ng-deep .main{ 
+    padding: 0px !important;
+    .form-field{
+        width:49%;
+        display: inline-block;
+    }
+    .f-right{
+        float: right;
+    }
+    .save-btn{
+        background-color: #007BFF;
+        color: #ffffff;
+    }
+    .close-btn {
+        outline: none;
+        border: unset;
+        border-radius: 20px;
+        background-color: #B4D4FF;
+        color: #1172F4;
+    }
+}

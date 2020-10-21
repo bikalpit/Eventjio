@@ -139,6 +139,8 @@ export class SettingService {
         }),catchError(this.handleError));
     }
 
+   
+  
     addTax(requestObject){
         return this.http.post(`${environment.apiUrl}/addsaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {

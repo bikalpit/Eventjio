@@ -4,6 +4,7 @@ import { MaterialModule } from '../../_helpers/material.module';
 import { SingleEventDashboard } from './single-event-dashboard'
 import { SingleEventDashboardRoutingModule } from './single-event-dashboard-routing.module';
 import { EventSummaryComponent } from './event-summary/event-summary.component';
+import { createTrackingLinkAndView } from './event-summary/event-summary.component';
 import { EventAndTicketTypesComponent } from './event-and-ticket-types/event-and-ticket-types.component';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { DeleteComponent } from './delete/delete.component';
@@ -58,6 +59,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DialogEditEventImageUpload,
     AddNewTicketGroup,
     AddNewTicketType,
+    createTrackingLinkAndView,
   ],
     
     imports: [
@@ -89,6 +91,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       DialogEditEventImageUpload,
       AddNewTicketGroup,
       AddNewTicketType,
+      createTrackingLinkAndView,
     ],
   
   

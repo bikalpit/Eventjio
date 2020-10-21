@@ -687,7 +687,6 @@ fnlineBooking_fee(event){
    });
    }
    if(this.reportType=="lineItem"){
-     alert(1);
    }
  }
 }
@@ -843,7 +842,6 @@ export class BookTicketDialog {
         this.eventTicket = response.response;
         // console.log(this.eventTicket);
       }else{
-        // alert(2)
       }
      });
   }
@@ -884,14 +882,12 @@ export class BookTicketDialog {
      this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
     }
 
-      alert(this.subTotal)
       console.log(index,event);
       this.eventTicket[index].qty = event.key;
 
    this.subTotal =0;
    this.eventTicket.forEach(element=>{
    this.subTotal =this.eventTicket[index].prize
-    // alert( this.subTotal );
   })
   }
 
@@ -940,7 +936,6 @@ export class BookTicketDialog {
         this.ErrorService.successMessage(response.response);
  
       }else{
-        // alert(2)
       }
      });
    }
