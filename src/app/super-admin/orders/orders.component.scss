@@ -919,3 +919,84 @@
    
 
     //  end Book-ticket modal css
+   
+    // edit-order modal css
+
+    ::ng-deep .edit-form{
+        .edit-order{
+        .fa-asterisk{
+            color: #FF0000;
+            font-size: 5px;
+            position: relative;
+            bottom: 6px;
+        }
+    }
+    .general-admission{
+        .fa-asterisk{
+            color: #FF0000;
+            font-size: 5px;
+            position: relative;
+            bottom: 6px;
+        }
+    }
+  }
+    //cancel-order modal css
+
+    ::ng-deep .cancel-order{
+        .cancel-warn{
+            .note-theme{
+                background: #ffe6e6;
+                border-radius: 5px;
+                padding: 16px 15px;
+                display: flex;
+                .notif-icon{
+                    color: #FF0000;
+                    margin-right: 15px;
+                }
+                .notification{
+                    align-items: center;
+                    display: flex;
+                }
+                .note-message{
+                    margin-bottom: 0px;
+                    color: #595959;
+                    .notes{
+                        color: #2C2C2C;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        
+        .cancel-order-detail{           
+            padding: 20px 26px 10px 20px;
+            .order-det{
+                label{
+                    color: #181818;
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+                p{
+                    color: #595959;
+                    font-size: 14px;
+                }
+            }
+        .cancel-order-note{
+            margin-top: 15px;
+            .fa-asterisk{
+                color: #FF0000;
+                font-size: 5px;
+                position: relative;
+                bottom: 6px;
+            }
+        }
+        .order-cancel{
+            .order-cancel-btn{
+                background: #FF0000;
+                color: #FFFFFF;
+                margin-top: 30px;
+            }
+        }
+    }
+}
+    
