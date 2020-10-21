@@ -12,7 +12,7 @@
         </div>
         <form [formGroup]="trackingLinkandViewForm">
             <div class=" w-100" formArrayName ="trackingLinkandViewArr" *ngFor="let a of trackingLinkandViewForm.get('trackingLinkandViewArr')['controls']; let i = index">
-                <div [formGroupName]="i">
+                <div [formGroupName]="i" class="mt-2">
                     <div class="form--group form-field">
                         <label for="">Event Tag</label>
                         <input type="text" class="form-control" formControlName="event"/>
