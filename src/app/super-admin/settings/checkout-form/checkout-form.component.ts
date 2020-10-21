@@ -85,7 +85,7 @@ export class CheckoutFormComponent implements OnInit {
     });
   }
   
-  fnDeleteBuyerQuestion(selectedQuestion){
+  fnDeleteBuyerQuestion(selectedQuestion, i){
     alert('delete')
     const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
     this.allQuestionlist[0].buyer_questions.splice(index, 1);
@@ -112,7 +112,7 @@ export class CheckoutFormComponent implements OnInit {
     });
   }
 
-  fnDeleteAttendeeQuestion(selectedQuestion){
+  fnDeleteAttendeeQuestion(selectedQuestion, i){
     alert('delete')
     const index: number = this.allQuestionlist[0].attendee_questions.indexOf(selectedQuestion);
     this.allQuestionlist[0].attendee_questions.splice(index, 1);
