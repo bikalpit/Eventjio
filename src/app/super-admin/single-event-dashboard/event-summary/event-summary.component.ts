@@ -303,7 +303,7 @@ constructor(
   public dialogRef: MatDialogRef<createTrackingLinkAndView>,
 ){
   this.trackingLinkandViewForm = this._formBuilder.group({
-    trackingLinkandViewArr : this._formBuilder.group([this.createTrackingLinkandViewItem()])
+    trackingLinkandViewArr : this._formBuilder.array([this.createTrackingLinkandViewItem()])
   })
 }
 createTrackingLinkandViewItem() {
@@ -314,6 +314,7 @@ createTrackingLinkandViewItem() {
 }
 
 fntrackingLinkandViewAdd(){
+  alert("hi");
   this.trackingLinkandViewArr = this.trackingLinkandViewForm.get('trackingLinkandViewArr') as FormArray;
   this.trackingLinkandViewArr.push(this.createTrackingLinkandViewItem());
   this.trackingLinkandView = this.trackingLinkandViewForm.value.trackingLinkandViewArr;
