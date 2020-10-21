@@ -290,6 +290,7 @@ export class EventSummaryComponent implements OnInit {
   templateUrl: '../_dialogs/create-tracking-link-and-view.html',
 })
 export class createTrackingLinkAndView implements OnInit {
+  isLoaderAdmin:any;
   trackingLinkandViewForm:FormGroup;
   trackingLinkandViewArr:FormArray;
   trackingLinkandView = [];
@@ -306,6 +307,7 @@ constructor(
     trackingLinkandViewArr : this._formBuilder.array([this.createTrackingLinkandViewItem()])
   })
 }
+
 createTrackingLinkandViewItem() {
   return this._formBuilder.group({
     event: [''],
@@ -314,17 +316,15 @@ createTrackingLinkandViewItem() {
 }
 
 fntrackingLinkandViewAdd(){
-  alert("hi");
   this.trackingLinkandViewArr = this.trackingLinkandViewForm.get('trackingLinkandViewArr') as FormArray;
   this.trackingLinkandViewArr.push(this.createTrackingLinkandViewItem());
   this.trackingLinkandView = this.trackingLinkandViewForm.value.trackingLinkandViewArr;
 }
 
-onNoClick(): void {
+onNoClick(){
   this.dialogRef.close();
 }
 ngOnInit():void{
-
 }
 
 }
