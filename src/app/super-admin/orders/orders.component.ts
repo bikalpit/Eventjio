@@ -729,15 +729,15 @@ export class AddNewOrderDialog {
   }
   
   fnGetAllEventList(){
+
     let requestObject={
       "boxoffice_id": this.boxOfficeCode,
       "filter":'upcoming',
     }
+
     this.superadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allEventlist =response.response;
-        // this.ErrorService.successMessage(response.response);
-       
+        this.allEventlist = response.response;
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -840,7 +840,9 @@ export class BookTicketDialog {
     this.superadminService.fnGeteventTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventTicket = response.response;
-        // console.log(this.eventTicket);
+        this.eventTicket.forEach(element => {
+          element.qty = 0;
+        });
       }else{
       }
      });
@@ -853,7 +855,6 @@ export class BookTicketDialog {
   this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
     if(response.data == true){
       this.singleorderCustomer = response.response;
-      console.log(this.singleorderCustomer);
     }else{
       // alert(2)
     }
@@ -864,31 +865,44 @@ export class BookTicketDialog {
   //   "unique_code":""
   // }
 
-  fnAddQty(index,event){
-    console.log(event)
+  fnAddQty(index,value){
+   
+   
+    this.eventTicket[index].qty = value;
+    this.subTotal = 0;
+    
+    this.eventTicket.forEach(element=>{
+      if(parseInt(element.qty)  > 0){
+        var total = parseInt(element.qty) * parseInt(element.prize);
+        this.subTotal = this.subTotal + total + parseInt(element.booking_fee);
+      }
+   
+    });
 
-    if(event.key >= this.eventTicket[index].min_per_order){
-      this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-    }else{
+   
+  //   if(event.key >= this.eventTicket[index].min_per_order){
+  //     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+  //   }else{
 
-      event.key = this.eventTicket[index].min_per_order
-     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-    }
-    if(event.key <= this.eventTicket[index].max_per_order){
-      this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-    }else{
+  //     event.key = this.eventTicket[index].min_per_order
+  //    this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+  //   }
+  //   if(event.key <= this.eventTicket[index].max_per_order){
+  //     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+  //   }else{
 
-      event.key = this.eventTicket[index].max_per_order
-     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-    }
+  //     event.key = this.eventTicket[index].max_per_order
+  //    this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+  //   }
 
-      console.log(index,event);
-      this.eventTicket[index].qty = event.key;
+  //     console.log(index,event);
+  //     this.eventTicket[index].qty = event.key;
 
-   this.subTotal =0;
-   this.eventTicket.forEach(element=>{
-   this.subTotal =this.eventTicket[index].prize
-  })
+  //  this.subTotal =0;
+  //  this.eventTicket.forEach(element=>{
+  //     this.subTotal =this.eventTicket[index].prize
+  //  });
+
   }
 
 
