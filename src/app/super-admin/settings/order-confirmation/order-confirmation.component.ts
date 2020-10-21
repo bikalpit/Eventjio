@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import {SettingService} from '../_services/setting.service';
 import { ErrorService } from '../../../_services/error.service';
 import { AuthenticationService } from '../../../_services/authentication.service'
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -18,13 +19,16 @@ export class OrderConfirmationComponent implements OnInit {
   currentUser:any;
   globalOrderEmail:string = '';
   boxOfficeCode = localStorage.getItem('boxoffice_id');   
+  globalOrderPre:any;
 
   constructor(
     private _formBuilder: FormBuilder,
     private SettingService : SettingService,
     private ErrorService: ErrorService,
     public dialog: MatDialog,
-    private auth : AuthenticationService
+    private auth : AuthenticationService,
+    private sanitizer:DomSanitizer
+
   ) { 
     this.auth.currentUser.subscribe(x => this.currentUser = x);
   }
@@ -44,6 +48,7 @@ export class OrderConfirmationComponent implements OnInit {
     this.SettingService.getSettingsValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
           this.globalOrderEmail = response.response;
+          this.globalOrderPre = this.sanitizer.bypassSecurityTrustHtml(response.response);
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }

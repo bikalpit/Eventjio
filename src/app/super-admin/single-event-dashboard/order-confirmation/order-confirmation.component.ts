@@ -22,6 +22,7 @@ eventOrderEmail:string = '';
 boxOfficeCode = localStorage.getItem('boxoffice_id');   
 event_id = localStorage.getItem('selectedEventCode');   
 KisshtHtml;
+eventOrderEmailPre;
 
 constructor(
   private _formBuilder: FormBuilder,
@@ -91,6 +92,7 @@ constructor(
     this.eventServiceService.getSettings(requestObject).subscribe((response:any) => {
       if(response.data == true){
           this.eventOrderEmail = response.response;
+          this.eventOrderEmailPre = this.sanitizer.bypassSecurityTrustHtml(response.response);
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
