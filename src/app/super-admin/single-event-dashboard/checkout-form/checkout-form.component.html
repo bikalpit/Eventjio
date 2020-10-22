@@ -22,7 +22,7 @@
                 <div class="row mx-0">
                     <h5 class="col-md-6 mb-0 pl-0">Preview of global checkout form</h5>
                     <div class="col-md-6 d-flex pr-0">
-                        <button mat-raised-button class="ml-auto comm-btn">Edit global checkout form</button>
+                        <button routerLink="settings/checkout-form" mat-raised-button class="ml-auto comm-btn">Edit global checkout form</button>
                     </div>
                 </div>
                 <div class="preview-form">
@@ -30,11 +30,28 @@
                         <div class="col-md-12 checkout-form">
                             <div class="">
                                 <form>
-                                    <div class="form-group">
-                                        <label for="">Name <span><i class="fa fa-asterisk"></i></span> </label>
-                                        <input type="text" class="form-control" id="" placeholder="">
+                                    <div *ngFor="let buyerGlobelQuestionList of buyerGlobelQuestionList; let i=index" class="form-group">
+                                        <label for="">{{buyerGlobelQuestionList.label}} <span *ngIf="buyerGlobelQuestionList.required"><i class="fa fa-asterisk"></i></span> </label>
+                                        <input *ngIf="buyerGlobelQuestionList.type == 'text'" type="text" class="form-control" id="" placeholder="">
+                                        <select *ngIf="buyerGlobelQuestionList.type == 'dropdown'" class="form-control">
+                                            <option>Option 1</option>
+                                        </select>
+                                        <mat-radio-group *ngIf="buyerGlobelQuestionList.type == 'radio'" aria-label="Select an option">
+                                            <mat-radio-button class=" mr-2" value="1">Option 1</mat-radio-button>
+                                            <mat-radio-button class=" mr-2" value="2">Option 2</mat-radio-button>
+                                        </mat-radio-group>
+                                        <div class="" *ngIf="buyerGlobelQuestionList.type == 'checkbox'">
+                                            <mat-checkbox class="example-margin mr-2">Option 1</mat-checkbox>
+                                            <mat-checkbox class="example-margin mr-2">Option 2</mat-checkbox>
+                                        </div>
+                                        <div class="" *ngIf="buyerGlobelQuestionList.type == 'terms'">
+                                            <mat-checkbox class="example-margin">{{buyerGlobelQuestionList.terms}}</mat-checkbox>
+                                        </div>
+                                        <div class="" *ngIf="buyerGlobelQuestionList.type == 'marketing'">
+                                            <mat-checkbox class="example-margin">Do want receive marketing email?</mat-checkbox>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label for="">Email address <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
                                         <input type="email" class="form-control" id="" placeholder="">
                                     </div>
@@ -61,14 +78,31 @@
                                     <div class="form-group">
                                         <label for="">Postcode <span><i class="fa fa-asterisk" ></i></span> </label>
                                         <input type="text" class="form-control" id="" placeholder="">
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                             <div class="general-admission">
-                                <h5 class="main-head">General Admission 1</h5>
-                                <div class="form-group">
-                                    <label for="">Attendee name <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
-                                    <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="">
+                                <h5 class="main-head">Attendee Form</h5>
+                                <div *ngFor="let attendeeGlobelQuestionList of attendeeGlobelQuestionList; let i=index" class="form-group">
+                                    <label for="">{{attendeeGlobelQuestionList.label}} <span *ngIf="attendeeGlobelQuestionList.required"><i class="fa fa-asterisk"></i></span> </label>
+                                    <input *ngIf="attendeeGlobelQuestionList.type == 'text'" type="text" class="form-control" id="" placeholder="">
+                                    <select *ngIf="attendeeGlobelQuestionList.type == 'dropdown'" class="form-control">
+                                        <option>Option 1</option>
+                                    </select>
+                                    <mat-radio-group *ngIf="attendeeGlobelQuestionList.type == 'radio'" aria-label="Select an option">
+                                        <mat-radio-button value="1">Option 1</mat-radio-button>
+                                        <mat-radio-button value="2">Option 2</mat-radio-button>
+                                    </mat-radio-group>
+                                    <div class="" *ngIf="attendeeGlobelQuestionList.type == 'checkbox'">
+                                        <mat-checkbox class="example-margin">Option 1</mat-checkbox>
+                                        <mat-checkbox class="example-margin">Option 2</mat-checkbox>
+                                    </div>
+                                    <div class="" *ngIf="attendeeGlobelQuestionList.type == 'terms'">
+                                        <mat-checkbox class="example-margin">{{attendeeGlobelQuestionList.terms}}</mat-checkbox>
+                                    </div>
+                                    <div class="" *ngIf="attendeeGlobelQuestionList.type == 'marketing'">
+                                        <mat-checkbox class="example-margin">Do want receive marketing email?</mat-checkbox>
+                                    </div>
                                 </div>
                             </div>
                         </div>

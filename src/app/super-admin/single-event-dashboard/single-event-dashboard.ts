@@ -4,7 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { SuperadminService } from '../_services/superadmin.service';
 import { ErrorService } from '../../_services/error.service';
 //import { DatePipe} from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 import { SingleEventServiceService } from './_services/single-event-service.service';
 
@@ -20,6 +20,9 @@ export class SingleEventDashboard implements OnInit {
   eventId:string = localStorage.getItem('selectedEventCode');
   eventDetail:any;
   boxOfficeDetail:any;
+  currentUrl: string;
+  pageSlug:any;
+  eventURL:any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -31,6 +34,12 @@ export class SingleEventDashboard implements OnInit {
 
   ) {
     this.eventSideMenu = true;
+    
+    this.router.events.subscribe(event => {
+      if (event instanceof RouterEvent) this.handleRoute(event);
+    });
+    
+    this.eventURL = environment.urlForLink+'/preview-events/'+this.eventId;
   }
 
   ngOnInit(): void {
@@ -99,6 +108,93 @@ export class SingleEventDashboard implements OnInit {
 
   PreviewPage(){
     window.open(environment.APPURL+this.boxOfficeDetail.box_office_link+'/'+this.eventId);
+  }
+
+  dynamicSort(property: string) {
+    let sortOrder = 1;
+
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+
+    return (a, b) => {
+      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    };
+  }
+
+  private getUrl(event: any) {
+    if (event) {
+      this.pageSlug = event.url.split('/' , 2)
+      const url = event.url;
+      const state = (event.state) ? event.state.url : null;
+      const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
+      const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
+      if (longest.length > 0) return longest[0];
+    }
+  }
+
+  private cleanUrl(url: string) {
+    if (url) {
+      let cleanUrl = url.substr(1);
+      const slashIndex = cleanUrl.indexOf("/");
+      if (slashIndex >= 0) {
+        cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
+        return cleanUrl;
+      } else {
+        return null;
+      }
+    } else return null;
+  }
+
+  private urlIsNew(url: string) {
+    return !!url && url.length > 0 && url !== this.currentUrl;
+  }
+  private handleRoute(event: RouterEvent) {
+    const url = this.getUrl(event);
+    this.currentUrl = url;
+    console.log(url)
+    console.log(this.currentUrl)
+    if(url === '/super-admin/single-event-dashboard/duplicate'){
+      this.eventSideMenu = false;
+    }else{
+      this.eventSideMenu = true;
+    }
+    if(url === '/super-admin/single-event-dashboard/event-summary' ){
+      this.pageName = 'event-summary';
+    }
+    else if(url === '/super-admin/single-event-dashboard'){
+      this.pageName= 'event-summary'
+    }
+    else if(url === '/super-admin/single-event-dashboard/issued-ticket'){
+      this.pageName= 'issued-ticket'
+    }
+    else if(url === '/super-admin/single-event-dashboard/waitilist-signup'){
+      this.pageName= 'waitilist-signup'
+    }
+    else if(url === '/super-admin/single-event-dashboard/broadcast'){
+      this.pageName= 'broadcast'
+    }
+    else if(url === '/super-admin/single-event-dashboard/event-and-ticket-types'){
+      this.pageName= 'event-and-ticket-types'
+    }
+    else if(url === '/super-admin/single-event-dashboard/order-confirmation'){
+      this.pageName= 'order-confirmation'
+    }
+    else if(url === '/super-admin/single-event-dashboard/checkout-form'){
+      this.pageName= 'checkout-form'
+    }
+    else if(url === '/super-admin/single-event-dashboard/duplicate'){
+      this.pageName= 'duplicate'
+    }
+    else if(url === '/super-admin/single-event-dashboard/delete'){
+      this.pageName= 'delete'
+    }
+  }
+
+  previewEvent(){
+    window.open(this.eventURL,'_blank');
   }
   
 }

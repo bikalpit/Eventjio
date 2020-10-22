@@ -180,6 +180,12 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
-
+    
+    fnGetAllEventList(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-allboxoffice-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 
 }
