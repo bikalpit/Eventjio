@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular
 import { SettingService } from '../_services/setting.service';
 import { DatePipe} from '@angular/common';
 import { ErrorService } from '../../../_services/error.service';
+import { environment } from '../../../../environments/environment'
 
 export interface DialogData {
   animal: string;
@@ -227,9 +228,10 @@ export class TeamAccessComponent implements OnInit {
         let inviteFormData ={
           'boxoffice_id' : this.boxofficeId,
           "email_id": this.email_id,
-          "role": this.role,
+          "role": 'TM',
           "permission": this.role,
           "sub_permission" : this.sub_permission,
+          "url" : environment.urlForLink+'/sign-up?teamEmail=',
         }   
 
 
