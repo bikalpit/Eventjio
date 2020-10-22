@@ -2,6 +2,9 @@
 .main{
     font-family: Poppins, Regular;
 }
+.page-item.active .page-link{
+    color: #f7eeee !important;
+}
 // modal css
 ::ng-deep .modal-dialog{
     margin:0px;

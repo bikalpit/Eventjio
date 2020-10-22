@@ -11,7 +11,7 @@ import { DatePipe, JsonPipe} from '@angular/common';
 import { ExportToCsv } from 'export-to-csv';
 import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
 import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
-
+import {  environment } from '../../../environments/environment'
 
 export interface DialogData {
   animal: string;
@@ -34,7 +34,17 @@ export class OrdersComponent implements OnInit {
   eventCode:any;
   displayedColumns: string[] = ['orderid','status','name','datetime','event','value','action'];
   search="";
-
+  
+  ordersApiUrl:any =  `${environment.apiUrl}/get-all-order`;
+  
+  current_page_orders:any;
+  first_page_url_orders:any;
+  last_page_orders:any;
+  last_page_url_orders:any;
+  next_page_url_orders:any;
+  prev_page_url_orders:any;
+  path_orders:any;
+  
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -89,36 +99,37 @@ export class OrdersComponent implements OnInit {
      });
   }  
 
- exportOredr() {
-  const dialogRef = this.dialog.open(ExportOrderDialog, {
-    width: '600px',
-  });
+  exportOredr() {
+    const dialogRef = this.dialog.open(ExportOrderDialog, {
+      width: '600px',
+    });
 
-   dialogRef.afterClosed().subscribe(result => {
-    this.animal = result;
-   });
-  
-}
-eventSummary() {
-  const dialogRef = this.dialog.open(eventSummaryDialog, {
-    width: '700px',
-    data :{selecetedEvent : this.eventCode}
-  });
+    dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+    });
+    
+  }
 
-   dialogRef.afterClosed().subscribe(result => {
-    this.animal = result;
-   });
-}
+  eventSummary() {
+    const dialogRef = this.dialog.open(eventSummaryDialog, {
+      width: '700px',
+      data :{selecetedEvent : this.eventCode}
+    });
 
-addNewOredr() {
-  const dialogRef = this.dialog.open(AddNewOrderDialog, {
-    width: '600px',
-  });
+    dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+    });
+  }
 
-   dialogRef.afterClosed().subscribe(result => {
-    this.animal = result;
-   });
-}
+  addNewOredr() {
+    const dialogRef = this.dialog.open(AddNewOrderDialog, {
+      width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+    });
+  }
 
 // orderSearch(){
 // this.fngetallOrders();
@@ -128,28 +139,56 @@ addNewOredr() {
 //   this.fngetallOrders();
 // }
 
-fngetallOrders(){
-  this.isLoaderAdmin = true;
-  let requestObject ={
-    'search':this.search,
-    "boxoffice_id":"box16014425204331",
-    "event_id":"eve16019834665225",
-    "order_status":"P",
-  }
-  this.superadminService. fnGetallOrders(requestObject).subscribe((response:any) => {
-    if(response.data == true){
-      this.allorderlist =  response.response;
-      this.allorderlist.order_date =  this.datePipe.transform(this.allorderlist.order_date,"EEE MMM d, y")
-      // console.log( this.allorderlist.order_date);
-    }else{
-      // alert(2)
+  fngetallOrders(){
+    this.isLoaderAdmin = true;
+    let requestObject ={
+      'search':this.search,
+      "boxoffice_id":"box16014425204331",
+      "event_id":"eve16019834665225",
+      "order_status":"P",
     }
-    this.isLoaderAdmin = false;
-   });
-  
-}
+
+    this.superadminService.fnGetallOrders(this.ordersApiUrl,requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.allorderlist =  response.response.data;
+
+        this.current_page_orders = response.response.current_page;
+        this.first_page_url_orders = response.response.first_page_url;
+        this.last_page_orders = response.response.last_page;
+        this.last_page_url_orders = response.response.last_page_url;
+        this.next_page_url_orders = response.response.next_page_url;
+        this.prev_page_url_orders = response.response.prev_page_url;
+        this.path_orders = response.response.path;
 
 
+        this.allorderlist.order_date =  this.datePipe.transform(this.allorderlist.order_date,"EEE MMM d, y")
+        // console.log( this.allorderlist.order_date);
+      }else{
+        // alert(2)
+      }
+      this.isLoaderAdmin = false;
+    });
+    
+  }
+
+  arrayOne_orders(n: number): any[] {
+    return Array(n);
+  }
+
+    
+  navigateTo_orders(api_url){
+    this.ordersApiUrl=api_url;
+    if(this.ordersApiUrl){
+      this.fngetallOrders();
+    }
+  }
+
+  navigateToPageNumber_orders(index){
+    this.ordersApiUrl=this.path_orders+'?page='+index;
+    if(this.ordersApiUrl){
+      this.fngetallOrders();
+    }
+  }
 
 }
 

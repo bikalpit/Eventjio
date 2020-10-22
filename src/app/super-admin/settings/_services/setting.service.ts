@@ -125,6 +125,9 @@ export class SettingService {
         }),catchError(this.handleError));
     }
    
+
+   
+
     removeImage(requestObject){
         return this.http.post(`${environment.apiUrl}/remove-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
