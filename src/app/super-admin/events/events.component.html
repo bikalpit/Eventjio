@@ -47,11 +47,11 @@
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                             <ng-template class="popover custom-popover" #popContent>
                                                 <div class="px-3  border-bottom">
-                                                    <i class="fa fa-eye mr-2"></i><span>View event page</span>
+                                                    <i class="fa fa-eye mr-2" ></i><span>View event page</span>
                                                 </div>
 
                                                 <div class="px-3  border-bottom">
-                                                    <i class="fa fa-bar-chart-o mr-2"></i><span>Event Summary</span>
+                                                    <i class="fa fa-bar-chart-o mr-2" (click)="fnSelectSingleEvent(element.unique_code)"></i><span (click)="fnSelectSingleEvent(element.unique_code)">Event Summary</span>
                                                 </div>
 
                                                 <div class="px-3  border-bottom">

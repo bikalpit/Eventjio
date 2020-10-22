@@ -98,6 +98,16 @@ export class OrdersComponent implements OnInit {
    });
   
 }
+eventSummary() {
+  const dialogRef = this.dialog.open(eventSummaryDialog, {
+    width: '700px',
+    data :{selecetedEvent : this.eventCode}
+  });
+
+   dialogRef.afterClosed().subscribe(result => {
+    this.animal = result;
+   });
+}
 
 addNewOredr() {
   const dialogRef = this.dialog.open(AddNewOrderDialog, {
@@ -964,6 +974,7 @@ export class BookTicketDialog {
       this.animal = result;
      });
   }  
+
   cancelOrder(){
     const dialogRef = this.dialog.open(cancelOrderDialog, {
       width: '700px',
@@ -1059,6 +1070,13 @@ export class EditorderDialog {
       if(response.data == true){
         this.singleorderCustomer = response.response;
         this.editTicket.controls['attendee_name'].setValue(this.singleorderCustomer.attendee_name)
+        this.editTicket.controls['firstname'].setValue(this.singleorderCustomer.customer.firstname)
+        this.editTicket.controls['lastname'].setValue(this.singleorderCustomer.customer.lastname)
+        this.editTicket.controls['email'].setValue(this.singleorderCustomer.customer.email)
+        this.editTicket.controls['repeat_email'].setValue(this.singleorderCustomer.customer.email)
+        this.editTicket.controls['address_1'].setValue(this.singleorderCustomer.customer.address)
+        this.editTicket.controls['phone'].setValue(this.singleorderCustomer.customer.phone)
+        
         console.log(this.singleorderCustomer);
       }else{
         // alert(2)
@@ -1102,6 +1120,108 @@ export class cancelOrderDialog {
     }
   });
   }
+
+}
+
+@Component({
+  selector: 'summary-order',
+  templateUrl: '../_dialogs/order-summary.html',
+})
+export class eventSummaryDialog { 
+  singleorderCustomer:any;
+  animal :any;
+  eventTicket:any;
+  selectedEventCode:any;
+
+  constructor(
+    public dialogRef: MatDialogRef<eventSummaryDialog>,
+    private http: HttpClient,
+    public dialog: MatDialog,
+    public superadminService : SuperadminService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.selectedEventCode = this.data.selecetedEvent;
+     }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+    // this.fnGetsingleOrder();
+    this.fnGeteventTicket();
+  }
+
+  cancelOrder(){
+    const dialogRef = this.dialog.open(cancelOrderDialog, {
+      width: '700px',
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }
+  
+  editOrder(){
+    const dialogRef = this.dialog.open(EditorderDialog, {
+      width: '700px',
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }  
+
+  orderInvoice() {
+    const dialogRef = this.dialog.open(OrderInvoiceDialog, {
+      width: '700px',
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }  
+    
+  fnGetsingleOrder(){
+    let requestObject={
+    "unique_code":"ord1602046981560",
+  }
+  this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
+    if(response.data == true){
+      this.singleorderCustomer = response.response;
+      console.log(this.singleorderCustomer);
+    }else{
+      // alert(2)
+    }
+  });
+  }
+
+  fnGeteventTicket(){
+    let requestObject={
+      "event_id":this.selectedEventCode,
+    }
+    this.superadminService.fnGeteventTicket(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.eventTicket = response.response;
+        this.eventTicket.forEach(element => {
+          element.qty = 0;
+        });
+      }else{
+      }
+     });
+  }
+
+  // fnGetsingleOrder(){
+  //   let requestObject={
+  //   "unique_code":"ord1602046981560",
+  // }
+  // this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
+  //   if(response.data == true){
+  //     this.singleorderCustomer = response.response;
+  //     console.log(this.singleorderCustomer);
+  //   }else{
+  //     // alert(2)
+  //   }
+  // });
+  // }
 
 }
 
