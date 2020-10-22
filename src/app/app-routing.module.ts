@@ -7,6 +7,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { Role } from './_models';
 import { AuthGuard } from './_helpers/auth.guard';
 import { PreviewEventsComponent } from './preview-events/preview-events.component';
+import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-office.component'
 
 
 const routes: Routes = [
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'preview-events/:id', 
     component: PreviewEventsComponent
+  },
+  {
+    path: 'box-office', 
+    component: PreviewBoxOfficeComponent
   },
 ];
 

@@ -80,23 +80,21 @@
                     <div class="py-3 font-weight-bold ml-2">
                         Directions
                     </div>
-                    <div class="col-md-7 p-2">
+                    <!-- <div class="col-md-7 p-2">
                         <mat-select name="" id="" class="form-control">
                             <mat-option value="">For HTML Websites</mat-option>
                             <mat-option value="">1</mat-option>
                             <mat-option value="">2</mat-option>
                             <mat-option value="">3</mat-option>
                         </mat-select>
-                    </div>
+                    </div> -->
 
                     <div class="py-2 mt-2">
                         Copy and paste HTML code bellow in to your website and the booking widget will show on your website.
                     </div>
 
                     <div class="html-code-div mt-2 border rounded p-2">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum temporibus cum quasi corporis? Hic fugiat aut ea autem nostrum quaerat voluptatem commodi, obcaecati ad nesciunt pariatur velit, facere quas quidem. Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit. Adipisci laborum beatae fugit fugiat, quo omnis magni veritatis sunt necessitatibus harum eaque earum. Omnis non doloribus obcaecati odit distinctio rerum a! Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Reprehenderit minus quisquam labore laudantium! Natus, illo vel. Illum minima vitae quae, ducimus, deserunt distinctio, esse quisquam harum asperiores temporibus numquam rem.
+                        {{embededCode}}
                     </div>
 
                     <div class="py-3">
@@ -124,7 +122,7 @@
 
         <div class="p-3 border rounded ">
             <div class="row">
-                <div class="px-3 font-weight-bold">
+                <div class="col-12 px-3 font-weight-bold">
                     Please note that any color changes will affect all of your widgets.
                 </div>
 
@@ -132,16 +130,16 @@
                     <div class="my-2">
                         <label for="">Theme</label>
                         <mat-select name="" id="" class="form-control">
-                        <mat-option value="">Select a theme</mat-option>
-                        <mat-option value="">Classic Blue</mat-option>
-                        <mat-option value="">Green Shades</mat-option>
-                        <mat-option value="">Gray Scale</mat-option>
-                        <mat-option value="">Sunshine</mat-option>
-                        <mat-option value="">Black and White</mat-option>
-                        <mat-option value="">Turquoise</mat-option>
-                        <mat-option value="">Firenze</mat-option>
-                        <mat-option value="">Phonedro</mat-option>
-                    </mat-select>
+                            <mat-option value="">Select a theme</mat-option>
+                            <mat-option value="">Classic Blue</mat-option>
+                            <mat-option value="">Green Shades</mat-option>
+                            <mat-option value="">Gray Scale</mat-option>
+                            <mat-option value="">Sunshine</mat-option>
+                            <mat-option value="">Black and White</mat-option>
+                            <mat-option value="">Turquoise</mat-option>
+                            <mat-option value="">Firenze</mat-option>
+                            <mat-option value="">Phonedro</mat-option>
+                        </mat-select>
                     </div>
                     <div class="my-3">
                         Theme Colors
@@ -156,7 +154,7 @@
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
                                         <div class="d-inline-block p-2">{{bgColor}}</div>
-                                        <input class="bg-color-code d-inline-block ml-auto m-2" [(colorPicker)]="bgColor" [style.background]="bgColor" (value)="bgColor"/> 
+                                        <input class="bg-color-code d-inline-block ml-auto m-2" [(colorPicker)]="bgColor" [style.background]="bgColor" (value)="bgColor" />
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +170,7 @@
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
                                         <div class="d-inline-block p-2">{{bgTextColor}}</div>
-                                        <input class="text-color-code d-inline-block ml-auto m-2" [(colorPicker)]="bgTextColor" [style.background]="bgTextColor" (value)="bgTextColor"/> 
+                                        <input class="text-color-code d-inline-block ml-auto m-2" [(colorPicker)]="bgTextColor" [style.background]="bgTextColor" (value)="bgTextColor" />
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +187,7 @@
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
                                         <div class="d-inline-block p-2">{{headerColor}}</div>
-                                        <input class="header-color-code d-inline-block ml-auto m-2" [(colorPicker)]="headerColor" [style.background]="headerColor" (value)="headerColor"/> 
+                                        <input class="header-color-code d-inline-block ml-auto m-2" [(colorPicker)]="headerColor" [style.background]="headerColor" (value)="headerColor" />
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +203,7 @@
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
                                         <div class="d-inline-block p-2">{{headerTextColor}}</div>
-                                        <input class="header-text-color-code d-inline-block ml-auto m-2" [(colorPicker)]="headerTextColor" [style.background]="headerTextColor" (value)="headerTextColor"/> 
+                                        <input class="header-text-color-code d-inline-block ml-auto m-2" [(colorPicker)]="headerTextColor" [style.background]="headerTextColor" (value)="headerTextColor" />
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +219,7 @@
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
                                         <div class="d-inline-block p-2">{{btnColor}}</div>
-                                        <input class="btn-color-code d-inline-block ml-auto m-2" [(colorPicker)]="btnColor" [style.background]="btnColor" (value)="btnColor"/> 
+                                        <input class="btn-color-code d-inline-block ml-auto m-2" [(colorPicker)]="btnColor" [style.background]="btnColor" (value)="btnColor" />
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +235,7 @@
                                 <div class="text-center px-3 color-code rounded">
                                     <div class="row">
                                         <div class="d-inline-block p-2">{{btnTextColor}}</div>
-                                        <input class="btn-text-color-code d-inline-block ml-auto m-2" [(colorPicker)]="btnTextColor" [style.background]="btnTextColor" (value)="btnTextColor"/> 
+                                        <input class="btn-text-color-code d-inline-block ml-auto m-2" [(colorPicker)]="btnTextColor" [style.background]="btnTextColor" (value)="btnTextColor" />
                                     </div>
                                 </div>
                             </div>
@@ -258,8 +256,8 @@
 
         <div class="px-3 pt-0 preview-example" [(colorPicker)]="bgTextColor" [style.color]="bgTextColor">
             <div class="row">
-                <div class="preview"  [(colorPicker)]="bgColor" [style.background]="bgColor">    
-                    <div class="col-12 p-3 ticket-header" [(colorPicker)]="headerColor" [style.background]="headerColor"  [(colorPicker)]="headerTextColor" [style.color]="headerTextColor"> 
+                <div class="preview" [(colorPicker)]="bgColor" [style.background]="bgColor">
+                    <div class="col-12 p-3 ticket-header" [(colorPicker)]="headerColor" [style.background]="headerColor" [(colorPicker)]="headerTextColor" [style.color]="headerTextColor">
                         <div>
                             Sparkling Events
                         </div>
@@ -302,7 +300,7 @@
                                     <mat-option value="0">0</mat-option>
                                     <mat-option value="1">1</mat-option>
                                     <mat-option value="2">2</mat-option>
-                            </mat-select>
+                                </mat-select>
                             </div>
                         </div>
                         <hr>
@@ -322,7 +320,7 @@
                     </div>
 
                     <div class="col-12 px-5 text-right">
-                        <button mat-flat-button class="next-btn px-5" [(colorPicker)]="btnColor" [style.background]="btnColor"  [(colorPicker)]="btnTextColor" [style.color]="btnTextColor">Next</button>
+                        <button mat-flat-button class="next-btn px-5" [(colorPicker)]="btnColor" [style.background]="btnColor" [(colorPicker)]="btnTextColor" [style.color]="btnTextColor">Next</button>
                     </div>
                     <div class="col-12 px-5 font-weight-bold pb-2">
                         DISCRIPTION

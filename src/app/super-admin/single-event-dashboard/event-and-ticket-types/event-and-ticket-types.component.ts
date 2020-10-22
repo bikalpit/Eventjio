@@ -183,13 +183,11 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   bannerStyle1(){
     if (this.thumbZoomLavel > 1){
-      console.log(this.thumbZoomLavel)
       return {
         backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
         backgroundSize: this.thumbZoomLavel+'00'
       }
     }else{
-      console.log(this.thumbZoomLavel)
       return {
         backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
         backgroundSize: 'cover'

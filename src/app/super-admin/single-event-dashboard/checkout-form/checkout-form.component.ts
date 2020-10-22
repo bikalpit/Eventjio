@@ -22,9 +22,13 @@ export class CheckoutFormComponent implements OnInit {
   isLoaderAdmin:boolean = false;
   
   eventId:any;
+  boxofficeId:any;
   buyerQuestionList :any = [];
   attendeeQuestionList :any = [];
   allQuestionlist:any
+  buyerGlobelQuestionList :any = [];
+  attendeeGlobelQuestionList :any = [];
+  allGlobelQuestionlist:any
   reportType:any = 'global';
 
 
@@ -38,7 +42,11 @@ export class CheckoutFormComponent implements OnInit {
     if(localStorage.getItem('selectedEventCode')){
       this.eventId = localStorage.getItem('selectedEventCode');  
     }
+    if(localStorage.getItem('boxoffice_id')){
+      this.boxofficeId = localStorage.getItem('boxoffice_id');  
+    }
     this.getAllQuestions();
+    this.getGlobleQuestions();
 
    }
 
@@ -108,6 +116,28 @@ export class CheckoutFormComponent implements OnInit {
         this.buyerQuestionList = this.buyerQuestionList.sort(this.dynamicSort("index"))
         this.attendeeQuestionList = this.allQuestionlist[0].attendee_questions
         this.attendeeQuestionList = this.attendeeQuestionList.sort(this.dynamicSort("index"))
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
+  }
+
+  getGlobleQuestions(){
+    this.isLoaderAdmin = true;
+    let requestObject ={
+      'boxoffice_id' : this.boxofficeId,
+      'event_id' :'NULL',
+      'option_key':'checkout_form',
+    }   
+    this.SingleEventServiceService.getSettings(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.allGlobelQuestionlist = JSON.parse(response.response)
+        console.log(this.allGlobelQuestionlist[0])
+        this.buyerGlobelQuestionList = this.allGlobelQuestionlist[0].buyer_questions
+        this.buyerGlobelQuestionList = this.buyerGlobelQuestionList.sort(this.dynamicSort("index"))
+        this.attendeeGlobelQuestionList = this.allGlobelQuestionlist[0].attendee_questions
+        this.attendeeGlobelQuestionList = this.attendeeGlobelQuestionList.sort(this.dynamicSort("index"))
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -227,47 +257,6 @@ export class CheckoutFormComponent implements OnInit {
     this.getAllQuestions();
   }
 
-
-  
-  
- 
-
-  // addBuyerQuestion() {
-  //   const dialogRef = this.dialog.open(addBuyeronlyQuestionDialog, {
-  //     width: '550px',
-  //   });
-
-  //    dialogRef.afterClosed().subscribe(result => {
-  //     this.animal = result;
-  //    });
-  // }
-  // addAttendeeQuestion(){
-  //   const dialogRef = this.dialog.open(addAttendeeonlyQuestionDialog, {
-  //     width: '550px',
-  //   });
-
-  //    dialogRef.afterClosed().subscribe(result => {
-  //     this.animal = result;
-  //    });
-  // }
-  // editBuyerName() {
-  //   const dialogRef = this.dialog.open(editBuyerNameDialog, {
-  //     width: '550px',
-  //   });
-
-  //    dialogRef.afterClosed().subscribe(result => {
-  //     this.animal = result;
-  //    });
-  // }
-  // editAttendeeName(){
-  //   const dialogRef = this.dialog.open(editAttendeeNameDialog, {
-  //     width: '550px',
-  //   });
-
-  //    dialogRef.afterClosed().subscribe(result => {
-  //     this.animal = result;
-  //    });
-  // }
   
 }
 @Component({
@@ -401,60 +390,129 @@ export class addBuyeronlyQuestionDialog {
 }
 @Component({
   selector: 'add-buyer-question',
-  templateUrl: '../_dialogs/edit-buyer-name.html',
-})
-export class editBuyerNameDialog { 
-  
-  constructor(
-    public dialogRef: MatDialogRef<editBuyerNameDialog>,
-    private http: HttpClient,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  ngOnInit() {
-  }
-  
-}
-@Component({
-  selector: 'add-buyer-question',
   templateUrl: '../_dialogs/add-attendee-question.html',
 })
 export class addAttendeeonlyQuestionDialog { 
   optionValue:any;
+  status = true;
+  newAttendeeQForm: FormGroup
+  isLoaderAdmin:boolean = false;
+  questionRequired:boolean = false;
+  boxofficeId:any;
+  optionField:boolean = false;
+  termsField:boolean = false;
+  defaultQuestion:boolean = false;
+  allQuestionlist:any = [];
+  singleQuestion:any;
   constructor(
     public dialogRef: MatDialogRef<addAttendeeonlyQuestionDialog>,
     private http: HttpClient,
+    private SingleEventServiceService : SingleEventServiceService,
+    private ErrorService : ErrorService,
+    private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.boxofficeId = this.data.boxofficeId
+      this.allQuestionlist = this.data.allQuestionlist
+      this.singleQuestion = this.data.singleQuestion
+      this.newAttendeeQForm = this._formBuilder.group({
+        type: ['',[Validators.required]],
+        label: ['',[Validators.required]],
+        options: [''],
+        terms: [''],
+      });
+
+      
+      if(this.singleQuestion){
+        this.defaultQuestion = this.singleQuestion.default
+        this.newAttendeeQForm.controls['label'].setValue(this.singleQuestion.label);
+        this.newAttendeeQForm.controls['type'].setValue(this.singleQuestion.type);
+        this.newAttendeeQForm.controls['options'].setValue(this.singleQuestion.options);
+        this.newAttendeeQForm.controls['terms'].setValue(this.singleQuestion.terms);
+        this.questionRequired = this.singleQuestion.required
+        if(this.singleQuestion.type == 'text' || this.singleQuestion.type == 'marketing'){
+          this.optionField = false;
+          this.termsField = false;
+        }else if(this.singleQuestion.type == 'terms'){
+          this.optionField = false;
+          this.termsField = true;
+        }else{
+          this.optionField = true;
+          this.termsField = false;
+        }
+      }
+
     }
+  
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
   ngOnInit() {
   }
-  fnAttendeeResponse(event){
-    this.optionValue=event;
-  }
-}
-@Component({
-  selector: 'add-buyer-question',
-  templateUrl: '../_dialogs/edit-attendee-name.html',
-})
-export class editAttendeeNameDialog { 
-  
-  constructor(
-    public dialogRef: MatDialogRef<editAttendeeNameDialog>,
-    private http: HttpClient,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  ngOnInit() {
+  fnChangeQType(event){
+    console.log(event)
+    if(event.value == 'text' || event.value == 'marketing'){
+      this.optionField = false;
+      this.termsField = false;
+    }else if(event.value == 'terms'){
+      this.optionField = false;
+      this.termsField = true;
+    }else{
+      this.optionField = true;
+      this.termsField = false;
+    }
   }
   
+  fnChangeRequired(event){
+    this.questionRequired = event.checked
+  }
+
+  createNewAttendeeQuestion(){
+    console.log(this.newAttendeeQForm)
+    if(this.newAttendeeQForm.invalid){
+      this.newAttendeeQForm.get('label').markAsTouched();
+      this.newAttendeeQForm.get('type').markAsTouched();
+      return false;
+    }
+    if(this.singleQuestion){
+      let newQuestion = {
+        'label' : this.newAttendeeQForm.get('label').value,
+        'required' : this.questionRequired,
+        'type' : this.newAttendeeQForm.get('type').value,
+        'options' : this.newAttendeeQForm.get('options').value,
+        'terms' : this.newAttendeeQForm.get('terms').value,
+        'index' : this.singleQuestion.index,
+      }
+      const index: number = this.allQuestionlist[0].attendee_questions.indexOf(this.singleQuestion);
+      this.allQuestionlist[0].attendee_questions.splice(index, 1);
+      this.allQuestionlist[0].attendee_questions.push(newQuestion);
+      this.allQuestionlist[0].attendee_questions = this.allQuestionlist[0].attendee_questions.sort(this.dynamicSort("index"))
+    }else{
+      let newQuestion = {
+        'label' : this.newAttendeeQForm.get('label').value,
+        'required' : this.questionRequired,
+        'type' : this.newAttendeeQForm.get('type').value,
+        'options' : this.newAttendeeQForm.get('options').value,
+        'terms' : this.newAttendeeQForm.get('terms').value,
+        'index' : this.allQuestionlist[0].attendee_questions.length+1,
+      }
+      this.allQuestionlist[0].attendee_questions.push(newQuestion);
+      this.allQuestionlist[0].attendee_questions = this.allQuestionlist[0].attendee_questions.sort(this.dynamicSort("index"))
+    }
+    
+    console.log(this.allQuestionlist)
+    this.dialogRef.close(this.allQuestionlist);
+  }
 }
