@@ -161,7 +161,7 @@ export class AddSalesTax {
   boxOfficeCode:any;
   isLoaderAdmin:any;
   singleTaxData:any;
-  taxStatus = 'N';
+  taxStatus:any = 'N';
 
   constructor(
     private _formBuilder:FormBuilder,
@@ -172,19 +172,19 @@ export class AddSalesTax {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.singleTaxData = this.data.singleTaxData
-      this.taxStatus = this.data.taxStatus
+      // this.taxStatus = this.data.taxStatus
       console.log(this.singleTaxData);
 
       this.addTaxForm = this._formBuilder.group({
         name:['',[Validators.required]],
         value:['',[Validators.required,Validators.pattern('[0-9.]{0,1000}')]],
-        status: ['']
+        status: this.taxStatus
       })
 
       if(this.singleTaxData){
         this.addTaxForm.controls['name'].setValue(this.singleTaxData.name)
         this.addTaxForm.controls['value'].setValue(this.singleTaxData.value)
-        this.addTaxForm.controls['status'].setValue(this.singleTaxData.status)
+        this.addTaxForm.controls['status'].setValue(this.taxStatus)
       }
     }
 
@@ -199,6 +199,7 @@ export class AddSalesTax {
 
     fnOnSubmit(){
       if(this.addTaxForm.valid){
+
         if(this.singleTaxData){
           let singleTaxData = {
             "boxoffice_id" : this.boxOfficeCode,
@@ -248,7 +249,7 @@ export class AddSalesTax {
     }else{
       this.addTaxForm.get("name").markAsTouched();
       this.addTaxForm.get("value").markAsTouched();
-      this.addTaxForm.get("status").markAsTouched();
+      // this.addTaxForm.get("status").markAsTouched();
       }
     }
 
