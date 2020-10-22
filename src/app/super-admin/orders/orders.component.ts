@@ -33,6 +33,10 @@ export class OrdersComponent implements OnInit {
   eventCode:any;
   displayedColumns: string[] = ['orderid','status','name','datetime','event','value','action'];
   search="";
+  start_date={
+    keyword: ""
+  };
+  new_date=new Date();
 
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
@@ -88,6 +92,23 @@ export class OrdersComponent implements OnInit {
      });
   }  
 
+  resendOrder(){
+    this.isLoaderAdmin=true;
+    let requestObject={
+      "unique_code":"ord1602046981560",
+    }
+    this.superadminService.fnResendOrder(requestObject).subscribe((response:any)=>{
+      if(response.data == true){   
+        
+        this.ErrorService.successMessage(response.response);
+      }
+      else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin=false;
+     });
+}
+
  exportOredr() {
   const dialogRef = this.dialog.open(ExportOrderDialog, {
     width: '600px',
@@ -128,9 +149,14 @@ addNewOredr() {
 // }
 
 fngetallOrders(){
+  
   this.isLoaderAdmin = true;
+
+  console.log(this.start_date);
+
   let requestObject ={
-    'search':this.search,
+    // 'order_fromdate':this.start_date.keyword,
+    'global_search':this.search,
     "boxoffice_id":"box16014425204331",
     "event_id":"eve16019834665225",
     "order_status":"P",
@@ -890,6 +916,7 @@ export class BookTicketDialog {
     });
 
    
+   
   //   if(event.key >= this.eventTicket[index].min_per_order){
   //     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
   //   }else{
@@ -963,6 +990,22 @@ export class BookTicketDialog {
       }
      });
    }
+  }
+
+
+  resendOrder(){
+      let requestObject={
+        "unique_code":"ord1602046981560",
+      }
+      this.superadminService.fnResendOrder(requestObject).subscribe((response:any)=>{
+        if(response.data == true){   
+          
+          this.ErrorService.successMessage(response.response);
+        }
+        else if(response.data == false){
+          this.ErrorService.errorMessage(response.response);
+        }
+       });
   }
 
   editOrder(){
@@ -1097,6 +1140,7 @@ export class cancelOrderDialog {
     public dialogRef: MatDialogRef<cancelOrderDialog>,
     private http: HttpClient,
     public superadminService : SuperadminService,
+    private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void {
@@ -1120,6 +1164,22 @@ export class cancelOrderDialog {
     }
   });
   }
+ 
+  cancelOrder(){
+    let requestObject={
+      "unique_code":"ord1602046981560",
+    }
+    this.superadminService.fnCancelOrder(requestObject).subscribe((response:any)=>{
+      if(response.data == true){   
+        
+        this.ErrorService.successMessage(response.response);
+      }
+      else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+     });
+  }
+
 
 }
 
