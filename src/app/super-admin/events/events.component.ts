@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild,Inject} from '@angular/core';
+import {Component, OnInit, ViewChild,Inject,ChangeDetectorRef} from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
@@ -60,6 +60,8 @@ export class EventsComponent implements OnInit {
   startEndSameDate:boolean = false;
   assignedTicketId :any =[];
   eventURL:any;
+  eventStartTimeIndex:0;
+
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -68,6 +70,7 @@ export class EventsComponent implements OnInit {
     private datePipe: DatePipe,
     private router: Router,
     private SuperadminService: SuperadminService,
+    private change:ChangeDetectorRef
     ) {
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');
@@ -239,6 +242,7 @@ export class EventsComponent implements OnInit {
     this.router.navigate(["/super-admin/single-event-dashboard/"]);
   }
 
+ 
 
   // add Event Fns
   
@@ -261,8 +265,10 @@ export class EventsComponent implements OnInit {
     // this.addEventForm.get('event_end_time').setValue('');
   }
 
-  fnChangeStartTime(event){
-   // this.eventStartTime = this.addEventForm.get('event_start_time').value;
+  fnChangeStartTime(i){
+    this.eventStartTime = this.addEventForm.get('event_start_time').value;
+    this.eventStartTimeIndex = i+1; 
+    this.change.detectChanges();
   }
 
   fnChangeEventStatus(uniqueCode, status){

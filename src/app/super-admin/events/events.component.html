@@ -190,8 +190,9 @@
                                 <label class="ml-2" for="">Start Time <span><i class="fa fa-asterisk"></i></span> </label>
                                 <div class="form-group">
                                     <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                    <mat-select (selectionChange)="fnChangeStartTime($event)" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
-                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                    <!-- (selectionChange)="fnChangeStartTime($event,i)"  -->
+                                    <mat-select formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                        <mat-option  (onSelectionChange)="fnChangeStartTime(i)"  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                     </mat-select>
                                     <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
                                     <small *ngIf="addEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
@@ -208,21 +209,25 @@
                                 <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY">
                                 <mat-datepicker #event_end_date_picker></mat-datepicker>
                                 <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_end_date').touched || addEventForm.get('event_end_date').dirty">
-                                        <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
-                                    </span>
+                                    <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
+                                </span>
                             </div>
                             <div class="w-100">
                                 <label class="ml-2" for="">Ends Time <span><i class="fa fa-asterisk"></i></span> </label>
                                 <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
+
                                 <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                    <mat-option  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index"  [disabled]="eventStartTimeIndex > i" value="{{fullDayTimeSlote}}" >{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
+
+
                                 <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                    <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                <mat-option  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="eventStartTimeIndex > i" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
+
                                 <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_end_time').touched || addEventForm.get('event_end_time').dirty">
                                         <small *ngIf="addEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
-                                    </span>
+                                </span>
                             </div>
                         </div>
 
