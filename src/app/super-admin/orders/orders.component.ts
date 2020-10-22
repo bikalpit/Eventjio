@@ -10,6 +10,7 @@ import { SuperadminService } from '../_services/superadmin.service';
 import { DatePipe, JsonPipe} from '@angular/common';
 import { ExportToCsv } from 'export-to-csv';
 import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
+import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 
 
 export interface DialogData {
@@ -803,29 +804,15 @@ export class BookTicketDialog {
   animal :any;
   bookTickets: FormGroup;
   onlynumeric = /^-?(0|[1-9]\d*)?$/;
-  discount:any;
+  discount = 0;
+
   selectedEventCode:any;
   eventTicket:any;
   event_id:any;
   boxOfficeCode:any;
   selecetdTickets : any =[];
   subTotal :any = '0';
-//   subTotal() : any {
-//     return this.ticketPrice * this.ticket.qty;
-// }
-
-// grandtotal() :any{
-//   return this.ticketFee + this.subTotal();
-// }
-
-// onChange(selectedValue):any{
-
-//   if (selectedValue == 'flat') {
-//     this.totalCost = this.discount;
-//   } else if (selectedValue == 'percent') {
-//     this.totalCost =((this. subTotal()* this.discount) / 100); 
-//   }
-// }
+  is_added_at_least_item  = true;
      
   constructor(
     public dialog: MatDialog,
@@ -861,59 +848,50 @@ export class BookTicketDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
-
-
   }
+
   ngOnInit() {
     this.fnGeteventTicket();
     this.fnGetsingleOrder();
   }
  
   fnGeteventTicket(){
+
     let requestObject={
       "event_id":this.selectedEventCode,
     }
+
     this.superadminService.fnGeteventTicket(requestObject).subscribe((response:any) => {
+
       if(response.data == true){
         this.eventTicket = response.response;
         this.eventTicket.forEach(element => {
           element.qty = 0;
+          element.id_added = false;
         });
-      }else{
-      }
-     });
-  }
 
- fnGetsingleOrder(){
-    let requestObject={
-    "unique_code":"ord1602046981560",
-  }
-  this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
-    if(response.data == true){
-      this.singleorderCustomer = response.response;
-    }else{
-      // alert(2)
-    }
-   });
-}
- 
-  // cancelOrders(){
-  //   "unique_code":""
-  // }
-
-  fnAddQty(index,value){
-   
-   
-    this.eventTicket[index].qty = value;
-    this.subTotal = 0;
-    
-    this.eventTicket.forEach(element=>{
-      if(parseInt(element.qty)  > 0){
-        var total = parseInt(element.qty) * parseInt(element.prize);
-        this.subTotal = this.subTotal + total + parseInt(element.booking_fee);
       }
-   
+
     });
+  }
+
+  fnGetsingleOrder(){
+
+    let requestObject={
+      "unique_code":"ord1602046981560",
+    }
+
+    this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
+
+      if(response.data == true){
+        this.singleorderCustomer = response.response;
+      }else{
+        this.ErrorService.errorMessage(response.response);
+      }
+
+    });
+  }
+ 
 
    
    
@@ -921,75 +899,105 @@ export class BookTicketDialog {
   //     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
   //   }else{
 
-  //     event.key = this.eventTicket[index].min_per_order
-  //    this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-  //   }
-  //   if(event.key <= this.eventTicket[index].max_per_order){
-  //     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-  //   }else{
+   fnAddQty(index,value){
+    
+    this.eventTicket[index].qty = value;
+    var single_event = this.eventTicket[index];
+    var is_update  = true;
+    this.eventTicket[index].id_added = true ;
+    this.is_added_at_least_item = true;
 
-  //     event.key = this.eventTicket[index].max_per_order
-  //    this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-  //   }
-
-  //     console.log(index,event);
-  //     this.eventTicket[index].qty = event.key;
-
-  //  this.subTotal =0;
-  //  this.eventTicket.forEach(element=>{
-  //     this.subTotal =this.eventTicket[index].prize
-  //  });
-
-  }
-
-
-  fnBookTicket(event, index){
-    if(event.checked){
-      this.selecetdTickets.push(index);
-    }else{
-      const indexArr = this.selecetdTickets.indexOf(index, 0);
-      if (indexArr > -1) {
-          this.selecetdTickets.splice(indexArr, 1);
-      }
+    if( single_event.min_per_order  == null && single_event.max_per_order ==  null ){
+      this.eventTicket[index].id_added = true;
+    }else if( parseInt(single_event.min_per_order)  >  parseInt(single_event.qty)  ){
+      this.eventTicket[index].id_added = false ;
+      is_update  = false;
+      return this.ErrorService.errorMessage('Minimun Quantity  shoulde be '+single_event.min_per_order);
+    } else if( parseInt(single_event.qty) > parseInt(single_event.max_per_order) ){
+      this.eventTicket[index].qty = single_event.max_per_order;
+      this.ErrorService.errorMessage('Maximun Quantity shoulde be'+single_event.min_per_order);
     }
-    console.log(this.selecetdTickets)
-  }
+
+
+   
+
+    if(true == is_update){
+      this.subTotal = 0;
+      this.eventTicket.forEach(element=>{
+        if(parseInt(element.qty)  > 0 && element.id_added == true){
+          this.is_added_at_least_item = false;
+          var total = parseInt(element.qty) * parseInt(element.prize);
+          this.subTotal = this.subTotal + total + parseInt(element.booking_fee);
+        }
+      });
+    }
+    
+    
+
+   }
+
+   fnAddDiscount(value){
+
+    if(value > this.subTotal){
+      return false;
+    }
+      
+    this.discount = value;
+
+   }
+
+   fnSum(qty,prize,booking_fee){
+      return (parseInt(qty)*parseInt(prize))+parseInt(booking_fee);
+
+   }
   
 
   fnTicketCheckout(fromType){
-    this.addOrderFormType = fromType;
-   if(this.bookTickets.invalid){
 
-   }else{
-    let requestObject ={
+ 
+    this.addOrderFormType = fromType;
+
+    if(this.bookTickets.invalid){
+      return  this.ErrorService.errorMessage('Please fill out form');
+    }
+
+    let requestObject = {
+
       "boxoffice_id":this.boxOfficeCode,
+      "event_id": this.selectedEventCode,
+      "ticket_id":this.event_id,
+
       "firstname":this.bookTickets.get("firstname").value,
       "lastname":this.bookTickets.get("lastname").value,
       "email":this.bookTickets.get("email").value,
       "phone":this.bookTickets.get("phone").value,
       "address_1":this.bookTickets.get("address_1").value,
       "postcode":this.bookTickets.get("postcode").value,
-      "event_id": this.selectedEventCode,
-      "ticket_id":this.event_id,
-      "qty":"",
-      "sub_total":this.subTotal(),
-      "order_date":"2020-10-01",
-      "order_time":"04:37",
-      // "grand_total":this.grandtotal(),
-      "attendee_name":this.bookTickets.get('attendee_name').value,
-      "payment_status":"unpaid",
-      "payment_method":"cash",
-      
+      "qty" : "",
+      "sub_total" : this.subTotal,
+      "order_date" : "2020-10-01",
+      "order_time" : "04:37",
+      "grand_total" : this.subTotal,
+      "attendee_name" : this.bookTickets.get('attendee_name').value,
+      "payment_status" : "unpaid",
+      "payment_method" : "cash",
     }
-    // console.log(requestObject);
+    
     this.superadminService.createOrder(requestObject).subscribe((response:any) => {
+
       if(response.data == true){
+
         this.ErrorService.successMessage(response.response);
- 
+
+      
+
       }else{
+
+        return  this.ErrorService.errorMessage(response.response);
+
       }
      });
-   }
+  
   }
 
 
@@ -1093,41 +1101,34 @@ export class EditorderDialog {
       });
     }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  ngOnInit() {
-    this. fnGetsingleOrder();
-  }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+    
+    ngOnInit() {
+      this. fnGetsingleOrder();
+    }
 
-  updateOrder(){
+    updateOrder(){
 
-  }
+    }
 
-  
     fnGetsingleOrder(){
       let requestObject={
-      "unique_code":"ord1602046981560",
-    }
-    this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.singleorderCustomer = response.response;
-        this.editTicket.controls['attendee_name'].setValue(this.singleorderCustomer.attendee_name)
-        this.editTicket.controls['firstname'].setValue(this.singleorderCustomer.customer.firstname)
-        this.editTicket.controls['lastname'].setValue(this.singleorderCustomer.customer.lastname)
-        this.editTicket.controls['email'].setValue(this.singleorderCustomer.customer.email)
-        this.editTicket.controls['repeat_email'].setValue(this.singleorderCustomer.customer.email)
-        this.editTicket.controls['address_1'].setValue(this.singleorderCustomer.customer.address)
-        this.editTicket.controls['phone'].setValue(this.singleorderCustomer.customer.phone)
-        
-        console.log(this.singleorderCustomer);
-      }else{
-        // alert(2)
+        "unique_code":"ord1602046981560",
       }
-    });
+        this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this.singleorderCustomer = response.response;
+            this.editTicket.controls['attendee_name'].setValue(this.singleorderCustomer.attendee_name)
+            console.log(this.singleorderCustomer);
+          }else{
+            // alert(2)
+          }
+        });
     }
 
-}
+  }
 
 @Component({
   selector: 'cancel-order',
