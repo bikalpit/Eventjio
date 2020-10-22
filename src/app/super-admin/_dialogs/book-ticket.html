@@ -30,7 +30,7 @@
                                 <div class="tb-data" fxFlex="20"><input type="hidden" class="form-control" >{{eventTicket.prize}}</div>
                                 <div class="th-data" fxFlex="20">{{eventTicket.booking_fee}}</div>
                                 <div class="tb-data" fxFlex="20">
-                                  <input type="number"  class="form-control" (change)="fnAddQty(i,$event);" >      
+                                  <input type="number"  class="form-control" (change)="fnAddQty(i,$event.target.value);" >      
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                           <div class="drageble-box" fxLayout="row">
                               <div class="tb-data fw-600" fxFlex="50">Subtotal</div>
                               <div class="tb-data" fxFlex="30"></div>
-                              <div class="tb-data fw-600" fxFlex="20" >$</div>
+                              <div class="tb-data fw-600" fxFlex="20" >$ {{subTotal}}</div>
                           </div>
                       </div>
                       </div>
@@ -189,8 +189,8 @@
       <div class="row">
         <div class="col-md-8">
           <button mat-raised-button class="comm-btn mr-2">Resend Ticket</button>
-          <button mat-raised-button class="comg-btn mr-2">Edit Order</button>
-          <button mat-raised-button class="comg-btn mr-2" (click)="fnTicketCheckout('cancel-order')">Cancel Order</button>
+          <button mat-raised-button class="comg-btn mr-2"  (click)="editOrder()">Edit Order</button>
+          <button mat-raised-button class="comg-btn mr-2" (click)="cancelOrder()">Cancel Order</button>
         </div>        
         <div class="print-order col-md-4 px-0">
           <a target="_blank" class=""><span class=""><mat-icon aria-hidden="false" aria-label="" class="link mr-2">print</mat-icon></span>Print order confirmation</a>
@@ -289,7 +289,7 @@
     <div class="ticket-details">
       <div class="ticket-head row">
         <p>Ticket details</p>
-        <a href="#" target="_blank" class="dwnld-invoice">Download ticket as PDF</a>
+        <a target="_blank" class="dwnld-invoice">Download ticket as PDF</a>
       </div>
       <div class="ticket-desc">
         <div class="row">
@@ -313,7 +313,7 @@
 
   </div>
 
-  <div *ngIf="addOrderFormType === 'cancel-order'">
+  <!-- <div *ngIf="addOrderFormType === 'cancel-order'">
     <div class="cancel-order">
       <div class="col-md-12 px-0 cancel-warn">
         <div class="note-theme m-0">
@@ -353,12 +353,12 @@
       </div>
 
       <div class="order-cancel">
-        <button mat-raised-button class="d-flex ml-auto order-cancel-btn">Cancel This Order</button>
+        <button mat-raised-button class="d-flex ml-auto order-cancel-btn" >Cancel This Order</button>
       </div>
 
     </div>
   </div>
  
-  </div>
+  </div> -->
   </div>
 </div>

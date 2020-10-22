@@ -171,20 +171,20 @@ export class AddSalesTax {
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
-      this.singleTaxData = this.data.singleTaxData
-      // this.taxStatus = this.data.taxStatus
+      if(this.data.singleTaxData){
+        this.singleTaxData = this.data.singleTaxData
+        this.taxStatus = this.singleTaxData.status
+      }
       console.log(this.singleTaxData);
 
       this.addTaxForm = this._formBuilder.group({
         name:['',[Validators.required]],
         value:['',[Validators.required,Validators.pattern('[0-9.]{0,1000}')]],
-        status: this.taxStatus
       })
 
       if(this.singleTaxData){
         this.addTaxForm.controls['name'].setValue(this.singleTaxData.name)
         this.addTaxForm.controls['value'].setValue(this.singleTaxData.value)
-        this.addTaxForm.controls['status'].setValue(this.taxStatus)
       }
     }
 

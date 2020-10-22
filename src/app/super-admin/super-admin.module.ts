@@ -28,6 +28,7 @@ import { ExportOrderDialog } from './orders/orders.component';
 import { AddNewOrderDialog } from './orders/orders.component';
 import { BookTicketDialog } from './orders/orders.component';
 import { OrderInvoiceDialog } from './orders/orders.component';
+import { EditorderDialog, cancelOrderDialog } from './orders/orders.component';
 import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
 import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.component';
 import { DialogEventImageUpload } from './events/events.component'
@@ -55,6 +56,8 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
       AddNewTicketType,
       AddNewTicketGroup,
       OrderInvoiceDialog,
+      EditorderDialog,
+      cancelOrderDialog,
       myCreateNewBoxofficeDialog,
       DialogEventImageUpload,
       DialogImportFileUpload,
@@ -82,7 +85,7 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
   ],
   
   entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
-    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog,DialogEventImageUpload,AssignToEventDialog,AssignToTicketTypeDialog,DialogImportFileUpload,DialogCustomerImageUpload],
+    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog,DialogEventImageUpload,AssignToEventDialog,AssignToTicketTypeDialog,DialogImportFileUpload,DialogCustomerImageUpload,cancelOrderDialog,EditorderDialog],
 })
   
 export class SuperAdminModule {}

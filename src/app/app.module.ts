@@ -17,6 +17,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { DialogAuthentication } from './_services/auth.component';
 import { PreviewEventsComponent } from './preview-events/preview-events.component';
+import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-office.component';
 
 
 
@@ -29,6 +30,7 @@ import { PreviewEventsComponent } from './preview-events/preview-events.componen
     ResetPasswordComponent,
     DialogAuthentication,
     PreviewEventsComponent,
+    PreviewBoxOfficeComponent,
   ],
   imports: [
     BrowserModule,

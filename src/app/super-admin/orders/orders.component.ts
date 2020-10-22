@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SuperadminService } from '../_services/superadmin.service';
 import { DatePipe, JsonPipe} from '@angular/common';
 import { ExportToCsv } from 'export-to-csv';
+import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
 
 
 export interface DialogData {
@@ -19,13 +20,20 @@ export interface DialogData {
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
+  providers: [DatePipe]
 })
 export class OrdersComponent implements OnInit {
   animal :any;
+  isLoaderAdmin:boolean = false;
   allBusiness: any;
   boxOfficeCode:any;
+  addOrderFormType:any;
+  allorderlist:any;
+  eventCode:any;
   displayedColumns: string[] = ['orderid','status','name','datetime','event','value','action'];
+  search="";
+
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -36,21 +44,50 @@ export class OrdersComponent implements OnInit {
     public superadminService : SuperadminService,
     private authenticationService : AuthenticationService,
     private ErrorService : ErrorService,
+    private datePipe:DatePipe,
+    public router: Router,
   ) { 
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
     }
+    if(localStorage.getItem('selectedEventCode')){
+      this.eventCode = localStorage.getItem('selectedEventCode')
+    }
   }
  
-orderData = [{orderid:'012345',status:'Completed',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes ',value:' 5000.00',action:''},
-             {orderid:'012345',status:'Void',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes',value:' 5000.00',action:''},]
+// orderData = [{orderid:'012345',status:'Completed',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes ',value:' 5000.00',action:''},
+//              {orderid:'012345',status:'Void',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes',value:' 5000.00',action:''},]
 
 
   ngOnInit(): void {
-
+     this.fngetallOrders();
   }
 
   
+  fnTicketCheckout(fromType){
+    this.addOrderFormType = fromType;
+  }
+
+  editOrder(){
+    const dialogRef = this.dialog.open(EditorderDialog, {
+      width: '700px',
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }  
+  
+  cancelOrder(){
+    const dialogRef = this.dialog.open(cancelOrderDialog, {
+      width: '700px',
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }  
+
  exportOredr() {
   const dialogRef = this.dialog.open(ExportOrderDialog, {
     width: '600px',
@@ -70,6 +107,35 @@ addNewOredr() {
    dialogRef.afterClosed().subscribe(result => {
     this.animal = result;
    });
+}
+
+// orderSearch(){
+// this.fngetallOrders();
+// }
+
+// dateSearch(){
+//   this.fngetallOrders();
+// }
+
+fngetallOrders(){
+  this.isLoaderAdmin = true;
+  let requestObject ={
+    'search':this.search,
+    "boxoffice_id":"box16014425204331",
+    "event_id":"eve16019834665225",
+    "order_status":"P",
+  }
+  this.superadminService. fnGetallOrders(requestObject).subscribe((response:any) => {
+    if(response.data == true){
+      this.allorderlist =  response.response;
+      this.allorderlist.order_date =  this.datePipe.transform(this.allorderlist.order_date,"EEE MMM d, y")
+      // console.log( this.allorderlist.order_date);
+    }else{
+      // alert(2)
+    }
+    this.isLoaderAdmin = false;
+   });
+  
 }
 
 
@@ -108,6 +174,28 @@ export class ExportOrderDialog {
   buyerDetailsAddress2:any = "N";
   buyerDetailsAddress3:any = "N";
   buyerDetailsPostcode:any = "N";
+  orderDetailsTotal_paid:any = "N";
+  orderDetailspayment_method:any = "N";
+  orderDetailsReferral_tag:any = "N";
+  orderDetailsDiscount_code:any = "N";
+  orderDetailscancel_reason:any = "N";
+  orderDetailstransaction_id:any = "N";
+  Ticket_type:any ="N";
+  Ticket_description:any = "N";
+  Ticket_value:any = "N";
+  booking_fee:any = "N";
+  ticket_details:any = "N";
+  lineitem_details:any = "N";
+  line_type:any = "N";
+  line_description:any = "N";
+  line_value:any = "N";
+  linebooking_fee:any = "N";
+  lineitem_ticket:any = "N";
+  lineitem_voidticket:any = "N";
+  lineitem_transactioncharge:any = "N";
+  lineitem_taxes:any = "N";
+  lineitem_giftcard:any = "N";
+  lineitem_donation:any = "N";
   eventName:any;
   buyerArray:any;
   orderArray:any;
@@ -171,6 +259,9 @@ export class ExportOrderDialog {
   //   }
   // }
 
+ 
+  //overview report checkboxes
+
   fnOrdersDetails(event){
     if(event.checked == true){
     this.orderDetails = 'Y'
@@ -228,6 +319,8 @@ export class ExportOrderDialog {
      this.orderDetailTicket_charge = 'N' 
     }
   }
+ 
+  //overview report event details
 
   fnEventDetails(event){
     if(event.checked == true){
@@ -267,6 +360,8 @@ export class ExportOrderDialog {
       this.eventDetailsEvent_start = 'N' 
     }
   }
+ 
+  //overview report buyers details
 
   fnBuyersDetails(event){
     if(event.checked == true){
@@ -339,6 +434,192 @@ export class ExportOrderDialog {
   fnExportOrderType(event){
     this.reportType=event.value
  }
+
+ //line item checkboxes.
+
+ fnTicket_details(event){
+  if(event.checked == true){
+    this.ticket_details = 'Y' 
+  }else{
+    this.ticket_details = 'N' 
+  }
+ }
+
+ fnLineitem_details(event){
+  if(event.checked == true){
+    this.lineitem_details = 'Y' 
+  }else{
+    this.lineitem_details = 'N' 
+  } 
+ }
+  
+ //line item type checboxes
+
+ fnLineitem_ticket(event){
+  if(event.checked == true){
+    this.lineitem_ticket = 'Y' 
+  }else{
+    this.lineitem_ticket = 'N' 
+  } 
+ }
+
+ fnLineitem_Voidticket(event){
+  if(event.checked == true){
+    this.lineitem_voidticket = 'Y' 
+  }else{
+    this.lineitem_voidticket = 'N' 
+  } 
+ }
+
+ fnLineitemTransactionCharge(event){
+  if(event.checked == true){
+    this.lineitem_transactioncharge = 'Y' 
+  }else{
+    this.lineitem_transactioncharge = 'N' 
+  } 
+ }
+
+ fnLineitemTaxes(event){
+  if(event.checked == true){
+    this.lineitem_taxes = 'Y' 
+  }else{
+    this.lineitem_taxes = 'N' 
+  } 
+ }
+
+ fnLineitemGift_cards(event){
+  if(event.checked == true){
+    this.lineitem_giftcard = 'Y' 
+  }else{
+    this.lineitem_giftcard = 'N' 
+  } 
+ }
+
+ fnLineitem_donation(event){
+  if(event.checked == true){
+    this.lineitem_donation= 'Y' 
+  }else{
+    this.lineitem_donation= 'N' 
+  } 
+ }
+
+ //line item order-field
+
+ fnOrdersDetailsTotal_paid(event){
+    if(event.checked == true){
+      this.orderDetailsTotal_paid = 'Y' 
+    }else{
+      this.orderDetailsTotal_paid = 'N' 
+    }
+ }
+
+ fnOrdersDetailspayment_method(event){
+  if(event.checked == true){
+    this.orderDetailspayment_method = 'Y' 
+  }else{
+    this.orderDetailspayment_method = 'N' 
+  }
+}
+
+fnOrdersDetailsReferral_tag(event){
+  if(event.checked == true){
+    this.orderDetailsReferral_tag = 'Y' 
+  }else{
+    this.orderDetailsReferral_tag = 'N' 
+  }
+}
+
+fnOrdersDetailsDiscount_code(event){
+  if(event.checked == true){
+    this.orderDetailsDiscount_code = 'Y' 
+  }else{
+    this.orderDetailsDiscount_code = 'N' 
+  }
+}
+
+fnOrdersDetailsCancel_reason(event){
+  if(event.checked == true){
+    this.orderDetailscancel_reason = 'Y' 
+  }else{
+    this.orderDetailscancel_reason = 'N' 
+  }
+}
+
+fnOrdersDetailsTransaction_id(event){
+  if(event.checked == true){
+    this.orderDetailstransaction_id = 'Y' 
+  }else{
+    this.orderDetailstransaction_id = 'N' 
+  }
+}
+
+//line-item ticket details
+
+fnTicket_type(event){
+  if(event.checked == true){
+    this.Ticket_type = 'Y' 
+  }else{
+    this.Ticket_type = 'N' 
+  }
+}
+
+fnTicket_description(event){
+  if(event.checked == true){
+    this.Ticket_description = 'Y' 
+  }else{
+    this.Ticket_description = 'N' 
+  }
+}
+
+fnTicket_value(event){
+  if(event.checked == true){
+    this.Ticket_value = 'Y' 
+  }else{
+    this.Ticket_value = 'N' 
+  }
+}
+
+fnticketBooking_fee(event){
+  if(event.checked == true){
+    this.booking_fee = 'Y' 
+  }else{
+    this.booking_fee = 'N' 
+  }
+}
+ 
+//line-item line-type
+
+fnLine_type(event){
+  if(event.checked == true){
+    this.line_type = 'Y' 
+  }else{
+    this.line_type = 'N' 
+  }
+}
+
+fnline_Description(event){
+  if(event.checked == true){
+    this.line_description = 'Y' 
+  }else{
+    this.line_description = 'N' 
+  }
+}
+
+fnline_Value(event){
+  if(event.checked == true){
+    this.line_value = 'Y' 
+  }else{
+    this.line_value = 'N' 
+  }
+}
+
+fnlineBooking_fee(event){
+  if(event.checked == true){
+    this.linebooking_fee = 'Y' 
+  }else{
+    this.linebooking_fee = 'N' 
+  }
+}
 
  exportOrder(){
    
@@ -427,6 +708,7 @@ export class AddNewOrderDialog {
     private http: HttpClient,
     private datePipe: DatePipe,
     public superadminService : SuperadminService,
+    private ErrorService: ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
@@ -447,16 +729,17 @@ export class AddNewOrderDialog {
   }
   
   fnGetAllEventList(){
+
     let requestObject={
       "boxoffice_id": this.boxOfficeCode,
       "filter":'upcoming',
     }
+
     this.superadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
-     
-        this.allEventlist = response.response
-        // console.log(this.allEventlist);
-      }else{
+        this.allEventlist = response.response;
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
       }
      });
   }
@@ -480,6 +763,7 @@ export class AddNewOrderDialog {
 })
 export class BookTicketDialog { 
   addOrderFormType: any ='selectTicket';
+  singleorderCustomer:any;
   animal :any;
   bookTickets: FormGroup;
   onlynumeric = /^-?(0|[1-9]\d*)?$/;
@@ -546,6 +830,7 @@ export class BookTicketDialog {
   }
   ngOnInit() {
     this.fnGeteventTicket();
+    this.fnGetsingleOrder();
   }
  
   fnGeteventTicket(){
@@ -555,36 +840,69 @@ export class BookTicketDialog {
     this.superadminService.fnGeteventTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventTicket = response.response;
+        this.eventTicket.forEach(element => {
+          element.qty = 0;
+        });
       }else{
       }
      });
   }
 
-  fnAddQty(index,event){
-    console.log(event)
-
-    if(event.key >= this.eventTicket[index].min_per_order){
-      this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+ fnGetsingleOrder(){
+    let requestObject={
+    "unique_code":"ord1602046981560",
+  }
+  this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
+    if(response.data == true){
+      this.singleorderCustomer = response.response;
     }else{
-
-      event.key = this.eventTicket[index].min_per_order
-     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+      // alert(2)
     }
-    if(event.key <= this.eventTicket[index].max_per_order){
-      this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-    }else{
+   });
+}
+ 
+  // cancelOrders(){
+  //   "unique_code":""
+  // }
 
-      event.key = this.eventTicket[index].max_per_order
-     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-    }
+  fnAddQty(index,value){
+   
+   
+    this.eventTicket[index].qty = value;
+    this.subTotal = 0;
+    
+    this.eventTicket.forEach(element=>{
+      if(parseInt(element.qty)  > 0){
+        var total = parseInt(element.qty) * parseInt(element.prize);
+        this.subTotal = this.subTotal + total + parseInt(element.booking_fee);
+      }
+   
+    });
 
-      console.log(index,event);
-      this.eventTicket[index].qty = event.key;
+   
+  //   if(event.key >= this.eventTicket[index].min_per_order){
+  //     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+  //   }else{
 
-   this.subTotal =0;
-   this.eventTicket.forEach(element=>{
-   this.subTotal =this.eventTicket[index].prize
-  })
+  //     event.key = this.eventTicket[index].min_per_order
+  //    this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+  //   }
+  //   if(event.key <= this.eventTicket[index].max_per_order){
+  //     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+  //   }else{
+
+  //     event.key = this.eventTicket[index].max_per_order
+  //    this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
+  //   }
+
+  //     console.log(index,event);
+  //     this.eventTicket[index].qty = event.key;
+
+  //  this.subTotal =0;
+  //  this.eventTicket.forEach(element=>{
+  //     this.subTotal =this.eventTicket[index].prize
+  //  });
+
   }
 
 
@@ -626,7 +944,7 @@ export class BookTicketDialog {
       "payment_method":"cash",
       
     }
-    console.log(requestObject);
+    // console.log(requestObject);
     this.superadminService.createOrder(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
@@ -636,6 +954,25 @@ export class BookTicketDialog {
      });
    }
   }
+
+  editOrder(){
+    const dialogRef = this.dialog.open(EditorderDialog, {
+      width: '700px',
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }  
+  cancelOrder(){
+    const dialogRef = this.dialog.open(cancelOrderDialog, {
+      width: '700px',
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+  }  
 
 
   orderInvoice() {
@@ -657,7 +994,7 @@ export class BookTicketDialog {
 })
 export class OrderInvoiceDialog { 
   
- 
+  
   constructor(
     public dialogRef: MatDialogRef<OrderInvoiceDialog>,
     private http: HttpClient,
@@ -671,5 +1008,100 @@ export class OrderInvoiceDialog {
   }
 }
 
+@Component({
+  selector: 'edit-order',
+  templateUrl: '../_dialogs/edit-order.html',
+})
+export class EditorderDialog { 
+  editTicket: FormGroup;
+  onlynumeric = /^-?(0|[1-9]\d*)?$/;
+  singleorderCustomer:any;
+ 
+  constructor(
+    public dialogRef: MatDialogRef<EditorderDialog>,
+    private http: HttpClient,
+    public superadminService : SuperadminService,
+    private _formBuilder:FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+      this.editTicket = this._formBuilder.group({
+        firstname:["", Validators.required],
+        lastname:["", Validators.required],
+        email:["", [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
+        repeat_email:["", [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
+        phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
+        address_1:["", Validators.required],
+        address_2:[""],
+        address_3:[""],
+        postcode:["", [Validators.required, Validators.pattern(this.onlynumeric)]],
+        attendee_name:["", Validators.required],
+        promo_code:["",[Validators.minLength(6),Validators.maxLength(6)]],
+      });
+    }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+    this. fnGetsingleOrder();
+  }
+
+  updateOrder(){
+
+  }
+
+  
+    fnGetsingleOrder(){
+      let requestObject={
+      "unique_code":"ord1602046981560",
+    }
+    this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.singleorderCustomer = response.response;
+        this.editTicket.controls['attendee_name'].setValue(this.singleorderCustomer.attendee_name)
+        console.log(this.singleorderCustomer);
+      }else{
+        // alert(2)
+      }
+    });
+    }
+
+}
+
+@Component({
+  selector: 'cancel-order',
+  templateUrl: '../_dialogs/cancel-order.html',
+})
+export class cancelOrderDialog { 
+  singleorderCustomer:any;
+
+  constructor(
+    public dialogRef: MatDialogRef<cancelOrderDialog>,
+    private http: HttpClient,
+    public superadminService : SuperadminService,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+    this.fnGetsingleOrder();
+  }
+
+   
+  fnGetsingleOrder(){
+    let requestObject={
+    "unique_code":"ord1602046981560",
+  }
+  this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
+    if(response.data == true){
+      this.singleorderCustomer = response.response;
+      console.log(this.singleorderCustomer);
+    }else{
+      // alert(2)
+    }
+  });
+  }
+
+}
 
