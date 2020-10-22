@@ -1,25 +1,40 @@
-.event-page-page-title{
+.event-page-page-title {
     font-size: 16px;
     font-weight: bold;
 }
 
-.sub-title{
+.box-office-title {
     font-weight: bold;
     font-size: 18px;
     background-color: #ABE6FD;
 }
-.select-option{
-    width:30%;
-    
+
+.select-option {
+    width: 30%;
 }
-.Sparking_Events-img img{
+
+.Sparking_Events-img img {
     border-bottom-left-radius: 6px;
     border-top-left-radius: 6px;
 }
-.br-6{
+
+.br-6 {
     border-radius: 6px;
 }
-.top-event-page{
+
+.top-event-page {
     display: flex;
     align-items: center;
-}    
+}
+
+.list-events {
+    display: flex;
+    pointer-events: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    .signle-event {
+        height: 140px;
+        width: 800px;
+        margin-top: 20px;
+    }
+}

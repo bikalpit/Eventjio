@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-websites-embed-codes',
@@ -7,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WebsitesEmbedCodesComponent implements OnInit {
 
-  constructor() { }
+  embededCode:any;
+  boxOfficeId:any;
+  constructor() { 
+    if (localStorage.getItem('boxoffice_id')) {
+      this.boxOfficeId = localStorage.getItem('boxoffice_id');
+      
+      // const enc = new Base64();   
+      // this.encodedBusinessId = enc.encode(this.businessId);
+      // console.log(this.encodedBusinessId);
+      this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/box-office/?boxoffice="+window.btoa(this.boxOfficeId)+"'></iframe>";
+      
+    }
+  }
 
   CustomiseButtonDiv : Boolean = true;
   EditButtonDiv : Boolean = true;

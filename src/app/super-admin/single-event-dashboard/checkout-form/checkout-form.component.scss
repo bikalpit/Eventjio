@@ -82,6 +82,7 @@ main {
                     border-right: 1px solid #CECECE;
                     display: flow-root;
                     padding: 0px 15px;
+                    pointer-events: none;
                     .checkout-form {
                         padding: 15px 0px 25px 15px;
                         .fa-asterisk {

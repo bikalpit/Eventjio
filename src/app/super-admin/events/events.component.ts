@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { SuperadminService } from '../_services/superadmin.service';
 import { ErrorService } from '../../_services/error.service';
 import { DatePipe} from '@angular/common';
+import { environment } from '../../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
 
 interface Status {
@@ -58,6 +59,7 @@ export class EventsComponent implements OnInit {
   fullDayTimeSlote:any;
   startEndSameDate:boolean = false;
   assignedTicketId :any =[];
+  eventURL:any;
   eventStartTimeIndex:0;
 
   // minEndTime:any;
@@ -295,6 +297,11 @@ export class EventsComponent implements OnInit {
   
   fnSelectDefaultImage(imageName){
     this.selecetdDefaultImage = imageName;
+  }
+
+  viewEventPage(eventCode){
+    this.eventURL = environment.urlForLink+'/preview-events/'+eventCode;
+    window.open(this.eventURL,'_blank');
   }
 
   fnChangeDonation(event){
