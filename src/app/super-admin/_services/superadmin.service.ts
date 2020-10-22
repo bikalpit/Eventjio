@@ -247,6 +247,22 @@ export class SuperadminService {
          catchError(this.handleError));
     }
 
+    fnResendOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/resend-order`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    fnCancelOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/resend-order`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
     fnGetsingleOrder(requestObject){
         return this.http.post(`${environment.apiUrl}/get-single-order`,requestObject,{headers:this.globalHeaders}).pipe(
          map((res) => {

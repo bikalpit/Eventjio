@@ -74,9 +74,9 @@ export class IssuedTicketComponent implements OnInit {
       "event_id":"eve16019834665225",
       "ticket_type": "General Admission",
       "issued_status": "P",
-      "global_search": "",
-      "issued_fromdate": "",
-      "issued_todate": "",
+      // "global_search": "",
+      // "issued_fromdate": "",
+      // "issued_todate": "",
     }
     this.SingleEventServiceService.issuedTickets(requestObject).subscribe((response:any)=>{
       if(response.data == true){

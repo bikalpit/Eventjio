@@ -44,7 +44,7 @@
                         <label class="mb-0">Order date form</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon">  </mat-datepicker-toggle>
-                            <input type="text" [matDatepicker]="ticketIssuedDatePicker" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate ">
+                            <input type="text" [matDatepicker]="ticketIssuedDatePicker" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate " [(ngModel)]="start_date.keyword" (keyup)="fngetallOrders()" >
                             <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                                     <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                     <ng-template class="popover" #popContent>
                                         <div class="px-3  border-bottom">
-                                            <i class="fa fa-repeat mr-2 pointer"></i><span class="pointer">Resend</span>
+                                            <i class="fa fa-repeat mr-2 pointer" (click)="resendOrder()"></i><span class="pointer" (click)="resendOrder()">Resend</span>
                                         </div>
 
                                         <div class="px-3  border-bottom">
@@ -116,7 +116,7 @@
                                         </div>
 
                                         <div class="px-3  border-bottom">
-                                            <i class="fa fa-times-circle mr-2 pointer" (click)="cancelOrder()"></i><span class="pointer" (click)="cancelOrder()">Cancel</span>
+                                            <i class="fa fa-times-circle mr-2 pointer"></i><span class="pointer">Cancel</span>
                                         </div>
 
                                     </ng-template>

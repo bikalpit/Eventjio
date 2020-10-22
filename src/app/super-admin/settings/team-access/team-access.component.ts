@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular
 import { SettingService } from '../_services/setting.service';
 import { DatePipe } from '@angular/common';
 import { ErrorService } from '../../../_services/error.service';
+import { environment } from '../../../../environments/environment'
 
 export interface DialogData {
   animal: string;
