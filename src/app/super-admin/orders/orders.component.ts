@@ -1162,6 +1162,11 @@ export class EditorderDialog {
           if(response.data == true){
             this.singleorderCustomer = response.response;
             this.editTicket.controls['attendee_name'].setValue(this.singleorderCustomer.attendee_name)
+            this.editTicket.controls['firstname'].setValue(this.singleorderCustomer.customer.firstname)
+            this.editTicket.controls['lastname'].setValue(this.singleorderCustomer.customer.lastname)
+            this.editTicket.controls['email'].setValue(this.singleorderCustomer.customer.email)
+            this.editTicket.controls['phone'].setValue(this.singleorderCustomer.customer.phone)
+            this.editTicket.controls['address_1'].setValue(this.singleorderCustomer.customer.address)
             console.log(this.singleorderCustomer);
           }else{
             // alert(2)
@@ -1207,7 +1212,7 @@ export class cancelOrderDialog {
   });
   }
  
-  cancelOrder(){
+  cancelthisOrder(){
     let requestObject={
       "unique_code":"ord1602046981560",
     }

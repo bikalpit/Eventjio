@@ -256,7 +256,7 @@ export class SuperadminService {
     }
 
     fnCancelOrder(requestObject){
-        return this.http.post(`${environment.apiUrl}/resend-order`,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/cancel-order`,requestObject,{headers:this.globalHeaders}).pipe(
          map((res) => {
             return res;
           }),
