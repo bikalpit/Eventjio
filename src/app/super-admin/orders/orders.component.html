@@ -31,11 +31,11 @@
                     <div class="" fxFlex="34">
                         <label class="mb-0">Event</label>
                         <div class="">
-                            <mat-select class="form-control ">
-                                <mat-option>All Events</mat-option>
-                                <mat-option>Lajavab Cooking Classes (Mon 17 Jun 2020)</mat-option>
-                                <mat-option>Dracula Drink (Mon 17 Jun 2020)</mat-option>
-                                <mat-option>The Ladies Kitty Party (Mon 17 Jun 2020)</mat-option>
+                            <mat-select class="form-control"  [(ngModel)]="single_order_event" (selectionChange)="fngetallOrders()">
+                                <mat-option value="">All Events</mat-option>
+                                <mat-option *ngFor="let val of allEventlist;let i = index;" value="{{val.unique_code}}">
+                                    {{val.venue_name}} {{val.start_date}} - {{val.start_time}}
+                                </mat-option>
                             </mat-select>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <label class="mb-0">Order date form</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon">  </mat-datepicker-toggle>
-                            <input type="text" [matDatepicker]="ticketIssuedDatePicker" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate " [(ngModel)]="start_date.keyword" (keyup)="fngetallOrders()" >
+                            <input type="text" (dateChange)="fngetallOrders()"  [(ngModel)]="start_date" [matDatepicker]="ticketIssuedDatePicker" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate" >
                             <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                         <label class="mb-0">Order date to</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
-                            <input type="text" [matDatepicker]="ticketIssuedTo" (click)="ticketIssuedTo.open()" class="form-control matInputdate">
+                            <input type="text"  (dateChange)="fngetallOrders()" [matDatepicker]="ticketIssuedTo" (click)="ticketIssuedTo.open()" class="form-control matInputdate">
                             <mat-datepicker #ticketIssuedTo></mat-datepicker>
                         </div>
                     </div>
@@ -61,12 +61,11 @@
                     <div class="" fxFlex="20">
                         <label class="mb-0">Order Status</label>
                         <div class="">
-                            <mat-select class="form-control ">
-                                <mat-option>All Orders</mat-option>
-                                <mat-option>Completed ordes</mat-option>
-                                <mat-option>Pending orders</mat-option>
-                                <mat-option>Cancelled orders</mat-option>
-                                <mat-option>Complete order</mat-option>
+                            <mat-select class="form-control"  [(ngModel)]="order_status" (selectionChange)="fngetallOrders()">
+                                <mat-option value="P">All Orders</mat-option>
+                                <mat-option value="CO">Completed ordes</mat-option>
+                                <mat-option value="P">Pending orders</mat-option>
+                                <mat-option value="C">Cancelled orders</mat-option>
                             </mat-select>
                         </div>
                     </div>
@@ -124,19 +123,20 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="table_pagination mt-4" *ngIf="allorderlist != ''">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item" (click)="navigateTo_orders(first_page_url_orders)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" (click)="navigateTo_orders(prev_page_url_orders)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" [ngClass]="{'active':current_page_orders == i+1}" *ngFor="let pagenumber of arrayOne_orders(last_page_orders); let i = index;" (click)="navigateToPageNumber_orders(i+1)"><a class="page-link">{{i+1}}</a></li>
-                                <li class="page-item" (click)="navigateTo_orders(next_page_url_orders)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" (click)="navigateTo_orders(last_page_url_orders)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </nav>
-                    </div>
 
+                    <div class="col-12 text-center">
+                        <div class="table_pagination mt-4" *ngIf="allorderlist != ''">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item" (click)="navigateTo_orders(first_page_url_orders)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" (click)="navigateTo_orders(prev_page_url_orders)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" [ngClass]="{'active':current_page_orders == i+1}" *ngFor="let pagenumber of arrayOne_orders(last_page_orders); let i = index;" (click)="navigateToPageNumber_orders(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                    <li class="page-item" (click)="navigateTo_orders(next_page_url_orders)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item" (click)="navigateTo_orders(last_page_url_orders)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -44,13 +44,14 @@ export class OrdersComponent implements OnInit {
   next_page_url_orders:any;
   prev_page_url_orders:any;
   path_orders:any;
-  
-  start_date={
-    keyword: ""
-  };
-  new_date=new Date();
 
-  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  start_date:any;
+  end_date:any;
+  order_status:any = "";
+  allEventlist:any = [];
+  new_date=new Date();
+  single_order_event:any;
+
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -71,12 +72,10 @@ export class OrdersComponent implements OnInit {
     }
   }
  
-// orderData = [{orderid:'012345',status:'Completed',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes ',value:' 5000.00',action:''},
-//              {orderid:'012345',status:'Void',name:'Shabnam Ansari',datetime:'Jun 22 2020 04:30pm',event:'Lajavab Cooking Classes',value:' 5000.00',action:''},]
-
 
   ngOnInit(): void {
      this.fngetallOrders();
+     this.fnGetAllEventList();
   }
 
   
@@ -153,33 +152,47 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-// orderSearch(){
-// this.fngetallOrders();
-// }
-
-// dateSearch(){
-//   this.fngetallOrders();
-// }
-
-fngetallOrders(){
   
-  this.isLoaderAdmin = true;
+  fnGetAllEventList(){
 
+    let requestObject={
+      "boxoffice_id": this.boxOfficeCode,
+      "filter":'upcoming',
+    }
 
-  let requestObject ={
-    // 'order_fromdate':this.start_date.keyword,
-    'global_search':this.search,
-    "boxoffice_id":"box16014425204331",
-    "event_id":"eve16019834665225",
-    "order_status":"P",
+    this.superadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.allEventlist = response.response;
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
   }
   
+
+  fngetallOrders(){
+ 
+    this.isLoaderAdmin = true;
+    console.log(this.single_order_event);
+
   
+    
+    let requestObject = {
+      'order_fromdate' : this.start_date,
+      'order_todate' : this.end_date,
+      'global_search' : this.search,
+      "boxoffice_id" : "box16014425204331",
+      "event_id":   this.single_order_event ? this.single_order_event : 'eve16019834665225',
+      "order_status" : this.order_status ? this.order_status : 'P',
+    }
+    
 
     this.superadminService.fnGetallOrders(this.ordersApiUrl,requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.allorderlist =  response.response.data;
 
+      if(response.data == true){
+
+        this.allorderlist =  response.response.data;
         this.current_page_orders = response.response.current_page;
         this.first_page_url_orders = response.response.first_page_url;
         this.last_page_orders = response.response.last_page;
@@ -188,12 +201,13 @@ fngetallOrders(){
         this.prev_page_url_orders = response.response.prev_page_url;
         this.path_orders = response.response.path;
 
-
-        this.allorderlist.order_date =  this.datePipe.transform(this.allorderlist.order_date,"EEE MMM d, y")
-        // console.log( this.allorderlist.order_date);
       }else{
-        // alert(2)
+
+          this.ErrorService.errorMessage(response.response);
+          this.allorderlist = [];
+
       }
+
       this.isLoaderAdmin = false;
     });
     
@@ -797,8 +811,9 @@ export class AddNewOrderDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
   ngOnInit() {
-    }
+  }
 
   fnBookTicketType(selecetedEvent){
     this.selectedEvent = selecetedEvent
@@ -807,7 +822,7 @@ export class AddNewOrderDialog {
   }
   
   fnGetAllEventList(){
-
+    
     let requestObject={
       "boxoffice_id": this.boxOfficeCode,
       "filter":'upcoming',
@@ -989,7 +1004,6 @@ export class BookTicketDialog {
 
    fnSum(qty,prize,booking_fee){
       return (parseInt(qty)*parseInt(prize))+parseInt(booking_fee);
-
    }
   
 
