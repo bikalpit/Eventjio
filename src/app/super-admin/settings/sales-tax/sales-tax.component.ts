@@ -161,7 +161,7 @@ export class AddSalesTax {
   boxOfficeCode:any;
   isLoaderAdmin:any;
   singleTaxData:any;
-  taxStatus = 'N';
+  taxStatus:any = 'N';
 
   constructor(
     private _formBuilder:FormBuilder,
@@ -199,6 +199,7 @@ export class AddSalesTax {
 
     fnOnSubmit(){
       if(this.addTaxForm.valid){
+
         if(this.singleTaxData){
           let singleTaxData = {
             "boxoffice_id" : this.boxOfficeCode,
@@ -248,7 +249,7 @@ export class AddSalesTax {
     }else{
       this.addTaxForm.get("name").markAsTouched();
       this.addTaxForm.get("value").markAsTouched();
-      this.addTaxForm.get("status").markAsTouched();
+      // this.addTaxForm.get("status").markAsTouched();
       }
     }
 
