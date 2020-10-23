@@ -20,9 +20,10 @@
                     </div>
                 </div>
                 <div class="col-12" *ngIf="!EditButtonDiv">
+                <form [formGroup]="editWidgetsoptionForm">
                     <div class="col-7">
                         <label for="">Widget Background <span class="text-danger">*</span>  </label>
-                        <mat-select name="" id="" class="form-control">
+                        <mat-select name="" id="" class="form-control" formControlName="fullWidget">
                             <mat-option value="Filled Background">Filled Background</mat-option>
                             <mat-option value="Transparent Background">Transparent Background</mat-option>
                         </mat-select>
@@ -30,7 +31,7 @@
 
                     <div class="col-7 mt-3">
                         <label for="">Widget Background <span class="text-danger">*</span> </label>
-                        <mat-select name="" id="" class="form-control">
+                        <mat-select name="" id="" class="form-control" formControlName="optionalWidget">
                             <mat-option value="Show Header, event description and header image">Show Header, event description and header image</mat-option>
                             <mat-option value="Hide header and event description">Hide header and event description</mat-option>
                             <mat-option value="Show header and event description">Show header and event description</mat-option>
@@ -39,16 +40,15 @@
 
                     <div class="col-7 mt-3">
                         <label for="">Events <span class="text-danger">*</span>  </label>
-                        <mat-select name="" id="" class="form-control">
-                            <mat-option value="All Events">All Events</mat-option>
-                            <mat-option value="Lajawab Cooking Classes (Mon 27 July 2020)">Lajawab Cooking Classes (Mon 27 July 2020) </mat-option>
-                            <mat-option value="Draculla Drinks (Mon 27 July 2020)">Draculla Drinks (Mon 27 July 2020)</mat-option>
-                            <mat-option value="The Ladies Kitty Party (Mon 27 July 2020)"> The Ladies Kitty Party (Mon 27 July 2020)</mat-option>
+                        <mat-select name="" id="" class="form-control" formControlName="eventTitle">
+                            <mat-option *ngFor="let allEvents of allEvents" value="{{allEvents.event_title}}">{{allEvents.event_title}}</mat-option>
                         </mat-select>
                     </div>
 
+                </form>
+
                     <div class="col-7 mt-3">
-                        <button mat-flat-button class="edit-btn px-5" (click)="EditButton()">Update Widget</button>
+                        <button mat-flat-button class="edit-btn px-5" (click)="fnUpadateWidget()">Update Widget</button>
                     </div>
                 </div>
 
@@ -128,18 +128,20 @@
 
                 <div class="col-8 mt-3">
                     <div class="my-2">
+                        <form [formGroup]="customiseWidgetForm">
                         <label for="">Theme</label>
-                        <mat-select name="" id="" class="form-control">
-                            <mat-option value="">Select a theme</mat-option>
-                            <mat-option value="">Classic Blue</mat-option>
-                            <mat-option value="">Green Shades</mat-option>
-                            <mat-option value="">Gray Scale</mat-option>
-                            <mat-option value="">Sunshine</mat-option>
-                            <mat-option value="">Black and White</mat-option>
-                            <mat-option value="">Turquoise</mat-option>
-                            <mat-option value="">Firenze</mat-option>
-                            <mat-option value="">Phonedro</mat-option>
+                        <mat-select name="" id="" class="form-control" (selectionChange)="fnChangeTheme($event)" formControlName="selectTheme">
+                            <mat-option value="Select a theme">Select a theme</mat-option>
+                            <mat-option value="Classic Blue">Classic Blue</mat-option>
+                            <mat-option value="Green Shades">Green Shades</mat-option>
+                            <mat-option value="Gray Scale">Gray Scale</mat-option>
+                            <mat-option value="Sunshine">Sunshine</mat-option>
+                            <mat-option value="Black and White">Black and White</mat-option>
+                            <mat-option value="Turquoise">Turquoise</mat-option>
+                            <mat-option value="Firenze">Firenze</mat-option>
+                            <mat-option value="Phonedro">Phonedro</mat-option>
                         </mat-select>
+                        </form>
                     </div>
                     <div class="my-3">
                         Theme Colors
@@ -243,7 +245,7 @@
                     </div>
 
                     <div class="pt-3">
-                        <button mat-flat-button class="save-btn px-5">Save</button>
+                        <button mat-flat-button class="save-btn px-5" (click)="fnUpadateCustomiseWidget()">Save</button>
                     </div>
                 </div>
             </div>
@@ -336,7 +338,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mt-4 p-3 ticket-footer">
+                    <div class="col-12 mt-4 p-3 ticket-footer" [(colorPicker)]="headerColor" [style.background]="headerColor" [(colorPicker)]="headerTextColor" [style.color]="headerTextColor">
                         <div class="row">
                             <div class="col-8 pt-3">
                                 <span>Need help, lost your tickets, and have any questions? <a href="#">Click here for help</a></span>
