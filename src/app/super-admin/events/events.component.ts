@@ -61,6 +61,7 @@ export class EventsComponent implements OnInit {
   assignedTicketId :any =[];
   eventURL:any;
   eventStartTimeIndex:0;
+  currentUser:any;
 
   // minEndTime:any;
   constructor(
@@ -72,9 +73,19 @@ export class EventsComponent implements OnInit {
     private SuperadminService: SuperadminService,
     private change:ChangeDetectorRef
     ) {
+
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+      // if(this.currentUser.user_type == 'TM' &&  this.currentUser.permission != 'A'){
+      //   if(localStorage.getItem('permision_EM') != 'TRUE'){
+      //     this.router.navigate(['/super-admin']);
+      //   }
+      // }
+
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');
       }
+
       this.salesTax.length = 1;
 
       this.addEventForm = this._formBuilder.group({
@@ -100,7 +111,6 @@ export class EventsComponent implements OnInit {
         access_code: [''],
       });
 
-      console.log(this.addEventForm.controls);
 
       this.customSalesTaxForm = this._formBuilder.group({
         customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])

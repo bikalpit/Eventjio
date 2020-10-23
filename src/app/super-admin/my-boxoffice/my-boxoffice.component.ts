@@ -39,6 +39,30 @@ export class MyBoxofficeComponent implements OnInit {
      }
 
     ngOnInit(): void {
+
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+       if(this.currentUser.user_type == 'TM'){
+
+          localStorage.setItem('isBoxoffice','false');
+          
+
+          if(this.currentUser.permission != 'A'){
+            
+            if(localStorage.getItem('permision_EM')  == 'TRUE'){
+              this.router.navigate(['/super-admin/events']);
+            } else if(localStorage.getItem('permision_OM')  == 'TRUE'){
+              this.router.navigate(['/super-admin/orders']);
+            }else if(localStorage.getItem('permision_OV')  == 'TRUE'){
+              this.router.navigate(['/super-admin/dashboard']);
+            }
+
+          }else if(this.currentUser.permission == 'A'){
+            this.router.navigate(['/super-admin/dashboard']);
+          }
+      }
+ 
+      
       this.getAllBoxoffice();
     }
 

@@ -19,4 +19,5 @@
     google_id?: string; //Use with fake backend
     facebook_id?: string; //Use with fake backend
     internal_staff?: string; //Use with fake backend
+    permission?: string;
 }

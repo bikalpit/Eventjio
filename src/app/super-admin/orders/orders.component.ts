@@ -51,6 +51,7 @@ export class OrdersComponent implements OnInit {
   allEventlist:any = [];
   new_date=new Date();
   single_order_event:any;
+  currentUser:any;
 
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -64,9 +65,19 @@ export class OrdersComponent implements OnInit {
     private datePipe:DatePipe,
     public router: Router,
   ) { 
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    // if(this.currentUser.user_type == 'TM' &&  this.currentUser.permission != 'A'){
+    //   if(localStorage.getItem('permision_OM') != 'TRUE'){
+    //     this.router.navigate(['/super-admin']);
+    //   }
+    // }
+
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
     }
+
     if(localStorage.getItem('selectedEventCode')){
       this.eventCode = localStorage.getItem('selectedEventCode')
     }

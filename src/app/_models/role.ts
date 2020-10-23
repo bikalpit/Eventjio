@@ -3,4 +3,5 @@
     Staff = 'SM',
     Customer = 'C',
     SuperAdmin = 'SA',
+    TM = 'TM',
 }

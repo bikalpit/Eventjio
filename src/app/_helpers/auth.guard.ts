@@ -23,7 +23,6 @@ export class AuthGuard implements CanActivate  {
                 this.router.navigate(['/login']);
                 return false;
             }
-            
             // check if route is restricted by role
             if (route.data.roles && route.data.roles == currentUser.user_type) {
                 // role not authorised so redirect to home page
@@ -31,6 +30,7 @@ export class AuthGuard implements CanActivate  {
                 // authorised so return true
                 return true;
             }else{
+
                if(currentUser.user_type == Role.Admin){
                     this.router.navigate(['/admin']);
                     return false;
@@ -43,9 +43,11 @@ export class AuthGuard implements CanActivate  {
                } else if(currentUser.user_type == Role.SuperAdmin){
                     this.router.navigate(['/super-admin']);
                     return false;
-               }
+               }else if(currentUser.user_type == Role.TM){
+                    this.router.navigate(['/super-admin']);
+                    return false;
+                }
             }
-            
             
         }
 

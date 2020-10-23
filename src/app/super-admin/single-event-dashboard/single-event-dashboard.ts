@@ -154,8 +154,7 @@ export class SingleEventDashboard implements OnInit {
   private handleRoute(event: RouterEvent) {
     const url = this.getUrl(event);
     this.currentUrl = url;
-    console.log(url)
-    console.log(this.currentUrl)
+  
     if(url === '/super-admin/single-event-dashboard/duplicate'){
       this.eventSideMenu = false;
     }else{

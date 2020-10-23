@@ -21,7 +21,8 @@ const routes: Routes = [
   { 
     path: 'super-admin', 
     canActivate: [AuthGuard],
-    data: {roles: Role.Admin},
+   // data: { roles:  Role.TM  :  Role.Admin   },
+    data: { roles: localStorage.getItem('currentUser') && JSON.parse(localStorage.getItem('currentUser')).user_type=='TM' ? Role.TM  :  Role.Admin   },
     loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },  
   
   { 

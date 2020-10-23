@@ -44,6 +44,7 @@ export class CustomersComponent implements OnInit {
   search = {
     keyword: ""
   };
+  currentUser:any;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -54,9 +55,17 @@ export class CustomersComponent implements OnInit {
     private _snackBar:MatSnackBar,
     private datePipe: DatePipe,
   ) {
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    // if(this.currentUser.user_type == 'TM' && this.currentUser.user_type != 'A'){
+    //   this.router.navigate(['/super-admin']);
+    // }
+
     if(localStorage.getItem('boxoffice_id')){
       this.boxofficeId = localStorage.getItem('boxoffice_id');   
     }
+    
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/ 
     this.addCustomerForm = this.formBuilder.group({
       firstname:['',Validators.required],

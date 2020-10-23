@@ -7,6 +7,8 @@ import { MatSnackBar} from '@angular/material/snack-bar';
 import { DatePipe} from '@angular/common';
  import { ErrorService } from '../../_services/error.service'
  import { SuperadminService} from '../_services/superadmin.service';
+ import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
+
 export interface DialogData {
   animal: string;
   name: string;
@@ -31,6 +33,8 @@ export class CouponsComponent implements OnInit {
   search = {
     keyword: ""
   };
+  currentUser:any;
+
   constructor(
    public dialog: MatDialog,
     private http: HttpClient,
@@ -39,7 +43,17 @@ export class CouponsComponent implements OnInit {
     private datePipe: DatePipe,
     private ErrorService: ErrorService,
     private SuperadminService : SuperadminService,
+    public router: Router,
+
  ) {
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    // if(this.currentUser.user_type == 'TM' && this.currentUser.user_type != 'A'){
+    //   this.router.navigate(['/super-admin']);
+    // }
+
+
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
     }
