@@ -18,7 +18,7 @@ export class SalesTaxComponent implements OnInit {
   singleTaxData:any;
   status:any;
   taxStatus:any;
-  boxOfficeSalesTax = 'Y';
+  boxOfficeSalesTax:any = 'N';
   constructor(public dialog: MatDialog,
     private SettingService : SettingService,
     private ErrorService : ErrorService,) { 
@@ -38,13 +38,12 @@ export class SalesTaxComponent implements OnInit {
       }else{
         this.boxOfficeSalesTax = 'N'
       }
-      let boxOfficeSalesTax = this.boxOfficeSalesTax
     
     
     let requestObject = {
       "boxoffice_id"  : localStorage.getItem('boxoffice_id'),
       "option_key"    :  "boxOfficeSalesTax",
-      "option_value" : boxOfficeSalesTax,
+      "option_value" : this.boxOfficeSalesTax,
       "event_id" :  null,
       'json_type' : 'Y'
     }

@@ -13,7 +13,7 @@
                     Tax
                 </div>
                 <div class="ml-auto">
-                    <mat-slide-toggle (change)="fnBoxOfficeSalesTax($event)"></mat-slide-toggle>
+                    <mat-slide-toggle (change)="fnBoxOfficeSalesTax($event)" [checked]="boxOfficeSalesTax === 'Y'"></mat-slide-toggle>
                 </div>
             </div>
         </div>
