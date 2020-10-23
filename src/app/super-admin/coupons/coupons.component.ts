@@ -489,8 +489,9 @@ export class myBatchVoucherCodeDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.signleVoucherDetail = this.data.signleVoucherDetail
+      // this.signleVoucherDetail.expiry_date = this.datePipe.transform(new Date(this.createVoucherForm.get('expiry_date').value),"yyyy-MM-dd")
       // this.minExpiryDate=this.datePipe.transform(new Date(this.minExpiryDate),"yyyy-MM-dd")
-      if(this.signleVoucherDetail.expiry_date < this.minExpiryDate){
+      if(this.signleVoucherDetail && this.signleVoucherDetail.expiry_date < this.minExpiryDate){
         this.signleVoucherDetail.expiry_date = this.minExpiryDate
       }
       if(this.signleVoucherDetail && this.signleVoucherDetail.event_id !== null){
