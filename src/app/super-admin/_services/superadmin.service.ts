@@ -239,8 +239,24 @@ export class SuperadminService {
          catchError(this.handleError));
     }
 
-    fnGetallOrders(requestObject){
-        return this.http.post(`${environment.apiUrl}/get-all-order`,requestObject,{headers:this.globalHeaders}).pipe(
+    fnGetallOrders(url,requestObject){
+        return this.http.post(`${url}`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    fnResendOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/resend-order`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    fnCancelOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/cancel-order`,requestObject,{headers:this.globalHeaders}).pipe(
          map((res) => {
             return res;
           }),

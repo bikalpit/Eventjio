@@ -71,12 +71,12 @@ export class IssuedTicketComponent implements OnInit {
   issuedTickets(){
 
     let requestObject = {
-      "event_id": this.event_id,
-      "ticket_type": this.event_ticket,
-      "issued_status": this.status_ticket,
-      "global_search": "",
-      "issued_fromdate": "",
-      "issued_todate": "",
+      "event_id":"eve16019834665225",
+      "ticket_type": "General Admission",
+      "issued_status": "P",
+      // "global_search": "",
+      // "issued_fromdate": "",
+      // "issued_todate": "",
     }
     this.SingleEventServiceService.issuedTickets(requestObject).subscribe((response:any)=>{
       if(response.data == true){
