@@ -80,7 +80,8 @@ export class LoginComponent implements OnInit {
                         
                         localStorage.setItem('isBoxoffice','false');
                         localStorage.setItem('boxoffice_id',currentUser.boxoffice_id);
-                
+                        localStorage.setItem('boxoffice_name',currentUser.boxoffice_name);
+
                         if(currentUser.permission != 'A'){
                             var permistion =   currentUser.permission.split(",");
                             

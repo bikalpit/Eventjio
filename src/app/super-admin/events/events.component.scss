@@ -16,6 +16,17 @@
     cursor: pointer;
 }
 
+.pagination-class {
+
+    text-align: center;
+    display: inline-block;
+    
+    .page-item.active .page-link {
+        color: #fff !important;
+    }
+    
+}
+
 .mat-elevation-z8 {
     .btn-content {
         position: relative;

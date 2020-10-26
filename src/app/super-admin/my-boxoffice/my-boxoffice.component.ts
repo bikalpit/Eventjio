@@ -42,12 +42,11 @@ export class MyBoxofficeComponent implements OnInit {
 
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-       if(this.currentUser.permission != ''){
+       if(this.currentUser.type == 'member'){
 
           localStorage.setItem('isBoxoffice','false');
 
           if(this.currentUser.permission != 'A'){
-            
             if(localStorage.getItem('permision_EM')  == 'TRUE'){
               this.router.navigate(['/super-admin/events']);
             } else if(localStorage.getItem('permision_OM')  == 'TRUE'){

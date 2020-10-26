@@ -25,9 +25,6 @@ export class SuperadminService {
             'admin-id' : this.currentUser.user_id,
             'api-token' : this.currentUser.token
         });
-
-       
-
         
     }  
 
@@ -184,6 +181,13 @@ export class SuperadminService {
         }),catchError(this.handleError));
     }
     
+    fnGetAllEventListPaggination(url,requestObject){
+        return this.http.post(`${url}`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
     fnGetAllEventList(requestObject){
         return this.http.post(`${environment.apiUrl}/get-allboxoffice-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -220,7 +224,8 @@ export class SuperadminService {
     }
  
    fnImportCustomer(requestObject){  
-        return this.http.post(`${environment.apiUrl}/import-customers`,requestObject,{headers:this.globalHeaders}).pipe(
+
+        return this.http.post(`${environment.apiUrl}/import-customers`,requestObject,{}).pipe(
             map((res)=>{
                 return res;
          }),catchError(this.handleError));

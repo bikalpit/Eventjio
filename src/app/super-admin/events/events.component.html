@@ -75,6 +75,20 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-12 text-center">
+                                    <div class="table_pagination mt-4 pagination-class" *ngIf="allorderlist != ''">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-end">
+                                                <li class="page-item" (click)="navigateToUpcomming(first_page_url_upCommintEvent)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" (click)="navigateToUpcomming(prev_page_url_upCommintEvent)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" [ngClass]="{'active':current_page_upCommintEvent == i+1}" *ngFor="let pagenumber of arrayOneUpcomming(last_page_upCommintEvent); let i = index;" (click)="navigateToPageNumberUpcomming(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                                <li class="page-item" (click)="navigateToUpcomming(next_page_url_upCommintEvent)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" (click)="navigateToUpcomming(last_page_url_upCommintEvent)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -138,8 +152,21 @@
                                                 </div>
 
                                             </ng-template>
-
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <div class="table_pagination mt-4 pagination-class"  *ngIf="allorderlist != ''">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-end">
+                                                <li class="page-item" (click)="navigateToPageNumberPast(first_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" (click)="navigateToPageNumberPast(prev_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" [ngClass]="{'active':current_page_pastEvent == i+1}" *ngFor="let pagenumber of arrayOnePast(last_page_pastEvent); let i = index;" (click)="navigateToPageNumberPast(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                                <li class="page-item" (click)="navigateToPageNumberPast(next_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" (click)="navigateToPageNumberPast(last_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
@@ -187,11 +214,10 @@
                                 </div>
                             </div>
                             <div class="w-100">
-                                <label class="ml-2" for="">Start Time <span><i class="fa fa-asterisk"></i></span> </label>
+                                <label class="ml-2" for="">Start Time<span><i class="fa fa-asterisk"></i></span> </label>
                                 <div class="form-group">
                                     <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                    <!-- (selectionChange)="fnChangeStartTime($event,i)"  -->
-                                    <mat-select formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                    <mat-select formControlName="event_start_time"  class="col-10 ml-2 form-control d-inline-block">
                                         <mat-option  (onSelectionChange)="fnChangeStartTime(i)"  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                     </mat-select>
                                     <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
@@ -217,7 +243,9 @@
                                 <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
 
                                 <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                    <mat-option  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index"  [disabled]="eventStartTimeIndex > i" value="{{fullDayTimeSlote}}" >{{fullDayTimeSlote}}</mat-option>
+                                    <mat-option  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" 
+                                     [disabled]="addEventForm.get('event_start_time').value > (i-1)" 
+                                     value="{{fullDayTimeSlote}}" >{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
 
 
