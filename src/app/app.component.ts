@@ -201,7 +201,7 @@ export class AppComponent {
   isAdminUser() {
     return this.currentUser && (this.currentUser.user_type === Role.Admin);
   }
-
+  
   isLogin() {
     if (localStorage.getItem('currentUser')) {
       return true;

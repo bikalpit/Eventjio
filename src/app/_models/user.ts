@@ -7,6 +7,7 @@
     lastname: string;
     role: string;
     user_type?: string;
+    type?:String;
     // token: string; //Use with live api
     token?: string; //Use with fake backend
     fullname?: string; //Use with fake backend

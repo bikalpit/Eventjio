@@ -77,7 +77,7 @@
                                 </div>
 
                                 <div class="col-12 text-center">
-                                    <div class="table_pagination mt-4 pagination-class" *ngIf="allorderlist != ''">
+                                    <div class="table_pagination mt-4 pagination-class" *ngIf="allUpcomingEventListData != ''">
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination justify-content-end">
                                                 <li class="page-item" (click)="navigateToUpcomming(first_page_url_upCommintEvent)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
@@ -157,7 +157,7 @@
                                 </div>
 
                                 <div class="col-12 text-center">
-                                    <div class="table_pagination mt-4 pagination-class"  *ngIf="allorderlist != ''">
+                                    <div class="table_pagination mt-4 pagination-class"  *ngIf="allPastEventListData != ''">
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination justify-content-end">
                                                 <li class="page-item" (click)="navigateToPageNumberPast(first_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
@@ -239,7 +239,7 @@
                                 </span>
                             </div>
                             <div class="w-100">
-                                <label class="ml-2" for="">Ends Time <span><i class="fa fa-asterisk"></i></span> </label>
+                                <label class="ml-2" for="">End Time <span><i class="fa fa-asterisk"></i></span> </label>
                                 <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
 
                                 <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">

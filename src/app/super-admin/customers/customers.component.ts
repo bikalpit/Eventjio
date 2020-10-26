@@ -468,6 +468,7 @@ export class DialogImportFileUpload {
       if(response.data == true){
         this.importCustomer = response.response
         this.ErrorService.successMessage(response.response);
+        this.dialogRef.close();
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
 
@@ -475,7 +476,7 @@ export class DialogImportFileUpload {
       this.isLoaderAdmin = false;
     });
 
-      
+
   //  let requestObject={
   //    "boxoffice_id":this.boxofficeId,
   //    "file":this.fileToUpload,

@@ -360,10 +360,7 @@ export class EventsComponent implements OnInit {
   }
 
    fnChangeStartTime(i){
-    
     this.addEventForm.get('event_end_time').setValue('');
-
-
   }
 
   fnChangeEventStatus(uniqueCode, status){
@@ -533,7 +530,7 @@ export class EventsComponent implements OnInit {
       'event_title':this.addEventForm.get('event_name').value,
       'start_date':this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
       'end_date': this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
-      'start_time':this.addEventForm.get('event_start_time').value,
+      'start_time':this.fullDayTimeSlote[this.addEventForm.get('event_start_time').value],
       'end_time':this.addEventForm.get('event_end_time').value,
       'venue_name':this.addEventForm.get('vanue_name').value,
       'postal_code':this.addEventForm.get('vanue_zip').value,
@@ -564,7 +561,11 @@ export class EventsComponent implements OnInit {
       'image' : this.newEventImageUrl,
       'default_img' : this.selecetdDefaultImage,
       };
+
+     
+
       this.createNewEvent(requestObject);
+
   }
 
   createNewEvent(requestObject){
