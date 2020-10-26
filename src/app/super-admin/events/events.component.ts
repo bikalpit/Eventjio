@@ -76,7 +76,7 @@ export class EventsComponent implements OnInit {
 
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-      if(this.currentUser.permission != 'TM' &&  this.currentUser.permission != 'A'){
+      if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
         if(localStorage.getItem('permision_EM') != 'TRUE'){
           this.router.navigate(['/super-admin']);
         }

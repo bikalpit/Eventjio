@@ -214,11 +214,13 @@ export class AppComponent {
   isPermisionPage(pageName){
 
     var loginUser = JSON.parse(localStorage.getItem('currentUser'));
+
+
     if(!loginUser){
       return false;
     }
   
-    if(loginUser.permission != '' && loginUser.permission !="A"){
+    if(loginUser.type == 'member' && loginUser.permission !="A"){
 
       if(pageName=='Dashboard' &&  localStorage.getItem('permision_OV')){
         return true;
@@ -232,9 +234,9 @@ export class AppComponent {
         return true;
       }
 
-    }else if(loginUser.permission != '' && loginUser.permission == "A"){
+    }else if(loginUser.type == 'member' && loginUser.permission == "A"){
       return true;
-    }else if(loginUser.permission == '' && loginUser.permission == "A" ){
+    }else if(loginUser.type == 'admin' ){
       return true;
     }
 

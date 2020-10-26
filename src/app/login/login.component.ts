@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
 
                     let currentUser = data.response;
 
-                    if(currentUser.permission != ''){
+                    if(currentUser.type == 'member'){
                         
                         localStorage.setItem('isBoxoffice','false');
                         localStorage.setItem('boxoffice_id',currentUser.boxoffice_id);

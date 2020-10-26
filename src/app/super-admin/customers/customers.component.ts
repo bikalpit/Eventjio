@@ -58,7 +58,7 @@ export class CustomersComponent implements OnInit {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if(this.currentUser.permission != '' && this.currentUser.permission != 'A'){
+    if(this.currentUser.type == 'member' && this.currentUser.permission != 'A'){
       this.router.navigate(['/super-admin']);
     }
 
