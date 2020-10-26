@@ -76,11 +76,11 @@ export class EventsComponent implements OnInit {
 
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-      // if(this.currentUser.user_type == 'TM' &&  this.currentUser.permission != 'A'){
-      //   if(localStorage.getItem('permision_EM') != 'TRUE'){
-      //     this.router.navigate(['/super-admin']);
-      //   }
-      // }
+      if(this.currentUser.permission != 'TM' &&  this.currentUser.permission != 'A'){
+        if(localStorage.getItem('permision_EM') != 'TRUE'){
+          this.router.navigate(['/super-admin']);
+        }
+      }
 
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');

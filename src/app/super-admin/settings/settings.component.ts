@@ -20,9 +20,9 @@ export class SettingsComponent implements OnInit {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    // if(this.currentUser.user_type == 'TM' && this.currentUser.user_type != 'A'){
-    //     this.router.navigate(['/super-admin']);
-    // }
+    if(this.currentUser.permission != '' && this.currentUser.permission != 'A'){
+        this.router.navigate(['/super-admin']);
+    }
     
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);

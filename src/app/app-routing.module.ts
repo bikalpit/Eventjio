@@ -11,20 +11,15 @@ import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-offi
 
 
 const routes: Routes = [
-  
-  
   { 
     path: 'customers', 
     loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) 
   },
-  
   { 
     path: 'super-admin', 
     canActivate: [AuthGuard],
-   // data: { roles:  Role.TM  :  Role.Admin   },
-    data: { roles: localStorage.getItem('currentUser') && JSON.parse(localStorage.getItem('currentUser')).user_type=='TM' ? Role.TM  :  Role.Admin   },
+    data: { roles : Role.Admin },
     loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },  
-  
   { 
     path: 'settings', 
     loadChildren: () => import('./super-admin/settings/settings.module').then(m => m.SettingsModule) 

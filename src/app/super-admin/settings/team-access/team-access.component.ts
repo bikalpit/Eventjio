@@ -106,8 +106,32 @@ export class TeamAccessComponent implements OnInit {
     });
   }
 
-}
+    permissionCheck(access){
 
+      
+      if(access=='A'){
+        return "Admin";
+      }
+    
+
+      var permistion =   access.split(",");
+      var permistionString = [];                     ;
+
+      if(permistion.indexOf("EM") > -1 ){
+        permistionString.push('Event Manager');
+      }
+
+      if(permistion.indexOf("OM")  >  -1 ){
+        permistionString.push('Order Manager');
+      }
+      
+      if(permistion.indexOf("OV")  >  -1 ){
+        permistionString.push('OverView');
+      } 
+
+      return permistionString.toString();
+  }
+}
 
 @Component({
   selector: 'Invite-Team-Mate',

@@ -43,10 +43,7 @@ export class AuthGuard implements CanActivate  {
                } else if(currentUser.user_type == Role.SuperAdmin){
                     this.router.navigate(['/super-admin']);
                     return false;
-               }else if(currentUser.user_type == Role.TM){
-                    this.router.navigate(['/super-admin']);
-                    return false;
-                }
+               }
             }
             
         }

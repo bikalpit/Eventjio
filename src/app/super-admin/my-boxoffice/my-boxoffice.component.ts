@@ -42,10 +42,9 @@ export class MyBoxofficeComponent implements OnInit {
 
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-       if(this.currentUser.user_type == 'TM'){
+       if(this.currentUser.permission != ''){
 
           localStorage.setItem('isBoxoffice','false');
-          
 
           if(this.currentUser.permission != 'A'){
             
@@ -165,7 +164,6 @@ export class myCreateNewBoxofficeDialog {
       if(response.data == true){
         this.allCurency = response.response
       }else if(response.data == false){
-          
         this.ErrorService.errorMessage(response.response)
       }
     });
@@ -189,8 +187,6 @@ export class myCreateNewBoxofficeDialog {
 
       this.createNewBoxOffice(insertArr);
 
-    }else{
-      
     }
     
   }

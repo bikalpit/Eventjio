@@ -25,7 +25,7 @@
                                         <div class="" fxFlex="25">Last Seen</div>
                                     </div>
 
-                                    <div *ngFor="let approvedInviterData of approvedInviterData">
+                                    <div *ngFor="let val of approvedInviterData">
                                         <div class="content" class="drageble-list">
                                             <div class="drageble-box" fxLayout="row">
                                                 <div class="tb-data" fxFlex="5">
@@ -34,16 +34,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="tb-data" fxFlex="20">
-                                                    {{approvedInviterData.name}}
+                                                    {{val.name}}
                                                 </div>
                                                 <div class="tb-data cpn-code" fxFlex="25">
-                                                    <p *ngIf="approvedInviterData.role === 'A'">Admin</p>
+                                                    <!-- <p *ngIf="approvedInviterData.role === 'A'">Admin</p>
                                                     <p *ngIf="approvedInviterData.role === 'EO'">Event organisers </p>
                                                     <p *ngIf="approvedInviterData.role === 'OM'">Event manager</p>
-                                                    <p *ngIf="approvedInviterData.role === 'OV'">Over view</p>
+                                                    <p *ngIf="approvedInviterData.role === 'OV'">Over view</p> -->
+                                                    <p>{{permissionCheck(val.permission)}}</p>
                                                 </div>
-                                                <div class="tb-data" fxFlex="25">{{approvedInviterData.email_id}}</div>
-                                                <div class="tb-data" fxFlex="25">{{approvedInviterData.updated_at}}</div>
+                                                <div class="tb-data" fxFlex="25">{{val.email_id}}</div>
+                                                <div class="tb-data" fxFlex="25">{{val.updated_at}}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -65,21 +66,24 @@
                                         <div class="" fxFlex="20">Status</div>
                                         <!-- <div class="" fxFlex="10"></div> -->
                                     </div>
-                                    <div *ngFor="let pendingInviterData of pendingInviterData">
+                                    <div *ngFor="let val of pendingInviterData">
                                         <div class="content" class="drageble-list">
                                             <div class="drageble-box" fxLayout="row">
-                                                <div class="tb-data cpn-title" fxFlex="25">{{pendingInviterData.email_id}}</div>
+                                                <div class="tb-data cpn-title" fxFlex="25">{{val.email_id}}</div>
                                                 <div class="tb-data cpn-code" fxFlex="20">
-                                                    <p *ngIf="pendingInviterData.role === 'A'">Admin</p>
+                                                    <!-- <p *ngIf="pendingInviterData.role === 'A'">Admin</p>
                                                     <p *ngIf="pendingInviterData.role === 'EO'">Event organisers </p>
                                                     <p *ngIf="pendingInviterData.role === 'OM'">Event manager</p>
-                                                    <p *ngIf="pendingInviterData.role === 'OV'">Over view</p>
+                                                    <p *ngIf="pendingInviterData.role === 'OV'">Over view</p> -->
+                                                    <!-- {{pendingInviterData.permission}} -->
+                                                    <p>{{permissionCheck(val.permission)}}</p>
+                                                    
                                                 </div>
-                                                <div class="tb-data" fxFlex="35">{{pendingInviterData.updated_at}}</div>
+                                                <div class="tb-data" fxFlex="35">{{val.updated_at}}</div>
                                                 <div class="tb-data status" fxFlex="20">
-                                                    <p *ngIf="pendingInviterData.status === 'APR'" [ngStyle]="{'color':pendingInviterData.status === 'APR' ? '#2BB800':'' }">Approved</p>
-                                                    <p *ngIf="pendingInviterData.status === 'R'" [ngStyle]="{'color':pendingInviterData.status === 'R' ? '#FF0000':'' }">Rejected</p>
-                                                    <p *ngIf="pendingInviterData.status === 'P'" [ngStyle]="{'color':pendingInviterData.status === 'P' ? '#FF7700':'' }">Pending</p>
+                                                    <p *ngIf="val.status === 'APR'" [ngStyle]="{'color':val.status === 'APR' ? '#2BB800':'' }">Approved</p>
+                                                    <p *ngIf="val.status === 'R'" [ngStyle]="{'color':val.status === 'R' ? '#FF0000':'' }">Rejected</p>
+                                                    <p *ngIf="val.status === 'P'" [ngStyle]="{'color':val.status === 'P' ? '#FF7700':'' }">Pending</p>
                                                 </div>
                                                 <!-- <div class="tb-data" fxFlex="10">
                                                     <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>

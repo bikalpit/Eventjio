@@ -63,7 +63,7 @@ export class AppComponent {
     }  
 
     if(localStorage.getItem('currentUser') && this.currentUrl == ''){
-      if(this.currentUser.user_type == 'A' || this.currentUser.user_type == 'TM'){
+      if(this.currentUser.user_type == 'A' ){
         this.router.navigate(['/super-admin/']);
       }
 
@@ -199,7 +199,7 @@ export class AppComponent {
 
 
   isAdminUser() {
-    return this.currentUser && (this.currentUser.user_type === Role.Admin || this.currentUser.user_type === Role.TM);
+    return this.currentUser && (this.currentUser.user_type === Role.Admin);
   }
 
   isLogin() {
@@ -214,12 +214,11 @@ export class AppComponent {
   isPermisionPage(pageName){
 
     var loginUser = JSON.parse(localStorage.getItem('currentUser'));
-
     if(!loginUser){
       return false;
     }
   
-    if(loginUser.user_type == 'TM' && loginUser.permission !="A"){
+    if(loginUser.permission != '' && loginUser.permission !="A"){
 
       if(pageName=='Dashboard' &&  localStorage.getItem('permision_OV')){
         return true;
@@ -233,12 +232,11 @@ export class AppComponent {
         return true;
       }
 
-    }else if(loginUser.user_type == 'TM' && loginUser.permission == "A"){
+    }else if(loginUser.permission != '' && loginUser.permission == "A"){
       return true;
-    }else if(loginUser.type == 'admin'){
+    }else if(loginUser.permission == '' && loginUser.permission == "A" ){
       return true;
     }
-
 
   }
 

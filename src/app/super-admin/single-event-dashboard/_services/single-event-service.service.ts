@@ -19,26 +19,13 @@ export class SingleEventServiceService {
         public router: Router,
         private authenticationService : AuthenticationService,
   ) { 
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-   
-        if(this.currentUser.user_type == 'TM') { 
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
-            this.globalHeaders = new HttpHeaders({
-                'Content-Type': 'application/json',
-                'team-member-id' : this.currentUser.user_id,
-                'api-token' : this.currentUser.token
-            });
-
-         }else { 
-            this.globalHeaders = new HttpHeaders({
-                'Content-Type': 'application/json',
-                'admin-id' : this.currentUser.user_id,
-                'api-token' : this.currentUser.token
-            });
-        }  
-
-   
-
+        this.globalHeaders = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.currentUser.user_id,
+            'api-token' : this.currentUser.token
+        });
     
   }
   private handleError(error: HttpErrorResponse) {

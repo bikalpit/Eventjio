@@ -20,11 +20,11 @@ export class DashboardComponent implements OnInit {
   ) { 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    // if(this.currentUser.user_type == 'TM' && this.currentUser.permission != 'A'){
-    //   if(localStorage.getItem('permision_OV') != 'TRUE'){
-    //     this.router.navigate(['/super-admin']);
-    //   }
-    // }
+    if(this.currentUser.permission != '' && this.currentUser.permission != 'A'){
+      if(localStorage.getItem('permision_OV') != 'TRUE'){
+        this.router.navigate(['/super-admin']);
+      }
+    }
     
   }
 
