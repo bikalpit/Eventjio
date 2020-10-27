@@ -13,7 +13,7 @@
 
         <div class="row mx-0 code-tab">
             <mat-tab-group (selectedTabChange)="onTabChange($event)" class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left p-0 event-tabs">
-                <mat-tab label="Upcoming Events ({{allUpcomingEventListData.length}})" class="">
+                <mat-tab label="Upcoming Events ({{totalUpcomingEvents}})" class="">
                     <div class="service-listing events">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
@@ -95,7 +95,7 @@
                     </div>
 
                 </mat-tab>
-                <mat-tab label="Past Events ({{allPastEventListData.length}})">
+                <mat-tab label="Past Events ({{totalPastEvents}})">
                     <div class="service-listing events">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
@@ -157,7 +157,7 @@
                                 </div>
 
                                 <div class="col-12 text-center">
-                                    <div class="table_pagination mt-4 pagination-class"  *ngIf="allPastEventListData != ''">
+                                    <div class="table_pagination mt-4 pagination-class" *ngIf="allPastEventListData != ''">
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination justify-content-end">
                                                 <li class="page-item" (click)="navigateToPageNumberPast(first_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
@@ -217,8 +217,8 @@
                                 <label class="ml-2" for="">Start Time<span><i class="fa fa-asterisk"></i></span> </label>
                                 <div class="form-group">
                                     <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                    <mat-select formControlName="event_start_time"  class="col-10 ml-2 form-control d-inline-block">
-                                        <mat-option  (onSelectionChange)="fnChangeStartTime(i)"  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                                    <mat-select formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                        <mat-option (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                     </mat-select>
                                     <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
                                     <small *ngIf="addEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
@@ -243,14 +243,12 @@
                                 <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
 
                                 <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                    <mat-option  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" 
-                                     [disabled]="addEventForm.get('event_start_time').value > (i-1)" 
-                                     value="{{fullDayTimeSlote}}" >{{fullDayTimeSlote}}</mat-option>
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="addEventForm.get('event_start_time').value > (i-1)" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
 
 
                                 <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                <mat-option  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="eventStartTimeIndex > i" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="eventStartTimeIndex > i" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
 
                                 <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_end_time').touched || addEventForm.get('event_end_time').dirty">
