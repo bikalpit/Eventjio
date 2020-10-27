@@ -71,6 +71,7 @@ export class EventsComponent implements OnInit {
   next_page_url_upCommintEvent:any;
   prev_page_url_upCommintEvent:any;
   path_upCommintEvent:any;
+  totalUpcomingEvents:any;
   
   
   pastEventApiUrl:any =  `${environment.apiUrl}/get-allboxoffice-event-api`;
@@ -81,6 +82,7 @@ export class EventsComponent implements OnInit {
   next_page_url_pastEvent:any;
   prev_page_url_pastEvent:any;
   path_pastEvent:any;
+  totalPastEvents:any;
   
   
   // minEndTime:any;
@@ -223,6 +225,7 @@ export class EventsComponent implements OnInit {
       if(response.data == true){
         
         this.allUpcomingEventListData = response.response.data;
+        this.totalUpcomingEvents = response.response.total;
 
         this.current_page_upCommintEvent = response.response.current_page;
         this.first_page_url_upCommintEvent = response.response.first_page_url;
@@ -283,6 +286,7 @@ export class EventsComponent implements OnInit {
       if(response.data == true){
 
         this.allPastEventListData = response.response.data
+        this.totalPastEvents = response.response.total
 
         this.current_page_pastEvent = response.response.current_page;
         this.first_page_url_pastEvent = response.response.first_page_url;
