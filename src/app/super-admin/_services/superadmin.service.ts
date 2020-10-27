@@ -11,8 +11,6 @@ import { AuthenticationService } from '../../_services/authentication.service';
 @Injectable({ providedIn: 'root' })
 export class SuperadminService {
 
-    // token = localStorage.getItem('token');
-    // admin_id = localStorage.getItem('admin-id');
     globalHeaders:any;
     currentUser:any;
      constructor(
@@ -21,11 +19,13 @@ export class SuperadminService {
         private authenticationService : AuthenticationService,
     ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+
         this.globalHeaders = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : this.currentUser.user_id,
             'api-token' : this.currentUser.token
         });
+        
     }  
 
     private handleError(error: HttpErrorResponse) {
@@ -181,6 +181,13 @@ export class SuperadminService {
         }),catchError(this.handleError));
     }
     
+    fnGetAllEventListPaggination(url,requestObject){
+        return this.http.post(`${url}`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
     fnGetAllEventList(requestObject){
         return this.http.post(`${environment.apiUrl}/get-allboxoffice-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -217,7 +224,8 @@ export class SuperadminService {
     }
  
    fnImportCustomer(requestObject){  
-        return this.http.post(`${environment.apiUrl}/import-customers`,requestObject,{headers:this.globalHeaders}).pipe(
+
+        return this.http.post(`${environment.apiUrl}/import-customers`,requestObject,{}).pipe(
             map((res)=>{
                 return res;
          }),catchError(this.handleError));
@@ -316,3 +324,6 @@ export class SuperadminService {
     }
 
 }
+
+
+    
