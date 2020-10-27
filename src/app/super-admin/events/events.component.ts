@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewChild,Inject} from '@angular/core';
+import {Component, OnInit, ViewChild,Inject,ChangeDetectorRef} from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
 import { ErrorService } from '../../_services/error.service';
 import { DatePipe} from '@angular/common';
+import { environment } from '../../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
 
 interface Status {
@@ -58,6 +59,30 @@ export class EventsComponent implements OnInit {
   fullDayTimeSlote:any;
   startEndSameDate:boolean = false;
   assignedTicketId :any =[];
+  eventURL:any;
+  eventStartTimeIndex:any = 0;
+  currentUser:any;
+
+  upcommintEventApiUrl:any =  `${environment.apiUrl}/get-allboxoffice-event-api`;
+  current_page_upCommintEvent:any;
+  first_page_url_upCommintEvent:any;
+  last_page_upCommintEvent:any;
+  last_page_url_upCommintEvent:any;
+  next_page_url_upCommintEvent:any;
+  prev_page_url_upCommintEvent:any;
+  path_upCommintEvent:any;
+  
+  
+  pastEventApiUrl:any =  `${environment.apiUrl}/get-allboxoffice-event-api`;
+  current_page_pastEvent:any;
+  first_page_url_pastEvent:any;
+  last_page_pastEvent:any;
+  last_page_url_pastEvent:any;
+  next_page_url_pastEvent:any;
+  prev_page_url_pastEvent:any;
+  path_pastEvent:any;
+  
+  
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -66,10 +91,21 @@ export class EventsComponent implements OnInit {
     private datePipe: DatePipe,
     private router: Router,
     private SuperadminService: SuperadminService,
+    private change:ChangeDetectorRef
     ) {
+
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+      if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
+        if(localStorage.getItem('permision_EM') != 'TRUE'){
+          this.router.navigate(['/super-admin']);
+        }
+      }
+
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');
       }
+
       this.salesTax.length = 1;
 
       this.addEventForm = this._formBuilder.group({
@@ -95,7 +131,6 @@ export class EventsComponent implements OnInit {
         access_code: [''],
       });
 
-      console.log(this.addEventForm.controls);
 
       this.customSalesTaxForm = this._formBuilder.group({
         customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
@@ -153,7 +188,6 @@ export class EventsComponent implements OnInit {
     this.SuperadminService.getTimeSlote(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fullDayTimeSlote= response.response
-       // console.log(this.fullDayTimeSlote)
       }
     });
   }
@@ -185,9 +219,19 @@ export class EventsComponent implements OnInit {
       'filter' : 'upcoming'
     }
     this.isLoaderAdmin = true;
-    this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+    this.SuperadminService.fnGetAllEventListPaggination(this.upcommintEventApiUrl,requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allUpcomingEventListData = response.response
+        
+        this.allUpcomingEventListData = response.response.data;
+
+        this.current_page_upCommintEvent = response.response.current_page;
+        this.first_page_url_upCommintEvent = response.response.first_page_url;
+        this.last_page_upCommintEvent = response.response.last_page;
+        this.last_page_url_upCommintEvent = response.response.last_page_url;
+        this.next_page_url_upCommintEvent = response.response.next_page_url;
+        this.prev_page_url_upCommintEvent = response.response.prev_page_url;
+        this.path_upCommintEvent = response.response.path;
+
         this.allUpcomingEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
           if(element.event_tickets.length === 0){
@@ -196,6 +240,7 @@ export class EventsComponent implements OnInit {
             element.remaining = undefined
           }
         });
+
         this.addNewEvents = true;
       }else if(response.data == false){
         this.allUpcomingEventListData.length = 0;
@@ -205,16 +250,49 @@ export class EventsComponent implements OnInit {
     this.isLoaderAdmin = false;
   }
 
+  arrayOneUpcomming(n: number): any[] {
+    return Array(n);
+  }
+    
+  navigateToUpcomming(api_url){
+    this.upcommintEventApiUrl=api_url;
+    if(this.upcommintEventApiUrl){
+      this.fnGetUpcomingEventList();
+    }
+  }
+
+  navigateToPageNumberUpcomming(index){
+    this.upcommintEventApiUrl = this.path_upCommintEvent+'?page='+index;
+    if(this.upcommintEventApiUrl){
+      this.fnGetUpcomingEventList();
+    }
+  }
+
   fnGetPastEventList(){
+    
     this.isLoaderAdmin = true;
+
     let requestObject = {
       'boxoffice_id'  :this.boxOfficeCode,
       'filter' : 'past'
     }
+
     this.isLoaderAdmin = true;
-    this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+    this.SuperadminService.fnGetAllEventListPaggination(this.pastEventApiUrl,requestObject).subscribe((response:any) => {
+      
       if(response.data == true){
-        this.allPastEventListData = response.response
+
+        this.allPastEventListData = response.response.data
+
+        this.current_page_pastEvent = response.response.current_page;
+        this.first_page_url_pastEvent = response.response.first_page_url;
+        this.last_page_pastEvent = response.response.last_page;
+        this.last_page_url_pastEvent = response.response.last_page_url;
+        this.next_page_url_pastEvent = response.response.next_page_url;
+        this.prev_page_url_pastEvent = response.response.prev_page_url;
+        this.path_pastEvent = response.response.path;
+
+
         this.allPastEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(element.start_date,"EEE MMM d, y")
           if(element.event_tickets.length === 0){
@@ -223,7 +301,9 @@ export class EventsComponent implements OnInit {
             element.remaining = undefined
           }
         });
+
         this.addNewEvents = true;
+
       }else if(response.data == false){
         this.allPastEventListData.lenght = 0
         this.ErrorService.errorMessage(response.response);
@@ -232,11 +312,31 @@ export class EventsComponent implements OnInit {
     this.isLoaderAdmin = false;
   }
 
+
+  arrayOnePast(n: number): any[] {
+    return Array(n);
+  }
+    
+  navigateToPast(api_url){
+    this.pastEventApiUrl=api_url;
+    if(this.pastEventApiUrl){
+      this.fnGetPastEventList();
+    }
+  }
+
+  navigateToPageNumberPast(index){
+    this.pastEventApiUrl = this.path_pastEvent+'?page='+index;
+    if(this.upcommintEventApiUrl){
+      this.fnGetPastEventList();
+    }
+  }
+
   fnSelectSingleEvent(eventCode){
     localStorage.setItem('selectedEventCode', eventCode);
     this.router.navigate(["/super-admin/single-event-dashboard/"]);
   }
 
+ 
 
   // add Event Fns
   
@@ -259,8 +359,8 @@ export class EventsComponent implements OnInit {
     // this.addEventForm.get('event_end_time').setValue('');
   }
 
-  fnChangeStartTime(event){
-   // this.eventStartTime = this.addEventForm.get('event_start_time').value;
+   fnChangeStartTime(i){
+    this.addEventForm.get('event_end_time').setValue('');
   }
 
   fnChangeEventStatus(uniqueCode, status){
@@ -289,6 +389,11 @@ export class EventsComponent implements OnInit {
   
   fnSelectDefaultImage(imageName){
     this.selecetdDefaultImage = imageName;
+  }
+
+  viewEventPage(eventCode){
+    this.eventURL = environment.urlForLink+'/preview-events/'+eventCode;
+    window.open(this.eventURL,'_blank');
   }
 
   fnChangeDonation(event){
@@ -425,7 +530,7 @@ export class EventsComponent implements OnInit {
       'event_title':this.addEventForm.get('event_name').value,
       'start_date':this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
       'end_date': this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
-      'start_time':this.addEventForm.get('event_start_time').value,
+      'start_time':this.fullDayTimeSlote[this.addEventForm.get('event_start_time').value],
       'end_time':this.addEventForm.get('event_end_time').value,
       'venue_name':this.addEventForm.get('vanue_name').value,
       'postal_code':this.addEventForm.get('vanue_zip').value,
@@ -456,7 +561,11 @@ export class EventsComponent implements OnInit {
       'image' : this.newEventImageUrl,
       'default_img' : this.selecetdDefaultImage,
       };
+
+     
+
       this.createNewEvent(requestObject);
+
   }
 
   createNewEvent(requestObject){
@@ -684,21 +793,21 @@ export class AddNewTicketType {
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
       
-      this.addTicketForm.get('title').markAsTouched;
-      this.addTicketForm.get('price').markAsTouched;
-      this.addTicketForm.get('qty').markAsTouched;
-      this.addTicketForm.get('description').markAsTouched;
-      this.addTicketForm.get('fee').markAsTouched;
-      this.addTicketForm.get('status').markAsTouched;
-      this.addTicketForm.get('min_order').markAsTouched;
-      this.addTicketForm.get('max_order').markAsTouched;
-      this.addTicketForm.get('until_date').markAsTouched;
-      this.addTicketForm.get('until_time').markAsTouched;
-      this.addTicketForm.get('after_date').markAsTouched;
-      this.addTicketForm.get('after_time').markAsTouched;
-      this.addTicketForm.get('until_interval').markAsTouched;
-      this.addTicketForm.get('after_interval').markAsTouched;
-
+      this.addTicketForm.get('title').markAsTouched();
+      this.addTicketForm.get('price').markAsTouched();
+      this.addTicketForm.get('qty').markAsTouched();
+      this.addTicketForm.get('description').markAsTouched();
+      this.addTicketForm.get('fee').markAsTouched();
+      this.addTicketForm.get('status').markAsTouched();
+      this.addTicketForm.get('min_order').markAsTouched();
+      this.addTicketForm.get('max_order').markAsTouched();
+      this.addTicketForm.get('until_date').markAsTouched();
+      this.addTicketForm.get('until_time').markAsTouched();
+      this.addTicketForm.get('after_date').markAsTouched();
+      this.addTicketForm.get('after_time').markAsTouched();
+      this.addTicketForm.get('until_interval').markAsTouched();
+      this.addTicketForm.get('after_interval').markAsTouched();
+      console.log(this.addTicketForm)
       return false;
     }
 

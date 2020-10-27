@@ -19,12 +19,14 @@ export class SingleEventServiceService {
         public router: Router,
         private authenticationService : AuthenticationService,
   ) { 
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    this.globalHeaders = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'admin-id' : this.currentUser.user_id,
-        'api-token' : this.currentUser.token
-    });
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+
+        this.globalHeaders = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id' : this.currentUser.user_id,
+            'api-token' : this.currentUser.token
+        });
+    
   }
   private handleError(error: HttpErrorResponse) {
     console.log(error);
@@ -126,7 +128,7 @@ export class SingleEventServiceService {
     }),catchError(this.handleError));
   }
   
-  waitList(requestObject){
+  setSettingOption(requestObject){
     return this.http.post(`${environment.apiUrl}/set-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
@@ -190,12 +192,12 @@ export class SingleEventServiceService {
         }),catchError(this.handleError));
   }
    
-  fnDeleteEvent(requestObject){
-    return this.http.post(`${environment.apiUrl}/delete-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
-        map((res) => {
-            return res;
-     }),catchError(this.handleError));
-}
+    fnDeleteEvent(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
 
     getSavedlist(requestObject){
         return this.http.post(`${environment.apiUrl}/get-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
@@ -204,4 +206,12 @@ export class SingleEventServiceService {
         }),catchError(this.handleError));
     }
 
+
+    updateSetting(requestObject){
+        return this.http.post(`${environment.apiUrl}/set-setting-option-api
+        `,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 }

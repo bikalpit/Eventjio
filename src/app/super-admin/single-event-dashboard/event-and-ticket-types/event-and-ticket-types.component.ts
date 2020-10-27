@@ -45,7 +45,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   donation:any = 'N';
   shareButtonStatus: any = 'N';
   olPlatForm : any = 'N';
-  eventStartTime:any;
+  eventStartTime:any=0;
   minEventStartDate:any = new Date();
   minEventEndDate:any = new Date();
   startEndSameDate:boolean = false;
@@ -65,7 +65,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
   ) { 
-    
+   
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
     }
@@ -183,13 +183,11 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   bannerStyle1(){
     if (this.thumbZoomLavel > 1){
-      console.log(this.thumbZoomLavel)
       return {
         backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
         backgroundSize: this.thumbZoomLavel+'00'
       }
     }else{
-      console.log(this.thumbZoomLavel)
       return {
         backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
         backgroundSize: 'cover'
@@ -303,22 +301,13 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.editEventForm.get('event_end_time').setValue('');
   }
   
-  fnChangeEventEndDate(){
-    // let startDate = this.editEventForm.get('event_start_date').value;
-    // let endDate = this.editEventForm.get('event_end_date').value;
-    // if(startDate == endDate){
-    //   this.startEndSameDate = true;
-    // }else{
-    //   this.startEndSameDate = false;
-    // }
-    // this.minEventEndDate = this.editEventForm.get('event_start_date').value;
-    // this.editEventForm.get('event_end_date').setValue('');
-    // this.editEventForm.get('event_end_time').setValue('');
-  }
+  
 
   fnChangeStartTime(event){
-   // this.eventStartTime = this.editEventForm.get('event_start_time').value;
+    this.editEventForm.get('event_end_time').setValue('');
+   
   }
+
 
   
   fnChangeDonation(checked){
@@ -468,7 +457,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       'event_title':this.editEventForm.get('event_name').value,
       'start_date':this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd"),
       'end_date': this.datePipe.transform(new Date(this.editEventForm.get('event_end_date').value),"yyyy-MM-dd"),
-      'start_time':this.editEventForm.get('event_start_time').value,
+      'start_time': this.fullDayTimeSlote[this.editEventForm.get('event_start_time').value],
       'end_time':this.editEventForm.get('event_end_time').value,
       'venue_name':this.editEventForm.get('vanue_name').value,
       'postal_code':this.editEventForm.get('vanue_zip').value,

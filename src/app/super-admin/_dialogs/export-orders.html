@@ -63,15 +63,16 @@
             </mat-expansion-panel-header>
 
             <section class="row">
-              <mat-checkbox class="col-md-4">Order ID</mat-checkbox>
-              <mat-checkbox class="col-md-4">Order ID</mat-checkbox>
-              <mat-checkbox class="col-md-4">Order ID</mat-checkbox>
+              <mat-checkbox (change)="fnOrdersDetailsOrder_id($event)" class="col-md-4" >Order ID</mat-checkbox>
+              <mat-checkbox (change)="fnOrdersDetailsticket_check($event)" class="col-md-4">Tickets checked in</mat-checkbox>
+              <mat-checkbox (change)="fnOrdersDetailsOrder_cancel($event)" class="col-md-4">Order cancelled</mat-checkbox>
             </section>
 
             <section class="row">
-              <mat-checkbox class="col-md-4">Order date</mat-checkbox>
-              <mat-checkbox class="col-md-4">Order date</mat-checkbox>
-              <mat-checkbox class="col-md-4">Order date</mat-checkbox>
+              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsOrder_date($event)">Order date</mat-checkbox>
+              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsTax_amont($event)">Tax amount</mat-checkbox>
+              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsVoucherCode($event)">Voucher codes amount</mat-checkbox>
+              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsTicket_charge($event)">Ticket charges</mat-checkbox>
             </section>
 
             
@@ -87,11 +88,11 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <section class=" row">
-              <mat-checkbox class=" col-md-4">Event ID</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Event name</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Event start</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Event end</mat-checkbox>
-            </section>
+              <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_id($event)">Event ID</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_name($event)">Event name</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_start($event)">Event start</mat-checkbox>
+             <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_end($event)">Event end</mat-checkbox>
+             </section>
           </mat-expansion-panel>
         </mat-accordion>
         <mat-accordion class="" multi>
@@ -104,13 +105,14 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <section class=" row">
-              <mat-checkbox class=" col-md-4">Name</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Email</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Mobile number</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Address 1</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Address 2</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Address 3</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Postcode / Zip</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsFirstname($event)">FirstName</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsLastname($event)">LastName</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsEmail($event)">Email</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsPhone($event)">Mobile number</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd1($event)">Address 1</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd2($event)">Address 2</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd3($event)">Address 3</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsPostcode($event)">Postcode / Zip</mat-checkbox>
               <mat-checkbox class=" col-md-4">Postcode / Zip</mat-checkbox>
             </section>
           </mat-expansion-panel>
@@ -128,12 +130,12 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <section class=" row">
-                <mat-checkbox class=" col-md-4">Tickets</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Voided tickets</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Transaction charges</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Taxes</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Gift cards</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Donations</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnLineitem_ticket($event)">Tickets</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnLineitem_Voidticket($event)">Voided tickets</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnLineitemTransactionCharge($event)">Transaction charges</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnLineitemTaxes($event)">Taxes</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnLineitemGift_cards($event)">Gift cards</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnLineitem_donation($event)">Donations</mat-checkbox>
               </section>
             </mat-expansion-panel>
           </mat-accordion>
@@ -166,15 +168,15 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <section class=" tab-checkbox">
-                    <mat-checkbox class="">LINE ITEM DETAILS</mat-checkbox>
+                    <mat-checkbox class="" (change)="fnLineitem_details($event)">LINE ITEM DETAILS</mat-checkbox>
                   </section>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <section class=" row">
-                <mat-checkbox class=" col-md-4">Type</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Description</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Value</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Booking fee</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnLine_type($event)">Type</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnline_Description($event)">Description</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnline_Value($event)">Value</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnlineBooking_fee($event)">Booking fee</mat-checkbox>
               </section>
             </mat-expansion-panel>
           </mat-accordion>
@@ -183,15 +185,15 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <section class=" tab-checkbox">
-                    <mat-checkbox class=" ">TICKET DETAILS</mat-checkbox>
+                    <mat-checkbox class=" " (change)="fnTicket_details($event)">TICKET DETAILS</mat-checkbox>
                   </section>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <section class=" row">
-                <mat-checkbox class=" col-md-4">Type</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Description</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Value</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Booking fee</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnTicket_type($event)">Type</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnTicket_description($event)">Description</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnTicket_value($event)">Value</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnticketBooking_fee($event)">Booking fee</mat-checkbox>
               </section>
             </mat-expansion-panel>
           </mat-accordion>
@@ -200,20 +202,20 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <section class=" tab-checkbox">
-                    <mat-checkbox class="">ORDER DETAILS</mat-checkbox>
+                    <mat-checkbox class="" (change)="fnOrdersDetails($event)">ORDER DETAILS</mat-checkbox>
                   </section>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <section class=" row">
-                <mat-checkbox class=" col-md-4">Order ID</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Order date</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Total paid</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Payment method</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Transaction ID</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Referral Tag</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Discount code</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Order cancelled</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Cancellation reason</mat-checkbox>
+                <mat-checkbox (change)="fnOrdersDetailsOrder_id($event)" class="col-md-4" >Order ID</mat-checkbox>
+                <mat-checkbox class="col-md-4"  (change)="fnOrdersDetailsOrder_date($event)">Order date</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnOrdersDetailsTotal_paid($event)">Total paid</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnOrdersDetailspayment_method($event)">Payment method</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnOrdersDetailsTransaction_id($event)">Transaction ID</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnOrdersDetailsReferral_tag($event)">Referral Tag</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnOrdersDetailsDiscount_code($event)">Discount code</mat-checkbox>
+                <mat-checkbox (change)="fnOrdersDetailsOrder_cancel($event)" class="col-md-4">Order cancelled</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnOrdersDetailsCancel_reason($event)">Cancellation reason</mat-checkbox>
 
               </section>
             </mat-expansion-panel>
@@ -223,7 +225,7 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <section class=" tab-checkbox">
-                    <mat-checkbox class="">EVENT DETAILS</mat-checkbox>
+                    <mat-checkbox class="" (change)="fnEventDetails($event)" >EVENT DETAILS</mat-checkbox>
                   </section>
                 </mat-panel-title>
                 <mat-panel-description>
@@ -231,9 +233,9 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <section class=" row">
-                <mat-checkbox class=" col-md-4">Event name</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Event start</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Event end</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_name($event)">Event name</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_start($event)">Event start</mat-checkbox>
+               <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_end($event)">Event end</mat-checkbox>
               </section>
             </mat-expansion-panel>
           </mat-accordion>
@@ -242,7 +244,7 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <section class=" tab-checkbox">
-                    <mat-checkbox class="">BUYER DETAILS</mat-checkbox>
+                    <mat-checkbox class="" (change)="fnBuyersDetails($event)">BUYER DETAILS</mat-checkbox>
                   </section>
                 </mat-panel-title>
                 <mat-panel-description>
@@ -250,13 +252,14 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <section class=" row">
-                <mat-checkbox class=" col-md-4">Name</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Email</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Mobile number</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Address 1</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Address 2</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Address 3</mat-checkbox>
-                <mat-checkbox class=" col-md-4">Postcode / Zip</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsFirstname($event)">FirstName</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsLastname($event)">LastName</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsEmail($event)">Email</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsPhone($event)">Mobile number</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd1($event)">Address 1</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd2($event)">Address 2</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd3($event)">Address 3</mat-checkbox>
+                <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsPostcode($event)">Postcode / Zip</mat-checkbox>
                 <mat-checkbox class=" col-md-4">Postcode / Zip</mat-checkbox>
               </section>
             </mat-expansion-panel>

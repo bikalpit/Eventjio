@@ -6,7 +6,7 @@
         <form [formGroup]="editEventForm" class="with-validation">
             <div class="add-event-info">
                 <div class="event-content">
-                    <h6 class="col-md-12">Add event info</h6>
+                    <h6 class="col-md-12">update event info</h6>
                     <div class="event-info row mx-0">
                         <div class="form-group col-12">
                             <input type="text" class="form-control" formControlName="event_name" placeholder="Enter the name of your event">
@@ -29,8 +29,8 @@
                                     <label class="ml-2" for="">Start Time <span><i class="fa fa-asterisk"></i></span> </label>
                                     <div class="form-group">
                                         <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                        <mat-select (selectionChange)="fnChangeStartTime($event)" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00">{{fullDayTimeSlote}}</mat-option>
+                                        <mat-select formControlName="event_start_time"  class="col-10 ml-2 form-control d-inline-block">
+                                            <mat-option (onSelectionChange)="fnChangeStartTime(i)"  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index"   value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                         </mat-select>
                                         <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_start_time').touched || editEventForm.get('event_start_time').dirty">
                                             <small *ngIf="editEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
@@ -42,7 +42,7 @@
                         <div class="col-md-6">
                             <div class="row mx-0">
                                 <div class="col-md-7 form-group pl-0">
-                                    <label for="">Ends Date<span><i class="fa fa-asterisk"></i></span> </label>
+                                    <label for="">Ends Date <span><i class="fa fa-asterisk"></i></span> </label>
                                     <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY">
                                     <mat-datepicker #event_end_date_picker></mat-datepicker>
                                     <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_end_date').touched || editEventForm.get('event_end_date').dirty">
@@ -50,9 +50,11 @@
                                     </span>
                                 </div>
                                 <div class="col-md-5 form-group px-0">
-                                    <label class="ml-2" for="">Ends Time <span><i class="fa fa-asterisk"></i></span> </label>
+                                    <label class="ml-2" for="">Ends Time {{eventStartTime}} <span><i class="fa fa-asterisk"></i></span> </label>
                                     <mat-select formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00">{{fullDayTimeSlote}}</mat-option>
+                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index"
+                                        [disabled]="editEventForm.get('event_start_time').value > (i-1)" 
+                                         value="{{fullDayTimeSlote}}:00">{{fullDayTimeSlote}}</mat-option>
                                     </mat-select>
                                     <!-- <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
                                         <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00">{{fullDayTimeSlote}}</mat-option>
@@ -163,9 +165,9 @@
                             matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
                         </label>
                             <div class="select-event-img-sm row mx-0">
-                                <div *ngIf="!selectedImage && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="bannerStyle1()" class="select-event-image">
+                                <!-- <div *ngIf="!selectedImage && singleEventDetail && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="bannerStyle1()" class="select-event-image"> -->
                                     <!-- <img src="{{singleEventDetail.images[0].image}}" class="select-event-image" alt=""> -->
-                                </div>
+                                <!-- </div> -->
                                 <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background': 'url(' + apiUrl +'/event-images/'+ selectedImage + ')'}" class="select-event-image">
                                     <!-- <img src="{{apiUrl}}/event-images/{{selectedImage}}" class="select-event-image" alt=""> -->
                                 </div>
@@ -190,7 +192,7 @@
                             matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
                         </label>
                             <div class="select-event-img-lg row mx-0">
-                                <div *ngIf="!selectedImage && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="{'background': 'url(' + singleEventDetail.images[0].image + ')', 'backgroundSize': 'cover'}" class="select-event-image">
+                                <div *ngIf="!selectedImage && singleEventDetail && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="{'background': 'url(' + singleEventDetail.images[0].image + ')', 'backgroundSize': 'cover'}" class="select-event-image">
                                     <!-- <img src="{{singleEventDetail.images[0].image}}" class="select-event-image" alt=""> -->
                                 </div>
                                 <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background': 'url(' + apiUrl +'/event-images/'+ selectedImage + ')', 'backgroundSize': bannerZoomLavel > 1 ? bannerZoomLavel+'00' : 'cover'}" class="select-event-image">

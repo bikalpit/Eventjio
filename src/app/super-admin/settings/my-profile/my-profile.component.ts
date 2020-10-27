@@ -30,13 +30,9 @@ export class MyProfileComponent implements OnInit {
     public dialog: MatDialog,
     private auth : AuthenticationService
   ) {
-    // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.auth.currentUser.subscribe(x => this.currentUser = x);
-    // console.log(this.currentUser)
-    // alert(this.currentUser.unique_code)
     this.myProfileForm = this._formBuilder.group({
       firstname : ['',[Validators.required,Validators.maxLength(15)]],
-      // lastname: ['',[Validators.required,Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
     });
@@ -119,7 +115,6 @@ export class MyProfileComponent implements OnInit {
           "id":this.profileId,
         }
         this.updateMyProfile(updateMyProfile);
-        this.isLoaderAdmin = false;
       }else {
         let updateMyProfile = {
           'unique_code': this.currentUser.user_id,
@@ -142,7 +137,6 @@ export class MyProfileComponent implements OnInit {
   }
 
   updateMyProfile(updateMyProfile){
-    this.isLoaderAdmin = true;
     this.SettingService.updateMyProfile(updateMyProfile).subscribe((response:any) => {
       if(response.data == true){
        this.ErrorService.successMessage(response.response);

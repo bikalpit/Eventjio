@@ -1,5 +1,5 @@
 <div class="event-title-bar">
-    <div *ngIf="eventDetail.images !== undefined" class="event-image ">
+    <div *ngIf="eventDetail && eventDetail.images !== undefined" class="event-image ">
         <img src="{{eventDetail.images[0].image}}" class="w-100" alt="">
     </div>
     <div class="event-title">
@@ -18,7 +18,7 @@
     </div>
     <div class="ml-auto mr-5 mt-2">
         <div class="preview-btn d-inline-block" routerLink="">
-            <button mat-flat-button>Preview Event Page</button>
+            <button (click)="previewEvent()" mat-flat-button>Preview Event Page</button>
         </div>
 
         <div class=" d-inline-block">

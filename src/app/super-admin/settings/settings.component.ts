@@ -11,11 +11,19 @@ export class SettingsComponent implements OnInit {
   pageName :any = '';
   openEventMenuBox :boolean = false;
   currentUrl:any;
+  currentUser:any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
   ) { 
 
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(this.currentUser.type == 'member' && this.currentUser.permission != 'A'){
+        this.router.navigate(['/super-admin']);
+    }
+    
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
     });

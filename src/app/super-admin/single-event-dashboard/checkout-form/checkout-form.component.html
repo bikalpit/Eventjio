@@ -1,4 +1,4 @@
-<div class="checkout-form main">
+<div class="checkout-form">
     <div class="checkout-form-main">
         <div class="checkout-form-content">
             <h5 class="col-md-12">Edit checkout form</h5>
@@ -7,7 +7,7 @@
                 <div class="">
                     <mat-radio-group aria-label="Select an option" (change)="fnCheckoutForm($event)" class="row mx-0">
                         <div class="global-checkout col-md-4">
-                            <mat-radio-button value="global"  [checked]="reportType === 'global'">Global checkout form</mat-radio-button>
+                            <mat-radio-button value="global" [checked]="reportType === 'global'">Global checkout form</mat-radio-button>
                             <p>(Applies to all events)</p>
                         </div>
                         <div class="event-checkout col-md-4">
@@ -15,164 +15,191 @@
                             <p>(Applies to this event only)</p>
                         </div>
                     </mat-radio-group>
-                    
+
                 </div>
             </div>
-            <div class="global-checkout-preview"  *ngIf="reportType === 'global'">
+            <div class="global-checkout-preview" *ngIf="reportType === 'global'">
                 <div class="row mx-0">
                     <h5 class="col-md-6 mb-0 pl-0">Preview of global checkout form</h5>
                     <div class="col-md-6 d-flex pr-0">
-                        <button mat-raised-button class="ml-auto comm-btn">Edit global checkout form</button>
+                        <button routerLink="settings/checkout-form" mat-raised-button class="ml-auto comm-btn">Edit global checkout form</button>
                     </div>
-                </div>                
+                </div>
                 <div class="preview-form">
                     <div class="global-checkout-form">
                         <div class="col-md-12 checkout-form">
                             <div class="">
-                              <form>
-                                <div class="form-group">
-                                  <label for="">Name <span><i class="fa fa-asterisk"></i></span> </label>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                  <label for="">Email address <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
-                                  <input type="email" class="form-control" id="" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                  <label for="">Repeat Email <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
-                                  <input type="email" class="form-control" id=""  placeholder="">
-                                </div>
-                                <div class="form-group">
-                                  <label for="">Mobile Phone Number <span><i class="fa fa-asterisk"></i></span> </label>
-                                  <input type="number" class="form-control" id=""  placeholder="">
-                                </div>
-                                <div class="form-group">
-                                  <label for="">Address Line 1 <span><i class="fa fa-asterisk" ></i></span> </label>
-                                  <input type="text" class="form-control" id="" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                  <label for="">Address Line 2 <span><i class="fa fa-asterisk" ></i></span> </label>
-                                  <input type="text" class="form-control" id=""  placeholder="">
-                                </div>
-                                <div class="form-group">
-                                  <label for="">Address Line 3 <span><i class="fa fa-asterisk" ></i></span> </label>
-                                  <input type="text" class="form-control" id=""  placeholder="">
-                                </div>
-                                <div class="form-group">
-                                  <label for="">Postcode <span><i class="fa fa-asterisk" ></i></span> </label>
-                                  <input type="text" class="form-control" id=""  placeholder="">
-                                </div>
-                              </form>
+                                <form>
+                                    <div *ngFor="let buyerGlobelQuestionList of buyerGlobelQuestionList; let i=index" class="form-group">
+                                        <label for="">{{buyerGlobelQuestionList.label}} <span *ngIf="buyerGlobelQuestionList.required"><i class="fa fa-asterisk"></i></span> </label>
+                                        <input *ngIf="buyerGlobelQuestionList.type == 'text'" type="text" class="form-control" id="" placeholder="">
+                                        <select *ngIf="buyerGlobelQuestionList.type == 'dropdown'" class="form-control">
+                                            <option>Option 1</option>
+                                        </select>
+                                        <mat-radio-group *ngIf="buyerGlobelQuestionList.type == 'radio'" aria-label="Select an option">
+                                            <mat-radio-button class=" mr-2" value="1">Option 1</mat-radio-button>
+                                            <mat-radio-button class=" mr-2" value="2">Option 2</mat-radio-button>
+                                        </mat-radio-group>
+                                        <div class="" *ngIf="buyerGlobelQuestionList.type == 'checkbox'">
+                                            <mat-checkbox class="example-margin mr-2">Option 1</mat-checkbox>
+                                            <mat-checkbox class="example-margin mr-2">Option 2</mat-checkbox>
+                                        </div>
+                                        <div class="" *ngIf="buyerGlobelQuestionList.type == 'terms'">
+                                            <mat-checkbox class="example-margin">{{buyerGlobelQuestionList.terms}}</mat-checkbox>
+                                        </div>
+                                        <div class="" *ngIf="buyerGlobelQuestionList.type == 'marketing'">
+                                            <mat-checkbox class="example-margin">Do want receive marketing email?</mat-checkbox>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label for="">Email address <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
+                                        <input type="email" class="form-control" id="" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Repeat Email <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
+                                        <input type="email" class="form-control" id="" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Mobile Phone Number <span><i class="fa fa-asterisk"></i></span> </label>
+                                        <input type="number" class="form-control" id="" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Address Line 1 <span><i class="fa fa-asterisk" ></i></span> </label>
+                                        <input type="text" class="form-control" id="" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Address Line 2 <span><i class="fa fa-asterisk" ></i></span> </label>
+                                        <input type="text" class="form-control" id="" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Address Line 3 <span><i class="fa fa-asterisk" ></i></span> </label>
+                                        <input type="text" class="form-control" id="" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Postcode <span><i class="fa fa-asterisk" ></i></span> </label>
+                                        <input type="text" class="form-control" id="" placeholder="">
+                                    </div> -->
+                                </form>
                             </div>
                             <div class="general-admission">
-                              <h5 class="main-head">General Admission 1</h5>
-                              <div class="form-group">
-                                <label for="">Attendee name <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
-                                <input type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="">
-                              </div>
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="event-checkout-preview"  *ngIf="reportType === 'eventspecific'">
-                <div class="checkout-form">                  
-                  <div class="buyer-que">
-                    <!-- <div class="d-flex byr-qn">
-                        <button mat-raised-button class="byr-qn-btn" (click)="addBuyerQuestion()">Add a buyer only question</button>
-                    </div> -->
-                      <div class="col-md-12 mt-5 d-flex">
-                          <h5>Buyer only questions</h5>
-                          <button mat-raised-button class="byr-qn-btn ml-auto" (click)="addBuyerQuestion()">Add a buyer only question</button>
-                      </div>
-                      <div class="col-md-12 mt-3">
-                          <p>Buyer questions are asked once per order.</p>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="" >
-                            <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="drop($event)">
-                              <div class="" *ngFor="let element of buyerQuestion" cdkDrag>
-                                <div class="" *cdkDragPlaceholder></div>
-                                <div  class="buyer" >
-                                  <div class="buyer-card">
-                                    <div class="row mx-auto">
-                                      <div class="col-md-8">
-                                        <p class="mb-0">{{element.persondetail}}<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
-                                      </div>
-                                      <div class="col-md-4 d-flex">
-                                        <div class="ml-auto buyer-action d-flex">
-                                            <i class="fa fa-pencil pencil-clr" (click)="editBuyerName()" aria-hidden="true"></i>
-                                            <i matTooltip="This question can't be deleted" matTooltipPosition="above" class="fa fa-trash-o" aria-hidden="true"></i>
-                                            <i  matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above"  class="fa fa-arrows" aria-hidden="true"></i>
-                                        </div>
-                                      </div>
+                                <h5 class="main-head">Attendee Form</h5>
+                                <div *ngFor="let attendeeGlobelQuestionList of attendeeGlobelQuestionList; let i=index" class="form-group">
+                                    <label for="">{{attendeeGlobelQuestionList.label}} <span *ngIf="attendeeGlobelQuestionList.required"><i class="fa fa-asterisk"></i></span> </label>
+                                    <input *ngIf="attendeeGlobelQuestionList.type == 'text'" type="text" class="form-control" id="" placeholder="">
+                                    <select *ngIf="attendeeGlobelQuestionList.type == 'dropdown'" class="form-control">
+                                        <option>Option 1</option>
+                                    </select>
+                                    <mat-radio-group *ngIf="attendeeGlobelQuestionList.type == 'radio'" aria-label="Select an option">
+                                        <mat-radio-button value="1">Option 1</mat-radio-button>
+                                        <mat-radio-button value="2">Option 2</mat-radio-button>
+                                    </mat-radio-group>
+                                    <div class="" *ngIf="attendeeGlobelQuestionList.type == 'checkbox'">
+                                        <mat-checkbox class="example-margin">Option 1</mat-checkbox>
+                                        <mat-checkbox class="example-margin">Option 2</mat-checkbox>
                                     </div>
-                                  </div>
-                              </div>
-                              </div>
-                            </div>
-                        </div>
-                      </div>
-                  </div>
-      
-                  <div class="att-qn">
-                      <!-- <div class="d-flex byr-qn">
-                          <button mat-raised-button class="byr-qn-btn" (click)="addAttendeeQuestion()">Add a attendee question</button>
-                      </div> -->
-                      <div class="col-md-12 mt-5 d-flex">
-                          <h5>Attendee questions</h5>
-                          <button mat-raised-button class="byr-qn-btn ml-auto" (click)="addAttendeeQuestion()">Add a attendee question</button>
-                      </div>
-                      <div class="col-md-12 mt-3">
-                          <p>Attendee questions are asked for every ticket purchased.</p>
-                      </div>                     
-                      <div class="col-md-12">
-                        <div class="" >
-                          <div cdkDropList class="buyerqn-list" (cdkDropListDropped)="drop($event)">
-                            <div class=""  cdkDrag>
-                              <div class="" *cdkDragPlaceholder></div>
-                              <div  class="buyer" >
-                                <div class="buyer-card">
-                                  <div class="row mx-auto">
-                                    <div class="col-md-8">
-                                      <p class="mb-0"><span class="hidden-name">Attendee Name</span> (Hidden)</p>
+                                    <div class="" *ngIf="attendeeGlobelQuestionList.type == 'terms'">
+                                        <mat-checkbox class="example-margin">{{attendeeGlobelQuestionList.terms}}</mat-checkbox>
                                     </div>
-                                    <div class="col-md-4 d-flex">
-                                      <div class="ml-auto buyer-action ">
-                                        <button (click)="editAttendeeName()"  mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                                <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span>
-                                        </button>
+                                    <div class="" *ngIf="attendeeGlobelQuestionList.type == 'marketing'">
+                                        <mat-checkbox class="example-margin">Do want receive marketing email?</mat-checkbox>
                                     </div>
-                                    </div>
-                                  </div>
                                 </div>
                             </div>
-                            </div>
-                          </div>
-                      </div>
-                      
-                          <!-- <mat-accordion>
-                              <mat-expansion-panel>
-                              <mat-expansion-panel-header class="buyer-card">
-                                  <mat-panel-title>
-                                      <div>
-                                          <p class="mb-0"><span class="hidden-name">Attendee Name</span> (Hidden)</p>
-                                      </div>
-                                  </mat-panel-title>
-                                  <mat-panel-description>
-                                      <div class="ml-auto buyer-action ">
-                                          <button (click)="editAttendeeName()"  mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn">
-                                                  <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span>
-                                          </button>
-                                      </div>
-                                  </mat-panel-description>
-                              </mat-expansion-panel-header>
-                              </mat-expansion-panel>
-                          </mat-accordion> -->
                         </div>
                     </div>
                 </div>
-              </div>
             </div>
-      </div>
+            <div class="event-checkout-preview" *ngIf="reportType === 'eventspecific'">
+                <div class="checkout-form">
+                    <div class="buyer-que">
+                        <div class="col-md-12 mt-5 d-flex">
+                            <h5>Buyer only questions</h5>
+                            <button mat-raised-button class="byr-qn-btn ml-auto" (click)="fnAddBuyerQuestion()">Add a buyer only question</button>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <p>Buyer questions are asked once per order.</p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="">
+                                <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="buyerQuestionDrop($event)">
+                                    <div class="" *ngFor="let element of buyerQuestionList; let i=index" cdkDrag>
+                                        <div class="" *cdkDragPlaceholder></div>
+                                        <div class="buyer">
+                                            <div class="buyer-card">
+                                                <div class="row mx-auto">
+                                                    <div class="col-md-8">
+                                                        <p class="mb-0">{{element.label}}<span class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span> </p>
+                                                    </div>
+                                                    <div class="col-md-4 d-flex">
+                                                        <div class="ml-auto buyer-action ">
+                                                            <button (click)="fnEditBuyerQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
+                                                            <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
+                                                          </button>
+                                                            <button (click)="fnDeleteBuyerQuestion(element, i)" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                              <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                                            </button>
+                                                            <button [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                              <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="att-qn">
+                        <div class="col-md-12 mt-5 d-flex">
+                            <h5>Attendee questions</h5>
+                            <button mat-raised-button class="byr-qn-btn ml-auto" (click)="fnAddAttendeeQuestion()">Add a attendee question</button>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <p>Attendee questions are asked for every ticket purchased.</p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="">
+                                <div cdkDropList class="buyerqn-list" (cdkDropListDropped)="attendeeQuestionDrop($event)">
+                                    <div class="" *ngFor="let element of attendeeQuestionList; let i=index" cdkDrag>
+                                        <div class="" *cdkDragPlaceholder></div>
+                                        <div class="buyer">
+                                            <div class="buyer-card">
+                                                <div class="row mx-auto">
+                                                    <div class="col-md-8">
+                                                        <p class="mb-0">{{element.label}}<span *ngIf="element.required" class="asterisk-icon"><i class="fa fa-asterisk asterisk" aria-hidden="true"></i></span></p>
+                                                    </div>
+                                                    <div class="col-md-4 d-flex">
+                                                        <div class="ml-auto buyer-action ">
+                                                            <button (click)="fnEditAttendeeQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
+                                                        <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
+                                                      </button>
+                                                            <button (click)="fnDeleteAttendeeQuestion(element, i)" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                          <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                                        </button>
+                                                            <button [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                          <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
+                                                        </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-action-btn">
+        <div class="can-save">
+            <button mat-raised-button class="cancel-btn" (click)="fnCancelSave()">Cancel</button>
+            <button mat-raised-button class="save-btn" (click)="fnSaveCheckoutForm()">Save</button>
+        </div>
+    </div>
 </div>

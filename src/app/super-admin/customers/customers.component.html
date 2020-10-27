@@ -10,8 +10,8 @@
                 <div class="ml-auto p-3">
                     <button mat-flat-button class="mx-2" (click)="ImportFileUpload()">Import Customers</button>
                     <button mat-flat-button class="mx-2" (click)="ExportFile()">Export Customers</button>
-                    <button *ngIf="addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" type=reset (click)="addFormButton()">Add Customer</button>
-                    <button *ngIf="!addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" type=reset (click)="addFormButton()">View Customer</button>
+                    <button *ngIf="addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" (click)="addFormButton()">Add Customer</button>
+                    <button *ngIf="!addFormButtonDiv" mat-flat-button class="ml-2 text-white add-customer" (click)="addFormButton()">View Customer</button>
                 </div>
             </div>
         </div>
@@ -19,15 +19,14 @@
             <div class="row">
                 <div class="customer-list-container bg-light p-0">
                     <div class="border-bottom p-3">
-                        <mat-select class=" form-control">
-                            <mat-option value="All Customers">All Customers</mat-option>
-                            <mat-option value="">Lajavab Cooking Classes</mat-option>
-                            <mat-option value="">Dracula Drinks</mat-option>
-                            <mat-option value="">Kitty Party</mat-option>
+                        <mat-select (selectionChange)="fnFilterCustomer($event)" class=" form-control">
+                            <mat-option value="">All Customers</mat-option>
+                            <mat-option *ngFor="let filterEventlist of filterEventlist" value="{{filterEventlist.unique_code}}">{{filterEventlist.event_title}}</mat-option>
+
                         </mat-select>
 
                         <div class="mt-2 p-2 bg-white border search-btn">
-                            <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2"  [(ngModel)]="search.keyword" (keyup)="customerSearch()" placeholder="Search by name,phone and email id">
+                            <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2" [(ngModel)]="search.keyword" (keyup)="customerSearch()" placeholder="Search by name,phone and email id">
                         </div>
                     </div>
 
@@ -37,10 +36,17 @@
                                 <div class="check-col p-1">
                                     <mat-checkbox class=""></mat-checkbox>
                                 </div>
-                                <div class="customer-image-icon pointer" (click)="fnSelectCustomer(customerDetails.unique_code)">
+                                <div class="customer-image-icon pointer" *ngIf="!editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code)">
                                     <img src="{{customerDetails.image}}" class="w-100 h-100">
                                 </div>
-                                <div class="col-8 customer-email p-0 " (click)="fnSelectCustomer(customerDetails.unique_code)">
+                                <div class="col-8 customer-email p-0 " *ngIf="!editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code)">
+                                    <span>{{customerDetails.firstname + " " + customerDetails.lastname}}</span>
+                                    <p> {{customerDetails.email}}</p>
+                                </div>
+                                <div class="customer-image-icon pointer" *ngIf="editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code);addFormButton()">
+                                    <img src="{{customerDetails.image}}" class="w-100 h-100">
+                                </div>
+                                <div class="col-8 customer-email p-0 " *ngIf="editCustomerForm" (click)="fnSelectCustomer(customerDetails.unique_code);addFormButton()">
                                     <span>{{customerDetails.firstname + " " + customerDetails.lastname}}</span>
                                     <p> {{customerDetails.email}}</p>
                                 </div>
@@ -53,10 +59,10 @@
                     </div>
 
                 </div>
-                
+
                 <div class="customer-detail-container bg-white p-0">
-           
-                    <div class="p-3" class="single-customer-detail" *ngIf="addFormButtonDiv">
+
+                    <div class="p-3" class="single-customer-detail" *ngIf="addFormButtonDiv && selectedCustomerDetails">
                         <div>
                             <div class="col-12 py-3">
                                 <div class="row">
@@ -65,7 +71,7 @@
                                         <!-- <img  src="{{selectedCustomerDetails && selectedCustomerDetails.image ? selectedCustomerDetails.image : customerImageUrl}}" alt=""> -->
                                     </div>
                                     <div class="px-3 py-4 customer-name">
-                                        <span> {{ selectedCustomerDetails.firstname + " " + selectedCustomerDetails.lastname}} </span>
+                                        <span > {{ selectedCustomerDetails.firstname + " " + selectedCustomerDetails.lastname}} </span>
                                     </div>
 
                                     <div class="ml-auto p-3 customer-edit-delete-btn">
@@ -75,7 +81,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div>
                             <mat-tab-group>
                                 <mat-tab label="Details">
@@ -108,7 +113,7 @@
                                         <button mat-flat-button class="border m-1">Completed Events</button>
                                         <button mat-flat-button class="border ml-1">Upcoming Events</button>
                                     </div>
-                                    <div class="" >
+                                    <div class="">
                                         <table class="table">
                                             <tr *ngFor="let element of allEventListData">
                                                 <td>{{element.event_title}} </td>
@@ -120,7 +125,6 @@
                                 </mat-tab>
                             </mat-tab-group>
                         </div>
-
                     </div>
                     <!-- Add customer form -->
 
@@ -133,7 +137,7 @@
                                         Add Customer
                                     </div>
                                     <div class="col-12 px-3 pt-3 font-weight-bold add-customer-div-title" *ngIf="editCustomerForm">
-                                      Edit Customer
+                                        Edit Customer
                                     </div>
                                     <div class="col-12 px-3 sub-heading">
                                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
@@ -153,14 +157,14 @@
                                             <div *ngIf="!customerImageUrl && editCustomerForm" class="ml-3 image-uploaded hover pointer" (click)="fnChangeImage()">
                                                 <img class="w-100 h-100" src="{{selectedCustomerDetails.image}}">
                                             </div>
-                                            <div class="px-3 py-42 add-customer-file" *ngIf="!customerImageUrl"> 
+                                            <div class="px-3 py-42 add-customer-file" *ngIf="!customerImageUrl">
                                                 <span>No file Choosen</span>
                                                 <p class="mt-2">
                                                     Upload image (in .jpg, .jpeg or .png format), <br /> and the image size should not exceed 200x200.
                                                 </p>
                                             </div>
-                                            <div class="px-3 py-42 add-customer-file" *ngIf="customerImageUrl"> 
-                                                <span>{{customerImageUrl}}</span>
+                                            <div class="px-3 py-42 add-customer-file" *ngIf="customerImageUrl">
+                                                <!-- <span>{{customerImageUrl}}</span> -->
                                                 <!-- <p class="mt-2">
                                                     Upload image (in .jpg, .jpeg or .png format), <br /> and the image size should not exceed 200x200.
                                                 </p> -->

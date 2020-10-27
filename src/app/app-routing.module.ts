@@ -7,22 +7,19 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { Role } from './_models';
 import { AuthGuard } from './_helpers/auth.guard';
 import { PreviewEventsComponent } from './preview-events/preview-events.component';
+import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-office.component'
 
 
 const routes: Routes = [
-  
-  
   { 
     path: 'customers', 
     loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) 
   },
-  
   { 
     path: 'super-admin', 
     canActivate: [AuthGuard],
-    data: {roles: Role.Admin},
+    data: { roles : Role.Admin },
     loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule) },  
-  
   { 
     path: 'settings', 
     loadChildren: () => import('./super-admin/settings/settings.module').then(m => m.SettingsModule) 
@@ -50,6 +47,10 @@ const routes: Routes = [
   {
     path: 'preview-events/:id', 
     component: PreviewEventsComponent
+  },
+  {
+    path: 'box-office', 
+    component: PreviewBoxOfficeComponent
   },
 ];
 

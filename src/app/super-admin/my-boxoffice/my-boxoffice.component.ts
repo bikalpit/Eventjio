@@ -39,6 +39,28 @@ export class MyBoxofficeComponent implements OnInit {
      }
 
     ngOnInit(): void {
+
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+       if(this.currentUser.type == 'member'){
+
+          localStorage.setItem('isBoxoffice','false');
+
+          if(this.currentUser.permission != 'A'){
+            if(localStorage.getItem('permision_EM')  == 'TRUE'){
+              this.router.navigate(['/super-admin/events']);
+            } else if(localStorage.getItem('permision_OM')  == 'TRUE'){
+              this.router.navigate(['/super-admin/orders']);
+            }else if(localStorage.getItem('permision_OV')  == 'TRUE'){
+              this.router.navigate(['/super-admin/dashboard']);
+            }
+
+          }else if(this.currentUser.permission == 'A'){
+            this.router.navigate(['/super-admin/dashboard']);
+          }
+      }
+ 
+      
       this.getAllBoxoffice();
     }
 
@@ -141,7 +163,6 @@ export class myCreateNewBoxofficeDialog {
       if(response.data == true){
         this.allCurency = response.response
       }else if(response.data == false){
-          
         this.ErrorService.errorMessage(response.response)
       }
     });
@@ -165,8 +186,6 @@ export class myCreateNewBoxofficeDialog {
 
       this.createNewBoxOffice(insertArr);
 
-    }else{
-      
     }
     
   }

@@ -2,9 +2,9 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="modal-header pl-3 py-0 border-0">
         <p class="font-weight-bold">Buyer only question</p>
-        <button class="close close-btn" type="button" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
-        <span aria-hidden="true" class="white-text">&times;</span>
-      </button>
+        <button class="popup-cros-btn" type="button" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
 
     </div>
 
@@ -14,10 +14,10 @@
                 <div class="row mx-0">
                     <div class="col-12" *ngIf="!defaultQuestion">
                         <label class="mb-0" for="">What kind of response do you want? 
-                      <span class="asterisk-icon">
-                        <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
-                      </span> 
-                    </label>
+                        <span class="asterisk-icon">
+                          <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span> 
+                      </label>
                         <div class="form-group">
                             <mat-select (selectionChange)="fnChangeQType($event)" formControlName="type" class="form-control">
                                 <mat-option value="text">Single line text</mat-option>
@@ -28,21 +28,21 @@
                                 <mat-option value="marketing">Opt in to receive marketing emails</mat-option>
                             </mat-select>
                             <span style="left:0" class="error-wrap" *ngIf="newBuyerQForm.get('type').touched || newBuyerQForm.get('type').dirty">
-                          <small *ngIf="newBuyerQForm.get('type').hasError('required')" class="error">Question type is required.</small>
-                      </span>
+                            <small *ngIf="newBuyerQForm.get('type').hasError('required')" class="error">Question type is required.</small>
+                        </span>
                         </div>
                     </div>
                     <div class="col-12">
                         <label class="mb-0" for="">What question do you want to ask? 
-                      <span class="asterisk-icon">
-                        <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
-                      </span> 
-                    </label>
+                        <span class="asterisk-icon">
+                          <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span> 
+                      </label>
                         <div class="form-group">
                             <input formControlName="label" class="form-control" type="text">
                             <span style="left:0" class="error-wrap" *ngIf="newBuyerQForm.get('label').touched || newBuyerQForm.get('label').dirty">
-                          <small *ngIf="newBuyerQForm.get('label').hasError('required')" class="error">Label is required.</small>
-                      </span>
+                            <small *ngIf="newBuyerQForm.get('label').hasError('required')" class="error">Label is required.</small>
+                        </span>
                         </div>
                     </div>
                     <div class="col-12" *ngIf="optionField">
@@ -72,7 +72,7 @@
     </div>
 
     <div class="text-right">
-        <button mat-flat-button class="cancel-btn" (click)="onNoClick()">Cancel</button>
-        <button mat-flat-button class="save-btn ml-3" (click)="createNewBuyerQuestion()">Save custom question</button>
+        <button mat-flat-button class="popup-cancel-btn" (click)="onNoClick()">Cancel</button>
+        <button mat-flat-button class="popup-save-btn ml-3" (click)="createNewBuyerQuestion()">Save custom question</button>
     </div>
 </div>

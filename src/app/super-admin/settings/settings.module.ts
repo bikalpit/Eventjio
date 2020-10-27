@@ -15,6 +15,7 @@ import { SeatingChartsComponent } from './seating-charts/seating-charts.componen
 import { TeamAccessComponent } from './team-access/team-access.component';
 import { BillingComponent } from './billing/billing.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { PrivacyPolicyGenerateDialog } from './privacy-policy/privacy-policy.component';
 import { MatExpansionModule} from '@angular/material/expansion';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ConnectAppsComponent } from './connect-apps/connect-apps.component';
@@ -28,7 +29,7 @@ import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component
 import { DialogAdminBoxofficeImageUpload } from './box-office/box-office.component';
 import { HttpClientModule} from '@angular/common/http';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
-
+import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-form/checkout-form.component';
 
 
 @NgModule({
@@ -39,6 +40,9 @@ import { PaymentSystemsComponent } from './payment-systems/payment-systems.compo
     DialogAdminProfileImageUpload,
     DialogAdminBoxofficeImageUpload,
     PaymentSystemsComponent,
+    PrivacyPolicyGenerateDialog,
+    addBuyerQuestionDialog, 
+    addAttendeeQuestionDialog,
   ],
 
 
@@ -58,6 +62,14 @@ import { PaymentSystemsComponent } from './payment-systems/payment-systems.compo
     HttpClientModule,
     
   ],
-  entryComponents: [AddSalesTax,DialogAdminProfileImageUpload,DialogAdminBoxofficeImageUpload,inviteTeamMateDialog]
+  entryComponents: [
+    AddSalesTax,
+    DialogAdminProfileImageUpload,
+    DialogAdminBoxofficeImageUpload,
+    inviteTeamMateDialog,
+    addBuyerQuestionDialog, 
+    addAttendeeQuestionDialog,
+    PrivacyPolicyGenerateDialog
+  ]
 })
 export class SettingsModule { }

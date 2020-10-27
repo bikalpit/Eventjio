@@ -21,11 +21,14 @@ export class SettingService {
         private authenticationService : AuthenticationService,
     ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+
         this.globalHeaders = new HttpHeaders({
             'Content-Type': 'application/json',
             'admin-id' : this.currentUser.user_id,
             'api-token' : this.currentUser.token
         });
+    
+        
     }  
 
     private handleError(error: HttpErrorResponse) {
@@ -125,6 +128,9 @@ export class SettingService {
         }),catchError(this.handleError));
     }
    
+
+   
+
     removeImage(requestObject){
         return this.http.post(`${environment.apiUrl}/remove-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -138,4 +144,63 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+
+   
+  
+    addTax(requestObject){
+        return this.http.post(`${environment.apiUrl}/addsaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getAllAddTax(requestObject){
+        return this.http.post(`${environment.apiUrl}/getsaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    updateTax(requestObject){
+        return this.http.post(`${environment.apiUrl}/updatesaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    deleteTax(requestObject){
+        return this.http.post(`${environment.apiUrl}/deletesaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getSingleTaxData(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-tax`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    changeTaxStaus(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-tax-status`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
+    fnGetAllEventList(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-allboxoffice-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
+    getEventsList(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-events-list`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
 }

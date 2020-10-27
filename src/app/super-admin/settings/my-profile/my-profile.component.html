@@ -1,4 +1,5 @@
 <div class="main bg-white main-work-area main">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="row mx-0 mb-4 mt-2">
         <div class="col-12  mt-2">
             <div class="font-weight-bold page-title">
@@ -8,13 +9,13 @@
     </div>
 
 
-    <div class="row main-content">
+    <div class="row mx-0 main-content">
         <div class="col-6">
             <div class="row mx-0 mt-2">
-               
-                <!-- <img  src="{{myProfileData && myProfileData.image ? myProfileData.image : profileImageUrl}}" alt=""> -->              
+
+                <!-- <img  src="{{myProfileData && myProfileData.image ? myProfileData.image : profileImageUrl}}" alt=""> -->
                 <img *ngIf="!profileImageUrl && myProfileData" src="{{myProfileData.image}}" alt="">
-                 <img *ngIf="profileImageUrl" src="{{profileImageUrl}}" alt="">
+                <img *ngIf="profileImageUrl" src="{{profileImageUrl}}" alt="">
                 <div class="col-4 py-2">
                     <button mat-flat-button (click)="fnChangeImage()" class="change-photo">Change Image</button>
                     <button mat-flat-button class="remove-photo mt-2" (click)="fnRemoveImage()">Remove Image</button>

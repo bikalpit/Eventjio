@@ -67,12 +67,12 @@ export class AuthenticationService {
         localStorage.removeItem('logoutTime');
         localStorage.removeItem('isBoxoffice');
         localStorage.removeItem('adminData');
+        localStorage.clear();
+        window.location.reload(true);
         this.currentUserSubject.next(null);
     }
 
-    pageName(name,user_type){
-        
-    }
+    
 
     logoutTime(){
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));

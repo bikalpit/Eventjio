@@ -26,6 +26,8 @@ export class EventSummaryComponent implements OnInit {
   setupPayumoney:boolean  = false;
   setupPayPal:boolean  = false;
   setupOffline:boolean  = false;
+  animal:any;
+  isLoaderAdmin:any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -266,5 +268,63 @@ export class EventSummaryComponent implements OnInit {
   PreviewPage(){
     window.open(this.eventURL,'_blank');
   }
+
+  createTrackingLinkandView() {
+    this.isLoaderAdmin = true;
+    const dialogRef = this.dialog.open(createTrackingLinkAndView, {
+      width: '550px',
+    });
   
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+     });
+     this.isLoaderAdmin = false;
+  }
+  
+}
+
+
+
+@Component({
+  selector: 'add-create-tracking-link-and-view',
+  templateUrl: '../_dialogs/create-tracking-link-and-view.html',
+})
+export class createTrackingLinkAndView implements OnInit {
+  isLoaderAdmin:any;
+  trackingLinkandViewForm:FormGroup;
+  trackingLinkandViewArr:FormArray;
+  trackingLinkandView = [];
+  trackingLinkandViewValue =[{
+    event:'',
+    referralTag:'',
+  }]
+
+constructor(
+  private _formBuilder : FormBuilder,
+  public dialogRef: MatDialogRef<createTrackingLinkAndView>,
+){
+  this.trackingLinkandViewForm = this._formBuilder.group({
+    trackingLinkandViewArr : this._formBuilder.array([this.createTrackingLinkandViewItem()])
+  })
+}
+
+createTrackingLinkandViewItem() {
+  return this._formBuilder.group({
+    event: [''],
+    referralTag: ['']
+  })
+}
+
+fntrackingLinkandViewAdd(){
+  this.trackingLinkandViewArr = this.trackingLinkandViewForm.get('trackingLinkandViewArr') as FormArray;
+  this.trackingLinkandViewArr.push(this.createTrackingLinkandViewItem());
+  this.trackingLinkandView = this.trackingLinkandViewForm.value.trackingLinkandViewArr;
+}
+
+onNoClick(){
+  this.dialogRef.close();
+}
+ngOnInit():void{
+}
+
 }

@@ -7,6 +7,7 @@
     lastname: string;
     role: string;
     user_type?: string;
+    type?:String;
     // token: string; //Use with live api
     token?: string; //Use with fake backend
     fullname?: string; //Use with fake backend
@@ -19,4 +20,5 @@
     google_id?: string; //Use with fake backend
     facebook_id?: string; //Use with fake backend
     internal_staff?: string; //Use with fake backend
+    permission?: string;
 }

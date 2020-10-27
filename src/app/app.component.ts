@@ -18,7 +18,7 @@ export class AppComponent {
   selectedBoxOfficeName:any;
   currentUser: User;
   adminTopMenuselected:any
-  currentUrl: string;
+  currentUrl: string = '';
   openLogoutMenuBox :boolean = false;
   pageSlug:any;
   
@@ -33,37 +33,42 @@ export class AppComponent {
       this.adminTopMenuselected = this.currentUser.firstname
       this.loadLocalStorage();
     }
+
     this.bnIdle.startWatching(6600).subscribe((res) => {
       if(res) {
         if(this.authenticationService.currentUserValue){
             this.logout();
         }
       }
-    })
+    });
+
   }
 
 
   ngOnInit() {
+
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
     });
    
     var is_logout = this.authenticationService.logoutTime();
+
     if(is_logout==true){
         this.router.navigate(['/login']);
         return false;
     } 
+
     if(localStorage.getItem('currentUser') && localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true"){
 
     }  
+
     if(localStorage.getItem('currentUser') && this.currentUrl == ''){
-      if(this.currentUser.user_type == 'A'){
+      if(this.currentUser.user_type == 'A' ){
         this.router.navigate(['/super-admin/']);
       }
-      else{
 
-      }
     }
+
   }
 
   
@@ -108,6 +113,7 @@ export class AppComponent {
   private urlIsNew(url: string) {
     return !!url && url.length > 0 && url !== this.currentUrl;
   }
+
   private handleRoute(event: RouterEvent) {
     const url = this.getUrl(event);
     this.currentUrl = url;
@@ -138,7 +144,6 @@ export class AppComponent {
   }
 
   logout() {
- 
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
@@ -194,9 +199,9 @@ export class AppComponent {
 
 
   isAdminUser() {
-    return this.currentUser && this.currentUser.user_type === Role.Admin;
+    return this.currentUser && (this.currentUser.user_type === Role.Admin);
   }
-
+  
   isLogin() {
     if (localStorage.getItem('currentUser')) {
       return true;
@@ -205,5 +210,37 @@ export class AppComponent {
       return false;
     }
   }
+  
+  isPermisionPage(pageName){
 
+    var loginUser = JSON.parse(localStorage.getItem('currentUser'));
+
+
+    if(!loginUser){
+      return false;
+    }
+  
+    if(loginUser.type == 'member' && loginUser.permission !="A"){
+
+      if(pageName=='Dashboard' &&  localStorage.getItem('permision_OV')){
+        return true;
+      }
+
+      if(pageName=='Events' &&  localStorage.getItem('permision_EM')){
+        return true;
+      }
+
+      if(pageName=='Orders' &&  localStorage.getItem('permision_OM')){
+        return true;
+      }
+
+    }else if(loginUser.type == 'member' && loginUser.permission == "A"){
+      return true;
+    }else if(loginUser.type == 'admin' ){
+      return true;
+    }
+
+  }
+
+ 
 }

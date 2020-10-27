@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from './../../_services/authentication.service';
+import { User, Role } from './../../_models';
+import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  currentUser:any;
+
+  constructor(
+    private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
+    private router: Router,
+
+  ) { 
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(this.currentUser.type == 'member'  && this.currentUser.permission != 'A'){
+      if(localStorage.getItem('permision_OV') != 'TRUE'){
+        this.router.navigate(['/super-admin']);
+      }
+    }
+    
+  }
 
   ngOnInit(): void {
+
+   
+
   }
 
 }

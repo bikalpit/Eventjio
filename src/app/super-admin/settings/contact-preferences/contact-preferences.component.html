@@ -1,14 +1,15 @@
 <div id="contact_preferences" class="main-section">
-    <form [formGroup]="contactPreferenceFrom" class="with-validation">    
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <form [formGroup]="contactPreferenceFrom" class="with-validation">
         <div class="contact-prefrences main-work-area main">
             <h6 class="main-head col-md-12">Customer Contact Preferences</h6>
             <div class="account-info">
                 <div class="col-md-12">
                     <p class="sub-head">Where should contact form submissions and replies to ticket emails go?
-                        <span class="info"  matTooltip="When your customers have a question they can either contact you via a contact form that forwards on to you, or you can specify your own contact instructions."><i class="fa fa-question" aria-hidden="true"></i></span>
+                        <span class="info" matTooltip="When your customers have a question they can either contact you via a contact form that forwards on to you, or you can specify your own contact instructions."><i class="fa fa-question" aria-hidden="true"></i></span>
                     </p>
                 </div>
-              
+
                 <div class="form-group col-md-8">
                     <mat-select class="form-control" (selectionChange)="fnSelectionChange($event)" id="">
                         <mat-option value="To my account email address">To my account email address</mat-option>
@@ -16,9 +17,9 @@
                         <!-- <mat-option value="I would like to provide instructions">I would like to provide instructions</mat-option> -->
                     </mat-select>
                 </div>
-                
+
                 <div class="form-group col-md-8" *ngIf="contactPreferenceOption === 'To a diffrent email address'">
-                    <label  class="sub-head">Please enter the email address for customer contact enquires</label>
+                    <label class="sub-head">Please enter the email address for customer contact enquires</label>
                     <input type="email" formControlName="email_id" class="form-control" placeholder="Enter email address">
                     <span class="error-wrap" *ngIf="contactPreferenceFrom.get('email_id').touched || contactPreferenceFrom.get('email_id').dirty">
                         <small *ngIf="contactPreferenceFrom.get('email_id').hasError('required')" class="error">Email id is required.</small>

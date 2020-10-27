@@ -239,6 +239,38 @@ export class SuperadminService {
          catchError(this.handleError));
     }
 
+    fnGetallOrders(url,requestObject){
+        return this.http.post(`${url}`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    fnResendOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/resend-order`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    fnCancelOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/cancel-order`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    fnGetsingleOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-order`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
     createVoucherCode(requestObject){
         return this.http.post(`${environment.apiUrl}/create-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -263,20 +295,24 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
-    
     fnAssignEventToVoucher(requestObject){
         return this.http.post(`${environment.apiUrl}/assign-voucher-to-event`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
-        return res;
+            return res;
         }),catchError(this.handleError));
     }
     fnAssignTicketToCoupon(requestObject){
         return this.http.post(`${environment.apiUrl}/coupon-apply-to-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
-        return res;
+            return res;
         }),catchError(this.handleError));
     }
+
+    fngetCustomersEventlist(requestObject){
+         return this.http.post(`${environment.apiUrl}/get-events-list`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+         return res;
+         }),catchError(this.handleError));
+    }
+
 }
-
-
-    

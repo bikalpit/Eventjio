@@ -46,33 +46,47 @@
                                             <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                             <ng-template class="popover custom-popover" #popContent>
-                                                <div class="px-3  border-bottom">
+                                                <div (click)="viewEventPage(element.unique_code)" class="px-3  border-bottom">
                                                     <i class="fa fa-eye mr-2"></i><span>View event page</span>
                                                 </div>
 
-                                                <div class="px-3  border-bottom">
+                                                <div routerLink="/super-admin/single-event-dashboard/event-summary" class="px-3  border-bottom">
                                                     <i class="fa fa-bar-chart-o mr-2"></i><span>Event Summary</span>
                                                 </div>
 
-                                                <div class="px-3  border-bottom">
+                                                <div routerLink="/super-admin/single-event-dashboard/event-and-ticket-types" class="px-3  border-bottom">
                                                     <i class="fa fa-pencil mr-2"></i><span>Edit event & Tickets</span>
                                                 </div>
 
-                                                <div class="px-3  border-bottom">
+                                                <div routerLink="/super-admin/single-event-dashboard/issued-ticket" class="px-3  border-bottom">
                                                     <i class="fa fa-shopping-bag mr-2"></i><span>Orders</span>
                                                 </div>
 
-                                                <div class="px-3  border-bottom">
+                                                <div routerLink="/super-admin/single-event-dashboard/duplicate" class="px-3  border-bottom">
                                                     <i class="fa fa-copy mr-2"></i><span>Duplicate</span>
                                                 </div>
 
-                                                <div class="px-3  border-bottom">
+                                                <div routerLink="/super-admin/single-event-dashboard/delete" class="px-3  border-bottom">
                                                     <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                                 </div>
 
                                             </ng-template>
 
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <div class="table_pagination mt-4 pagination-class" *ngIf="allUpcomingEventListData != ''">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-end">
+                                                <li class="page-item" (click)="navigateToUpcomming(first_page_url_upCommintEvent)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" (click)="navigateToUpcomming(prev_page_url_upCommintEvent)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" [ngClass]="{'active':current_page_upCommintEvent == i+1}" *ngFor="let pagenumber of arrayOneUpcomming(last_page_upCommintEvent); let i = index;" (click)="navigateToPageNumberUpcomming(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                                <li class="page-item" (click)="navigateToUpcomming(next_page_url_upCommintEvent)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" (click)="navigateToUpcomming(last_page_url_upCommintEvent)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
@@ -138,8 +152,21 @@
                                                 </div>
 
                                             </ng-template>
-
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <div class="table_pagination mt-4 pagination-class"  *ngIf="allPastEventListData != ''">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-end">
+                                                <li class="page-item" (click)="navigateToPageNumberPast(first_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" (click)="navigateToPageNumberPast(prev_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" [ngClass]="{'active':current_page_pastEvent == i+1}" *ngFor="let pagenumber of arrayOnePast(last_page_pastEvent); let i = index;" (click)="navigateToPageNumberPast(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                                <li class="page-item" (click)="navigateToPageNumberPast(next_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                                <li class="page-item" (click)="navigateToPageNumberPast(last_page_url_pastEvent)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
@@ -187,11 +214,11 @@
                                 </div>
                             </div>
                             <div class="w-100">
-                                <label class="ml-2" for="">Start Time <span><i class="fa fa-asterisk"></i></span> </label>
+                                <label class="ml-2" for="">Start Time<span><i class="fa fa-asterisk"></i></span> </label>
                                 <div class="form-group">
                                     <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                    <mat-select (selectionChange)="fnChangeStartTime($event)" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
-                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                    <mat-select formControlName="event_start_time"  class="col-10 ml-2 form-control d-inline-block">
+                                        <mat-option  (onSelectionChange)="fnChangeStartTime(i)"  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                     </mat-select>
                                     <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
                                     <small *ngIf="addEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
@@ -208,21 +235,27 @@
                                 <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY">
                                 <mat-datepicker #event_end_date_picker></mat-datepicker>
                                 <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_end_date').touched || addEventForm.get('event_end_date').dirty">
-                                        <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
-                                    </span>
+                                    <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
+                                </span>
                             </div>
                             <div class="w-100">
-                                <label class="ml-2" for="">Ends Time <span><i class="fa fa-asterisk"></i></span> </label>
+                                <label class="ml-2" for="">End Time <span><i class="fa fa-asterisk"></i></span> </label>
                                 <!-- <input type="time" formControlName="event_end_time" class="col-4 ml-2 form-control d-inline-block"> -->
+
                                 <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                    <mat-option  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" 
+                                     [disabled]="addEventForm.get('event_start_time').value > (i-1)" 
+                                     value="{{fullDayTimeSlote}}" >{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
+
+
                                 <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                    <mat-option [disabled]="eventStartTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                <mat-option  *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="eventStartTimeIndex > i" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
+
                                 <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_end_time').touched || addEventForm.get('event_end_time').dirty">
                                         <small *ngIf="addEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
-                                    </span>
+                                </span>
                             </div>
                         </div>
 

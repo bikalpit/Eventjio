@@ -22,6 +22,7 @@ export class DuplicateComponent implements OnInit {
   isLoaderAdmin:boolean = false;
   duplicateId:any;
   eventName:any;
+  // duplicateForm:boolean=false;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -48,6 +49,9 @@ export class DuplicateComponent implements OnInit {
   ngOnInit(): void {
     this. fnGetEventDetail();
   }
+  refresh(): void {
+    window.location.reload();
+}
   
   fnAddDuplicate(){
     this.duplicateArray.push(this.duplicateArray.length+1);
