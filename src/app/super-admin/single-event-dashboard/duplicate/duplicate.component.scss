@@ -64,6 +64,7 @@
                          padding: 6px 0px;
                         color: #595959;
                         position: relative;
+                        margin-right: 32px;
                     }
                     .cpn-title {
                         color: #181818;
@@ -76,9 +77,6 @@
                         padding: 6px 12px;
                         border-radius: 5px;
                     } 
-                    .form-group{
-                        padding: 10px 20px;
-                    }
                 }
               .duplicate-table-wrap{
                   .drageble-list{
@@ -92,10 +90,10 @@
                             color: #FF0000;
                             font-size: 22px;
                           }
-                        }
                         .form-control{
                             width:70%;
                         }
+                    }
                         input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
                             color:#000;
                              } 

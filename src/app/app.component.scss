@@ -306,10 +306,10 @@
         position: relative;
         padding-bottom: 20px;
         margin-bottom: 5px;
-        .error-wrap {
-            position: absolute;
-            bottom: 0;
-        }
+        // .error-wrap {
+        //     position: absolute;
+        //     bottom: 0;
+        // }
     }
     .error {
         color: $error;
