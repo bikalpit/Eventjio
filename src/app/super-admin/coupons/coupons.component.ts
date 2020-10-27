@@ -7,8 +7,6 @@ import { MatSnackBar} from '@angular/material/snack-bar';
 import { DatePipe} from '@angular/common';
  import { ErrorService } from '../../_services/error.service'
  import { SuperadminService} from '../_services/superadmin.service';
- import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
-
 export interface DialogData {
   animal: string;
   name: string;
@@ -33,8 +31,6 @@ export class CouponsComponent implements OnInit {
   search = {
     keyword: ""
   };
-  currentUser:any;
-
   constructor(
    public dialog: MatDialog,
     private http: HttpClient,
@@ -43,17 +39,7 @@ export class CouponsComponent implements OnInit {
     private datePipe: DatePipe,
     private ErrorService: ErrorService,
     private SuperadminService : SuperadminService,
-    public router: Router,
-
  ) {
-
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-    if(this.currentUser.type == 'member' && this.currentUser.permission != 'A'){
-      this.router.navigate(['/super-admin']);
-    }
-
-
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
     }
@@ -503,9 +489,8 @@ export class myBatchVoucherCodeDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.signleVoucherDetail = this.data.signleVoucherDetail
-      // this.signleVoucherDetail.expiry_date = this.datePipe.transform(new Date(this.createVoucherForm.get('expiry_date').value),"yyyy-MM-dd")
       // this.minExpiryDate=this.datePipe.transform(new Date(this.minExpiryDate),"yyyy-MM-dd")
-      if(this.signleVoucherDetail && this.signleVoucherDetail.expiry_date < this.minExpiryDate){
+      if(this.signleVoucherDetail.expiry_date < this.minExpiryDate){
         this.signleVoucherDetail.expiry_date = this.minExpiryDate
       }
       if(this.signleVoucherDetail && this.signleVoucherDetail.event_id !== null){
