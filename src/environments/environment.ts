@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: true,
+    production: false,
   	apiUrl:         'https://api.eventjio.com/api',
   	apiFolderUrl:         'https://api.eventjio.com',
     authApiUrl:     'https://api.eventjio.com/api',
