@@ -195,12 +195,6 @@ export class SuperadminService {
         }),catchError(this.handleError));
     }
     
-    fnGetAllEventListPaggination(url,requestObject){
-        return this.http.post(`${url}`,requestObject,{headers:this.globalHeaders}).pipe(
-        map((res) => {
-            return res;
-        }),catchError(this.handleError));
-    }
 
     getSingleCustomersDetails(requestObject){
         return this.http.post(`${environment.apiUrl}/get-single-customer-api`,requestObject,{headers:this.globalHeaders}).pipe(
