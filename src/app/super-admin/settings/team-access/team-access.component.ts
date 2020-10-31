@@ -292,9 +292,10 @@ export class inviteTeamMateDialog {
     let inviteFormData = {
       'boxoffice_id': this.boxofficeId,
       "email_id": this.email_id,
-      "role": "TM",
+      "role": "A",
       "permission": permission,
       "sub_permission": this.sub_permission,
+      'url': environment.urlForLink+'/sign-up?email='+this.email_id+'&inviter='
     }
 
  
