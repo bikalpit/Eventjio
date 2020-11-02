@@ -71,7 +71,8 @@ export class SignupComponent implements OnInit {
 				"firstname":this.signUpForm.get("firstname").value,
 				"email":this.signUpForm.get("email").value,
                 "password":this.signUpForm.get("password").value,
-                "description":this.signUpForm.get("description").value
+				"description":this.signUpForm.get("description").value,
+				"inviter_id": '123',
 			};
 			let headers = new HttpHeaders({
 				'Content-Type': 'application/json',
