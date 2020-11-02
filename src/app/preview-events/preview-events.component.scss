@@ -158,9 +158,125 @@
                     }
                }
           }
+          .Buy-Tickets{
+               .tickes-heading{
+                    h3{
+                         font-size: 18px;
+                         color: #000;
+                         font-weight: 600;
+                         text-align: justify;
+                    }
+               }
+               .main-table-tickets{
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+                    border-radius: 5px;
+                    .heading-table-tickets{
+                         border-bottom: 1px solid #ccc;
+                         padding: 8px 24px;
+                    }
+                    .tikets-deatils{
+                         border-bottom: 1px solid #ccc;
+                         padding: 16px 24px;
+                         align-items: center;
+                    }
+            }   
+            .bottom-submit-btn{
+                 margin-top: 38px;
+                 text-align: end;
+               button{
+                    background-color: #4D8800;
+                    min-width: 140px;
+               }
+            } 
+            .total-bottom{
+               display: flex;
+               justify-content: space-between;
+               p{
+                    margin: 0px;
+                    font-weight: 600;
+               }
+            }
+          }
+          .Your-Order{
+               .tickes-heading{
+                    h3{
+                         font-size: 18px;
+                         color: #000;
+                         font-weight: 600;
+                         text-align: justify;
+                    }
+               }
+               .main-table-tickets{
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    .heading-table-tickets{
+                         background: #92c7ff52;
+                         padding: 8px 24px;
+                    }
+                    .tikets-deatils{
+                         border-bottom: 1px solid #ccc;
+                         padding: 16px 24px;
+                         align-items: center;
+                    }
+            }   
+            .bottom-submit-btn{
+                 margin-top: 38px;
+                 text-align: end;
+               button{
+                    background-color: #4D8800;
+                    min-width: 140px;
+               }
+            } 
+            .total-bottom{
+               display: flex;
+               justify-content: space-between;
+               p{
+                    margin: 0px;
+                    font-weight: 600;
+               }
+            }
+            .Promocode-main{
+               display: flex;
+               justify-content: space-between;
+               padding: 10px 24px;
+               align-items: center;
+               p{
+                    color: #0D66FF;
+                    margin: 0px;
+               }
+               .promocode-text{
+                    display: flex;
+                    i{
+                         background: #0D66FF;
+                         padding: 4px 20px;
+                         border-radius: 6px 0 0 6px;
+                         color: #fff;
+                         font-size: 28px;
+                    }
+                    .form-control{
+                         border-color: #0d66ff63;
+                         background-color: #0d66ff21;
+                         border-radius: 0px 6px 6px 0px;
+                         margin-top: 0px;
+                    }
+                  
+               }
+       
+            }
+            .order-total{
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px 24px;
+                    p{
+                    font-weight: 600;
+                    }
+               }
+          }
      }
 }
 
 .right-toolbar-content{
      height: 100%;
 }
+.text-center{text-align: center;}
+.text-end{text-align: end;}
