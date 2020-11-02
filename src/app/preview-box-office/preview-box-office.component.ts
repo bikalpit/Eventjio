@@ -25,12 +25,10 @@ export class PreviewBoxOfficeComponent implements OnInit {
     private  ServiceService :ServiceService,
     private  ErrorService :ErrorService,
   ) {
-    alert('0')
     console.log(window.location.search)
       this.urlString = window.location.search.split("?boxoffice="); 
       console.log(this.urlString)
     this.boxOfficeId = window.atob(decodeURIComponent(this.urlString[1]));
-   alert(this.boxOfficeId)
     meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
     this.fnGetBoxOfficeDetail();
     
