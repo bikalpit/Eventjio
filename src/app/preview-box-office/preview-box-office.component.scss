@@ -1,64 +1,67 @@
-#event-lising{
-    .top-heading-event{
-        h3{ 
+#event-lising {
+    .top-heading-event {
+        h3 {
             font-size: 20px;
             text-align: justify;
             margin: 24px 0px;
         }
     }
-    .common-events-listing{
+    .common-events-listing {
         box-shadow: 0 1px 14px 0px #005eff26;
-            border-radius: 6px;
-            .events-title{
-                background-color: #EFF5FF;
-                padding: 14px;
-                h3{
-                    font-size: 16px;
-                    margin: 0px;
-                    font-weight: 500;
-                    text-align: justify;
-                }
-                p{
-                    color: #717171;
-                    font-size: 12px;
-                    margin: 0px;
+        border-radius: 6px;
+        .events-title {
+            background-color: #EFF5FF;
+            padding: 14px;
+            h3 {
+                font-size: 16px;
+                margin: 0px;
+                font-weight: 500;
+                text-align: justify;
+            }
+            p {
+                color: #717171;
+                font-size: 12px;
+                margin: 0px;
+                 ::ng-deep p {
+                    margin-bottom: 0 !important;
                 }
             }
-            .events-venue-date{
-                padding: 10px 16px;
-                border-bottom: 1px solid #ccc;
-            .common-datevenue{
+        }
+        .events-venue-date {
+            padding: 10px 16px;
+            border-bottom: 1px solid #ccc;
+            .common-datevenue {
                 display: flex;
                 align-items: center;
                 margin-bottom: 10px;
-                p{
+                p {
                     margin: 0px;
                     margin-left: 12px;
                 }
+            }
+        }
+        .Event-price-view {
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .common-priceview {
+                p {
+                    font-size: 12px;
+                    color: #717171;
+                    margin: 0px;
+                }
+                h3 {
+                    font-weight: 600;
+                    text-align: initial;
+                    font-size: 20px;
+                    margin: 0px;
+                }
+                .viewevents-btn {
+                    background-color: #0D66FF;
+                    color: #fff;
                 }
             }
-            .Event-price-view{
-                padding: 10px 16px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                .common-priceview{
-                    p{
-                        font-size: 12px;
-                        color: #717171;
-                        margin: 0px;
-                    }
-                    h3{
-                        font-weight: 600;
-                        text-align: initial;
-                        font-size: 20px;
-                        margin: 0px;
-                    }
-                    .viewevents-btn{
-                        background-color: #0D66FF;
-                        color: #fff;
-                    }
-                }
-            }
+        }
     }
 }

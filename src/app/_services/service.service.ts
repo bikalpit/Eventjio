@@ -42,8 +42,14 @@ export class ServiceService {
                 return res;
         }),catchError(this.handleError));
     }
-    getSingleBoxOffice(requestObject) {
-        return this.http.post(`${environment.apiUrl}/get-single-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+    getBoxOfficeEvents(requestObject) {
+        return this.http.post(`${environment.apiUrl}/front-events-list`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+    getBoxOfficeDetail(requestObject) {
+        return this.http.post(`${environment.apiUrl}/front-boxoffice-details`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));

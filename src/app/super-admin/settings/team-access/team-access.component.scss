@@ -45,6 +45,10 @@ button:focus {
 
 /* end css */
 
+#team_access {
+    height: calc(100vh - 60px);
+}
+
 
 /* Coupon modal css */
 
@@ -149,7 +153,8 @@ button:focus {
             font-weight: bold;
         }
     }
-    .service-listing {
+    .members-listing {
+        height: calc(100vh - 220px);
         .drageble-list {
             width: 100%;
             border-bottom: solid 1px #DDDDDD;

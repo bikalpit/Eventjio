@@ -20,7 +20,10 @@ export class SignupComponent implements OnInit {
   adminSignUpData:any;
   termsCheckbox:boolean = false;
   isLoaderAdmin:boolean = false;
-
+  inviter : boolean = false;
+  inviterEmail:any;
+  inviterCode:any;
+  requestObject:any;
 
   constructor( private formBuilder: FormBuilder,
   private http: HttpClient,
@@ -30,34 +33,53 @@ export class SignupComponent implements OnInit {
   private ErrorService: ErrorService,
     )
      {
-    let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-    this.signUpForm = this.formBuilder.group({
-
-        firstname: ['', Validators.required],        
-        // email:     ['',[Validators.required,Validators.email,Validators.pattern(emailPattern),this.isEmailUnique.bind(this)]],
-        email:     ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
-        password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
-        description:[''],
-        termsCheckbox:[''],
-
-    });
+		if(this.route.snapshot.queryParamMap.get('email')){
+			this.inviter = true;
+			this.inviterEmail = this.route.snapshot.queryParamMap.get('email')
+			this.inviterCode = this.route.snapshot.queryParamMap.get('inviter')
+		}
+		// console.log(this.route.snapshot.queryParamMap.get('email'));
+		// console.log(this.route.snapshot.queryParamMap.get('inviter'));
+	let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+	
+	if(this.inviter){
+		alert(this.inviterEmail)
+		alert(this.inviterCode)
+		this.signUpForm = this.formBuilder.group({
+			firstname: ['', Validators.required],      
+			email:     [this.inviterEmail,[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
+			password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
+			description:[''],
+			termsCheckbox:[''],
+		});
+		this.signUpForm.controls['email'].disable();
+	}else{
+		this.signUpForm = this.formBuilder.group({
+			firstname: ['', Validators.required],    
+			email:     ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
+			password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
+			description:[''],
+			termsCheckbox:[''],
+	
+		});
+	}
+	
    }
 
-  ngOnInit(): void {
-  }
-  private handleError(error: HttpErrorResponse) {
+  	ngOnInit(): void {
+  	}
+  	private handleError(error: HttpErrorResponse) {
 		return throwError('Error! something went wrong.');
-		//return error.error ? error.error : error.statusText;
-	  }
+	}
 
-  fnChangeTermsPrivacyCheck(check){
-    this.termsCheckbox = check;
-  }
+	fnChangeTermsPrivacyCheck(check){
+		this.termsCheckbox = check;
+	}
 
-  fnSignUp(){
-    if(!this.termsCheckbox){
-      return false;
-    }
+  	fnSignUp(){
+		if(!this.termsCheckbox){
+			return false;
+		}
     
     if(this.signUpForm.invalid){
       this.signUpForm.get('firstname').markAsTouched();
@@ -67,47 +89,58 @@ export class SignupComponent implements OnInit {
       return false;
     }
 	this.isLoaderAdmin = true;
-      let requestObject = {
-				"firstname":this.signUpForm.get("firstname").value,
-				"email":this.signUpForm.get("email").value,
-                "password":this.signUpForm.get("password").value,
-				"description":this.signUpForm.get("description").value,
-				"inviter_id": '123',
-			};
-			let headers = new HttpHeaders({
-				'Content-Type': 'application/json',
-			});
-			
-		  this.http.post(`${environment.apiUrl}/signup`,requestObject,{headers:headers} ).pipe(	
-			map((res) => {
-			  return res;
-			}),
-			catchError(this.handleError)
-			).subscribe((response:any) => {
-				this.adminSignUpData = JSON.stringify(response.response)
 
-				localStorage.setItem('adminData',this.adminSignUpData)
-			  if(response.data == true){
-				this._snackBar.open("Account Succesfully Created", "X", {
-					duration: 2000,
-					verticalPosition: 'top',
-					panelClass : ['green-snackbar']
-				});
-					
-					this.router.navigate(["/login"]);
-			  }else{
-				this.ErrorService.errorMessage(response.response);
-				this._snackBar.open(response.response, "X", {
-					duration: 2000,
-					verticalPosition: 'top',
-					panelClass : ['red-snackbar']
-					});
-			  }
-			 
-			},
-			(err) =>{
-			  console.log(err)
-			})
+	if(this.inviter){
+		this.requestObject = {
+			"firstname":this.signUpForm.get("firstname").value,
+			"email":this.signUpForm.get("email").value,
+			"password":this.signUpForm.get("password").value,
+			"description":this.signUpForm.get("description").value,
+			"inviter_id": this.inviterCode,
+		};
+	}else{
+		
+	this.requestObject = {
+		"firstname":this.signUpForm.get("firstname").value,
+		"email":this.signUpForm.get("email").value,
+		"password":this.signUpForm.get("password").value,
+		"description":this.signUpForm.get("description").value,
+	};
+	}
+	let headers = new HttpHeaders({
+		'Content-Type': 'application/json',
+	});
+	
+	this.http.post(`${environment.apiUrl}/signup`,this.requestObject,{headers:headers} ).pipe(	
+	map((res) => {
+		return res;
+	}),
+	catchError(this.handleError)
+	).subscribe((response:any) => {
+		this.adminSignUpData = JSON.stringify(response.response)
+
+		localStorage.setItem('adminData',this.adminSignUpData)
+		if(response.data == true){
+		this._snackBar.open("Account Succesfully Created", "X", {
+			duration: 2000,
+			verticalPosition: 'top',
+			panelClass : ['green-snackbar']
+		});
+			
+			this.router.navigate(["/login"]);
+		}else{
+		this.ErrorService.errorMessage(response.response);
+		this._snackBar.open(response.response, "X", {
+			duration: 2000,
+			verticalPosition: 'top',
+			panelClass : ['red-snackbar']
+			});
+		}
+		
+	},
+	(err) =>{
+		console.log(err)
+	})
 
 
     

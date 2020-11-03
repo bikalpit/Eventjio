@@ -1,39 +1,42 @@
 <div id="event-lising">
     <div class="container">
         <div class="top-heading-event">
-            <h3> Event happening this weekend </h3>
+            <h3> {{boxOfficeDetail.box_office_name}} </h3>
         </div>
         <div class="main-listing">
             <div class="row">
-                <div class="col-md-6 col-xl-3 col-12 col-sm-3">
-                      <div class="common-events-listing">
-                           <div class="top-event-img">
-                            <img src="../assets/images/Events.png" class="w-100" alt="">
+                <div *ngFor="let boxOfficeEventList of boxOfficeEventList; let i=index" class="col-md-4 col-lg-4 col-xl-3 col-12 col-sm-6 mb-3">
+                    <div class="common-events-listing">
+                        <div class="top-event-img">
+                            <!-- <img src="../assets/images/Events.png" class="w-100" alt=""> -->
+                            <img src="{{boxOfficeEventList.images[0].image}}" class="w-100" alt="">
+                        </div>
+                        <div class="events-title">
+                            <h3>{{boxOfficeEventList.event_title}}</h3>
+                            <p [innerHTML]="safeHtmlTemp"></p>
+                        </div>
+                        <div class="events-venue-date">
+                            <div class="common-datevenue">
+                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                <p> {{boxOfficeEventList.start_date}} {{boxOfficeEventList.start_time}} </p>
                             </div>
-                            <div class="events-title">
-                                <h3>Laajawab Cooking Class </h3>
-                                <p> Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying. </p>
+                            <div class="common-datevenue">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <p *ngIf="boxOfficeEventList.online_event == 'N' && boxOfficeEventList.country !== undefined ">{{boxOfficeEventList.venue_name}},{{boxOfficeEventList.postal_code}}-</p>
+                                <p *ngIf="boxOfficeEventList.online_event == 'Y'">Online Event</p>
                             </div>
-                            <div class="events-venue-date">
-                                <div class="common-datevenue">
-                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                                    <p> Mon Jul 27, 2020 6:00 pm.... </p>
-                                </div>
-                                <div class="common-datevenue">
-                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                    <p>The Grand Hyatt,400101....</p>
-                                </div>
+                        </div>
+                        <div class="Event-price-view">
+                            <div class="common-priceview">
+                                <p> From </p>
+                                <h3> {{currencySymbol}} {{150}} </h3>
+                                <!-- <h3> {{currencySymbol|currencySymbol:'wide'}} 150 </h3> -->
                             </div>
-                            <div class="Event-price-view">
-                                <div class="common-priceview">
-                                   <p> From </p>
-                                   <h3> $150 </h3>
-                                </div>
-                                <div class="common-priceview">
-                                    <button mat-raised-button class="viewevents-btn">View Events</button>
-                                </div>
+                            <div class="common-priceview">
+                                <button mat-raised-button class="viewevents-btn">View Events</button>
                             </div>
-                      </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

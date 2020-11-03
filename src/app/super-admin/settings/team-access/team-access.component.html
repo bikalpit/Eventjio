@@ -14,7 +14,7 @@
             <div class="row code-tab">
                 <mat-tab-group class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left">
                     <mat-tab label="Teammates ({{approvedInviterData.length}})" class="">
-                        <div class="service-listing teammates">
+                        <div class="members-listing teammates">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
@@ -56,15 +56,15 @@
 
                     </mat-tab>
                     <mat-tab label="Invites ({{pendingInviterData.length}})">
-                        <div class="service-listing invites">
+                        <div class="members-listing invites">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
                                         <div class="" fxFlex="25">Email Address</div>
                                         <div class="" fxFlex="20">Roles</div>
-                                        <div class="" fxFlex="35">Last Seen</div>
+                                        <div class="" fxFlex="25">Last Seen</div>
                                         <div class="" fxFlex="20">Status</div>
-                                        <!-- <div class="" fxFlex="10"></div> -->
+                                        <div class="" fxFlex="10"></div>
                                     </div>
                                     <div *ngFor="let val of pendingInviterData">
                                         <div class="content" class="drageble-list">
@@ -77,28 +77,25 @@
                                                     <p *ngIf="pendingInviterData.role === 'OV'">Over view</p> -->
                                                     <!-- {{pendingInviterData.permission}} -->
                                                     <p>{{permissionCheck(val.permission)}}</p>
-                                                    
+
                                                 </div>
-                                                <div class="tb-data" fxFlex="35">{{val.updated_at}}</div>
+                                                <div class="tb-data" fxFlex="25">{{val.updated_at}}</div>
                                                 <div class="tb-data status" fxFlex="20">
                                                     <p *ngIf="val.status === 'APR'" [ngStyle]="{'color':val.status === 'APR' ? '#2BB800':'' }">Approved</p>
                                                     <p *ngIf="val.status === 'R'" [ngStyle]="{'color':val.status === 'R' ? '#FF0000':'' }">Rejected</p>
                                                     <p *ngIf="val.status === 'P'" [ngStyle]="{'color':val.status === 'P' ? '#FF7700':'' }">Pending</p>
                                                 </div>
-                                                <!-- <div class="tb-data" fxFlex="10">
+                                                <div class="tb-data" fxFlex="10">
                                                     <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
                                                     <ng-template class="popover" #popContent>
-                                                        <divclass="px-3 pointer border-bottom">
-                                                            <i class="fa fa-pencil mr-2"></i><span>Edit</span>
-                                                        </div>
                                                         <div class="px-3 pointer border-bottom">
-                                                            <i class="fa fa-ticket mr-2"></i><span>Assign to Ticket Type</span>
+                                                            <i class="fa fa-repeat mr-2"></i><span>Resend</span>
                                                         </div>
                                                         <div class="px-3 pointer border-bottom">
                                                             <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                                         </div>
                                                     </ng-template>
-                                                </div> -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
