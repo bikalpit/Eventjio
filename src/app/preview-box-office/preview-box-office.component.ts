@@ -1,7 +1,7 @@
 import { Component, OnInit,ElementRef, ViewChild, ViewChildren, QueryList, Renderer2, Inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { DatePipe, DOCUMENT, JsonPipe } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { ServiceService } from '../_services/service.service';
 import { ErrorService } from '../_services/error.service';
 import {DomSanitizer} from "@angular/platform-browser";
@@ -24,16 +24,27 @@ export class PreviewBoxOfficeComponent implements OnInit {
     
     private datePipe: DatePipe,
     private meta: Meta,
+    private readonly route: ActivatedRoute,
     private renderer2: Renderer2,
     public router: Router,
     private  ServiceService :ServiceService,
     private  ErrorService :ErrorService,
     private sanitizer:DomSanitizer
   ) {
-    console.log(window.location.search)
-      this.urlString = window.location.search.split("?boxoffice="); 
-      console.log(this.urlString)
-    this.boxOfficeId = window.atob(decodeURIComponent(this.urlString[1]));
+    
+    this.boxOfficeId = this.route.snapshot.params.id;
+    var idddd = this.route.snapshot.paramMap.get("id");
+    // alert(idddd);
+    // if(idddd){
+    //   this.boxOfficeId = idddd
+    // }
+    // alert(this.boxOfficeId);
+
+
+    // console.log(window.location.search)
+    //   this.urlString = window.location.search.split("?boxoffice="); 
+    //   console.log(this.urlString)
+    // this.boxOfficeId = window.atob(decodeURIComponent(this.urlString[1]));
     // meta.addTag({name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'});
     this.fnGetBoxOfficeEvents();
     this.fnGetBoxOfficeDetail();
@@ -56,6 +67,9 @@ export class PreviewBoxOfficeComponent implements OnInit {
             element.country = JSON.parse(element.country)
           }else{
             element.country = undefined
+          }
+          if(element.images.length === 0){
+            element.images = undefined
           }
           this.transform(element.description)
         });
@@ -83,6 +97,11 @@ export class PreviewBoxOfficeComponent implements OnInit {
 
   transform(emailTemplate) {
     this.safeHtmlTemp =  this.sanitizer.bypassSecurityTrustHtml(emailTemplate);
+  }
+
+  fnSelectEvent(eventCode){
+    alert(eventCode)
+    this.router.navigate(['/preview-events/'+eventCode]);
   }
 
 }

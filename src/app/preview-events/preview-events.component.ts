@@ -17,7 +17,8 @@ export class PreviewEventsComponent implements OnInit {
   eventId:any = "";
   eventStartTime:any;
   eventEndTime:any;
-  eventURL;
+  eventURL:any;
+  eventpageStatus:any = 'eventDetail';
 
   constructor(
     private serviceService:ServiceService,
@@ -33,9 +34,11 @@ export class PreviewEventsComponent implements OnInit {
     this.getEvent();
   }
 
+  nextToOrder(nextStep){
+    this.eventpageStatus = nextStep;
+  }
+
   getEvent(){
-
-
     this.isLoaderAdmin = true;
     let requestObject = {
        'unique_code' : this.eventId
@@ -64,7 +67,7 @@ export class PreviewEventsComponent implements OnInit {
 
   fnShare(type) {
 
-    this.eventURL = environment.urlForLink+'/preview-events/'+this.eventId;
+    this.eventURL = environment.bookingPageUrl+'/preview-events/'+this.eventId;
 
     if(type=='facebook'){
       window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(this.eventURL), "_blank", "width=600,height=600");

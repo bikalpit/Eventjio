@@ -203,4 +203,18 @@ export class SettingService {
         }),catchError(this.handleError));
     }
 
+    resendInviter(requestObject){
+        return this.http.post(`${environment.apiUrl}/resend-invitation`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    deleteInviter(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-request-inviter-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
 }

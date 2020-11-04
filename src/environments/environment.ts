@@ -9,6 +9,7 @@ export const environment = {
     authApiUrl:     'https://api.eventjio.com/api',
     urlForLink :    'http://localhost:4500',
     APPURL:     'https://app.eventjio.com/',
+    bookingPageUrl:     'http://localhost:4800',
 
 };
 

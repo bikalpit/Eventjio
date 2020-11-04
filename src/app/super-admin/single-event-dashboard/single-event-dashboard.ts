@@ -39,7 +39,7 @@ export class SingleEventDashboard implements OnInit {
       if (event instanceof RouterEvent) this.handleRoute(event);
     });
     
-    this.eventURL = environment.urlForLink+'/preview-events/'+this.eventId;
+    this.eventURL = environment.bookingPageUrl+'/preview-events/'+this.eventId;
   }
 
   ngOnInit(): void {

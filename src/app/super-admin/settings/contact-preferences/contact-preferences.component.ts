@@ -13,6 +13,7 @@ export class ContactPreferencesComponent implements OnInit {
   contactPreferenceFrom : FormGroup;
   isLoaderAdmin:boolean = false;
   boxOfficeCode:any;
+  contactPreferenceSettingDetail:any
 
   constructor(
     private _formBuilder : FormBuilder,
@@ -21,11 +22,13 @@ export class ContactPreferencesComponent implements OnInit {
   ) { 
     this.contactPreferenceFrom = this._formBuilder.group({
       email_id:['',[Validators.required, Validators.email]],
-      // instructions:['',[Validators.required]],
+      contact_pre_option:['',[Validators.required]],
     })
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id')
     }
+    
+    this.getContactPreferenceSetting();
   }
 
   fnSubmitContactPreference(){
@@ -34,6 +37,7 @@ export class ContactPreferencesComponent implements OnInit {
 
         let contactPreferenceSetting = {
           "email_id":this.contactPreferenceFrom.get('email_id').value,
+          "contact_pre_option" : this.contactPreferenceOption
           // "instructions":this.contactPreferenceFrom.get('instructions').value,
         }
         let requestObject = {
@@ -52,11 +56,42 @@ export class ContactPreferencesComponent implements OnInit {
     }
 
   }
+
   updatecontactPreferenceSetting(requestObject){
     this.isLoaderAdmin = true;
     this.SettingService.updateSetting(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage('Contact Preference Updated')
+        this.ErrorService.successMessage('Contact Preference Updated');
+        this.getContactPreferenceSetting();
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
+
+  }
+
+  getContactPreferenceSetting(){
+    let requestObject={
+      "boxoffice_id"  : this.boxOfficeCode,
+      "option_key"    :  "contactPreference",
+      "event_id" :  'NULL',
+      'json_type' : 'Y'
+    }
+    this.isLoaderAdmin = true;
+    this.SettingService.getSettingsValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.contactPreferenceSettingDetail = JSON.parse(response.response)
+        this.contactPreferenceFrom.controls["email_id"].setValue(this.contactPreferenceSettingDetail.email_id)
+        this.contactPreferenceFrom.controls["contact_pre_option"].setValue(this.contactPreferenceSettingDetail.contact_pre_option)
+        this.contactPreferenceOption = this.contactPreferenceSettingDetail.contact_pre_option
+        if(this.contactPreferenceOption === "diffrent_email"){
+          this.contactPreferenceFrom.controls["email_id"].setValidators([Validators.required,Validators.email])
+        }else{
+          this.contactPreferenceFrom.controls["email_id"].setValidators(null);
+          this.contactPreferenceFrom.controls["email_id"].updateValueAndValidity();
+        }
+        this.contactPreferenceFrom.updateValueAndValidity();
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -68,24 +103,11 @@ export class ContactPreferencesComponent implements OnInit {
 
   fnSelectionChange(event){
     this.contactPreferenceOption = event.value;
-    if(event.value === "To a diffrent email address")
-    {
-    //   this.contactPreferenceFrom.controls["instructions"].setValidators(null);
-    //   this.contactPreferenceFrom.controls["instructions"].updateValueAndValidity();
+    if(this.contactPreferenceOption === "diffrent_email"){
       this.contactPreferenceFrom.controls["email_id"].setValidators([Validators.required,Validators.email])
-    }
-    // else if(event.value === "I would like to provide instructions")
-    // {
-    //   this.contactPreferenceFrom.controls["email_id"].setValidators(null);
-    //   this.contactPreferenceFrom.controls["email_id"].updateValueAndValidity();
-    //   this.contactPreferenceFrom.controls["instructions"].setValidators(Validators.required);
-    // }
-    else
-    {
+    }else{
       this.contactPreferenceFrom.controls["email_id"].setValidators(null);
       this.contactPreferenceFrom.controls["email_id"].updateValueAndValidity();
-      // this.contactPreferenceFrom.controls["instructions"].setValidators(null);
-      // this.contactPreferenceFrom.controls["instructions"].updateValueAndValidity();
     }
     this.contactPreferenceFrom.updateValueAndValidity();
   }

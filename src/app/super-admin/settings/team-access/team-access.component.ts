@@ -131,6 +131,39 @@ export class TeamAccessComponent implements OnInit {
 
       return permistionString.toString();
   }
+
+  fnResendInviter(inviterCode){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'invitation_id': inviterCode,
+    }
+    this.SettingService.resendInviter(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+        this.ErrorService.successMessage(response.response);
+      }
+      else if (response.data == false) {
+        this.ErrorService.errorMessage(response.response);
+      }
+    })
+    this.isLoaderAdmin = false;
+  }
+
+  fnDeleteInviter(inviterCode){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'unique_code': inviterCode,
+    }
+    this.SettingService.deleteInviter(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+        this.ErrorService.successMessage(response.response);
+        this.getPENDInviter();
+      }
+      else if (response.data == false) {
+        this.ErrorService.errorMessage(response.response);
+      }
+    })
+    this.isLoaderAdmin = false;
+  }
 }
 
 @Component({
@@ -309,8 +342,6 @@ export class inviteTeamMateDialog {
       }
       this.isLoaderAdmin = false;
     });
-
-
   }
 
 
@@ -320,5 +351,7 @@ export class inviteTeamMateDialog {
 
   ngOnInit() {
   }
+
+  
 
 }

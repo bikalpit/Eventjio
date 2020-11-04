@@ -11,14 +11,14 @@
                 </div>
 
                 <div class="form-group col-md-8">
-                    <mat-select class="form-control" (selectionChange)="fnSelectionChange($event)" id="">
-                        <mat-option value="To my account email address">To my account email address</mat-option>
-                        <mat-option value="To a diffrent email address">To a diffrent email address</mat-option>
+                    <mat-select formControlName="contact_pre_option" class="form-control" (selectionChange)="fnSelectionChange($event)" id="">
+                        <mat-option value="my_account">To my account email address</mat-option>
+                        <mat-option value="diffrent_email">To a diffrent email address</mat-option>
                         <!-- <mat-option value="I would like to provide instructions">I would like to provide instructions</mat-option> -->
                     </mat-select>
                 </div>
 
-                <div class="form-group col-md-8" *ngIf="contactPreferenceOption === 'To a diffrent email address'">
+                <div class="form-group col-md-8" *ngIf="contactPreferenceOption === 'diffrent_email'">
                     <label class="sub-head">Please enter the email address for customer contact enquires</label>
                     <input type="email" formControlName="email_id" class="form-control" placeholder="Enter email address">
                     <span class="error-wrap" *ngIf="contactPreferenceFrom.get('email_id').touched || contactPreferenceFrom.get('email_id').dirty">
@@ -36,7 +36,7 @@
                     <p>Some basic HTML is allowed so you can add links and headings</p>
                 </div> -->
 
-                <div class="col-md-8 mt-4" *ngIf="contactPreferenceOption === 'To my account email address' || contactPreferenceOption === 'To a diffrent email address'">
+                <div class="col-md-8 mt-4" *ngIf="contactPreferenceOption === 'my_account' || contactPreferenceOption === 'diffrent_email'">
                     <div class="note-theme m-0">
                         <div class="notification">
                             <mat-icon aria-hidden="false" aria-label="Example home icon" class="notif-icon">notifications</mat-icon>

@@ -217,7 +217,7 @@ export class EventSummaryComponent implements OnInit {
     this.SingleEventServiceService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.boxOfficeDetail = response.response[0];
-        this.eventURL = environment.urlForLink+'/preview-events/'+this.eventId;
+        this.eventURL = environment.bookingPageUrl+'/preview-events/'+this.eventId;
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }

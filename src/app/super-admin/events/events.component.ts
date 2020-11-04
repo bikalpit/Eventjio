@@ -396,7 +396,7 @@ export class EventsComponent implements OnInit {
   }
 
   viewEventPage(eventCode){
-    this.eventURL = environment.urlForLink+'/preview-events/'+eventCode;
+    this.eventURL = environment.bookingPageUrl+'/preview-events/'+eventCode;
     window.open(this.eventURL,'_blank');
   }
 

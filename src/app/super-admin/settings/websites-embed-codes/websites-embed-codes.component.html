@@ -14,38 +14,39 @@
                             Set up a booking widget
                         </div>
                         <div class="ml-auto px-3 py-2">
-                            <button mat-flat-button class="mr-1" (click)="CustomiseButton()">Customise widget colors</button>
+                            <!-- <button mat-flat-button class="mr-1" (click)="CustomiseButton()">Customise widget colors</button> -->
                             <button mat-flat-button class="ml-1" (click)="EditButton()">Edit widget options</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-12" *ngIf="!EditButtonDiv">
-                <form [formGroup]="editWidgetsoptionForm">
-                    <div class="col-7">
-                        <label for="">Widget Background <span class="text-danger">*</span>  </label>
-                        <mat-select name="" id="" class="form-control" formControlName="fullWidget">
-                            <mat-option value="Filled Background">Filled Background</mat-option>
-                            <mat-option value="Transparent Background">Transparent Background</mat-option>
-                        </mat-select>
-                    </div>
+                    <form [formGroup]="editWidgetsoptionForm">
+                        <div class="col-7">
+                            <label for="">Widget Background <span class="text-danger">*</span>  </label>
+                            <mat-select name="" id="" class="form-control" formControlName="fullWidget">
+                                <mat-option value="Filled Background">Filled Background</mat-option>
+                                <mat-option value="Transparent Background">Transparent Background</mat-option>
+                            </mat-select>
+                        </div>
 
-                    <div class="col-7 mt-3">
-                        <label for="">Widget Background <span class="text-danger">*</span> </label>
-                        <mat-select name="" id="" class="form-control" formControlName="optionalWidget">
-                            <mat-option value="Show Header, event description and header image">Show Header, event description and header image</mat-option>
-                            <mat-option value="Hide header and event description">Hide header and event description</mat-option>
-                            <mat-option value="Show header and event description">Show header and event description</mat-option>
-                        </mat-select>
-                    </div>
+                        <div class="col-7 mt-3">
+                            <label for="">Widget Background <span class="text-danger">*</span> </label>
+                            <mat-select name="" id="" class="form-control" formControlName="optionalWidget">
+                                <mat-option value="Show Header, event description and header image">Show Header, event description and header image</mat-option>
+                                <mat-option value="Hide header and event description">Hide header and event description</mat-option>
+                                <mat-option value="Show header and event description">Show header and event description</mat-option>
+                            </mat-select>
+                        </div>
 
-                    <div class="col-7 mt-3">
-                        <label for="">Events <span class="text-danger">*</span>  </label>
-                        <mat-select name="" id="" class="form-control" formControlName="eventTitle">
-                            <mat-option *ngFor="let allEvents of allEvents" value="{{allEvents.event_title}}">{{allEvents.event_title}}</mat-option>
-                        </mat-select>
-                    </div>
+                        <div class="col-7 mt-3">
+                            <label for="">Events <span class="text-danger">*</span>  </label>
+                            <mat-select name="" id="" class="form-control" formControlName="eventTitle">
+                                <mat-option value="all">All Events</mat-option>
+                                <mat-option *ngFor="let allEvents of allEvents" value="{{allEvents.unique_code}}">{{allEvents.event_title}}</mat-option>
+                            </mat-select>
+                        </div>
 
-                </form>
+                    </form>
 
                     <div class="col-7 mt-3">
                         <button mat-flat-button class="edit-btn px-5" (click)="fnUpadateWidget()">Update Widget</button>
@@ -129,18 +130,18 @@
                 <div class="col-8 mt-3">
                     <div class="my-2">
                         <form [formGroup]="customiseWidgetForm">
-                        <label for="">Theme</label>
-                        <mat-select name="" id="" class="form-control" (selectionChange)="fnChangeTheme($event)" formControlName="selectTheme">
-                            <mat-option value="Select a theme">Select a theme</mat-option>
-                            <mat-option value="Classic Blue">Classic Blue</mat-option>
-                            <mat-option value="Green Shades">Green Shades</mat-option>
-                            <mat-option value="Gray Scale">Gray Scale</mat-option>
-                            <mat-option value="Sunshine">Sunshine</mat-option>
-                            <mat-option value="Black and White">Black and White</mat-option>
-                            <mat-option value="Turquoise">Turquoise</mat-option>
-                            <mat-option value="Firenze">Firenze</mat-option>
-                            <mat-option value="Phonedro">Phonedro</mat-option>
-                        </mat-select>
+                            <label for="">Theme</label>
+                            <mat-select name="" id="" class="form-control" (selectionChange)="fnChangeTheme($event)" formControlName="selectTheme">
+                                <mat-option value="Select a theme">Select a theme</mat-option>
+                                <mat-option value="Classic Blue">Classic Blue</mat-option>
+                                <mat-option value="Green Shades">Green Shades</mat-option>
+                                <mat-option value="Gray Scale">Gray Scale</mat-option>
+                                <mat-option value="Sunshine">Sunshine</mat-option>
+                                <mat-option value="Black and White">Black and White</mat-option>
+                                <mat-option value="Turquoise">Turquoise</mat-option>
+                                <mat-option value="Firenze">Firenze</mat-option>
+                                <mat-option value="Phonedro">Phonedro</mat-option>
+                            </mat-select>
                         </form>
                     </div>
                     <div class="my-3">

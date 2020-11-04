@@ -1,15 +1,15 @@
 <div id="event-lising">
     <div class="container">
         <div class="top-heading-event">
-            <h3> {{boxOfficeDetail.box_office_name}} </h3>
+            <h3 *ngIf="boxOfficeDetail"> {{boxOfficeDetail.box_office_name}} </h3>
         </div>
         <div class="main-listing">
             <div class="row">
                 <div *ngFor="let boxOfficeEventList of boxOfficeEventList; let i=index" class="col-md-4 col-lg-4 col-xl-3 col-12 col-sm-6 mb-3">
                     <div class="common-events-listing">
                         <div class="top-event-img">
-                            <!-- <img src="../assets/images/Events.png" class="w-100" alt=""> -->
-                            <img src="{{boxOfficeEventList.images[0].image}}" class="w-100" alt="">
+                            <img *ngIf="boxOfficeEventList.images == undefined" src="../assets/images/Events.png" class="w-100" alt="">
+                            <img *ngIf="boxOfficeEventList.images !== undefined" src="{{boxOfficeEventList.images[0].image}}" class="w-100" alt="">
                         </div>
                         <div class="events-title">
                             <h3>{{boxOfficeEventList.event_title}}</h3>
@@ -33,7 +33,7 @@
                                 <!-- <h3> {{currencySymbol|currencySymbol:'wide'}} 150 </h3> -->
                             </div>
                             <div class="common-priceview">
-                                <button mat-raised-button class="viewevents-btn">View Events</button>
+                                <button mat-raised-button (click)="fnSelectEvent(boxOfficeEventList.unique_code)" class="viewevents-btn">View Events</button>
                             </div>
                         </div>
                     </div>

@@ -88,10 +88,10 @@
                                                 <div class="tb-data" fxFlex="10">
                                                     <mat-icon placement="left" [ngbPopover]="popContent" aria-hidden="false" aria-label="" class="action-icon">more_horiz</mat-icon>
                                                     <ng-template class="popover" #popContent>
-                                                        <div class="px-3 pointer border-bottom">
+                                                        <div (click)="fnResendInviter(val.unique_code)" class="px-3 pointer border-bottom">
                                                             <i class="fa fa-repeat mr-2"></i><span>Resend</span>
                                                         </div>
-                                                        <div class="px-3 pointer border-bottom">
+                                                        <div (click)="fnDeleteInviter(val.unique_code)" class="px-3 pointer border-bottom">
                                                             <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                                         </div>
                                                     </ng-template>

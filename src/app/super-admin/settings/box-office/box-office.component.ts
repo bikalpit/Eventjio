@@ -22,7 +22,7 @@ export class BoxOfficeComponent implements OnInit {
   singleBoxofficeDetails:any;
   editEventLink:boolean =false;
   singleBoxofficeUpdate:any;
-  frontUrl = environment.urlForLink
+  frontUrl = environment.bookingPageUrl
   boxofficeImageUrl:any;
   allTimezones:any;
   isLoaderAdmin:boolean = false;

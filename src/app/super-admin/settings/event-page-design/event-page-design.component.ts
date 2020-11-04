@@ -56,7 +56,7 @@ export class EventPageDesignComponent implements OnInit {
     this.SettingService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allEventList = response.response
-        this.frontURL  = environment.urlForLink+'/preview-events/'+this.allEventList[0].unique_code
+        this.frontURL  = environment.bookingPageUrl+'/preview-events/'+this.allEventList[0].unique_code
         this.allEventList.forEach(element => {
           element.start_date = this.datePipe.transform(element.start_date,"EEE MMM d, y")
           element.start_time = this.datePipe.transform(element.start_time,"h:mm:ss a")

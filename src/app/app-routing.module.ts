@@ -49,7 +49,7 @@ const routes: Routes = [
     component: PreviewEventsComponent
   },
   {
-    path: 'box-office', 
+    path: 'box-office/:id', 
     component: PreviewBoxOfficeComponent
   },
 ];

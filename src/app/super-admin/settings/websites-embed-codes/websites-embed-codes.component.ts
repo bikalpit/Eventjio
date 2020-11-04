@@ -23,6 +23,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
   allEvents:any;
   editWidgetsoptionForm:FormGroup;
   customiseWidgetForm:FormGroup;
+  embedCodeOption:any;
   constructor(
     private _formBuilder:FormBuilder,
     private SettingService : SettingService,
@@ -34,7 +35,6 @@ export class WebsitesEmbedCodesComponent implements OnInit {
       // const enc = new Base64();   
       // this.encodedBusinessId = enc.encode(this.businessId);
       // console.log(this.encodedBusinessId);
-      this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/box-office/?boxoffice="+window.btoa(this.boxOfficeId)+"'></iframe>";
       
       this.editWidgetsoptionForm = this._formBuilder.group({
         fullWidget:[''],
@@ -45,6 +45,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
       this.customiseWidgetForm = this._formBuilder.group({
         selectTheme:['']
       })
+      this.getWidgetOption();
 
     }
   }
@@ -57,7 +58,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
         "eventTitle":this.editWidgetsoptionForm.get('eventTitle').value,
       }
       let requestObject = {
-        "boxoffice_id"  : localStorage.getItem('boxoffice_id'),
+        "boxoffice_id"  : this.boxOfficeId,
         "option_key"    :  "webEmbedCode",
         "option_value" : editWidget,
         "event_id" :  null,
@@ -65,8 +66,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
       }
       this.updateWebEmbedCodes(requestObject);
 
-      this.editWidgetsoptionForm.reset();
-      this.EditButton()
+      // this.editWidgetsoptionForm.reset();
 
     }else{
       this.editWidgetsoptionForm.get('fullWidget').markAllAsTouched();
@@ -88,8 +88,8 @@ export class WebsitesEmbedCodesComponent implements OnInit {
         "btnTextColor":this.btnTextColor
       }
       let requestObject = {
-        "boxoffice_id"  : localStorage.getItem('boxoffice_id'),
-        "option_key"    :  "webEmbedCode",
+        "boxoffice_id"  : this.boxOfficeId,
+        "option_key"    :  "webEmbedCodeAppearance",
         "option_value" : cutomiseWidget,
         "event_id" :  null,
         'json_type' : 'Y'
@@ -108,13 +108,41 @@ export class WebsitesEmbedCodesComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.SettingService.updateSetting(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage('Privacy polices Updated')
+        this.ErrorService.successMessage(response.response)
+        this.getWidgetOption();
+        this.EditButton()
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
     });
+  }
 
+  getWidgetOption(){
+    let requestObject ={
+      'boxoffice_id' : this.boxOfficeId,
+      'event_id' :'NULL',
+      'option_key':'webEmbedCode',
+    }
+    this.isLoaderAdmin = true;
+    this.SettingService.getSettingsValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.embedCodeOption = JSON.parse(response.response)
+        this.editWidgetsoptionForm.controls['fullWidget'].setValue(this.embedCodeOption.fullWidget)
+        this.editWidgetsoptionForm.controls['optionalWidget'].setValue(this.embedCodeOption.optionalWidget)
+        this.editWidgetsoptionForm.controls['eventTitle'].setValue(this.embedCodeOption.eventTitle)
+
+        if(this.embedCodeOption.eventTitle == 'all'){
+          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/box-office/?boxoffice="+window.btoa(this.boxOfficeId)+"'></iframe>";
+        }else{
+          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/preview-events/"+this.embedCodeOption.eventTitle+"'></iframe>";
+        }
+     
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+      this.isLoaderAdmin = false;
   }
 
   getEventsList(){
