@@ -135,7 +135,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
         if(this.embedCodeOption.eventTitle == 'all'){
           this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/box-office/?boxoffice="+window.btoa(this.boxOfficeId)+"'></iframe>";
         }else{
-          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/preview-events/"+this.embedCodeOption.eventTitle+"'></iframe>";
+          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/event/"+this.embedCodeOption.eventTitle+"'></iframe>";
         }
      
       } else if(response.data == false){

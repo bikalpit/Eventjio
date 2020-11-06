@@ -45,7 +45,7 @@ const routes: Routes = [
     component: ResetPasswordComponent 
   },
   {
-    path: 'preview-events/:id', 
+    path: 'event/:id', 
     component: PreviewEventsComponent
   },
   {

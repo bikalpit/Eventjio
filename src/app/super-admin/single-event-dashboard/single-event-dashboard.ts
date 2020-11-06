@@ -39,7 +39,7 @@ export class SingleEventDashboard implements OnInit {
       if (event instanceof RouterEvent) this.handleRoute(event);
     });
     
-    this.eventURL = environment.bookingPageUrl+'/preview-events/'+this.eventId;
+    this.eventURL = environment.bookingPageUrl+'/event/'+this.eventId;
   }
 
   ngOnInit(): void {
@@ -194,6 +194,16 @@ export class SingleEventDashboard implements OnInit {
 
   previewEvent(){
     window.open(this.eventURL,'_blank');
+  }
+
+
+  
+  fnShare(type) {
+    if(type=='facebook'){
+      window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(this.eventURL), "_blank", "width=600,height=600");
+    }else if(type=='twitter'){
+      window.open('https://twitter.com/intent/tweet?text='+ this.eventDetail.venue_name +' '+encodeURIComponent(this.eventURL), "_blank", "width=600,height=600");
+    }
   }
   
 }

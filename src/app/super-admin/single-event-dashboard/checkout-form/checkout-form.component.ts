@@ -29,7 +29,7 @@ export class CheckoutFormComponent implements OnInit {
   buyerGlobelQuestionList :any = [];
   attendeeGlobelQuestionList :any = [];
   allGlobelQuestionlist:any
-  reportType:any = 'global';
+  checkoutFormType:any = 'global';
 
 
   
@@ -47,14 +47,48 @@ export class CheckoutFormComponent implements OnInit {
     }
     this.getAllQuestions();
     this.getGlobleQuestions();
+    this.getCheckoutFormType();
 
    }
 
   ngOnInit(): void {
   }
 
-  fnCheckoutForm(event){
-    this.reportType=event.value
+  getCheckoutFormType(){
+    this.isLoaderAdmin = true;
+    let requestObject ={
+      'boxoffice_id' : 'NULL',
+      'event_id' :this.eventId,
+      'option_key':'checkout_form_type',
+    }   
+    this.SingleEventServiceService.getSettings(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.checkoutFormType = JSON.parse(response.response)
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
+  }
+
+  fnCheckoutFormType(event){
+    this.checkoutFormType=event.value
+    this.isLoaderAdmin = true;
+    let requestObject ={
+      'boxoffice_id' : '',
+      'event_id' :this.eventId,
+      'option_key':'checkout_form_type',
+      'option_value':this.checkoutFormType,
+      'json_type' : 'Y',
+    }   
+    this.SingleEventServiceService.setSettingOption(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
   }
 
   dynamicSort(property) {

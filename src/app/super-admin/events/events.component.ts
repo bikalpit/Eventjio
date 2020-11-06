@@ -340,6 +340,11 @@ export class EventsComponent implements OnInit {
     this.router.navigate(["/super-admin/single-event-dashboard/"]);
   }
 
+  singleEventShorcut(eventCode, redirectUrl){
+    localStorage.setItem('selectedEventCode', eventCode);
+    this.router.navigate([redirectUrl]);
+  }
+
  
 
   // add Event Fns
@@ -396,7 +401,7 @@ export class EventsComponent implements OnInit {
   }
 
   viewEventPage(eventCode){
-    this.eventURL = environment.bookingPageUrl+'/preview-events/'+eventCode;
+    this.eventURL = environment.bookingPageUrl+'/event/'+eventCode;
     window.open(this.eventURL,'_blank');
   }
 

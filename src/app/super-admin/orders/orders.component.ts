@@ -1195,7 +1195,6 @@ export class EditorderDialog {
             this.editTicket.controls['address_1'].setValue(this.singleorderCustomer.customer.address)
             console.log(this.singleorderCustomer);
           }else{
-            // alert(2)
           }
         });
     }
@@ -1233,7 +1232,6 @@ export class cancelOrderDialog {
       this.singleorderCustomer = response.response;
       console.log(this.singleorderCustomer);
     }else{
-      // alert(2)
     }
   });
   }
@@ -1322,7 +1320,6 @@ export class eventSummaryDialog {
       this.singleorderCustomer = response.response;
       console.log(this.singleorderCustomer);
     }else{
-      // alert(2)
     }
   });
   }
@@ -1351,7 +1348,6 @@ export class eventSummaryDialog {
   //     this.singleorderCustomer = response.response;
   //     console.log(this.singleorderCustomer);
   //   }else{
-  //     // alert(2)
   //   }
   // });
   // }

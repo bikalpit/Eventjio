@@ -34,11 +34,6 @@ export class PreviewBoxOfficeComponent implements OnInit {
     
     this.boxOfficeId = this.route.snapshot.params.id;
     var idddd = this.route.snapshot.paramMap.get("id");
-    // alert(idddd);
-    // if(idddd){
-    //   this.boxOfficeId = idddd
-    // }
-    // alert(this.boxOfficeId);
 
 
     // console.log(window.location.search)
@@ -100,8 +95,7 @@ export class PreviewBoxOfficeComponent implements OnInit {
   }
 
   fnSelectEvent(eventCode){
-    alert(eventCode)
-    this.router.navigate(['/preview-events/'+eventCode]);
+    this.router.navigate(['/event/'+eventCode]);
   }
 
 }

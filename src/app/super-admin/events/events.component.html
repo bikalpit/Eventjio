@@ -50,23 +50,23 @@
                                                     <i class="fa fa-eye mr-2"></i><span>View event page</span>
                                                 </div>
 
-                                                <div routerLink="/super-admin/single-event-dashboard/event-summary" class="px-3  border-bottom">
+                                                <div (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/event-summary')" class="px-3  border-bottom">
                                                     <i class="fa fa-bar-chart-o mr-2"></i><span>Event Summary</span>
                                                 </div>
 
-                                                <div routerLink="/super-admin/single-event-dashboard/event-and-ticket-types" class="px-3  border-bottom">
+                                                <div (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/event-and-ticket-types')" class="px-3  border-bottom">
                                                     <i class="fa fa-pencil mr-2"></i><span>Edit event & Tickets</span>
                                                 </div>
 
-                                                <div routerLink="/super-admin/single-event-dashboard/issued-ticket" class="px-3  border-bottom">
+                                                <div (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/issued-ticket')" class="px-3  border-bottom">
                                                     <i class="fa fa-shopping-bag mr-2"></i><span>Orders</span>
                                                 </div>
 
-                                                <div routerLink="/super-admin/single-event-dashboard/duplicate" class="px-3  border-bottom">
+                                                <div (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/duplicate')" class="px-3  border-bottom">
                                                     <i class="fa fa-copy mr-2"></i><span>Duplicate</span>
                                                 </div>
 
-                                                <div routerLink="/super-admin/single-event-dashboard/delete" class="px-3  border-bottom">
+                                                <div (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/delete')" class="px-3  border-bottom">
                                                     <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                                 </div>
 

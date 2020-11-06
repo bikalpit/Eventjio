@@ -5,20 +5,20 @@
             <p class="col-md-12 sub-title">The checkout form is the form your ticket buyers need to fill out when purchasing tickets. You can choose what data you would like to collect.</p>
             <div class="form-radio-btn">
                 <div class="">
-                    <mat-radio-group aria-label="Select an option" (change)="fnCheckoutForm($event)" class="row mx-0">
+                    <mat-radio-group aria-label="Select an option" (change)="fnCheckoutFormType($event)" class="row mx-0">
                         <div class="global-checkout col-md-4">
-                            <mat-radio-button value="global" [checked]="reportType === 'global'">Global checkout form</mat-radio-button>
+                            <mat-radio-button value="global" [checked]="checkoutFormType === 'global'">Global checkout form</mat-radio-button>
                             <p>(Applies to all events)</p>
                         </div>
                         <div class="event-checkout col-md-4">
-                            <mat-radio-button value="eventspecific" [checked]="reportType === 'eventspecific'">Event specific checkout form</mat-radio-button>
+                            <mat-radio-button value="eventspecific" [checked]="checkoutFormType === 'eventspecific'">Event specific checkout form</mat-radio-button>
                             <p>(Applies to this event only)</p>
                         </div>
                     </mat-radio-group>
 
                 </div>
             </div>
-            <div class="global-checkout-preview" *ngIf="reportType === 'global'">
+            <div class="global-checkout-preview" *ngIf="checkoutFormType === 'global'">
                 <div class="row mx-0">
                     <h5 class="col-md-6 mb-0 pl-0">Preview of global checkout form</h5>
                     <div class="col-md-6 d-flex pr-0">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-            <div class="event-checkout-preview" *ngIf="reportType === 'eventspecific'">
+            <div class="event-checkout-preview" *ngIf="checkoutFormType === 'eventspecific'">
                 <div class="checkout-form">
                     <div class="buyer-que">
                         <div class="col-md-12 mt-5 d-flex">

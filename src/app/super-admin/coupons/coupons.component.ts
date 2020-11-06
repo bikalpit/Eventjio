@@ -86,8 +86,8 @@ export class CouponsComponent implements OnInit {
         this.allCouponCodeList.length = 0
       // this.allCouponCodeList = null;
       }
-      this.isLoaderAdmin = false;
     })
+    this.isLoaderAdmin = false;
   }
 
   getAllVoucherCodes(){
@@ -105,8 +105,8 @@ export class CouponsComponent implements OnInit {
       this.allVoucherCodeList.length = 0
       // this. allVoucherCodeList = null;
       }
-      this.isLoaderAdmin = false;
     })
+    this.isLoaderAdmin = false;
   }
 
   changeCouponStaus(event,couponcode_code){

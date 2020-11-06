@@ -43,8 +43,6 @@ export class SignupComponent implements OnInit {
 	let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
 	
 	if(this.inviter){
-		alert(this.inviterEmail)
-		alert(this.inviterCode)
 		this.signUpForm = this.formBuilder.group({
 			firstname: ['', Validators.required],      
 			email:     [this.inviterEmail,[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
