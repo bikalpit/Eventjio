@@ -91,7 +91,8 @@ export class AppComponent {
   }
 
   private getUrl(event: any) {
-    if (event) {
+    if (event && event.url) {
+      console.log(event.url);
       this.pageSlug = event.url.split('/' , 2)
       const url = event.url;
       const state = (event.state) ? event.state.url : null;
@@ -135,8 +136,7 @@ export class AppComponent {
     }
     else if(url === '/super-admin/coupons'){
       this.pageName= 'Coupon'
-    }
-    else if(url === '/super-admin/settings'){
+    }else if(url === '/super-admin/settings'){
       this.pageName= 'Settings'
     }
   }

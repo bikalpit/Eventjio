@@ -102,7 +102,6 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSingleEvent();
     this.getAllCountry();
     this.getAllTimeZone();
     this.getDefaultImages();
@@ -157,7 +156,9 @@ export class EventAndTicketTypesComponent implements OnInit {
     }
     this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fullDayTimeSlote= response.response
+        this.fullDayTimeSlote= response.response;
+        this.getSingleEvent();
+
       }
     });
   }
@@ -215,9 +216,13 @@ export class EventAndTicketTypesComponent implements OnInit {
         if(this.eventTicketList){
           this.eventTicketAlertMSG= false;
         }
+
+        var start_time = this.singleEventDetail.start_time.split(":")
+        var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
+        
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
-        this.editEventForm.controls['event_start_time'].setValue(this.singleEventDetail.start_time)
+        this.editEventForm.controls['event_start_time'].setValue(start_time_key)
         this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
         this.editEventForm.controls['event_end_time'].setValue(this.singleEventDetail.end_time)
         this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
