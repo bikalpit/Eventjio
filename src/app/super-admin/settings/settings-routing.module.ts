@@ -18,6 +18,7 @@ import { BillingComponent } from './billing/billing.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
+import { ReferralCodeComponent } from './referral-code/referral-code.component'
 
 
 const routes: Routes = [{ path: '', component: SettingsComponent, 
@@ -87,6 +88,10 @@ const routes: Routes = [{ path: '', component: SettingsComponent,
                           { 
                             path: 'payment-systems', 
                             component: PaymentSystemsComponent
+                          },
+                          { 
+                            path: 'referral-codes', 
+                            component: ReferralCodeComponent
                           },
 
                           ]

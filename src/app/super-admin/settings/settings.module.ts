@@ -31,6 +31,8 @@ import { DialogAdminBoxofficeImageUpload } from './box-office/box-office.compone
 import { HttpClientModule} from '@angular/common/http';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
 import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-form/checkout-form.component';
+import { ReferralCodeComponent } from './referral-code/referral-code.component';
+import { addReferralCodeDialog } from './referral-code/referral-code.component';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-fo
     PaymentSystemsComponent,
     PrivacyPolicyGenerateDialog,
     addBuyerQuestionDialog, 
-    addAttendeeQuestionDialog,
+    addAttendeeQuestionDialog, 
+    ReferralCodeComponent,
+    addReferralCodeDialog,
   ],
 
 
@@ -71,7 +75,8 @@ import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-fo
     inviteTeamMateDialog,
     addBuyerQuestionDialog, 
     addAttendeeQuestionDialog,
-    PrivacyPolicyGenerateDialog
+    PrivacyPolicyGenerateDialog,
+    addReferralCodeDialog
   ]
 })
 export class SettingsModule { }

@@ -1,0 +1,71 @@
+.main {
+    width: 100%;
+    .page-title {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .referral-code-list {
+        .title {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .add-referral-code-btn {
+            border-radius: 20px;
+            background-color: #1172F4;
+            color: #ffffff;
+        }
+        .tab-title {
+            font-weight: bold;
+        }
+        .fa-pencil {
+            background-color: #E3E6EB;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .fa-trash {
+            background-color: #E3E6EB;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    }
+}
+
+::ng-deep .add-referral-code-form {
+    .asterisk-icon {
+        padding: 2px;
+        .asterisk {
+            color: #FF0000;
+            font-size: 5px;
+            position: relative;
+            bottom: 6px;
+        }
+    }
+    .popup-cancel-btn {
+        width: 100px;
+        height: 40px;
+        background: #DDDDDD 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        text-align: center;
+        color: #181818;
+        font-size: 16px
+    }
+    .popup-save-btn {
+        width: 100px;
+        height: 40px;
+        color: #fff;
+        background: #1172F4 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+    }
+    .popup-cros-btn {
+        width: 25px;
+        height: 25px;
+        background: #B4D4FF 0% 0% no-repeat padding-box;
+        color: #1172F4;
+        border-radius: 100px;
+        border: 0;
+        font-size: 19px;
+        line-height: 1.4;
+    }
+}

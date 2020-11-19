@@ -28,7 +28,20 @@ export class AppComponent {
     private bnIdle: BnNgIdleService,
     private authenticationService: AuthenticationService,
   ) {
+
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    this.router.events.subscribe(event => {
+      if (event instanceof RouterEvent) this.handleRoute(event);
+        const url = this.getUrl(event);
+        this.currentUrl = url;
+      if(localStorage.getItem('currentUser') && this.currentUrl == ''){
+        if(this.currentUser.user_type == 'A' ){
+          this.router.navigate(['/super-admin/']);
+        }
+
+      }
+    });
+    
     if(this.currentUser && this.currentUser !== null){
       this.adminTopMenuselected = this.currentUser.firstname
       this.loadLocalStorage();
@@ -47,9 +60,6 @@ export class AppComponent {
 
   ngOnInit() {
 
-    this.router.events.subscribe(event => {
-      if (event instanceof RouterEvent) this.handleRoute(event);
-    });
    
     var is_logout = this.authenticationService.logoutTime();
 
@@ -62,12 +72,6 @@ export class AppComponent {
 
     }  
 
-    if(localStorage.getItem('currentUser') && this.currentUrl == ''){
-      if(this.currentUser.user_type == 'A' ){
-        this.router.navigate(['/super-admin/']);
-      }
-
-    }
 
   }
 
@@ -159,6 +163,10 @@ export class AppComponent {
 
   openLogoutMenu(){
     this.openLogoutMenuBox = this.openLogoutMenuBox?false :true;
+  }
+
+  onClickedOutside(){
+    this.openLogoutMenuBox = false;
   }
   
 
