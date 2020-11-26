@@ -92,7 +92,6 @@ export class AppComponent {
 
   private getUrl(event: any) {
     if (event && event.url) {
-      console.log(event.url);
       this.pageSlug = event.url.split('/' , 2)
       const url = event.url;
       const state = (event.state) ? event.state.url : null;

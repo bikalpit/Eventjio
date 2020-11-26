@@ -25,7 +25,7 @@
 
                 <form [formGroup]="duplicateForm" class="with-validation">
                     
-                    <div class="content" class="drageble-list" formArrayName="items" *ngFor="let item of duplicateForm.get('items').controls; let i = index;">
+                    <div class="content" class="drageble-list" formArrayName="items" *ngFor="let item of duplicateForm.get('items')['controls']; let i = index">
                         <div class="drageble-box main-drageble" fxLayout="row" [formGroupName]="i">
                             <div class="tb-data heading-table clr-black" fxFlex="20"> New </div>
 

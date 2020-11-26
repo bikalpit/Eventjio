@@ -110,6 +110,7 @@ export class DuplicateComponent implements OnInit {
       return false;
     }
 
+
     var is_wrong_date_select = false;
     this.duplicateForm.value.items.forEach((element,aa,key) => {
       var start_date = this.datePipe.transform(new Date(element.start_date), "yyyy-MM-dd");
