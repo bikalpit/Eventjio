@@ -10,46 +10,45 @@
     <div class="modal-body pb-0 px-0"> 
       <div class="new-order-table" *ngIf="addOrderFormType === 'selectTicket'">
         <div class="code-tab">
-              <div class="service-listing">
-                  <div class="main-table-content main-cust-table-content">
-                      <div class="">
-                          <div class="heads main-heading-content drageble" fxLayout="row">
-                            <div class="th-data" fxFlex="10"></div> 
-                            <div class="th-data" fxFlex="30">TICKET TYPE</div>                           
-                            <div class="th-data" fxFlex="20">PRICE</div>
-                            <div class="th-data" fxFlex="20">Fee</div>
-                            <div class="th-data" fxFlex="20">QUANTITY</div>
-                          </div>
-                          <div class="content" class="drageble-list" *ngFor="let eventTicket of eventTicket;let i=index">
-                            <div class="drageble-box" fxLayout="row">
-                                <div class="tb-data" fxFlex="10">
-                                  <!-- <mat-checkbox  (change)="fnBookTicket($event,i)" ></mat-checkbox> -->
-                                </div>   
-                                <div class="tb-data" fxFlex="30">{{eventTicket.ticket_name}} </div>                               
-                                <div class="tb-data" fxFlex="20"><input type="hidden" class="form-control" >{{eventTicket.prize}}</div>
-                                <div class="th-data" fxFlex="20">{{eventTicket.booking_fee}}</div>
-                                <div class="tb-data" fxFlex="20">
-                                  <input type="number"  class="form-control" value="{{eventTicket.qty}}" (change)="fnAddQty(i,$event.target.value);" >      
-                                </div>
-                            </div>
+            <div class="service-listing">
+                <div class="main-table-content main-cust-table-content">
+                    <div class="">
+                        <div class="heads main-heading-content drageble" fxLayout="row">
+                          <div class="th-data" fxFlex="10"></div> 
+                          <div class="th-data" fxFlex="30">TICKET TYPE</div>                           
+                          <div class="th-data" fxFlex="20">PRICE</div>
+                          <div class="th-data" fxFlex="20">Fee</div>
+                          <div class="th-data" fxFlex="20">QUANTITY</div>
                         </div>
-                        <div class="content" class="drageble-list">
+                        <div class="content" class="drageble-list" *ngFor="let eventTicket of eventTicket;let i=index">
                           <div class="drageble-box" fxLayout="row">
-                              <div class="tb-data fw-600" fxFlex="50">Subtotal</div>
-                              <div class="tb-data" fxFlex="30"></div>
-                              <div class="tb-data fw-600" fxFlex="20" >${{subTotal}}</div>
+                              <div class="tb-data" fxFlex="10">
+                                <!-- <mat-checkbox  (change)="fnBookTicket($event,i)" ></mat-checkbox> -->
+                              </div>   
+                              <div class="tb-data" fxFlex="30">{{eventTicket.ticket_name}} </div>                               
+                              <div class="tb-data" fxFlex="20"><input type="hidden" class="form-control" >{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
+                              <div class="th-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
+                              <div class="tb-data" fxFlex="20">
+                                <input type="number"  class="form-control" value="{{eventTicket.qty}}" (change)="fnAddQty(i,$event.target.value);" >      
+                              </div>
                           </div>
                       </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="example-button-row ml-auto mt-4">
-                {{is_added_at_least_item}}
-                <button mat-raised-button class="comm-btn d-flex ml-auto"  [disabled]="is_added_at_least_item" (click)="fnTicketCheckout('CheckoutForm')">Next</button>
-              </div>
+                      <div class="content" class="drageble-list">
+                        <div class="drageble-box" fxLayout="row">
+                            <div class="tb-data fw-600" fxFlex="50">Subtotal</div>
+                            <div class="tb-data" fxFlex="30"></div>
+                            <div class="tb-data fw-600" fxFlex="20" >{{ subTotal | currency:currencyCode:'symbol' }}</div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
+            <div class="example-button-row ml-auto mt-4">
+              <button mat-raised-button class="comm-btn d-flex ml-auto"  [disabled]="is_added_at_least_item" (click)="fnTicketCheckout('CheckoutForm')">Next</button>
+              </div>
+        </div>
       </div>   
-  </div>
+    </div>
   
   <form [formGroup]="bookTickets" class="with-validation checkout-form">
     <div *ngIf="addOrderFormType === 'CheckoutForm'">
@@ -68,10 +67,10 @@
                 <div class="content" class="drageble-list">
                     <div class="drageble-box fw-600" fxLayout="row"  *ngFor="let eventTicket of eventTicket"  >
                         <div *ngIf="eventTicket.id_added" class="tb-data order-item fw-100" fxFlex="30" >{{eventTicket.ticket_name}}</div>
-                        <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="20">{{eventTicket.prize}}</div>
-                        <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="15">{{eventTicket.booking_fee}}</div>
+                        <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="20">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
+                        <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="15">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
                         <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="15">{{eventTicket.qty}} </div>
-                        <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="20">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee)}}</div>                        
+                        <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="20">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee) | currency:currencyCode:'symbol' }}</div>                        
                     </div>
                 </div>     
                 <div class="content" class="drageble-list">
@@ -80,7 +79,7 @@
                       <div class="tb-data" fxFlex="20"></div>
                       <div class="tb-data" fxFlex="15"></div>
                       <div class="tb-data" fxFlex="15"></div>
-                      <div class="tb-data align-end fs-15" fxFlex="20">{{subTotal-discount}}</div>                        
+                      <div class="tb-data align-end fs-15" fxFlex="20">{{ subTotal-discount | currency:currencyCode:'symbol' }}</div>                        
                   </div>
               </div>  
               <div class="content" class="drageble-list">
@@ -96,7 +95,6 @@
                 </div>
               </div>             
             </div>
-
           </div>
         </div>
       </div>
@@ -179,8 +177,8 @@
         </div>
       </div>
       <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="fnTicketCheckout('book-order')">Next</button>
-  </div>
-</form>
+    </div>
+  </form>
 
 
   <div *ngIf="addOrderFormType === 'book-order'">

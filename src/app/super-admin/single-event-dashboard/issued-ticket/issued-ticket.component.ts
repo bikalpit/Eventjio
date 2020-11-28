@@ -105,12 +105,12 @@ export class IssuedTicketComponent implements OnInit {
     this.issuedTickets();
   }
   
-  IssuedfromChange(event: any){
+  IssuedfromChange(){
     this.Issued_from_date = this.datePipe.transform(new Date(this.Issued_from),"EEE MMM d, y");
     this.issuedTickets();
   }
 
-  IssuedtoChange(event: any){
+  IssuedtoChange(){
     this.Issued_to_date = this.datePipe.transform(new Date(this.Issued_to),"EEE MMM d, y");
     this.issuedTickets();
   }

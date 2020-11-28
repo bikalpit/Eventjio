@@ -42,7 +42,7 @@
                         <div class="matDate">
                             <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon">
                             </mat-datepicker-toggle>
-                            <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker" (dateChange)="IssuedfromChange(ticketIssuedDatePicker.value)" [(ngModel)]="Issued_from" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate" />
+                            <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker" (dateChange)="IssuedfromChange()" [(ngModel)]="Issued_from" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate" />
                             <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <label for="">Issued to</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
-                            <input type="text" matInput [matDatepicker]="ticketIssuedTo" (dateChange)="IssuedtoChange(ticketIssuedDatePicker.value)" [(ngModel)]="Issued_to" (click)="ticketIssuedTo.open()" class="form-control matInputdate" />
+                            <input type="text" matInput [matDatepicker]="ticketIssuedTo" (dateChange)="IssuedtoChange()" [(ngModel)]="Issued_to" (click)="ticketIssuedTo.open()" class="form-control matInputdate" />
                             <mat-datepicker #ticketIssuedTo></mat-datepicker>
                         </div>
                     </div>

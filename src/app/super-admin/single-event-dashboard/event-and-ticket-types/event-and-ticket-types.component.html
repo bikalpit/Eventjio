@@ -90,7 +90,7 @@
                                     <label for="">Venue Country</label>
                                     <div class="form-group">
                                         <mat-select formControlName="vanue_country" class="form-control">
-                                            <mat-option *ngFor="let allCountry of allCountry; let i=index" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
+                                            <mat-option  *ngFor="let allCountry of allCountry; let i=index" [value]="allCountry.id">{{allCountry.name}}</mat-option>
                                         </mat-select>
                                         <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('vanue_country').touched || editEventForm.get('vanue_country').dirty">
                                             <small *ngIf="editEventForm.get('vanue_country').hasError('required')" class="error">Country is required.</small>

@@ -67,7 +67,7 @@ export class OrdersComponent implements OnInit {
   ) { 
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    
     if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
       if(localStorage.getItem('permision_OM') != 'TRUE'){
         this.router.navigate(['/super-admin']);
@@ -131,10 +131,10 @@ export class OrdersComponent implements OnInit {
      });
 }
 
- exportOredr() {
-  const dialogRef = this.dialog.open(ExportOrderDialog, {
-    width: '600px',
-  });
+  exportOredr() {
+    const dialogRef = this.dialog.open(ExportOrderDialog, {
+      width: '600px',
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
@@ -168,12 +168,13 @@ export class OrdersComponent implements OnInit {
 
     let requestObject={
       "boxoffice_id": this.boxOfficeCode,
-      "filter":'upcoming',
+      "filter":'all',
     }
 
-    this.superadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+    this.superadminService.getAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allEventlist = response.response;
+        console.log(this.allEventlist);
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -185,19 +186,15 @@ export class OrdersComponent implements OnInit {
   fngetallOrders(){
  
     this.isLoaderAdmin = true;
-    console.log(this.single_order_event);
-
-  
     
     let requestObject = {
-      'order_fromdate' : this.start_date,
-      'order_todate' : this.end_date,
+      'order_fromdate' : this.start_date ? this.datePipe.transform(new Date(this.start_date),"yyyy-MM-dd"): '',
+      'order_todate' : this.end_date  ? this.datePipe.transform(new Date(this.end_date),"yyyy-MM-dd"): '',
       'global_search' : this.search,
-      "boxoffice_id" : "box16014425204331",
-      "event_id":   this.single_order_event ? this.single_order_event : 'eve16019834665225',
-      "order_status" : this.order_status ? this.order_status : 'P',
+      "boxoffice_id" : this.boxOfficeCode,
+      "event_id":   this.single_order_event ? this.single_order_event : 'null',
+      "order_status" : this.order_status ? this.order_status : 'all',
     }
-    
 
     this.superadminService.fnGetallOrders(this.ordersApiUrl,requestObject).subscribe((response:any) => {
 
@@ -211,25 +208,19 @@ export class OrdersComponent implements OnInit {
         this.next_page_url_orders = response.response.next_page_url;
         this.prev_page_url_orders = response.response.prev_page_url;
         this.path_orders = response.response.path;
-
       }else{
-
           this.ErrorService.errorMessage(response.response);
           this.allorderlist = [];
-
       }
-
       this.isLoaderAdmin = false;
     });
     
-  }
+  } 
 
   arrayOne_orders(n: number): any[] {
     return Array(n);
   }
-
-  
-    
+      
   navigateTo_orders(api_url){
     this.ordersApiUrl=api_url;
     if(this.ordersApiUrl){
@@ -745,7 +736,7 @@ fnlineBooking_fee(event){
 
   if(this.reportType=="overview"){
   let requestObject ={
-    "boxoffice_id":'box16014425204331',
+    "boxoffice_id":this.boxOfficeCode,
     "report_type":"O",
     "buyer_details": this.buyerDetails,
     "order_details":this.orderDetails,
@@ -828,7 +819,7 @@ export class AddNewOrderDialog {
   }
 
   fnBookTicketType(selecetedEvent){
-    this.selectedEvent = selecetedEvent
+    this.selectedEvent = selecetedEvent;
     this.bookTicket();
     this.dialogRef.close();
   }
@@ -837,10 +828,10 @@ export class AddNewOrderDialog {
     
     let requestObject={
       "boxoffice_id": this.boxOfficeCode,
-      "filter":'upcoming',
+      "filter":'all',
     }
 
-    this.superadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+    this.superadminService.getAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allEventlist = response.response;
       }else if(response.data == false){
@@ -881,7 +872,8 @@ export class BookTicketDialog {
   selecetdTickets : any =[];
   subTotal :any = '0';
   is_added_at_least_item  = true;
-     
+  currencyCode = "USD";
+  
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<BookTicketDialog>,
@@ -910,7 +902,7 @@ export class BookTicketDialog {
         attendee_name:["", Validators.required],
         promo_code:["",[Validators.minLength(6),Validators.maxLength(6)]],
       });
-    }
+  }
     
     
 
@@ -920,7 +912,7 @@ export class BookTicketDialog {
 
   ngOnInit() {
     this.fnGeteventTicket();
-    this.fnGetsingleOrder();
+    //this.fnGetsingleOrder();
   }
  
   fnGeteventTicket(){
@@ -939,33 +931,9 @@ export class BookTicketDialog {
         });
 
       }
-
     });
   }
-
-  fnGetsingleOrder(){
-
-    let requestObject={
-      "unique_code":"ord1602046981560",
-    }
-
-    this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
-
-      if(response.data == true){
-        this.singleorderCustomer = response.response;
-      }else{
-        this.ErrorService.errorMessage(response.response);
-      }
-
-    });
-  }
- 
-
    
-   
-  //   if(event.key >= this.eventTicket[index].min_per_order){
-  //     this.subTotal = this.subTotal + (this.eventTicket[index].prize * event.key)
-  //   }else{
 
    fnAddQty(index,value){
     
@@ -986,9 +954,6 @@ export class BookTicketDialog {
       this.ErrorService.errorMessage('Maximun Quantity shoulde be'+single_event.min_per_order);
     }
 
-
-   
-
     if(true == is_update){
       this.subTotal = 0;
       this.eventTicket.forEach(element=>{
@@ -1005,24 +970,24 @@ export class BookTicketDialog {
    }
 
    fnAddDiscount(value){
-
-    if(value > this.subTotal){
-      return false;
-    }
-      
-    this.discount = value;
-
+      if(value > this.subTotal){
+        return false;
+      }
+      this.discount = value;
    }
 
    fnSum(qty,prize,booking_fee){
       return (parseInt(qty)*parseInt(prize))+parseInt(booking_fee);
    }
-  
 
   fnTicketCheckout(fromType){
-
  
     this.addOrderFormType = fromType;
+    console.log(fromType);
+    if(this.addOrderFormType  ==  'CheckoutForm'  ){
+      console.log("=====");
+      return false;
+    }
 
     if(this.bookTickets.invalid){
       return  this.ErrorService.errorMessage('Please fill out form');
@@ -1033,7 +998,6 @@ export class BookTicketDialog {
       "boxoffice_id":this.boxOfficeCode,
       "event_id": this.selectedEventCode,
       "ticket_id":this.event_id,
-
       "firstname":this.bookTickets.get("firstname").value,
       "lastname":this.bookTickets.get("lastname").value,
       "email":this.bookTickets.get("email").value,
@@ -1051,17 +1015,10 @@ export class BookTicketDialog {
     }
     
     this.superadminService.createOrder(requestObject).subscribe((response:any) => {
-
       if(response.data == true){
-
         this.ErrorService.successMessage(response.response);
-
-      
-
       }else{
-
         return  this.ErrorService.errorMessage(response.response);
-
       }
      });
   

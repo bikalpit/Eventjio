@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject,ChangeDetectorRef } from '@angular/core';
 import { SingleEventServiceService } from '../_services/single-event-service.service';
 import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
@@ -64,6 +64,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     private router: Router,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
+    private change: ChangeDetectorRef
   ) { 
    
     if(localStorage.getItem('boxoffice_id')){
@@ -248,6 +249,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.shareButtonStatus= this.singleEventSetting.hide_share_button;
         this.olPlatForm = this.singleEventDetail.online_event;
         
+        
+
         if(this.redirectURL == 'Y'){
           this.fnRedirectURL(true);
         }else{
@@ -273,12 +276,15 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
         this.salesTaxVal.forEach(element=>{
           this.customSalesTaxArr.push(this.createSalesTaxItem(element.amount, element.label));
-        })
+        });
         this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
         this.customSalesTaxArr.removeAt(this.createSalesTaxItem[0]);
         this.salesTax.shift();
+        this.change.detectChanges();
+        
       }
     });
+
   }
 
   fnSelectImage(imageType){
