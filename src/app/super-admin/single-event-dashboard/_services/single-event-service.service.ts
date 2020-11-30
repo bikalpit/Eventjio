@@ -185,8 +185,8 @@ export class SingleEventServiceService {
     }
   
   
-  issuedTickets(requestObject){
-    return this.http.post(`${environment.apiUrl}/get-all-issue-ticket`,requestObject,{headers:this.globalHeaders}).pipe(
+  issuedTickets(requestObject,path){
+    return this.http.post(path,requestObject,{headers:this.globalHeaders}).pipe(
         map ((res) => {
             return res;
         }),catchError(this.handleError));

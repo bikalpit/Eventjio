@@ -15,8 +15,8 @@
                     <div class="col-12 font-weight-bold">
                         Manage
                         <button mat-flat-button class="mat-blue float-right" (click)="fnExportDoorList()">
-              Export doorlist
-            </button>
+                            Export doorlist
+                            </button>
                         <a class="mt-1 float-right mr-1"><u> Get the check-in app </u></a>
                     </div>
                 </div>
@@ -24,17 +24,16 @@
                 <div class="row mx-0">
                     <div class="searchbox p-0 search-bar rounded col-12 mt-3 bg-white">
                         <i class="fa fa-search p-2"></i>
-                        <input matInput type="text" class="p-2 pl-0" placeholder="Search by name, email, order ID, or ticket code" />
+                        <input matInput type="text" class="p-2 pl-0" [(ngModel)]="global_search" (keyup)="applyFilter($event)"    placeholder="Search by name, email, order ID, or ticket code" />
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col-3">
                         <label for="">Event</label>
-                        <mat-select placeholder="Select all ticket" class="form-control">
-                            <mat-option *ngFor="let status of event_ticket; let i = index" [value]="status">
-                                <mat-checkbox [checked]="selected === i" (change)="onChange(status); selected = i">{{ status }}</mat-checkbox>
-                            </mat-option>
+                        <mat-select placeholder="Select all ticket" class="form-control" [(ngModel)]="Ticket_Type" (selectionChange)="onChange($event.value)">
+                            <mat-option value="all">All</mat-option>
+                            <mat-option *ngFor="let val of EventDetail.tickets; let i = index" [value]="val.unique_code">{{ val.ticket_name }}</mat-option>
                         </mat-select>
                     </div>
 
@@ -43,7 +42,7 @@
                         <div class="matDate">
                             <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon">
                             </mat-datepicker-toggle>
-                            <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate" />
+                            <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker" (dateChange)="IssuedfromChange()" [(ngModel)]="Issued_from" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate" />
                             <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
                         </div>
                     </div>
@@ -52,17 +51,19 @@
                         <label for="">Issued to</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
-                            <input type="text" matInput [matDatepicker]="ticketIssuedTo" (click)="ticketIssuedTo.open()" class="form-control matInputdate" />
+                            <input type="text" matInput [matDatepicker]="ticketIssuedTo" (dateChange)="IssuedtoChange()" [(ngModel)]="Issued_to" (click)="ticketIssuedTo.open()" class="form-control matInputdate" />
                             <mat-datepicker #ticketIssuedTo></mat-datepicker>
                         </div>
                     </div>
 
                     <div class="col-3">
                         <label for="" class="col-3">Status</label>
-                        <mat-select placeholder="All issued  ticket" class="form-control">
-                            <mat-option *ngFor="let status of status_ticket; let i = index">
-                                {{ status }}
-                            </mat-option>
+                        <mat-select placeholder="All issued  ticket" class="form-control" [(ngModel)]="status_ticket">
+                           <mat-option value="all">all</mat-option>
+                           <mat-option value="P">Pending</mat-option>
+                           <mat-option value="CO">Completed</mat-option>
+                           <mat-option value="C">Cancel</mat-option>
+                           <mat-option value="VO">Void</mat-option>
                         </mat-select>
                     </div>
                 </div>
@@ -83,25 +84,42 @@
                             </div>
 
                             <div class="drageble-list">
-                                <div class="drageble-box" fxLayout="row" *ngFor="let getIssuedTicket of getIssuedTicket; let i = index">
+                                <div class="drageble-box" fxLayout="row" *ngFor="let val of getIssuedTicket; let i = index">
                                     <div class="tb-data" fxFlex="20">
-                                        <span class="cpn-bor" (click)="fnIssuedTicketView()" [ngStyle]="{ color: getIssuedTicket.Ticket_Code === 'Completed' ? '#0000ff' : '#0000ff'}">{{ getIssuedTicket.Ticket_Code }}</span>
-                                        <button mat-raised-button class="mx-1 void-btn">
-                        void
-                      </button>
+                                        <span class="cpn-bor" (click)="fnIssuedTicketView(val)"  [ngStyle]="{ color: val.order_status === 'CO' ? '#0000ff' : '#0000ff'}">{{val.ticket_id}}</span>
+                                        <button mat-raised-button class="mx-1 void-btn" *ngIf="val.order_status === 'VO'">
+                                            void
+                                        </button>
                                     </div>
                                     <div class="tb-data" fxFlex="20">
-                                        {{ getIssuedTicket.Ticket_Type }}
+                                        {{ val.ticket.ticket_name }}
                                     </div>
                                     <div class="tb-data" fxFlex="20">
-                                        {{ getIssuedTicket.name }}
+                                        {{ val.customer ? val.customer.firstname : '' }} 
+                                        {{ val.customer ? val.customer.lastname : '' }}
                                     </div>
                                     <div class="tb-data" fxFlex="20">
-                                        {{ getIssuedTicket.Orderid }}
+                                        {{ val.order_id }}
                                     </div>
                                     <div class="tb-data" fxFlex="20">
-                                        {{ getIssuedTicket.Issued }}
+                                        {{ dateFormate(val.order_date) }}
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <div class="table_pagination mt-4 pagination-class" *ngIf="getIssuedTicket != ''">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-end">
+                                            <li class="page-item" (click)="navigateToTicket(first_page_url_getIssuedTicket)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
+                                            <li class="page-item" (click)="navigateToTicket(prev_page_url_getIssuedTicket)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
+                                            <li class="page-item" [ngClass]="{'active':current_page_getIssuedTicket == i+1}" *ngFor="let pagenumber of arrayOneTicket(last_page_getIssuedTicket); let i = index;" (click)="navigateToPageNumberTicket(i+1)">
+                                                <a class="page-link">{{i+1}}</a>
+                                            </li>
+                                            <li class="page-item" (click)="navigateToTicket(next_page_url_getIssuedTicket)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
+                                            <li class="page-item" (click)="navigateToTicket(last_page_url_getIssuedTicket)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>

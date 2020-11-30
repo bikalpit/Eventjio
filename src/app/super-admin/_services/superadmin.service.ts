@@ -195,6 +195,13 @@ export class SuperadminService {
         }),catchError(this.handleError));
     }
     
+    getAllEventList(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-allboxoffice-events`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
 
     getSingleCustomersDetails(requestObject){
         return this.http.post(`${environment.apiUrl}/get-single-customer-api`,requestObject,{headers:this.globalHeaders}).pipe(

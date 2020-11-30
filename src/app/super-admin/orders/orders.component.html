@@ -34,7 +34,7 @@
                             <mat-select class="form-control"  [(ngModel)]="single_order_event" (selectionChange)="fngetallOrders()">
                                 <mat-option value="">All Events</mat-option>
                                 <mat-option *ngFor="let val of allEventlist;let i = index;" value="{{val.unique_code}}">
-                                    {{val.venue_name}} {{val.start_date}} - {{val.start_time}}
+                                    {{val.event_title}} {{val.start_date}} - {{val.start_time}}
                                 </mat-option>
                             </mat-select>
                         </div>
@@ -53,7 +53,7 @@
                         <label class="mb-0">Order date to</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
-                            <input type="text"  (dateChange)="fngetallOrders()" [matDatepicker]="ticketIssuedTo" (click)="ticketIssuedTo.open()" class="form-control matInputdate">
+                            <input type="text"  (dateChange)="fngetallOrders()"  [(ngModel)]="end_date"   [matDatepicker]="ticketIssuedTo" (click)="ticketIssuedTo.open()" class="form-control matInputdate">
                             <mat-datepicker #ticketIssuedTo></mat-datepicker>
                         </div>
                     </div>
@@ -66,6 +66,7 @@
                                 <mat-option value="CO">Completed ordes</mat-option>
                                 <mat-option value="P">Pending orders</mat-option>
                                 <mat-option value="C">Cancelled orders</mat-option>
+                                <mat-option value="VO">Void</mat-option>
                             </mat-select>
                         </div>
                     </div>
@@ -91,13 +92,15 @@
 
                         <div class="drageble-list">
                             <div class="drageble-box" fxLayout="row" *ngFor="let element of allorderlist">
-                                <div class="tb-data ml-5 " fxFlex="10" (click)="eventSummary()"> <a class="text-dark" (click)="eventSummary()"> 12345</a></div>
+                                <div class="tb-data ml-5 " fxFlex="10" (click)="eventSummary()"> <a class="text-dark" (click)="eventSummary()">
+                                     {{element.unique_code}}</a>
+                                </div>
                                 <div class="tb-data" fxFlex="10"><span class="cpn-bor" [ngStyle]="{'color':element.status === 'Completed' ? '#2BB800' : '#FF0000' }">
                                     {{element.order_status=='P' ? 'Pending' : 'Completed'}}</span></div>
                                 <div class="tb-data" fxFlex="13">{{element.customer.firstname + " " +element.customer.lastname}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.order_date |date :'fullDate'}} / {{element.order_time}}</div>
-                                <div class="tb-data" fxFlex="27">{{element.events.event_title}} <span class="order-data-date"> (Mon 17 Jun 2020) </span></div>
-                                <div class="tb-data" fxFlex="10">{{element.prize}}</div>
+                                <div class="tb-data" fxFlex="27">{{element.events.event_title}} <span class="order-data-date"> ({{element.order_date |date :'fullDate'}}) </span></div>
+                                <div class="tb-data" fxFlex="10">{{element.grand_total}}</div>
                                 <div class="tb-data" fxFlex="10">
                                     <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                     <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->

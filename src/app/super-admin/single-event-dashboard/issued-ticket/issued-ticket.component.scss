@@ -3,6 +3,10 @@
     color: #ffffff;
 }
 
+.page-item.active .page-link{
+    color: #fff !important;
+}
+
 .tickes-heading {
     p {
         margin-bottom: 24px!important;
@@ -83,6 +87,9 @@
             color: #ffffff;
             // padding: 2px 15px; 
             border-radius: 10px;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 15px;
         }
         .void-btn {
             border-radius: 4px;

@@ -98,15 +98,17 @@ export class WaitilistSignupComponent implements OnInit {
        'search':this.search.keyword,
     }
     this.SingleEventServiceService.getSignupWaitingList(requestObject).subscribe((response:any) => {
-      if(response.data == true){
+
+      if(response.data == true && response.response){
         if(status == 'ALL'){
-          this.getAllWaitingListData = response.response ;
+          this.getAllWaitingListData = response.response;
         }else if(status == 'NEW'){
           this.getNewWaitingListData = response.response;
         }else{ 
           this.getNotifyWaitingListData = response.response;
         }
-
+        console.log(status,this.getAllWaitingListData);
+        
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
         this. getAllWaitingListData = null;
