@@ -133,7 +133,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
         this.editWidgetsoptionForm.controls['eventTitle'].setValue(this.embedCodeOption.eventTitle)
 
         if(this.embedCodeOption.eventTitle == 'all'){
-          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/box-office/?boxoffice="+window.btoa(this.boxOfficeId)+"'></iframe>";
+          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/box-office/"+this.boxOfficeId+"'></iframe>";
         }else{
           this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/event/"+this.embedCodeOption.eventTitle+"'></iframe>";
         }
