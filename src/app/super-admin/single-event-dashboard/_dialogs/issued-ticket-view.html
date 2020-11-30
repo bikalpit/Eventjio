@@ -1,6 +1,5 @@
 <div class="issued-ticket-view-container">
-
-
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="">
         <div class="modal-header pl-3 py-0 border-0">
             <p class="font-weight-bold">Ticket : {{data.ticket_id}}</p>
@@ -23,7 +22,7 @@
         <div class="modal-body p-0">
             <div class="px-3 mt-3">
                 <div class=" px-3">
-                    <button mat-flat-button class="void-ticket-btn" (click)="fnVoidTicket('confirm')">Void Ticket</button>
+                    <button mat-flat-button class="void-ticket-btn" (click)="fnVoidTicket('confirm')" *ngIf="data.order_status!='VO'">Void Ticket</button>
                     <button mat-flat-button class="print-ticket-btn ml-2" (click)="captureScreen()" > Print Ticket</button>
                 </div>
 
@@ -46,7 +45,7 @@
                         <div class="ticket-detail-field font-weight-bold">
                             Order ID :
                         </div>
-                        <div class="ticket-detail-field ml-auto">
+                        <div class="ticket-detail-field ml-auto fnOrdertView">
                             <a (click)="fnOrdertView()">{{data.order_id}}</a>
                         </div>
 
@@ -179,10 +178,9 @@
                 <div class="px-3 mt-3">
                     <div class="px-3">
                         <div class="invalidate-ticket p-3">
-                            <i class="fa fa-times-circle fa-lg mr-2"></i> This ticket was voided on: Jul 27, 2020 1:16 pm
+                            <i class="fa fa-times-circle fa-lg mr-2"></i> This ticket was voided on: {{today}}
                         </div>
                     </div>
-
                     <!-- <div class="px-3 mt-4">
                         <div class="re-issue-notify p-3">
                             <i class="fa fa-bell fa-lg mr-2"></i> To re-issue or edit ticket details, click the order ID below.
@@ -201,8 +199,8 @@
                             <div class="ticket-detail-field font-weight-bold">
                                 Order ID :
                             </div>
-                            <div class="ticket-detail-field ml-auto">
-                                <a (click)="fnVoidOrdertView()">  {{data.order_id}}</a>
+                            <div class="ticket-detail-field ml-auto fnOrdertView">
+                                <a (click)="fnOrdertView()">  {{data.order_id}}</a>
                             </div>
 
                             <div class="ticket-detail-field font-weight-bold">

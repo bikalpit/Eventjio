@@ -79,6 +79,53 @@ export class SingleEventServiceService {
         }),catchError(this.handleError));
     }
 
+    cancelOrders(requestObject){
+        return this.http.post(`${environment.apiUrl}/cancel-order`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+
+    ResendTicket(ticket_id){
+        return this.http.post(`${environment.apiUrl}/resend-order?unique_code=${ticket_id}`,{},{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getsingleOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-order`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    updateOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/order-update`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    singleTicketVoid(requestObject){
+        return this.http.post(`${environment.apiUrl}/single-ticket-void`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    DownloadTicket(requestObject){
+        return this.http.get(`${environment.apiUrl}/resend-order?unique_code=ord16063742131431`,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
     getSingleSummery(requestObject){
         return this.http.post(`${environment.apiUrl}/event-summery`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {

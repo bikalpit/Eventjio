@@ -2769,3 +2769,9 @@ th.mat-header-cell {
 .payment-confirm-btns {
     justify-content: space-around;
 }
+
+.ticket-detail-field.ml-auto.fnOrdertView a {
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: underline;
+}

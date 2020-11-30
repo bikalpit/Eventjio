@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,Inject } from '@angular/core';
+import { Component, OnInit, ViewChild,Inject,ChangeDetectorRef } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -856,6 +856,8 @@ export class AddNewOrderDialog {
 @Component({
   selector: 'Book-ticket',
   templateUrl: '../_dialogs/book-ticket.html',
+  providers: [DatePipe]
+
 })
 export class BookTicketDialog { 
   addOrderFormType: any ='selectTicket';
@@ -864,7 +866,7 @@ export class BookTicketDialog {
   bookTickets: FormGroup;
   onlynumeric = /^-?(0|[1-9]\d*)?$/;
   discount = 0;
-
+  total_qty = 0;
   selectedEventCode:any;
   eventTicket:any;
   event_id:any;
@@ -873,7 +875,13 @@ export class BookTicketDialog {
   subTotal :any = '0';
   is_added_at_least_item  = true;
   currencyCode = "USD";
-  
+  isLoaderAdmin = false;
+  orderDetail:any = [];
+  orderDate:any;
+  eventDate:any;
+  order_item_data:any = [];
+  customerData :any = [];
+
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<BookTicketDialog>,
@@ -882,7 +890,11 @@ export class BookTicketDialog {
     public superadminService : SuperadminService,
     private authenticationService : AuthenticationService,
     private ErrorService : ErrorService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    private datePipe: DatePipe,
+    private change:ChangeDetectorRef,
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ) {
+
       this.selectedEventCode = this.data.selecetedEvent;
 
       if(localStorage.getItem('boxoffice_id')){
@@ -895,10 +907,10 @@ export class BookTicketDialog {
         email:["", [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
         repeat_email:["", [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
         phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
-        address_1:["", Validators.required],
+        address:["", Validators.required],
         address_2:[""],
         address_3:[""],
-        postcode:["", [Validators.required, Validators.pattern(this.onlynumeric)]],
+        postcode:["", [Validators.required, Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
         attendee_name:["", Validators.required],
         promo_code:["",[Validators.minLength(6),Validators.maxLength(6)]],
       });
@@ -935,7 +947,7 @@ export class BookTicketDialog {
   }
    
 
-   fnAddQty(index,value){
+  fnAddQty(index,value){
     
     this.eventTicket[index].qty = value;
     var single_event = this.eventTicket[index];
@@ -961,67 +973,114 @@ export class BookTicketDialog {
           this.is_added_at_least_item = false;
           var total = parseInt(element.qty) * parseInt(element.prize);
           this.subTotal = this.subTotal + total + parseInt(element.booking_fee);
+          this.total_qty = this.total_qty +  parseInt(element.qty);
         }
       });
+
+     
     }
-    
-    
 
-   }
+  }
 
-   fnAddDiscount(value){
-      if(value > this.subTotal){
-        return false;
-      }
-      this.discount = value;
-   }
+  fnAddDiscount(value){
+    if(value > this.subTotal){
+      return false;
+    }
+    this.discount = value;
+  }
 
    fnSum(qty,prize,booking_fee){
       return (parseInt(qty)*parseInt(prize))+parseInt(booking_fee);
    }
 
   fnTicketCheckout(fromType){
- 
-    this.addOrderFormType = fromType;
-    console.log(fromType);
-    if(this.addOrderFormType  ==  'CheckoutForm'  ){
-      console.log("=====");
+    
+    if(fromType=='CheckoutForm'){
+      this.addOrderFormType  = fromType;
       return false;
     }
 
+
     if(this.bookTickets.invalid){
+      this.bookTickets.get('firstname').markAsTouched();
+      this.bookTickets.get('lastname').markAsTouched();
+      this.bookTickets.get('email').markAsTouched();
+      this.bookTickets.get('phone').markAsTouched();
+      this.bookTickets.get('address').markAsTouched();
+      this.bookTickets.get('postcode').markAsTouched();
       return  this.ErrorService.errorMessage('Please fill out form');
     }
+    
+    var order_item = [];
+
+    this.eventTicket.forEach(element => {
+      if(element.qty > 0){
+        order_item.push({
+          'ticket_id' : element.unique_code,
+          'qty' : element.qty,
+          'discount_code' : this.bookTickets.get('promo_code').value,
+          'amount' : element.prize,
+          'tax' : 0,
+          'sub_total' :  parseInt(element.qty) * parseInt(element.prize) + parseInt(element.booking_fee),
+          'discount_amt' : 0,
+          'grand_total' : this.subTotal,
+          'attendee_name' : this.bookTickets.get('attendee_name').value
+        });
+      }
+    });
+    
+
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = today.getFullYear();
+    var todaydate = yyyy + '-' + mm + '-' + dd;
 
     let requestObject = {
-
-      "boxoffice_id":this.boxOfficeCode,
+      "box_office_id":this.boxOfficeCode,
       "event_id": this.selectedEventCode,
       "ticket_id":this.event_id,
-      "firstname":this.bookTickets.get("firstname").value,
-      "lastname":this.bookTickets.get("lastname").value,
+      "customer_firstname":this.bookTickets.get("firstname").value,
+      "customer_lastname":this.bookTickets.get("lastname").value,
       "email":this.bookTickets.get("email").value,
       "phone":this.bookTickets.get("phone").value,
-      "address_1":this.bookTickets.get("address_1").value,
+      "address":this.bookTickets.get("address").value,
       "postcode":this.bookTickets.get("postcode").value,
-      "qty" : "",
+      "qty" : this.total_qty,
       "sub_total" : this.subTotal,
-      "order_date" : "2020-10-01",
-      "order_time" : "04:37",
+      "order_date" : todaydate,
+      "order_time" : today.getHours()+":"+today.getUTCHours(),
       "grand_total" : this.subTotal,
       "attendee_name" : this.bookTickets.get('attendee_name').value,
       "payment_status" : "unpaid",
       "payment_method" : "cash",
+      'tickets' : order_item
     }
-    
+
+    this.isLoaderAdmin = true;
+
     this.superadminService.createOrder(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response);
+        this.ErrorService.successMessage('Order created.');
+        this.orderDetail = response.response;
+     
+        this.orderDate  = this.datePipe.transform(new Date(this.orderDetail.created_at),"EEE MMM d, y");
+        this.eventDate  = this.datePipe.transform(new Date(this.orderDetail.events.start_date),"EEE MMM d, y");
+        this.order_item_data = this.orderDetail.order_item;
+        this.customerData = this.orderDetail.customer;
+        this.addOrderFormType = fromType;
+        this.isLoaderAdmin = false;
+        this.change.detectChanges();
+
+
       }else{
         return  this.ErrorService.errorMessage(response.response);
       }
-     });
-  
+      this.isLoaderAdmin = false;
+    });
+    
+    
   }
 
 
@@ -1043,6 +1102,7 @@ export class BookTicketDialog {
   editOrder(){
     const dialogRef = this.dialog.open(EditorderDialog, {
       width: '700px',
+      data : this.orderDetail,
     });
   
      dialogRef.afterClosed().subscribe(result => {
@@ -1050,14 +1110,49 @@ export class BookTicketDialog {
      });
   }  
 
-  cancelOrder(){
-    const dialogRef = this.dialog.open(cancelOrderDialog, {
-      width: '700px',
+
+  fnDownloadTicket(itemId){
+
+    console.log(itemId);
+
+    this.isLoaderAdmin = true;
+
+    let requestObject = {
+      'unique_code' : itemId,
+    }
+
+    this.superadminService.DownloadTicket(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+     
+      } else if (response.data == false) {
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
     });
-  
-     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-     });
+  }  
+
+
+  cancelOrder(){
+
+    if(!confirm('Are you sure?')){
+      return false;
+    }
+
+    this.isLoaderAdmin = true;
+
+    let requestObject  = { 
+      'unique_code' : this.orderDetail.unique_code
+    }
+
+    this.superadminService.cancelOrders(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+      }else{
+        return  this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
+    
   }  
 
 
@@ -1109,6 +1204,9 @@ export class EditorderDialog {
     public superadminService : SuperadminService,
     private _formBuilder:FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      console.log("====");
+      console.log(data);
+
       let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
       this.editTicket = this._formBuilder.group({
         firstname:["", Validators.required],
@@ -1156,7 +1254,7 @@ export class EditorderDialog {
         });
     }
 
-  }
+}
 
 @Component({
   selector: 'cancel-order',

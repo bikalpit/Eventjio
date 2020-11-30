@@ -311,6 +311,16 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+
+    DownloadTicket(requestObject){
+        return this.http.get(`${environment.apiUrl}/resend-order?unique_code=ord16063742131431`,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    
     fnAssignEventToVoucher(requestObject){
         return this.http.post(`${environment.apiUrl}/assign-voucher-to-event`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -329,6 +339,13 @@ export class SuperadminService {
          map((res) => {
          return res;
          }),catchError(this.handleError));
+    }
+
+    cancelOrders(requestObject){
+        return this.http.post(`${environment.apiUrl}/cancel-order`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
     }
 
 }
