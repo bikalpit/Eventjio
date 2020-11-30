@@ -195,6 +195,12 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+    fnGetAllEventListView(requestObject){
+        return this.http.post(`${environment.apiUrl}/front-events-list`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     
     getEventsList(requestObject){
         return this.http.post(`${environment.apiUrl}/get-events-list`,requestObject,{headers:this.globalHeaders}).pipe(

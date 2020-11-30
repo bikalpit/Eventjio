@@ -38,3 +38,26 @@
         margin-top: 20px;
     }
 }
+
+.preview-area {
+    height: calc(100vh - 160px);
+    overflow-y: scroll;
+    width: 95%;
+    margin: auto;
+    &.mobile-view {
+        position: relative;
+        width: 500px;
+        &::before {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 100%;
+            background-image: url('../../../../assets/images/admin/mobile-mockup-screen.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 999999999999;
+            left: 0;
+            top: 0;
+        }
+    }
+}

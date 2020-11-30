@@ -12,8 +12,8 @@ import { environment } from '../../../../environments/environment';
 })
 export class EventPageDesignComponent implements OnInit {
 
-  eventPageType:'listing';
-  eventPageView:'desktop';
+  eventPageType:any='listing';
+  eventPageView:any = 'desktop';
   allEventList: any;
   boxOfficeCode: any;
   boxOfficeName: any;
@@ -35,6 +35,7 @@ export class EventPageDesignComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    alert(this.eventPageType)
   }
 
 
@@ -53,11 +54,15 @@ export class EventPageDesignComponent implements OnInit {
       'filter' : 'all'
     }
     this.isLoaderAdmin = true;
-    this.SettingService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+    this.SettingService.fnGetAllEventListView(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allEventList = response.response
         this.frontURL  = environment.bookingPageUrl+'/event/'+this.allEventList[0].unique_code
         this.allEventList.forEach(element => {
+          if(element.images.length == 0){
+            alert('0')
+            element.images = undefined
+          }
           element.start_date = this.datePipe.transform(element.start_date,"EEE MMM d, y")
           element.start_time = this.datePipe.transform(element.start_time,"h:mm:ss a")
           element.end_date = this.datePipe.transform(element.end_date,"EEE MMM d, y")
