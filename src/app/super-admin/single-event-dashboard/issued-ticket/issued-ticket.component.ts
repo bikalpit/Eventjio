@@ -475,14 +475,14 @@ export class OrderViewComponent {
       'unique_code':this.data.data.order_id,
     }
 
-    this.singleEventServiceService.DownloadTicket(requestObject).subscribe((response: any) => {
-      if (response.data == true) {
+    // this.singleEventServiceService.DownloadTicket(requestObject).subscribe((response: any) => {
+    //   if (response.data == true) {
      
-      } else if (response.data == false) {
-        this.ErrorService.errorMessage(response.response);
-      }
-      this.isLoaderAdmin = false;
-    });
+    //   } else if (response.data == false) {
+    //     this.ErrorService.errorMessage(response.response);
+    //   }
+    //   this.isLoaderAdmin = false;
+    // });
 
   }
   

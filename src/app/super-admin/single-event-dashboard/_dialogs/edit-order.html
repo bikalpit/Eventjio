@@ -7,7 +7,113 @@
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
       </div>
-      <form [formGroup]="editTicket" class="with-validation ">
+
+       <form [formGroup]="editTicket">
+        
+        <div class="form-group">
+          <label>{{eventForm[0].label}} <span class="text-danger">*</span> </label>
+          <input type="text" class="form-control" id="" placeholder="" formControlName="name">
+          <span class="error-wrap" *ngIf="editTicket.get('name').dirty || editTicket.get('name').touched">
+            <small *ngIf="editTicket.get('name').hasError('required')" class="error text-left">full Name is required.</small>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label>{{eventForm[1].label}} <span class="text-danger">*</span> </label>
+          <input matInput type="text" class="form-control" formControlName="email"  placeholder="">
+          <span class="error-wrap" *ngIf="editTicket.get('email').dirty || editTicket.get('email').touched">
+            <small *ngIf="editTicket.get('email').hasError('required')" class="error text-left">Email is required.</small>
+            <small *ngIf="editTicket.get('email').hasError('pattern')" class="error">Enter valid email.</small>
+            <small *ngIf="editTicket.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label> {{eventForm[2].label}} <span class="text-danger">*</span> </label>
+          <input matInput type="text" class="form-control" formControlName="address" placeholder="">
+          <span class="error-wrap" *ngIf="editTicket.get('address').dirty || editTicket.get('address').touched">
+              <small *ngIf="editTicket.get('address').hasError('required')" class="error text-left">Address is required.</small>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label>{{eventForm[3].label}} <span class="text-danger">*</span> </label>
+          <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
+          <span class="error-wrap" *ngIf="editTicket.get('phone').dirty || editTicket.get('phone').touched">
+            <small *ngIf="editTicket.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
+            <small *ngIf="editTicket.get('phone').hasError('pattern') || editTicket.get('phone').hasError('pattern') && (editTicket.get('phone').hasError('maxlength') || editTicket.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
+            <small *ngIf="editTicket.get('phone').hasError('maxlength') || editTicket.get('phone').hasError('minlength')" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small>
+          </span>
+        </div>
+      </form>
+
+<!--
+      <div *ngFor="let val of eventSpecificForm;let i=index" class="form-group">
+        
+        <div class="" *ngIf="val.type=='text'">
+            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+            <input matInput type="text" class="form-control"  [(ngModel)]="val.value" placeholder="">
+            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                {{val.label}} is required.
+            </span>
+        </div>
+
+        <div class="" *ngIf="val.type=='dropdown'">
+            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+            <select [(ngModel)]="val.value" class="form-control">
+                <option *ngFor="let dropVal of optionsArr(val.options);let optionI=index">{{dropVal}}</option>
+            </select>
+            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                <small> {{val.label}} is required.</small>
+            </span>
+        </div>
+
+        <div class="" *ngIf="val.type=='radio'">
+            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+            <div *ngFor="let radioVal of optionsArr(val.options);let optionCheck=index">
+                <input  type="radio"   value="{{radioVal}}" [(ngModel)]="val.value" > 
+                {{radioVal}}
+            </div>
+            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+              <small> {{val.label}} is required.</small>
+            </span>
+        </div>
+
+        <div class="" *ngIf="val.type=='checkbox'">
+            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+            <div *ngFor="let checkboxVal of val.selector;let optionCheck=index">
+                <input  type="checkbox"    value="{{checkboxVal.value}}" [(ngModel)]="checkboxVal.is_check" > 
+                {{checkboxVal.value}}
+            </div>
+            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+              <small> {{val.label}} is required.</small>
+            </span>
+        </div>
+
+        <div class="" *ngIf="val.type=='marketing'">
+          <label> {{val.label}} <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+          <div>
+              <input  type="checkbox" class=""  [(ngModel)]="val.value" >
+          </div>
+            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+              <small> {{val.label}} is required.</small>
+            </span>
+        </div>
+
+        <div class="" *ngIf="val.type=='terms'">
+            <label> Terms & Conditions  <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+            <div>
+                <input  type="checkbox" class=""  [(ngModel)]="val.value" >
+                {{val.label}}
+            </div>
+            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+              <small> {{val.label}} is required.</small>
+            </span>
+        </div>
+      </div> -->
+
+
+      <!-- <form [formGroup]="editTicket" class="with-validation ">
         <div class="edit-order">      
           <div class="form-group">
             <label for="">First Name <span><i class="fa fa-asterisk text-danger "></i></span> </label>
@@ -42,7 +148,7 @@
             <input type="text" class="form-control" id="" placeholder="" formControlName = "address">
             <span class="error-wrap" *ngIf="editTicket.get('address').dirty || editTicket.get('address').touched"><small *ngIf="editTicket.get('address').hasError('required')" class="error text-left">Address is required.</small></span>
           </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="">Address Line 2 </label>
           <input type="text" class="form-control" id=""  placeholder="" formControlName = "address_2">
           <span class="error-wrap" *ngIf="editTicket.get('address_2').dirty || editTicket.get('address_2').touched"><small *ngIf="editTicket.get('address_2').hasError('required')" class="error text-left">Address is required.</small></span>
@@ -58,9 +164,10 @@
           <span class="error-wrap" *ngIf="editTicket.get('postcode').dirty || editTicket.get('postcode').touched"><small *ngIf="editTicket.get('postcode').hasError('required')" class="error text-left">Postcode is required.</small>
             <small *ngIf="editTicket.get('postcode').hasError('pattern') || editTicket.get('postcode').hasError('pattern') && (editTicket.get('postcode').hasError('maxlength') || editTicket.get('postcode').hasError('minlength'))" class="error">Postcode  Should be in numbers</small>
           </span>
-        </div>      -->
+        </div>     
      </div>
-    <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="updateOrder()">Save</button>
-  </form>
+        <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="updateOrder()">Save</button>
+      </form> -->
+      <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="updateOrder()">Save</button>
  </div>
 </div>

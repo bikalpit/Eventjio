@@ -118,13 +118,13 @@ export class SingleEventServiceService {
          catchError(this.handleError));
     }
 
-    DownloadTicket(requestObject){
-        return this.http.get(`${environment.apiUrl}/resend-order?unique_code=ord16063742131431`,{headers:this.globalHeaders}).pipe(
-         map((res) => {
-            return res;
-          }),
-         catchError(this.handleError));
-    }
+    // DownloadTicket(requestObject){
+    //     return this.http.get(`${environment.apiUrl}/resend-order?unique_code=ord16063742131431`,{headers:this.globalHeaders}).pipe(
+    //      map((res) => {
+    //         return res;
+    //       }),
+    //      catchError(this.handleError));
+    // }
 
     getSingleSummery(requestObject){
         return this.http.post(`${environment.apiUrl}/event-summery`,requestObject,{headers:this.globalHeaders}).pipe(
