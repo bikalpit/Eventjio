@@ -126,10 +126,10 @@
             <div class="camera"></div>
             <div class="sensor"></div>
             <div class="speaker"></div>
-            <div class="screen" [style.background]="bgColor">
+            <div class="screen">
                 <!-- Content goes here -->
 
-                <div id="preview-event">
+                <div id="preview-event" [style.background]="bgColor">
                     <div class="preview-bg">
                         <div class="preview-blur"></div>
                         <div class="container">
@@ -138,9 +138,9 @@
                                 </div>
 
                                 <div class="main-preview-wrap Event-page">
-                                    <div class="bottom-deatils">
-                                        <div class="heading-preview-name">
-                                            <h3> {{ eventDetail ? eventDetail.event_title : '-' }} </h3>
+                                    <div class="bottom-deatils" [style.background]="pageColor" [style.color]="pageTextColor">
+                                        <div [style.background]="headerColor" class="heading-preview-name">
+                                            <h3 [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }} </h3>
                                         </div>
                                         <div class="bottom-booking-deatils">
                                             <div class="col-12 float-left">
@@ -153,13 +153,13 @@
                                                             {{eventStartTime}} - {{eventEndTime}}
                                                         </p>
                                                     </div>
-                                                    <div class="preview-common-deatils" *ngIf="eventDetail.online_event !== 'Y'">
+                                                    <div class="preview-common-deatils" *ngIf="!singleEventOnline">
                                                         <span class="material-icons">
                                                                            location_on
                                                                       </span>
                                                         <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
                                                     </div>
-                                                    <div class="preview-common-deatils" *ngIf="eventDetail.online_event === 'Y'">
+                                                    <div class="singleEventOnline">
                                                         <span class="material-icons">location_on</span>
                                                         <p *ngIf="eventDetail.platform == 'Z'">Online - Zoom</p>
                                                         <p *ngIf="eventDetail.platform == 'GH'">Online - Google Hangout</p>
@@ -174,7 +174,7 @@
                                             <div class="col-12 mt-4 float-left">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn">Book Ticket</button>
+                                                        <button [style.background]="btnColor" [style.color]="btnTextColor" mat-flat-button class="btn">Book Ticket</button>
                                                     </div>
                                                     <div class="share-link-main">
                                                         <p> Share this event </p>
@@ -192,7 +192,7 @@
                                                 <h3> DESCRIPTION </h3>
                                                 <p [innerHtml]="eventDiscriptionHtml"></p>
                                             </div>
-                                            <div class="commmon-top-main map-location" *ngIf="eventDetail.online_event !== 'Y'">
+                                            <div class="commmon-top-main map-location" *ngIf="!singleEventOnline">
                                                 <h3> Location </h3>
                                                 <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
                                                 <div class="map-main-div">
@@ -200,7 +200,7 @@
                                                         width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
                                                 </div>
                                             </div>
-                                            <div class="commmon-top-main map-location" *ngIf="eventDetail.online_event === 'Y'">
+                                            <div class="commmon-top-main map-location" *ngIf="singleEventOnline">
                                                 <h3> Location </h3>
                                                 <p *ngIf="eventDetail.platform == 'Z'">Online - Zoom</p>
                                                 <p *ngIf="eventDetail.platform == 'GH'">Online - Google Hangout</p>
@@ -217,7 +217,7 @@
                                     </div>
                                     <div class="bottom-help-tickets">
                                         <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                        <button mat-flat-button class="bg-primary btn"> Contact the Event Organizer </button>
+                                        <button [style.background]="btnColor" [style.color]="btnTextColor" mat-flat-button class="btn"> Contact the Event Organizer </button>
                                     </div>
                                 </div>
                             </div>
@@ -242,8 +242,8 @@
                                     <button mat-flat-button class="bg-primary btn">{{eventDetail?eventDetail.event_status:'-'}}</button>
                                 </div> -->
                         </div>
-                        <div class="main-preview-wrap Event-page" [style.background]="pageColor" [style.color]="pageTextColor">
-                            <div class="bottom-deatils">
+                        <div class="main-preview-wrap Event-page">
+                            <div class="bottom-deatils" [style.background]="pageColor" [style.color]="pageTextColor">
                                 <div [style.background]="headerColor" class="heading-preview-name">
                                     <h3 [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }} </h3>
                                 </div>
@@ -258,13 +258,13 @@
                                                     {{eventStartTime}} - {{eventEndTime}}
                                                 </p>
                                             </div>
-                                            <div class="preview-common-deatils" *ngIf="eventDetail.online_event !== 'Y'">
+                                            <div class="preview-common-deatils" *ngIf="!singleEventOnline">
                                                 <span class="material-icons">
                                                                    location_on
                                                               </span>
                                                 <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
                                             </div>
-                                            <div class="preview-common-deatils" *ngIf="eventDetail.online_event === 'Y'">
+                                            <div class="preview-common-deatils" *ngIf="singleEventOnline">
                                                 <span class="material-icons">
                                                                    location_on
                                                               </span>
@@ -299,7 +299,7 @@
                                         <h3> DESCRIPTION </h3>
                                         <p [innerHtml]="eventDiscriptionHtml"></p>
                                     </div>
-                                    <div class="commmon-top-main map-location" *ngIf="eventDetail.online_event !== 'Y'">
+                                    <div class="commmon-top-main map-location" *ngIf="!singleEventOnline">
                                         <h3> Location </h3>
                                         <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
                                         <div class="map-main-div">
@@ -307,7 +307,7 @@
                                                 width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
                                         </div>
                                     </div>
-                                    <div class="commmon-top-main map-location" *ngIf="eventDetail.online_event === 'Y'">
+                                    <div class="commmon-top-main map-location" *ngIf="singleEventOnline">
                                         <h3> Location </h3>
                                         <p *ngIf="eventDetail.platform == 'Z'">Online - Zoom</p>
                                         <p *ngIf="eventDetail.platform == 'GH'">Online - Google Hangout</p>
@@ -399,8 +399,8 @@
                     </label>
                     <label class="col-6">Font</label>
                     <label class="col-6">
-                        <div class=" d-inline-block">
-                            <mat-select (selectionChange)="fnChangeFont($event)" [(ngModel)]="selectedFont" class="font-selection">
+                        <div class=" color-code d-block font-selection-main">
+                            <mat-select (selectionChange)="fnChangeFont($event)" [(ngModel)]="selectedFont" class="font-selection p-2">
                                 <mat-option value="Poppins, sans-serif">Poppins</mat-option>
                                 <mat-option value="Roboto, sans-serif">Roboto</mat-option>
                                 <mat-option value="'Cairo', sans-serif">Cairo</mat-option>

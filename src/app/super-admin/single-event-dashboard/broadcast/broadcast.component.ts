@@ -35,7 +35,7 @@ export class BroadcastComponent implements OnInit {
   scheduledDate:any;
   unique_id:any;
   messageContent:any;
-  status:string = "draft";
+  // status:string = "draft";
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
     private http: HttpClient,
@@ -66,7 +66,7 @@ export class BroadcastComponent implements OnInit {
 
 
 
-  fnOnSubmitForm(){
+  fnOnSubmitForm(status){
     // console.log(this.createBroadcastForm);
     if(this.createBroadcastForm.invalid){
       this.createBroadcastForm.get('recipients').markAllAsTouched();
@@ -91,7 +91,6 @@ export class BroadcastComponent implements OnInit {
         "terms" : this.createBroadcastForm.get('terms').value,
         "event_id" : this.eventId, 
         "unique_code" : this.unique_id,
-        "status": this.status
       }
       this.sendBroadcast(this.createBroadcastData);
       this.createBroadcastForm.reset();

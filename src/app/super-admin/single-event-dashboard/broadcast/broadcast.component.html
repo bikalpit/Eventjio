@@ -166,8 +166,8 @@
 
                 <div class="form-group col-md-12 col-lg-12 col-sm-12">
                     <div class="botttom-buttons">
-                        <button mat-flat-button class="save-draf-btn mr-2" color="primary"> Save Draft </button>
-                        <button mat-flat-button color="primary" (click)="fnOnSubmitForm()"> Send Broadcast </button>
+                        <button mat-flat-button class="save-draf-btn mr-2" (click)="fnOnSubmitForm('draft')" color="primary"> Save Draft </button>
+                        <button mat-flat-button color="primary" (click)="fnOnSubmitForm('send')"> Send Broadcast </button>
                     </div>
                 </div>
 

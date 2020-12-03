@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SettingService } from '../_services/setting.service';
 import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
@@ -38,10 +38,12 @@ export class EventPageDesignComponent implements OnInit {
   btnColor = '#49DD54';
   btnTextColor = '#FFFFFF';
   bgColor = '#FFFFFF';
+  singleEventOnline:boolean= false;
   constructor(
     private SettingService:SettingService,
     private ErrorService:ErrorService,
     private datePipe: DatePipe,
+    private change : ChangeDetectorRef,
     private sanitizer:DomSanitizer,
   ) { 
     if(localStorage.getItem('boxoffice_id')){
@@ -78,16 +80,17 @@ export class EventPageDesignComponent implements OnInit {
     }
     this.SettingService.fnGetAllEventListView(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allEventList = response.response
+        this.allEventList = response.response;
+        this.getEvent(this.allEventList[0].unique_code);
         this.frontURL  = environment.bookingPageUrl+'/event/'+this.allEventList[0].unique_code
         this.allEventList.forEach(element => {
           if(element.images.length == 0){
             element.images = undefined
           }
           element.start_date = this.datePipe.transform(element.start_date,"EEE MMM d, y")
-          element.start_time = this.datePipe.transform(element.start_time,"h:mm:ss a")
-          element.end_date = this.datePipe.transform(element.end_date,"EEE MMM d, y")
-          element.end_time = this.datePipe.transform(element.end_time,"h:mm:ss a")
+          // element.start_time = this.datePipe.transform(element.start_time,"h:mm:ss a")
+          // element.end_date = this.datePipe.transform(element.end_date,"EEE MMM d, y")
+          // element.end_time = this.datePipe.transform(element.end_time,"h:mm:ss a")
           if(element.images.length == 0)
             element.images = undefined
           });
@@ -105,7 +108,6 @@ export class EventPageDesignComponent implements OnInit {
 
   fnChangeFont(event){
     this.selectedFont = event.value
-    alert(this.selectedFont)
   }
 
   getThemeAppearanceColor(){
@@ -194,7 +196,6 @@ export class EventPageDesignComponent implements OnInit {
 
   getEvent(unique_code){
     this.isLoaderAdmin = true;
-    alert(unique_code)
     let requestObject = {
        'unique_code' : unique_code
     }
@@ -210,14 +211,18 @@ export class EventPageDesignComponent implements OnInit {
 
         this.eventDetail.description = this.eventDetail.description.replace(/< \/?[^>]+>/gi, '');
         console.log(this.eventDetail.description.replace(/< \/?[^>]+>/gi, ''));
-        
+        if(this.eventDetail.online_event == 'Y'){
+          this.singleEventOnline = true;
+        }else{
+          this.singleEventOnline = false;
+        }
 
-        if(response.response.images[0]){
-          this.eventImage = response.response.images[0].image;
+        if(this.eventDetail.images[0]){
+          this.eventImage = this.eventDetail.images[0].image;
         }else{
           this.eventImage = '/assets/images/Event-preview/preview-main.png';
         }
-        
+        this.change.detectChanges();
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }

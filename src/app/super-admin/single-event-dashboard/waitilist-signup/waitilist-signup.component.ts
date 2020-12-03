@@ -43,8 +43,8 @@ export class WaitilistSignupComponent implements OnInit {
 
 
     this.waitListForm =this.formBuilder.group({
-      join_list:['', Validators.required],
-      notified_waitlist:['',Validators.required],
+      btn_text:['', Validators.required],
+      event_page_text:['',Validators.required],
       confirmation_msg:['',Validators.required],
     });
    }
@@ -93,7 +93,7 @@ export class WaitilistSignupComponent implements OnInit {
     this.isLoaderAdmin = true;
     let requestObject = {
        'event_id' : this.eventId,
-       'boxoffice_id': this.boxofficeId,
+      //  "boxoffice_id":"NULL",
        'status': status,
        'search':this.search.keyword,
     }
@@ -139,22 +139,23 @@ export class WaitilistSignupComponent implements OnInit {
 
   fnSavewaitlist(){
     if(this.waitListForm.invalid){
-     this.waitListForm.get('join_list').markAllAsTouched();
-     this.waitListForm.get('notified_waitlist').markAllAsTouched();
+     this.waitListForm.get('btn_text').markAllAsTouched();
+     this.waitListForm.get('event_page_text').markAllAsTouched();
      this.waitListForm.get('confirmation_msg').markAllAsTouched();
      return false;
     }
     
      this.waitinglistObject = {
       "active_watlist":this.checkActiveWaitlist,
-      "show_ticket":this.showTicket,
-      "join_list":this.waitListForm.get('join_list').value,
-      "notified_waitlist":this.waitListForm.get('notified_waitlist').value,
+      "show_when_ticket_available":this.showTicket,
+      "btn_text":this.waitListForm.get('btn_text').value,
+      "event_page_text":this.waitListForm.get('event_page_text').value,
       "confirmation_msg":this.waitListForm.get('confirmation_msg').value,
     };
 
     let requestObject ={
-      "boxoffice_id": this.boxofficeId,
+      "event_id": this.eventId,
+      // "boxoffice_id":"NULL",
       "option_key":'waitListForm',
       "option_value":this.waitinglistObject,
       "json_type":"Y",
@@ -175,15 +176,15 @@ export class WaitilistSignupComponent implements OnInit {
   fngetSavedwaitlist(){
    
     let requestObject= {
-      "event_id":"NULL",
+      "boxoffice_id":"NULL",
       "option_key":'waitListForm',
-      "boxoffice_id": this.boxofficeId,
+      "event_id": this.eventId,
     }
         this.SingleEventServiceService.getSavedlist(requestObject).subscribe((response:any) => {
           if(response.data == true){
           this.getSavedlist = JSON.parse(response.response);       
-          this.waitListForm.controls['join_list'].setValue(this.getSavedlist.join_list)
-          this.waitListForm.controls['notified_waitlist'].setValue(this.getSavedlist.notified_waitlist)
+          this.waitListForm.controls['btn_text'].setValue(this.getSavedlist.btn_text)
+          this.waitListForm.controls['event_page_text'].setValue(this.getSavedlist.event_page_text)
           this.waitListForm.controls['confirmation_msg'].setValue(this.getSavedlist.confirmation_msg)
           if(this.getSavedlist.active_watlist == 'Y'){
             this.activeWaitlist = true;
