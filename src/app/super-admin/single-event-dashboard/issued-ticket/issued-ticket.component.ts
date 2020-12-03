@@ -9,10 +9,10 @@ import { ErrorService } from '../../../_services/error.service';
 import { environment } from '../../../../environments/environment'
 import { eventSummaryDialog } from '../../orders/orders.component';
 //import * as jspdf from 'jspdf';  
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 // import * as jsPDF from 'jspdf';
 //import * jspdf from 'jspdf';
-import { jsPDF } from "jspdf";
+// import { jsPDF } from "jspdf";
 
 @Component({
   selector: 'app-issued-ticket',
@@ -298,24 +298,24 @@ export class IssuedTicketViewComponent {
      });
   }
 
-  public captureScreen()  
-  {  
+  // public captureScreen()  
+  // {  
    
-    var data = document.getElementById('print-ticket');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
+  //   var data = document.getElementById('print-ticket');  
+  //   html2canvas(data).then(canvas => {  
+  //     // Few necessary setting options  
+  //     var imgWidth = 208;   
+  //     var pageHeight = 295;    
+  //     var imgHeight = canvas.height * imgWidth / canvas.width;  
+  //     var heightLeft = imgHeight;  
   
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('MYPdf.pdf'); // Generated PDF   
-    });  
-  }  
+  //     const contentDataURL = canvas.toDataURL('image/png')  
+  //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+  //     var position = 0;  
+  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+  //     pdf.save('MYPdf.pdf'); // Generated PDF   
+  //   });  
+  // }  
  
 }
 
@@ -359,23 +359,23 @@ export class OrderViewComponent {
     return this.datePipe.transform(new Date(date),"EEE MMM d, y, h:mm:ss");
   }
 
-  public captureScreen()  
-  {  
-    var data = document.getElementById('contentToConvert');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
+  // public captureScreen()  
+  // {  
+  //   var data = document.getElementById('contentToConvert');  
+  //   html2canvas(data).then(canvas => {  
+  //     // Few necessary setting options  
+  //     var imgWidth = 208;   
+  //     var pageHeight = 295;    
+  //     var imgHeight = canvas.height * imgWidth / canvas.width;  
+  //     var heightLeft = imgHeight;  
   
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('MYPdf.pdf'); // Generated PDF   
-    });  
-  }  
+  //     const contentDataURL = canvas.toDataURL('image/png')  
+  //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+  //     var position = 0;  
+  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+  //     pdf.save('MYPdf.pdf'); // Generated PDF   
+  //   });  
+  // }  
 
 }
 

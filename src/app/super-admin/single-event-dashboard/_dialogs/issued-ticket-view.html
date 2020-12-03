@@ -9,11 +9,11 @@
                 <span aria-hidden="true" class="white-text">&times;</span>
             </button>
 
-            <button type="button" *ngIf="ticketTypeView === 'confirm'"  data-dismiss="modal" aria-label="Close" class="close-btn" (click)="fnVoidTicket('normal')">
+            <button type="button" *ngIf="ticketTypeView === 'confirm'" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="fnVoidTicket('normal')">
                 <span aria-hidden="true" class="white-text">&times;</span>
             </button>
 
-            <button type="button" *ngIf="ticketTypeView === 'voidview'"  data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
+            <button type="button" *ngIf="ticketTypeView === 'voidview'" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
                 <span aria-hidden="true" class="white-text">&times;</span>
             </button>
         </div>
@@ -24,7 +24,7 @@
             <div class="px-3 mt-3">
                 <div class=" px-3">
                     <button mat-flat-button class="void-ticket-btn" (click)="fnVoidTicket('confirm')">Void Ticket</button>
-                    <button mat-flat-button class="print-ticket-btn ml-2" (click)="captureScreen()" > Print Ticket</button>
+                    <button mat-flat-button class="print-ticket-btn ml-2"> Print Ticket</button>
                 </div>
 
                 <div class="px-3 mt-4">
@@ -61,7 +61,7 @@
                             Status :
                         </div>
                         <div class="ticket-detail-field ml-auto">
-                            {{data.order_status == 'P' ? 'Pending' : data.order_status == 'CO' ? 'Completed' :  data.order_status == 'C' ? 'Cancel' : 'Void'  }}
+                            {{data.order_status == 'P' ? 'Pending' : data.order_status == 'CO' ? 'Completed' : data.order_status == 'C' ? 'Cancel' : 'Void' }}
                         </div>
 
                         <div class="ticket-detail-field font-weight-bold">
@@ -91,11 +91,11 @@
                                         <ngx-qrcode [elementType]="elementType" [value]="value"></ngx-qrcode>
                                     </div>
                                 </div>
-                            
+
                                 <div class=" barcode d-inline-block">
                                     <ngx-barcode [bc-value]="value" [bc-display-value]="true"></ngx-barcode>
                                 </div>
-                                
+
                             </div>
 
                             <div class="mt-3">
@@ -249,7 +249,7 @@
                                     </div>
                                 </div>
 
-                                <div class="d-inline-block bg-danger text-center p-3 void-label"  >
+                                <div class="d-inline-block bg-danger text-center p-3 void-label">
                                     Void
                                 </div>
 
@@ -266,9 +266,8 @@
 
                                     <div class="mt-3">
                                         <label for="">ATTENDEE NAME</label>
-                                        <p class="m-0 font-weight-bold"> 
-                                            {{data.customer.firstname?data.customer.firstname:''}}
-                                            {{data.customer.firstname?data.customer.lastname:''}}
+                                        <p class="m-0 font-weight-bold">
+                                            {{data.customer.firstname?data.customer.firstname:''}} {{data.customer.firstname?data.customer.lastname:''}}
 
                                         </p>
                                     </div>

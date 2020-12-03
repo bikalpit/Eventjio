@@ -1,14 +1,24 @@
 :root {
-    --pri_color: '#3986fa';
-    --pri_gradient1: '#38b7fb';
-    --pri_gradien2: '#3969fb';
-    --text_color: '#000000';
-    --text_bgcolor: '#ffffff';
-    --font: 'Poppins';
+    --headerColor: '#3986fa';
+    --headerTextColor: '#3986fa';
+    --pageColor: '#38b7fb';
+    --pageTextColor: '#38b7fb';
+    --btnColor: '#38b7fb';
+    --btnTextColor: '#38b7fb';
+    --bgColor: '#38b7fb';
+    --font: 'Roboto';
 }
+
+$headerColor: var(--headerColor);
+$headerTextColor: var(--headerTextColor);
+$pageColor: var(--pageColor);
+$pageTextColor: var(--pageTextColor);
+$btnColor: var(--btnColor);
+$btnTextColor: var(--btnTextColor);
+$bgColor: var(--bgColor);
+$fontFamily: var(--font);
 $error: #f1552f;
 $lightcolor: #00367130;
-$second: var(--second);
 // AECI
 $first-alt-lighter: rgb(95, 95, 95);
 $first-alt-darker: rgb(24, 21, 21);
@@ -27,14 +37,8 @@ $dec-grey: #606060;
 $grey-1: #4c4c4c;
 $grey-2: #929292;
 $grey-3: #e0e0e0;
-$front-primary-color: var(--pri_color);
-$selected-font-family: var(--font);
 $red: #ed2f2f;
 $green: #16bc2c;
-$text-color: var(--text_color);
-$text-bg: var(--text_bgcolor);
-// btn radient
-$primary-gradient-color:linear-gradient(to right, var(--pri_gradient1) 0%, var(--pri_gradient2) 100%);
 // for font size
 $fs-12: 12px;
 $fs-14: 14px;

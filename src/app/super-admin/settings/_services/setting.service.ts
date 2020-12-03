@@ -208,6 +208,12 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+    getSingleEvent(requestObject) {
+        return this.http.post(`${environment.apiUrl}/get-single-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
 
     resendInviter(requestObject){
         return this.http.post(`${environment.apiUrl}/resend-invitation`,requestObject,{headers:this.globalHeaders}).pipe(
