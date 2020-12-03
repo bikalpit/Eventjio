@@ -263,13 +263,38 @@ export class SuperadminService {
          catchError(this.handleError));
     }
 
-    fnResendOrder(requestObject){
-        return this.http.post(`${environment.apiUrl}/resend-order`,requestObject,{headers:this.globalHeaders}).pipe(
+    fnResendOrder(orderId){
+        return this.http.get(`${environment.apiUrl}/resend-order?unique_code=${orderId}`,{headers:this.globalHeaders}).pipe(
          map((res) => {
             return res;
           }),
          catchError(this.handleError));
     }
+
+    getSingleEventSettings(requestObject) {
+        return this.http.post(`${environment.apiUrl}/get-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+
+    
+    orderUpdate(requestObject) {
+        console.log(requestObject);
+        return this.http.post(`${environment.apiUrl}/order-update`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+
+
+    // downloadOrder(orderId){
+    //     return this.http.post(`${environment.apiUrl}/stream-invoice-pdf?order_id==${orderId}`,{headers:this.globalHeaders}).pipe(
+    //      map((res) => {
+    //         return res;
+    //       }),
+    //      catchError(this.handleError));
+    // }
 
     fnCancelOrder(requestObject){
         return this.http.post(`${environment.apiUrl}/cancel-order`,requestObject,{headers:this.globalHeaders}).pipe(
@@ -311,6 +336,16 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+
+    // DownloadTicket(requestObject){
+    //     return this.http.get(`${environment.apiUrl}/resend-order?unique_code=ord16063742131431`,{headers:this.globalHeaders}).pipe(
+    //      map((res) => {
+    //         return res;
+    //       }),
+    //      catchError(this.handleError));
+    // }
+
+    
     fnAssignEventToVoucher(requestObject){
         return this.http.post(`${environment.apiUrl}/assign-voucher-to-event`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -329,6 +364,13 @@ export class SuperadminService {
          map((res) => {
          return res;
          }),catchError(this.handleError));
+    }
+
+    cancelOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-order-status`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
     }
 
 }

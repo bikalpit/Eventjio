@@ -18,7 +18,7 @@ import { addBuyeronlyQuestionDialog, addAttendeeonlyQuestionDialog} from './chec
 import { ExportDoorListComponent } from './issued-ticket/issued-ticket.component';
 import { IssuedTicketViewComponent } from './issued-ticket/issued-ticket.component';
 import { OrderViewComponent } from './issued-ticket/issued-ticket.component';
-import { VoidOrderViewComponent } from './issued-ticket/issued-ticket.component';
+import { EditIssurorderDialog } from './issued-ticket/issued-ticket.component';
 import { DialogEditEventImageUpload, AddNewTicketGroup, AddNewTicketType } from './event-and-ticket-types/event-and-ticket-types.component'
 import { CKEditorModule } from 'ngx-ckeditor';
 import { BroadcastComponent } from './broadcast/broadcast.component';
@@ -49,7 +49,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     IssuedTicketViewComponent,
     ExportDoorListComponent,
     OrderViewComponent,
-    VoidOrderViewComponent,
+    EditIssurorderDialog,
    // myPreviewBroadcastDialog,
     DialogEditEventImageUpload,
     AddNewTicketGroup,
@@ -80,7 +80,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       ExportDoorListComponent,
       IssuedTicketViewComponent,
       OrderViewComponent,
-      VoidOrderViewComponent,
+      EditIssurorderDialog,
       DialogEditEventImageUpload,
       AddNewTicketGroup,
       AddNewTicketType,

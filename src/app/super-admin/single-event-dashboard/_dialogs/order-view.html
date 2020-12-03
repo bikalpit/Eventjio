@@ -1,14 +1,9 @@
 <div class="order-view">
+  <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
   <div class="p-3 mt-3">
     <div class="modal-header pl-3 py-0 border-0">
       <p class="font-weight-bold">Order : {{orderDetail.order_id}}</p>
-      <button
-        type="button"
-        data-dismiss="modal"
-        aria-label="Close"
-        class="close-btn"
-        (click)="onNoClick()"
-      >
+      <button type="button" data-dismiss="modal"   aria-label="Close"        class="close-btn"        (click)="onNoClick()"      >
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
     </div>
@@ -16,32 +11,32 @@
       <div>
         <div class="book-order">
           <div class="row">
-            <div class="col-md-8">
-              <button mat-raised-button class="comm-btn mr-2 px-4">
+            <div class="col-md-8" >
+              <button mat-raised-button class="comm-btn mr-2 px-4" (click)="fnResendTicket()">
                 Resend Ticket
               </button>
-              <button mat-raised-button class="comg-btn mr-2">
+              <!-- *ngIf="orderDetail.order_status=='P' || orderDetail.order_status=='CO'" -->
+              <button mat-raised-button class="comg-btn mr-2"  (click)="fnEditorder()" >
                 Edit Order
               </button>
-              <button mat-raised-button class="comg-btn mr-2">
+              <button mat-raised-button class="comg-btn mr-2" (click)="fnCancelorder()" *ngIf="orderDetail.order_status!='C'">
                 Cancel Order
               </button>
             </div>
             <div class="print-order col-md-4 px-0">
-              <a target="_blank" class=""
-                ><span class=""
-                  ><mat-icon aria-hidden="false" aria-label="" class="link mr-2"
-                    >print</mat-icon
-                  ></span
-                >Print order confirmation</a
-              >
+              <a target="_blank" class="" href="{{url.apiUrl}}/stream-invoice-pdf?order_id={{orderDetail.order_id}}">
+                <span class="">
+                  <mat-icon aria-hidden="false" aria-label="" class="link mr-2">print</mat-icon>
+                </span>
+                Print order confirmation
+              </a>
             </div>
           </div>
         </div>
         <div class="order-details">
           <div class="order-head row">
             <p>Order details</p>
-            <a target="_blank" class="dwnld-invoice">Download invoice</a>
+            <a  class="dwnld-invoice" download="pdf " href="{{url.apiUrl}}/stream-invoice-pdf?order_id={{orderDetail.order_id}}">Download invoice</a>
           </div>
           <div class="order-desc">
             <div class="row m-0">
@@ -151,30 +146,31 @@
             </div>
           </div>
         </div>
-
+       
         <div class="ticket-details border-bottom">
-          <div class="ticket-head row">
-            <p>Ticket details</p>
-            <a target="_blank" class="dwnld-invoice">Download ticket as PDF</a>
-          </div>
-          <div class="ticket-desc">
-            <div class="row m-0">
-              <label class="col-md-4">Ticket code:</label>
-              <a class="col-md-8" target="_blank">{{orderDetail.ticket.unique_code}}</a>
+          <div *ngFor="let value of singleOrderDetail.order_item;let i=index">
+            <div class="ticket-head row">
+              <p>Ticket details</p>
+              <a target="_blank" class="dwnld-invoice" (click)="fnDownloadTicket(orderDetail.unique_code)">Download ticket as PDF</a>
             </div>
-            <div class="row m-0">
-              <label class="col-md-4">Name:</label>
-              <p class="col-md-8">{{orderDetail.customer.firstname?orderDetail.customer.firstname:''}} {{orderDetail.customer.lastname?orderDetail.customer.lastname:''}}</p>
+            <div class="ticket-desc">
+              <div class="row m-0">
+                <label class="col-md-4">Ticket code:</label>
+                <a class="col-md-8" target="_blank">{{value.ticket_id}}</a>
+              </div>
+              <div class="row m-0">
+                <label class="col-md-4">Name:</label>
+                <p class="col-md-8">{{singleOrderDetail.customer.firstname?singleOrderDetail.customer.firstname:''}} {{singleOrderDetail.customer.lastname?singleOrderDetail.customer.lastname:''}}</p>
+              </div>
+              <div class="row m-0">
+                <label class="col-md-4">Status:</label>
+                <p class="col-md-8">{{value.order_status=="OS" ? 'Order sale' : value.order_status=="C"  ? 'Cancel'  : value.order_status=="CO"  ? 'Completed' : value.order_status=="P"  ? 'Pending' : 'Void'}}</p>
+              </div>
+              <div class="row m-0">
+                <label class="col-md-4">Ticket type:</label>
+                <p class="col-md-8">{{value.ticket.ticket_name}}</p>
+              </div>
             </div>
-            <div class="row m-0">
-              <label class="col-md-4">Status:</label>
-              <p class="col-md-8">{{orderDetail.ticket.status=="OS" ? 'Order sale' : '-'}}</p>
-            </div>
-            <div class="row m-0">
-              <label class="col-md-4">Ticket type:</label>
-              <p class="col-md-8">{{orderDetail.ticket.ticket_name}}</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
