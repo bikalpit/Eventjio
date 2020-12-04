@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild, Inject } from '@angular/core';
+import { Component, OnInit,ViewChild, Inject,ChangeDetectorRef } from '@angular/core';
 //import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe, DOCUMENT, JsonPipe } from '@angular/common';
 import {MatPaginator} from '@angular/material/paginator';
@@ -36,7 +36,8 @@ export class IssuedTicketComponent implements OnInit {
   Issued_to_date:any;
   boxoffice_id:any;
   filter:any = "all";
-  
+  isLoaderAdmin = false;
+
   //getIssuedTicketApiUrl:any =  `${environment.apiUrl}/get-allboxoffice-event-api`;
   current_page_getIssuedTicket:any;
   first_page_url_getIssuedTicket:any;
@@ -78,6 +79,7 @@ export class IssuedTicketComponent implements OnInit {
       "issued_todate": this.Issued_to_date,
       "boxoffice_id" : this.boxoffice_id
     }
+    this.isLoaderAdmin = true;
 
     this.SingleEventServiceService.issuedTickets(requestObject,this.path_getIssuedTicket).subscribe((response:any)=>{
       if(response.data == true){
@@ -90,6 +92,7 @@ export class IssuedTicketComponent implements OnInit {
         this.next_page_url_getIssuedTicket = response.response.next_page_url;
         this.prev_page_url_getIssuedTicket = response.response.prev_page_url;
         this.path_getIssuedTicket = response.response.path;
+        this.isLoaderAdmin = false;
 
       } else if(response.data == false){
         this.getIssuedTicket = [];
@@ -117,6 +120,7 @@ export class IssuedTicketComponent implements OnInit {
   
      dialogRef.afterClosed().subscribe(result => {
       this.issuedticketView = result;
+      this.issuedTickets();
      });
   }
 
@@ -234,7 +238,7 @@ export class IssuedTicketViewComponent {
     private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-      this.value = data.ticket_id;
+      this.value = data.unique_code;
       this.fnGetEventDetail();
       this.today  = this.datePipe.transform(new Date(new Date()),"EEE MMM d, y h:mm a")
 
@@ -282,11 +286,13 @@ export class IssuedTicketViewComponent {
       
       let requestObject = {
         'unique_code':this.value,
+        'status' : 'VO'
       }
 
       this.singleEventServiceService.singleTicketVoid(requestObject).subscribe((response: any) => {
         if (response.data == true) {
           this.ErrorService.successMessage(response.response);
+          this.dialogRef.close();
         } else if (response.data == false) {
           this.ErrorService.errorMessage(response.response);
         }
@@ -297,7 +303,6 @@ export class IssuedTicketViewComponent {
     }else{
       this.ticketTypeView = ticketview;
     }
-
 
   }
 
@@ -397,13 +402,10 @@ export class OrderViewComponent {
   fnResendTicket() {
 
     this.isLoaderAdmin = true;
-    let requestObject = {
-      'unique_code':'ss',
-    }
 
-    this.singleEventServiceService.ResendTicket(requestObject).subscribe((response: any) => {
+    this.singleEventServiceService.ResendTicket(this.orderDetail.order_id).subscribe((response: any) => {
       if (response.data == true) {
-
+        this.ErrorService.successMessage(response.response);
       } else if (response.data == false) {
         this.ErrorService.errorMessage(response.response);
       }
@@ -515,11 +517,17 @@ export class OrderViewComponent {
   templateUrl: '../_dialogs/edit-order.html',
 })
 export class EditIssurorderDialog { 
+
   editTicket: FormGroup;
   onlynumeric = /^-?(0|[1-9]\d*)?$/;
   singleorderCustomer:any;
   isLoaderAdmin = false;
   boxoffice_id = localStorage.getItem('boxoffice_id');
+
+  eventForm:any = [];
+  eventSpecificForm:any = [];
+  selectedEventCode = localStorage.getItem('selectedEventCode');
+  is_submit = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditIssurorderDialog>,
@@ -527,71 +535,156 @@ export class EditIssurorderDialog {
     public singleEventServiceService : SingleEventServiceService,
     private _formBuilder:FormBuilder,
     private ErrorService:ErrorService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    public change:ChangeDetectorRef,
+    @Inject(MAT_DIALOG_DATA) public data: any
+    ) {
       
       this.singleorderCustomer = this.data;
-      console.log(this.singleorderCustomer);
-
       let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-
       this.editTicket = this._formBuilder.group({
-        firstname:[this.singleorderCustomer.customer.firstname, Validators.required],
-        lastname:[this.singleorderCustomer.customer.lastname, Validators.required],
+        name:[this.singleorderCustomer.customer.firstname + this.singleorderCustomer.customer.lastname, Validators.required],
         email:[this.singleorderCustomer.customer.email, [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
-        repeat_email:[this.singleorderCustomer.customer.email, [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
         phone:[this.singleorderCustomer.customer.phone,[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
         address:[this.singleorderCustomer.customer.address, Validators.required],
-        // address_2:[""],
-        // address_3:[""],
-        // postcode:["", [Validators.required, Validators.pattern(this.onlynumeric)]],
       });
     }
 
+
+    
     onNoClick(): void {
       this.dialogRef.close();
     }
     
     ngOnInit() {
+      this.getEventForm();
+      this.fnGetsingleOrder();
     }
 
-    updateOrder(){
+    async updateOrder(){
 
-
-
+      this.is_submit = true;
+      var is_error = false;
+  
       if(this.editTicket.invalid){
-        this.editTicket.get('firstname').markAsTouched();
-        this.editTicket.get('lastname').markAsTouched();
+        this.editTicket.get('name').markAsTouched();
         this.editTicket.get('email').markAsTouched();
         this.editTicket.get('phone').markAsTouched();
         this.editTicket.get('address').markAsTouched();
+        this.ErrorService.errorMessage('please fill out required fields.');
+        return
+      }
+  
+      var i = 0; 
+      await this.eventSpecificForm.forEach(element => {
+          if(element.type=='checkbox'){
+            var checkBoxArr = [];
+            element.selector.forEach(CheckBoxelement => {
+              if(CheckBoxelement.is_check){
+                checkBoxArr.push(CheckBoxelement.value)
+              }
+            });
+            if(checkBoxArr.length > 0){
+              element.value =  JSON.stringify(checkBoxArr); 
+            }
+          }
+          if(element.value==''  && element.required){
+            is_error = true;
+          }
+      });
+
+      if(is_error){
+        this.ErrorService.errorMessage('please fill out required fields.');
         return false;
       }
-
+      
+      var name = this.editTicket.get("name").value.split(" ");
       
       let requestObject = {
+        'event_id' : this.selectedEventCode,
         'boxoffice_id' : this.boxoffice_id,
-        "order_id": this.singleorderCustomer.unique_code,
-        'firstname' : this.editTicket.get('firstname').value,
-        'lastname' : this.editTicket.get('lastname').value,
-        'email' : this.editTicket.get('email').value,
-        'phone' : this.editTicket.get('phone').value,
-        'address' : this.editTicket.get('address').value,
-        // 'postcode' : this.editTicket.get('postcode').value,
+        'order_id' : this.data.unique_code,
+        'firstname' : name[0] ? name[0] : '',
+        'lastname' : name[1] ? name[1] : '',
+        'phone' : this.editTicket.get("phone").value,
+        'email' : this.editTicket.get("email").value,
+        'address' : this.editTicket.get("address").value,
+        "customer_data" : JSON.stringify({ 'customerForm' : this.eventSpecificForm }),
       }
-
+      
       this.isLoaderAdmin = true;
-  
-      this.singleEventServiceService.updateOrder(requestObject).subscribe((response: any) => {
-        if (response.data == true) {
+
+      this.singleEventServiceService.orderUpdate(requestObject).subscribe((response:any) => {
+        if(response.data == true){
           this.ErrorService.successMessage(response.response);
-        } else if (response.data == false) {
+        } else if(response.data == false){
           this.ErrorService.errorMessage(response.response);
         }
-        this.isLoaderAdmin = false;
       });
-  
+
 
     }
+
+    getEventForm(){
+
+      let requestObject = {
+        'event_id' : this.selectedEventCode,
+        'option_key' : 'checkout_form',
+        'boxoffice_id' : 'NULL'
+      }
+  
+      this.singleEventServiceService.getSingleEventSettings(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          var data =   JSON.parse(response.response);
+          this.eventForm = data[0].buyer_questions;
+          this.change.detectChanges();
+        } else if(response.data == false){
+          this.ErrorService.errorMessage(response.response);
+        }
+      });
+
+    }
+
+    
+    fnGetsingleOrder(){
+
+      let requestObject={
+        "unique_code":this.data.unique_code,
+      }
+      
+      this.singleEventServiceService.fnGetsingleOrder(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+
+          this.singleorderCustomer = response.response;
+          this.eventSpecificForm =  JSON.parse(this.singleorderCustomer.customer.customer_data);
+          this.eventSpecificForm = this.eventSpecificForm.customerForm;
+          console.log(this.eventSpecificForm);
+
+          this.editTicket.controls['name'].setValue(this.singleorderCustomer.customer.name)
+          this.editTicket.controls['email'].setValue(this.singleorderCustomer.customer.email)
+          this.editTicket.controls['phone'].setValue(this.singleorderCustomer.customer.phone)
+          this.editTicket.controls['address'].setValue(this.singleorderCustomer.customer.address)
+
+          this.change.detectChanges();
+
+        }else{
+          this.ErrorService.errorMessage(response.response);
+        }
+      });
+    }
+
+    optionsArr(arr){
+      return arr.split(/\r?\n/);
+    }
+  
+    
+    CheckBoxArr(arr){
+      var optionToArray = [];
+      arr.split(/\r?\n/).forEach(element => {
+        optionToArray.push({ 'value': element,'is_check':false});
+      });
+      return optionToArray;
+    }
+    
 
 
 }

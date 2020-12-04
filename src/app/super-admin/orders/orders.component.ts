@@ -107,6 +107,18 @@ export class OrdersComponent implements OnInit {
     });
   }  
   
+  eventSummary(Orderdata){
+    const dialogRef = this.dialog.open(cancelOrderDialog, {
+      width: '700px',
+      data : Orderdata
+    });
+  
+     dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+      this.fnGetAllEventList();
+     });
+  }
+
   cancelOrder(Orderdata){
 
     const dialogRef = this.dialog.open(cancelOrderDialog, {
@@ -933,7 +945,6 @@ export class BookTicketDialog {
 
         console.log(this.eventSpecificForm);
 
-
         // this.attendeeForm.forEach(element => {
         //   if(element.type=='checkbox'){
         //     element.selector = this.CheckBoxArr(element.options);
@@ -1012,8 +1023,6 @@ export class BookTicketDialog {
           this.total_qty = this.total_qty +  parseInt(element.qty);
         }
       });
-
-     
     }
 
   }
