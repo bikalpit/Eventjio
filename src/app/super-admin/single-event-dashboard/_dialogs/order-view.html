@@ -16,9 +16,9 @@
                 Resend Ticket
               </button>
               <!-- *ngIf="orderDetail.order_status=='P' || orderDetail.order_status=='CO'" -->
-              <button mat-raised-button class="comg-btn mr-2"  (click)="fnEditorder()" >
+              <!-- <button mat-raised-button class="comg-btn mr-2"  (click)="fnEditorder()" >
                 Edit Order
-              </button>
+              </button> -->
               <button mat-raised-button class="comg-btn mr-2" (click)="fnCancelorder()" *ngIf="orderDetail.order_status!='C'">
                 Cancel Order
               </button>
@@ -151,7 +151,7 @@
           <div *ngFor="let value of singleOrderDetail.order_item;let i=index">
             <div class="ticket-head row">
               <p>Ticket details</p>
-              <a target="_blank" class="dwnld-invoice" (click)="fnDownloadTicket(orderDetail.unique_code)">Download ticket as PDF</a>
+              <a target="_blank" class="dwnld-invoice" (click)="fnDownloadTicket(value)">Download ticket as PDF</a>
             </div>
             <div class="ticket-desc">
               <div class="row m-0">

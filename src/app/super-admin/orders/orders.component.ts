@@ -905,8 +905,6 @@ export class BookTicketDialog {
          promo_code:["",[Validators.minLength(5),Validators.maxLength(6)]],
       });
   }
-    
-    
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -915,6 +913,7 @@ export class BookTicketDialog {
   ngOnInit() {
     this.fnGeteventTicket();
     this.getEventForm();
+    console.log('=====')
   }
  
   getEventForm(){
@@ -931,6 +930,8 @@ export class BookTicketDialog {
         var data =   JSON.parse(response.response);
         // this.attendeeForm = data[0].attendee_questions;
         this.eventForm = data[0].buyer_questions;
+        console.log(this.eventForm);
+
         var i = 0; 
         this.eventForm.forEach(element => {
           element.value = '';
@@ -954,6 +955,9 @@ export class BookTicketDialog {
 
         
       } else if(response.data == false){
+        this.eventForm = [];
+        console.log('====');
+        
         this.ErrorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
