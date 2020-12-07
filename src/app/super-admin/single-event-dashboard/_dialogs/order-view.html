@@ -2,7 +2,7 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="p-3 mt-3">
         <div class="modal-header pl-3 py-0 border-0">
-            <p class="font-weight-bold">Order : {{orderDetail.order_id}}</p>
+            <p class="font-weight-bold">Order : {{singleOrderDetail.order_id}}</p>
             <button type="button" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
@@ -16,10 +16,10 @@
                 Resend Ticket
               </button>
                             <!-- *ngIf="orderDetail.order_status=='P' || orderDetail.order_status=='CO'" -->
-                            <button mat-raised-button class="comg-btn mr-2" (click)="fnEditorder()">
+                            <!-- <button mat-raised-button class="comg-btn mr-2"  (click)="fnEditorder()" >
                 Edit Order
-              </button>
-                            <button mat-raised-button class="comg-btn mr-2" (click)="fnCancelorder()" *ngIf="orderDetail.order_status!='C'">
+              </button> -->
+                            <button mat-raised-button class="comg-btn mr-2" (click)="fnCancelorder()" *ngIf="singleOrderDetail.order_status!='C'">
                 Cancel Order
               </button>
                         </div>
@@ -35,7 +35,7 @@
                 <div class="order-details">
                     <div class="order-head row">
                         <p>Order details</p>
-                        <a class="dwnld-invoice" download="pdf " href="{{url.apiUrl}}/stream-invoice-pdf?order_id={{orderDetail.order_id}}">Download invoice</a>
+                        <a class="dwnld-invoice" download="pdf" target="_blank" href="{{url.apiUrl}}/stream-invoice-pdf?order_id={{orderDetail.order_id}}">Download invoice</a>
                     </div>
                     <div class="order-desc">
                         <div class="row m-0">
@@ -62,37 +62,29 @@
                                         <div class="th-data border-right p-2" fxFlex="20">
                                             PRICE
                                         </div>
-                                        <div class="th-data border-right p-2" fxFlex="15">Fee</div>
-                                        <div class="th-data border-right p-2" fxFlex="10">Qty</div>
-                                        <div class="th-data p-2" fxFlex="15">Subtotal</div>
                                     </div>
-                                    <div class="content" class="drageble-list">
-                                        <div class="drageble-box" fxLayout="row">
-                                            <div class="tb-data border-right p-2" fxFlex="40">
-                                                {{dateFormate(orderDetail.order_date)}}: {{eventDetail.event_title}}
-                                            </div>
-                                            <div class="tb-data border-right p-2" fxFlex="20"></div>
-                                            <div class="tb-data border-right p-2" fxFlex="15"></div>
-                                            <div class="tb-data border-right p-2" fxFlex="10"></div>
-                                            <div class="tb-data p-2" fxFlex="15"></div>
+                                    <div class="order-details">
+                                        <div class="order-head row">
+                                            <p>Order details</p>
+                                            <a class="dwnld-invoice" download="pdf " href="{{url.apiUrl}}/stream-invoice-pdf?order_id={{orderDetail.order_id}}">Download invoice</a>
                                         </div>
                                     </div>
-                                    <div class="content" class="drageble-list">
+                                    <div class="content" class="drageble-list" *ngFor="let value of singleOrderDetail.order_item;let i=index">
                                         <div class="drageble-box" fxLayout="row">
                                             <div class="tb-data border-right p-2" fxFlex="40">
-                                                {{orderDetail.ticket.ticket_name}}
+                                                {{value.ticket.ticket_name}}
                                             </div>
                                             <div class="tb-data border-right p-2" fxFlex="20">
-                                                {{ orderDetail.amount | currency:currencycode:'symbol' }}
+                                                {{ value.amount | currency:currencycode:'symbol' }}
                                             </div>
                                             <div class="tb-data border-right p-2" fxFlex="15">
-                                                {{ 0 | currency:currencycode:'symbol' }}
+                                                {{value.ticket.booking_fee}}
                                             </div>
                                             <div class="tb-data border-right p-2" fxFlex="10">
-                                                {{orderDetail.qty}}
+                                                1
                                             </div>
                                             <div class="tb-data p-2" fxFlex="15">
-                                                {{ orderDetail.sub_total | currency:currencycode:'symbol' }}
+                                                {{ value.sub_total | currency:currencycode:'symbol' }}
                                             </div>
                                         </div>
                                     </div>
@@ -106,69 +98,61 @@
                                             <div class="tb-data border-right p-2" fxFlex="10"></div>
                                             <div class="tb-data p-2 fw-600" fxFlex="15">
                                                 <!-- ${{orderDetail.grand_total}} -->
-                                                {{ orderDetail.grand_total | currency:currencycode:'symbol' }}
+                                                {{ singleOrderDetail.grand_total | currency:currencycode:'symbol' }}
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="buyer-details">
-                    <div class="buyer-head row">
-                        <p>Buyer details</p>
-                        <a target="_blank" class="dwnld-invoice"></a>
-                    </div>
-                    <div class="buyer-desc">
-                        <div class="row m-0">
-                            <label class="col-md-4">Name:</label>
-                            <p class="col-md-8">{{orderDetail.customer.firstname?orderDetail.customer.firstname:''}} {{orderDetail.customer.lastname?orderDetail.customer.lastname:''}}</p>
-                        </div>
-                        <div class="row m-0">
-                            <label class="col-md-4">E-mail:</label>
-                            <a class="col-md-8" target="_blank">{{orderDetail.customer.email?orderDetail.customer.email:'-'}} </a>
-                        </div>
-                        <div class="row m-0">
-                            <label class="col-md-4">Transaction ID:</label>
-                            <p class="col-md-8">{{orderDetail.order.payment.transaction_id}}</p>
-                        </div>
-                        <div class="row m-0">
-                            <label class="col-md-4">Address:</label>
-                            <p class="col-md-8">
-                                {{orderDetail.customer.address?orderDetail.customer.address:'-'}}
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                                    <div class="buyer-details">
+                                        <div class="buyer-head row">
+                                            <p>Buyer details</p>
+                                            <a target="_blank" class="dwnld-invoice"></a>
+                                        </div>
+                                        <div class="buyer-desc">
+                                            <div class="row m-0">
+                                                <label class="col-md-4">Name:</label>
+                                                <p class="col-md-8">{{orderDetail.customer.firstname?orderDetail.customer.firstname:''}} {{orderDetail.customer.lastname?orderDetail.customer.lastname:''}}</p>
+                                            </div>
+                                            <div class="row m-0">
+                                                <label class="col-md-4">E-mail:</label>
+                                                <a class="col-md-8" target="_blank">{{orderDetail.customer.email?orderDetail.customer.email:'-'}} </a>
+                                            </div>
+                                            <div class="row m-0">
+                                                <label class="col-md-4">Transaction ID:</label>
+                                                <p class="col-md-8">{{orderDetail.order.payment.transaction_id}}</p>
+                                            </div>
+                                            <div class="row m-0">
+                                                <label class="col-md-4">Address:</label>
+                                                <p class="col-md-8">
+                                                    {{orderDetail.customer.address?orderDetail.customer.address:'-'}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <div class="ticket-details border-bottom">
-                    <div *ngFor="let value of singleOrderDetail.order_item;let i=index">
-                        <div class="ticket-head row">
-                            <p>Ticket details</p>
-                            <a target="_blank" class="dwnld-invoice" (click)="fnDownloadTicket()">Download ticket as PDF</a>
-                        </div>
-                        <div class="ticket-desc">
-                            <div class="row m-0">
-                                <label class="col-md-4">Ticket code:</label>
-                                <a class="col-md-8" target="_blank">{{value.ticket_id}}</a>
-                            </div>
-                            <div class="row m-0">
-                                <label class="col-md-4">Name:</label>
-                                <p class="col-md-8">{{singleOrderDetail.customer.firstname?singleOrderDetail.customer.firstname:''}} {{singleOrderDetail.customer.lastname?singleOrderDetail.customer.lastname:''}}</p>
-                            </div>
-                            <div class="row m-0">
-                                <label class="col-md-4">Status:</label>
-                                <p class="col-md-8">{{value.order_status=="OS" ? 'Order sale' : value.order_status=="C" ? 'Cancel' : value.order_status=="CO" ? 'Completed' : value.order_status=="P" ? 'Pending' : 'Void'}}</p>
-                            </div>
-                            <div class="row m-0">
-                                <label class="col-md-4">Ticket type:</label>
-                                <p class="col-md-8">{{value.ticket.ticket_name}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                    <div class="ticket-details border-bottom">
+                                        <div *ngFor="let value of singleOrderDetail.order_item;let i=index">
+                                            <div class="ticket-head row">
+                                                <p>Ticket details</p>
+                                                <a target="_blank" class="dwnld-invoice" (click)="fnDownloadTicket(value)">Download ticket as PDF</a>
+                                            </div>
+                                            <div class="ticket-desc">
+                                                <div class="row m-0">
+                                                    <label class="col-md-4">Ticket code:</label>
+                                                    <a class="col-md-8" target="_blank">{{value.unique_code}}</a>
+                                                </div>
+                                                <div class="row m-0">
+                                                    <label class="col-md-4">Name:</label>
+                                                    <p class="col-md-8">{{singleOrderDetail.customer.firstname?singleOrderDetail.customer.firstname:''}} {{singleOrderDetail.customer.lastname?singleOrderDetail.customer.lastname:''}}</p>
+                                                </div>
+                                                <div class="row m-0">
+                                                    <label class="col-md-4">Status:</label>
+                                                    <p class="col-md-8">{{value.order_status=="OS" ? 'Order sale' : value.order_status=="C" ? 'Cancel' : value.order_status=="CO" ? 'Completed' : value.order_status=="P" ? 'Pending' : 'Void'}}</p>
+                                                </div>
+                                                <div class="row m-0">
+                                                    <label class="col-md-4">Ticket type:</label>
+                                                    <p class="col-md-8">{{value.ticket.ticket_name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>

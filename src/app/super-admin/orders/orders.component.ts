@@ -107,6 +107,18 @@ export class OrdersComponent implements OnInit {
     });
   }  
   
+  eventSummary(Orderdata){
+    // const dialogRef = this.dialog.open(cancelOrderDialog, {
+    //   width: '700px',
+    //   data : Orderdata
+    // });
+  
+    //  dialogRef.afterClosed().subscribe(result => {
+    //   this.animal = result;
+    //   this.fnGetAllEventList();
+    //  });
+  }
+
   cancelOrder(Orderdata){
 
     const dialogRef = this.dialog.open(cancelOrderDialog, {
@@ -893,8 +905,6 @@ export class BookTicketDialog {
          promo_code:["",[Validators.minLength(5),Validators.maxLength(6)]],
       });
   }
-    
-    
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -919,6 +929,8 @@ export class BookTicketDialog {
         var data =   JSON.parse(response.response);
         // this.attendeeForm = data[0].attendee_questions;
         this.eventForm = data[0].buyer_questions;
+        console.log(this.eventForm);
+
         var i = 0; 
         this.eventForm.forEach(element => {
           element.value = '';
@@ -931,8 +943,7 @@ export class BookTicketDialog {
           i++;
         });
 
-        console.log(this.eventSpecificForm);
-
+        //console.log(this.eventSpecificForm);
 
         // this.attendeeForm.forEach(element => {
         //   if(element.type=='checkbox'){
@@ -943,6 +954,7 @@ export class BookTicketDialog {
 
         
       } else if(response.data == false){
+        this.eventForm = [];
         this.ErrorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
@@ -1012,8 +1024,6 @@ export class BookTicketDialog {
           this.total_qty = this.total_qty +  parseInt(element.qty);
         }
       });
-
-     
     }
 
   }
@@ -1070,7 +1080,6 @@ export class BookTicketDialog {
         if(element.value==''  && element.required){
           is_error = true;
         }
-       // eventFormValue.push(element.value ? element.value : null);
     });
 
     

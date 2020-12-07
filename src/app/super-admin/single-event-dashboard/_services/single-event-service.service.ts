@@ -80,7 +80,7 @@ export class SingleEventServiceService {
     }
 
     cancelOrders(requestObject){
-        return this.http.post(`${environment.apiUrl}/cancel-order`,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/update-order-status`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
@@ -88,7 +88,7 @@ export class SingleEventServiceService {
 
 
     ResendTicket(ticket_id){
-        return this.http.post(`${environment.apiUrl}/resend-order?unique_code=${ticket_id}`,{},{headers:this.globalHeaders}).pipe(
+        return this.http.get(`${environment.apiUrl}/resend-order?unique_code=${ticket_id}`,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
@@ -111,7 +111,7 @@ export class SingleEventServiceService {
     }
 
     singleTicketVoid(requestObject){
-        return this.http.post(`${environment.apiUrl}/single-ticket-void`,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/update-order-item-status`,requestObject,{headers:this.globalHeaders}).pipe(
          map((res) => {
             return res;
           }),
@@ -261,4 +261,28 @@ export class SingleEventServiceService {
             return res;
         }),catchError(this.handleError));
     }
+
+    getSingleEventSettings(requestObject) {
+        return this.http.post(`${environment.apiUrl}/get-setting-option-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+
+    fnGetsingleOrder(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-single-order`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
+    orderUpdate(requestObject) {
+        console.log(requestObject);
+        return this.http.post(`${environment.apiUrl}/order-update`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+
 }
