@@ -177,12 +177,10 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
 
   fnChangeThumbZoom(event){
-    console.log(event)
     this.thumbZoomLavel = event.value
   }
 
   fnChangeBannerZoom(event){
-    console.log(event)
     this.bannerZoomLavel = event.value
   }
 
@@ -287,6 +285,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     }else if(this.eventImageType == 'noImage'){
       this.newEventImageUrl = undefined;
       this.selecetdDefaultImage = undefined;
+    }else{
+      this.newEventImageUrl = undefined;
     }
   }
   
@@ -431,7 +431,6 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
 
   fnSaveEvent(){
-  console.log(this.editEventForm)
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
     if(this.editEventForm.invalid){
@@ -793,7 +792,6 @@ export class AddNewTicketType {
       this.addTicketForm.get('after_time').markAsTouched();
       this.addTicketForm.get('until_interval').markAsTouched();
       this.addTicketForm.get('after_interval').markAsTouched();
-      console.log(this.addTicketForm)
       return false;
     }
 

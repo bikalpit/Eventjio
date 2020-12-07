@@ -27,7 +27,7 @@
     }
     .list-events {
         display: flex;
-        pointer-events: none;
+        // pointer-events: none;
         justify-content: center;
         flex-wrap: wrap;
         overflow-y: scroll;

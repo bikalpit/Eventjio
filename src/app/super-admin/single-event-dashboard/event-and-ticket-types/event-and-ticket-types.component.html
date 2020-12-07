@@ -159,7 +159,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-12 mt-2">
-                            <label for="">Choose or upload an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
+                            <label for="">Uploaded an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
                             matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
                         </label>
                             <div class="select-event-img-sm row mx-0">
@@ -168,7 +168,7 @@
                                 <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/event-images/'+ selectedImage + ')'}" class="select-event-image">
                                     <!-- <img src="{{apiUrl}}/event-images/{{selectedImage}}" class="select-event-image" alt=""> -->
                                 </div>
-                                <div *ngIf="selectedImage && newEventImageUrl && singleEventDetail.images !== undefined" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
+                                <div *ngIf="eventImageType == 'newUploadImage' && newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
                                     <!-- <img src="{{newEventImageUrl}}" class="select-event-image" alt=""> -->
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center mx-3">
@@ -193,7 +193,7 @@
                                 </div>
                                 <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/event-images/'+ selectedImage + ')'}" class="select-event-image">
                                 </div>
-                                <div *ngIf="selectedImage && newEventImageUrl && singleEventDetail.images !== undefined" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
+                                <div *ngIf="eventImageType == 'newUploadImage' && newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
