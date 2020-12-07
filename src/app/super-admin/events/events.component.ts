@@ -729,12 +729,14 @@ export class AddNewTicketType {
         status: [''],
         min_order: ['',[Validators.pattern(this.onlynumeric)]],
         max_order: ['',[Validators.pattern(this.onlynumeric)]],
-        until_date: ['',[Validators.required]],
-        until_time: ['',[Validators.required]],
-        until_interval: ['',[Validators.required]],
-        after_date: ['',[Validators.required]],
-        after_time: ['',[Validators.required]],
-        after_interval: ['',[Validators.required]]
+        ticket_available: ['',[Validators.required]],
+        ticket_unavailable: ['',[Validators.required]],
+        until_date: [''],
+        until_time: [''],
+        until_interval: [''],
+        after_date: [''],
+        after_time: [''],
+        after_interval: ['']
       });
     }
 
@@ -810,6 +812,8 @@ export class AddNewTicketType {
       this.addTicketForm.get('status').markAsTouched();
       this.addTicketForm.get('min_order').markAsTouched();
       this.addTicketForm.get('max_order').markAsTouched();
+      this.addTicketForm.get('ticket_available').markAsTouched();
+      this.addTicketForm.get('ticket_unavailable').markAsTouched();
       this.addTicketForm.get('until_date').markAsTouched();
       this.addTicketForm.get('until_time').markAsTouched();
       this.addTicketForm.get('after_date').markAsTouched();
@@ -837,6 +841,8 @@ export class AddNewTicketType {
       'untill_time': this.addTicketForm.get('until_time').value,
       'after_date':  this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"),
       'after_time':  this.addTicketForm.get('after_time').value,
+      'ticket_available':  this.addTicketForm.get('ticket_available').value,
+      'ticket_unavailable':  this.addTicketForm.get('ticket_unavailable').value,
       'sold_out':  this.soldOut,
       'show_qty':  this.showQTY,
       'discount':  this.assignedCouponCodes,

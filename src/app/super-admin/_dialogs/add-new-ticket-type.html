@@ -116,6 +116,19 @@
 
 
                 <div class="col-5">
+                    <div class="w-100 ticket-available-unavailabel">
+                        <label for="">Tickets become availables <span><i class="fa fa-asterisk"></i></span>  </label>
+                        <div class="form-group">
+                            <mat-select (selectionChange)="fnTicketAvailableStatus($event)" class="form-control d-block" formControlName="ticket_available">
+                                <mat-option value="PB">When the event is published</mat-option>
+                                <mat-option value="SDT">At a scheduled date and time</mat-option>
+                                <mat-option value="SIB">At a scheduled interval before the event starts</mat-option>
+                            </mat-select>
+                            <span class="error-wrap" *ngIf="addTicketForm.get('ticket_available').touched || addTicketForm.get('ticket_available').dirty">
+                                <small *ngIf="addTicketForm.get('ticket_available').hasError('required')" class="error">Tickets availablity is required.</small>
+                            </span>
+                        </div>
+                    </div>
 
                     <label class="">Hide untill a set date and time</label>
 
@@ -155,6 +168,20 @@
                         <span class="error-wrap d-block" *ngIf="addTicketForm.get('until_interval').touched || addTicketForm.get('until_interval').dirty">
                             <small *ngIf="addTicketForm.get('until_interval').hasError('required')" class="error">Hide until Interval is required.</small>
                         </span>
+                    </div>
+
+                    <div class="mt-3 mb-2 w-100 ticket-available-unavailabel ml-auto">
+                        <label for="">Tickets become unavailables <span><i class="fa fa-asterisk"></i></span>  </label>
+                        <div class="form-group">
+                            <mat-select class="form-control d-block" formControlName="ticket_unavailable">
+                                <mat-option value="TOS">When the event is taken off, or the event passes</mat-option>
+                                <mat-option value="SDT">At a scheduled date and time</mat-option>
+                                <mat-option value="SIB">At a scheduled interval before the event starts</mat-option>
+                            </mat-select>
+                            <span class="error-wrap" *ngIf="addTicketForm.get('ticket_unavailable').touched || addTicketForm.get('ticket_unavailable').dirty">
+                                <small *ngIf="addTicketForm.get('ticket_unavailable').hasError('required')" class="error">Tickets unavailablity is required.</small>
+                            </span>
+                        </div>
                     </div>
 
                     <label class="mt-2">Hide after a set date and time</label>
