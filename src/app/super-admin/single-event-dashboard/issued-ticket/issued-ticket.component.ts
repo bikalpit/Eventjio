@@ -9,6 +9,7 @@ import { ErrorService } from '../../../_services/error.service';
 import { environment } from '../../../../environments/environment'
 import { eventSummaryDialog } from '../../orders/orders.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment'; 
 // import html2canvas from 'html2canvas';
 // import { jsPDF } from "jspdf";
 
@@ -69,16 +70,23 @@ export class IssuedTicketComponent implements OnInit {
   }
   
   issuedTickets(){
-   
+
     let requestObject = {
       "event_id": this.event_id,
       "ticket_type": this.Ticket_Type,
       "issued_status": this.status_ticket,
       "filter": this.filter,
-      "issued_fromdate": this.Issued_from_date,
-      "issued_todate": this.Issued_to_date,
       "boxoffice_id" : this.boxoffice_id
     }
+
+    if(this.Issued_from_date){ 
+      requestObject['issued_fromdate'] = moment(this.Issued_from_date).format('Y-M-D');
+    }
+
+    if(this.Issued_to_date){ 
+      requestObject['issued_todate'] = moment(this.Issued_to_date).format('Y-M-D');
+    }
+    
     this.isLoaderAdmin = true;
 
     this.SingleEventServiceService.issuedTickets(requestObject,this.path_getIssuedTicket).subscribe((response:any)=>{
@@ -331,24 +339,10 @@ export class IssuedTicketViewComponent {
   //    });
   // }
 
-  // public captureScreen()  
-  // {  
-   
-  //   var data = document.getElementById('print-ticket');  
-  //   html2canvas(data).then(canvas => {  
-  //     // Few necessary setting options  
-  //     var imgWidth = 208;   
-  //     var pageHeight = 295;    
-  //     var imgHeight = canvas.height * imgWidth / canvas.width;  
-  //     var heightLeft = imgHeight;  
-  
-  //     const contentDataURL = canvas.toDataURL('image/png')  
-  //     let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-  //     var position = 0;  
-  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-  //     pdf.save('MYPdf.pdf'); // Generated PDF   
-  //   });  
-  // }  
+  public printTicket(data)  
+  {  
+    window.open(environment.apiUrl+'/download-single-ticket?unique_code='+data.unique_code);
+  }  
  
 }
 
