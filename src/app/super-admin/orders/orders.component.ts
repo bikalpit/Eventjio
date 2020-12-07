@@ -108,15 +108,15 @@ export class OrdersComponent implements OnInit {
   }  
   
   eventSummary(Orderdata){
-    const dialogRef = this.dialog.open(cancelOrderDialog, {
-      width: '700px',
-      data : Orderdata
-    });
+    // const dialogRef = this.dialog.open(cancelOrderDialog, {
+    //   width: '700px',
+    //   data : Orderdata
+    // });
   
-     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-      this.fnGetAllEventList();
-     });
+    //  dialogRef.afterClosed().subscribe(result => {
+    //   this.animal = result;
+    //   this.fnGetAllEventList();
+    //  });
   }
 
   cancelOrder(Orderdata){
@@ -913,7 +913,6 @@ export class BookTicketDialog {
   ngOnInit() {
     this.fnGeteventTicket();
     this.getEventForm();
-    console.log('=====')
   }
  
   getEventForm(){
@@ -944,7 +943,7 @@ export class BookTicketDialog {
           i++;
         });
 
-        console.log(this.eventSpecificForm);
+        //console.log(this.eventSpecificForm);
 
         // this.attendeeForm.forEach(element => {
         //   if(element.type=='checkbox'){
@@ -956,8 +955,6 @@ export class BookTicketDialog {
         
       } else if(response.data == false){
         this.eventForm = [];
-        console.log('====');
-        
         this.ErrorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
@@ -1083,7 +1080,6 @@ export class BookTicketDialog {
         if(element.value==''  && element.required){
           is_error = true;
         }
-       // eventFormValue.push(element.value ? element.value : null);
     });
 
     
