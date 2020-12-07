@@ -614,15 +614,15 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  openAddNewTicketGroupDialog() {
-    const dialogRef = this.dialog.open(AddNewTicketGroup,{
-      width: '700px',
-    });
+  // openAddNewTicketGroupDialog() {
+  //   const dialogRef = this.dialog.open(AddNewTicketGroup,{
+  //     width: '700px',
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log(`Dialog result: ${result}`);
+  //   });
+  // }
 
   fnUploadEventImage(){
     const dialogRef = this.dialog.open(DialogEventImageUpload, {
@@ -868,22 +868,22 @@ export class AddNewTicketType {
 }
 
 
-@Component({
-  selector: 'add-new-ticket-group',
-  templateUrl: '../_dialogs/add-new-ticket-group.html',
-  providers: [DatePipe]
-})
-export class AddNewTicketGroup {
-  constructor(
-    public dialogRef: MatDialogRef<AddNewTicketGroup>,
-    private datePipe: DatePipe,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
+// @Component({
+//   selector: 'add-new-ticket-group',
+//   templateUrl: '../_dialogs/add-new-ticket-group.html',
+//   providers: [DatePipe]
+// })
+// export class AddNewTicketGroup {
+//   constructor(
+//     public dialogRef: MatDialogRef<AddNewTicketGroup>,
+//     private datePipe: DatePipe,
+//     @Inject(MAT_DIALOG_DATA) public data: any) {
+//     }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  ngOnInit() {
-  }
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
+//   ngOnInit() {
+//   }
  
-}
+// }

@@ -19,7 +19,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewTicketType } from './events/events.component';
-import { AddNewTicketGroup } from './events/events.component';
+// import { AddNewTicketGroup } from './events/events.component';
 import { myCreateDiscountCodeDialog } from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog } from './coupons/coupons.component';
 import { AssignToEventDialog } from './coupons/coupons.component';
@@ -54,7 +54,7 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
       AddNewOrderDialog,
       BookTicketDialog,
       AddNewTicketType,
-      AddNewTicketGroup,
+      // AddNewTicketGroup,
       OrderInvoiceDialog,
       EditorderDialog,
       cancelOrderDialog,
@@ -85,8 +85,25 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
     NgbModule,
   ],
   
-  entryComponents: [myCreateDiscountCodeDialog,myBatchVoucherCodeDialog,ExportOrderDialog,AddNewOrderDialog,BookTicketDialog,
-    OrderInvoiceDialog,AddNewTicketType,AddNewTicketGroup,myCreateNewBoxofficeDialog,DialogEventImageUpload,AssignToEventDialog,AssignToTicketTypeDialog,DialogImportFileUpload,DialogCustomerImageUpload,cancelOrderDialog,EditorderDialog,eventSummaryDialog],
+  entryComponents: [
+    myCreateDiscountCodeDialog,
+    myBatchVoucherCodeDialog,
+    ExportOrderDialog,
+    AddNewOrderDialog,
+    BookTicketDialog,
+    OrderInvoiceDialog,
+    AddNewTicketType,
+    // AddNewTicketGroup,
+    myCreateNewBoxofficeDialog,
+    DialogEventImageUpload,
+    AssignToEventDialog,
+    AssignToTicketTypeDialog,
+    DialogImportFileUpload,
+    DialogCustomerImageUpload,
+    cancelOrderDialog,
+    EditorderDialog,
+    eventSummaryDialog
+  ],
 })
   
 export class SuperAdminModule {}

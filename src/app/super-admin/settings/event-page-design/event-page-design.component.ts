@@ -95,7 +95,7 @@ export class EventPageDesignComponent implements OnInit {
             element.images = undefined
           });
       }else if(response.data == false){
-        this.allEventList.length = 0;
+        this.allEventList = undefined;
         this.ErrorService.errorMessage(response.response);
       }
     });

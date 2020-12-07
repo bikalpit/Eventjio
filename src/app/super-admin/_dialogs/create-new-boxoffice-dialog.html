@@ -1,16 +1,16 @@
-<div class="container" id="admin-boxoffice">
+<div class="container position-relative" id="admin-boxoffice">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <button type="button" class="close m-3" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+    <button type="button" class="close close-btn m-3" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="row">
-        <div class="col-12 inner-pad">
+        <div class="col-12 ">
             <div class="text-center ">
                 <h2>Create Box Office</h2>
                 <h4>Please tell us about your organisation and types of event that you run</h4>
             </div>
             <div class="pt-5">
-                <form [formGroup]="createBoxoffice">
+                <form [formGroup]="createBoxoffice" class="with-validation">
                     <div class="col-12 p-0">
                         <h3 class="text-left">
                             <strong>About your organisation:</strong>

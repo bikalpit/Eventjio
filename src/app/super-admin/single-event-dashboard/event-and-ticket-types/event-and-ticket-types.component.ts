@@ -23,8 +23,8 @@ export class EventAndTicketTypesComponent implements OnInit {
   salesTaxVal = [];
   selectedEvent : any;
   boxOfficeCode : any;
-  thumbZoomLavel:any = '0'
-  bannerZoomLavel:any = '0'
+  thumbZoomLavel:any = '100'
+  bannerZoomLavel:any = '100'
   singleEventDetail:any;
   singleEventSetting:any;
   singleEventTickets:any;
@@ -89,6 +89,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         description: ['',Validators.required],
         timezone: ['',Validators.required],
         donation_title: [''],
+        currency: [''],
+        transaction_fee: [''],
         donation_amount: [''],
         donation_description: [''],
         book_btn_title: ['',Validators.required],
@@ -101,6 +103,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
       });
   }
+
+
 
   ngOnInit(): void {
     this.getAllCountry();
@@ -175,7 +179,6 @@ export class EventAndTicketTypesComponent implements OnInit {
   fnChangeThumbZoom(event){
     console.log(event)
     this.thumbZoomLavel = event.value
-    this.bannerStyle1()
   }
 
   fnChangeBannerZoom(event){
@@ -183,20 +186,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.bannerZoomLavel = event.value
   }
 
-  bannerStyle1(){
-    if (this.thumbZoomLavel > 1){
-      return {
-        backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
-        backgroundSize: this.thumbZoomLavel+'00'
-      }
-    }else{
-      return {
-        backgroundImage: 'url(' + this.singleEventDetail.images[0].image + ')',
-        backgroundSize: 'cover'
-      }
-    }
-    return {}
-  }
+
 
   getSingleEvent(){
     let requestObject = {
@@ -220,7 +210,8 @@ export class EventAndTicketTypesComponent implements OnInit {
 
         var start_time = this.singleEventDetail.start_time.split(":")
         var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
-        
+        this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom
+        this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
         this.editEventForm.controls['event_start_time'].setValue(start_time_key)
@@ -232,6 +223,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.editEventForm.controls['online_platform'].setValue(this.singleEventDetail.platform)
         this.editEventForm.controls['online_link'].setValue(this.singleEventDetail.event_link)
         this.editEventForm.controls['description'].setValue(this.singleEventDetail.description)
+        this.editEventForm.controls['currency'].setValue(this.singleEventSetting.currency)
+        this.editEventForm.controls['transaction_fee'].setValue(this.singleEventSetting.transaction_fee)
         this.editEventForm.controls['timezone'].setValue(this.singleEventSetting.timezone)
         this.editEventForm.controls['donation_title'].setValue(this.singleEventSetting.donation_title)
         this.editEventForm.controls['donation_amount'].setValue(this.singleEventSetting.donation_amt)
@@ -481,11 +474,15 @@ export class EventAndTicketTypesComponent implements OnInit {
       'timezone':this.editEventForm.get('timezone').value,
       'make_donation':this.donation,
       'event_button_title':this.editEventForm.get('book_btn_title').value,
+      'event_thumb_zoom':this.thumbZoomLavel,
+      'event_banner_zoom':this.bannerZoomLavel,
       'donation_title':this.editEventForm.get('donation_title').value,
       'donation_amt':this.editEventForm.get('donation_amount').value,
       'donation_description':this.editEventForm.get('donation_description').value,
       'ticket_avilable':this.editEventForm.get('ticket_available').value,
       'ticket_unavilable':this.editEventForm.get('ticket_unavailable').value,
+      'currency':this.editEventForm.get('currency').value,
+      'transaction_fee':this.editEventForm.get('transaction_fee').value,
       'redirect_confirm_page':this.redirectURL,
       'redirect_url':this.editEventForm.get('redirect_url').value,
       'hide_office_listing':this.hideEventSearch,
@@ -560,14 +557,14 @@ export class EventAndTicketTypesComponent implements OnInit {
     });
   }
 
-  openAddNewTicketGroupDialog() {
-    const dialogRef = this.dialog.open(AddNewTicketGroup,{
-      width: '700px',
-    });
+  // openAddNewTicketGroupDialog() {
+  //   const dialogRef = this.dialog.open(AddNewTicketGroup,{
+  //     width: '700px',
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //   });
+  // }
   
 
   fnUploadEventImage(){
@@ -782,20 +779,20 @@ export class AddNewTicketType {
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
-      this.addTicketForm.get('title').markAsTouched;
-      this.addTicketForm.get('price').markAsTouched;
-      this.addTicketForm.get('qty').markAsTouched;
-      this.addTicketForm.get('description').markAsTouched;
-      this.addTicketForm.get('fee').markAsTouched;
-      this.addTicketForm.get('status').markAsTouched;
-      this.addTicketForm.get('min_order').markAsTouched;
-      this.addTicketForm.get('max_order').markAsTouched;
-      this.addTicketForm.get('until_date').markAsTouched;
-      this.addTicketForm.get('until_time').markAsTouched;
-      this.addTicketForm.get('after_date').markAsTouched;
-      this.addTicketForm.get('after_time').markAsTouched;
-      this.addTicketForm.get('until_interval').markAsTouched;
-      this.addTicketForm.get('after_interval').markAsTouched;
+      this.addTicketForm.get('title').markAsTouched();
+      this.addTicketForm.get('price').markAsTouched();
+      this.addTicketForm.get('qty').markAsTouched();
+      this.addTicketForm.get('description').markAsTouched();
+      this.addTicketForm.get('fee').markAsTouched();
+      this.addTicketForm.get('status').markAsTouched();
+      this.addTicketForm.get('min_order').markAsTouched();
+      this.addTicketForm.get('max_order').markAsTouched();
+      this.addTicketForm.get('until_date').markAsTouched();
+      this.addTicketForm.get('until_time').markAsTouched();
+      this.addTicketForm.get('after_date').markAsTouched();
+      this.addTicketForm.get('after_time').markAsTouched();
+      this.addTicketForm.get('until_interval').markAsTouched();
+      this.addTicketForm.get('after_interval').markAsTouched();
       console.log(this.addTicketForm)
       return false;
     }
@@ -890,22 +887,22 @@ export class AddNewTicketType {
 }
 
 
-@Component({
-  selector: 'add-new-ticket-group',
-  templateUrl: '../_dialogs/add-new-ticket-group.html',
-  providers: [DatePipe]
-})
-export class AddNewTicketGroup {
-  constructor(
-    public dialogRef: MatDialogRef<AddNewTicketGroup>,
-    private datePipe: DatePipe,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
+// @Component({
+//   selector: 'add-new-ticket-group',
+//   templateUrl: '../_dialogs/add-new-ticket-group.html',
+//   providers: [DatePipe]
+// })
+// export class AddNewTicketGroup {
+//   constructor(
+//     public dialogRef: MatDialogRef<AddNewTicketGroup>,
+//     private datePipe: DatePipe,
+//     @Inject(MAT_DIALOG_DATA) public data: any) {
+//     }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  ngOnInit() {
-  }
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
+//   ngOnInit() {
+//   }
  
-}
+// }

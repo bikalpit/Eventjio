@@ -1,53 +1,53 @@
-<div class="modal-dialog modal-notify modal-info export-order modal-lg"  role="document" >
-  <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+<div class="modal-dialog modal-notify modal-info export-order modal-lg" role="document">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="modal-content">
-      <div class="modal-header modal-bcolor-primary px-0 pt-0">
-        <p class="heading lead  work-content">Edit order</p>
-        <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <div class="modal-header modal-bcolor-primary px-0 pt-0">
+            <p class="heading lead  work-content">Edit order</p>
+            <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
-      </div>
-
-       <form [formGroup]="editTicket">
-        
-        <div class="form-group">
-          <label>{{eventForm[0].label}} <span class="text-danger">*</span> </label>
-          <input type="text" class="form-control" id="" placeholder="" formControlName="name">
-          <span class="error-wrap" *ngIf="editTicket.get('name').dirty || editTicket.get('name').touched">
-            <small *ngIf="editTicket.get('name').hasError('required')" class="error text-left">full Name is required.</small>
-          </span>
         </div>
 
-        <div class="form-group">
-          <label>{{eventForm[1].label}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" class="form-control" formControlName="email"  placeholder="">
-          <span class="error-wrap" *ngIf="editTicket.get('email').dirty || editTicket.get('email').touched">
+        <form [formGroup]="editTicket">
+
+            <div class="form-group">
+                <!-- <label>{{eventForm[0].label}} <span class="text-danger">*</span> </label> -->
+                <input type="text" class="form-control" id="" placeholder="" formControlName="name">
+                <span class="error-wrap" *ngIf="editTicket.get('name').dirty || editTicket.get('name').touched">
+            <small *ngIf="editTicket.get('name').hasError('required')" class="error text-left">full Name is required.</small>
+          </span>
+            </div>
+
+            <div class="form-group">
+                <!-- <label>{{eventForm[1].label}} <span class="text-danger">*</span> </label> -->
+                <input matInput type="text" class="form-control" formControlName="email" placeholder="">
+                <span class="error-wrap" *ngIf="editTicket.get('email').dirty || editTicket.get('email').touched">
             <small *ngIf="editTicket.get('email').hasError('required')" class="error text-left">Email is required.</small>
             <small *ngIf="editTicket.get('email').hasError('pattern')" class="error">Enter valid email.</small>
             <small *ngIf="editTicket.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small>
           </span>
-        </div>
+            </div>
 
-        <div class="form-group">
-          <label> {{eventForm[2].label}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" class="form-control" formControlName="address" placeholder="">
-          <span class="error-wrap" *ngIf="editTicket.get('address').dirty || editTicket.get('address').touched">
+            <div class="form-group">
+                <!-- <label> {{eventForm[2].label}} <span class="text-danger">*</span> </label> -->
+                <input matInput type="text" class="form-control" formControlName="address" placeholder="">
+                <span class="error-wrap" *ngIf="editTicket.get('address').dirty || editTicket.get('address').touched">
               <small *ngIf="editTicket.get('address').hasError('required')" class="error text-left">Address is required.</small>
           </span>
-        </div>
+            </div>
 
-        <div class="form-group">
-          <label>{{eventForm[3].label}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
-          <span class="error-wrap" *ngIf="editTicket.get('phone').dirty || editTicket.get('phone').touched">
+            <div class="form-group">
+                <!-- <label>{{eventForm[3].label}} <span class="text-danger">*</span> </label> -->
+                <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
+                <span class="error-wrap" *ngIf="editTicket.get('phone').dirty || editTicket.get('phone').touched">
             <small *ngIf="editTicket.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
             <small *ngIf="editTicket.get('phone').hasError('pattern') || editTicket.get('phone').hasError('pattern') && (editTicket.get('phone').hasError('maxlength') || editTicket.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
             <small *ngIf="editTicket.get('phone').hasError('maxlength') || editTicket.get('phone').hasError('minlength')" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small>
           </span>
-        </div>
-      </form>
+            </div>
+        </form>
 
-<!--
+        <!--
       <div *ngFor="let val of eventSpecificForm;let i=index" class="form-group">
         
         <div class="" *ngIf="val.type=='text'">
@@ -113,7 +113,7 @@
       </div> -->
 
 
-      <!-- <form [formGroup]="editTicket" class="with-validation ">
+        <!-- <form [formGroup]="editTicket" class="with-validation ">
         <div class="edit-order">      
           <div class="form-group">
             <label for="">First Name <span><i class="fa fa-asterisk text-danger "></i></span> </label>
@@ -168,6 +168,6 @@
      </div>
         <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="updateOrder()">Save</button>
       </form> -->
-      <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="updateOrder()">Save</button>
- </div>
+        <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="updateOrder()">Save</button>
+    </div>
 </div>

@@ -9,6 +9,7 @@
         font-weight: bold;
         font-size: 18px;
         background-color: #ABE6FD;
+        height: 50px;
     }
     .select-option {
         width: 30%;
@@ -30,7 +31,10 @@
         justify-content: center;
         flex-wrap: wrap;
         overflow-y: scroll;
-        margin-top: 195px;
+        // margin-top: 195px;
+        height: 100%;
+        width: 100%;
+        align-items: flex-start;
         .signle-event {
             height: 140px;
             width: 800px;
@@ -38,14 +42,14 @@
         }
     }
     .preview-area {
-        height: calc(100vh - 160px);
+        height: calc(100vh - 150px);
         overflow-y: scroll;
         width: 95%;
         margin: auto;
         position: relative;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         // &.mobile-view {
         //     position: relative;
         //     width: 500px;
@@ -310,6 +314,10 @@
                     margin-bottom: .5rem;
                      ::ng-deep .mat-select-value {
                         max-width: 100% !important;
+                        color: #fff !important;
+                    }
+                     ::ng-deep .mat-select-arrow {
+                        color: #fff !important;
                     }
                 }
             }

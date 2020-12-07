@@ -231,7 +231,14 @@ mat-drawer.left-side-container.left-side-main-menu.mat-drawer.ng-tns-c2-0.ng-tri
         }
     }
 }
-::ng-deep .admin-business-Submitbutton{
+
+::ng-deep .admin-business-Submitbutton {
     color: #FFFFFF;
     background: #1172F4;
+}
+
+.close.close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
 }

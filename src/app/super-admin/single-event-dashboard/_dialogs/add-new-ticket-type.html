@@ -119,7 +119,7 @@
 
                     <label class="mt-4">Hide untill a set date and time</label>
 
-                    <div class="form-group">
+                    <div class="form-group d-flex align-items-start">
                         <div class="matDate w-50 d-inline-block">
                             <input formControlName="until_date" type="text" [matDatepicker]="hideDatePicker" [min]="minDate" id="until_date" (click)="hideDatePicker.open()" class="form-control  ">
                             <mat-datepicker #hideDatePicker></mat-datepicker>
@@ -127,12 +127,14 @@
                                 <small *ngIf="addTicketForm.get('until_date').hasError('required')" class="error">Hide untill Date is required.</small>
                             </span>
                         </div>
-                        <mat-select formControlName="until_time" class="col-4 ml-2 form-control d-inline-block">
-                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{fullDayTimeSlote}}</mat-option>
-                        </mat-select>
-                        <span style="left:0px" class="error-wrap offset-6 w-auto pl-2" *ngIf="addTicketForm.get('until_time').touched || addTicketForm.get('until_time').dirty">
-                            <small *ngIf="addTicketForm.get('until_time').hasError('required')" class="error">Hide untill Time is required.</small>
-                        </span>
+                        <div class="d-flex flex-wrap w-50">
+                            <mat-select formControlName="until_time" class="w-100 ml-2 form-control d-inline-block">
+                                <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{fullDayTimeSlote}}</mat-option>
+                            </mat-select>
+                            <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('until_time').touched || addTicketForm.get('until_time').dirty">
+                                <small *ngIf="addTicketForm.get('until_time').hasError('required')" class="error">Hide untill Time is required.</small>
+                            </span>
+                        </div>
                     </div>
 
                     <label class="mt-2" for="">Hide untill a set available interval hours</label>
@@ -159,7 +161,7 @@
 
                     <label class="mt-2">Hide after a set date and time</label>
 
-                    <div class="form-group">
+                    <div class="form-group d-flex align-items-start">
                         <div class="matDate w-50 d-inline-block">
                             <input formControlName="after_date" type="text" [matDatepicker]="ticketIssuedDatePicker" [min]="minDate" id="after_date" (click)="ticketIssuedDatePicker.open()" class="form-control ">
                             <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
@@ -167,13 +169,16 @@
                                 <small *ngIf="addTicketForm.get('after_date').hasError('required')" class="error">Hide after Date is required.</small>
                             </span>
                         </div>
-                        <!-- <input type="date" class="form-control col-6 mr-1 d-inline-block"> -->
-                        <mat-select formControlName="after_time" class="col-4 ml-2 form-control d-inline-block">
-                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{fullDayTimeSlote}}</mat-option>
-                        </mat-select>
-                        <span style="left:0px" class="error-wrap offset-6 w-auto pl-2" *ngIf="addTicketForm.get('after_time').touched || addTicketForm.get('after_time').dirty">
-                            <small *ngIf="addTicketForm.get('after_time').hasError('required')" class="error">Hide after Time is required.</small>
-                        </span>
+
+                        <div class="d-flex flex-wrap w-50">
+                            <!-- <input type="date" class="form-control col-6 mr-1 d-inline-block"> -->
+                            <mat-select formControlName="after_time" class="w-100 ml-2 form-control d-inline-block">
+                                <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{fullDayTimeSlote}}</mat-option>
+                            </mat-select>
+                            <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('after_time').touched || addTicketForm.get('after_time').dirty">
+                                <small *ngIf="addTicketForm.get('after_time').hasError('required')" class="error">Hide after Time is required.</small>
+                            </span>
+                        </div>
                     </div>
 
                     <label class="mt-2">Hide untill a set unavailable interval hours</label>

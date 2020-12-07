@@ -174,15 +174,22 @@ export class myCreateNewBoxofficeDialog {
 
 
   fnCreateBoxOffice(){
-
-    if(this.createBoxoffice.valid){
+    if(this.createBoxoffice.invalid){
+      this.createBoxoffice.get('boxoffice_name').markAsTouched();
+      this.createBoxoffice.get('boxoffice_type').markAsTouched();
+      this.createBoxoffice.get('boxoffice_billing_currency').markAsTouched();
+      this.createBoxoffice.get('boxoffice_country').markAsTouched();
+      this.createBoxoffice.get('boxoffice_genre').markAsTouched();
+      this.createBoxoffice.get('boxoffice_genre_type').markAsTouched();
+      return false;
+    }else if(this.createBoxoffice.valid){
 
       var insertArr = {
         "admin_id": this.admin_id,
         "box_office_name" : this.createBoxoffice.get('boxoffice_name').value,
         "type" : this.createBoxoffice.get('boxoffice_type').value,
         "currency" : this.createBoxoffice.get('boxoffice_billing_currency').value,
-        "country" : this.createBoxoffice.get('boxoffice_billing_currency').value,
+        "country" : this.createBoxoffice.get('boxoffice_country').value,
         "genre" : this.createBoxoffice.get('boxoffice_genre').value,
         "genre_type" : this.createBoxoffice.get('boxoffice_genre_type').value,
       }

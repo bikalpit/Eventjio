@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ElementRef,ViewChild } from '@angular/core';
 import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { User, Role } from './_models';
@@ -11,6 +11,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
 })
 export class AppComponent {
 
+  
+
   title = 'Eventjio';
   boxofficeComponent:boolean = false;
   pageName :any = 'Dashboard';
@@ -22,13 +24,22 @@ export class AppComponent {
   openLogoutMenuBox :boolean = false;
   pageSlug:any;
   
+  @ViewChild('toggleButton') toggleButton: ElementRef;
+  @ViewChild('logoutMenu') logoutMenu: ElementRef;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private bnIdle: BnNgIdleService,
+    private renderer: Renderer2,
     private authenticationService: AuthenticationService,
   ) {
 
+    // this.renderer.listen('window', 'click',(e:Event)=>{
+    //   if(e.target !== this.toggleButton.nativeElement && e.target!==this.logoutMenu.nativeElement){
+    //       this.openLogoutMenuBox=false;
+    //   }
+    // });
     this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
@@ -55,11 +66,12 @@ export class AppComponent {
       }
     });
 
+
   }
 
 
   ngOnInit() {
-
+ 
    
     var is_logout = this.authenticationService.logoutTime();
 
@@ -67,10 +79,7 @@ export class AppComponent {
         this.router.navigate(['/login']);
         return false;
     } 
-
-    if(localStorage.getItem('currentUser') && localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true"){
-
-    }  
+ 
 
 
   }
@@ -161,12 +170,12 @@ export class AppComponent {
   }
 
   openLogoutMenu(){
-    this.openLogoutMenuBox = this.openLogoutMenuBox?false :true;
+    this.openLogoutMenuBox = !this.openLogoutMenuBox;
   }
 
-  onClickedOutside(){
-    this.openLogoutMenuBox = false;
-  }
+  // onClickedOutside(){
+  //   this.openLogoutMenuBox = false;
+  // }
   
 
   initiateTimeout() {

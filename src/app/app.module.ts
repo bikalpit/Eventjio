@@ -18,6 +18,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { DialogAuthentication } from './_services/auth.component';
 import { PreviewEventsComponent } from './preview-events/preview-events.component';
 import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-office.component';
+import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -31,6 +32,7 @@ import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-offi
     DialogAuthentication,
     PreviewEventsComponent,
     PreviewBoxOfficeComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-offi
     FormsModule,
   ],
   entryComponents: [
-    DialogAuthentication
+    DialogAuthentication,
+    ConfirmationDialogComponent
   ],
   providers: [
   ],

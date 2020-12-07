@@ -11,6 +11,7 @@ import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { environment } from '../../../environments/environment';
 import { ExportToCsv } from 'export-to-csv';
+import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 import { DatePipe} from '@angular/common';
 
 export interface DialogData {
@@ -302,9 +303,22 @@ fnUpdateCustomer(requestObject){
 }
 
 
+deleteCustomerDetails(){
+  alert('11')
+  const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+    width: '400px',
+    data: "Are you sure?"
+  });
+  dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.fnDeleteCustomer();
+      }
+  });
+  alert('2')
+}
 
 
-  deleteCustomerDetails(){
+  fnDeleteCustomer(){
     this.isLoaderAdmin = true;
     let requestObject={
       "unique_code": this.selectedCustomerCode,
@@ -527,6 +541,7 @@ export class DialogCustomerImageUpload {
 constructor(
   public dialogRef: MatDialogRef<DialogCustomerImageUpload>,
   private _formBuilder:FormBuilder,
+  private _snackBar:MatSnackBar,
   @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
@@ -544,6 +559,8 @@ constructor(
 onFileChange(event) {
   const reader = new FileReader();
   if (event.target.files && event.target.files.length) {
+    if(event.target.files[0].type == 'image/jpeg' || event.target.files[0].type == 'image/png' || event.target.files[0].type == 'image/jpg'){
+      console.log(event.target.files)
       const [file] = event.target.files;
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -552,6 +569,16 @@ onFileChange(event) {
               fileSource: reader.result
           });
       };
+    }else{
+      this._snackBar.open('Only JPEG, JPG, PNG files is allowed.', "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      event.target.files = undefined
+      return false
+    }
+    
   }
 }
 uploadImage() {

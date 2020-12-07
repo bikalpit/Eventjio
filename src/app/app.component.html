@@ -76,8 +76,8 @@
             <div class="user-name-menu">
                 {{currentUser.firstname}}
                 <mat-icon *ngIf="!openLogoutMenuBox" (click)="openLogoutMenu()">keyboard_arrow_down</mat-icon>
-                <mat-icon *ngIf="openLogoutMenuBox" (click)="openLogoutMenu()">keyboard_arrow_up</mat-icon>
-                <div *ngIf="openLogoutMenuBox" class="sub-menubox">
+                <mat-icon #toggleButton *ngIf="openLogoutMenuBox" (click)="openLogoutMenu()">keyboard_arrow_up</mat-icon>
+                <div #logoutMenu *ngIf="openLogoutMenuBox" class="sub-menubox">
                     <label (click)="fnLogout()">Logout</label>
                 </div>
             </div>
