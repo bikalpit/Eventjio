@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule} from '@angular/common/http';
 import { MaterialModule } from '../../_helpers/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,16 +29,29 @@ import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { AddSalesTax } from './sales-tax/sales-tax.component';
 import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component';
 import { DialogAdminBoxofficeImageUpload } from './box-office/box-office.component';
-import { HttpClientModule} from '@angular/common/http';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
 import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-form/checkout-form.component';
-import { ReferralCodeComponent } from './referral-code/referral-code.component';
-import { addReferralCodeDialog } from './referral-code/referral-code.component';
+import { ReferralCodeComponent, addReferralCodeDialog } from './referral-code/referral-code.component';
+import { AppUsersComponent, AddAppUser, appUserDetail } from './app-users/app-users.component';
 
 
 @NgModule({
-  declarations: [SettingsComponent, EventPageDesignComponent,ContactPreferencesComponent, CheckoutFormComponent, ButttonAndLinksComponent, WebsitesEmbedCodesComponent,TeamAccessComponent, MyProfileComponent, BoxOfficeComponent, SeatingChartsComponent, ConnectAppsComponent, BillingComponent, AddSalesTax,
-    PrivacyPolicyComponent,SalesTaxComponent,
+  declarations: [
+    SettingsComponent, 
+    EventPageDesignComponent,
+    ContactPreferencesComponent, 
+    CheckoutFormComponent, 
+    ButttonAndLinksComponent, 
+    WebsitesEmbedCodesComponent,
+    TeamAccessComponent, 
+    MyProfileComponent, 
+    BoxOfficeComponent, 
+    SeatingChartsComponent, 
+    ConnectAppsComponent, 
+    BillingComponent, 
+    AddSalesTax,
+    PrivacyPolicyComponent,
+    SalesTaxComponent,
      OrderConfirmationComponent,
     inviteTeamMateDialog,
     DialogAdminProfileImageUpload,
@@ -48,6 +62,9 @@ import { addReferralCodeDialog } from './referral-code/referral-code.component';
     addAttendeeQuestionDialog, 
     ReferralCodeComponent,
     addReferralCodeDialog,
+    AppUsersComponent,
+    AddAppUser,
+    appUserDetail,
   ],
 
 
@@ -76,7 +93,9 @@ import { addReferralCodeDialog } from './referral-code/referral-code.component';
     addBuyerQuestionDialog, 
     addAttendeeQuestionDialog,
     PrivacyPolicyGenerateDialog,
-    addReferralCodeDialog
+    addReferralCodeDialog,
+    AddAppUser,
+    appUserDetail,
   ]
 })
 export class SettingsModule { }

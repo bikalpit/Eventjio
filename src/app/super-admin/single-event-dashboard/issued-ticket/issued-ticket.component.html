@@ -23,7 +23,7 @@
                 <div class="row mx-0">
                     <div class="searchbox p-0 search-bar rounded col-12 mt-3 bg-white">
                         <i class="fa fa-search p-2"></i>
-                        <input matInput type="text" class="p-2 pl-0" [(ngModel)]="global_search" (keyup)="applyFilter($event)"    placeholder="Search by name, email, order ID, or ticket code" />
+                        <input matInput type="text" class="p-2 pl-0" [(ngModel)]="global_search" (keyup)="applyFilter($event)" placeholder="Search by name, email, order ID, or ticket code" />
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                         <label for="">Event</label>
                         <mat-select placeholder="Select all ticket" class="form-control" [(ngModel)]="Ticket_Type" (selectionChange)="onChange($event.value)">
                             <mat-option value="all">All</mat-option>
-                            <mat-option *ngFor="let val of EventDetail.tickets; let i = index" [value]="val.unique_code">{{ val.ticket_name }}</mat-option>
+                            <!-- <mat-option *ngFor="let val of EventDetail.tickets; let i = index" value="{{val.unique_code ? val.unique_code : 'NULL'}}">{{ val.ticket_name }}</mat-option> -->
                         </mat-select>
                     </div>
 
@@ -58,11 +58,11 @@
                     <div class="col-3">
                         <label for="" class="col-3">Status</label>
                         <mat-select placeholder="All issued  ticket" class="form-control" [(ngModel)]="status_ticket">
-                           <mat-option value="all">all</mat-option>
-                           <mat-option value="P">Pending</mat-option>
-                           <mat-option value="CO">Completed</mat-option>
-                           <mat-option value="C">Cancel</mat-option>
-                           <mat-option value="VO">Void</mat-option>
+                            <mat-option value="all">all</mat-option>
+                            <mat-option value="P">Pending</mat-option>
+                            <mat-option value="CO">Completed</mat-option>
+                            <mat-option value="C">Cancel</mat-option>
+                            <mat-option value="VO">Void</mat-option>
                         </mat-select>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                             <div class="drageble-list">
                                 <div class="drageble-box" fxLayout="row" *ngFor="let val of getIssuedTicket; let i = index">
                                     <div class="tb-data" fxFlex="20">
-                                        <span class="cpn-bor" (click)="fnIssuedTicketView(val)"  [ngStyle]="{ color: val.order_status === 'CO' ? '#0000ff' : '#0000ff'}">
+                                        <span class="cpn-bor" (click)="fnIssuedTicketView(val)" [ngStyle]="{ color: val.order_status === 'CO' ? '#0000ff' : '#0000ff'}">
                                             {{val.unique_code}}
                                         </span>
                                         <button mat-raised-button class="mx-1 void-btn" *ngIf="val.order_status === 'VO'">
@@ -93,11 +93,10 @@
                                         </button>
                                     </div>
                                     <div class="tb-data" fxFlex="20">
-                                        {{ val.ticket.ticket_name }}
+                                        {{ val.ticket ? val.ticket.ticket_name : '-' }}
                                     </div>
                                     <div class="tb-data" fxFlex="20">
-                                        {{ val.customer ? val.customer.firstname : '' }} 
-                                        {{ val.customer ? val.customer.lastname : '' }}
+                                        {{ val.customer ? val.customer.firstname : '' }} {{ val.customer ? val.customer.lastname : '' }}
                                     </div>
                                     <div class="tb-data" fxFlex="20">
                                         {{ val.order_id }}

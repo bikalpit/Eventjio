@@ -800,6 +800,10 @@ export class AddNewTicketType {
     }
   }
 
+  fnTicketAvailableStatus(event){
+
+  }
+
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){

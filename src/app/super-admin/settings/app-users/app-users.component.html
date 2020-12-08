@@ -1,0 +1,62 @@
+<div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+<div id="app_users" class="bg-white">
+    <div class="top-description">
+        <h3>Eventjio Check-in App</h3>
+        <p>Quickly check-in ticket holders at your event using a tablet or smartphone to scan tickets. On this page you’ll find set-up instructions and log-in details for the check-in app. To use multiple check-in devices at one event, simply create multiple
+            users below.</p>
+    </div>
+    <div class="set-up-app">
+        <h4>Set up the app</h4>
+        <div class="row mx-0">
+            <div class="col-12 col-md-6 pl-0">
+                <mat-card class="d-flex flex-wrap justify-content-center align-items-center my-3">
+                    <label class="d-block text-center w-100">1. Download the app</label>
+                    <p class="d-block text-center w-100">Download and install the FREE check-in app.</p>
+                    <div class="store-icons">
+                        <img src="../../../../assets/images/settings/app-user/apple-store.png" />
+                        <img src="../../../../assets/images/settings/app-user/play-store.png" />
+                    </div>
+                </mat-card>
+            </div>
+            <div class="col-12 col-md-6 pr-0">
+                <mat-card class="d-flex flex-wrap justify-content-center align-items-center my-3">
+                    <label class="d-block text-center w-100">2. Log in</label>
+                    <p class="d-block text-center w-100">Log in to the app by using your check-in app emailand password. This isn't the same password as your Ticket Tailor account password. To view your password click the user details below.</p>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-list">
+        <div class="users mt-3">
+            <div class="border-bottom px-4 py-3">
+                <div class="row m-0 ">
+                    <div class="title">
+                        Check-in app users
+                    </div>
+                    <div class="ml-auto">
+                        <button mat-button class="add-user-btn" (click)="fnAddAppUser()">Add User</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-bottom px-4 pb-3">
+                <div class="mt-3" fxLayout="row">
+                    <div class="tab-title pt-2" fxFlex="25">Name</div>
+                    <div class="tab-title pt-2" fxFlex="25">Event Access</div>
+                    <div class="tab-title pt-2" fxFlex="25">Email Address</div>
+                    <div class="tab-title pt-2" fxFlex="25">Date Created</div>
+                </div>
+            </div>
+
+            <div class="border-bottom px-4 py-3">
+                <div class="mt-3" fxLayout="row">
+                    <div class="user-name" fxFlex="25" (click)="fnUserDetail()">Admin</div>
+                    <div class="" fxFlex="25">All Event</div>
+                    <div class="" fxFlex="25">admin@gmail.com</div>
+                    <div class="" fxFlex="25">Mon 13 July 2020</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

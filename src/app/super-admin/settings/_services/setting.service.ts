@@ -229,4 +229,11 @@ export class SettingService {
         }),catchError(this.handleError));
     }
 
+    createAppUser(requestObject){
+        return this.http.post(`${environment.apiUrl}/app-user-signup`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
 }

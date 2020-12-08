@@ -19,83 +19,86 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
 import { ReferralCodeComponent } from './referral-code/referral-code.component'
+import { AppUsersComponent } from './app-users/app-users.component'
 
+const routes: Routes = [{ 
+              path: '', 
+              component: SettingsComponent, 
+              children:[{
+                    path:'',
+                    component:EventPageDesignComponent
+                  },
+                  {
+                    path:'event-page-design',
+                    component:ButttonAndLinksComponent
+                  },
 
-const routes: Routes = [{ path: '', component: SettingsComponent, 
+                  {
+                    path:'buttons-and-links',
+                    component:ButttonAndLinksComponent
+                  },
+                  {
+                    path:'websites-embed-codes',
+                    component:WebsitesEmbedCodesComponent
+                  },
+                  {
+                    path:'seating-charts',
+                    component:SeatingChartsComponent
+                  },
+                  {
+                    path:'my-profile',
+                    component:MyProfileComponent
+                  },
+                  {
+                    path:'order-confirmation',
+                    component:OrderConfirmationComponent
+                  },
+                  {
+                    path:'box-office',
+                    component:BoxOfficeComponent
+                  },
+                  {
+                    path:'billing',
+                    component:BillingComponent
+                  },
+                  {
+                    path:'sales-tax',
+                    component:SalesTaxComponent
+                  },
+                  { 
+                    path: 'contact-preferences', 
+                    component: ContactPreferencesComponent
+                  },
+                  { 
+                    path: 'privacy-policy', 
+                    component: PrivacyPolicyComponent
+                  },
+                  { 
+                    path: 'checkout-form', 
+                    component: CheckoutFormComponent
+                  },
 
-                          children:[{
-                            path:'',
-                            component:EventPageDesignComponent
-                          },
-                          {
-                            path:'event-page-design',
-                            component:ButttonAndLinksComponent
-                          },
-
-                          {
-                            path:'buttons-and-links',
-                            component:ButttonAndLinksComponent
-                          },
-                          {
-                            path:'websites-embed-codes',
-                            component:WebsitesEmbedCodesComponent
-                          },
-                          {
-                            path:'seating-charts',
-                            component:SeatingChartsComponent
-                          },
-                          {
-                            path:'my-profile',
-                            component:MyProfileComponent
-                          },
-                          {
-                            path:'order-confirmation',
-                            component:OrderConfirmationComponent
-                          },
-                          {
-                            path:'box-office',
-                            component:BoxOfficeComponent
-                          },
-                          {
-                            path:'billing',
-                            component:BillingComponent
-                          },
-                          {
-                            path:'sales-tax',
-                            component:SalesTaxComponent
-                          },
-                          { 
-                            path: 'contact-preferences', 
-                            component: ContactPreferencesComponent
-                          },
-                          { 
-                            path: 'privacy-policy', 
-                            component: PrivacyPolicyComponent
-                          },
-                          { 
-                            path: 'checkout-form', 
-                            component: CheckoutFormComponent
-                          },
-
-                          { 
-                            path: 'team-access', 
-                            component: TeamAccessComponent
-                          },
-                          { 
-                            path: 'connect-app', 
-                            component: ConnectAppsComponent
-                          },
-                          { 
-                            path: 'payment-systems', 
-                            component: PaymentSystemsComponent
-                          },
-                          { 
-                            path: 'referral-codes', 
-                            component: ReferralCodeComponent
-                          },
-
-                          ]
-                          }]
+                  { 
+                    path: 'team-access', 
+                    component: TeamAccessComponent
+                  },
+                  { 
+                    path: 'connect-app', 
+                    component: ConnectAppsComponent
+                  },
+                  { 
+                    path: 'payment-systems', 
+                    component: PaymentSystemsComponent
+                  },
+                  { 
+                    path: 'referral-codes', 
+                    component: ReferralCodeComponent
+                  },
+                  { 
+                    path: 'app-users', 
+                    component: AppUsersComponent
+                  }]
+              }]
                          
                          
                          
