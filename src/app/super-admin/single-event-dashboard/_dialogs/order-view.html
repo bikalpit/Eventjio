@@ -72,13 +72,13 @@
                                     <div class="content" class="drageble-list" *ngFor="let value of singleOrderDetail.order_item;let i=index">
                                         <div class="drageble-box" fxLayout="row">
                                             <div class="tb-data border-right p-2" fxFlex="40">
-                                                {{value.ticket.ticket_name}}
+                                                {{value.ticket?.ticket_name}}
                                             </div>
                                             <div class="tb-data border-right p-2" fxFlex="20">
                                                 {{ value.amount | currency:currencycode:'symbol' }}
                                             </div>
                                             <div class="tb-data border-right p-2" fxFlex="15">
-                                                {{value.ticket.booking_fee}}
+                                                {{value.ticket?.booking_fee}}
                                             </div>
                                             <div class="tb-data border-right p-2" fxFlex="10">
                                                 1
@@ -151,7 +151,7 @@
                                                 </div>
                                                 <div class="row m-0">
                                                     <label class="col-md-4">Ticket type:</label>
-                                                    <p class="col-md-8">{{value.ticket.ticket_name}}</p>
+                                                    <p class="col-md-8">{{value.ticket?.ticket_name}}</p>
                                                 </div>
                                             </div>
                                         </div>
