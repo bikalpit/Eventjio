@@ -95,9 +95,11 @@
                                 <div class="tb-data ml-5 " fxFlex="10" (click)="eventSummary(element)"> <a class="text-dark">
                                      {{element.order_id}}</a>
                                 </div>
-                                <div class="tb-data" fxFlex="10"><span class="cpn-bor" [ngStyle]="{'color': element.order_status=='P' ? '#2BB800' : element.order_status=='C' ? '#FF0000' :  element.order_status=='CO' ? '#2BB800' : '#FF0000'}">
-                                    {{element.order_status=='P' ? 'Pending' : element.order_status=='C' ? 'Cancel' :  element.order_status=='CO' ? 'Completed' : 'Void'}}
-                                </span></div>
+                                <div class="tb-data" fxFlex="10">
+                                    <span class="cpn-bor" [ngStyle]="{'color': element.order_status=='P' ? '#2BB800' : element.order_status=='C' ? '#FF0000' :  element.order_status=='CO' ? '#2BB800' : '#FF0000'}">
+                                        {{element.order_status=='P' ? 'Pending' : element.order_status=='C' ? 'Cancel' :  element.order_status=='CO' ? 'Completed' : 'Void'}}
+                                    </span>
+                                </div>
                                 <div class="tb-data" fxFlex="13">{{element.customer.firstname + " " +element.customer.lastname}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.order_date |date :'fullDate'}} / {{element.order_time}}</div>
                                 <div class="tb-data" fxFlex="27">{{element.events.event_title}} <span class="order-data-date"> ({{element.order_date |date :'fullDate'}}) </span></div>

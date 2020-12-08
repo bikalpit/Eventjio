@@ -86,10 +86,6 @@
                   <div class="drageble-box fw-600"  fxLayout="row">
                       <div class="tb-data order-item fw-100" fxFlex="20">
                       </div>       
-                      <div class="tb-data" fxFlex="20"> Discount </div>  
-                      <div class="tb-data" fxFlex="20">
-                        <input type="text" class="form-control" (keyup)="fnAddDiscount($event.target.value)" >                                     
-                      </div>  
                       <div class="tb-data" fxFlex="25"></div>
                       <div class="b-data align-end fs-15" fxFlex="15"></div>       
                   </div>
@@ -106,14 +102,14 @@
             <label for="" class="main-head fw-600">Do you have a promo code?</label>
             <div class="row">
               <div class="col-10 pr-1">
-                  <input type="text" class="form-control" formControlName="promo_code" >
-                  <span class="error-wrap" *ngIf="bookTickets.get('promo_code').dirty || bookTickets.get('promo_code').touched">
+                  <input type="text" class="form-control" [(ngModel)]="promo_code" >
+                  <!-- <span class="error-wrap" *ngIf="bookTickets.get('promo_code').dirty || bookTickets.get('promo_code').touched">
                     <small *ngIf="bookTickets.get('promo_code').hasError('required')" class="error text-left">Promo Code is required.</small>
                     <small *ngIf="bookTickets.get('promo_code').hasError('maxlength') || bookTickets.get('promo_code').hasError('minlength')" class="error">Promo Code Should be of 6 digits.</small>
-                  </span>
+                  </span> -->
               </div>
               <div class="col-2 pl-1">
-                <button mat-raised-button class="ticket-btn comm-btn">Apply</button>
+                <button mat-raised-button class="ticket-btn comm-btn" (click)="fnAddDiscount()">Apply</button>
               </div>
             </div>
           </div>
@@ -276,7 +272,7 @@
       </div>
 
 
-    <div *ngIf="addOrderFormType === 'book-order'">
+    <!-- <div *ngIf="addOrderFormType === 'book-order'">
       <div class="book-order">
         <div class="row">
           <div class="col-md-8">
@@ -405,6 +401,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
   </div>
 </div>

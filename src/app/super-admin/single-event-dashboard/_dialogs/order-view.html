@@ -46,11 +46,11 @@
                         </div>
                         <div class="row m-0">
                             <label class="col-md-4">Payment method:</label>
-                            <p class="col-md-8">{{orderDetail.order.payment.payment_method ? orderDetail.order.payment.payment_method : '-' }}</p>
+                            <p class="col-md-8">{{orderDetail.order.payment ? orderDetail.order.payment.payment_method : '-' }}</p>
                         </div>
                         <div class="row m-0">
                             <label class="col-md-4">Transaction ID:</label>
-                            <p class="col-md-8">{{orderDetail.order.payment.transaction_id ?orderDetail.order.payment.transaction_id : '-'}}</p>
+                            <p class="col-md-8">{{orderDetail.order.payment ? orderDetail.order.payment.transaction_id : '-'}}</p>
                         </div>
                     </div>
                     <div class="order-table">

@@ -9,9 +9,8 @@
       </div>
 
        <form [formGroup]="editTicket" *ngIf="eventForm">
-        
         <div class="form-group">
-          <label>{{eventForm ? eventForm[0].label : 'Name'}} <span class="text-danger">*</span> </label>
+          <label>{{eventForm[0] ? eventForm[0].label : 'Name'}} <span class="text-danger">*</span> </label>
           <input type="text" class="form-control" id="" placeholder="" formControlName="name">
           <span class="error-wrap" *ngIf="editTicket.get('name').dirty || editTicket.get('name').touched">
             <small *ngIf="editTicket.get('name').hasError('required')" class="error text-left">full Name is required.</small>
@@ -19,8 +18,8 @@
         </div>
 
         <div class="form-group">
-          <label>{{eventForm[1].label}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" class="form-control" formControlName="email"  placeholder="">
+          <label>{{eventForm[1] ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
+          <input matInput type="text" class="form-control" formControlName="email"  placeholder="" readonly>
           <span class="error-wrap" *ngIf="editTicket.get('email').dirty || editTicket.get('email').touched">
             <small *ngIf="editTicket.get('email').hasError('required')" class="error text-left">Email is required.</small>
             <small *ngIf="editTicket.get('email').hasError('pattern')" class="error">Enter valid email.</small>
@@ -29,7 +28,7 @@
         </div>
 
         <div class="form-group">
-          <label> {{eventForm[2].label}} <span class="text-danger">*</span> </label>
+          <label> {{eventForm[2]  ? eventForm[2].label : 'Address'}} <span class="text-danger">*</span> </label>
           <input matInput type="text" class="form-control" formControlName="address" placeholder="">
           <span class="error-wrap" *ngIf="editTicket.get('address').dirty || editTicket.get('address').touched">
               <small *ngIf="editTicket.get('address').hasError('required')" class="error text-left">Address is required.</small>
@@ -37,7 +36,7 @@
         </div>
 
         <div class="form-group">
-          <label>{{eventForm[3].label}} <span class="text-danger">*</span> </label>
+          <label>{{eventForm[3] ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
           <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
           <span class="error-wrap" *ngIf="editTicket.get('phone').dirty || editTicket.get('phone').touched">
             <small *ngIf="editTicket.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>

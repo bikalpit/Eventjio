@@ -162,6 +162,14 @@ export class IssuedTicketComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.EventDetail = response.response;
+
+        
+        this.EventDetail.tickets.forEach((element,index,object) => {
+          if(element == null || element =='null'){
+            object.splice(index, 1);
+          }
+        });
+
         this.issuedTickets();
       } else if (response.data == false) {
         this.ErrorService.errorMessage(response.response);

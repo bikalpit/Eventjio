@@ -496,6 +496,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       this.updateEvent(requestObject);
   }
 
+
   updateEvent(requestObject){ 
     this.isLoaderAdmin = true;
     this.SingleEventServiceService.updateEvent(requestObject).subscribe((response:any) => {
@@ -718,6 +719,11 @@ export class AddNewTicketType {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  fnTicketAvailableStatus(e){
+
+  }
+
   ngOnInit() {
     this.getAllCouponCodes();
   }

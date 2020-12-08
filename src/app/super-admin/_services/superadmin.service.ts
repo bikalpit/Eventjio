@@ -279,6 +279,13 @@ export class SuperadminService {
     }
 
     
+    getVoucherCode(requestObject) {
+        return this.http.post(`${environment.apiUrl}/front-voucher-discount-check`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+
     orderUpdate(requestObject) {
         console.log(requestObject);
         return this.http.post(`${environment.apiUrl}/order-update`,requestObject,{headers:this.globalHeaders}).pipe(
