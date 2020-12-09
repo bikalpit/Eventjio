@@ -34,6 +34,14 @@
                             <small *ngIf="addAppUser.get('email').hasError('pattern')" class="error">Email address is invalid.</small>
                         </span>
                     </div>
+                    <div class="">
+                        <div class="w-100 d-inline-block py-2">
+                            <mat-checkbox (change)="fnAssignEvent($event, 'all')" class="">All Events</mat-checkbox>
+                        </div>
+                        <div class="w-100 d-inline-block py-2" *ngFor="let event of allEventList">
+                            <mat-checkbox [checked]="selectedEvents.indexOf(event.unique_code) > -1 || event.is_selected" (change)="fnAssignEvent($event, event.unique_code)" class="">{{event.event_title}}</mat-checkbox>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

@@ -42,19 +42,24 @@
 
             <div class="border-bottom px-4 pb-3">
                 <div class="mt-3" fxLayout="row">
-                    <div class="tab-title pt-2" fxFlex="25">Name</div>
-                    <div class="tab-title pt-2" fxFlex="25">Event Access</div>
-                    <div class="tab-title pt-2" fxFlex="25">Email Address</div>
-                    <div class="tab-title pt-2" fxFlex="25">Date Created</div>
+                    <div class="tab-title pt-2" fxFlex="40">Name</div>
+                    <!-- <div class="tab-title pt-2" fxFlex="25">Event Access</div> -->
+                    <div class="tab-title pt-2" fxFlex="30">Email Address</div>
+                    <div class="tab-title pt-2" fxFlex="30">Date Created</div>
                 </div>
             </div>
 
-            <div class="border-bottom px-4 py-3">
-                <div class="mt-3" fxLayout="row">
-                    <div class="user-name" fxFlex="25" (click)="fnUserDetail()">Admin</div>
-                    <div class="" fxFlex="25">All Event</div>
-                    <div class="" fxFlex="25">admin@gmail.com</div>
-                    <div class="" fxFlex="25">Mon 13 July 2020</div>
+            <div *ngIf="allAppUsersList != null" class="border-bottom px-4 py-3">
+                <div class="mt-3" fxLayout="row" *ngFor="let user of allAppUsersList; let i=index">
+                    <div class="user-name" fxFlex="40" (click)="fnUserDetail(i)">{{user.firstname ? user.firstname : '-'}} {{user.lastname ? user.lastname : '-'}}</div>
+                    <!-- <div class="" fxFlex="25">All Event</div> -->
+                    <div class="" fxFlex="30">{{user.email ? user.email : '-'}}</div>
+                    <div class="" fxFlex="30">{{user.created_at}}</div>
+                </div>
+            </div>
+            <div *ngIf="allAppUsersList == null" class="border-bottom px-4 py-3">
+                <div class="mt-1" fxLayout="row">
+                    <p class="text-center w-100 mb-0">No data found.</p>
                 </div>
             </div>
         </div>

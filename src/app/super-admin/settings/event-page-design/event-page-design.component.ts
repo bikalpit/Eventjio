@@ -30,7 +30,7 @@ export class EventPageDesignComponent implements OnInit {
   eventDiscriptionHtml:any;
   customizerThemePanel:boolean=false;
   themeAppearanceColor:any;
-  selectedTheme:any= 'custom';
+  selectedTheme:any= 'theme1';
   headerColor = '#A207A8';
   headerTextColor = '#F3F3F3';  
   pageColor = '#F8F8F8';
@@ -39,6 +39,7 @@ export class EventPageDesignComponent implements OnInit {
   btnTextColor = '#FFFFFF';
   bgColor = '#FFFFFF';
   singleEventOnline:boolean= false;
+  themeSelectionOption:any = 'themeSelection';
   constructor(
     private SettingService:SettingService,
     private ErrorService:ErrorService,
@@ -106,6 +107,10 @@ export class EventPageDesignComponent implements OnInit {
     this.selectedTheme = theme;
   }
 
+  fnThemeDirection(direction){
+      this.themeSelectionOption =direction;
+  }
+
   fnChangeFont(event){
     this.selectedFont = event.value
   }
@@ -128,6 +133,7 @@ export class EventPageDesignComponent implements OnInit {
         this.headerTextColor = this.themeAppearanceColor.headerTextColor;
         this.btnColor = this.themeAppearanceColor.btnColor;
         this.btnTextColor = this.themeAppearanceColor.btnTextColor;
+        this.selectedTheme = this.themeAppearanceColor.theme;
         localStorage.companycolours=JSON.stringify(this.themeAppearanceColor);
           this.update_SCSS_var();
      
@@ -148,7 +154,8 @@ export class EventPageDesignComponent implements OnInit {
         "headerColor":this.headerColor,
         "headerTextColor":this.headerTextColor,
         "btnColor":this.btnColor,
-        "btnTextColor":this.btnTextColor
+        "btnTextColor":this.btnTextColor,
+        'theme': this.selectedTheme
       }
       let requestObject = {
         "boxoffice_id"  : this.boxOfficeId,

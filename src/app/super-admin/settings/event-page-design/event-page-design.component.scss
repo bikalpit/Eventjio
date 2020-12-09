@@ -1,5 +1,6 @@
 @import "../../../../styling/variables";
 #event_page_design {
+    height: calc(100vh - 60px);
     position: relative;
     .event-page-page-title {
         font-size: 16px;
@@ -248,18 +249,23 @@
         text-align: left;
         background-color: #404047;
         height: 0px;
-        padding: 0px;
+        padding: 0px 30px;
         position: fixed;
         bottom: 0;
         width: calc(100% - 380px);
         box-sizing: border-box;
         z-index: 5;
         transition: all 0.5s;
+        // display: flex;
+        align-items: center;
         &.opened {
             padding: 13px 30px;
             height: 186px;
-            .material-icons {
-                transform: rotate(180deg);
+            // bottom: 0;
+            .handler {
+                .material-icons {
+                    transform: rotate(180deg);
+                }
             }
         }
         .handler {
@@ -282,61 +288,142 @@
                 transition: all 0.5s;
             }
         }
-        .custom-theme-box {
-            height: 150px;
-            width: 150px;
-            background-color: #fff;
-            padding: 10px;
-            border: 5px solid transparent;
+        .theme-customization {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            float: left;
-            &.active {
-                border-color: #007bff;
-            }
-        }
-        .customization-box {
-            width: calc(100% - 300px);
-            float: left;
-            padding-left: 20px;
-            .first-column,
-            .second-column {
-                width: 50%;
+            padding: 0 25px;
+            .custom-theme-box {
+                height: 145px;
+                width: 145px;
+                background-color: #fff;
+                padding: 10px;
+                border: 5px solid transparent;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
                 float: left;
-            }
-            .color-code {
-                background-color: #4A4A4A;
-                color: #fff;
-                &.font-selection-main {
-                    width: calc(100px + .5rem);
-                    margin-bottom: .5rem;
-                     ::ng-deep .mat-select-value {
-                        max-width: 100% !important;
-                        color: #fff !important;
-                    }
-                     ::ng-deep .mat-select-arrow {
-                        color: #fff !important;
-                    }
+                &.active {
+                    border-color: #007bff;
                 }
             }
-            .color-box {
-                width: 20px;
-                height: 20px;
-                border: none;
-                border-radius: 2px;
-                cursor: pointer;
+            .customization-box {
+                width: calc(100% - 300px);
+                float: left;
+                padding-left: 20px;
+                .first-column,
+                .second-column {
+                    width: 50%;
+                    float: left;
+                }
+                .color-code {
+                    background-color: #4A4A4A;
+                    color: #fff;
+                    &.font-selection-main {
+                        width: calc(100px + .5rem);
+                        margin-bottom: .5rem;
+                         ::ng-deep .mat-select-value {
+                            max-width: 100% !important;
+                            color: #fff !important;
+                        }
+                         ::ng-deep .mat-select-arrow {
+                            color: #fff !important;
+                        }
+                    }
+                }
+                .color-box {
+                    width: 20px;
+                    height: 20px;
+                    border: none;
+                    border-radius: 2px;
+                    cursor: pointer;
+                }
+                label {
+                    margin-bottom: 5px;
+                    color: #fff;
+                    display: flex;
+                    align-items: center;
+                }
+                .color-code-text {
+                    width: 80px;
+                }
             }
-            label {
-                margin-bottom: 5px;
-                color: #fff;
+        }
+        .theme-selection {
+            overflow-x: scroll;
+            display: flex;
+            padding: 0 18px;
+            .theme-box {
+                padding: 5px 10px;
+                width: 190px;
                 display: flex;
                 align-items: center;
+                cursor: pointer;
+                transition: all 0.3s;
+                &.active {
+                    img {
+                        border: 5px solid #007bff;
+                    }
+                }
+                img {
+                    width: 100%;
+                    height: auto;
+                }
             }
-            .color-code-text {
-                width: 80px;
+            .custom-theme-box {
+                width: 170px;
+                background-color: #fff;
+                padding: 10px;
+                border: 5px solid transparent;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                float: left;
+                margin: 5px 10px;
+                &.active {
+                    border: 5px solid #007bff;
+                }
             }
+        }
+        .side-arrow {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            cursor: pointer;
+            top: calc(50% - 20px);
+            &.got-to-themeselection {
+                left: 10px;
+            }
+            &.got-to-themecustomization {
+                right: 10px;
+            }
+            .material-icons {
+                width: 18px;
+            }
+        }
+        &:not(.opened) .side-arrow {
+            bottom: -50px;
+            top: 100%;
+        }
+    }
+    .preview-option-main {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        h5 {
+            font-size: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        button {
+            color: #fff;
         }
     }
 }

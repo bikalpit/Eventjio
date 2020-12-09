@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
+import { DatePipe} from '@angular/common';
 import { ErrorService } from '../../../_services/error.service'
 import { SettingService } from '../_services/setting.service';
 
@@ -9,30 +10,47 @@ import { SettingService } from '../_services/setting.service';
 @Component({
   selector: 'app-app-users',
   templateUrl: './app-users.component.html',
-  styleUrls: ['./app-users.component.scss']
+  styleUrls: ['./app-users.component.scss'],
+  providers: [DatePipe]
 })
 export class AppUsersComponent implements OnInit {
 
  
   isLoaderAdmin:boolean=false;
   boxOfficeCode:any;
-  allAddTax:any = [];
-  singleTaxData:any;
-  status:any;
-  taxStatus:any;
-  boxOfficeSalesTax:any = 'N';
+  allAppUsersList:any;
   constructor(public dialog: MatDialog,
     private SettingService : SettingService,
+    private datePipe: DatePipe,
     private ErrorService : ErrorService,) { 
       
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
       }
-
-      
+      this.getAllAppUsers();
     }
 
   ngOnInit(): void {
+  }
+
+  getAllAppUsers(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'boxoffice_id' : this.boxOfficeCode
+    }
+    this.SettingService.getAllAppUsers(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+      this.allAppUsersList = response.response;
+      this.allAppUsersList.forEach(element => {
+        element.created_at = this.datePipe.transform(element.created_at,"EEE MMM d, y")
+      });
+      }
+      else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+        this.allAppUsersList = null;
+      }
+      this.isLoaderAdmin = false;
+    })
   }
 
   fnAddAppUser() {
@@ -43,19 +61,19 @@ export class AppUsersComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.getAllAppUsers();
     });
   }
 
-  fnUserDetail() {
+  fnUserDetail(index) {
     const dialogRef = this.dialog.open(appUserDetail,{
       width: '700px',
       data:{
         boxOfficeCode:this.boxOfficeCode,
+        singleUserData: this.allAppUsersList[index]
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -94,13 +112,12 @@ export class AddAppUser {
     getAllEvent(){
       this.isLoaderAdmin = true;
       let requestObject = {
-        'filter' : 'upcoming',
+        'events_id' : 'all',
         'boxoffice_id' : this.boxOfficeCode
       }
       this.SettingService.fnGetAllEventList(requestObject).subscribe((response:any) => {
         if(response.data == true){
         this.allEventList = response.response
-        console.log(this.allEventList)
         }
         else if(response.data == false){
           this.ErrorService.errorMessage(response.response);
@@ -110,14 +127,29 @@ export class AddAppUser {
       })
     }
 
-    // fnchangeStatus(event){
-    //   if(event.checked == true){
-    //     this.taxStatus = 'Y';
-    //   }
-    //   else if(event.checked == false){
-    //     this.taxStatus = 'N';
-    //   }
-    // }
+    fnAssignEvent(event, eventCode){
+      if(eventCode !== 'all'){
+        if(event.checked == true){
+          this.selectedEvents.push(eventCode)
+        }else{
+          const index = this.selectedEvents.indexOf(eventCode, 0);
+          if (index > -1) {
+              this.selectedEvents.splice(index, 1);
+          }
+        }
+      }else{
+        this.selectedEvents = [];
+        this.allEventList.forEach(subelement => {
+          if(event.checked == true) {  
+            subelement.is_selected=true;
+            this.selectedEvents.push(subelement.unique_code)
+           }else{ 
+            subelement.is_selected=false;
+            this.selectedEvents = [];
+          }
+        });
+      }
+    }
     fnOnSubmit(){
       if(this.addAppUser.valid){
         let newUserData = {
@@ -125,13 +157,12 @@ export class AddAppUser {
           "firstname" : this.addAppUser.get('firstname').value,
           "lastname" : this.addAppUser.get('lastname').value,
           "email" : this.addAppUser.get('email').value,
-          "event_ids" : this.selectedEvents,
+          "event_ids" : JSON.stringify(this.selectedEvents),
         }
         this.isLoaderAdmin = true;
         this.SettingService.createAppUser(newUserData).subscribe((response:any) => {
           if(response.data == true){
             this.ErrorService.successMessage(response.response);
-            console.log(newUserData);
             this.addAppUser.reset();
             this.dialogRef.close();
           }
@@ -161,26 +192,53 @@ export class AddAppUser {
 @Component({
   selector: 'App-User-Dateils',
   templateUrl: '../_dialogs/view-app-user.html',
+  providers: [DatePipe]
 })
 export class appUserDetail {
-  status:any;
-  // addTaxForm:FormGroup;
+  singleUserData:any;
   boxOfficeCode:any;
-  isLoaderAdmin:any;
-  singleTaxData:any;
-  taxStatus:any = 'N';
-
+  passwordView:boolean=false;
+  allEventList:any;
+  selectedEventList:any=[];
+  selectedEventListCode:any=[];
   constructor(
-    private _formBuilder:FormBuilder,
     public dialogRef: MatDialogRef<appUserDetail>,
-    private http: HttpClient,
     private SettingService : SettingService,
+    private datePipe: DatePipe,
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      
+      this.singleUserData = this.data.singleUserData;
+      this.boxOfficeCode = this.data.boxOfficeCode;
+      this.selectedEventListCode = this.singleUserData.events_ids.split(',')
+      this.singleUserData.created_at = this.datePipe.transform(this.singleUserData.created_at,"EEE MMM d, y")
+      if(this.selectedEventListCode.length > 0){
+        this.getAllEvent()
+      }
     }
 
-    fnOnSubmit(){}
+    getAllEvent(){
+      let requestObject = {
+        'events_id' : 'all',
+        'boxoffice_id' : this.boxOfficeCode
+      }
+      this.SettingService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+        this.allEventList = response.response
+        this.allEventList.forEach(element => {
+          const index = this.selectedEventListCode.indexOf(element.unique_code, 0);
+          if (index > -1) {
+              this.selectedEventList.push(element.event_title);
+          }
+        });
+        // this.selectedEventList = JSON.stringify(this.selectedEventList)
+        }
+        else if(response.data == false){
+          this.ErrorService.errorMessage(response.response);
+          this.allEventList = null;
+        }
+      })
+    }
+
 
   onNoClick(): void {
     this.dialogRef.close();

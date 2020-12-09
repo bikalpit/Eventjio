@@ -652,10 +652,10 @@ export class AssignToEventDialog {
   getAllEvent(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      'filter' : 'upcoming',
+      'events_id' : 'all',
       'boxoffice_id' : this.boxOfficeCode
     }
-    this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+    this.SuperadminService.fnAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this. getAllEventList = response.response
       }
