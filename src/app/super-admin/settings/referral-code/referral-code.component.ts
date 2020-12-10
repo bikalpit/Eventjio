@@ -138,7 +138,8 @@ export class addReferralCodeDialog {
   boxOfficeCode:any;
   isLoaderAdmin:any;
   singleCodeData:any;
-  allReferralCodeList :any =[];
+  updatecode:boolean=false;
+  allReferralCodeList:any=[];
   constructor(
   private _formBuilder:FormBuilder,
   public dialogRef: MatDialogRef<addReferralCodeDialog>,
@@ -147,8 +148,13 @@ export class addReferralCodeDialog {
   private ErrorService : ErrorService,
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.boxOfficeCode = this.data.boxOfficeCode
-    this.allReferralCodeList = this.data.allReferralCodeList
-    this.singleCodeData = this.data.singleCodeData
+    if(this.data.allReferralCodeList){
+      this.allReferralCodeList = this.data.allReferralCodeList
+    }
+    if(this.data.singleCodeData){
+      this.updatecode=true;
+      this.singleCodeData = this.data.singleCodeData
+    }
 
     this.addRefferalCodeForm = this._formBuilder.group({
       type:['',[Validators.required]],
@@ -207,7 +213,7 @@ export class addReferralCodeDialog {
           'type': this.addRefferalCodeForm.get('type').value,
           'code': this.addRefferalCodeForm.get('code').value,
         }
-         this.allReferralCodeList.push(newReferralCodeData);
+        this.allReferralCodeList.push(newReferralCodeData);
         let requestObject = {
           "boxoffice_id"  : this.boxOfficeCode,
           "option_key"    :  "referralCode",

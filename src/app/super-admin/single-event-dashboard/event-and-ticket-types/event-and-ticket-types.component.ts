@@ -94,8 +94,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         donation_amount: [''],
         donation_description: [''],
         book_btn_title: ['',Validators.required],
-        ticket_available: ['',Validators.required],
-        ticket_unavailable: ['',Validators.required],
+        // ticket_available: ['',Validators.required],
+        // ticket_unavailable: ['',Validators.required],
         redirect_url: [''],
         access_code: [''],
       });
@@ -228,8 +228,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.editEventForm.controls['donation_amount'].setValue(this.singleEventSetting.donation_amt)
         this.editEventForm.controls['donation_description'].setValue(this.singleEventSetting.donation_description)
         this.editEventForm.controls['book_btn_title'].setValue(this.singleEventSetting.event_button_title)
-        this.editEventForm.controls['ticket_available'].setValue(this.singleEventSetting.ticket_avilable)
-        this.editEventForm.controls['ticket_unavailable'].setValue(this.singleEventSetting.ticket_unavilable)
+        // this.editEventForm.controls['ticket_available'].setValue(this.singleEventSetting.ticket_avilable)
+        // this.editEventForm.controls['ticket_unavailable'].setValue(this.singleEventSetting.ticket_unavilable)
         this.editEventForm.controls['redirect_url'].setValue(this.singleEventSetting.redirect_url)
         this.editEventForm.controls['access_code'].setValue(this.singleEventSetting.access_code)
         this.redirectURL= this.singleEventSetting.redirect_confirm_page;
@@ -300,8 +300,20 @@ export class EventAndTicketTypesComponent implements OnInit {
   // add Event Fns
   
   fnChangeEventStartDate(){
-    this.minEventEndDate = this.editEventForm.get('event_start_date').value;
+    this.minEventEndDate = this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd");
     this.editEventForm.get('event_end_date').setValue('');
+    this.editEventForm.get('event_end_time').setValue('');
+  }
+
+  fnChangeEventEndDate(){
+    let startDate = this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd");
+    let endDate = this.datePipe.transform(new Date(this.editEventForm.get('event_end_date').value),"yyyy-MM-dd");
+    if(startDate == endDate){
+      this.startEndSameDate = true;
+    }else{
+      this.startEndSameDate = false;
+    }
+    
     this.editEventForm.get('event_end_time').setValue('');
   }
   
@@ -442,8 +454,8 @@ export class EventAndTicketTypesComponent implements OnInit {
       this.editEventForm.get('description').markAsTouched();
       this.editEventForm.get('timezone').markAsTouched();
       this.editEventForm.get('book_btn_title').markAsTouched();
-      this.editEventForm.get('ticket_available').markAsTouched();
-      this.editEventForm.get('ticket_unavailable').markAsTouched();
+      // this.editEventForm.get('ticket_available').markAsTouched();
+      // this.editEventForm.get('ticket_unavailable').markAsTouched();
       this.editEventForm.get('donation_title').markAsTouched();
       this.editEventForm.get('donation_amount').markAsTouched();
       this.editEventForm.get('donation_description').markAsTouched();
@@ -478,8 +490,8 @@ export class EventAndTicketTypesComponent implements OnInit {
       'donation_title':this.editEventForm.get('donation_title').value,
       'donation_amt':this.editEventForm.get('donation_amount').value,
       'donation_description':this.editEventForm.get('donation_description').value,
-      'ticket_avilable':this.editEventForm.get('ticket_available').value,
-      'ticket_unavilable':this.editEventForm.get('ticket_unavailable').value,
+      // 'ticket_available':this.editEventForm.get('ticket_available').value,
+      // 'ticket_unavailable':this.editEventForm.get('ticket_unavailable').value,
       'currency':this.editEventForm.get('currency').value,
       'transaction_fee':this.editEventForm.get('transaction_fee').value,
       'redirect_confirm_page':this.redirectURL,
@@ -537,12 +549,30 @@ export class EventAndTicketTypesComponent implements OnInit {
   
   
   openAddNewTicketTypeDialog() {
+    if(
+    this.editEventForm.get('event_name').value == '' ||
+    this.editEventForm.get('event_start_date').value == '' ||
+    this.editEventForm.get('event_start_time').value == '' ||
+    this.editEventForm.get('event_end_date').value == '' ||
+    this.editEventForm.get('event_end_time').value == '' ||
+    this.editEventForm.get('vanue_name').value == '' ||
+    this.editEventForm.get('vanue_zip').value == '' ||
+    this.editEventForm.get('vanue_country').value == '' ||
+    this.editEventForm.get('description').value == ''
+    ){
+      this.ErrorService.errorMessage('Please fill above details first');
+      return false;
+    }
     const dialogRef = this.dialog.open(AddNewTicketType,{
       width: '1100px',
       data : {
         boxOfficeCode : this.boxOfficeCode,
         fullDayTimeSlote : this.fullDayTimeSlote,
-        selectedEventId : this.singleEventDetail.unique_code
+        selectedEventId : this.singleEventDetail.unique_code,
+        startDate : this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd"),
+        endDate : this.datePipe.transform(new Date(this.editEventForm.get('event_end_date').value),"yyyy-MM-dd"),
+        startTime : this.editEventForm.get('event_start_time').value,
+        endTime : this.editEventForm.get('event_end_time').value,
       }
     });
 
@@ -658,6 +688,17 @@ export class AddNewTicketType {
   selectedTicketDetail:any;
   editTicket : boolean = false;
   selectedEventId:any;
+  minAvailDate= new Date();
+  maxAvailDate= new Date();
+  minUnavailDate= new Date();
+  maxUnavailDate= new Date();
+  ticketAvalStatus:any;
+  ticketUnavalStatus:any;
+  eventStartDate:any;
+  eventStartTime:any;
+  eventEndDate:any;
+  eventEndTime:any;
+  availUnavailDateSame:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
@@ -669,9 +710,17 @@ export class AddNewTicketType {
       this.fullDayTimeSlote = this.data.fullDayTimeSlote
       this.selectedTicketDetail = this.data.selectedTicketDetail
       this.selectedEventId = this.data.selectedEventId
+      this.eventStartDate = this.data.startDate;
+      this.eventStartTime = this.data.startTime;
+      this.eventEndDate = this.data.endDate;
+      this.eventEndTime = this.data.endTime;
+      this.maxAvailDate = this.eventStartDate;
+      this.maxUnavailDate = this.eventEndDate;
       
       if(this.selectedTicketDetail){
+        console.log(this.selectedTicketDetail)
         if(this.data.selectedTicketDetail.discount.length !== 0){
+          console.log(this.data.selectedTicketDetail.discount)
           this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
         }
         this.editTicket = true;
@@ -687,12 +736,14 @@ export class AddNewTicketType {
           status: [this.selectedTicketDetail.status],
           min_order: [this.selectedTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
           max_order: [this.selectedTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
-          until_date: [this.selectedTicketDetail.untill_date,[Validators.required]],
-          until_time: [this.selectedTicketDetail.untill_time,[Validators.required]],
-          until_interval: [this.selectedTicketDetail.untill_interval,[Validators.required]],
-          after_date: [this.selectedTicketDetail.after_date,[Validators.required]],
-          after_time: [this.selectedTicketDetail.after_time,[Validators.required]],
-          after_interval: [this.selectedTicketDetail.after_interval,[Validators.required]]
+          ticket_available: [this.selectedTicketDetail.ticket_avilable,[Validators.required]],
+          ticket_unavailable: [this.selectedTicketDetail.ticket_unavilable,[Validators.required]],
+          until_date: [this.selectedTicketDetail.untill_date],
+          until_time: [this.selectedTicketDetail.untill_time],
+          until_interval: [this.selectedTicketDetail.untill_interval],
+          after_date: [this.selectedTicketDetail.after_date],
+          after_time: [this.selectedTicketDetail.after_time],
+          after_interval: [this.selectedTicketDetail.after_interval]
         });
       }else{
         this.editTicket = false;
@@ -700,17 +751,19 @@ export class AddNewTicketType {
           title: ['',[Validators.required]],
           price: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
           qty: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
-          description: [null],
-          fee: [null,[Validators.pattern(this.onlynumeric)]],
-          status: [null],
-          min_order: [null,[Validators.pattern(this.onlynumeric)]],
-          max_order: [null,[Validators.pattern(this.onlynumeric)]],
-          until_date: ['',[Validators.required]],
-          until_time: ['',[Validators.required]],
-          until_interval: ['',[Validators.required]],
-          after_date: ['',[Validators.required]],
-          after_time: ['',[Validators.required]],
-          after_interval: ['',[Validators.required]]
+          description: [''],
+          fee: ['',[Validators.pattern(this.onlynumeric)]],
+          status: [''],
+          min_order: ['',[Validators.pattern(this.onlynumeric)]],
+          max_order: ['',[Validators.pattern(this.onlynumeric)]],
+          ticket_available: ['',[Validators.required]],
+          ticket_unavailable: ['',[Validators.required]],
+          until_date: [null],
+          until_time: [null],
+          until_interval: [''],
+          after_date: [null],
+          after_time: [null],
+          after_interval: ['']
         });
       } 
     }
@@ -720,6 +773,23 @@ export class AddNewTicketType {
   }
   ngOnInit() {
     this.getAllCouponCodes();
+  }
+
+  fnAvailDateChange(event){
+    this.minUnavailDate = event.value
+    this.addTicketForm.controls['until_time'].setValue('');
+    this.addTicketForm.controls['after_date'].setValue('');
+    this.addTicketForm.controls['after_time'].setValue('');
+    
+  }
+  fnUnavailDateChange(event){
+    this.addTicketForm.controls['after_time'].setValue('');
+    if(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd") == this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd")){
+      this.availUnavailDateSame = true;
+    }else{
+      this.availUnavailDateSame = false;
+    }
+    // this.minUnavailDate = event.value
   }
 
   getAllCouponCodes(){
@@ -776,6 +846,75 @@ export class AddNewTicketType {
   }
 
 
+  fnTicketAvailableStatus(event){
+    this.ticketAvalStatus = event.value;
+    this.addTicketForm.controls['until_date'].setValue(null);
+    this.addTicketForm.controls['until_time'].setValue(null);
+    this.addTicketForm.controls['until_interval'].setValue('');
+    this.addTicketForm.controls['after_date'].setValue(null);
+    this.addTicketForm.controls['after_time'].setValue(null);
+    this.addTicketForm.controls['after_interval'].setValue('');
+    this.addTicketForm.controls['ticket_unavailable'].setValue('');
+    if(event.value == 'SDT'){
+      this.addTicketForm.controls["until_date"].setValidators(Validators.required);
+      this.addTicketForm.controls["until_time"].setValidators(Validators.required);
+      this.addTicketForm.controls["until_interval"].setValidators(null);
+      this.addTicketForm.controls["until_date"].updateValueAndValidity();
+      this.addTicketForm.controls["until_time"].updateValueAndValidity();
+      this.addTicketForm.controls["until_interval"].updateValueAndValidity();
+    }else if(event.value == 'SIB'){
+      this.addTicketForm.controls["until_interval"].setValidators(Validators.required);
+      this.addTicketForm.controls["until_date"].setValidators(null);
+      this.addTicketForm.controls["until_time"].setValidators(null);
+      this.addTicketForm.controls["until_interval"].updateValueAndValidity();
+      this.addTicketForm.controls["until_date"].updateValueAndValidity();
+      this.addTicketForm.controls["until_time"].updateValueAndValidity();
+    }else{
+      this.addTicketForm.controls["until_interval"].setValidators(null);
+      this.addTicketForm.controls["until_date"].setValidators(null);
+      this.addTicketForm.controls["until_time"].setValidators(null);
+      this.addTicketForm.controls["until_interval"].updateValueAndValidity();
+      this.addTicketForm.controls["until_date"].updateValueAndValidity();
+      this.addTicketForm.controls["until_time"].updateValueAndValidity();
+    }
+    this.addTicketForm.updateValueAndValidity();
+  }
+
+  fnTicketUnavailableStatus(event){
+    this.ticketUnavalStatus = event.value;
+    this.addTicketForm.controls['after_date'].setValue('');
+    this.addTicketForm.controls['after_time'].setValue('');
+    this.addTicketForm.controls['after_interval'].setValue('');
+    if(event.value == 'SDT'){
+      this.addTicketForm.controls["after_date"].setValidators(Validators.required);
+      this.addTicketForm.controls["after_time"].setValidators(Validators.required);
+      this.addTicketForm.controls["after_interval"].setValidators(null);
+      this.addTicketForm.controls["after_date"].updateValueAndValidity();
+      this.addTicketForm.controls["after_time"].updateValueAndValidity();
+      this.addTicketForm.controls["after_interval"].updateValueAndValidity();
+    }else if(event.value == 'SIB'){
+      this.addTicketForm.controls["after_interval"].setValidators(Validators.required);
+      this.addTicketForm.controls["after_date"].setValidators(null);
+      this.addTicketForm.controls["after_time"].setValidators(null);
+      this.addTicketForm.controls["after_interval"].updateValueAndValidity();
+      this.addTicketForm.controls["after_date"].updateValueAndValidity();
+      this.addTicketForm.controls["after_time"].updateValueAndValidity();
+    }else{
+      this.addTicketForm.controls["after_interval"].setValidators(null);
+      this.addTicketForm.controls["after_date"].setValidators(null);
+      this.addTicketForm.controls["after_time"].setValidators(null);
+      this.addTicketForm.controls["after_interval"].updateValueAndValidity();
+      this.addTicketForm.controls["after_date"].updateValueAndValidity();
+      this.addTicketForm.controls["after_time"].updateValueAndValidity();
+    }
+    this.addTicketForm.updateValueAndValidity();
+  }
+
+  fnUntilIntervalChange(event){
+    this.addTicketForm.controls['after_interval'].setValue('');
+  }
+  
+
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
       this.addTicketForm.get('title').markAsTouched();
@@ -796,6 +935,12 @@ export class AddNewTicketType {
     }
 
     if(this.editTicket){
+      if(this.addTicketForm.get('until_date').value){
+        this.addTicketForm.controls['until_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"))
+      }
+      if(this.addTicketForm.get('after_date').value){
+        this.addTicketForm.controls['after_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"))
+      }
       let requestObject = {
         'unique_code': this.selectedTicketDetail.unique_code,
         'box_office_id': this.boxOfficeCode,
@@ -810,9 +955,11 @@ export class AddNewTicketType {
         'max_per_order':this.addTicketForm.get('max_order').value,
         'hide_untill': 'Y',
         'hide_after':  'Y',
-        'untill_date': this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"),
+        'ticket_avilable':this.addTicketForm.get('ticket_available').value,
+        'ticket_unavilable':this.addTicketForm.get('ticket_unavailable').value,
+        'untill_date':this.addTicketForm.get('until_date').value,
         'untill_time': this.addTicketForm.get('until_time').value,
-        'after_date':  this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"),
+        'after_date':  this.addTicketForm.get('after_date').value,
         'after_time':  this.addTicketForm.get('after_time').value,
         'sold_out':  this.soldOut,
         'show_qty':  this.showQTY,
@@ -822,7 +969,12 @@ export class AddNewTicketType {
       }
       this.UpdateTicket(requestObject);
     }else {
-      
+      if(this.addTicketForm.get('until_date').value){
+        this.addTicketForm.controls['until_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"))
+      }
+      if(this.addTicketForm.get('after_date').value){
+        this.addTicketForm.controls['after_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"))
+      }
     this.newTicketData = {
       'event_id' : this.selectedEventId,
       'box_office_id': this.boxOfficeCode,
@@ -837,9 +989,11 @@ export class AddNewTicketType {
       'max_per_order':this.addTicketForm.get('max_order').value,
       'hide_untill': 'Y',
       'hide_after':  'Y',
-      'untill_date': this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"),
+      'ticket_avilable':this.addTicketForm.get('ticket_available').value,
+      'ticket_unavilable':this.addTicketForm.get('ticket_unavailable').value,
+      'untill_date': this.addTicketForm.get('until_date').value,
       'untill_time': this.addTicketForm.get('until_time').value,
-      'after_date':  this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"),
+      'after_date':  this.addTicketForm.get('after_date').value,
       'after_time':  this.addTicketForm.get('after_time').value,
       'sold_out':  this.soldOut,
       'show_qty':  this.showQTY,

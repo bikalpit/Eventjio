@@ -134,3 +134,10 @@
         }
     }
 }
+
+::ng-deep .fa-asterisk {
+    color: #FF0000;
+    font-size: 5px;
+    position: relative;
+    bottom: 6px;
+}
