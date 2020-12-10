@@ -194,6 +194,12 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    fnAllEventList(requestObject){
+        return this.http.post(`${environment.apiUrl}/all-events`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     
     getAllEventList(requestObject){
         return this.http.post(`${environment.apiUrl}/get-allboxoffice-events`,requestObject,{headers:this.globalHeaders}).pipe(

@@ -190,7 +190,7 @@ export class SettingService {
     }
     
     fnGetAllEventList(requestObject){
-        return this.http.post(`${environment.apiUrl}/get-allboxoffice-event-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/all-events`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
@@ -224,6 +224,19 @@ export class SettingService {
 
     deleteInviter(requestObject){
         return this.http.post(`${environment.apiUrl}/delete-request-inviter-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    createAppUser(requestObject){
+        return this.http.post(`${environment.apiUrl}/app-user-signup`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    getAllAppUsers(requestObject){
+        return this.http.post(`${environment.apiUrl}/app-user-list`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

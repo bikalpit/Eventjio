@@ -12,7 +12,7 @@ import { SettingService } from '../_services/setting.service';
 })
 export class SalesTaxComponent implements OnInit {
 
-  isLoaderAdmin:any;
+  isLoaderAdmin:boolean=false;
   boxOfficeCode:any;
   allAddTax:any = [];
   singleTaxData:any;
@@ -158,7 +158,7 @@ export class AddSalesTax {
   status:any;
   addTaxForm:FormGroup;
   boxOfficeCode:any;
-  isLoaderAdmin:any;
+  isLoaderAdmin:boolean=false;
   singleTaxData:any;
   taxStatus:any = 'N';
 

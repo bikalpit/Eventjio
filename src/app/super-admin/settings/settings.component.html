@@ -125,7 +125,7 @@
                     </div> <span>Connect apps</span>
                 </div>
 
-                <div class="py-2 common-setting-menu">
+                <div (click)="fnPostUrl('app-users')" [ngClass]="{'active': pageName == 'app-users'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/app-users">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img src="../../../assets/images/settings/appusers/app-user.png" class="w-100" alt="">
                     </div> <span>Check in app users</span>

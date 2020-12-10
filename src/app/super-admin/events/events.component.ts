@@ -127,8 +127,8 @@ export class EventsComponent implements OnInit {
         donation_amount: [''],
         donation_description: [''],
         book_btn_title: ['',Validators.required],
-        ticket_available: ['',Validators.required],
-        ticket_unavailable: ['',Validators.required],
+        // ticket_available: ['',Validators.required],
+        // ticket_unavailable: ['',Validators.required],
         redirect_url: [''],
         access_code: [''],
       });
@@ -519,8 +519,8 @@ export class EventsComponent implements OnInit {
       this.addEventForm.get('description').markAsTouched();
       this.addEventForm.get('timezone').markAsTouched();
       this.addEventForm.get('book_btn_title').markAsTouched();
-      this.addEventForm.get('ticket_available').markAsTouched();
-      this.addEventForm.get('ticket_unavailable').markAsTouched();
+      // this.addEventForm.get('ticket_available').markAsTouched();
+      // this.addEventForm.get('ticket_unavailable').markAsTouched();
       this.addEventForm.get('donation_title').markAsTouched();
       this.addEventForm.get('donation_amount').markAsTouched();
       this.addEventForm.get('donation_description').markAsTouched();
@@ -555,8 +555,8 @@ export class EventsComponent implements OnInit {
       'donation_title':this.addEventForm.get('donation_title').value,
       'donation_amt':this.addEventForm.get('donation_amount').value,
       'donation_description':this.addEventForm.get('donation_description').value,
-      'ticket_avilable':this.addEventForm.get('ticket_available').value,
-      'ticket_unavilable':this.addEventForm.get('ticket_unavailable').value,
+      // 'ticket_avilable':this.addEventForm.get('ticket_available').value,
+      // 'ticket_unavilable':this.addEventForm.get('ticket_unavailable').value,
       'redirect_confirm_page':this.redirectURL,
       'redirect_url':this.addEventForm.get('redirect_url').value,
       'hide_office_listing':this.hideEventSearch,
@@ -709,6 +709,8 @@ export class AddNewTicketType {
   advanceSetting:any = 'N';
   fullDayTimeSlote:any;
   newTicketData:any;
+  ticketAvalStatus:any
+  ticketUnavalStatus:any
   onlynumeric = /^[0-9]+(?:\.[0-9]+)?$/
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
@@ -800,6 +802,14 @@ export class AddNewTicketType {
     }
   }
 
+  fnTicketAvailableStatus(event){
+    this.ticketAvalStatus = event.value;
+  }
+
+  fnTicketUnavailableStatus(event){
+    this.ticketUnavalStatus = event.value;
+  }
+
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
@@ -824,6 +834,12 @@ export class AddNewTicketType {
       return false;
     }
 
+    if(this.addTicketForm.get('until_date').value){
+      this.addTicketForm.controls['until_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"))
+    }
+    if(this.addTicketForm.get('after_date').value){
+      this.addTicketForm.controls['after_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"))
+    }
     this.newTicketData = {
       'box_office_id': this.boxOfficeCode,
       'ticket_name': this.addTicketForm.get('title').value,
@@ -837,9 +853,9 @@ export class AddNewTicketType {
       'max_per_order':this.addTicketForm.get('max_order').value,
       'hide_untill': 'Y',
       'hide_after':  'Y',
-      'untill_date': this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"),
+      'untill_date':this.addTicketForm.get('until_date').value,
       'untill_time': this.addTicketForm.get('until_time').value,
-      'after_date':  this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"),
+      'after_date':  this.addTicketForm.get('after_date').value,
       'after_time':  this.addTicketForm.get('after_time').value,
       'ticket_available':  this.addTicketForm.get('ticket_available').value,
       'ticket_unavailable':  this.addTicketForm.get('ticket_unavailable').value,

@@ -93,6 +93,7 @@ export class IssuedTicketComponent implements OnInit {
       if(response.data == true){
 
         this.getIssuedTicket = response.response.data;
+        console.log(this.getIssuedTicket)
         this.current_page_getIssuedTicket = response.response.current_page;
         this.first_page_url_getIssuedTicket = response.response.first_page_url;
         this.last_page_getIssuedTicket = response.response.last_page;

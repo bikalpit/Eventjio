@@ -1,0 +1,136 @@
+#app_users {
+    .top-description {
+        margin-bottom: 30px;
+        margin: 14px 30px 44px !important;
+        h3 {
+            font-size: 24px;
+            font-weight: 500;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+    }
+    .set-up-app {
+        border: 2px solid #CECECE;
+        border-radius: 10px;
+        background-color: #f6f6f62e;
+        padding: 15px 30px;
+        margin: 14px 30px 44px !important;
+        h4 {
+            font-size: 22px;
+            font-weight: 500;
+            color: #181818;
+            text-align: left;
+        }
+        .row {
+            align-items: stretch;
+        }
+        mat-card {
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.16);
+            padding: 25px;
+            border-radius: 10px;
+            height: calc(100% - 2rem);
+            label {
+                color: #007BFF;
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 15px;
+            }
+            p {
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .store-icons {
+                img {
+                    margin: 15px;
+                }
+            }
+        }
+    }
+    .user-list {
+        margin-bottom: 40px;
+        .tab-title {
+            font-size: 18px;
+        }
+        .add-user-btn {
+            background-color: #1172F4;
+            border-radius: 100px;
+            color: #fff;
+            padding: 0 20px;
+        }
+        .user-name {
+            color: #007BFF;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+::ng-deep .add-app-user {
+    .cancel-btn {
+        background-color: #DDDDDD;
+    }
+    .create-btn {
+        background-color: #1172F4;
+        color: #ffffff;
+    }
+    .error-wrap {
+        position: absolute;
+    }
+}
+
+::ng-deep .app-user-view {
+    .header-title {
+        background-color: #F9F9FA;
+        label {
+            color: #181818;
+            font-size: 20px;
+            margin-bottom: 0;
+            padding: 13px 10px;
+        }
+    }
+    .detail-body {
+        p {
+            font-weight: 600;
+            font-size: 16px;
+            span {
+                font-weight: 500;
+            }
+        }
+    }
+    .set-up-app {
+        .border-right {
+            border-right: 1px solid #ccc;
+        }
+        h4 {
+            font-size: 22px;
+            font-weight: 500;
+            color: #181818;
+            text-align: left;
+        }
+        .row {
+            align-items: stretch;
+        }
+        .section-div {
+            // box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.16);
+            // padding: 25px;
+            // border-radius: 10px;
+            height: calc(100% - 2rem);
+            label {
+                color: #007BFF;
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 15px;
+            }
+            p {
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .store-icons {
+                img {
+                    margin: 10px;
+                    width: 120px;
+                }
+            }
+        }
+    }
+}

@@ -1679,7 +1679,8 @@ export class eventSummaryDialog {
   customerData:any = [];
   isLoaderAdmin = false;
   is_show = false;
-
+  currencyCode ='USD';
+  
   constructor(
     public dialogRef: MatDialogRef<eventSummaryDialog>,
     private http: HttpClient,
