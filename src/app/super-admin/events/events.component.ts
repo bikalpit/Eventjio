@@ -357,12 +357,14 @@ export class EventsComponent implements OnInit {
   
   fnChangeEventEndDate(){
     // let startDate = this.addEventForm.get('event_start_date').value;
+    let startDate = this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd");
     // let endDate = this.addEventForm.get('event_end_date').value;
-    // if(startDate == endDate){
-    //   this.startEndSameDate = true;
-    // }else{
-    //   this.startEndSameDate = false;
-    // }
+    let endDate = this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd");
+    if(startDate == endDate){
+      this.startEndSameDate = true;
+    }else{
+      this.startEndSameDate = false;
+    }
     // this.minEventEndDate = this.addEventForm.get('event_start_date').value;
     // this.addEventForm.get('event_end_date').setValue('');
     // this.addEventForm.get('event_end_time').setValue('');
@@ -504,8 +506,6 @@ export class EventsComponent implements OnInit {
   
   
   fnAddNewEvent(){
-    console.log(this.addEventForm)
-    console.log(this.salesTax)
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     // this.customSalesTaxArr.push(this.createSalesTaxItem());
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
@@ -594,21 +594,35 @@ export class EventsComponent implements OnInit {
   }
   
   openAddNewTicketTypeDialog() {
+    if(
+    this.addEventForm.get('event_name').value == '' ||
+    this.addEventForm.get('event_start_date').value == '' ||
+    this.addEventForm.get('event_start_time').value == '' ||
+    this.addEventForm.get('event_end_date').value == '' ||
+    this.addEventForm.get('event_end_time').value == '' ||
+    this.addEventForm.get('vanue_name').value == '' ||
+    this.addEventForm.get('vanue_zip').value == '' ||
+    this.addEventForm.get('vanue_country').value == '' ||
+    this.addEventForm.get('description').value == ''
+    ){
+      this.ErrorService.errorMessage('Please fill above details first');
+      return false;
+    }
     const dialogRef = this.dialog.open(AddNewTicketType,{
       width: '1100px',
       data : {
         boxOfficeCode : this.boxOfficeCode,
         fullDayTimeSlote : this.fullDayTimeSlote,
+        startDate : this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
+        endDate : this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
+        startTime : this.addEventForm.get('event_start_time').value,
+        endTime : this.addEventForm.get('event_end_time').value,
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       if(result){
         this.eventTicketList.push(result)
-        console.log(this.eventTicketList)
-        // this.assignedTicketId.push(result.id)
-        // console.log(this.assignedTicketId)
         this.eventTicketAlertMSG = false;
       }
     });
@@ -620,7 +634,6 @@ export class EventsComponent implements OnInit {
   //   });
 
   //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log(`Dialog result: ${result}`);
   //   });
   // }
 
@@ -633,7 +646,6 @@ export class EventsComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
             this.newEventImageUrl = result;
-            console.log(result);
            }
      });
   }
@@ -701,6 +713,10 @@ export class AddNewTicketType {
   allCouponCodeList:any;
   boxOfficeCode:any
   addTicketForm:FormGroup;
+  minAvailDate= new Date();
+  maxAvailDate= new Date();
+  minUnavailDate= new Date();
+  maxUnavailDate= new Date();
   minDate= new Date();
   assignedCouponCodes :any = [];
   showQTY:any = 'N';
@@ -709,8 +725,13 @@ export class AddNewTicketType {
   advanceSetting:any = 'N';
   fullDayTimeSlote:any;
   newTicketData:any;
-  ticketAvalStatus:any
-  ticketUnavalStatus:any
+  ticketAvalStatus:any;
+  ticketUnavalStatus:any;
+  eventStartDate:any;
+  eventStartTime:any;
+  eventEndDate:any;
+  eventEndTime:any;
+  availUnavailDateSame:boolean=false;
   onlynumeric = /^[0-9]+(?:\.[0-9]+)?$/
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
@@ -719,9 +740,14 @@ export class AddNewTicketType {
     private datePipe: DatePipe,
     private SuperadminService: SuperadminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.boxOfficeCode = this.data.boxOfficeCode
-      this.fullDayTimeSlote = this.data.fullDayTimeSlote
-
+      this.boxOfficeCode = this.data.boxOfficeCode;
+      this.fullDayTimeSlote = this.data.fullDayTimeSlote;
+      this.eventStartDate = this.data.startDate;
+      this.eventStartTime = this.data.startTime;
+      this.eventEndDate = this.data.endDate;
+      this.eventEndTime = this.data.endTime;
+      this.maxAvailDate = this.eventStartDate;
+      this.maxUnavailDate = this.eventEndDate;
       this.addTicketForm = this._formBuilder.group({
         title: ['',[Validators.required]],
         price: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
@@ -733,11 +759,11 @@ export class AddNewTicketType {
         max_order: ['',[Validators.pattern(this.onlynumeric)]],
         ticket_available: ['',[Validators.required]],
         ticket_unavailable: ['',[Validators.required]],
-        until_date: [''],
-        until_time: [''],
-        until_interval: [''],
-        after_date: [''],
-        after_time: [''],
+        until_date: [null],
+        until_time: [null],
+        until_interval: [null],
+        after_date: [null],
+        after_time: [null],
         after_interval: ['']
       });
     }
@@ -747,6 +773,23 @@ export class AddNewTicketType {
   }
   ngOnInit() {
     this.getAllCouponCodes();
+  }
+
+  fnAvailDateChange(event){
+    this.minUnavailDate = event.value
+    this.addTicketForm.controls['until_time'].setValue('');
+    this.addTicketForm.controls['after_date'].setValue('');
+    this.addTicketForm.controls['after_time'].setValue('');
+    
+  }
+  fnUnavailDateChange(event){
+    this.addTicketForm.controls['after_time'].setValue('');
+    if(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd") == this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd")){
+      this.availUnavailDateSame = true;
+    }else{
+      this.availUnavailDateSame = false;
+    }
+    // this.minUnavailDate = event.value
   }
 
   getAllCouponCodes(){
@@ -804,10 +847,70 @@ export class AddNewTicketType {
 
   fnTicketAvailableStatus(event){
     this.ticketAvalStatus = event.value;
+    this.addTicketForm.controls['until_date'].setValue(null);
+    this.addTicketForm.controls['until_time'].setValue(null);
+    this.addTicketForm.controls['until_interval'].setValue('');
+    this.addTicketForm.controls['after_date'].setValue(null);
+    this.addTicketForm.controls['after_time'].setValue(null);
+    this.addTicketForm.controls['after_interval'].setValue('');
+    this.addTicketForm.controls['ticket_unavailable'].setValue('');
+    if(event.value == 'SDT'){
+      this.addTicketForm.controls["until_date"].setValidators(Validators.required);
+      this.addTicketForm.controls["until_time"].setValidators(Validators.required);
+      this.addTicketForm.controls["until_interval"].setValidators(null);
+      this.addTicketForm.controls["until_date"].updateValueAndValidity();
+      this.addTicketForm.controls["until_time"].updateValueAndValidity();
+      this.addTicketForm.controls["until_interval"].updateValueAndValidity();
+    }else if(event.value == 'SIB'){
+      this.addTicketForm.controls["until_interval"].setValidators(Validators.required);
+      this.addTicketForm.controls["until_date"].setValidators(null);
+      this.addTicketForm.controls["until_time"].setValidators(null);
+      this.addTicketForm.controls["until_interval"].updateValueAndValidity();
+      this.addTicketForm.controls["until_date"].updateValueAndValidity();
+      this.addTicketForm.controls["until_time"].updateValueAndValidity();
+    }else{
+      this.addTicketForm.controls["until_interval"].setValidators(null);
+      this.addTicketForm.controls["until_date"].setValidators(null);
+      this.addTicketForm.controls["until_time"].setValidators(null);
+      this.addTicketForm.controls["until_interval"].updateValueAndValidity();
+      this.addTicketForm.controls["until_date"].updateValueAndValidity();
+      this.addTicketForm.controls["until_time"].updateValueAndValidity();
+    }
+    this.addTicketForm.updateValueAndValidity();
   }
 
   fnTicketUnavailableStatus(event){
     this.ticketUnavalStatus = event.value;
+    this.addTicketForm.controls['after_date'].setValue('');
+    this.addTicketForm.controls['after_time'].setValue('');
+    this.addTicketForm.controls['after_interval'].setValue('');
+    if(event.value == 'SDT'){
+      this.addTicketForm.controls["after_date"].setValidators(Validators.required);
+      this.addTicketForm.controls["after_time"].setValidators(Validators.required);
+      this.addTicketForm.controls["after_interval"].setValidators(null);
+      this.addTicketForm.controls["after_date"].updateValueAndValidity();
+      this.addTicketForm.controls["after_time"].updateValueAndValidity();
+      this.addTicketForm.controls["after_interval"].updateValueAndValidity();
+    }else if(event.value == 'SIB'){
+      this.addTicketForm.controls["after_interval"].setValidators(Validators.required);
+      this.addTicketForm.controls["after_date"].setValidators(null);
+      this.addTicketForm.controls["after_time"].setValidators(null);
+      this.addTicketForm.controls["after_interval"].updateValueAndValidity();
+      this.addTicketForm.controls["after_date"].updateValueAndValidity();
+      this.addTicketForm.controls["after_time"].updateValueAndValidity();
+    }else{
+      this.addTicketForm.controls["after_interval"].setValidators(null);
+      this.addTicketForm.controls["after_date"].setValidators(null);
+      this.addTicketForm.controls["after_time"].setValidators(null);
+      this.addTicketForm.controls["after_interval"].updateValueAndValidity();
+      this.addTicketForm.controls["after_date"].updateValueAndValidity();
+      this.addTicketForm.controls["after_time"].updateValueAndValidity();
+    }
+    this.addTicketForm.updateValueAndValidity();
+  }
+
+  fnUntilIntervalChange(event){
+    this.addTicketForm.controls['after_interval'].setValue('');
   }
 
 
@@ -830,7 +933,6 @@ export class AddNewTicketType {
       this.addTicketForm.get('after_time').markAsTouched();
       this.addTicketForm.get('until_interval').markAsTouched();
       this.addTicketForm.get('after_interval').markAsTouched();
-      console.log(this.addTicketForm)
       return false;
     }
 
@@ -857,8 +959,8 @@ export class AddNewTicketType {
       'untill_time': this.addTicketForm.get('until_time').value,
       'after_date':  this.addTicketForm.get('after_date').value,
       'after_time':  this.addTicketForm.get('after_time').value,
-      'ticket_available':  this.addTicketForm.get('ticket_available').value,
-      'ticket_unavailable':  this.addTicketForm.get('ticket_unavailable').value,
+      'ticket_avilable':  this.addTicketForm.get('ticket_available').value,
+      'ticket_unavilable':  this.addTicketForm.get('ticket_unavailable').value,
       'sold_out':  this.soldOut,
       'show_qty':  this.showQTY,
       'discount':  this.assignedCouponCodes,
@@ -867,8 +969,6 @@ export class AddNewTicketType {
     }
     this.dialogRef.close(this.newTicketData);
     
-    //this.createNewTicket(requestObject)
-    console.log(this.addTicketForm)
   }
 
 

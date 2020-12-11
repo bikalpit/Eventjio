@@ -13,21 +13,21 @@
             <div class="mt-3">
                 <div class="row m-0">
                     <div class="w-100 form-group">
-                        <label for="">First Name</label>
+                        <label for="">First Name<span><i class="fa fa-asterisk"></i></span>  </label>
                         <input class="form-control p-2" formControlName="firstname" type="text" placeholder="Enter first name">
                         <span class="error-wrap" *ngIf="addAppUser.get('firstname').touched || addAppUser.get('firstname').dirty">
                             <small *ngIf="addAppUser.get('firstname').hasError('required')" class="error">First name is required.</small>
                         </span>
                     </div>
                     <div class="w-100 form-group">
-                        <label for="">Last Name</label>
+                        <label for="">Last Name<span><i class="fa fa-asterisk"></i></span>  </label>
                         <input class="form-control p-2" formControlName="lastname" type="text" placeholder="Enter last name">
                         <span class="error-wrap" *ngIf="addAppUser.get('lastname').touched || addAppUser.get('lastname').dirty">
                             <small *ngIf="addAppUser.get('lastname').hasError('required')" class="error">Last name is required.</small>
                         </span>
                     </div>
                     <div class="w-100 form-group">
-                        <label for="">Email</label>
+                        <label for="">Email<span><i class="fa fa-asterisk"></i></span>  </label>
                         <input class="form-control p-2" formControlName="email" type="text" placeholder="Enter email">
                         <span class="error-wrap" *ngIf="addAppUser.get('email').touched || addAppUser.get('email').dirty">
                             <small *ngIf="addAppUser.get('email').hasError('required')" class="error">Email address is required.</small>
