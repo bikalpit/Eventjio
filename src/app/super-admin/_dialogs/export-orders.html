@@ -52,46 +52,45 @@
         <mat-accordion class="" multi>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
-              <mat-panel-title>
-                <section class="tab-checkbox">
-                  <mat-checkbox class="" (change)="fnOrdersDetails($event)">ORDER DETAILS</mat-checkbox>
-                </section>
-              </mat-panel-title>
-              <mat-panel-description>
-                
-              </mat-panel-description>              
+                <mat-panel-title>
+                  <section class="tab-checkbox">
+                    <mat-checkbox class="" (change)="fnOrdersDetails($event,'main')" [(ngModel)]="orderDetails" >ORDER DETAILS</mat-checkbox>
+                  </section>
+                </mat-panel-title>
             </mat-expansion-panel-header>
 
             <section class="row">
-              <mat-checkbox (change)="fnOrdersDetailsOrder_id($event)" class="col-md-4" >Order ID</mat-checkbox>
-              <mat-checkbox (change)="fnOrdersDetailsticket_check($event)" class="col-md-4">Tickets checked in</mat-checkbox>
-              <mat-checkbox (change)="fnOrdersDetailsOrder_cancel($event)" class="col-md-4">Order cancelled</mat-checkbox>
-            </section>
+              <mat-checkbox class="col-md-4"  *ngFor="let value of ExorderDetails;let i=index"  (change)="fnOrdersDetails($event,'single')" [(ngModel)]="value.value">{{value.lable}}</mat-checkbox>
 
-            <section class="row">
-              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsOrder_date($event)">Order date</mat-checkbox>
-              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsTax_amont($event)">Tax amount</mat-checkbox>
-              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsVoucherCode($event)">Voucher codes amount</mat-checkbox>
-              <mat-checkbox class="col-md-4" (change)="fnOrdersDetailsTicket_charge($event)">Ticket charges</mat-checkbox>
+              <!-- <mat-checkbox class="col-md-4"  (change)="fnOrdersDetailsOrder_id($event)"  >Order ID</mat-checkbox> -->
+              <!-- <mat-checkbox class="col-md-4"  (change)="fnOrdersDetailsticket_check($event)" >Tickets checked in</mat-checkbox>
+              <mat-checkbox class="col-md-4"  (change)="fnOrdersDetailsOrder_cancel($event)" >Order cancelled</mat-checkbox>
+              <mat-checkbox class="col-md-4"  (change)="fnOrdersDetailsOrder_date($event)">Order date</mat-checkbox>
+              <mat-checkbox class="col-md-4"  (change)="fnOrdersDetailsTax_amont($event)">Tax amount</mat-checkbox>
+              <mat-checkbox class="col-md-4"  (change)="fnOrdersDetailsVoucherCode($event)">Voucher codes amount</mat-checkbox>
+              <mat-checkbox class="col-md-4"  (change)="fnOrdersDetailsTicket_charge($event)">Ticket charges</mat-checkbox> -->
             </section>
-
-            
           </mat-expansion-panel>
         </mat-accordion>
+
+
         <mat-accordion class="" multi>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <section class="tab-checkbox">
-                  <mat-checkbox class="" (change)="fnEventDetails($event)" >EVENT DETAILS</mat-checkbox>
+                  <mat-checkbox class="" (change)="fnEventDetails($event,'main')" [(ngModel)]="eventDetails"  >EVENT DETAILS</mat-checkbox>
                 </section>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <section class=" row">
-              <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_id($event)">Event ID</mat-checkbox>
+
+              <mat-checkbox class="col-md-4"  *ngFor="let value of exEventDetails;let i=index"  (change)="fnEventDetails($event,'single')" [(ngModel)]="value.value">{{value.lable}}</mat-checkbox>
+
+              <!-- <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_id($event)">Event ID</mat-checkbox>
               <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_name($event)">Event name</mat-checkbox>
               <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_start($event)">Event start</mat-checkbox>
-             <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_end($event)">Event end</mat-checkbox>
+             <mat-checkbox class=" col-md-4" (change)="fnEventDetailsEvent_end($event)">Event end</mat-checkbox> -->
              </section>
           </mat-expansion-panel>
         </mat-accordion>
@@ -100,20 +99,22 @@
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <section class=" tab-checkbox">
-                  <mat-checkbox class="" (change)="fnBuyersDetails($event)">BUYER DETAILS</mat-checkbox>
+                  <mat-checkbox class="" (change)="fnBuyersDetails($event,'main')" [(ngModel)]="buyerDetails" >BUYER DETAILS</mat-checkbox>
                 </section>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <section class=" row">
-              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsFirstname($event)">FirstName</mat-checkbox>
+              <mat-checkbox class="col-md-4"  *ngFor="let value of exBuyerDetails;let i=index"  (change)="fnBuyersDetails($event,'single')" [(ngModel)]="value.value">{{value.lable}}</mat-checkbox>
+
+              <!-- <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsFirstname($event)">FirstName</mat-checkbox>
               <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsLastname($event)">LastName</mat-checkbox>
               <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsEmail($event)">Email</mat-checkbox>
               <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsPhone($event)">Mobile number</mat-checkbox>
-              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd1($event)">Address 1</mat-checkbox>
+              <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd($event)">Address</mat-checkbox>
               <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd2($event)">Address 2</mat-checkbox>
               <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsAdd3($event)">Address 3</mat-checkbox>
               <mat-checkbox class=" col-md-4" (change)="fnBuyersDetailsPostcode($event)">Postcode / Zip</mat-checkbox>
-              <mat-checkbox class=" col-md-4">Postcode / Zip</mat-checkbox>
+              <mat-checkbox class=" col-md-4">Postcode / Zip</mat-checkbox> -->
             </section>
           </mat-expansion-panel>
         </mat-accordion>   

@@ -773,9 +773,7 @@ export class AddNewTicketType {
     this.dialogRef.close();
   }
 
-  fnTicketAvailableStatus(e){
-
-  }
+ 
 
   ngOnInit() {
     this.getAllCouponCodes();
