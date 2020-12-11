@@ -342,7 +342,7 @@
     <div *ngIf="themeSelectionOption == 'themeSelection'" class="preview-option-main">
         <div class="d-flex flex-wrap justify-content-center align-items-center">
             <h5>For preview theme click below button</h5>
-            <button mat-button class="bg-primary">Preview Theme</button>
+            <a target="_blank" href="{{boxOfficeUrl}}" mat-button class="bg-primary">Preview Theme</a>
         </div>
     </div>
     <div class="customize-area" [ngClass]="{'opened':customizerThemePanel}">
