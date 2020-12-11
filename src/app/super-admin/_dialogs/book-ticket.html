@@ -102,7 +102,7 @@
             <label for="" class="main-head fw-600">Do you have a promo code?</label>
             <div class="row">
               <div class="col-10 pr-1">
-                  <input type="text" class="form-control" [(ngModel)]="promo_code" >
+                  <input type="text" class="form-control" [(ngModel)]="promo_code" [disabled]="coupon_code!='' || voucher_code!=''"  >
                   <!-- <span class="error-wrap" *ngIf="bookTickets.get('promo_code').dirty || bookTickets.get('promo_code').touched">
                     <small *ngIf="bookTickets.get('promo_code').hasError('required')" class="error text-left">Promo Code is required.</small>
                     <small *ngIf="bookTickets.get('promo_code').hasError('maxlength') || bookTickets.get('promo_code').hasError('minlength')" class="error">Promo Code Should be of 6 digits.</small>

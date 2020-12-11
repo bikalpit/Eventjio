@@ -5,13 +5,14 @@ import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angu
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../../_services/superadmin.service';
 import { ErrorService } from '../../../_services/error.service';
-//import { DatePipe} from '@angular/common';
+import { DatePipe} from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environments/environment'
 @Component({
   selector: 'app-event-summary',
   templateUrl: './event-summary.component.html',
-  styleUrls: ['./event-summary.component.scss']
+  styleUrls: ['./event-summary.component.scss'],
+  providers: [DatePipe]
 })
 export class EventSummaryComponent implements OnInit {
 
@@ -28,6 +29,7 @@ export class EventSummaryComponent implements OnInit {
   setupOffline:boolean  = false;
   animal:any;
   isLoaderAdmin:any;
+  currencycode = 'USD';
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -36,6 +38,7 @@ export class EventSummaryComponent implements OnInit {
     private router: Router,
     private SuperadminService: SuperadminService,
     private SingleEventServiceService: SingleEventServiceService,
+    private datePipe:DatePipe,
 
   ) {}
   
@@ -51,16 +54,16 @@ export class EventSummaryComponent implements OnInit {
 
     let chartData = {
       "items": [
-                {
-                  "label":"TIcket sold",
-                  "data": data,
-                  "backgroundColor": "#D9EBFF",
-                  "borderColor": "rgb(40,100,200)",
-                  "fill": true,
-                  "lineTension": 0,
-                  "radius": 5
-                }
-        ]
+          {
+            "label":"TIcket sold",
+            "data": data,
+            "backgroundColor": "#D9EBFF",
+            "borderColor": "rgb(40,100,200)",
+            "fill": true,
+            "lineTension": 0,
+            "radius": 5
+          }
+      ]
     }
 
     for(let key in chartData.items){
@@ -164,7 +167,10 @@ export class EventSummaryComponent implements OnInit {
     
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.eventDetail = response.response[0];
+        this.eventDetail = response.response.event[0];
+        this.currencycode = this.eventDetail.event_setting.currency ? this.eventDetail.event_setting.currency  : 'USD'
+        // console.log(this.currencycode);
+        // console.log(this.eventDetail);
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }

@@ -53,7 +53,7 @@
                         <img [ngStyle]="{'display':pageName === 'issued-ticket' ? 'none' : 'block'}" src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
                         <img [ngStyle]="{'display':pageName === 'issued-ticket' ? 'block' : 'none'}" src="../../../assets/images/events/Icon awesome-ticket-alt_active.png" class="w-100" alt="">
                     </div>
-                    <span>Issued Tickets (1)</span>
+                    <span>Issued Tickets ( {{ eventSummery.totalTicket ? eventSummery.totalTicket.issueTicket : '0' }} )</span>
                 </div>
             </div>
 

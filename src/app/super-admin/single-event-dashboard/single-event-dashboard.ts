@@ -23,6 +23,7 @@ export class SingleEventDashboard implements OnInit {
   currentUrl: string;
   pageSlug:any;
   eventURL:any;
+  eventSummery:any = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -45,6 +46,23 @@ export class SingleEventDashboard implements OnInit {
   ngOnInit(): void {
     this.fnGetEventDetail();
     this.fnGetBoxOfficeDetail();
+    this.fnEventSummery();
+  }
+
+  fnEventSummery(){
+
+    let request = {
+      'event_id' : this.eventId,
+    }
+
+    this.SingleEventServiceService.getSingleSummery(request).subscribe((response:any) => {
+      if(response.data == true){
+        this.eventSummery = response.response;
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
   }
 
   fnGetEventDetail(){

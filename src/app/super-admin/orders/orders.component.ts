@@ -817,14 +817,40 @@ export class AddNewOrderDialog {
 
     this.superadminService.getAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
+        
         this.allEventlist = response.response;
+
+        this.allEventlist.forEach((element,index,object) => {
+
+          var status = element.event_status;
+          var endDate = element.end_date +' '+ element.end_time;
+
+          if(status == 'draft'){
+            object.splice(index, 1);
+          }
+
+          var lastDate: Date = new Date(endDate);
+          var currentDate: Date = new Date();
+
+          if( currentDate > lastDate  ){
+            console.log('false',endDate);
+            object.splice(index, 1);
+            //return false;
+          } else {
+            console.log('true',endDate);
+            //return true;
+          }
+
+      });
+
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-     });
+    });
   }
   
-  
+
+
   bookTicket(singleEventData) {
     const dialogRef = this.dialog.open(BookTicketDialog, {
       width: '700px',
@@ -880,6 +906,8 @@ export class BookTicketDialog {
   promo_code ="";
   grandTotal = 0;
   total_sales_tax_amount = 0;
+  coupon_code = '';
+  coupon_amt = 0;
 
   constructor(
     public dialog: MatDialog,
@@ -1115,29 +1143,43 @@ export class BookTicketDialog {
     let requestObject = {
       'event_id' : this.selectedEventCode,
       'code' : this.promo_code,
-      'tickets_id' : this.event_tickets.join(',')
+      'tickets_id' : this.event_tickets.join(','),
+      'boxoffice_id': this.boxOfficeCode,
     }
     
     this.superadminService.getVoucherCode(requestObject).subscribe((response:any) => {
       if(response.data == true){
 
-        var coupneData =  response.response;
-        this.voucher_code = this.promo_code;
-        this.voucher_amt = 0;
-        this.grandTotal = this.grandTotal - this.voucher_amt;
+        var Data =  response.response;
 
-        console.log(coupneData);
+        if(Data.type == 'voucher'){
+
+          this.voucher_code = this.promo_code;
+          this.voucher_amt = parseInt(Data.voucher_value);
+          this.grandTotal = this.grandTotal - this.voucher_amt;
+
+        }else{
+        
+          this.coupon_amt = 0;
+          this.coupon_code = this.promo_code;
+
+          if(Data.discount_type == 'P'){
+            this.coupon_amt = this.grandTotal * parseInt(Data.discount) / 100;
+          }else{
+            this.coupon_amt = Data.discount;
+          }
+          
+          this.grandTotal = this.grandTotal - this.coupon_amt;
+
+        }
+        
+
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
     });
 
-
-    // if(value > this.subTotal){
-    //   return false;
-    // }
-    // this.discount = value;
   }
 
    fnSum(qty,prize,booking_fee){
@@ -1232,8 +1274,12 @@ export class BookTicketDialog {
       "qty" : this.total_qty,
       "sub_total" : this.subTotal,
       "tax" : this.total_sales_tax_amount,
+      
       "voucher_code" : this.voucher_code,
       "voucher_amt" : this.voucher_amt,
+      "coupon_code" : this.coupon_code,
+      "coupon_amt" : this.coupon_amt,
+
       "grand_total" : this.grandTotal,
       "payment_method" : "cash",
       "transaction_id" : this.makeid(16),
@@ -1254,28 +1300,13 @@ export class BookTicketDialog {
 
     this.superadminService.createOrder(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage('Order created.');
-        this.orderDetail = response.response;
-
-        // this.orderDate  = this.datePipe.transform(new Date(this.orderDetail.created_at),"EEE MMM d, y");
-        // this.eventDate  = this.datePipe.transform(new Date(this.orderDetail.events.start_date),"EEE MMM d, y");
-        // this.order_item_data = this.orderDetail.order_item;
-        // this.customerData = this.orderDetail.customer;
-        // this.addOrderFormType = fromType;
-
-        // const dialogRef = this.dialog.open(eventSummaryDialog, {
-        //   width: '700px',
-        //   data : this.orderDetail
-        // });
-      
-        // dialogRef.afterClosed().subscribe(result => {
-        //   this.animal = result;
-        // });
-
-        this.dialogRef.close();
-
         
         this.isLoaderAdmin = false;
+
+        this.ErrorService.successMessage('Order created.');
+        this.orderDetail = response.response;
+        this.dialogRef.close();
+        
         this.change.detectChanges();
 
       }else{
@@ -1492,7 +1523,10 @@ export class EditorderDialog {
         if(response.data == true){
 
           this.singleorderCustomer = response.response;
-          let data =  JSON.parse(this.singleorderCustomer.customer.customer_data);
+          let data =  JSON.parse(this.singleorderCustomer.customer_info);
+          
+          console.log(data);
+
           this.eventSpecificForm = data.customerForm;
 
 
@@ -1680,7 +1714,7 @@ export class eventSummaryDialog {
   isLoaderAdmin = false;
   is_show = false;
   currencyCode ='USD';
-  
+
   constructor(
     public dialogRef: MatDialogRef<eventSummaryDialog>,
     private http: HttpClient,
