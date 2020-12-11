@@ -40,6 +40,7 @@ export class EventPageDesignComponent implements OnInit {
   bgColor = '#FFFFFF';
   singleEventOnline:boolean= false;
   themeSelectionOption:any = 'themeSelection';
+  boxOfficeUrl:any;
   constructor(
     private SettingService:SettingService,
     private ErrorService:ErrorService,
@@ -55,6 +56,7 @@ export class EventPageDesignComponent implements OnInit {
     }
     this.fnGetUpcomingEventList();
     this.getThemeAppearanceColor();
+    this.boxOfficeUrl= environment.bookingPageUrl+'/box-office/'+this.boxOfficeId
   }
 
   ngOnInit(): void {
@@ -105,6 +107,7 @@ export class EventPageDesignComponent implements OnInit {
 
   fnChangeTheme(theme){
     this.selectedTheme = theme;
+    this.fnUpadateThemeAppearanceColor();
   }
 
   fnThemeDirection(direction){
