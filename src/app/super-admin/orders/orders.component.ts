@@ -171,6 +171,7 @@ export class OrdersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
+      this.fngetallOrders();
     });
   }
 
@@ -267,52 +268,8 @@ export class ExportOrderDialog {
   selectedOrderArryyy:any;
   orderDetails:any = false;
   eventDetails:any = false;
-  buyerDetails:any = "N";
+  buyerDetails:any = false;
 
-  // orderDetails_id:any = "N";
-  // orderDetailsticket_check:any = "N";
-  // orderDetailOrder_cancel:any = "N";
-  // orderDetailOrder_date:any = "N";
-  // orderDetailTax_amount:any = "N";
-  // orderDetailVoucher_code:any = "N";
-  // orderDetailTicket_charge:any = "N";
-
-  // eventDetailsEvent_id:any = "N";
-  // eventDetailsEvent_name:any = "N";
-  // eventDetailsEvent_start:any = "N";
-  // eventDetailsEvent_end:any = "N";
-
-  // buyerDetailsFirstname:any = "N";
-  // buyerDetailsLastname:any = "N";
-  // buyerDetailsemail:any = "N";
-  // buyerDetailsPhone:any = "N";
-  // buyerDetailsAddress1:any = "N";
-  // buyerDetailsAddress2:any = "N";
-  // buyerDetailsAddress3:any = "N";
-  // buyerDetailsPostcode:any = "N";
-
-  orderDetailsTotal_paid:any = "N";
-  orderDetailspayment_method:any = "N";
-  orderDetailsReferral_tag:any = "N";
-  orderDetailsDiscount_code:any = "N";
-  orderDetailscancel_reason:any = "N";
-  orderDetailstransaction_id:any = "N";
-  Ticket_type:any ="N";
-  Ticket_description:any = "N";
-  Ticket_value:any = "N";
-  booking_fee:any = "N";
-  ticket_details:any = "N";
-  lineitem_details:any = "N";
-  line_type:any = "N";
-  line_description:any = "N";
-  line_value:any = "N";
-  linebooking_fee:any = "N";
-  lineitem_ticket:any = "N";
-  lineitem_voidticket:any = "N";
-  lineitem_transactioncharge:any = "N";
-  lineitem_taxes:any = "N";
-  lineitem_giftcard:any = "N";
-  lineitem_donation:any = "N";
   eventName:any;
   buyerArray:any;
   orderArray:any;
@@ -322,10 +279,65 @@ export class ExportOrderDialog {
   orderFieldList:any =[];
   eventFieldList:any =[];
   buyerFieldList:any =[];
+  
+  LiBuyerDetail:any = false;
+  LiBuyerDetails  = [
+    { 'name' : 'buyerDetailsFirstname', 'value' : false, 'lable' : 'FirstName','variable_name' :  'firstname' },
+    { 'name' : 'buyerDetailsLastname', 'value' : false, 'lable' : 'lastName','variable_name' :  'lastname'},
+    { 'name' : 'buyerDetailsemail', 'value' : false, 'lable' : 'Email' ,'variable_name' :  'email'},
+    { 'name' : 'buyerDetailsPhone', 'value' : false, 'lable' : 'Mobile number' ,'variable_name' :  'mobile'},
+    { 'name' : 'buyerDetailsAddress1', 'value' : false, 'lable' : 'Address' ,'variable_name' :  'address1'},
+    { 'name' : 'buyerDetailsPostcode', 'value' : false, 'lable' : 'Postcode / Zip' ,'variable_name' :  'zip'},
+  ];
+
+  LiEvent_detail:any = false;
+  LiEventDetails  = [
+    { 'name' : 'eventDetailsEvent_id', 'value' : false, 'lable' : 'Event ID'  ,'variable_name' :  'event_id'},
+    { 'name' : 'eventDetailsEvent_name', 'value' : false, 'lable' : 'Event name'  ,'variable_name' :  'event_name'},
+    { 'name' : 'eventDetailsEvent_start', 'value' : false, 'lable' : 'Event start' ,'variable_name' :  'event_start' },
+    { 'name' : 'eventDetailsEvent_end', 'value' : false, 'lable' : 'Event end'  ,'variable_name' :  'event_end'},
+  ];
+
+  Liorder_details:any = false;
+  LiOrderDetails  = [
+    { 'name' : 'orderDetails_id', 'value' : false, 'lable' : 'Order ID','variable_name' :  'order_id'},
+    { 'name' : 'orderDetails_date', 'value' : false, 'lable' : 'Order date','variable_name' :  'order_date'},
+    { 'name' : 'orderDetailsTotal_paid', 'value' : false, 'lable' : 'Total paid','variable_name' :  'total_paid'},
+    { 'name' : 'orderDetailspayment_method', 'value' : false, 'lable' : 'Payment method' ,'variable_name' :  'payment_method'},
+    { 'name' : 'orderDetailstransaction_id', 'value' : false, 'lable' : 'Transaction ID' ,'variable_name' :  'transaction_id'},
+    { 'name' : 'orderDetailsReferral_tag', 'value' : false, 'lable' : 'Referral Tag' ,'variable_name' :  'refrel_tag'},
+    { 'name' : 'orderDetailsDiscount_code', 'value' : false, 'lable' : 'Discount code' ,'variable_name' :  'discount_code'},
+    { 'name' : 'orderDetails_cancel', 'value' : false, 'lable' : 'Order cancelled' ,'variable_name' :  'order_canceled'},
+    { 'name' : 'taxes ', 'value' : false, 'lable' : 'Taxes' ,'variable_name' :  'tax_amount'},
+  ];
 
 
+  Liticketdetail:any = false;
+  ticketDetails  = [
+    { 'name' : 'tickets', 'value' : false, 'lable' : 'Tickets','variable_name' :  'tickets'},
+    { 'name' : 'voided_tickets', 'value' : false, 'lable' : 'Voided tickets' ,'variable_name' :  'voided_tickets'},
+    { 'name' : 'transaction_fee', 'value' : false, 'lable' : 'Transaction charges' ,'variable_name' :  'ticket_charges'},
+    { 'name' : 'taxes', 'value' : false, 'lable' : 'Taxes' ,'variable_name' :  'taxes'},
+  ];
+  
+  lineitem_details:any = false;
+  lineitemDetail  = [
+    { 'name' : 'line_type', 'value' : false, 'lable' : 'Type','variable_name' :  'type'},
+    { 'name' : 'line_description', 'value' : false, 'lable' : 'Description' ,'variable_name' :  'description'},
+    { 'name' : 'line_value', 'value' : false, 'lable' : 'Value' ,'variable_name' :  'value'},
+    { 'name' : 'linebooking_fee', 'value' : false, 'lable' : 'Booking fee' ,'variable_name' :  'booking_fee'},
+  ];
 
-    
+  lineitemType  = [
+    { 'name' : 'lineitem_ticket', 'value' : false, 'lable' : 'Tickets','variable_name' :  'tickets'},
+    { 'name' : 'lineitem_voidticket', 'value' : false, 'lable' : 'Voided tickets' ,'variable_name' :  'voided_tickets'},
+    { 'name' : 'lineitem_transactioncharge', 'value' : false, 'lable' : 'Transaction charges' ,'variable_name' :  'transaction_fee'},
+    { 'name' : 'lineitem_taxes', 'value' : false, 'lable' : 'Taxes' ,'variable_name' :  'taxes'},
+    { 'name' : 'lineitem_giftcard', 'value' : false, 'lable' : 'Gift cards' ,'variable_name' :  'gift_cards'},
+    { 'name' : 'lineitem_donation', 'value' : false, 'lable' : 'Donations' ,'variable_name' :  'donations'},
+  ];
+
+/////////////////////////////////////
 
   ExorderDetails  = [
     { 'name' : 'orderDetails_id', 'value' : false, 'lable' : 'Order ID','variable_name' :  'order_id'},
@@ -336,8 +348,6 @@ export class ExportOrderDialog {
     { 'name' : 'orderDetailVoucher_code', 'value' : false, 'lable' : 'Voucher codes amount' ,'variable_name' :  'voucher_code_amt'},
     { 'name' : 'orderDetailTicket_charge', 'value' : false, 'lable' : 'Ticket charges' ,'variable_name' :  'ticket_charges'},
   ];
-
-  
 
   exEventDetails  = [
     { 'name' : 'eventDetailsEvent_id', 'value' : false, 'lable' : 'Event ID'  ,'variable_name' :  'event_id'},
@@ -354,7 +364,6 @@ export class ExportOrderDialog {
     { 'name' : 'buyerDetailsPhone', 'value' : false, 'lable' : 'Mobile number' ,'variable_name' :  'mobile'},
     { 'name' : 'buyerDetailsAddress1', 'value' : false, 'lable' : 'Address' ,'variable_name' :  'address1'},
     { 'name' : 'buyerDetailsPostcode', 'value' : false, 'lable' : 'Postcode / Zip' ,'variable_name' :  'zip'},
-
   ];
 
   constructor(
@@ -375,8 +384,11 @@ export class ExportOrderDialog {
 
   ngOnInit() {
   }
-
   
+  fnExportOrderType(event){
+    this.reportType=event.value
+  }
+
 
   fnOrdersDetails(event,checkBoxType){
 
@@ -409,62 +421,6 @@ export class ExportOrderDialog {
 
   }
 
-  // fnOrdersDetailsOrder_id(event){
-  //   if(event.checked == true){
-  //     this.orderDetails_id = 'Y'
-  //     }else{
-  //       this.orderDetails_id = 'N' 
-  //   }
-  // }
-
-  // fnOrdersDetailsticket_check(event){
-  //   if(event.checked == true){
-  //     this.orderDetailsticket_check = 'Y'
-  //     }else{
-  //       this.orderDetailsticket_check = 'N' 
-  //   }
-  // }
-
-  // fnOrdersDetailsOrder_cancel(event){
-  //   if(event.checked == true){
-  //     this.orderDetailOrder_cancel = 'Y'
-  //     }else{
-  //    this.orderDetailOrder_cancel = 'N' 
-  //   }
-  // }
-
-  // fnOrdersDetailsVoucherCode(event){
-  //   if(event.checked == true){
-  //     this.orderDetailVoucher_code = 'Y'
-  //     }else{
-  //    this.orderDetailVoucher_code = 'N' 
-  //   }
-  // }
-
-  // fnOrdersDetailsTax_amont(event){
-  //   if(event.checked == true){
-  //     this.orderDetailTax_amount = 'Y'
-  //     }else{
-  //    this.orderDetailTax_amount = 'N' 
-  //   }
-  // }
-
-  // fnOrdersDetailsOrder_date(event){
-  //   if(event.checked == true){
-  //     this.orderDetailOrder_date = 'Y'
-  //     }else{
-  //    this.orderDetailOrder_date = 'N' 
-  //   }
-  // }
-
-  // fnOrdersDetailsTicket_charge(event){
-  //   if(event.checked == true){
-  //     this.orderDetailTicket_charge = 'Y'
-  //     }else{
-  //    this.orderDetailTicket_charge = 'N' 
-  //   }
-  // }
- 
   //overview report event details
 
   fnEventDetails(event,checkBoxType){
@@ -493,38 +449,6 @@ export class ExportOrderDialog {
 
   }
 
-  // fnEventDetailsEvent_id(event){
-  //   if(event.checked == true){
-  //     this.eventDetailsEvent_id = 'Y' 
-  //   }else{
-  //     this.eventDetailsEvent_id = 'N' 
-  //   }
-  // }
-
-  // fnEventDetailsEvent_name(event){
-  //   if(event.checked == true){
-  //     this.eventDetailsEvent_name = 'Y' 
-  //   }else{
-  //     this.eventDetailsEvent_name = 'N' 
-  //   }
-  // }
-
-  // fnEventDetailsEvent_end(event){
-  //   if(event.checked == true){
-  //     this.eventDetailsEvent_end = 'Y' 
-  //   }else{
-  //     this.eventDetailsEvent_end = 'N' 
-  //   }
-  // }
-
-  // fnEventDetailsEvent_start(event){
-  //   if(event.checked == true){
-  //     this.eventDetailsEvent_start = 'Y' 
-  //   }else{
-  //     this.eventDetailsEvent_start = 'N' 
-  //   }
-  // }
- 
   //overview report buyers details
 
   fnBuyersDetails(event,checkBoxType){
@@ -550,326 +474,249 @@ export class ExportOrderDialog {
 
   }
 
-  // fnBuyersDetailsFirstname(event){
-  //   if(event.checked == true){
-  //     this.buyerDetailsFirstname = 'Y' 
-  //   }else{
-  //     this.buyerDetailsFirstname = 'N' 
-  //   }
-  // }
+  /////////////////////////
 
-  // fnBuyersDetailsLastname(event){
-  //   if(event.checked == true){
-  //     this.buyerDetailsLastname = 'Y' 
-  //   }else{
-  //     this.buyerDetailsLastname = 'N' 
-  //   }
-  // }
+  fnLineitem_details(event,checkBoxType){
 
-  // fnBuyersDetailsEmail(event){
-  //   if(event.checked == true){
-  //     this.buyerDetailsemail = 'Y' 
-  //   }else{
-  //     this.buyerDetailsemail = 'N' 
-  //   }
-  // }
-  
-  // fnBuyersDetailsPhone(event){
-  //   if(event.checked == true){
-  //     this.buyerDetailsPhone = 'Y' 
-  //   }else{
-  //     this.buyerDetailsPhone = 'N' 
-  //   }
-  // }
+    if(checkBoxType == 'main'){
 
-  // fnBuyersDetailsAdd(event){
-  //   if(event.checked == true){
-  //     this.buyerDetailsAddress1 = 'Y' 
-  //   }else{
-  //     this.buyerDetailsAddress1 = 'N' 
-  //   }
-  // }
+      event.checked == true ? this.lineitem_details = true  : this.lineitem_details = false;
+      this.lineitemDetail.forEach(element => {
+        element.value = event.checked;
+      });
 
-  // fnBuyersDetailsAdd2(event){
-  //   if(event.checked == true){
-  //     this.buyerDetailsAddress2 = 'Y' 
-  //   }else{
-  //     this.buyerDetailsAddress2 = 'N' 
-  //   }
-  // }
-
-  // fnBuyersDetailsAdd3(event){
-  //   if(event.checked == true){
-  //     this.buyerDetailsAddress3 = 'Y' 
-  //   }else{
-  //     this.buyerDetailsAddress3 = 'N' 
-  //   }
-  // }
-  
-  // fnBuyersDetailsPostcode(event){
-  //   if(event.checked == true){
-  //     this.buyerDetailsPostcode = 'Y' 
-  //   }else{
-  //     this.buyerDetailsPostcode = 'N' 
-  //   }
-  // }
-
-  fnExportOrderType(event){
-    this.reportType=event.value
- }
-
-
- fnTicket_details(event){
-  if(event.checked == true){
-    this.ticket_details = 'Y' 
-  }else{
-    this.ticket_details = 'N' 
-  }
- }
-
- fnLineitem_details(event){
-  if(event.checked == true){
-    this.lineitem_details = 'Y' 
-  }else{
-    this.lineitem_details = 'N' 
-  } 
- }
-  
- //########### line item type checboxes ###########################
-
- fnLineitem_ticket(event){
-  if(event.checked == true){
-    this.lineitem_ticket = 'Y' 
-  }else{
-    this.lineitem_ticket = 'N' 
-  } 
- }
-
- fnLineitem_Voidticket(event){
-  if(event.checked == true){
-    this.lineitem_voidticket = 'Y' 
-  }else{
-    this.lineitem_voidticket = 'N' 
-  } 
- }
-
- fnLineitemTransactionCharge(event){
-  if(event.checked == true){
-    this.lineitem_transactioncharge = 'Y' 
-  }else{
-    this.lineitem_transactioncharge = 'N' 
-  } 
- }
-
- fnLineitemTaxes(event){
-  if(event.checked == true){
-    this.lineitem_taxes = 'Y' 
-  }else{
-    this.lineitem_taxes = 'N' 
-  } 
- }
-
- fnLineitemGift_cards(event){
-  if(event.checked == true){
-    this.lineitem_giftcard = 'Y' 
-  }else{
-    this.lineitem_giftcard = 'N' 
-  } 
- }
-
- fnLineitem_donation(event){
-  if(event.checked == true){
-    this.lineitem_donation= 'Y' 
-  }else{
-    this.lineitem_donation= 'N' 
-  } 
- }
-
- //line item order-field
-
- fnOrdersDetailsTotal_paid(event){
-    if(event.checked == true){
-      this.orderDetailsTotal_paid = 'Y' 
     }else{
-      this.orderDetailsTotal_paid = 'N' 
+
+      var i = 0;
+      this.lineitemDetail.forEach(element => {
+        if(element.value){
+          i++
+        }
+        i == 4 ? this.lineitem_details = true : this.lineitem_details = false ;
+      });
+
     }
- }
 
- fnOrdersDetailspayment_method(event){
-  if(event.checked == true){
-    this.orderDetailspayment_method = 'Y' 
-  }else{
-    this.orderDetailspayment_method = 'N' 
   }
-}
-
-fnOrdersDetailsReferral_tag(event){
-  if(event.checked == true){
-    this.orderDetailsReferral_tag = 'Y' 
-  }else{
-    this.orderDetailsReferral_tag = 'N' 
-  }
-}
-
-fnOrdersDetailsDiscount_code(event){
-  if(event.checked == true){
-    this.orderDetailsDiscount_code = 'Y' 
-  }else{
-    this.orderDetailsDiscount_code = 'N' 
-  }
-}
-
-fnOrdersDetailsCancel_reason(event){
-  if(event.checked == true){
-    this.orderDetailscancel_reason = 'Y' 
-  }else{
-    this.orderDetailscancel_reason = 'N' 
-  }
-}
-
-fnOrdersDetailsTransaction_id(event){
-  if(event.checked == true){
-    this.orderDetailstransaction_id = 'Y' 
-  }else{
-    this.orderDetailstransaction_id = 'N' 
-  }
-}
-
-//line-item ticket details
-
-fnTicket_type(event){
-  if(event.checked == true){
-    this.Ticket_type = 'Y' 
-  }else{
-    this.Ticket_type = 'N' 
-  }
-}
-
-fnTicket_description(event){
-  if(event.checked == true){
-    this.Ticket_description = 'Y' 
-  }else{
-    this.Ticket_description = 'N' 
-  }
-}
-
-fnTicket_value(event){
-  if(event.checked == true){
-    this.Ticket_value = 'Y' 
-  }else{
-    this.Ticket_value = 'N' 
-  }
-}
-
-fnticketBooking_fee(event){
-  if(event.checked == true){
-    this.booking_fee = 'Y' 
-  }else{
-    this.booking_fee = 'N' 
-  }
-}
+  
  
-//line-item line-type
+  fnTicket_details(event,checkBoxType){
+    if(checkBoxType == 'main'){
 
-fnLine_type(event){
-  if(event.checked == true){
-    this.line_type = 'Y' 
-  }else{
-    this.line_type = 'N' 
+      event.checked == true ? this.Liticketdetail = true  : this.Liticketdetail = false;
+      this.ticketDetails.forEach(element => {
+        element.value = event.checked;
+      });
+
+    }else{
+
+      var i = 0;
+      this.ticketDetails.forEach(element => {
+        if(element.value){
+          i++
+        }
+        i == 4 ? this.Liticketdetail = true : this.Liticketdetail = false ;
+      });
+
+    }
+
   }
-}
 
-fnline_Description(event){
-  if(event.checked == true){
-    this.line_description = 'Y' 
-  }else{
-    this.line_description = 'N' 
+  fnLiOrdersDetails(event,checkBoxType){
+
+    if(checkBoxType == 'main'){
+
+      event.checked == true ? this.Liorder_details = true  : this.Liorder_details = false;
+      this.LiOrderDetails.forEach(element => {
+        element.value = event.checked;
+      });
+
+    }else{
+
+      var i = 0;
+      this.LiOrderDetails.forEach(element => {
+        if(element.value){
+          i++
+        }
+        i == 9 ? this.Liorder_details = true : this.Liorder_details = false ;
+      });
+    }
+
   }
-}
 
-fnline_Value(event){
-  if(event.checked == true){
-    this.line_value = 'Y' 
-  }else{
-    this.line_value = 'N' 
+  fnLiEventDetailsEvent(event,checkBoxType){
+    if(checkBoxType == 'main'){
+      event.checked == true ? this.LiEvent_detail = true  : this.LiEvent_detail = false;
+      this.LiEventDetails.forEach(element => {
+        element.value = event.checked;
+      });
+    }else{
+      var i = 0;
+      this.LiEventDetails.forEach(element => {
+        if(element.value){
+          i++
+        }
+        i == 4 ? this.LiEvent_detail = true : this.LiEvent_detail = false ;
+      });
+    }
   }
-}
 
-fnlineBooking_fee(event){
-  if(event.checked == true){
-    this.linebooking_fee = 'Y' 
-  }else{
-    this.linebooking_fee = 'N' 
+  fnLiBuyersDetails(event,checkBoxType){
+      
+    if(checkBoxType == 'main'){
+
+      event.checked == true ? this.LiBuyerDetail = true  : this.LiBuyerDetail = false;
+
+      this.LiBuyerDetails.forEach(element => {
+        element.value = event.checked;
+      });
+  
+    }else{
+
+      var i = 0;
+      this.LiBuyerDetails.forEach(element => {
+        if(element.value){
+          i++
+        }
+        i == 6 ? this.LiBuyerDetail = true : this.LiBuyerDetail = false ;
+      });
+    }
+
   }
-}
 
-exportOrder(){
-   
-  const options = { 
-    fieldSeparator: ',',
-    quoteStrings: '"',
-    decimalSeparator: '.',
-    showLabels: true, 
-    showTitle: true,
-    title: 'My Awesome CSV',
-    useTextFile: false,
-    useBom: true,
-    useKeysAsHeaders: true,
-  };
-  const csvExporter = new ExportToCsv(options);
-  // this.buyerArray=this.buyerFieldList.concat('unique_code');
-  // this.orderArray=this.orderFieldList.concat('unique_code').concat('customer_id');
-  // this.eventArray= this.eventFieldList.concat('unique_code');
-
-  if(this.reportType=="overview"){
-
-    let requestObject = {
-      "boxoffice_id" : this.boxOfficeCode,
-      "report_type": "O" ,
-      "buyer_details":  this.buyerDetails ? 'Y' : "N",
-      "order_details":this.orderDetails ? 'Y' : "N",
-      "event_details": this.eventDetails ? 'Y' : "N",
-
-      // "order_id":this.orderDetails_id,
-      // "tickets_checked_in":this.orderDetailsticket_check,
-      // "order_canceled":this.orderDetailOrder_cancel,
-      // "order_date":this.orderDetailOrder_date,
-      // "tax_amount":this.orderDetailTax_amount,
-      // "voucher_code_amt":this.orderDetailVoucher_code,
-      // "ticket_charges":this.orderDetailTicket_charge,
-
-      // "event_id":this.eventDetailsEvent_id,
-      // "event_name":this.eventDetailsEvent_name ,
-      // "event_start":this.eventDetailsEvent_start,
-      // "event_end":this.eventDetailsEvent_end,
-      // "firstname":this.buyerDetailsFirstname,
-      // "lastname":this.buyerDetailsLastname,
-      // "email":this.buyerDetailsemail,
-      // "mobile":this.buyerDetailsPhone,
-      // "address1":this.buyerDetailsAddress1,
-      // "address2":this.buyerDetailsAddress2,
-      // "address3":this.buyerDetailsAddress3,
-      // "zip":this.buyerDetailsPostcode,
+  exportOrder(){
+    
+    const options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true, 
+      showTitle: true,
+      title: 'Export Orders',
+      useTextFile: false,
+      useBom: true,
+      useKeysAsHeaders: true,
     };
+    const csvExporter = new ExportToCsv(options);
+    // this.buyerArray=this.buyerFieldList.concat('unique_code');
+    // this.orderArray=this.orderFieldList.concat('unique_code').concat('customer_id');
+    // this.eventArray= this.eventFieldList.concat('unique_code');
 
-    this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
-      if(response.data == true){   
-        this.selectedOrderArr = response.response
-        console.log(this.selectedOrderArr);
-        csvExporter.generateCsv(this.selectedOrderArr);
-        this.ErrorService.successMessage("orders exported successfully");
-      }else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this.ErrorService.errorMessage(response.response);
-      }
-   });
+    if(this.reportType=="overview"){
+
+          let requestObject = {
+            "boxoffice_id" : this.boxOfficeCode,
+            "report_type": "O" ,
+            "buyer_details":  this.buyerDetails ? 'Y' : "N",
+            "order_details":this.orderDetails ? 'Y' : "N",
+            "event_details": this.eventDetails ? 'Y' : "N",
+          
+            "address2" : 'N',
+            "address3" : 'N',
+            "booking_fee" : "N",
+            "description" : "N",
+            "discount_code" : "N",
+            "donations" : "N",
+            "gift_cards" : "N",
+            "payment_method" : "N",
+            "refrel_tag" : "N",
+            "taxes" : "N",
+            "tickets" : "N",
+            "total_paid" : "N",
+            "transaction_fee" : "N",
+            "transaction_id" : "N",
+            "type" : "N",
+            "value" : "N",
+            "voided_tickets" : "N",
+          };
+
+          this.ExorderDetails.forEach((element,key,obj) => {
+            requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+          });
+
+          this.exEventDetails.forEach((element,key,obj) => {
+            requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+          });
+
+          this.exBuyerDetails.forEach((element,key,obj) => {
+            requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+          });
+
+
+          this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
+            if(response.data == true){   
+              this.selectedOrderArr = response.response
+              console.log(this.selectedOrderArr);
+              csvExporter.generateCsv(this.selectedOrderArr);
+              this.ErrorService.successMessage("orders exported successfully");
+            }else if(response.data == false && response.response !== 'api token or userid invaild'){
+              this.ErrorService.errorMessage(response.response);
+            }
+        });
+
+    }
+
+    if(this.reportType=="lineItem"){
+      
+      let requestObject = {
+        "boxoffice_id" : this.boxOfficeCode,
+        "report_type": "L",
+
+        // 'lineitem_details'  : this.lineitem_details ? 'Y' : 'N',
+        // 'ticket_details'  : this.Liticketdetail ? 'Y' : 'N',
+        
+        "buyer_details":  this.LiBuyerDetail ? 'Y' : "N",
+        "order_details":this.Liorder_details ? 'Y' : "N",
+        "event_details": this.LiEvent_detail ? 'Y' : "N",
+        "address2" : 'N',
+        "address3" : 'N',
+        "tickets_checked_in" : "N",
+        "voucher_code_amt" : "N"
+      };
+      
+      this.lineitemType.forEach((element,key,obj) => {
+        requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+      });
+
+      console.log(this.lineitemDetail);
+
+      this.lineitemDetail.forEach((element,key,obj) => {
+        requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+      });
+
+      this.ticketDetails.forEach((element,key,obj) => {
+        requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+      });
+      
+      this.LiOrderDetails.forEach((element,key,obj) => {
+        requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+      });
+
+      this.LiEventDetails.forEach((element,key,obj) => {
+        requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+      });
+
+      this.LiBuyerDetails.forEach((element,key,obj) => {
+        requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+      });
+     
+
+      this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
+        if(response.data == true){   
+
+          this.selectedOrderArr = response.response;
+          csvExporter.generateCsv(this.selectedOrderArr);
+          
+          this.ErrorService.successMessage("orders exported successfully");
+
+        }else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this.ErrorService.errorMessage(response.response);
+        }
+      });
+      
+    }
 
   }
-
-  if(this.reportType=="lineItem"){
-
-  }
-
-}
 
 
 }
@@ -909,7 +756,6 @@ export class AddNewOrderDialog {
   fnBookTicketType(selecetedEvent,singleEventData){
     this.selectedEvent = selecetedEvent;
     this.bookTicket(singleEventData);
-    this.dialogRef.close();
   }
   
   fnGetAllEventList(){
@@ -952,8 +798,6 @@ export class AddNewOrderDialog {
       }
     });
   }
-  
-
 
   bookTicket(singleEventData) {
     const dialogRef = this.dialog.open(BookTicketDialog, {
@@ -1012,6 +856,7 @@ export class BookTicketDialog {
   total_sales_tax_amount = 0;
   coupon_code = '';
   coupon_amt = 0;
+  gloabelSalesTax = 0;
 
   constructor(
     public dialog: MatDialog,
@@ -1066,6 +911,8 @@ export class BookTicketDialog {
       });
   }
 
+ 
+
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -1073,8 +920,33 @@ export class BookTicketDialog {
   ngOnInit() {
     this.fnGeteventTicket();
     this.getEventForm();
+    this.fnGetSalesTax();
   }
  
+  fnGetSalesTax(){
+    
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'boxoffice_id' : this.boxOfficeCode,
+    }
+
+    this.superadminService.getAllAddTax(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.gloabelSalesTax = response.response;
+
+        response.response.forEach(element => {
+          this.gloabelSalesTax = this.gloabelSalesTax +  parseInt(element.value);
+        });
+
+        
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
+
+  }
+
   getEventForm(){
 
     this.isLoaderAdmin = true;
@@ -1127,7 +999,6 @@ export class BookTicketDialog {
         var data =   JSON.parse(response.response);
         //this.attendeeForm = data[0].attendee_questions;
         this.eventForm = data[0].buyer_questions;
-        console.log(this.eventForm);
 
         var i = 0; 
         this.eventForm.forEach(element => {
@@ -1222,6 +1093,7 @@ export class BookTicketDialog {
     
     if(true == is_update){
       this.subTotal = 0;
+      this.total_qty = 0;
       this.eventTicket.forEach(element=>{
         if(parseInt(element.qty)  > 0 && element.id_added == true){
           this.is_added_at_least_item = false;
@@ -1232,11 +1104,14 @@ export class BookTicketDialog {
       });
     }
 
+
     if(this.total_sales_tax  > 0){
       this.total_sales_tax_amount = this.subTotal*this.total_sales_tax/100;
+    }else if(this.gloabelSalesTax > 0){
+      this.total_sales_tax_amount = this.subTotal*this.gloabelSalesTax/100;
     }
-    this.grandTotal = this.subTotal+this.total_sales_tax_amount+this.transaction_fee;
 
+    this.grandTotal = this.subTotal+this.total_sales_tax_amount+this.transaction_fee;
 
   }
 
@@ -1268,13 +1143,12 @@ export class BookTicketDialog {
           this.coupon_code = this.promo_code;
 
           if(Data.discount_type == 'P'){
-            this.coupon_amt = this.grandTotal * parseInt(Data.discount) / 100;
+            this.coupon_amt = this.subTotal * parseInt(Data.discount) / 100;
           }else{
-            this.coupon_amt = Data.discount;
+            this.coupon_amt = parseInt(Data.discount);
           }
           
           this.grandTotal = this.grandTotal - this.coupon_amt;
-
         }
         
 
@@ -1378,7 +1252,8 @@ export class BookTicketDialog {
       "qty" : this.total_qty,
       "sub_total" : this.subTotal,
       "tax" : this.total_sales_tax_amount,
-      
+      "transaction_fee" : this.transaction_fee,
+
       "voucher_code" : this.voucher_code,
       "voucher_amt" : this.voucher_amt,
       "coupon_code" : this.coupon_code,
@@ -1398,6 +1273,8 @@ export class BookTicketDialog {
       "customer_info" : JSON.stringify({ 'customerForm' : this.eventSpecificForm }),
       'tickets' : order_item
     }
+
+  
 
 
     this.isLoaderAdmin = true;
@@ -1451,18 +1328,6 @@ export class BookTicketDialog {
     
     window.open(`${environment.apiUrl}/download-single-ticket?unique_code=${itemId}`);
 
-    // this.isLoaderAdmin = true;
-    // let requestObject = {
-    //   'unique_code' : itemId,
-    // }
-    // this.superadminService.DownloadTicket(requestObject).subscribe((response: any) => {
-    //   if (response.data == true) {
-    //     this.ErrorService.errorMessage(response.response);
-    //   } else if (response.data == false) {
-    //     this.ErrorService.errorMessage(response.response);
-    //   }
-    //   this.isLoaderAdmin = false;
-    // });
   }  
 
 
@@ -1747,7 +1612,6 @@ export class cancelOrderDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.singleorderCustomer = this.data;
       this.eventData = this.data.events ? this.data.events : [];
-      console.log(this.eventData);
     }
 
   onNoClick(): void {
