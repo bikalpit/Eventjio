@@ -29,7 +29,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../.././shared.module';
+import { SharedModule } from '../../shared.module';
 
 @NgModule({
   declarations: [EventSummaryComponent,

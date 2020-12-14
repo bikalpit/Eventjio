@@ -69,7 +69,7 @@
                 TICKET SALES REVENUE
             </div>
             <div class="count">
-                {{ ( eventSummery && eventSummery.totalTicket ? eventSummery.totalTicket.salesRevenue : 0 )| currency:currencySymbol:'symbol'}}
+                {{ ( eventSummery && eventSummery.totalTicket ? eventSummery.totalTicket.salesRevenue : 0 )| currency:currencycode:'symbol'}}
             </div>
             <div class="more-link">
                 <a>View orders</a>
@@ -142,11 +142,11 @@
 
                 <div class="border" fxLayout="row" *ngFor="let value of eventSummery.soldTicket;let i=index">
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="35">{{value.event ? value.event.event_title : '-'}} </div>
-                    <div class="fxflex p-2 pl-3 border-right" fxFlex="15">{{ value.ticket_amt | currency:currencySymbol:'symbol' }}</div>
-                    <div class="fxflex p-2 pl-3 border-right" fxFlex="10">{{ (value.ticket ? value.ticket.booking_fee : 0) | currency:currencySymbol:'symbol' }}</div>
+                    <div class="fxflex p-2 pl-3 border-right" fxFlex="15">{{ value.ticket_amt | currency:currencycode:'symbol' }}</div>
+                    <div class="fxflex p-2 pl-3 border-right" fxFlex="10">{{ (value.ticket ? value.ticket.booking_fee : 0) | currency:currencycode:'symbol' }}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20">{{value.sold}}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20">
-                        {{value.revenue | currency:currencySymbol:'symbol' }}
+                        {{value.revenue | currency:currencycode:'symbol' }}
                     </div>
                 </div>
 
@@ -158,7 +158,7 @@
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="10"></div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20"></div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20">
-                        <p class="font-weight-bold mt-3"> {{ (eventSummery.totalTicket ? eventSummery.totalTicket.salesRevenue : 0) | currency:currencySymbol:'symbol' }} </p>
+                        <p class="font-weight-bold mt-3"> {{ (eventSummery.totalTicket ? eventSummery.totalTicket.salesRevenue : 0) | currency:currencycode:'symbol' }} </p>
                     </div>
                 </div>
             </div>
@@ -187,7 +187,7 @@
                     <div class="fxflex font-weight-bold p-2 pl-3 border-right" fxFlex="40">{{value.type}}</div>
                     <div class="fxflex font-weight-bold p-2 pl-3 border-right" fxFlex="20">{{value.totalOrders}}</div>
                     <div class="fxflex font-weight-bold p-2 pl-3 border-right" fxFlex="20">{{value.totalTickets}}</div>
-                    <div class="fxflex font-weight-bold p-2 pl-3 border-right" fxFlex="20"> {{ value.totalRevenue | currency:currencySymbol:'symbol' }} </div>
+                    <div class="fxflex font-weight-bold p-2 pl-3 border-right" fxFlex="20"> {{ value.totalRevenue | currency:currencycode:'symbol' }} </div>
                 </div>
             </div>
         </div>
