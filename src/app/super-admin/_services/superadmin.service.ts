@@ -284,6 +284,12 @@ export class SuperadminService {
         }),catchError(this.handleError));
     }
 
+    getAllAddTax(requestObject){
+        return this.http.post(`${environment.apiUrl}/getsaltetax-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     
     getVoucherCode(requestObject) {
         return this.http.post(`${environment.apiUrl}/front-voucher-discount-check`,requestObject,{headers:this.globalHeaders}).pipe(

@@ -32,11 +32,8 @@
                         <label for="">Event</label>
                         <mat-select placeholder="Select all ticket" class="form-control" [(ngModel)]="Ticket_Type" (selectionChange)="onChange($event.value)">
                             <mat-option value="all">All</mat-option>
-<<<<<<< HEAD
                             <mat-option *ngFor="let val of EventDetail.tickets; let i = index"   [value]="val.unique_code">{{ val.ticket_name }}</mat-option>
-=======
                             <!-- <mat-option *ngFor="let val of EventDetail.tickets; let i = index" value="{{val.unique_code ? val.unique_code : 'NULL'}}">{{ val.ticket_name }}</mat-option> -->
->>>>>>> 1400eb024e982ac89ef1562320166ebe05650796
                         </mat-select>
                     </div>
 

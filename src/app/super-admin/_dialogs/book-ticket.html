@@ -52,7 +52,7 @@
     </div>
   
       <div  class="with-validation checkout-form" *ngIf="addOrderFormType === 'CheckoutForm'">
-        <h4 class="main-head">Checkout</h4>
+        <!-- <h4 class="main-head">Checkout</h4> -->
         <div class="itemlist-table">
           <div class="service-listing">
             <div class="main-table-content main-cust-table-content">
@@ -60,10 +60,11 @@
                   <div class="heads main-heading-content drageble" fxLayout="row">
                       <div class="th-data" fxFlex="30">Item</div>
                       <div class="th-data" fxFlex="20">Price</div>
-                      <div class="th-data" fxFlex="15">Fee</div>
+                      <div class="th-data" fxFlex="15">Booking Fee</div>
                       <div class="th-data" fxFlex="15">Quantity</div>
                       <div class="th-data" fxFlex="20" class="align-end">Subtotal</div>
                   </div>
+               
                   <div class="content" class="drageble-list">
                       <div class="drageble-box fw-600" fxLayout="row"  *ngFor="let eventTicket of eventTicket"  >
                           <div *ngIf="eventTicket.id_added" class="tb-data order-item fw-100" fxFlex="30" >{{eventTicket.ticket_name}}</div>
@@ -72,14 +73,45 @@
                           <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="15">{{eventTicket.qty}} </div>
                           <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="20">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee) | currency:currencyCode:'symbol' }}</div>                        
                       </div>
-                  </div>     
+                  </div>   
+                  <hr>
+                  <div  class="content drageble-list">
+                    <div class="drageble-box fw-600"  fxLayout="row">
+                        <div class="tb-data fs-15 fw-600" fxFlex="35">Transation Fees</div>
+                        <div class="tb-data" fxFlex="20"></div>
+                        <div class="tb-data" fxFlex="15"></div>
+                        <div class="tb-data" fxFlex="15"></div>
+                        <div class="tb-data align-end fs-15" fxFlex="20">{{ transaction_fee | currency:currencyCode:'symbol' }}</div>                        
+                    </div>
+                  </div>  
+
+                  <div  class="content drageble-list" *ngIf="total_sales_tax_amount">
+                    <div class="drageble-box fw-600"  fxLayout="row">
+                        <div class="tb-data fs-15 fw-600" fxFlex="35">Sales Tax</div>
+                        <div class="tb-data" fxFlex="20"></div>
+                        <div class="tb-data" fxFlex="15"></div>
+                        <div class="tb-data" fxFlex="15"></div>
+                        <div class="tb-data align-end fs-15" fxFlex="20">{{ total_sales_tax_amount | currency:currencyCode:'symbol' }}</div>                        
+                    </div>
+                  </div>  
+
+                  <div  class="content drageble-list" *ngIf="coupon_amt">
+                    <div class="drageble-box fw-600"  fxLayout="row">
+                        <div class="tb-data fs-15 fw-600" fxFlex="35">Promo Code</div>
+                        <div class="tb-data" fxFlex="20"></div>
+                        <div class="tb-data" fxFlex="15"></div>
+                        <div class="tb-data" fxFlex="15"></div>
+                        <div class="tb-data align-end fs-15" fxFlex="20">{{ coupon_amt | currency:currencyCode:'symbol' }}</div>                        
+                    </div>
+                  </div> 
+
                   <div class="content" class="drageble-list">
                     <div class="drageble-box fw-600"  fxLayout="row">
                         <div class="tb-data fs-15 fw-600" fxFlex="35">Order Total</div>
                         <div class="tb-data" fxFlex="20"></div>
                         <div class="tb-data" fxFlex="15"></div>
                         <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data align-end fs-15" fxFlex="20">{{ subTotal-discount | currency:currencyCode:'symbol' }}</div>                        
+                        <div class="tb-data align-end fs-15" fxFlex="20">{{ grandTotal | currency:currencyCode:'symbol' }}</div>                        
                     </div>
                 </div>  
                 <div class="content" class="drageble-list">
@@ -109,7 +141,7 @@
                   </span> -->
               </div>
               <div class="col-2 pl-1">
-                <button mat-raised-button class="ticket-btn comm-btn" (click)="fnAddDiscount()">Apply</button>
+                <button mat-raised-button class="ticket-btn comm-btn" (click)="fnAddDiscount()" [disabled]="coupon_code!=''" >Apply</button>
               </div>
             </div>
           </div>
@@ -117,7 +149,7 @@
           <div class="checkout mt-2">
             <label class="main-head mb-3 fw-600">Please complete the form below to checkout</label>
            
-            <form *ngIf="eventForm && eventForm.length  > 0" [formGroup]="bookTickets">
+            <form *ngIf="eventForm" [formGroup]="bookTickets">
 
               <div class="form-group">
                 <label>{{eventForm[0].label}} <span class="text-danger">*</span> </label>

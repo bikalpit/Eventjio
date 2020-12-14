@@ -138,12 +138,12 @@
                 <div class="fxflex p-2 pl-3 border-right" fxFlex="20">Subtotal</div>
             </div>
 
-            <div *ngIf="eventSummery > 0 && eventSummery.soldTicket">
+            <div *ngIf="eventSummery  && eventSummery.soldTicket">
 
                 <div class="border" fxLayout="row" *ngFor="let value of eventSummery.soldTicket;let i=index">
-                    <div class="fxflex p-2 pl-3 border-right" fxFlex="35">General Admission </div>
+                    <div class="fxflex p-2 pl-3 border-right" fxFlex="35">{{value.event ? value.event.event_title : '-'}} </div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="15">{{ value.ticket_amt | currency:currencySymbol:'symbol' }}</div>
-                    <div class="fxflex p-2 pl-3 border-right" fxFlex="10">{{ eventDetail.event_setting ? eventDetail.event_setting.transaction_fee : 0 | currency:currencySymbol:'symbol' }}</div>
+                    <div class="fxflex p-2 pl-3 border-right" fxFlex="10">{{ (value.ticket ? value.ticket.booking_fee : 0) | currency:currencySymbol:'symbol' }}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20">{{value.sold}}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20">
                         {{value.revenue | currency:currencySymbol:'symbol' }}
@@ -172,11 +172,10 @@
         <div class="title">
             Referral sales summary
         </div>
-        <div class="mt-2">
+        <div class="mt-2" (click)="is_show_referral_data=!is_show_referral_data">
             <a>Load referral stats</a>
         </div>
-
-        <div class="mt-3">
+        <div class="mt-3" *ngIf="is_show_referral_data">
             <div class="border" fxLayout="row">
                 <div class="fxflex p-2 pl-3 border-right" fxFlex="40">Refferel Code</div>
                 <div class="fxflex p-2 pl-3 border-right" fxFlex="20">Orders Placed</div>

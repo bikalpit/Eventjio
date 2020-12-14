@@ -30,7 +30,8 @@ export class EventSummaryComponent implements OnInit {
   animal:any;
   isLoaderAdmin:any;
   currencycode = 'USD';
-
+  is_show_referral_data = false;
+  
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
