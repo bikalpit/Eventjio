@@ -778,7 +778,7 @@ export class AddNewTicketType {
   fnAvailDateChange(event){
     this.minUnavailDate = event.value
     this.addTicketForm.controls['until_time'].setValue('');
-    this.addTicketForm.controls['after_date'].setValue('');
+    this.addTicketForm.controls['after_date'].setValue(null);
     this.addTicketForm.controls['after_time'].setValue('');
     
   }
@@ -881,7 +881,7 @@ export class AddNewTicketType {
 
   fnTicketUnavailableStatus(event){
     this.ticketUnavalStatus = event.value;
-    this.addTicketForm.controls['after_date'].setValue('');
+    this.addTicketForm.controls['after_date'].setValue(null);
     this.addTicketForm.controls['after_time'].setValue('');
     this.addTicketForm.controls['after_interval'].setValue('');
     if(event.value == 'SDT'){
