@@ -30,7 +30,7 @@
                         </div>
                     </div>
 
-                    <div class="customres-list" *ngIf="selectedCustomerDetails !== null">
+                    <div class="customres-list" *ngIf="customerDetails !== null">
                         <div class="single-customer" *ngFor="let customerDetails of customerDetails; let i=index">
                             <div class="row mx-auto align-items-center">
                                 <div class="check-col p-1">
@@ -54,8 +54,8 @@
                         </div>
                     </div>
 
-                    <div class="customres-list" *ngIf="!selectedCustomerDetails">
-                        <p>No customer found.</p>
+                    <div class="customres-list" *ngIf="customerDetails == null">
+                        <p class="my-2 text-center">No customer found.</p>
                     </div>
 
                 </div>

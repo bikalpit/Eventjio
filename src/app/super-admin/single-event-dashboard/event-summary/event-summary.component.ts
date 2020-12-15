@@ -7,7 +7,7 @@ import { SuperadminService } from '../../_services/superadmin.service';
 import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { environment } from '../../../../environments/environment'
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-event-summary',
   templateUrl: './event-summary.component.html',

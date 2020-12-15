@@ -781,13 +781,13 @@ export class AddNewTicketType {
 
   fnAvailDateChange(event){
     this.minUnavailDate = event.value
-    this.addTicketForm.controls['until_time'].setValue('');
-    this.addTicketForm.controls['after_date'].setValue('');
-    this.addTicketForm.controls['after_time'].setValue('');
+    this.addTicketForm.controls['until_time'].setValue(null);
+    this.addTicketForm.controls['after_date'].setValue(null);
+    this.addTicketForm.controls['after_time'].setValue(null);
     
   }
   fnUnavailDateChange(event){
-    this.addTicketForm.controls['after_time'].setValue('');
+    this.addTicketForm.controls['after_time'].setValue(null);
     if(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd") == this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd")){
       this.availUnavailDateSame = true;
     }else{
@@ -886,8 +886,8 @@ export class AddNewTicketType {
 
   fnTicketUnavailableStatus(event){
     this.ticketUnavalStatus = event.value;
-    this.addTicketForm.controls['after_date'].setValue('');
-    this.addTicketForm.controls['after_time'].setValue('');
+    this.addTicketForm.controls['after_date'].setValue(null);
+    this.addTicketForm.controls['after_time'].setValue(null);
     this.addTicketForm.controls['after_interval'].setValue('');
     if(event.value == 'SDT'){
       this.addTicketForm.controls["after_date"].setValidators(Validators.required);
