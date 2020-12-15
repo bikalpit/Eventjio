@@ -104,11 +104,34 @@ export class CheckoutFormComponent implements OnInit {
     });
   }
   
+  // fnDeleteBuyerQuestion(selectedQuestion, i){
+  //   const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
+  //   this.allQuestionlist[0].buyer_questions.splice(index, 1);
+  //   console.log(this.allQuestionlist)
+  // }
+
   fnDeleteBuyerQuestion(selectedQuestion, i){
+  
+    if(i==0 || i==1 || i==3){
+      this.ErrorService.errorMessage("This question can't be deleted");
+      return false;
+    }
+
+    if(i==2){
+      this.allQuestionlist[0].buyer_questions[i].is_deleted = true;
+      console.log(this.allQuestionlist[0].buyer_questions)
+      return 
+    }
+
     const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
     this.allQuestionlist[0].buyer_questions.splice(index, 1);
-    console.log(this.allQuestionlist)
   }
+  
+  fnUndoBuyerQuestion(selectedQuestion, i){
+    this.allQuestionlist[0].buyer_questions[i].is_deleted = false;
+  }
+
+
 
   fnEditBuyerQuestion(question, index){
     console.log(question)
@@ -235,6 +258,9 @@ export class addBuyerQuestionDialog {
   defaultQuestion:boolean = false;
   allQuestionlist:any = [];
   singleQuestion:any;
+  is_address = false;
+  addressForamteStyle = "US";
+
   constructor(
     public dialogRef: MatDialogRef<addBuyerQuestionDialog>,
     private http: HttpClient,
@@ -245,8 +271,12 @@ export class addBuyerQuestionDialog {
       this.boxofficeId = this.data.boxofficeId
       this.allQuestionlist = this.data.allQuestionlist
       this.singleQuestion = this.data.singleQuestion
-      console.log(this.singleQuestion)
-      console.log(this.allQuestionlist)
+        
+      if(this.singleQuestion && this.singleQuestion.index == 3){
+        this.is_address = true;
+        this.addressForamteStyle = this.singleQuestion.addressForamteStyle;
+      }
+
       this.newBuyerQForm = this._formBuilder.group({
         type: ['',[Validators.required]],
         label: ['',[Validators.required]],
@@ -260,7 +290,7 @@ export class addBuyerQuestionDialog {
         this.newBuyerQForm.controls['type'].setValue(this.singleQuestion.type);
         this.newBuyerQForm.controls['options'].setValue(this.singleQuestion.options);
         this.newBuyerQForm.controls['terms'].setValue(this.singleQuestion.terms);
-        this.questionRequired = this.singleQuestion.required
+        this.questionRequired = this.singleQuestion.required;
         if(this.singleQuestion.type == 'text' || this.singleQuestion.type == 'marketing'){
           this.optionField = false;
           this.termsField = false;
@@ -310,13 +340,20 @@ export class addBuyerQuestionDialog {
     this.questionRequired = event.checked
   }
 
+    
+  fnaddressForamteStyle(event){
+    this.addressForamteStyle = event.value
+  }
+
+
   createNewBuyerQuestion(){
-    console.log(this.newBuyerQForm)
+    //console.log(this.newBuyerQForm)
     if(this.newBuyerQForm.invalid){
       this.newBuyerQForm.get('label').markAsTouched();
       this.newBuyerQForm.get('type').markAsTouched();
       return false;
     }
+    
     if(this.singleQuestion){
       let newQuestion = {
         'label' : this.newBuyerQForm.get('label').value,
@@ -326,10 +363,20 @@ export class addBuyerQuestionDialog {
         'terms' : this.newBuyerQForm.get('terms').value,
         'index' : this.singleQuestion.index,
       }
+
+      if(this.singleQuestion && this.singleQuestion.default){
+        newQuestion['default']  = true;
+      }
+
+      if(this.singleQuestion.index == 3){
+        newQuestion['addressForamteStyle'] = this.addressForamteStyle;
+      }
+
       const index: number = this.allQuestionlist[0].buyer_questions.indexOf(this.singleQuestion);
       this.allQuestionlist[0].buyer_questions.splice(index, 1);
       this.allQuestionlist[0].buyer_questions.push(newQuestion);
-      this.allQuestionlist[0].buyer_questions = this.allQuestionlist[0].buyer_questions.sort(this.dynamicSort("index"))
+      this.allQuestionlist[0].buyer_questions = this.allQuestionlist[0].buyer_questions.sort(this.dynamicSort("index"));
+
     }else{
       let newQuestion = {
         'label' : this.newBuyerQForm.get('label').value,
@@ -366,6 +413,9 @@ export class addAttendeeQuestionDialog {
   defaultQuestion:boolean = false;
   allQuestionlist:any = [];
   singleQuestion:any;
+  addressForamteStyle = true;
+  is_address = false;
+
   constructor(
     public dialogRef: MatDialogRef<addAttendeeQuestionDialog>,
     private http: HttpClient,
@@ -383,7 +433,15 @@ export class addAttendeeQuestionDialog {
         terms: [''],
       });
 
-      
+
+      if(this.singleQuestion && this.singleQuestion.index == 3){
+        this.is_address = true;
+        this.addressForamteStyle = this.singleQuestion.addressForamteStyle;
+      }
+
+      console.log(this.singleQuestion);
+
+
       if(this.singleQuestion){
         this.defaultQuestion = this.singleQuestion.default
         this.newAttendeeQForm.controls['label'].setValue(this.singleQuestion.label);
@@ -442,13 +500,15 @@ export class addAttendeeQuestionDialog {
   }
 
   createNewAttendeeQuestion(){
-    console.log(this.newAttendeeQForm)
+
     if(this.newAttendeeQForm.invalid){
       this.newAttendeeQForm.get('label').markAsTouched();
       this.newAttendeeQForm.get('type').markAsTouched();
       return false;
     }
+
     if(this.singleQuestion){
+
       let newQuestion = {
         'label' : this.newAttendeeQForm.get('label').value,
         'required' : this.questionRequired,
@@ -457,11 +517,23 @@ export class addAttendeeQuestionDialog {
         'terms' : this.newAttendeeQForm.get('terms').value,
         'index' : this.singleQuestion.index,
       }
+      
+      if(this.singleQuestion && this.singleQuestion.default){
+        newQuestion['default']  = true;
+      }
+
+      if(this.singleQuestion.index == 3){
+        newQuestion['addressForamteStyle'] = this.addressForamteStyle;
+      }
+
+
       const index: number = this.allQuestionlist[0].attendee_questions.indexOf(this.singleQuestion);
       this.allQuestionlist[0].attendee_questions.splice(index, 1);
       this.allQuestionlist[0].attendee_questions.push(newQuestion);
-      this.allQuestionlist[0].attendee_questions = this.allQuestionlist[0].attendee_questions.sort(this.dynamicSort("index"))
+      this.allQuestionlist[0].attendee_questions = this.allQuestionlist[0].attendee_questions.sort(this.dynamicSort("index"));
+
     }else{
+
       let newQuestion = {
         'label' : this.newAttendeeQForm.get('label').value,
         'required' : this.questionRequired,
@@ -470,8 +542,10 @@ export class addAttendeeQuestionDialog {
         'terms' : this.newAttendeeQForm.get('terms').value,
         'index' : this.allQuestionlist[0].attendee_questions.length+1,
       }
+
       this.allQuestionlist[0].attendee_questions.push(newQuestion);
-      this.allQuestionlist[0].attendee_questions = this.allQuestionlist[0].attendee_questions.sort(this.dynamicSort("index"))
+      this.allQuestionlist[0].attendee_questions = this.allQuestionlist[0].attendee_questions.sort(this.dynamicSort("index"));
+
     }
     
     console.log(this.allQuestionlist)

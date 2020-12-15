@@ -939,9 +939,11 @@ export class AddNewTicketType {
     if(this.addTicketForm.get('until_date').value){
       this.addTicketForm.controls['until_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"))
     }
+
     if(this.addTicketForm.get('after_date').value){
       this.addTicketForm.controls['after_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"))
     }
+
     this.newTicketData = {
       'box_office_id': this.boxOfficeCode,
       'ticket_name': this.addTicketForm.get('title').value,
@@ -956,8 +958,8 @@ export class AddNewTicketType {
       'hide_untill': 'Y',
       'hide_after':  'Y',
       'untill_date':this.addTicketForm.get('until_date').value,
-      'untill_time': this.addTicketForm.get('until_time').value,
-      'after_date':  this.addTicketForm.get('after_date').value,
+      'untill_time': this.addTicketForm.get('until_time').value ? this.addTicketForm.get('until_time').value : null,
+      'after_date':  this.addTicketForm.get('after_date').value ? this.addTicketForm.get('after_date').value : null,
       'after_time':  this.addTicketForm.get('after_time').value,
       'ticket_avilable':  this.addTicketForm.get('ticket_available').value,
       'ticket_unavilable':  this.addTicketForm.get('ticket_unavailable').value,

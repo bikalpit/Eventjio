@@ -857,6 +857,14 @@ export class BookTicketDialog {
   coupon_code = '';
   coupon_amt = 0;
   gloabelSalesTax = 0;
+  discount_amt = 0;
+
+  addressArr = {
+    'address': 'Address Line 1',
+    'address1': 'City',
+    'address2': 'State',
+    'zipcode': 'Zip Code',
+  };
 
   constructor(
     public dialog: MatDialog,
@@ -899,15 +907,10 @@ export class BookTicketDialog {
         name:["", Validators.required],
         email:["", [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
         address:["", Validators.required],
+        address1:["", Validators.required],
+        address2:["", Validators.required],
+        zipcode:["", [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
         phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
-        
-        // repeat_email:["", [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
-        // address:["", Validators.required],
-        // address_2:[""],
-        // address_3:[""],
-        // postcode:["", [Validators.required, Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
-        // attendee_name:["", Validators.required],
-       //  promo_code:["",[Validators.minLength(5),Validators.maxLength(6)]],
       });
   }
 
@@ -1000,6 +1003,26 @@ export class BookTicketDialog {
         //this.attendeeForm = data[0].attendee_questions;
         this.eventForm = data[0].buyer_questions;
 
+        if(this.eventForm[2].addressForamteStyle == 'UK'){
+          
+          this.addressArr = {
+            'address': 'Address Line 1',
+            'address1': 'Address Line 2',
+            'address2': 'Address Line 3',
+            'zipcode': 'Zip Code',
+          };
+
+        }else if(this.eventForm[2].addressForamteStyle == 'Cadadian'){
+
+          this.addressArr = {
+            'address': 'Address Line 1',
+            'address1': 'City',
+            'address2': 'Province',
+            'zipcode': 'Postal Code',
+          };
+
+        }
+
         var i = 0; 
         this.eventForm.forEach(element => {
           element.value = '';
@@ -1011,8 +1034,6 @@ export class BookTicketDialog {
           }
           i++;
         });
-
-
         
         // this.formArr = [];
         // this.attendeeForm.forEach(element => {
@@ -1135,6 +1156,11 @@ export class BookTicketDialog {
 
           this.voucher_code = this.promo_code;
           this.voucher_amt = parseInt(Data.voucher_value);
+          
+          if(this.voucher_amt >= this.grandTotal ){
+            this.voucher_amt = this.grandTotal;
+          }
+          this.discount_amt = this.voucher_amt;
           this.grandTotal = this.grandTotal - this.voucher_amt;
 
         }else{
@@ -1148,9 +1174,14 @@ export class BookTicketDialog {
             this.coupon_amt = parseInt(Data.discount);
           }
           
+          if(this.coupon_amt >= this.grandTotal ){
+            this.coupon_amt = this.grandTotal;
+          }
+          this.discount_amt = this.coupon_amt;
           this.grandTotal = this.grandTotal - this.coupon_amt;
         }
         
+        console.log(this.voucher_amt,this.discount_amt);
 
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -1166,6 +1197,7 @@ export class BookTicketDialog {
 
   async  fnTicketCheckout(fromType){
     
+   
     if(fromType=='CheckoutForm'){
       this.addOrderFormType  = fromType;
       return false;
@@ -1175,6 +1207,8 @@ export class BookTicketDialog {
       this.addOrderFormType  = fromType;
       return false;
     }
+    
+
 
     this.is_submit = true;
     var is_error = false;
@@ -1184,6 +1218,9 @@ export class BookTicketDialog {
       this.bookTickets.get('email').markAsTouched();
       this.bookTickets.get('phone').markAsTouched();
       this.bookTickets.get('address').markAsTouched();
+      this.bookTickets.get('address1').markAsTouched();
+      this.bookTickets.get('address2').markAsTouched();
+      this.bookTickets.get('zipcode').markAsTouched();
       this.ErrorService.errorMessage('please fill out required fields.');
       return
     }
@@ -1268,13 +1305,16 @@ export class BookTicketDialog {
       "email":this.bookTickets.get("email").value,
       "phone":this.bookTickets.get("phone").value,
       "address":this.bookTickets.get("address").value,
+      "address1":this.bookTickets.get("address1").value,
+      "address2":this.bookTickets.get("address2").value,
+      "zipcode":this.bookTickets.get("zipcode").value,
       //"postcode":this.bookTickets.get("postcode").value,
       //"attendee_name" : this.bookTickets.get('attendee_name').value,
       "customer_info" : JSON.stringify({ 'customerForm' : this.eventSpecificForm }),
       'tickets' : order_item
     }
 
-  
+    console.log(requestObject);
 
 
     this.isLoaderAdmin = true;
@@ -1325,9 +1365,7 @@ export class BookTicketDialog {
 
 
   fnDownloadTicket(itemId){
-    
     window.open(`${environment.apiUrl}/download-single-ticket?unique_code=${itemId}`);
-
   }  
 
 
@@ -1396,6 +1434,12 @@ export class EditorderDialog {
   is_submit = false;
   boxoffice_id   = localStorage.getItem('boxoffice_id');
   isLoaderAdmin = false;
+  addressArr = {
+    'address': 'Address Line 1',
+    'address1': 'City',
+    'address2': 'State',
+    'zipcode': 'Zip Code',
+  };
 
   constructor(
     public dialogRef: MatDialogRef<EditorderDialog>,
@@ -1411,8 +1455,11 @@ export class EditorderDialog {
       this.editTicket = this._formBuilder.group({
         name:["", Validators.required],
         email:["", [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
-        phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
         address:["", Validators.required],
+        address1:["", Validators.required],
+        address2:["", Validators.required],
+        zipcode:["", [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
+        phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       });
     }
 
@@ -1473,6 +1520,26 @@ export class EditorderDialog {
           this.eventForm = data[0].buyer_questions;
           console.log(this.eventForm);
 
+          if(this.eventForm[2].addressForamteStyle == 'UK'){
+          
+            this.addressArr = {
+              'address': 'Address Line 1',
+              'address1': 'Address Line 2',
+              'address2': 'Address Line 3',
+              'zipcode': 'Zip Code',
+            };
+  
+          }else if(this.eventForm[2].addressForamteStyle == 'Cadadian'){
+  
+            this.addressArr = {
+              'address': 'Address Line 1',
+              'address1': 'City',
+              'address2': 'Province',
+              'zipcode': 'Postal Code',
+            };
+  
+          }
+
           this.change.detectChanges();
         } else if(response.data == false){
           this.errorMessage.errorMessage(response.response);
@@ -1493,16 +1560,16 @@ export class EditorderDialog {
 
           this.singleorderCustomer = response.response;
           let data =  JSON.parse(this.singleorderCustomer.customer_info);
-          
-          console.log(data);
 
           this.eventSpecificForm = data.customerForm;
-
 
           this.editTicket.controls['name'].setValue(this.singleorderCustomer.customer.name)
           this.editTicket.controls['email'].setValue(this.singleorderCustomer.customer.email)
           this.editTicket.controls['phone'].setValue(this.singleorderCustomer.customer.phone)
           this.editTicket.controls['address'].setValue(this.singleorderCustomer.customer.address)
+          this.editTicket.controls['address1'].setValue(this.singleorderCustomer.customer.address1)
+          this.editTicket.controls['address2'].setValue(this.singleorderCustomer.customer.address2)
+          this.editTicket.controls['zipcode'].setValue(this.singleorderCustomer.customer.zipcode)
 
           this.change.detectChanges();
 
@@ -1535,6 +1602,9 @@ export class EditorderDialog {
         this.editTicket.get('email').markAsTouched();
         this.editTicket.get('phone').markAsTouched();
         this.editTicket.get('address').markAsTouched();
+        this.editTicket.get('address1').markAsTouched();
+        this.editTicket.get('address2').markAsTouched();
+        this.editTicket.get('zipcode').markAsTouched();
         this.errorMessage.errorMessage('please fill out required fields.');
         return
       }
@@ -1573,8 +1643,12 @@ export class EditorderDialog {
         'phone' : this.editTicket.get("phone").value,
         'email' : this.editTicket.get("email").value,
         'address' : this.editTicket.get("address").value,
+        'address1' : this.editTicket.get("address1").value,
+        'address2' : this.editTicket.get("address2").value,
+        'zipcode' : this.editTicket.get("zipcode").value,
         "customer_data" : JSON.stringify({ 'customerForm' : this.eventSpecificForm }),
       }
+      console.log(requestObject);
       
       this.isLoaderAdmin = true;
 
@@ -1585,9 +1659,7 @@ export class EditorderDialog {
           this.errorMessage.errorMessage(response.response);
         }
         this.isLoaderAdmin = false;
-
       });
-
 
     }
 

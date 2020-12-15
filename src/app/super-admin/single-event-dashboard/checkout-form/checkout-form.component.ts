@@ -180,10 +180,26 @@ export class CheckoutFormComponent implements OnInit {
   }
   
   fnDeleteBuyerQuestion(selectedQuestion, i){
+  
+    if(i==0 || i==1 || i==3){
+      this.ErrorService.errorMessage("This question can't be deleted");
+      return false;
+    }
+
+    if(i==2){
+      this.allQuestionlist[0].buyer_questions[i].is_deleted = true;
+      console.log(this.allQuestionlist[0].buyer_questions)
+      return 
+    }
+
     const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
     this.allQuestionlist[0].buyer_questions.splice(index, 1);
-    console.log(this.allQuestionlist)
   }
+  
+  fnUndoBuyerQuestion(selectedQuestion, i){
+    this.allQuestionlist[0].buyer_questions[i].is_deleted = false;
+  }
+
 
   fnEditBuyerQuestion(question, index){
     console.log(question)
@@ -308,6 +324,8 @@ export class addBuyeronlyQuestionDialog {
   defaultQuestion:boolean = false;
   allQuestionlist:any = [];
   singleQuestion:any;
+  is_address = false;
+  addressForamteStyle = 'US';
 
   constructor(
     public dialogRef: MatDialogRef<addBuyeronlyQuestionDialog>,
@@ -319,8 +337,12 @@ export class addBuyeronlyQuestionDialog {
       this.eventId = this.data.eventId
       this.allQuestionlist = this.data.allQuestionlist
       this.singleQuestion = this.data.singleQuestion
-      console.log(this.singleQuestion)
-      console.log(this.allQuestionlist)
+     
+      if(this.singleQuestion && this.singleQuestion.index == 3){
+        this.is_address = true;
+        this.addressForamteStyle = this.singleQuestion.addressForamteStyle;
+      }
+
       this.newBuyerQForm = this._formBuilder.group({
         type: ['',[Validators.required]],
         label: ['',[Validators.required]],
@@ -329,7 +351,7 @@ export class addBuyeronlyQuestionDialog {
       });
       
       if(this.singleQuestion){
-        this.defaultQuestion = this.singleQuestion.default
+        this.defaultQuestion = this.singleQuestion.default;
         this.newBuyerQForm.controls['label'].setValue(this.singleQuestion.label);
         this.newBuyerQForm.controls['type'].setValue(this.singleQuestion.type);
         this.newBuyerQForm.controls['options'].setValue(this.singleQuestion.options);
@@ -360,9 +382,11 @@ export class addBuyeronlyQuestionDialog {
       return result * sortOrder;
     }
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   ngOnInit() {
   }
 
@@ -380,17 +404,24 @@ export class addBuyeronlyQuestionDialog {
     }
   }
 
+  
+  fnaddressForamteStyle(event){
+    this.addressForamteStyle = event.value
+  }
+
+
   fnChangeRequired(event){
     this.questionRequired = event.checked
   }
 
   createNewBuyerQuestion(){
-    console.log(this.newBuyerQForm)
+  //  console.log(this.newBuyerQForm)
     if(this.newBuyerQForm.invalid){
       this.newBuyerQForm.get('label').markAsTouched();
       this.newBuyerQForm.get('type').markAsTouched();
       return false;
     }
+
     if(this.singleQuestion){
       let newQuestion = {
         'label' : this.newBuyerQForm.get('label').value,
@@ -400,10 +431,22 @@ export class addBuyeronlyQuestionDialog {
         'terms' : this.newBuyerQForm.get('terms').value,
         'index' : this.singleQuestion.index,
       }
+      
+      if(this.singleQuestion && this.singleQuestion.default){
+        newQuestion['default']  = true;
+      }
+
+      if(this.singleQuestion.index == 3){
+        newQuestion['addressForamteStyle'] = this.addressForamteStyle;
+      }
+
+     
+
       const index: number = this.allQuestionlist[0].buyer_questions.indexOf(this.singleQuestion);
       this.allQuestionlist[0].buyer_questions.splice(index, 1);
       this.allQuestionlist[0].buyer_questions.push(newQuestion);
-      this.allQuestionlist[0].buyer_questions = this.allQuestionlist[0].buyer_questions.sort(this.dynamicSort("index"))
+      this.allQuestionlist[0].buyer_questions = this.allQuestionlist[0].buyer_questions.sort(this.dynamicSort("index"));
+     // console.log(this.allQuestionlist);
     }else{
       let newQuestion = {
         'label' : this.newBuyerQForm.get('label').value,
