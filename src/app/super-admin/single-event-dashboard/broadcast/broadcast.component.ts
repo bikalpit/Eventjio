@@ -79,7 +79,6 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.get('terms').markAllAsTouched();
       return false;
     }else{
-     
       this.createBroadcastData = { 
         "recipients" : this.createBroadcastForm.get('recipients').value,
         "subject" : this.createBroadcastForm.get('subject').value,
@@ -90,14 +89,33 @@ export class BroadcastComponent implements OnInit {
         "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
         "terms" : this.createBroadcastForm.get('terms').value,
         "event_id" : this.eventId, 
-        "unique_code" : this.unique_id,
       }
-      this.sendBroadcast(this.createBroadcastData);
+      console.log(this.createBroadcastData)
+      this.createNewBroadCast(this.createBroadcastData,status);
       this.createBroadcastForm.reset();
     }
    
   }
 
+  createNewBroadCast(createBroadcastData,status){
+      this.isLoaderAdmin = true;
+      this.SingleEventServiceService.createBroadcastfrm(createBroadcastData).subscribe((response:any) => {
+        if(response.data == true){
+         this.ErrorService.successMessage(response.response);
+         this.getAllBroadcast();
+         if(status == 'send'){
+          setTimeout(() => {
+            this.sendBroadcast(this.getAllBroadcastData[this.getAllBroadcastData.length-1], this.getAllBroadcastData[this.getAllBroadcastData.length-1].unique_code)
+          },3000)
+          // const index = this.getAllBroadcastData.indexOf(createBroadcastData., 0);
+         }
+        }
+        else if(response.data == false){
+         this.ErrorService.errorMessage(response.response);
+        }
+        this.isLoaderAdmin = false;
+      })
+  }
   fnSelectionChange(event){
     // this.sendOptions = event.value; 
     if(event.value == 'AT_SED_DATE_TIME'){
@@ -172,11 +190,13 @@ export class BroadcastComponent implements OnInit {
     this.isLoaderAdmin = true;
     let requestObject = {
        'event_id' : this.eventId,
-       'unique_code' : this.unique_id
     }
     this.SingleEventServiceService.getAllBroadcast(requestObject).subscribe((response:any) => {
       if(response.data == true){
          this.getAllBroadcastData = response.response;
+         this.getAllBroadcastData.forEach(element => {
+          element.created_at = this.datePipe.transform(new Date(element.created_at),"EEE MMM d, y");
+         });
         //  console.log(this.getAllBroadcastData);
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -201,15 +221,15 @@ fnCreateBroadcast(){
   }
 
   previewBroadcast(index){    
-    this.sendBroadcast(this.getAllBroadcastData[index]);
+    this.sendBroadcast(this.getAllBroadcastData[index],this.getAllBroadcastData[index].unique_code);
   }
 
   
   
-sendBroadcast(broadcastData) {
+sendBroadcast(broadcastData, uniqueCode) {
   const dialogRef = this.dialog.open(mySendBroadcastDialog, {
     width: '650px',
-    data:{createBroadcastData : broadcastData}
+    data:{createBroadcastData : broadcastData, uniqueCode : uniqueCode}
     
   });
    dialogRef.afterClosed().subscribe(result => {
@@ -236,20 +256,27 @@ export class mySendBroadcastDialog{
   editor1 = 'Angular 4';
   datav: any = `<p>Hello, world!</p>`;
   editorValue: string = '';
-
+  currentUser:any;
+  uniqueCode:any;
   constructor(
     public dialogRef: MatDialogRef<mySendBroadcastDialog>,
     private http: HttpClient,
     private SingleEventServiceService :SingleEventServiceService,
+    private authenticationService : AuthenticationService,
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.createBroadcastData = this.data;
-      this.editorValue = this.createBroadcastData.createBroadcastData.message;
-      console.log(this.editorValue);
+      this.createBroadcastData = this.data.createBroadcastData;
+      this.uniqueCode = this.data.uniqueCode;
+      this.editorValue = this.createBroadcastData.message;
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
-    createBroadcastfrm(createBroadcastData){
+
+    fnSendBroadCast(){
+      let requestObject = {
+        'unique_code':this.uniqueCode
+      }
       this.isLoaderAdmin = true;
-      this.SingleEventServiceService.createBroadcastfrm(createBroadcastData.createBroadcastData).subscribe((response:any) => {
+      this.SingleEventServiceService.sendBroadcast(requestObject).subscribe((response:any) => {
         if(response.data == true){
          this.ErrorService.successMessage(response.response);
          this.dialogRef.close('sent');

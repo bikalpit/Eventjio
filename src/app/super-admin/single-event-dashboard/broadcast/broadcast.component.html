@@ -44,7 +44,8 @@
     <div class="create-broadcast-main" *ngIf="!createBroadcast">
         <div class="container-fluid">
             <div class="top-heading-main">
-                <h4>Create Broadcast</h4>
+                <h4>
+                    <mat-icon (click)="createBroadcast=!createBroadcast" class="mr-3 pointer">west</mat-icon> Create Broadcast</h4>
             </div>
             <form [formGroup]="createBroadcastForm" class="with-validation">
 
@@ -167,7 +168,7 @@
                 <div class="form-group col-md-12 col-lg-12 col-sm-12">
                     <div class="botttom-buttons">
                         <button mat-flat-button class="save-draf-btn mr-2" (click)="fnOnSubmitForm('draft')" color="primary"> Save Draft </button>
-                        <button mat-flat-button color="primary" (click)="fnOnSubmitForm('send')"> Send Broadcast </button>
+                        <button mat-flat-button color="primary" (click)="fnOnSubmitForm('send')"> Create and Send Broadcast </button>
                     </div>
                 </div>
 
