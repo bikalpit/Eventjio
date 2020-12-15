@@ -2780,3 +2780,6 @@ th.mat-header-cell {
     border-bottom: 1px solid #dddddd;
     margin-bottom: 5px;
 }
+.error {
+    color: #de0e0e;
+}

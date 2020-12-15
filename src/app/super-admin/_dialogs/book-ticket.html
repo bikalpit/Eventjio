@@ -168,7 +168,8 @@
                   <small *ngIf="bookTickets.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small>
                 </span>
               </div>
-              <div class="form-group">
+
+              <div class="form-group" *ngIf="!is_address_hide">
                 <label> {{addressArr.address}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" class="form-control" formControlName="address" placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('address').dirty || bookTickets.get('address').touched">
@@ -176,7 +177,7 @@
                 </span>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" *ngIf="!is_address_hide">
                 <label> {{addressArr.address1}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" class="form-control" formControlName="address1" placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('address1').dirty || bookTickets.get('address1').touched">
@@ -184,15 +185,14 @@
                 </span>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" *ngIf="!is_address_hide">
                 <label> {{addressArr.address2}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" class="form-control" formControlName="address2" placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('address2').dirty || bookTickets.get('address2').touched">
                     <small *ngIf="bookTickets.get('address2').hasError('required')" class="error text-left">{{addressArr.address2}} is required.</small>
                 </span>
               </div>
-
-              <div class="form-group">
+              <div class="form-group" *ngIf="!is_address_hide">
                 <label> {{addressArr.zipcode}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('zipcode').dirty || bookTickets.get('zipcode').touched">
@@ -277,7 +277,73 @@
               </div>
 
             </div>
+            
+            <div class="tickes-heading mt-4 mb-4">
+              <h3 class="text-center"> Attendee Form </h3>
+            </div>
 
+            <form [formGroup]="dynamicForm">
+              <div class="row vip-tickets" *ngFor="let ticket of t.controls; let i = index">
+                <div [formGroup]="ticket">
+                  <div class="col-12 col-xl-6 col-md-6 col-sm-6 float-left" *ngFor="let attendeeFormval of attendeeForm; let i=index;">
+                      <div class="" *ngIf="attendeeFormval.type=='text'">
+                          <div class="form-group common-checkout-filed">
+                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
+                              <input matInput [formControlName]="attendeeFormval.controlname" class="form-control" placeholder="">
+                          </div>
+                        
+                      </div>
+
+                      <div class="" *ngIf="attendeeFormval.type=='dropdown'">
+                          <div class="form-group common-checkout-filed">
+                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
+                              <select [formControlName]="attendeeFormval.controlname" class="form-control">
+                                  <option *ngFor="let dropVal of optionsArr(attendeeFormval.options);let optionI=index">{{dropVal}}</option>
+                              </select>
+                          </div>
+                      </div>
+
+                      <div class="" *ngIf="attendeeFormval.type=='radio'">
+                          <div class="form-group common-checkout-filed">
+                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
+                              <div *ngFor="let radioVal of optionsArr(attendeeFormval.options);let optionCheck=index">
+                                  <input type="radio" value="{{radioVal}}" [formControlName]="attendeeFormval.controlname"> {{radioVal}}
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="" *ngIf="attendeeFormval.type=='checkbox'">
+                          <div class="form-group common-checkout-filed">
+                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
+
+                              <div *ngFor="let checkboxVal of attendeeFormval.selector;let optionCheck=index">
+                                  <input type="checkbox" [value]="checkboxVal.value" [formControlName]="attendeeFormval.controlname"> {{checkboxVal.value}}
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="" *ngIf="attendeeFormval.type=='marketing'">
+                          <div class="form-group common-checkout-filed">
+                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                              <div>
+                                  <input type="checkbox" class="" [formControlName]="attendeeFormval.controlname">
+                              </div>
+                          </div>
+                        
+                      </div>
+
+                      <div class="" *ngIf="attendeeFormval.type=='terms'">
+                          <div class="form-group common-checkout-filed">
+                              <label> Terms & Conditions  <span class="text-danger"> {{ attendeeFormval.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                              <div>
+                                  <input type="checkbox" class="" [formControlName]="attendeeFormval.controlname"> {{attendeeFormval.label}}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
 
               <!-- <div class="form-group">

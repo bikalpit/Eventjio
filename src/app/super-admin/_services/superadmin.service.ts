@@ -331,6 +331,14 @@ export class SuperadminService {
          catchError(this.handleError));
     }
 
+    fnUpdatePaymentStatus(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-single-order-payment-status`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
+
     createVoucherCode(requestObject){
         return this.http.post(`${environment.apiUrl}/create-voucher-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {

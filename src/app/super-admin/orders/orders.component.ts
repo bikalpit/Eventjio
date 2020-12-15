@@ -5,7 +5,7 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { ErrorService } from '../../_services/error.service'
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators ,FormArray} from '@angular/forms';
 import { SuperadminService } from '../_services/superadmin.service';
 import { DatePipe, JsonPipe} from '@angular/common';
 import { ExportToCsv } from 'export-to-csv';
@@ -858,6 +858,10 @@ export class BookTicketDialog {
   coupon_amt = 0;
   gloabelSalesTax = 0;
   discount_amt = 0;
+  attendeeForm:any = [];
+  formArr:any = [];
+  dynamicForm: FormGroup;
+  attendeeFormLength = 0;
 
   addressArr = {
     'address': 'Address Line 1',
@@ -865,6 +869,7 @@ export class BookTicketDialog {
     'address2': 'State',
     'zipcode': 'Zip Code',
   };
+  is_address_hide = false;
 
   constructor(
     public dialog: MatDialog,
@@ -912,6 +917,11 @@ export class BookTicketDialog {
         zipcode:["", [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
         phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       });
+
+      this.dynamicForm = this._formBuilder.group({
+        tickets: new FormArray([])
+      });
+
   }
 
  
@@ -925,7 +935,10 @@ export class BookTicketDialog {
     this.getEventForm();
     this.fnGetSalesTax();
   }
- 
+
+  get f() { return this.dynamicForm.controls; }
+  get t() { return this.f.tickets as FormArray; }
+
   fnGetSalesTax(){
     
     this.isLoaderAdmin = true;
@@ -1000,8 +1013,26 @@ export class BookTicketDialog {
         
         
         var data =   JSON.parse(response.response);
-        //this.attendeeForm = data[0].attendee_questions;
+        this.attendeeForm = data[0].attendee_questions;
         this.eventForm = data[0].buyer_questions;
+        
+        this.attendeeFormLength = this.attendeeForm.length;
+
+        
+        if(this.eventForm[2] && this.eventForm[2].is_deleted == true){
+          this.is_address_hide = true;
+        
+          this.bookTickets.controls["address"].setValidators(null);
+          this.bookTickets.controls["address1"].setValidators(null);
+          this.bookTickets.controls["address2"].setValidators(null);
+          this.bookTickets.controls["zipcode"].setValidators(null);
+
+          this.bookTickets.controls["address"].setValue(null);
+          this.bookTickets.controls["address1"].setValue(null);
+          this.bookTickets.controls["address2"].setValue(null);
+          this.bookTickets.controls["zipcode"].setValue(null);
+
+        }
 
         if(this.eventForm[2].addressForamteStyle == 'UK'){
           
@@ -1035,17 +1066,18 @@ export class BookTicketDialog {
           i++;
         });
         
-        // this.formArr = [];
-        // this.attendeeForm.forEach(element => {
-        //   if(element.type=='checkbox'){
-        //     element.selector = this.CheckBoxArr(element.options);
-        //   }
-        //   var required = element.required ? Validators.required : null;
-        //   this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',required];
-        //   element.controlname = element.label.replace(/[^a-zA-Z]/g, '');
-        //   element.value = '';
-        // });
+        this.formArr = [];
+        this.attendeeForm.forEach(element => {
+          if(element.type=='checkbox'){
+            element.selector = this.CheckBoxArr(element.options);
+          }
 
+          var required = element.required ? Validators.required : null;
+          
+          this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',required];
+          element.controlname = element.label.replace(/[^a-zA-Z]/g, '');
+          element.value = '';
+        });
 
         
       } else if(response.data == false){
@@ -1109,12 +1141,12 @@ export class BookTicketDialog {
 
       this.eventTicket[index].qty = single_event.max_per_order;
       this.ErrorService.errorMessage('Maximun Quantity shoulde be '+single_event.max_per_order);
-
     }
+    this.total_qty = 0;
     
     if(true == is_update){
       this.subTotal = 0;
-      this.total_qty = 0;
+     
       this.eventTicket.forEach(element=>{
         if(parseInt(element.qty)  > 0 && element.id_added == true){
           this.is_added_at_least_item = false;
@@ -1134,6 +1166,7 @@ export class BookTicketDialog {
 
     this.grandTotal = this.subTotal+this.total_sales_tax_amount+this.transaction_fee;
 
+    
   }
 
   fnAddDiscount(){
@@ -1200,6 +1233,16 @@ export class BookTicketDialog {
    
     if(fromType=='CheckoutForm'){
       this.addOrderFormType  = fromType;
+      console.log(this.total_qty);
+
+      this.dynamicForm = this._formBuilder.group({
+        tickets: new FormArray([])
+      });
+      //this.t.patchValue([]);
+      for(var i=0; i<this.total_qty; i++){
+        this.t.push(this._formBuilder.group(this.formArr));
+      }
+  
       return false;
     }
     
@@ -1207,8 +1250,6 @@ export class BookTicketDialog {
       this.addOrderFormType  = fromType;
       return false;
     }
-    
-
 
     this.is_submit = true;
     var is_error = false;
@@ -1224,7 +1265,6 @@ export class BookTicketDialog {
       this.ErrorService.errorMessage('please fill out required fields.');
       return
     }
-    var eventFormValue = [];
 
     var i = 0; 
     await this.eventSpecificForm.forEach(element => {
@@ -1243,12 +1283,32 @@ export class BookTicketDialog {
           is_error = true;
         }
     });
-
     
 
     if(is_error){
       this.ErrorService.errorMessage('please fill out required fields.');
       return false;
+    }
+
+    if(this.dynamicForm.invalid){
+      return  this.ErrorService.errorMessage('please fill out required field.');
+    }
+    
+    var VALUES = [];
+    this.dynamicForm.value.tickets.forEach((value, key, obj) => {
+      var attendeeFormArr = [];
+      attendeeFormArr = this.attendeeForm;
+      attendeeFormArr.forEach((element,keys,ooo) => {
+        element.value = Object.values(obj[key])[keys];
+        var ele = JSON.stringify(element);
+        VALUES.push(JSON.parse(ele));
+      });
+      attendeeFormArr=[]
+    });
+ 
+    var attendeeFinalArr = [];
+    while(VALUES.length) {
+      attendeeFinalArr.push(VALUES.splice(0, this.attendeeFormLength))
     }
 
     var order_item = [];
@@ -1308,14 +1368,12 @@ export class BookTicketDialog {
       "address1":this.bookTickets.get("address1").value,
       "address2":this.bookTickets.get("address2").value,
       "zipcode":this.bookTickets.get("zipcode").value,
-      //"postcode":this.bookTickets.get("postcode").value,
-      //"attendee_name" : this.bookTickets.get('attendee_name').value,
-      "customer_info" : JSON.stringify({ 'customerForm' : this.eventSpecificForm }),
+      "customer_info" : JSON.stringify( this.eventSpecificForm),
+      "attendee_info" : JSON.stringify(attendeeFinalArr),
       'tickets' : order_item
     }
 
-    console.log(requestObject);
-
+ 
 
     this.isLoaderAdmin = true;
 
@@ -1340,51 +1398,51 @@ export class BookTicketDialog {
   }
 
 
-  resendOrder(){
-    this.isLoaderAdmin = true;
-    this.superadminService.fnResendOrder(this.orderDetail.unique_code).subscribe((response:any)=>{
-      if(response.data == true){   
-        this.ErrorService.successMessage(response.response);
-      }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
-      }
-      this.isLoaderAdmin = false;
-    });
-  }
+  // resendOrder(){
+  //   this.isLoaderAdmin = true;
+  //   this.superadminService.fnResendOrder(this.orderDetail.unique_code).subscribe((response:any)=>{
+  //     if(response.data == true){   
+  //       this.ErrorService.successMessage(response.response);
+  //     }else if(response.data == false){
+  //       this.ErrorService.errorMessage(response.response);
+  //     }
+  //     this.isLoaderAdmin = false;
+  //   });
+  // }
 
-  editOrder(){
-    const dialogRef = this.dialog.open(EditorderDialog, {
-      width: '700px',
-      data : this.orderDetail,
-    });
+  // editOrder(){
+  //   const dialogRef = this.dialog.open(EditorderDialog, {
+  //     width: '700px',
+  //     data : this.orderDetail,
+  //   });
   
-     dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-     });
-  }  
+  //    dialogRef.afterClosed().subscribe(result => {
+  //     this.animal = result;
+  //    });
+  // }  
 
 
-  fnDownloadTicket(itemId){
-    window.open(`${environment.apiUrl}/download-single-ticket?unique_code=${itemId}`);
-  }  
+  // fnDownloadTicket(itemId){
+  //   window.open(`${environment.apiUrl}/download-single-ticket?unique_code=${itemId}`);
+  // }  
 
 
-  cancelOrder(){
+  // cancelOrder(){
 
-    const dialogRef = this.dialog.open(cancelOrderDialog, {
-      width: '700px',
-      data : this.orderDetail,
-    });
+  //   const dialogRef = this.dialog.open(cancelOrderDialog, {
+  //     width: '700px',
+  //     data : this.orderDetail,
+  //   });
   
-    dialogRef.afterClosed().subscribe(result => {
-    this.animal = result;
-    });
-  }  
+  //   dialogRef.afterClosed().subscribe(result => {
+  //   this.animal = result;
+  //   });
+  // }  
 
 
-  fnDownloadInvoice(orderId) {
-    window.open(`${environment.apiUrl}/stream-invoice-pdf?order_id=${orderId}`);
-  }  
+  // fnDownloadInvoice(orderId) {
+  //   window.open(`${environment.apiUrl}/stream-invoice-pdf?order_id=${orderId}`);
+  // }  
 
   makeid(length) {
     var result           = '';
@@ -1440,6 +1498,8 @@ export class EditorderDialog {
     'address2': 'State',
     'zipcode': 'Zip Code',
   };
+  is_address_hide = false;
+  attendeeForm:any =  [];
 
   constructor(
     public dialogRef: MatDialogRef<EditorderDialog>,
@@ -1461,6 +1521,8 @@ export class EditorderDialog {
         zipcode:["", [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
         phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       });
+
+      
     }
 
     onNoClick(): void {
@@ -1518,7 +1580,20 @@ export class EditorderDialog {
         if(response.data == true){
           var data =   JSON.parse(response.response);
           this.eventForm = data[0].buyer_questions;
-          console.log(this.eventForm);
+
+          if(this.eventForm[2].is_deleted && this.eventForm[2].is_deleted == true){
+            this.is_address_hide = true;
+            this.editTicket.controls["address"].setValidators(null);
+            this.editTicket.controls["address1"].setValidators(null);
+            this.editTicket.controls["address2"].setValidators(null);
+            this.editTicket.controls["zipcode"].setValidators(null);
+
+            this.editTicket.controls["address"].setValue(null);
+            this.editTicket.controls["address1"].setValue(null);
+            this.editTicket.controls["address2"].setValue(null);
+            this.editTicket.controls["zipcode"].setValue(null);
+
+          }
 
           if(this.eventForm[2].addressForamteStyle == 'UK'){
           
@@ -1559,9 +1634,9 @@ export class EditorderDialog {
         if(response.data == true){
 
           this.singleorderCustomer = response.response;
-          let data =  JSON.parse(this.singleorderCustomer.customer_info);
-
-          this.eventSpecificForm = data.customerForm;
+          this.eventSpecificForm =  JSON.parse(this.singleorderCustomer.customer_info);
+        
+          this.attendeeForm = JSON.parse(this.singleorderCustomer.attendee_info);
 
           this.editTicket.controls['name'].setValue(this.singleorderCustomer.customer.name)
           this.editTicket.controls['email'].setValue(this.singleorderCustomer.customer.email)
@@ -1608,9 +1683,27 @@ export class EditorderDialog {
         this.errorMessage.errorMessage('please fill out required fields.');
         return
       }
-  
-      var i = 0; 
+      
+     
+
       await this.eventSpecificForm.forEach(element => {
+          if(element.type=='checkbox'){
+            var checkBoxArr = [];
+            element.selector.forEach(CheckBoxelement => {
+              if(CheckBoxelement.is_check){
+                checkBoxArr.push(CheckBoxelement.value)
+              }
+            });
+            if(checkBoxArr.length > 0){
+              element.value =  JSON.stringify(checkBoxArr); 
+            }
+          }
+          if(element.value==''  && element.required){
+            is_error = true;
+          }
+      });
+
+      await this.attendeeForm.forEach(element => {
           if(element.type=='checkbox'){
             var checkBoxArr = [];
             element.selector.forEach(CheckBoxelement => {
@@ -1646,10 +1739,11 @@ export class EditorderDialog {
         'address1' : this.editTicket.get("address1").value,
         'address2' : this.editTicket.get("address2").value,
         'zipcode' : this.editTicket.get("zipcode").value,
-        "customer_data" : JSON.stringify({ 'customerForm' : this.eventSpecificForm }),
+        "customer_info" : JSON.stringify(this.eventSpecificForm),
+        'attendee_info' : JSON.stringify(this.attendeeForm)
       }
       console.log(requestObject);
-      
+
       this.isLoaderAdmin = true;
 
       this.superadminService.orderUpdate(requestObject).subscribe((response:any) => {
@@ -1753,7 +1847,9 @@ export class eventSummaryDialog {
   customerData:any = [];
   isLoaderAdmin = false;
   is_show = false;
-  currencyCode ='USD';
+  currencyCode ='USD';  
+  attendeeData:any = [];
+
 
   constructor(
     public dialogRef: MatDialogRef<eventSummaryDialog>,
@@ -1787,7 +1883,7 @@ export class eventSummaryDialog {
       dialogRef.afterClosed().subscribe(result => {
         this.animal = result;
       });
-  }
+    }
   
     editOrder(){
       const dialogRef = this.dialog.open(EditorderDialog, {
@@ -1810,6 +1906,28 @@ export class eventSummaryDialog {
       window.open(`${environment.apiUrl}/stream-invoice-pdf?order_id=${orderId}`);
     }  
 
+    fnPayementpaid(){
+
+      var x  = confirm('Are you sure paid this order?');
+
+      if(x){
+
+        let requestObject={
+          "unique_code": this.data.unique_code,
+          "payment_status" : "paid"
+        } 
+  
+        this.superadminService.fnUpdatePaymentStatus(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this.errorService.successMessage('Payment status updated.')  
+          }else{
+            this.errorService.successMessage(response.response);
+          }
+        });
+
+      }
+
+    }
 
     // orderInvoice() {
     //   // const dialogRef = this.dialog.open(OrderInvoiceDialog, {
@@ -1839,13 +1957,16 @@ export class eventSummaryDialog {
         "unique_code": this.data.unique_code,
       } 
 
-      this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
+      this.superadminService.fnGetsingleOrder(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.orderDetail = response.response;
           this.orderDate  = this.datePipe.transform(new Date(this.orderDetail.created_at),"EEE MMM d, y");
           this.eventDate  = this.datePipe.transform(new Date(this.orderDetail.events.start_date),"EEE MMM d, y");
           this.order_item_data = this.orderDetail.order_item;
           this.customerData = this.orderDetail.customer;
+          this.attendeeData  = JSON.parse(response.response.attendee_info);
+          console.log(this.attendeeData);
+
         }else{
           this.singleorderCustomer  = [];
         }
