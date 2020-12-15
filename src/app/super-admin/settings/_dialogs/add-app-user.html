@@ -39,7 +39,7 @@
                             <mat-checkbox (change)="fnAssignEvent($event, 'all')" class="">All Events</mat-checkbox>
                         </div>
                         <div class="w-100 d-inline-block py-2" *ngFor="let event of allEventList">
-                            <mat-checkbox [checked]="selectedEvents.indexOf(event.unique_code) > -1 || event.is_selected" (change)="fnAssignEvent($event, event.unique_code)" class="">{{event.event_title}}</mat-checkbox>
+                            <mat-checkbox [checked]="selectedEvents.indexOf(event.id) > -1 || event.is_selected" (change)="fnAssignEvent($event, event.id)" class="">{{event.event_title}}</mat-checkbox>
                         </div>
                     </div>
                 </div>

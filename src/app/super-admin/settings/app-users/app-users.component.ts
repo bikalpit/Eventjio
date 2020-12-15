@@ -127,12 +127,12 @@ export class AddAppUser {
       })
     }
 
-    fnAssignEvent(event, eventCode){
-      if(eventCode !== 'all'){
+    fnAssignEvent(event, id){
+      if(id !== 'all'){
         if(event.checked == true){
-          this.selectedEvents.push(eventCode)
+          this.selectedEvents.push(id)
         }else{
-          const index = this.selectedEvents.indexOf(eventCode, 0);
+          const index = this.selectedEvents.indexOf(id, 0);
           if (index > -1) {
               this.selectedEvents.splice(index, 1);
           }
@@ -142,7 +142,7 @@ export class AddAppUser {
         this.allEventList.forEach(subelement => {
           if(event.checked == true) {  
             subelement.is_selected=true;
-            this.selectedEvents.push(subelement.unique_code)
+            this.selectedEvents.push(subelement.id)
            }else{ 
             subelement.is_selected=false;
             this.selectedEvents = [];
@@ -157,7 +157,7 @@ export class AddAppUser {
           "firstname" : this.addAppUser.get('firstname').value,
           "lastname" : this.addAppUser.get('lastname').value,
           "email" : this.addAppUser.get('email').value,
-          "event_ids" : JSON.stringify(this.selectedEvents),
+          "event_ids" : this.selectedEvents,
         }
         this.isLoaderAdmin = true;
         this.SettingService.createAppUser(newUserData).subscribe((response:any) => {
