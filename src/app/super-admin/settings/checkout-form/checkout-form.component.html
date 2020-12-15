@@ -26,15 +26,24 @@
                                         </div>
                                         <div class="">
                                             <div class="ml-auto buyer-action ">
-                                                <button (click)="fnEditAttendeeQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
-                                                <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
-                                              </button>
-                                                <button (click)="fnDeleteAttendeeQuestion(element, i)" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+
+                                                <button (click)="fnEditBuyerQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
+                                                    <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
+                                                </button>
+                                                <!-- [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted"  -->
+                                                <button *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)"     mat-raised-button                                             
+                                                    matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                                 </button>
+                                                
+                                                <button  *ngIf="element.is_deleted" (click)="fnUndoBuyerQuestion(element, i)"  mat-raised-button matTooltip="Show in checkout form" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                    <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span> 
+                                                </button>
+
                                                 <button [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
                                                 </button>
+                                                
                                             </div>
                                         </div>
                                     </div>

@@ -14,10 +14,10 @@
                 <div class="row mx-0">
                     <div class="col-12" *ngIf="!defaultQuestion">
                         <label class="mb-0" for="">What kind of response do you want? 
-                      <span class="asterisk-icon">
-                        <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
-                      </span> 
-                    </label>
+                            <span class="asterisk-icon">
+                                <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                            </span> 
+                        </label>
                         <div class="form-group">
                             <mat-select (selectionChange)="fnChangeQType($event)" formControlName="type" class="form-control">
                                 <mat-option value="text">Single line text</mat-option>
@@ -34,16 +34,47 @@
                     </div>
                     <div class="col-12">
                         <label class="mb-0" for="">What question do you want to ask? 
-                      <span class="asterisk-icon">
-                        <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
-                      </span> 
-                    </label>
+                            <span class="asterisk-icon">
+                                <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                            </span> 
+                        </label>
                         <div class="form-group">
                             <input formControlName="label" class="form-control" type="text">
                             <span style="left:0" class="error-wrap" *ngIf="newBuyerQForm.get('label').touched || newBuyerQForm.get('label').dirty">
-                          <small *ngIf="newBuyerQForm.get('label').hasError('required')" class="error">Label is required.</small>
-                      </span>
+                                <small *ngIf="newBuyerQForm.get('label').hasError('required')" class="error">Label is required.</small>
+                            </span>
                         </div>
+
+                        <div class="form-group" *ngIf="is_address">
+                            <mat-select (selectionChange)="fnaddressForamteStyle($event)" [(value)]="addressForamteStyle"   class="form-control">
+                                <mat-option value="US" selected>US Style</mat-option>
+                                <mat-option value="UK">UK Style</mat-option>
+                                <mat-option value="Cadadian">Cadadian Style</mat-option>
+                            </mat-select>
+                        </div>
+                        
+                        <div class="form-group" *ngIf="is_address">
+                            <p *ngIf="is_address && addressForamteStyle=='US'">
+                                Address Line 1 <br>
+                                City <br>
+                                State <br>
+                                Zip Code <br>
+                            </p>
+                            <p *ngIf="is_address && addressForamteStyle=='UK'">
+                                Address Line 1<br>
+                                Address Line 2<br>
+                                Address Line 3<br>
+                                Postcode
+                                
+                            </p>
+                            <p *ngIf="is_address && addressForamteStyle=='Cadadian'">
+                                Address Line 1<br>
+                                City<br>
+                                Province<br>
+                                Postal Code<br>
+                            </p>
+                        </div>
+                        
                     </div>
                     <div class="col-12" *ngIf="optionField">
                         <label class="mb-0" for="">Options for answer (Enter one answer per line)</label>
@@ -58,7 +89,6 @@
                             </ck-editor>
                         </div>
                     </div>
-
                 </div>
             </form>
         </div>

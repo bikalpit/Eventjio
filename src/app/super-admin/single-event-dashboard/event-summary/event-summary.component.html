@@ -142,8 +142,8 @@
         
                 <div class="border" fxLayout="row" *ngFor="let value of eventSummery.soldTicket;let i=index">
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="35">{{value.event ?  value.event.event_title : '-'}} </div>
-                    <div class="fxflex p-2 pl-3 border-right" fxFlex="15">{{ value.ticket_amt | currency:currencySymbol:'symbol' }}</div>
-                    <div class="fxflex p-2 pl-3 border-right" fxFlex="10">{{ (value.ticket ? value.ticket.booking_fee : 0) | currency:currencySymbol:'symbol' }}</div>
+                    <div class="fxflex p-2 pl-3 border-right" fxFlex="15">{{ value.ticket_amt | currency:currencycode:'symbol' }}</div>
+                    <div class="fxflex p-2 pl-3 border-right" fxFlex="10">{{ (value.ticket ? value.ticket.booking_fee : 0) | currency:currencycode:'symbol' }}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20">{{value.sold}}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20">
                         {{value.revenue | currency:currencycode:'symbol' }}

@@ -95,13 +95,13 @@
                     </div>
                   </div>  
 
-                  <div  class="content drageble-list" *ngIf="coupon_amt">
+                  <div  class="content drageble-list" *ngIf="discount_amt">
                     <div class="drageble-box fw-600"  fxLayout="row">
                         <div class="tb-data fs-15 fw-600" fxFlex="35">Promo Code</div>
                         <div class="tb-data" fxFlex="20"></div>
                         <div class="tb-data" fxFlex="15"></div>
                         <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data align-end fs-15" fxFlex="20">{{ coupon_amt | currency:currencyCode:'symbol' }}</div>                        
+                        <div class="tb-data align-end fs-15" fxFlex="20">- {{ discount_amt | currency:currencyCode:'symbol' }}</div>                        
                     </div>
                   </div> 
 
@@ -168,15 +168,40 @@
                   <small *ngIf="bookTickets.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small>
                 </span>
               </div>
-
               <div class="form-group">
-                <label> {{eventForm[2].label}} <span class="text-danger">*</span> </label>
+                <label> {{addressArr.address}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" class="form-control" formControlName="address" placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('address').dirty || bookTickets.get('address').touched">
-                    <small *ngIf="bookTickets.get('address').hasError('required')" class="error text-left">Address is required.</small>
+                    <small *ngIf="bookTickets.get('address').hasError('required')" class="error text-left">{{addressArr.address}} is required.</small>
                 </span>
               </div>
 
+              <div class="form-group">
+                <label> {{addressArr.address1}} <span class="text-danger">*</span> </label>
+                <input matInput type="text" class="form-control" formControlName="address1" placeholder="">
+                <span class="error-wrap" *ngIf="bookTickets.get('address1').dirty || bookTickets.get('address1').touched">
+                    <small *ngIf="bookTickets.get('address1').hasError('required')" class="error text-left">{{addressArr.address1}} is required.</small>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label> {{addressArr.address2}} <span class="text-danger">*</span> </label>
+                <input matInput type="text" class="form-control" formControlName="address2" placeholder="">
+                <span class="error-wrap" *ngIf="bookTickets.get('address2').dirty || bookTickets.get('address2').touched">
+                    <small *ngIf="bookTickets.get('address2').hasError('required')" class="error text-left">{{addressArr.address2}} is required.</small>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label> {{addressArr.zipcode}} <span class="text-danger">*</span> </label>
+                <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
+                <span class="error-wrap" *ngIf="bookTickets.get('zipcode').dirty || bookTickets.get('zipcode').touched">
+                    <small *ngIf="bookTickets.get('zipcode').hasError('required')" class="error text-left">{{addressArr.zipcode}} is required.</small>
+                    <small *ngIf="bookTickets.get('zipcode').hasError('pattern') || bookTickets.get('zipcode').hasError('pattern') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}} Should in numbers</small>
+                    <small *ngIf="bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength')" class="error">{{addressArr.zipcode}}  Should Minimum 5 and Maximum 6 digits.</small>
+                </span>
+              </div>
+              
               <div class="form-group">
                 <label>{{eventForm[3].label}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
