@@ -1,6 +1,6 @@
 <div class="main p-3">
     <div class="modal-header pl-3 py-0 border-0">
-        <p class="font-weight-bold">Export doorlist --</p>
+        <p class="font-weight-bold">Export doorlist</p>
         <button type="button" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
@@ -78,7 +78,7 @@
 
     <div class="modal-footer border-0">
         <button mat-flat-button (click)="onNoClick()" class="cancel-btn mr-1">Cancel</button>
-        <button mat-flat-button class="export-btn ml-1">Export Doorlist</button>
+        <button mat-flat-button class="export-btn ml-1" (click)="fnExportTickets()">Export Doorlist</button>
     </div>
 
 </div>

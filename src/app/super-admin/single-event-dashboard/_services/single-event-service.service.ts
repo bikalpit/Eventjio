@@ -79,6 +79,20 @@ export class SingleEventServiceService {
         }),catchError(this.handleError));
     }
 
+    getExportTickets(requestObject){
+        return this.http.post(`${environment.apiUrl}/export-doorlist`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getEventViews(requestObject){
+        return this.http.post(`${environment.apiUrl}/export-doorlist`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
     cancelOrders(requestObject){
         return this.http.post(`${environment.apiUrl}/update-order-status`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {

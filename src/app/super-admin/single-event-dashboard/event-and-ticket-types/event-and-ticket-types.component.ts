@@ -208,13 +208,20 @@ export class EventAndTicketTypesComponent implements OnInit {
 
         var start_time = this.singleEventDetail.start_time.split(":")
         var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
-        this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom
-        this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom
+
+        var end_time = this.singleEventDetail.end_time.split(":")
+        var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+        
+
+        this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom;
+        this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom;
+        
+       
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
         this.editEventForm.controls['event_start_time'].setValue(start_time_key)
         this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
-        this.editEventForm.controls['event_end_time'].setValue(this.singleEventDetail.end_time)
+        this.editEventForm.controls['event_end_time'].setValue(end_time_key)
         this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
         this.editEventForm.controls['vanue_zip'].setValue(this.singleEventDetail.postal_code)
         this.editEventForm.controls['vanue_country'].setValue(this.singleEventDetail.country[0].id)
@@ -424,16 +431,30 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
   
   fnDeleteTicket(ticketCode, index){
+
+    console.log(ticketCode);
+
+    if(ticketCode=='' || ticketCode==null){
+      return false;
+    }
+    
+    if(!confirm('Are you sure?')){
+      return false;
+    }
+
     this.isLoaderAdmin = true;
+    
     let requestObject = {
       'unique_code' : ticketCode
     }
+
     this.SingleEventServiceService.deleteTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
-        if (index > -1) {
-            this.eventTicketList.splice(index, 1);
-        }
+        this.getSingleEvent();
+        // if (index > -1) {
+        //     this.eventTicketList.splice(index, 1);
+        // }
       }
       else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -473,7 +494,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       'start_date':this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd"),
       'end_date': this.datePipe.transform(new Date(this.editEventForm.get('event_end_date').value),"yyyy-MM-dd"),
       'start_time': this.fullDayTimeSlote[this.editEventForm.get('event_start_time').value],
-      'end_time':this.editEventForm.get('event_end_time').value,
+      'end_time': this.fullDayTimeSlote[this.editEventForm.get('event_end_time').value],
       'venue_name':this.editEventForm.get('vanue_name').value,
       'postal_code':this.editEventForm.get('vanue_zip').value,
       'country':this.editEventForm.get('vanue_country').value,
@@ -512,6 +533,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   updateEvent(requestObject){ 
     this.isLoaderAdmin = true;
     this.SingleEventServiceService.updateEvent(requestObject).subscribe((response:any) => {
+      this.isLoaderAdmin = false;
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
         this.SingleEventDashboard.fnGetEventDetail();
@@ -520,7 +542,6 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.ErrorService.errorMessage(response.response);
       }
     });
-    this.isLoaderAdmin = false;
 
   }
 
@@ -579,8 +600,11 @@ export class EventAndTicketTypesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.eventTicketList.push(result)
+        
+        this.eventTicketList.push(result);
+        console.log(this.eventTicketList)
         this.eventTicketAlertMSG = false;
+
       }else{
         this.getSingleEvent();
       }
@@ -1029,7 +1053,7 @@ export class AddNewTicketType {
     this.isLoaderAdmin = true;
     this.SingleEventServiceService.createTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response);
+        this.ErrorService.successMessage('Ticket is created.');
         this.dialogRef.close(this.newTicketData);
       }
       else if(response.data == false){
