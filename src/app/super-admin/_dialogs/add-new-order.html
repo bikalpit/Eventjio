@@ -12,10 +12,10 @@
         <div class="booking">
           <div class="row ticket ticket-book-popup-border" *ngFor="let event of allEventlist; let i of index;" >
               <div class="col-md-8 ticket-details" >
-                <p>{{event.start_date|date}} - {{event.end_date|date}}</p>
+                <p style="margin: 0;">{{event.start_date|date}} - {{event.end_date|date}}</p>
                 <label>{{event.event_title}}</label>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 mt-2 mb-2">
                 <button mat-raised-button class="ticket-btn comm-btn" (click)="fnBookTicketType(event.unique_code,event)">Book Ticket</button>           
               </div>   
               <div class="line"></div>

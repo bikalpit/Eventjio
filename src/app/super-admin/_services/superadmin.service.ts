@@ -332,7 +332,7 @@ export class SuperadminService {
     }
 
     fnUpdatePaymentStatus(requestObject){
-        return this.http.post(`${environment.apiUrl}/update-single-order-payment-status`,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/payment-status-update`,requestObject,{headers:this.globalHeaders}).pipe(
          map((res) => {
             return res;
           }),

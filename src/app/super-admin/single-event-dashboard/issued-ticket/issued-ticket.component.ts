@@ -217,7 +217,10 @@ export class IssuedTicketComponent implements OnInit {
 export class ExportDoorListComponent {
   constructor(
     public dialogRef: MatDialogRef<ExportDoorListComponent>,
+    public singleEventServiceService:SingleEventServiceService,
+    private ErrorService:ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      console.log(this.data);
     }
 
   onNoClick(): void {
@@ -225,7 +228,24 @@ export class ExportDoorListComponent {
   }
   ngOnInit() {
   }
- 
+  
+  fnExportTickets(){
+
+    let requestObject = {
+      'event_id' : localStorage.getItem('selectedEventCode'),
+      'buyer_questions' : 'aaa',
+      'sort_by' : 'firstname'
+    }
+
+    this.singleEventServiceService.getExportTickets(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.errorMessage(response.response);
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
+  }
 }
 
 

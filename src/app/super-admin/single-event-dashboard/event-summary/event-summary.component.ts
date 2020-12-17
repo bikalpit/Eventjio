@@ -49,6 +49,9 @@ export class EventSummaryComponent implements OnInit {
     this.fnGetEventDetail();
     this.fnGetBoxOfficeDetail();   
     this.fnGetSettings();
+    
+    this.fnGetEventViews(null);
+
   }
   
   fnChartView(data,arrayLable){
@@ -109,7 +112,7 @@ export class EventSummaryComponent implements OnInit {
     let chartData = {
       "items": [
                 {
-                  "label":"TIcket sold",
+                  "label":"Event Views",
                   "data": data,
                   "backgroundColor": "#D9EBFF",
                   "borderColor": "rgb(40,100,200)",
@@ -142,7 +145,7 @@ export class EventSummaryComponent implements OnInit {
         title: {
           display: true,
           position: "left",
-          text:"Event Views",
+          text:"Event Views ss",
           fontSize:12,
           fontColor: "#666"
         },
@@ -157,6 +160,32 @@ export class EventSummaryComponent implements OnInit {
       }
     });
 
+  }
+
+  fnGetEventViews(event=null){
+
+    let requestObject = {
+      'event_id' : this.eventId,
+      'type' : event   ? event.value : "day"
+    };
+    
+    this.SingleEventServiceService.getEventViews(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+
+          var data = [];
+          var arrayLable = [];
+          console.log(response.response)
+          response.response.forEach(element => {
+            data.push(element.views);
+            arrayLable.push(element.date);
+          });
+          
+          this.fnChartView2(data,arrayLable);
+
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });    
   }
 
 
@@ -189,22 +218,22 @@ export class EventSummaryComponent implements OnInit {
         let arrayLable = [];
         if(this.eventSummery.graphSale){
           this.eventSummery.graphSale.forEach(element => {
-            data.push(element.sale);
+            data.push(element.views);
             arrayLable.push(element.date);
           });
           this.fnChartView(data,arrayLable);
         }
 
-        data = [];
-        arrayLable = [];
+        // data = [];
+        // arrayLable = [];
 
-        if(this.eventSummery.graphViews){
-          this.eventSummery.graphViews.forEach(element => {
-            data.push(element.sale);
-            arrayLable.push(element.date);
-          });
-          this.fnChartView2(data,arrayLable);
-        }
+        // if(this.eventSummery.graphViews){
+        //   this.eventSummery.graphViews.forEach(element => {
+        //     data.push(element.sale);
+        //     arrayLable.push(element.date);
+        //   });
+        //   this.fnChartView2(data,arrayLable);
+        // }
         
 
       } else if(response.data == false){

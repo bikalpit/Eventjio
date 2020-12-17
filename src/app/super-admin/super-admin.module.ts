@@ -27,7 +27,7 @@ import { AssignToTicketTypeDialog } from './coupons/coupons.component';
 import { ExportOrderDialog } from './orders/orders.component';
 import { AddNewOrderDialog } from './orders/orders.component';
 import { BookTicketDialog } from './orders/orders.component';
-import { OrderInvoiceDialog } from './orders/orders.component';
+import { OrderInvoiceDialog ,ConfirmpaymentreceivedDialog} from './orders/orders.component';
 import { EditorderDialog, cancelOrderDialog, eventSummaryDialog } from './orders/orders.component';
 import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
 import { myCreateNewBoxofficeDialog } from './my-boxoffice/my-boxoffice.component';
@@ -56,6 +56,7 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
       AddNewTicketType,
       // AddNewTicketGroup,
       OrderInvoiceDialog,
+      ConfirmpaymentreceivedDialog,
       EditorderDialog,
       cancelOrderDialog,
       eventSummaryDialog,
@@ -92,6 +93,7 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
     AddNewOrderDialog,
     BookTicketDialog,
     OrderInvoiceDialog,
+    ConfirmpaymentreceivedDialog,
     AddNewTicketType,
     // AddNewTicketGroup,
     myCreateNewBoxofficeDialog,

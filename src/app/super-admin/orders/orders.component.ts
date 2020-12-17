@@ -12,6 +12,7 @@ import { ExportToCsv } from 'export-to-csv';
 import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
 import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 import {  environment } from '../../../environments/environment'
+import { ServiceService } from 'src/app/_services/service.service';
 
 export interface DialogData {
   animal: string;
@@ -103,7 +104,7 @@ export class OrdersComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fnGetAllEventList();
+      this.fngetallOrders();
     });
   }  
   
@@ -115,7 +116,7 @@ export class OrdersComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fnGetAllEventList();
+      this.fngetallOrders();
     });
   }
 
@@ -128,7 +129,7 @@ export class OrdersComponent implements OnInit {
   
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fnGetAllEventList();
+      this.fngetallOrders();
      });
   }  
 
@@ -262,6 +263,8 @@ export class OrdersComponent implements OnInit {
 })
 export class ExportOrderDialog { 
   
+  isLoaderAdmin =false;
+
   reportType:any = 'overview';
   boxOfficeCode:any;
   selectedOrderArr:any;
@@ -279,6 +282,7 @@ export class ExportOrderDialog {
   orderFieldList:any =[];
   eventFieldList:any =[];
   buyerFieldList:any =[];
+  
   
   LiBuyerDetail:any = false;
   LiBuyerDetails  = [
@@ -585,7 +589,9 @@ export class ExportOrderDialog {
   }
 
   exportOrder(){
-    
+
+    this.isLoaderAdmin = true;
+
     const options = { 
       fieldSeparator: ',',
       quoteStrings: '"',
@@ -644,12 +650,13 @@ export class ExportOrderDialog {
 
 
           this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
-            if(response.data == true){   
-              this.selectedOrderArr = response.response
-              console.log(this.selectedOrderArr);
+            this.isLoaderAdmin = false;
+
+            if(response.data == true && response.response!='Orders not found.'){   
+              this.selectedOrderArr = response.response;
               csvExporter.generateCsv(this.selectedOrderArr);
               this.ErrorService.successMessage("orders exported successfully");
-            }else if(response.data == false && response.response !== 'api token or userid invaild'){
+            }else{
               this.ErrorService.errorMessage(response.response);
             }
         });
@@ -702,14 +709,13 @@ export class ExportOrderDialog {
      
 
       this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
-        if(response.data == true){   
+        this.isLoaderAdmin = false;
 
+        if(response.data == true && response.response!='Orders not found.'){   
           this.selectedOrderArr = response.response;
           csvExporter.generateCsv(this.selectedOrderArr);
-          
           this.ErrorService.successMessage("orders exported successfully");
-
-        }else if(response.data == false && response.response !== 'api token or userid invaild'){
+        }else{
           this.ErrorService.errorMessage(response.response);
         }
       });
@@ -1458,6 +1464,52 @@ export class BookTicketDialog {
 }
 
 @Component({
+  selector: 'confirm-payment-received',
+  templateUrl: '../_dialogs/confirm-payment-received.html',
+})
+export class ConfirmpaymentreceivedDialog { 
+  
+  transaction_id="";
+  orderData:any = [];
+
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmpaymentreceivedDialog>,
+    public superadminService:SuperadminService,
+    public errorService:ErrorService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.orderData = this.data;
+
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit() {
+
+
+  }
+
+  fnUpdateStatus(){
+    
+    let requestObject={
+      "unique_code": this.data.unique_code,
+      "payment_status" :  "paid",
+      "transaction_id": this.transaction_id 
+    }
+
+    this.superadminService.fnUpdatePaymentStatus(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.errorService.successMessage('Payment status updated.');
+        this.dialogRef.close();
+      }else{
+        this.errorService.successMessage(response.response);
+      }
+    });
+  }
+}
+
+@Component({
   selector: 'Orders-Invoice',
   templateUrl: '../_dialogs/order-invoice.html',
 })
@@ -1908,24 +1960,14 @@ export class eventSummaryDialog {
 
     fnPayementpaid(){
 
-      var x  = confirm('Are you sure paid this order?');
-
-      if(x){
-
-        let requestObject={
-          "unique_code": this.data.unique_code,
-          "payment_status" : "paid"
-        } 
-  
-        this.superadminService.fnUpdatePaymentStatus(requestObject).subscribe((response:any) => {
-          if(response.data == true){
-            this.errorService.successMessage('Payment status updated.')  
-          }else{
-            this.errorService.successMessage(response.response);
-          }
-        });
-
-      }
+      const dialogRef = this.dialog.open(ConfirmpaymentreceivedDialog, {
+        width: '700px',
+        data: this.data
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        this.dialogRef.close();
+      });
 
     }
 

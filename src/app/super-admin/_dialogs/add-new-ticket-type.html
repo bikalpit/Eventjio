@@ -150,7 +150,7 @@
                         </div>
                     </div>
 
-                    <label *ngIf="ticketAvalStatus == 'SIB'" class="mt-2" for="">Hide untill a set available interval hours</label>
+                    <label *ngIf="ticketAvalStatus == 'SIB'" class="mt-2" for="">Hide until a set available interval hours</label>
 
                     <div *ngIf="ticketAvalStatus == 'SIB'" class="form-group ">
                         <mat-select (selectionChange)="fnUntilIntervalChange($event)" formControlName="until_interval" class="form-control w-50">

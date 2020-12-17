@@ -199,10 +199,10 @@
                 Event View
             </div>
             <div class="ml-auto">
-                <mat-select class="event-view-dropdown form-control" name="" id="">
-                    <mat-option value="">Last 7 Day</mat-option>
-                    <mat-option value="">Last 4 Weeks</mat-option>
-                    <mat-option value="">Last Year</mat-option>
+                <mat-select class="event-view-dropdown form-control" (selectionChange)="fnGetEventViews($event)" value="day">
+                    <mat-option  value="day">Last 7 Day</mat-option>
+                    <mat-option value="week">Last 4 Weeks</mat-option>
+                    <mat-option value="year">Last Year</mat-option>
                 </mat-select>
             </div>
         </div>
