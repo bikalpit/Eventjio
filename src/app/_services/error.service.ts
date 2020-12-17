@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { environment } from '../../environments/environment';
 import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
+import { AuthenticationService } from './authentication.service';
 
 export interface DialogData {
   animal: string;
@@ -24,6 +25,7 @@ export class ErrorService {
     private http: HttpClient,
     public dialog: MatDialog,
     public router: Router,
+    private authenticationService: AuthenticationService,
     private _snackBar : MatSnackBar,
   ) { 
 
@@ -94,20 +96,11 @@ export class ErrorService {
           this.currentUser = result;
           
         }else{
-          this.logout();
+          this.authenticationService.logout();
           this.router.navigate(['/login']);
         }
 
     });
 
-  }
-  logout() {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('isFront');
-    localStorage.removeItem('logoutTime');
-    localStorage.removeItem('boxoffice_id');
-    localStorage.removeItem('boxoffice_name');
-    localStorage.removeItem('isBoxoffice');
-    
   }
 }
