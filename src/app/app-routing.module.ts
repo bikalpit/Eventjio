@@ -6,15 +6,10 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { Role } from './_models';
 import { AuthGuard } from './_helpers/auth.guard';
-import { PreviewEventsComponent } from './preview-events/preview-events.component';
-import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-office.component'
 
 
 const routes: Routes = [
-  { 
-    path: 'customers', 
-    loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) 
-  },
+ 
   { 
     path: 'super-admin', 
     canActivate: [AuthGuard],
@@ -43,14 +38,6 @@ const routes: Routes = [
   {
     path: 'reset-password', 
     component: ResetPasswordComponent 
-  },
-  {
-    path: 'event/:id', 
-    component: PreviewEventsComponent
-  },
-  {
-    path: 'box-office/:id', 
-    component: PreviewBoxOfficeComponent
   },
 ];
 

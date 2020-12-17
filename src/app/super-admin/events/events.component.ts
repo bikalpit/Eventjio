@@ -667,6 +667,7 @@ export class DialogEventImageUpload {
 constructor(
   public dialogRef: MatDialogRef<DialogEventImageUpload>,
   private _formBuilder:FormBuilder,
+  private ErrorService : ErrorService,
   @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
@@ -682,6 +683,11 @@ constructor(
     }
     
 onFileChange(event) {
+  var file_type = event.target.files[0].type;
+  if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+    this.ErrorService.errorMessage("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+      return;
+  }
   const reader = new FileReader();
   if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
@@ -973,41 +979,6 @@ export class AddNewTicketType {
     
   }
 
-
-  // createNewTicket(requestObject){
-  //   this.isLoaderAdmin = true;
-  //   this.SuperadminService.createNewTicket(requestObject).subscribe((response:any) => {
-  //     if(response.data == true){
-
-  //       this.ErrorService.successMessage('Ticket created succesfully.');
-  //       this.dialogRef.close(response.response);
-  //     }
-  //     else if(response.data == false){
-  //       this.ErrorService.errorMessage(response.response);
-  //     }
-  //     this.isLoaderAdmin = false;
-  //   })
-  // }
  
 }
 
-
-// @Component({
-//   selector: 'add-new-ticket-group',
-//   templateUrl: '../_dialogs/add-new-ticket-group.html',
-//   providers: [DatePipe]
-// })
-// export class AddNewTicketGroup {
-//   constructor(
-//     public dialogRef: MatDialogRef<AddNewTicketGroup>,
-//     private datePipe: DatePipe,
-//     @Inject(MAT_DIALOG_DATA) public data: any) {
-//     }
-
-//   onNoClick(): void {
-//     this.dialogRef.close();
-//   }
-//   ngOnInit() {
-//   }
- 
-// }

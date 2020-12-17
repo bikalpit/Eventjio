@@ -14,11 +14,13 @@
             <div class="row mx-0 mt-2">
 
                 <!-- <img  src="{{myProfileData && myProfileData.image ? myProfileData.image : profileImageUrl}}" alt=""> -->
-                <img *ngIf="!profileImageUrl && myProfileData" src="{{myProfileData.image}}" alt="">
+
+                <img *ngIf="(!profileImageUrl && myProfileData) && myProfileData.image_name != 'default_image.png'" src="{{myProfileData.image}}" alt="">
                 <img *ngIf="profileImageUrl" src="{{profileImageUrl}}" alt="">
                 <div class="col-4 py-2">
-                    <button mat-flat-button (click)="fnChangeImage()" class="change-photo">Change Image</button>
-                    <button mat-flat-button class="remove-photo mt-2" (click)="fnRemoveImage()">Remove Image</button>
+                    <button *ngIf="myProfileData && myProfileData.image_name != 'default_image.png'" mat-flat-button (click)="fnChangeImage()" class="change-photo">Change Image</button>
+                    <button *ngIf="myProfileData && myProfileData.image_name == 'default_image.png'" mat-flat-button (click)="fnChangeImage()" class="change-photo">Upload Image</button>
+                    <button *ngIf="myProfileData && myProfileData.image_name != 'default_image.png'" mat-flat-button class="remove-photo mt-2" (click)="fnRemoveImage()">Remove Image</button>
                 </div>
             </div>
         </div>
@@ -60,8 +62,8 @@
                             <input type="text" class="form-control" formControlName="phone">
                             <span class="error-wrap" *ngIf="myProfileForm.get('phone').touched || myProfileForm.get('phone').dirty">
                         <small *ngIf="myProfileForm.get('phone').hasError('required')" class="error">Phone Number is required.</small>
-                        <small *ngIf="myProfileForm.get('phone').hasError('pattern') || myProfileForm.get('phone').hasError('pattern') && (myProfileForm.get('phone').hasError('maxlength') || myProfileForm.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
-                        <small *ngIf="myProfileForm.get('phone').hasError('maxlength') || myProfileForm.get('phone').hasError('minlength')" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small>
+                        <small *ngIf="myProfileForm.get('phone').hasError('pattern') || (myProfileForm.get('phone').hasError('pattern') && (myProfileForm.get('phone').hasError('maxlength') || myProfileForm.get('phone').hasError('minlength')))" class="error">Phone Number Should in numbers</small>
+                        <small *ngIf="!myProfileForm.get('phone').hasError('pattern') && (myProfileForm.get('phone').hasError('maxlength') || myProfileForm.get('phone').hasError('minlength'))" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small>
                         </span>
                         </div>
                     </div>

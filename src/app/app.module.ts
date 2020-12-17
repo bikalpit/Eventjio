@@ -16,8 +16,6 @@ import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { DialogAuthentication } from './_services/auth.component';
-import { PreviewEventsComponent } from './preview-events/preview-events.component';
-import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-office.component';
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 
 
@@ -30,8 +28,6 @@ import { ConfirmationDialogComponent } from './_components/confirmation-dialog/c
     ForgotPasswordComponent,
     ResetPasswordComponent,
     DialogAuthentication,
-    PreviewEventsComponent,
-    PreviewBoxOfficeComponent,
     ConfirmationDialogComponent,
   ],
   imports: [

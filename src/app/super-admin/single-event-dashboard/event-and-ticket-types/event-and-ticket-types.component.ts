@@ -196,6 +196,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         if(this.singleEventDetail.images.length !== 0){
           if(this.singleEventDetail.images[0].type == 'default'){
             this.eventImageType = this.singleEventDetail.images[0].image_name
+          }else if(this.singleEventDetail.images[0].type == 'upload'){
+            this.eventImageType = 'newUploadImage';
           }
         }else{
           this.singleEventDetail.images = undefined
@@ -511,8 +513,6 @@ export class EventAndTicketTypesComponent implements OnInit {
       'donation_title':this.editEventForm.get('donation_title').value,
       'donation_amt':this.editEventForm.get('donation_amount').value,
       'donation_description':this.editEventForm.get('donation_description').value,
-      // 'ticket_available':this.editEventForm.get('ticket_available').value,
-      // 'ticket_unavailable':this.editEventForm.get('ticket_unavailable').value,
       'currency':this.editEventForm.get('currency').value,
       'transaction_fee':this.editEventForm.get('transaction_fee').value,
       'redirect_confirm_page':this.redirectURL,
@@ -652,6 +652,7 @@ export class DialogEditEventImageUpload {
 constructor(
   public dialogRef: MatDialogRef<DialogEditEventImageUpload>,
   private _formBuilder:FormBuilder,
+  private ErrorService : ErrorService,
   @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
@@ -667,6 +668,11 @@ constructor(
     }
     
   onFileChange(event) {
+    var file_type = event.target.files[0].type;
+    if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+      this.ErrorService.errorMessage("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+        return;
+    }
     const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
         const [file] = event.target.files;
