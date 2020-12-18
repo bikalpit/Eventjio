@@ -46,6 +46,7 @@ export class CustomersComponent implements OnInit {
     keyword: ""
   };
   currentUser:any;
+  is_selected= 'all';
 
   constructor(
     private formBuilder:FormBuilder,
@@ -116,6 +117,7 @@ export class CustomersComponent implements OnInit {
         //    }
      });
   }
+
   fnChangeImage(){
     const dialogRef = this.dialog.open(DialogCustomerImageUpload, {
       width: '500px',
@@ -212,7 +214,9 @@ export class CustomersComponent implements OnInit {
 
  
  getAllCustomersDetails(){
-  this.isLoaderAdmin = true;
+    
+    this.isLoaderAdmin = true;
+    
     let requestObject ={
       'search':this.search.keyword,
       "boxoffice_id": this.boxofficeId,
@@ -221,9 +225,9 @@ export class CustomersComponent implements OnInit {
      
     this.SuperadminService.getAllCustomersDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.customerDetails = response.response
-        this.selectedCustomerCode=  this.customerDetails[0].unique_code
-       this.fnSelectCustomer(this.selectedCustomerCode)
+        this.customerDetails = response.response;
+        this.selectedCustomerCode =  this.customerDetails[0].unique_code
+        this.fnSelectCustomer(this.selectedCustomerCode)
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
         this.customerDetails = null;
@@ -258,7 +262,6 @@ export class CustomersComponent implements OnInit {
   });
 }
 
-//this is for showing a single data on page
 fnSelectCustomer(selectedCustomerCode){
 
   this.selectedCustomerCode = selectedCustomerCode;
@@ -274,8 +277,8 @@ fnSelectCustomer(selectedCustomerCode){
   this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
     if(response.data == true){
       this.selectedCustomerDetails = response.response.customer;
+      this.allEventListData = response.response
       this.addFormButtonDiv = true;
-
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
     }
@@ -289,11 +292,9 @@ fnUpdateCustomer(requestObject){
     this.SuperadminService.updateCustomerDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.updateResponseMsg = JSON.stringify(response.response)
-       // console.log(this.customerDetails);
         this.editCustomerForm = false;
         this.ErrorService.successMessage(this.updateResponseMsg);
         this.fnSelectCustomer(this.selectedCustomerCode);
-        // this.getAllCustomersDetails();
         this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
 
       }else if(response.data == false){
@@ -368,7 +369,11 @@ deleteCustomerDetails(){
     });
   }
   
-  eventList(){
+  
+  eventList(value='all'){
+
+    this.is_selected = value;
+
     this.isLoaderAdmin = true;
     let requestObject = {
       "unique_code": this.selectedCustomerCode
@@ -376,11 +381,8 @@ deleteCustomerDetails(){
     this.isLoaderAdmin = true;
     this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.allEventListData = response.response.all
-        console.log( this.allEventListData);
-        // this.allEventListData.forEach(element => {
-        //   element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
-        // });
+        this.allEventListData = response.response
+      
       }else if(response.data == false){
         this.allEventListData.length = 0;
         this.ErrorService.errorMessage(response.response);

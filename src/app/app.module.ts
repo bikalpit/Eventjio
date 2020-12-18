@@ -17,6 +17,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { DialogAuthentication } from './_services/auth.component';
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
+import {OnlyNumberDirective} from './only-number.directive'
 
 
 
@@ -29,6 +30,8 @@ import { ConfirmationDialogComponent } from './_components/confirmation-dialog/c
     ResetPasswordComponent,
     DialogAuthentication,
     ConfirmationDialogComponent,
+    OnlyNumberDirective
+
   ],
   imports: [
     BrowserModule,

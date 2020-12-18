@@ -23,7 +23,7 @@
                                     <div class="" fxFlex="13">Sold</div>
                                     <div class="" fxFlex="15">Remaining</div>
                                     <div class="" fxFlex="17">Revenue</div>
-                                    <div class="" fxFlex="10"></div>
+                                    <div class="" fxFlex="10">Action</div>
                                 </div>
 
                                 <div class="content" class="drageble-list">
@@ -360,7 +360,6 @@
                             </div>
                         </div>
 
-
                     </div>
 
                 </div>
@@ -386,7 +385,7 @@
                             </div>
                             <div class="ticket-status ml-auto">
                                 <div class="d-inline-block ">
-                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>0 Ticket Sold</span>
+                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>{{eventTicketList.remaining ? eventTicketList.remaining.sold : 0}} Ticket Sold</span>
                                 </div>
                                 <div class="d-inline-block ml-2 mr-2">
                                     <i class="fa fa-ticket fa-lg mr-2"></i><span>{{eventTicketList.qty}} Tickets Remaining</span>

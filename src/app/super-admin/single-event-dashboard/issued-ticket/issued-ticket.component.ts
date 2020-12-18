@@ -219,6 +219,14 @@ export class IssuedTicketComponent implements OnInit {
   templateUrl: '../_dialogs/export-door-list.html',
 })
 export class ExportDoorListComponent {
+
+  exportArr = {
+    'group_by' : '',
+    'sort_by': '',
+    'format_by':''   ,
+    'size_by' : ''        
+  }
+
   constructor(
     public dialogRef: MatDialogRef<ExportDoorListComponent>,
     public singleEventServiceService:SingleEventServiceService,
@@ -226,7 +234,8 @@ export class ExportDoorListComponent {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       console.log(this.data);
     }
-
+   
+    
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -237,17 +246,27 @@ export class ExportDoorListComponent {
 
     let requestObject = {
       'event_id' : localStorage.getItem('selectedEventCode'),
-      'buyer_questions' : 'aaa',
-      'sort_by' : 'firstname'
+      'group_by' : this.exportArr.group_by,
+      'format' : this.exportArr.format_by,
+      'size_by' : this.exportArr.size_by ? this.exportArr.size_by : 10,
+      'sort_by' : this.exportArr.sort_by
     }
-
-    this.singleEventServiceService.getExportTickets(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.ErrorService.errorMessage(response.response);
-      } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+    
+    var str = [];
+    for (var p in requestObject)
+      if (requestObject.hasOwnProperty(p)) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(requestObject[p]));
       }
-    });
+    var param =  str.join("&");
+    
+    return window.open(`${environment.apiUrl}/export-doorlist/?${param}`,'_blank')
+    // this.singleEventServiceService.getExportTickets(param).subscribe((response:any) => {
+    //   if(response.data == true){
+    //     this.ErrorService.errorMessage(response.response);
+    //   } else if(response.data == false){
+    //     this.ErrorService.errorMessage(response.response);
+    //   }
+    // });
 
   }
 }

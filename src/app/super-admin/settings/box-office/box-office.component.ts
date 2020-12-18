@@ -102,16 +102,24 @@ export class BoxOfficeComponent implements OnInit {
 
   fnRemoveImage(){
     
+    var x = confirm('Are you sure?');
+    
+    if(!x){
+      return false;
+    }
+
     let requestObject={
       'unique_code' : this.boxOfficeCode
     }
-    this.settingService.removeBoxOfficeImage(requestObject).subscribe((response:any) => {
+    this.settingService.removeImage(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this.ErrorService.successMessage(response.response);
       this.boxofficeImageUrl = undefined;
       this.getSingleBoxofficeDetails();
-    }else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
+      this.boxofficeImageUrl =false;
+     
+  } else if(response.data == false){
+    this.ErrorService.errorMessage(response.response);
     }
     });
 }

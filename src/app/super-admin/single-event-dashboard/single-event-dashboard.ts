@@ -124,9 +124,7 @@ export class SingleEventDashboard implements OnInit {
     this.eventSideMenu = false;
   }
 
-  PreviewPage(){
-    window.open(environment.APPURL+this.boxOfficeDetail.box_office_link+'/'+this.eventId);
-  }
+
 
   dynamicSort(property: string) {
     let sortOrder = 1;
@@ -211,7 +209,8 @@ export class SingleEventDashboard implements OnInit {
   }
 
   previewEvent(){
-    window.open(this.eventURL,'_blank');
+     window.open(this.eventURL,'_blank');
+     return false;
   }
 
 

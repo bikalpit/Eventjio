@@ -15,28 +15,28 @@
                 <div class="main-table-content main-cust-table-content">
                     <div class="">
                         <div class="heads main-heading-content drageble" fxLayout="row">
-                          <div class="th-data" fxFlex="10"></div> 
-                          <div class="th-data" fxFlex="30">TICKET TYPE</div>                           
-                          <div class="th-data" fxFlex="20">PRICE</div>
+                          <!-- <div class="th-data" fxFlex="10"></div>  -->
+                          <div class="th-data" fxFlex="40">Ticket type</div>                           
+                          <div class="th-data" fxFlex="20">Price</div>
                           <div class="th-data" fxFlex="20">Fee</div>
                           <div class="th-data" fxFlex="20">QUANTITY</div>
                         </div>
                         <div class="content" class="drageble-list" *ngFor="let eventTicket of eventTicket;let i=index">
                           <div class="drageble-box" fxLayout="row">
-                              <div class="tb-data" fxFlex="10">
-                                <!-- <mat-checkbox  (change)="fnBookTicket($event,i)" ></mat-checkbox> -->
-                              </div>   
-                              <div class="tb-data" fxFlex="30">{{eventTicket.ticket_name}} </div>                               
+                              <!-- <div class="tb-data" fxFlex="10">
+                                <mat-checkbox  (change)="fnBookTicket($event,i)" ></mat-checkbox>
+                              </div>    -->
+                              <div class="tb-data" fxFlex="40">{{eventTicket.ticket_name}} </div>                               
                               <div class="tb-data" fxFlex="20"><input type="hidden" class="form-control" >{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
                               <div class="th-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
                               <div class="tb-data" fxFlex="20">
-                                <input type="number"  class="form-control" value="{{eventTicket.qty}}" (change)="fnAddQty(i,$event.target.value);" >      
+                                <input type="number" onlyNumber  class="form-control" value="{{eventTicket.qty}}" (change)="fnAddQty(i,$event.target.value);" >      
                               </div>
                           </div>
                       </div>
                       <div class="content" class="drageble-list">
                         <div class="drageble-box" fxLayout="row">
-                            <div class="tb-data fw-600" fxFlex="50">Subtotal</div>
+                            <div class="tb-data fw-600" fxFlex="50">Sub total</div>
                             <div class="tb-data" fxFlex="30"></div>
                             <div class="tb-data fw-600" fxFlex="20" >{{ subTotal | currency:currencyCode:'symbol' }}</div>
                         </div>
@@ -46,7 +46,7 @@
             </div>
             <div class="example-button-row ml-auto mt-4">
               <button mat-raised-button class="comm-btn d-flex ml-auto"  [disabled]="is_added_at_least_item" (click)="fnTicketCheckout('CheckoutForm')">Next</button>
-              </div>
+            </div>
         </div>
       </div>   
     </div>
@@ -59,12 +59,11 @@
                 <div class="">
                   <div class="heads main-heading-content drageble" fxLayout="row">
                       <div class="th-data" fxFlex="30">Item</div>
-                      <div class="th-data" fxFlex="20">Price</div>
-                      <div class="th-data" fxFlex="15">Booking Fee</div>
-                      <div class="th-data" fxFlex="15">Quantity</div>
-                      <div class="th-data" fxFlex="20" class="align-end">Subtotal</div>
+                      <div class="th-data" fxFlex="15">Price</div>
+                      <div class="th-data" fxFlex="20">Booking Fee</div>
+                      <div class="th-data" fxFlex="25">QUANTITY</div>
+                      <div class="th-data" fxFlex="15" class="align-end">Subtotal</div>
                   </div>
-               
                   <div class="content" class="drageble-list">
                       <div class="drageble-box fw-600" fxLayout="row"  *ngFor="let eventTicket of eventTicket"  >
                           <div *ngIf="eventTicket.id_added" class="tb-data order-item fw-100" fxFlex="30" >{{eventTicket.ticket_name}}</div>
@@ -74,7 +73,6 @@
                           <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="20">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee) | currency:currencyCode:'symbol' }}</div>                        
                       </div>
                   </div>   
-                  <hr>
                   <div  class="content drageble-list">
                     <div class="drageble-box fw-600"  fxLayout="row">
                         <div class="tb-data fs-15 fw-600" fxFlex="35">Transation Fees</div>
@@ -152,7 +150,7 @@
             <form *ngIf="eventForm" [formGroup]="bookTickets">
 
               <div class="form-group">
-                <label>{{eventForm[0].label}} <span class="text-danger">*</span> </label>
+                <label>{{eventForm  ? eventForm[0].label : 'Full name'}} <span class="text-danger">*</span> </label>
                 <input type="text" class="form-control" id="" placeholder="" formControlName ="name">
                 <span class="error-wrap" *ngIf="bookTickets.get('name').dirty || bookTickets.get('name').touched">
                   <small *ngIf="bookTickets.get('name').hasError('required')" class="error text-left">full Name is required.</small>
@@ -160,7 +158,7 @@
               </div>
 
               <div class="form-group">
-                <label>{{eventForm[1].label}} <span class="text-danger">*</span> </label>
+                <label>{{eventForm[1].label ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" class="form-control" formControlName="email"  placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('email').dirty || bookTickets.get('email').touched">
                   <small *ngIf="bookTickets.get('email').hasError('required')" class="error text-left">Email is required.</small>
@@ -203,7 +201,7 @@
               </div>
               
               <div class="form-group">
-                <label>{{eventForm[3].label}} <span class="text-danger">*</span> </label>
+                <label>{{ eventForm ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('phone').dirty || bookTickets.get('phone').touched">
                   <small *ngIf="bookTickets.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
@@ -279,7 +277,7 @@
             </div>
             
             <div class="tickes-heading mt-4 mb-4">
-              <h3 class="text-center"> Attendee Form </h3>
+              <h3 class="text-center"> Attendee Information </h3>
             </div>
 
             <form [formGroup]="dynamicForm">

@@ -90,9 +90,9 @@ export class BroadcastComponent implements OnInit {
         "terms" : this.createBroadcastForm.get('terms').value,
         "event_id" : this.eventId, 
       }
-      console.log(this.createBroadcastData)
+     
       this.createNewBroadCast(this.createBroadcastData,status);
-      this.createBroadcastForm.reset();
+    
     }
    
   }
@@ -102,6 +102,7 @@ export class BroadcastComponent implements OnInit {
       this.SingleEventServiceService.createBroadcastfrm(createBroadcastData).subscribe((response:any) => {
         if(response.data == true){
          this.ErrorService.successMessage(response.response);
+         this.createBroadcastForm.reset();
          this.getAllBroadcast();
          if(status == 'send'){
           setTimeout(() => {
