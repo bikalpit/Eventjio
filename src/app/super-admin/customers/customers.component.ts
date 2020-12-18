@@ -369,6 +369,7 @@ deleteCustomerDetails(){
     });
   }
   
+  
   eventList(value='all'){
 
     this.is_selected = value;
