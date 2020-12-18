@@ -10,15 +10,18 @@
                             <div class="">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="pl-0">
-                                        <img *ngIf="!boxofficeImageUrl && singleBoxofficeDetails" src="{{singleBoxofficeDetails.image}}" alt="">
+                                        <img *ngIf="(!boxofficeImageUrl && singleBoxofficeDetails) && singleBoxofficeDetails.image_name != 'default_image.png'" src="{{singleBoxofficeDetails.image}}" alt="">
                                         <img *ngIf="boxofficeImageUrl" src="{{boxofficeImageUrl}}" alt="">
                                         <!-- <img *ngIf="!boxofficeImageUrl  && !singleBoxofficeDetails.image" src="../../../../assets/images/settings/box.png" alt=""> -->
                                     </div>
                                     <div class="col-md-9">
-                                        <div>
+                                        <div *ngIf="singleBoxofficeDetails && singleBoxofficeDetails.image_name != 'default_image.png'">
                                             <button mat-flat-button class="change-logo" (click)="fnChangeImage()">Change logo</button>
                                         </div>
-                                        <div>
+                                        <div *ngIf="singleBoxofficeDetails && singleBoxofficeDetails.image_name == 'default_image.png'">
+                                            <button mat-flat-button class="change-logo" (click)="fnChangeImage()">Upload logo</button>
+                                        </div>
+                                        <div *ngIf="singleBoxofficeDetails && singleBoxofficeDetails.image_name != 'default_image.png'">
                                             <button mat-flat-button class="remove-logo mt-2" (click)="fnRemoveImage()">Remove logo</button>
                                         </div>
                                     </div>
@@ -144,7 +147,7 @@
 
     <div class="footer-action-btn">
         <div class="can-save">
-            <button mat-raised-button class="cancel-btn">Cancel</button>
+            <button mat-raised-button class="cancel-btn" (click)="onCancel()">Cancel</button>
             <button mat-raised-button class="save-btn" (click)="fnSubmitBoxOffice()">Save</button>
         </div>
     </div>

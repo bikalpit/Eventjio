@@ -313,3 +313,7 @@
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
 }
+
+.form-control[readonly] {
+    background-color: transparent
+}

@@ -207,7 +207,8 @@
                             <div class="w-100">
                                 <label for="">Start Date <span><i class="fa fa-asterisk"></i></span> </label>
                                 <div class="form-group">
-                                    <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY">
+                                    <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY"
+                                        readonly>
                                     <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_start_date').touched || addEventForm.get('event_start_date').dirty">
                                     <small *ngIf="addEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
                                 </span>
@@ -232,7 +233,8 @@
 
                             <div class="w-100">
                                 <label for="">Ends Date<span><i class="fa fa-asterisk"></i></span> </label>
-                                <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY">
+                                <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY"
+                                    readonly>
                                 <mat-datepicker #event_end_date_picker></mat-datepicker>
                                 <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_end_date').touched || addEventForm.get('event_end_date').dirty">
                                     <small *ngIf="addEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>

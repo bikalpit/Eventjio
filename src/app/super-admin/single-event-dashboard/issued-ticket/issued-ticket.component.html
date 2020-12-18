@@ -32,7 +32,7 @@
                         <label for="">Event</label>
                         <mat-select placeholder="Select all ticket" class="form-control" [(ngModel)]="Ticket_Type" (selectionChange)="onChange($event.value)">
                             <mat-option value="all">All</mat-option>
-                            <mat-option *ngFor="let val of EventDetail.tickets; let i = index"   [value]="val.unique_code">{{ val.ticket_name }}</mat-option>
+                            <mat-option *ngFor="let val of EventDetail.tickets; let i = index" [value]="val.unique_code">{{ val.ticket_name }}</mat-option>
                             <!-- <mat-option *ngFor="let val of EventDetail.tickets; let i = index" value="{{val.unique_code ? val.unique_code : 'NULL'}}">{{ val.ticket_name }}</mat-option> -->
                         </mat-select>
                     </div>
@@ -58,7 +58,7 @@
 
                     <div class="col-3">
                         <label for="" class="col-3">Status</label>
-                        <mat-select placeholder="All issued  ticket" class="form-control" [(ngModel)]="status_ticket">
+                        <mat-select placeholder="All issued  ticket" class="form-control" (selectionChange)="onStatusChange($event.value)">
                             <mat-option value="all">all</mat-option>
                             <mat-option value="P">Pending</mat-option>
                             <mat-option value="CO">Completed</mat-option>

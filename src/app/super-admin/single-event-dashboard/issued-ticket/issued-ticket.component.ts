@@ -28,7 +28,7 @@ export class IssuedTicketComponent implements OnInit {
   issuedticketView:any;
   event_id:any;
   getIssuedTicket:any;
-  global_search = 'all';
+  global_search = '';
   EventDetail:any = [];
   Ticket_Type = "all";
   Issued_from:any;
@@ -75,7 +75,7 @@ export class IssuedTicketComponent implements OnInit {
       "event_id": this.event_id,
       "ticket_type": this.Ticket_Type,
       "issued_status": this.status_ticket,
-      "filter": this.filter,
+      "filter": this.global_search,
       "boxoffice_id" : this.boxoffice_id
     }
 
@@ -136,6 +136,10 @@ export class IssuedTicketComponent implements OnInit {
 
   onChange(event) {
     this.Ticket_Type = event;
+    this.issuedTickets();
+  }
+  onStatusChange(event) {
+    this.status_ticket = event;
     this.issuedTickets();
   }
 

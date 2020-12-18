@@ -114,13 +114,14 @@ export class BoxOfficeComponent implements OnInit {
     this.settingService.removeImage(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this.ErrorService.successMessage(response.response);
+      this.boxofficeImageUrl = undefined;
       this.getSingleBoxofficeDetails();
       this.boxofficeImageUrl =false;
      
   } else if(response.data == false){
     this.ErrorService.errorMessage(response.response);
     }
-  });
+    });
 }
 
   getSingleBoxofficeDetails(){
@@ -175,6 +176,9 @@ export class BoxOfficeComponent implements OnInit {
     this.iconshow= false;
   }
 
+  onCancel(){
+    this.getSingleBoxofficeDetails();
+  }
 
 fnSubmitBoxOffice(){
   if(this.singleBoxOffice.invalid){
@@ -253,6 +257,7 @@ export class DialogAdminBoxofficeImageUpload {
 constructor(
   public dialogRef: MatDialogRef<DialogAdminBoxofficeImageUpload>,
   private _formBuilder:FormBuilder,
+  private ErrorService: ErrorService,
   @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
@@ -268,6 +273,11 @@ constructor(
     }
     
 onFileChange(event) {
+  var file_type = event.target.files[0].type;
+  if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+    this.ErrorService.errorMessage("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+      return;
+  }
   const reader = new FileReader();
   if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;

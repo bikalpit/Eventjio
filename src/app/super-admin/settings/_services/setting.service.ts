@@ -68,6 +68,14 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+
+    removeBoxOfficeImage(requestObject){
+        return this.http.post(`${environment.apiUrl}/remove-boxoffice-image-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
     
     getAllBoxoffice(requestObject){
         return this.http.post(`${environment.apiUrl}/get-all-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
