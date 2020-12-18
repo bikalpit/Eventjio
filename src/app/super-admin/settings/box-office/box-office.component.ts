@@ -102,6 +102,12 @@ export class BoxOfficeComponent implements OnInit {
 
   fnRemoveImage(){
     
+    var x = confirm('Are you sure?');
+    
+    if(!x){
+      return false;
+    }
+
     let requestObject={
       'unique_code' : this.boxOfficeCode
     }
@@ -109,6 +115,7 @@ export class BoxOfficeComponent implements OnInit {
       if(response.data == true){
       this.ErrorService.successMessage(response.response);
       this.getSingleBoxofficeDetails();
+      this.boxofficeImageUrl =false;
      
   } else if(response.data == false){
     this.ErrorService.errorMessage(response.response);

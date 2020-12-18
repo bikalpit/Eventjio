@@ -114,11 +114,11 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.getAllCurrancy();
 
   }
-
+  
   createSalesTaxItem(amount=null, label=null) {
     return this._formBuilder.group({
-      amount: [amount],
-      label: [label]
+      amount: [amount,[Validators.required,Validators.pattern('[0-9.]{0,1000}')]],
+      label: [label,[Validators.required]]
     })
   }
 
@@ -271,12 +271,17 @@ export class EventAndTicketTypesComponent implements OnInit {
         }
         this.salesTaxVal = JSON.parse(this.singleEventSetting.sales_tax);
         this.salesTax.length = 0;
+
         this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
+
+        while (this.customSalesTaxArr.length !== 0) {
+          this.customSalesTaxArr.removeAt(0)
+        }
         this.salesTaxVal.forEach(element=>{
           this.customSalesTaxArr.push(this.createSalesTaxItem(element.amount, element.label));
         });
         this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
-        this.customSalesTaxArr.removeAt(this.createSalesTaxItem[0]);
+      //  this.customSalesTaxArr.removeAt(this.createSalesTaxItem[0]);
         this.salesTax.shift();
         this.change.detectChanges();
         
@@ -466,6 +471,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   fnSaveEvent(){
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
+    
     if(this.editEventForm.invalid){
       this.editEventForm.get('event_name').markAsTouched();
       this.editEventForm.get('event_start_date').markAsTouched();
@@ -487,6 +493,11 @@ export class EventAndTicketTypesComponent implements OnInit {
       this.editEventForm.get('vanue_country').markAsTouched();
       return false;
     }
+    if(this.customSalesTaxForm.invalid){
+      this.ErrorService.errorMessage('Enter valide Sales tax.')
+      return false;
+    }
+
     let requestObject = {
       'unique_code' : this.singleEventDetail.unique_code,
       'boxoffice_id':this.boxOfficeCode,

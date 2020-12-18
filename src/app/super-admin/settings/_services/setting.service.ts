@@ -132,7 +132,7 @@ export class SettingService {
    
 
     removeImage(requestObject){
-        return this.http.post(`${environment.apiUrl}/remove-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/remove-boxoffice-image-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

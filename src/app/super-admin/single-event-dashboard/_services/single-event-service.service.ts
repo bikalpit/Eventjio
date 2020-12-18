@@ -80,14 +80,14 @@ export class SingleEventServiceService {
     }
 
     getExportTickets(requestObject){
-        return this.http.post(`${environment.apiUrl}/export-doorlist`,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.get(`${environment.apiUrl}/export-doorlist/?${requestObject}`,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
     }
 
     getEventViews(requestObject){
-        return this.http.post(`${environment.apiUrl}/export-doorlist`,requestObject,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/event-view-filter`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

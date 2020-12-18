@@ -302,7 +302,8 @@ export class EventSummaryComponent implements OnInit {
 
   
   PreviewPage(){
-    window.open(this.eventURL,'_blank');
+   
+    return window.open(this.eventURL,'_blank');
   }
 
   createTrackingLinkandView() {

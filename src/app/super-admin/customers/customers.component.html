@@ -107,17 +107,36 @@
                                     <hr class="m-0">
                                 </mat-tab>
 
-                                <mat-tab label="Events" (click)="eventList()">
+                                <mat-tab label="Events" (click)="eventList('all')">
                                     <div class="py-3">
-                                        <button mat-flat-button class="border mr-1" (click)="eventList()">All Events</button>
-                                        <button mat-flat-button class="border m-1">Completed Events</button>
-                                        <button mat-flat-button class="border ml-1">Upcoming Events</button>
+                                        <button mat-flat-button class="border mr-1" (click)="eventList('all')">All Events</button>
+                                        <button mat-flat-button class="border m-1 "  (click)="eventList('complete')">Completed Events</button>
+                                        <button mat-flat-button class="border ml-1" (click)="eventList('upcoming')">Upcoming Events</button>
                                     </div>
-                                    <div class="">
+
+                                    <div class="" *ngIf="is_selected=='all' && allEventListData">
                                         <table class="table">
-                                            <tr *ngFor="let element of allEventListData">
+                                            <tr *ngFor="let element of allEventListData.all">
                                                 <td>{{element.event_title}} </td>
                                                 <td>{{element.start_date}}</td>
+                                                <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="" *ngIf="is_selected=='complete' && allEventListDat">
+                                        <table class="table">
+                                            <tr *ngFor="let element of allEventListData.complete">
+                                                <td>{{element.event_title}} </td>
+                                                <td>{{element.start_date}}</td>
+                                                <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="" *ngIf="is_selected=='upcoming' && allEventListData">
+                                        <table class="table">
+                                            <tr *ngFor="let element of allEventListData.upcoming">
+                                                <td>{{element.event_title}} </td>
+                                                <td>{{element.start_date | date}}</td>
                                                 <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
                                             </tr>
                                         </table>
@@ -126,10 +145,8 @@
                             </mat-tab-group>
                         </div>
                     </div>
-                    <!-- Add customer form -->
 
                     <div class="p-3" *ngIf="!addFormButtonDiv" class="add-customer-form">
-
                         <div class="px-3">
                             <div class="row">
                                 <form class="p-3" action="" [formGroup]="addCustomerForm" class="with-validation">

@@ -19,6 +19,7 @@ import { DialogAuthentication } from './_services/auth.component';
 import { PreviewEventsComponent } from './preview-events/preview-events.component';
 import { PreviewBoxOfficeComponent } from './preview-box-office/preview-box-office.component';
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
+import {OnlyNumberDirective} from './only-number.directive'
 
 
 
@@ -33,6 +34,8 @@ import { ConfirmationDialogComponent } from './_components/confirmation-dialog/c
     PreviewEventsComponent,
     PreviewBoxOfficeComponent,
     ConfirmationDialogComponent,
+    OnlyNumberDirective
+
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,7 @@
                                 <div class="col-md-7 pl-0">
                                     <label for="">Start Date <span><i class="fa fa-asterisk"></i></span> </label>
                                     <div class="form-group">
-                                        <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY">
+                                        <input  (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY">
                                         <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_start_date').touched || editEventForm.get('event_start_date').dirty">
                                             <small *ngIf="editEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
                                         </span>
@@ -161,10 +161,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-12 mt-2">
+                        <div class="form-group col-md-12 mt-2 " *ngIf="eventImageType!='noImage'">
                             <label for="">Uploaded an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
                             matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
-                        </label>
+                            </label>
                             <div class="select-event-img-sm row mx-0">
                                 <div *ngIf="!selectedImage && singleEventDetail && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + singleEventDetail.images[0].image + ')'}" class="select-event-image">
                                 </div>
@@ -187,10 +187,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-12 mt-2">
+
+                        <div class="form-group col-md-12 mt-2" *ngIf="eventImageType!='noImage'">
                             <label for="">Choose or upload an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
-                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
-                        </label>
+                                 matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
+                            </label>
                             <div class="select-event-img-lg row mx-0">
                                 <div *ngIf="!selectedImage && singleEventDetail && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + singleEventDetail.images[0].image + ')'}" class="select-event-image">
                                 </div>
@@ -238,7 +239,7 @@
                             </div>
                             <div class="ticket-status ml-auto">
                                 <div class="d-inline-block ">
-                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>0 Ticket Sold</span>
+                                    <i class="fa fa-ticket fa-lg mr-2"></i><span>{{eventTicketList.remaining ? eventTicketList.remaining.sold : 0}} Ticket Sold</span>
                                 </div>
                                 <div class="d-inline-block ml-2 mr-2">
                                     <i class="fa fa-ticket fa-lg mr-2"></i><span>Total {{eventTicketList.qty}} Tickets</span>
@@ -427,7 +428,7 @@
 
         <div class="py-3 mt-3 event-setting-btn text-right">
             <button mat-raised-button class="cancel-btn">Cancel</button>
-            <button mat-raised-button (click)="fnSaveEvent()" class="save-btn">Save Event</button>
+            <button mat-raised-button (click)="fnSaveEvent()" class="save-btn">Update Event</button>
         </div>
     </div>
 </div>

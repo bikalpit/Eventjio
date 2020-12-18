@@ -602,6 +602,7 @@ export class ExportOrderDialog {
       useTextFile: false,
       useBom: true,
       useKeysAsHeaders: true,
+      filename : 'export_order',
     };
     const csvExporter = new ExportToCsv(options);
     // this.buyerArray=this.buyerFieldList.concat('unique_code');
@@ -836,7 +837,7 @@ export class BookTicketDialog {
   event_id:any;
   boxOfficeCode:any;
   selecetdTickets : any =[];
-  subTotal :any = '0';
+  subTotal :any = 0;
   is_added_at_least_item  = true;
   currencyCode = "USD";
   isLoaderAdmin = false;
@@ -1156,13 +1157,13 @@ export class BookTicketDialog {
       this.eventTicket.forEach(element=>{
         if(parseInt(element.qty)  > 0 && element.id_added == true){
           this.is_added_at_least_item = false;
-          var total = parseInt(element.qty) * parseInt(element.prize);
-          this.subTotal = this.subTotal + total + parseInt(element.booking_fee);
+          var total = parseInt(element.qty) * parseFloat(element.prize);
+          this.subTotal = this.subTotal + total + parseFloat(element.booking_fee);
           this.total_qty = this.total_qty +  parseInt(element.qty);
         }
       });
     }
-
+    
 
     if(this.total_sales_tax  > 0){
       this.total_sales_tax_amount = this.subTotal*this.total_sales_tax/100;
@@ -1794,13 +1795,14 @@ export class EditorderDialog {
         "customer_info" : JSON.stringify(this.eventSpecificForm),
         'attendee_info' : JSON.stringify(this.attendeeForm)
       }
-      console.log(requestObject);
 
       this.isLoaderAdmin = true;
 
       this.superadminService.orderUpdate(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.errorMessage.successMessage(response.response);
+          this.dialogRef.close();
+
         } else if(response.data == false){
           this.errorMessage.errorMessage(response.response);
         }
