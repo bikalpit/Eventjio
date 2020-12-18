@@ -105,7 +105,7 @@ export class BoxOfficeComponent implements OnInit {
     let requestObject={
       'unique_code' : this.boxOfficeCode
     }
-    this.settingService.removeImage(requestObject).subscribe((response:any) => {
+    this.settingService.removeBoxOfficeImage(requestObject).subscribe((response:any) => {
       if(response.data == true){
       this.ErrorService.successMessage(response.response);
       this.boxofficeImageUrl = undefined;

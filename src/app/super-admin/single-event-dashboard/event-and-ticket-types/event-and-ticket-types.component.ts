@@ -601,9 +601,11 @@ export class EventAndTicketTypesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         
+        // this.getSingleEvent();
         this.eventTicketList.push(result);
         console.log(this.eventTicketList)
         this.eventTicketAlertMSG = false;
+        this.getSingleEvent();
 
       }else{
         this.getSingleEvent();
