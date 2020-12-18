@@ -115,6 +115,11 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   }
 
+  fnCancelEvent(){
+    this.getSingleEvent();
+
+  }
+
   createSalesTaxItem(amount=null, label=null) {
     return this._formBuilder.group({
       amount: [amount],
