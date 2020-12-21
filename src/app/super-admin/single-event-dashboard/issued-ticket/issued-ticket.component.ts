@@ -226,13 +226,17 @@ export class ExportDoorListComponent {
     'format_by':''   ,
     'size_by' : ''        
   }
+  
+  isLoaderAdmin:boolean = false;
+  selectedEventCode = localStorage.getItem('selectedEventCode');
+  boxOfficeCode =  localStorage.getItem('boxoffice_id');
+  eventForm:any = [];
 
   constructor(
     public dialogRef: MatDialogRef<ExportDoorListComponent>,
     public singleEventServiceService:SingleEventServiceService,
     private ErrorService:ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      console.log(this.data);
     }
    
     
@@ -240,9 +244,142 @@ export class ExportDoorListComponent {
     this.dialogRef.close();
   }
   ngOnInit() {
+    this.getEventForm();
   }
   
+  getEventForm(){
+
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'event_id' : this.selectedEventCode,
+      'option_key' : 'checkout_form_type',
+      'boxoffice_id' : 'NULL'
+    }
+
+    this.singleEventServiceService.getSingleEventSettings(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+
+        var checkout_form_type =  JSON.parse(response.response); 
+
+          if(checkout_form_type == 'global'){
+            let arrgumentObject = {
+              'event_id' : 'NULL',
+              'option_key' : 'checkout_form',
+              'boxoffice_id' : this.boxOfficeCode
+            }
+            this.getCheckoutForm(arrgumentObject);
+          }else{
+            let arrgumentObject = {
+              'event_id' : this.selectedEventCode,
+              'option_key' : 'checkout_form',
+              'boxoffice_id' : 'NULL'
+            }
+           this.getCheckoutForm(arrgumentObject);
+          }
+         
+      } else if(response.data == false){
+        this.eventForm = [];
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
+
+
+  }
+
+
+  getCheckoutForm(requestObject){
+
+    this.isLoaderAdmin = true;
+
+    // this.singleEventServiceService.getSingleEventSettings(requestObject).subscribe((response:any) => {
+    //   if(response.data == true){
+        
+        
+    //     var data =   JSON.parse(response.response);
+    //     this.attendeeForm = data[0].attendee_questions;
+    //     this.eventForm = data[0].buyer_questions;
+        
+    //     this.attendeeFormLength = this.attendeeForm.length;
+
+        
+    //     if(this.eventForm[2] && this.eventForm[2].is_deleted == true){
+    //       this.is_address_hide = true;
+        
+
+    //     }
+
+    //     if(this.eventForm[2].addressForamteStyle == 'UK'){
+          
+    //       this.addressArr = {
+    //         'address': 'Address Line 1',
+    //         'address1': 'Address Line 2',
+    //         'address2': 'Address Line 3',
+    //         'zipcode': 'Zip Code',
+    //       };
+
+    //     }else if(this.eventForm[2].addressForamteStyle == 'Cadadian'){
+
+    //       this.addressArr = {
+    //         'address': 'Address Line 1',
+    //         'address1': 'City',
+    //         'address2': 'Province',
+    //         'zipcode': 'Postal Code',
+    //       };
+
+    //     }
+
+    //     var i = 0; 
+    //     this.eventForm.forEach(element => {
+    //       element.value = '';
+    //       if(element.type=='checkbox'){
+    //         element.selector = this.CheckBoxArr(element.options);
+    //       }
+    //       if(i > 3){
+    //         this.eventSpecificForm.push(element);
+    //       }
+    //       i++;
+    //     });
+        
+    //     this.formArr = [];
+    //     this.attendeeForm.forEach(element => {
+    //       if(element.type=='checkbox'){
+    //         element.selector = this.CheckBoxArr(element.options);
+    //       }
+
+    //       var required = element.required ? Validators.required : null;
+          
+    //       this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',required];
+    //       element.controlname = element.label.replace(/[^a-zA-Z]/g, '');
+    //       element.value = '';
+    //     });
+
+        
+    //   } else if(response.data == false){
+    //     this.ErrorService.errorMessage(response.response);
+    //   }
+    //   this.isLoaderAdmin = false;
+    // });
+  }
+
   fnExportTickets(){
+
+    if(this.exportArr.group_by==null || this.exportArr.group_by=='') {
+      this.ErrorService.errorMessage('Please select group by list');
+      return;
+    }
+
+    if(this.exportArr.sort_by==null || this.exportArr.sort_by=='') {
+      this.ErrorService.errorMessage('Please select sort by');
+      return;
+    }
+
+
+    if(this.exportArr.format_by==null || this.exportArr.format_by=='') {
+      this.ErrorService.errorMessage('Please select format');
+      return;
+    }
+
 
     let requestObject = {
       'event_id' : localStorage.getItem('selectedEventCode'),

@@ -34,6 +34,7 @@
         "bootstrap": "^4.5.2",
         "chart.js": "^2.9.3",
         "export-to-csv": "^0.2.1",
+        "file-saver": "^2.0.5",
         "font-awesome": "^4.7.0",
         "jquery": "^3.5.1",
         "jspdf": "^2.1.1",

@@ -23,6 +23,7 @@ boxOfficeCode = localStorage.getItem('boxoffice_id');
 event_id = localStorage.getItem('selectedEventCode');   
 KisshtHtml;
 eventOrderEmailPre;
+eventDetail:any = [];
 
 constructor(
   private _formBuilder: FormBuilder,
@@ -37,8 +38,7 @@ constructor(
   }
 
   ngOnInit(): void {
-    this.fngetGlobleEmail();
-    this.fngetEventEmail();
+    this.fnGetEventDetail();
   }
 
   fnEditOrderConfirmation(event){
@@ -62,11 +62,11 @@ constructor(
 
   }
 
-  fngetGlobleEmail(){
+  fngetGlobleEmail(option_key){
 
     let requestObject = {
       "boxoffice_id": this.boxOfficeCode,
-      "option_key": "global_confirmation",
+      "option_key": option_key,
       "event_id": 'null',
     };
 
@@ -81,11 +81,11 @@ constructor(
  
   }
 
-  fngetEventEmail(){
+  fngetEventEmail(option_key){
 
     let requestObject = {
       "boxoffice_id": "null",
-      "option_key": "event_confirmation",
+      "option_key": option_key,
       "event_id" : this.event_id,
     };
 
@@ -169,5 +169,34 @@ constructor(
     });
 
   }
+
+  fnGetEventDetail(){
+
+    let requestObject = {
+      'unique_code' : this.event_id,
+    }
+
+    this.eventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.eventDetail = response.response.event[0];
+        
+        if(this.eventDetail.online_event == "Y"){
+          this.fngetGlobleEmail('global_confirmation_online');
+          this.fngetEventEmail('event_confirmation_online');
+        }else{
+          this.fngetGlobleEmail('global_confirmation');
+          this.fngetEventEmail('event_confirmation');
+        }
+        
+
+        console.log('---',this.eventDetail);
+
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
+  }
+
 
 }

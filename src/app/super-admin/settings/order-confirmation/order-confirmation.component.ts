@@ -18,8 +18,11 @@ export class OrderConfirmationComponent implements OnInit {
   ticketVouchersPDF = false;
   currentUser:any;
   globalOrderEmail:string = '';
+  globalOrderEmailOnline:string = '';
+  globalOrderPreOnline:any;
   boxOfficeCode = localStorage.getItem('boxoffice_id');   
   globalOrderPre:any;
+  templateType:string = 'In-person';
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -54,6 +57,23 @@ export class OrderConfirmationComponent implements OnInit {
       }
     });
 
+
+    let reqObject = {
+      "boxoffice_id": this.boxOfficeCode,
+      "option_key": "global_confirmation_online",
+      "event_id": 'null',
+    };
+
+    this.SettingService.getSettingsValue(reqObject).subscribe((response:any) => {
+      if(response.data == true){
+          this.globalOrderEmailOnline = response.response;
+          this.globalOrderPreOnline = this.sanitizer.bypassSecurityTrustHtml(response.response);
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
+    
     let requestObjectData = {
       "boxoffice_id": this.boxOfficeCode,
       "option_key": "global_confirmation_setting",
@@ -85,10 +105,9 @@ export class OrderConfirmationComponent implements OnInit {
 
     let requestObject = {
         "boxoffice_id": this.boxOfficeCode,
-        "option_key": "global_confirmation",
-        //"event_id": 'null',
+        "option_key": this.templateType=='online' ? 'global_confirmation_online' : "global_confirmation",
         "json_type":"N",
-        "option_value" : this.globalOrderEmail
+        "option_value" : this.templateType=='online' ? this.globalOrderEmailOnline : this.globalOrderEmail, 
     };
 
     this.SettingService.updateSetting(requestObject).subscribe((response:any) => {
