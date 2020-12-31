@@ -401,20 +401,21 @@
                 <div class="row mx-0">
                     <form class="w-100" [formGroup]="customSalesTaxForm">
                         <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr')['controls']; let i = index">
-                            <div [formGroupName]="i" class="row m-0">
-                                <div class="tax-input col-6">
+                            <div *ngIf="deletedSalesTaxIndex.length == 0 || deletedSalesTaxIndex.indexOf(i,0) < 0" [formGroupName]="i" class="row m-0">
+                                <div class="tax-input">
                                     <label for="">Sales tax amounts</label>
                                     <div class="form-group">
                                         <input formControlName="amount" type="text" class="form-control" placeholder="0.00%">
                                     </div>
                                 </div>
 
-                                <div class="tax-input col-6">
+                                <div class="tax-input col-">
                                     <label for="">Sales tax label</label>
                                     <div class="form-group">
                                         <input formControlName="label" type="text" class="form-control" placeholder="VAT">
                                     </div>
                                 </div>
+                                <span class="delete-tax"><mat-icon (click)="fnDeleteTax(i)">delete_outline</mat-icon></span>
                             </div>
                         </div>
                     </form>

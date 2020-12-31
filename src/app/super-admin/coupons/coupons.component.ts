@@ -367,6 +367,7 @@ export class myCreateDiscountCodeDialog {
   }
 
   fnSubmitCreateCoupon(){
+    console.log(this.createCouponForm);
     if(this.createCouponForm.valid){
       let valid_from = this.createCouponForm.get('valid_from').value;
       let valid_till = this.createCouponForm.get('valid_till').value;

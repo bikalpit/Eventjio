@@ -317,3 +317,20 @@
 .form-control[readonly] {
     background-color: transparent
 }
+
+.delete-tax {
+    align-items: center;
+    display: flex;
+    margin-left: 10px;
+    mat-icon {
+        padding: 5px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        color: red;
+    }
+}
+
+.tax-input {
+    width: 48%;
+}

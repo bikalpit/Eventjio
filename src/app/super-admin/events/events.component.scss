@@ -17,14 +17,11 @@
 }
 
 .pagination-class {
-
     text-align: center;
     display: inline-block;
-    
     .page-item.active .page-link {
         color: #fff !important;
     }
-    
 }
 
 .mat-elevation-z8 {
@@ -186,7 +183,7 @@
 }
 
 .tax-input {
-    width: 49%;
+    width: 48%;
 }
 
 .tax-add-btn {
@@ -224,10 +221,10 @@
     .ticket-status {
         color: #007BFF;
     }
-    .tickets-main-wrap{
+    .tickets-main-wrap {
         display: flex;
-    align-items: center;
-    justify-content: space-between;
+        align-items: center;
+        justify-content: space-between;
     }
 }
 
@@ -273,7 +270,7 @@
         transform: rotate(-45deg);
         color: #FF6600;
     }
-    .delete-btn{
+    .delete-btn {
         background-color: #fff;
         color: #212529;
     }
@@ -365,3 +362,15 @@
 // ::ng-deep .mat-dialog-container {
 //          padding: 0px !important;
 // }
+.delete-tax {
+    align-items: center;
+    display: flex;
+    margin-left: 10px;
+    mat-icon {
+        padding: 5px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        color: red;
+    }
+}

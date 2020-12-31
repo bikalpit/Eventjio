@@ -55,6 +55,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   selectedTicketDetail:any;
   getCurrancy:any;
   selectedImage:any;
+  deletedSalesTaxIndex:any=[];
 
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
@@ -122,7 +123,7 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   createSalesTaxItem(amount=null, label=null) {
     return this._formBuilder.group({
-      amount: [amount,[Validators.required,Validators.pattern('[0-9.]{0,1000}')]],
+      amount: [amount,[Validators.required,Validators.pattern('[0-9.]{0,100}')]],
       label: [label,[Validators.required]]
     })
   }
@@ -133,6 +134,13 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.customSalesTaxArr.push(this.createSalesTaxItem());
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
+  }
+
+  fnDeleteTax(index){
+    this.deletedSalesTaxIndex.push(index);
+    this.salesTax.splice(index, 1);
+    this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
+    this.customSalesTaxForm.value.customSalesTaxArr.splice(index, 1);
   }
 
   
@@ -478,6 +486,15 @@ export class EventAndTicketTypesComponent implements OnInit {
   fnSaveEvent(){
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
+    if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label == ''){
+      this.salesTax.splice(this.salesTax.length-1, 1);
+    }else if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label != ''){
+      this.ErrorService.errorMessage('Sales tax amount is blank.');
+      return false;
+    }else if(this.salesTax[this.salesTax.length-1].amount != '' && this.salesTax[this.salesTax.length-1].label == ''){
+      this.ErrorService.errorMessage('Sales tax lable is blank.');
+      return false;
+    }
     
     if(this.editEventForm.invalid){
       this.editEventForm.get('event_name').markAsTouched();
@@ -500,10 +517,10 @@ export class EventAndTicketTypesComponent implements OnInit {
       this.editEventForm.get('vanue_country').markAsTouched();
       return false;
     }
-    if(this.customSalesTaxForm.invalid){
-      this.ErrorService.errorMessage('Enter valide Sales tax.')
-      return false;
-    }
+    // if(this.customSalesTaxForm.invalid){
+    //   this.ErrorService.errorMessage('Enter valide Sales tax.')
+    //   return false;
+    // }
 
     let requestObject = {
       'unique_code' : this.singleEventDetail.unique_code,
@@ -783,8 +800,8 @@ export class AddNewTicketType {
           description: [this.selectedTicketDetail.description,[]],
           fee: [this.selectedTicketDetail.booking_fee,[Validators.pattern(this.onlynumeric)]],
           status: [this.selectedTicketDetail.status],
-          min_order: [this.selectedTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
-          max_order: [this.selectedTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
+          min_order: [this.selectedTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
+          max_order: [this.selectedTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
           ticket_available: [this.selectedTicketDetail.ticket_avilable,[Validators.required]],
           ticket_unavailable: [this.selectedTicketDetail.ticket_unavilable,[Validators.required]],
           until_date: [this.selectedTicketDetail.untill_date],
@@ -1015,7 +1032,7 @@ export class AddNewTicketType {
         'after_time':  this.addTicketForm.get('after_time').value,
         'sold_out':  this.soldOut,
         'show_qty':  this.showQTY,
-        'discount':  this.assignedCouponCodes,
+        'discount':  JSON.stringify(this.assignedCouponCodes),
         'untill_interval':  this.addTicketForm.get('until_interval').value,
         'after_interval':  this.addTicketForm.get('after_interval').value,
       }
@@ -1063,6 +1080,8 @@ export class AddNewTicketType {
     this.SingleEventServiceService.UpdateTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
+        this.assignedCouponCodes = [];
+        this.addTicketForm.reset();
         this.dialogRef.close(requestObject);
         // this.dialogRef.close();
       }
@@ -1078,6 +1097,8 @@ export class AddNewTicketType {
     this.SingleEventServiceService.createTicket(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage('Ticket is created.');
+        this.assignedCouponCodes = [];
+        this.addTicketForm.reset();
         this.dialogRef.close(this.newTicketData);
       }
       else if(response.data == false){

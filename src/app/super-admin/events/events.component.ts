@@ -83,8 +83,8 @@ export class EventsComponent implements OnInit {
   prev_page_url_pastEvent:any;
   path_pastEvent:any;
   totalPastEvents:any;
-  
-  
+  onlyNumbers= /^[0-9]+$/;
+  deletedSalesTaxIndex:any=[];
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -153,8 +153,8 @@ export class EventsComponent implements OnInit {
 
   createSalesTaxItem() {
     return this._formBuilder.group({
-      amount: [''],
-      label: ['']
+      amount: ['',[Validators.required,Validators.pattern('[0-9.]{0,100}')]],
+      label: ['',[Validators.required]]
     })
   }
 
@@ -166,6 +166,12 @@ export class EventsComponent implements OnInit {
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
   }
 
+  fnDeleteTax(index){
+    this.deletedSalesTaxIndex.push(index);
+    this.salesTax.splice(index, 1);
+    this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
+    this.customSalesTaxForm.value.customSalesTaxArr.splice(index, 1);
+  }
 
   getAllCountry(){
     this.SuperadminService.getAllCountry().subscribe((response:any) => {
@@ -507,9 +513,16 @@ export class EventsComponent implements OnInit {
   
   fnAddNewEvent(){
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
-    // this.customSalesTaxArr.push(this.createSalesTaxItem());
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
-
+    if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label == ''){
+      this.salesTax.splice(this.salesTax.length-1, 1);
+    }else if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label != ''){
+      this.ErrorService.errorMessage('Sales tax amount is blank.');
+      return false;
+    }else if(this.salesTax[this.salesTax.length-1].amount != '' && this.salesTax[this.salesTax.length-1].label == ''){
+      this.ErrorService.errorMessage('Sales tax lable is blank.');
+      return false;
+    }
     if(this.addEventForm.invalid){
       this.addEventForm.get('event_name').markAsTouched();
       this.addEventForm.get('event_start_date').markAsTouched();

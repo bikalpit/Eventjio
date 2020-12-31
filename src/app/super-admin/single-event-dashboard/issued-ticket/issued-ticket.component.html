@@ -86,7 +86,7 @@
                             <div class="drageble-list">
                                 <div class="drageble-box" fxLayout="row" *ngFor="let val of getIssuedTicket; let i = index">
                                     <div class="tb-data" fxFlex="20">
-                                        <span class="cpn-bor" (click)="fnIssuedTicketView(val)" [ngStyle]="{ color: val.order_status === 'CO' ? '#0000ff' : '#0000ff'}">
+                                        <span class="cpn-bor" (click)="fnIssuedTicketView(i)" [ngStyle]="{ color: val.order_status === 'CO' ? '#0000ff' : '#0000ff'}">
                                             {{val.unique_code}}
                                         </span>
                                         <button mat-raised-button class="mx-1 void-btn" *ngIf="val.order_status === 'VO'">

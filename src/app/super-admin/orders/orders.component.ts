@@ -869,7 +869,7 @@ export class BookTicketDialog {
   formArr:any = [];
   dynamicForm: FormGroup;
   attendeeFormLength = 0;
-
+  addressStyleArry:any;
   addressArr = {
     'address': 'Address Line 1',
     'address1': 'City',
@@ -1346,7 +1346,31 @@ export class BookTicketDialog {
     var todaydate = yyyy + '-' + mm + '-' + dd;
 
     var name = this.bookTickets.get("name").value.split(" ");
-    
+    if(this.eventForm[2].addressForamteStyle == 'UK'){
+      this.addressStyleArry = {
+        "address1" : this.bookTickets.get("address").value,
+        "address2" : this.bookTickets.get("address1").value,
+        "address3" : this.bookTickets.get("address2").value,
+        "zipcode" : this.bookTickets.get("zipcode").value,
+        'style' : this.eventForm[2].addressForamteStyle
+      }
+    }else if(this.eventForm[2].addressForamteStyle == 'US'){
+      this.addressStyleArry = {
+        "address1" : this.bookTickets.get("address").value,
+        "city" : this.bookTickets.get("address1").value,
+        "state" : this.bookTickets.get("address2").value,
+        "zipcode" : this.bookTickets.get("zipcode").value,
+        'style' : this.eventForm[2].addressForamteStyle
+      }
+    }else if(this.eventForm[2].addressForamteStyle == 'Cadadian'){
+      this.addressStyleArry = {
+        "address1" : this.bookTickets.get("address").value,
+        "city" : this.bookTickets.get("address1").value,
+        "province" : this.bookTickets.get("address2").value,
+        "postalcode" : this.bookTickets.get("zipcode").value,
+        'style' : this.eventForm[2].addressForamteStyle
+      }
+    }
    
     let requestObject = {
       "box_office_id":this.boxOfficeCode,
@@ -1371,10 +1395,11 @@ export class BookTicketDialog {
       "customer_lastname": name[1] ? name[1]: '',
       "email":this.bookTickets.get("email").value,
       "phone":this.bookTickets.get("phone").value,
-      "address":this.bookTickets.get("address").value,
-      "address1":this.bookTickets.get("address1").value,
-      "address2":this.bookTickets.get("address2").value,
-      "zipcode":this.bookTickets.get("zipcode").value,
+      "address":JSON.stringify(this.addressStyleArry),
+      // "address":this.bookTickets.get("address").value,
+      // "address1":this.bookTickets.get("address1").value,
+      // "address2":this.bookTickets.get("address2").value,
+      // "zipcode":this.bookTickets.get("zipcode").value,
       "customer_info" : JSON.stringify( this.eventSpecificForm),
       "attendee_info" : JSON.stringify(attendeeFinalArr),
       'tickets' : order_item
@@ -1553,7 +1578,7 @@ export class EditorderDialog {
   };
   is_address_hide = false;
   attendeeForm:any =  [];
-
+  addressStyleArry:any;
   constructor(
     public dialogRef: MatDialogRef<EditorderDialog>,
     private http: HttpClient,
@@ -1779,7 +1804,32 @@ export class EditorderDialog {
       }
       
       var name = this.editTicket.get("name").value.split(" ");
-      
+      if(this.eventForm[2].addressForamteStyle == 'UK'){
+        this.addressStyleArry = {
+          "address1" : this.editTicket.get("address").value,
+          "address2" : this.editTicket.get("address1").value,
+          "address3" : this.editTicket.get("address2").value,
+          "zipcode" : this.editTicket.get("zipcode").value,
+          'style' : this.eventForm[2].addressForamteStyle
+        }
+      }else if(this.eventForm[2].addressForamteStyle == 'US'){
+        this.addressStyleArry = {
+          "address1" : this.editTicket.get("address").value,
+          "city" : this.editTicket.get("address1").value,
+          "state" : this.editTicket.get("address2").value,
+          "zipcode" : this.editTicket.get("zipcode").value,
+          'style' : this.eventForm[2].addressForamteStyle
+        }
+      }else if(this.eventForm[2].addressForamteStyle == 'Cadadian'){
+        this.addressStyleArry = {
+          "address1" : this.editTicket.get("address").value,
+          "city" : this.editTicket.get("address1").value,
+          "province" : this.editTicket.get("address2").value,
+          "postalcode" : this.editTicket.get("zipcode").value,
+          'style' : this.eventForm[2].addressForamteStyle
+        }
+      }
+
       let requestObject = {
         'event_id' : this.selectedEventCode,
         'boxoffice_id' : this.boxoffice_id,
@@ -1788,10 +1838,11 @@ export class EditorderDialog {
         'lastname' : name[1] ? name[1] : '',
         'phone' : this.editTicket.get("phone").value,
         'email' : this.editTicket.get("email").value,
-        'address' : this.editTicket.get("address").value,
-        'address1' : this.editTicket.get("address1").value,
-        'address2' : this.editTicket.get("address2").value,
-        'zipcode' : this.editTicket.get("zipcode").value,
+        'address' : JSON.stringify(this.addressStyleArry),
+        // 'address' : this.editTicket.get("address").value,
+        // 'address1' : this.editTicket.get("address1").value,
+        // 'address2' : this.editTicket.get("address2").value,
+        // 'zipcode' : this.editTicket.get("zipcode").value,
         "customer_info" : JSON.stringify(this.eventSpecificForm),
         'attendee_info' : JSON.stringify(this.attendeeForm)
       }
@@ -1903,7 +1954,7 @@ export class eventSummaryDialog {
   is_show = false;
   currencyCode ='USD';  
   attendeeData:any = [];
-
+  customerAddress : any;
 
   constructor(
     public dialogRef: MatDialogRef<eventSummaryDialog>,
@@ -1916,6 +1967,14 @@ export class eventSummaryDialog {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       
       console.log(this.data);
+      if(this.data.customer.usa_address != null){
+        this.customerAddress = JSON.parse(this.data.customer.usa_address)
+      }else if(this.data.customer.uk_address != null){
+        this.customerAddress = JSON.parse(this.data.customer.uk_address)
+      }else if(this.data.customer.ca_address != null){
+        this.customerAddress = JSON.parse(this.data.customer.ca_address)
+      }
+      console.log(this.customerAddress)
 
     }
 

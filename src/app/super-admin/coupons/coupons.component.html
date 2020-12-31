@@ -44,7 +44,10 @@
                                             <div class="tb-data" fxFlex="10">{{allCouponCodeList.max_redemption}}</div>
                                             <div class="tb-data" fxFlex="8">{{allCouponCodeList.used}}</div>
                                             <div class="tb-data" fxFlex="8">{{allCouponCodeList.discount}}</div>
-                                            <div class="tb-data" fxFlex="10">{{allCouponCodeList.coupon_title}}</div>
+                                            <div *ngIf="allCouponCodeList.status == 'A'" class="tb-data" fxFlex="10">Active</div>
+                                            <div *ngIf="allCouponCodeList.status == 'IA'" class="tb-data" fxFlex="10">InActive</div>
+                                            <div *ngIf="allCouponCodeList.status == 'S'" class="tb-data" fxFlex="10">Scheduled</div>
+                                            <div *ngIf="allCouponCodeList.status == 'E'" class="tb-data" fxFlex="10">Expired</div>
                                             <div class="tb-data" fxFlex="10">
                                                 <div *ngIf="allCouponCodeList.status == 'A' || allCouponCodeList.status == 'IA'">
                                                     <mat-slide-toggle (change)="changeCouponStaus($event,allCouponCodeList.unique_code)" [checked]="allCouponCodeList.status == 'A'"></mat-slide-toggle>

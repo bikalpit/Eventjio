@@ -93,7 +93,6 @@ export class IssuedTicketComponent implements OnInit {
       if(response.data == true){
 
         this.getIssuedTicket = response.response.data;
-        console.log(this.getIssuedTicket)
         this.current_page_getIssuedTicket = response.response.current_page;
         this.first_page_url_getIssuedTicket = response.response.first_page_url;
         this.last_page_getIssuedTicket = response.response.last_page;
@@ -122,10 +121,10 @@ export class IssuedTicketComponent implements OnInit {
      });
   }
 
-  fnIssuedTicketView(data) {
+  fnIssuedTicketView(index) {
     const dialogRef = this.dialog.open(IssuedTicketViewComponent, {
       width: '900px',
-      data : data
+      data : {singleTicketData : this.getIssuedTicket[index]}
     });
   
      dialogRef.afterClosed().subscribe(result => {
@@ -223,15 +222,19 @@ export class ExportDoorListComponent {
   exportArr = {
     'group_by' : '',
     'sort_by': '',
-    'format_by':''   ,
-    'size_by' : ''        
+    'format_by':'',
+    'size_by' : '',      
+    'buyer_questions' : '',      
+    'attendee_questions' : '',      
   }
   
   isLoaderAdmin:boolean = false;
   selectedEventCode = localStorage.getItem('selectedEventCode');
   boxOfficeCode =  localStorage.getItem('boxoffice_id');
-  eventForm:any = [];
-
+  buyerQtionList:any = [];
+  attendeeQtionList:any=[];
+  selectedBuyerQuestion:any=[];
+  selectedAttendeeQuestion:any=[];
   constructor(
     public dialogRef: MatDialogRef<ExportDoorListComponent>,
     public singleEventServiceService:SingleEventServiceService,
@@ -278,7 +281,8 @@ export class ExportDoorListComponent {
           }
          
       } else if(response.data == false){
-        this.eventForm = [];
+        this.buyerQtionList = [];
+        this.attendeeQtionList = [];
         this.ErrorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
@@ -292,74 +296,97 @@ export class ExportDoorListComponent {
 
     this.isLoaderAdmin = true;
 
-    // this.singleEventServiceService.getSingleEventSettings(requestObject).subscribe((response:any) => {
-    //   if(response.data == true){
+    this.singleEventServiceService.getSingleEventSettings(requestObject).subscribe((response:any) => {
+      if(response.data == true){
         
         
-    //     var data =   JSON.parse(response.response);
-    //     this.attendeeForm = data[0].attendee_questions;
-    //     this.eventForm = data[0].buyer_questions;
+        var data =   JSON.parse(response.response);
+        this.attendeeQtionList = data[0].attendee_questions;
+        this.buyerQtionList = data[0].buyer_questions;
         
-    //     this.attendeeFormLength = this.attendeeForm.length;
+        // this.attendeeFormLength = this.attendeeForm.length;
 
         
-    //     if(this.eventForm[2] && this.eventForm[2].is_deleted == true){
-    //       this.is_address_hide = true;
+        // if(this.eventForm[2] && this.eventForm[2].is_deleted == true){
+        //   this.is_address_hide = true;
         
 
-    //     }
+        // }
 
-    //     if(this.eventForm[2].addressForamteStyle == 'UK'){
+        // if(this.eventForm[2].addressForamteStyle == 'UK'){
           
-    //       this.addressArr = {
-    //         'address': 'Address Line 1',
-    //         'address1': 'Address Line 2',
-    //         'address2': 'Address Line 3',
-    //         'zipcode': 'Zip Code',
-    //       };
+        //   this.addressArr = {
+        //     'address': 'Address Line 1',
+        //     'address1': 'Address Line 2',
+        //     'address2': 'Address Line 3',
+        //     'zipcode': 'Zip Code',
+        //   };
 
-    //     }else if(this.eventForm[2].addressForamteStyle == 'Cadadian'){
+        // }else if(this.eventForm[2].addressForamteStyle == 'Cadadian'){
 
-    //       this.addressArr = {
-    //         'address': 'Address Line 1',
-    //         'address1': 'City',
-    //         'address2': 'Province',
-    //         'zipcode': 'Postal Code',
-    //       };
+        //   this.addressArr = {
+        //     'address': 'Address Line 1',
+        //     'address1': 'City',
+        //     'address2': 'Province',
+        //     'zipcode': 'Postal Code',
+        //   };
 
-    //     }
+        // }
 
-    //     var i = 0; 
-    //     this.eventForm.forEach(element => {
-    //       element.value = '';
-    //       if(element.type=='checkbox'){
-    //         element.selector = this.CheckBoxArr(element.options);
-    //       }
-    //       if(i > 3){
-    //         this.eventSpecificForm.push(element);
-    //       }
-    //       i++;
-    //     });
+        // var i = 0; 
+        // this.eventForm.forEach(element => {
+        //   element.value = '';
+        //   if(element.type=='checkbox'){
+        //     element.selector = this.CheckBoxArr(element.options);
+        //   }
+        //   if(i > 3){
+        //     this.eventSpecificForm.push(element);
+        //   }
+        //   i++;
+        // });
         
-    //     this.formArr = [];
-    //     this.attendeeForm.forEach(element => {
-    //       if(element.type=='checkbox'){
-    //         element.selector = this.CheckBoxArr(element.options);
-    //       }
+        // this.formArr = [];
+        // this.attendeeForm.forEach(element => {
+        //   if(element.type=='checkbox'){
+        //     element.selector = this.CheckBoxArr(element.options);
+        //   }
 
-    //       var required = element.required ? Validators.required : null;
+        //   var required = element.required ? Validators.required : null;
           
-    //       this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',required];
-    //       element.controlname = element.label.replace(/[^a-zA-Z]/g, '');
-    //       element.value = '';
-    //     });
+        //   this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',required];
+        //   element.controlname = element.label.replace(/[^a-zA-Z]/g, '');
+        //   element.value = '';
+        // });
 
         
-    //   } else if(response.data == false){
-    //     this.ErrorService.errorMessage(response.response);
-    //   }
-    //   this.isLoaderAdmin = false;
-    // });
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
+  }
+
+  fnAddBuyerQtion(event, selectedQuestion){
+    // selectedQuestion = JSON.stringify(selectedQuestion)
+    if(event.checked){
+      this.selectedBuyerQuestion.push(selectedQuestion);
+    }else{
+      const index = this.selectedBuyerQuestion.indexOf(selectedQuestion, 0);
+      if (index > -1) {
+          this.selectedBuyerQuestion.splice(index, 1);
+      }
+    }
+  }
+  
+  fnAddAttendeeQtion(event, selectedQuestion){
+    if(event.checked){
+      this.selectedAttendeeQuestion.push(selectedQuestion);
+    }else{
+      const index = this.selectedAttendeeQuestion.indexOf(selectedQuestion, 0);
+      if (index > -1) {
+          this.selectedAttendeeQuestion.splice(index, 1);
+      }
+    }
   }
 
   fnExportTickets(){
@@ -386,9 +413,10 @@ export class ExportDoorListComponent {
       'group_by' : this.exportArr.group_by,
       'format' : this.exportArr.format_by,
       'size_by' : this.exportArr.size_by ? this.exportArr.size_by : 10,
-      'sort_by' : this.exportArr.sort_by
+      'sort_by' : this.exportArr.sort_by,
+      'buyer_questions' : this.selectedBuyerQuestion,
+      'attendee_questions' : this.selectedAttendeeQuestion,
     }
-    
     var str = [];
     for (var p in requestObject)
       if (requestObject.hasOwnProperty(p)) {
@@ -421,7 +449,7 @@ export class ExportDoorListComponent {
 export class IssuedTicketViewComponent {
   
   elementType : 'url' | 'canvas' | 'img' = 'url';
-  value : string = '';
+  value : any;
   ticketTypeView : any = 'normal';
   OrderView:any;
   eventDetail:any;
@@ -436,7 +464,8 @@ export class IssuedTicketViewComponent {
     private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-      this.value = data.unique_code;
+      this.value = this.data.singleTicketData;
+      console.log(this.value)
       this.fnGetEventDetail();
       this.today  = this.datePipe.transform(new Date(new Date()),"EEE MMM d, y h:mm a")
 
@@ -452,18 +481,18 @@ export class IssuedTicketViewComponent {
   fnGetEventDetail(){
 
     let requestObject = {
-      'unique_code' : this.data.event_id,
+      'unique_code' : this.value.event_id,
     }
+
     
     this.singleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
-        console.log(this.eventDetail);
 
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    });
+    }); 
 
   }
 
@@ -483,7 +512,7 @@ export class IssuedTicketViewComponent {
       this.isLoaderAdmin = true;
       
       let requestObject = {
-        'unique_code':this.value,
+        'unique_code':this.value.unique_code,
         'status' : 'VO'
       }
 
@@ -507,7 +536,7 @@ export class IssuedTicketViewComponent {
   fnOrdertView() {
     const dialogRef = this.dialog.open(OrderViewComponent, {
       width: '900px',
-      data : { data : this.data, 'eventDetail' : this.eventDetail}
+      data : { data : this.value, 'eventDetail' : this.eventDetail}
     });
     this.dialogRef.close();
 
