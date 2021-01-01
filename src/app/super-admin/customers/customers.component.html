@@ -110,7 +110,7 @@
                                 <mat-tab label="Events" (click)="eventList('all')">
                                     <div class="py-3">
                                         <button mat-flat-button class="border mr-1" (click)="eventList('all')">All Events</button>
-                                        <button mat-flat-button class="border m-1 "  (click)="eventList('complete')">Completed Events</button>
+                                        <button mat-flat-button class="border m-1 " (click)="eventList('complete')">Completed Events</button>
                                         <button mat-flat-button class="border ml-1" (click)="eventList('upcoming')">Upcoming Events</button>
                                     </div>
 
@@ -145,7 +145,7 @@
                             </mat-tab-group>
                         </div>
                     </div>
-                    
+
 
                     <div class="p-3" *ngIf="!addFormButtonDiv" class="add-customer-form">
                         <div class="px-3">
@@ -209,11 +209,11 @@
                                             </div>
 
                                             <div class="col-6 ">
-                                                <label for="">Phone No.</label>
+                                                <label for="">Phone No. </label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="phone" />
                                                     <span class="error-wrap" *ngIf="addCustomerForm.get('phone').dirty || addCustomerForm.get('phone').touched"><small *ngIf="addCustomerForm.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
-                                                      <small *ngIf="addCustomerForm.get('phone').hasError('pattern') || addCustomerForm.get('phone').hasError('pattern') && (addCustomerForm.get('phone').hasError('maxlength') || addCustomerForm.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
+                                                      <small *ngIf="addCustomerForm.get('phone').hasError('pattern') || (addCustomerForm.get('phone').hasError('pattern') && (addCustomerForm.get('phone').hasError('maxlength') || addCustomerForm.get('phone').hasError('minlength')))" class="error">Phone Number Should in numbers</small>
                                                       <small *ngIf="!addCustomerForm.get('phone').hasError('pattern') && (addCustomerForm.get('phone').hasError('maxlength') || addCustomerForm.get('phone').hasError('minlength'))" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small></span>
                                                 </div>
                                             </div>

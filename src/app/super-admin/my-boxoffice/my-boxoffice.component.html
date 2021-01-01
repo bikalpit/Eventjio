@@ -24,7 +24,7 @@
                         <h6 class="text-capitalize">{{allBoxoffice.box_office_name}}</h6>
                     </div>
                     <div class="content">
-                        {{allBoxoffice.country?allBoxoffice.country:''}}, {{allBoxoffice.timezone}}
+                        {{allBoxoffice.country?allBoxoffice.country.name:''}}, {{allBoxoffice.type}}
                     </div>
                     <div class="pt-3">
                         <button mat-button class="businness-btn" (click)="fnSelectBoxoffice(allBoxoffice.unique_code, allBoxoffice.box_office_name, allBoxoffice.box_office_link)">Select Box Office</button>

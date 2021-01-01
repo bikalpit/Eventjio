@@ -668,3 +668,21 @@
 .modal-content {
     border: none !important;
 }
+
+::ng-deep .canceled-order-label {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0, 0.1);
+    p {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        color: #000;
+        font-weight: 500;
+        font-size: 15px;
+        .material-icons {
+            margin-right: 10px;
+            color: #ff0000;
+        }
+    }
+}

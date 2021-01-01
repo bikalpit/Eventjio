@@ -1579,6 +1579,7 @@ export class EditorderDialog {
   is_address_hide = false;
   attendeeForm:any =  [];
   addressStyleArry:any;
+  customerAddress:any;
   constructor(
     public dialogRef: MatDialogRef<EditorderDialog>,
     private http: HttpClient,
@@ -1588,7 +1589,7 @@ export class EditorderDialog {
     private change:ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-
+      console.log(this.data)
       let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
       this.editTicket = this._formBuilder.group({
         name:["", Validators.required],
@@ -1712,6 +1713,7 @@ export class EditorderDialog {
         if(response.data == true){
 
           this.singleorderCustomer = response.response;
+          console.log(this.singleorderCustomer)
           this.eventSpecificForm =  JSON.parse(this.singleorderCustomer.customer_info);
         
           this.attendeeForm = JSON.parse(this.singleorderCustomer.attendee_info);
@@ -1719,10 +1721,34 @@ export class EditorderDialog {
           this.editTicket.controls['name'].setValue(this.singleorderCustomer.customer.name)
           this.editTicket.controls['email'].setValue(this.singleorderCustomer.customer.email)
           this.editTicket.controls['phone'].setValue(this.singleorderCustomer.customer.phone)
-          this.editTicket.controls['address'].setValue(this.singleorderCustomer.customer.address)
-          this.editTicket.controls['address1'].setValue(this.singleorderCustomer.customer.address1)
-          this.editTicket.controls['address2'].setValue(this.singleorderCustomer.customer.address2)
-          this.editTicket.controls['zipcode'].setValue(this.singleorderCustomer.customer.zipcode)
+          if(this.singleorderCustomer.customer.usa_address != null){
+            this.customerAddress = JSON.parse(this.singleorderCustomer.customer.usa_address)
+            this.customerAddress['style']= 'USA';
+            this.editTicket.controls['address'].setValue(this.customerAddress.address1)
+            this.editTicket.controls['address1'].setValue(this.customerAddress.city)
+            this.editTicket.controls['address2'].setValue(this.customerAddress.state)
+            this.editTicket.controls['zipcode'].setValue(this.customerAddress.zipcode)
+          }else if(this.singleorderCustomer.customer.uk_address != null){
+            this.customerAddress = JSON.parse(this.singleorderCustomer.customer.uk_address)
+            this.customerAddress['style']= 'UK';
+            this.editTicket.controls['address'].setValue(this.customerAddress.address1)
+            this.editTicket.controls['address1'].setValue(this.customerAddress.address2)
+            this.editTicket.controls['address2'].setValue(this.customerAddress.address3)
+            this.editTicket.controls['zipcode'].setValue(this.customerAddress.zipcode)
+          }else if(this.singleorderCustomer.customer.ca_address != null){
+            this.customerAddress = JSON.parse(this.singleorderCustomer.customer.ca_address)
+            this.customerAddress['style']= 'CA';
+            this.editTicket.controls['address'].setValue(this.customerAddress.address1)
+            this.editTicket.controls['address1'].setValue(this.customerAddress.city)
+            this.editTicket.controls['address2'].setValue(this.customerAddress.province)
+            this.editTicket.controls['zipcode'].setValue(this.customerAddress.postalcode)
+          }
+          console.log(this.customerAddress)
+          
+          // this.editTicket.controls['address'].setValue(this.singleorderCustomer.customer.address)
+          // this.editTicket.controls['address1'].setValue(this.singleorderCustomer.customer.address1)
+          // this.editTicket.controls['address2'].setValue(this.singleorderCustomer.customer.address2)
+          // this.editTicket.controls['zipcode'].setValue(this.singleorderCustomer.customer.zipcode)
 
           this.change.detectChanges();
 
@@ -1969,10 +1995,13 @@ export class eventSummaryDialog {
       console.log(this.data);
       if(this.data.customer.usa_address != null){
         this.customerAddress = JSON.parse(this.data.customer.usa_address)
+        this.customerAddress['style']= 'USA';
       }else if(this.data.customer.uk_address != null){
         this.customerAddress = JSON.parse(this.data.customer.uk_address)
+        this.customerAddress['style']= 'UK';
       }else if(this.data.customer.ca_address != null){
         this.customerAddress = JSON.parse(this.data.customer.ca_address)
+        this.customerAddress['style']= 'CA';
       }
       console.log(this.customerAddress)
 
@@ -2028,6 +2057,7 @@ export class eventSummaryDialog {
     
       dialogRef.afterClosed().subscribe(result => {
         this.dialogRef.close();
+        this.fnGetsingleOrder();
       });
 
     }

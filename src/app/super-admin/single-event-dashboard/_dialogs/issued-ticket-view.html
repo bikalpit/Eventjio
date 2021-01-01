@@ -21,16 +21,20 @@
     <div *ngIf="ticketTypeView === 'normal'" class="pb-3">
         <div class="modal-body p-0">
             <div class="px-3 mt-3">
-                <div class=" px-3">
-                    <button mat-flat-button class="void-ticket-btn" (click)="fnVoidTicket('confirm')" *ngIf="value.order_status!='VO'">Void Ticket</button>
+                <div class=" px-3" *ngIf="value.order_status!='VO'">
+                    <button mat-flat-button class="void-ticket-btn" (click)="fnVoidTicket('confirm')">Void Ticket</button>
                     <button mat-flat-button class="print-ticket-btn ml-2" (click)="printTicket(value)"> Print Ticket</button>
                 </div>
-
-                <div class="px-3 mt-4">
+                <div class="" *ngIf="value.order_status=='VO'">
+                    <div class="col-md-12 canceled-order-label">
+                        <p><span class="material-icons">cancel</span>This Ticket was voided on: Jul 27, 2020 1:16 pm</p>
+                    </div>
+                </div>
+                <!-- <div class="px-3 mt-4">
                     <div class="re-issue-notify p-3">
                         <i class="fa fa-bell fa-lg mr-2"></i> To re-issue or edit ticket details, click the order ID below.
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div id="print-ticket">
@@ -59,8 +63,8 @@
                         <div class="ticket-detail-field font-weight-bold">
                             Status :
                         </div>
-                        <div class="ticket-detail-field ml-auto">
-                            {{value.order_status == 'P' ? 'Pending' : value.order_status == 'CO' ? 'Completed' : value.order_status == 'C' ? 'Cancel' : 'Void' }}
+                        <div [ngStyle]="{'color': value.order_status=='P' ? '#2BB800' : value.order_status=='C' ? '#FF0000' :  value.order_status=='CO' ? '#2BB800' : '#FF0000'}" class="ticket-detail-field ml-auto">
+                            {{value.order_status == 'P' ? 'Pending' : value.order_status == 'CO' ? 'Completed' : value.order_status == 'VO' ? 'Void' : 'Void' }}
                         </div>
 
                         <div class="ticket-detail-field font-weight-bold">
@@ -81,10 +85,17 @@
                 <div class="mt-3 p-3">
                     <div class="pl-3">
                         <div class="p-3 ticket-voucher">
-                            <div class="ticket-title">
+                            <div *ngIf="value.order_status!='VO'" class="ticket-title">
                                 Ticket 1 of 1
                             </div>
+                            <div *ngIf="value.order_status=='VO'" class="ticket-title">
+                                <span style="color: #ff0000;">Void</span> Ticket 1 of 1
+                            </div>
+
                             <div class="qrcodes">
+                                <div *ngIf="value.order_status == 'VO'" class="">
+                                    Void
+                                </div>
                                 <div class="col-6">
                                     <div class="d-inline-block">
                                         <ngx-qrcode [elementType]="elementType" [value]="value.unique_code"></ngx-qrcode>

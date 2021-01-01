@@ -486,15 +486,18 @@ export class EventAndTicketTypesComponent implements OnInit {
   fnSaveEvent(){
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
-    if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label == ''){
-      this.salesTax.splice(this.salesTax.length-1, 1);
-    }else if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label != ''){
-      this.ErrorService.errorMessage('Sales tax amount is blank.');
-      return false;
-    }else if(this.salesTax[this.salesTax.length-1].amount != '' && this.salesTax[this.salesTax.length-1].label == ''){
-      this.ErrorService.errorMessage('Sales tax lable is blank.');
-      return false;
+    if(this.customSalesTax == 'Y'){
+      if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label == ''){
+        this.salesTax.splice(this.salesTax.length-1, 1);
+      }else if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label != ''){
+        this.ErrorService.errorMessage('Sales tax amount is blank.');
+        return false;
+      }else if(this.salesTax[this.salesTax.length-1].amount != '' && this.salesTax[this.salesTax.length-1].label == ''){
+        this.ErrorService.errorMessage('Sales tax lable is blank.');
+        return false;
+      }
     }
+    
     
     if(this.editEventForm.invalid){
       this.editEventForm.get('event_name').markAsTouched();

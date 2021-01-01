@@ -1,82 +1,82 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-.main{
+.main {
     font-family: Poppins, Regular;
 }
-.page-item.active .page-link{
+
+.page-item.active .page-link {
     color: #f7eeee !important;
 }
+
 // modal css
-::ng-deep .modal-dialog{
-    margin:0px;
+::ng-deep .modal-dialog {
+    margin: 0px;
 }
-::ng-deep .fw-600{
+
+::ng-deep .fw-600 {
     font-weight: 600;
 }
-.fw-100{
+
+.fw-100 {
     font-weight: 100;
 }
 
-.pagination-class{
+.pagination-class {
     position: relative;
     display: inline-block;
     padding-top: 18px;
 }
 
-.order{
-    padding:30px 35px;
-    .page-title{
+.order {
+    padding: 30px 35px;
+    .page-title {
         font-size: 15px;
         color: #181818;
     }
-    .manage-order{
-       border: 1px solid #CECECE;
-       background: #F6F6F645;
-       border-radius: 10px;
-       padding: 0px;
-        .manage-order-details{
+    .manage-order {
+        border: 1px solid #CECECE;
+        background: #F6F6F645;
+        border-radius: 10px;
+        padding: 0px;
+        .manage-order-details {
             padding: 30px 60px;
-            .searchbox{
-                margin-top:30px;
-                i{
-
-                }
-                .form-control{
-
-                }
+            .searchbox {
+                margin-top: 30px;
+                i {}
+                .form-control {}
             }
-            .order-event{
+            .order-event {
                 margin-top: 15px;
                 color: #595959;
-                .form-control{
-                        background-color: #F6F6F645;
-                    }
-                .matDate{
-                    position: relative;
-                   .mat-datepicker-toggle{
-                    position: absolute;
-                   } 
-                   .form-control{
-                    padding-left: 40px;
+                .form-control {
+                    background-color: #F6F6F645;
                 }
-                } 
+                .matDate {
+                    position: relative;
+                    .mat-datepicker-toggle {
+                        position: absolute;
+                    }
+                    .form-control {
+                        padding-left: 40px;
+                    }
+                }
             }
-            .drageble-list{
+            .drageble-list {
                 background: #F6F6F645;
             }
-        }        
+        }
     }
-    
 }
 
-.select-events{
-    width:250%
+.select-events {
+    width: 250%
 }
-.select-order-status{
+
+.select-order-status {
     width: 25%;
 }
-// heading css
 
-::ng-deep .main-head{
+// heading css
+::ng-deep .main-head {
     text-align: left;
     font-size: 16px;
     letter-spacing: 0px;
@@ -84,7 +84,8 @@
     opacity: 1;
     font-weight: 600;
 }
-::ng-deep .sub-head{
+
+::ng-deep .sub-head {
     text-align: left;
     font-size: 14px;
     letter-spacing: 0px;
@@ -93,16 +94,15 @@
 }
 
 // modal css
-
-::ng-deep .export-order.modal-dialog{
-    margin:0px;
-      .modal-content .modal-header{
+::ng-deep .export-order.modal-dialog {
+    margin: 0px;
+    .modal-content .modal-header {
         border: none;
     }
-      .modal-content{
+    .modal-content {
         border: none;
     }
-      .modal-content .modal-header .heading{
+    .modal-content .modal-header .heading {
         margin-bottom: 0px;
         font: normal normal medium 22px/33px Poppins;
         letter-spacing: 0px;
@@ -110,35 +110,37 @@
         font-size: 16px;
         font-weight: 600;
     }
-      .modal-dialog .form-group label{
+    .modal-dialog .form-group label {
         color: #595959;
         font-size: 14px;
     }
-  }
+}
 
-  // end css
-
-  ::ng-deep .cancel-btn{
+// end css
+ ::ng-deep .cancel-btn {
     background: #DDDDDD;
     font-size: 14px;
-    color: #181818;   
-  }
-  ::ng-deep .close-btn{
+    color: #181818;
+}
+
+ ::ng-deep .close-btn {
     background: #B4D4FF !important;
     opacity: 1;
     border-radius: 50%;
     padding: 4px 6px !important;
     font-size: 14px;
     color: #1172F4;
-  }
-  ::ng-deep .comm-btn{
+}
+
+ ::ng-deep .comm-btn {
     background: #1172F4;
     font-size: 14px;
     color: #FFFFFF;
     border-radius: 5px;
     text-align: center;
 }
-::ng-deep .comg-btn{
+
+::ng-deep .comg-btn {
     background: #DDDDDD;
     font-size: 14px;
     color: #181818;
@@ -146,86 +148,83 @@
     text-align: center;
 }
 
-
-
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
+    flex-basis: 0;
 }
 
 .example-headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.example-headers-align .mat-form-field + .mat-form-field {
-  margin-left: 8px;
+.example-headers-align .mat-form-field+.mat-form-field {
+    margin-left: 8px;
 }
 
-  ::ng-deep .export-order{
-
+ ::ng-deep .export-order {
     // expansion-panel css 
-    .mat-expansion-panel-header{
+    .mat-expansion-panel-header {
         padding-right: 5px !important;
         padding-left: 0px !important;
-    } 
+    }
     .mat-expansion-panel-body {
         padding-left: 0px;
         padding-right: 0px;
         padding: 0 24px 6px 0px;
-    }    
-    .mat-expansion-panel-body .mat-checkbox-label{
+    }
+    .mat-expansion-panel-body .mat-checkbox-label {
         color: #595959;
     }
-
     // radio button default css change
-
     .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
         border-color: #007BFF;
         background-color: white;
     }
-    .mat-radio-outer-circle{
+    .mat-radio-outer-circle {
         background-color: white;
     }
-    .mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple{
-            background-color: #007BFF;
-        }
-    // end radio button default css 
-
-    //  checkbox default css chnage
-    .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    .mat-radio-button.mat-accent .mat-radio-inner-circle,
+    .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+    .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+    .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
         background-color: #007BFF;
     }
-     // end checkbox default css 
-
-    .overview-report{
+    // end radio button default css 
+    //  checkbox default css chnage
+    .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+    .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+        background-color: #007BFF;
+    }
+    // end checkbox default css 
+    .overview-report {
         background: #F2F2F2;
         border-radius: 4px;
         height: 145px;
         padding: 15px;
-        margin: 0px 15px;        
-        .mat-radio-container{
+        margin: 0px 15px;
+        .mat-radio-container {
             position: relative;
             left: 0px;
             bottom: 57px;
-        }     
-        .ovr{
+        }
+        .ovr {
             margin: 15px 32px 15px 8px;
-            p{
+            p {
                 font-weight: bold;
             }
-            .overview{
+            .overview {
                 border: 2px solid #808080;
                 background: #FFFFFF;
-                height: 82px;                
-                .wd-60{
+                height: 82px;
+                .wd-60 {
                     margin: 7px 5px;
                     width: 70%;
                     background: #808080;
                     border: #808080;
                     height: 5px;
                 }
-                .wd-80{
+                .wd-80 {
                     margin: 7px 5px;
                     width: 87%;
                     background: #808080;
@@ -235,41 +234,40 @@
             }
         }
     }
-
-    .lineitem-report{
+    .lineitem-report {
         background: #F2F2F2;
         border-radius: 4px;
         height: 145px;
         padding: 15px;
-        .mat-radio-container{
+        .mat-radio-container {
             position: relative;
             left: 0px;
             bottom: 57px;
-        }        
-        .lir{
+        }
+        .lir {
             margin: 15px 32px 15px 8px;
-            p{
+            p {
                 font-weight: bold;
             }
-            .line-item{
+            .line-item {
                 border: 2px solid #808080;
                 background: #FFFFFF;
                 height: 82px;
-                .wd-90{
+                .wd-90 {
                     margin: 7px 5px;
                     width: 90%;
                     background: #808080;
                     border: #808080;
                     height: 5px;
                 }
-                .wd-60{
+                .wd-60 {
                     margin: 6px 16px;
                     width: 60%;
                     background: #808080;
                     border: #808080;
                     height: 2px;
                 }
-                .wd-70{
+                .wd-70 {
                     margin: 6px 16px;
                     width: 70%;
                     background: #808080;
@@ -279,8 +277,8 @@
             }
         }
     }
-    .overview-details{
-        h5{
+    .overview-details {
+        h5 {
             color: #181818;
             font-size: 14px;
             margin-top: 15px;
@@ -289,48 +287,47 @@
         // .tab-checkbox{
         //     margin-top: 9px;
         // }
-        .tab-checkbox .mat-checkbox-layout{
+        .tab-checkbox .mat-checkbox-layout {
             margin: 8px 0px;
         }
-        .tab-checkbox .mat-checkbox-label{
+        .tab-checkbox .mat-checkbox-label {
             font-size: 14px;
             font-weight: 600;
             color: #181818;
         }
-        .mat-accordion .mat-expansion-panel:last-of-type{
+        .mat-accordion .mat-expansion-panel:last-of-type {
             box-shadow: none;
             border-bottom: 1px solid #DDDDDD;
             border-bottom-right-radius: 0px;
             border-bottom-left-radius: 0px;
         }
     }
-
-    .linereport-details{
-        .note-theme{
+    .linereport-details {
+        .note-theme {
             background: #DDEAFD;
             border-radius: 5px;
             padding: 16px 15px;
             display: flex;
-            .notif-icon{
+            .notif-icon {
                 color: #FF6600;
                 margin-right: 15px;
                 transform: rotate(-45deg);
             }
-            .notification{
+            .notification {
                 align-items: center;
                 display: flex;
             }
-            .note-message{
+            .note-message {
                 margin-bottom: 0px;
                 // color: #595959;
                 color: #2C2C2C;
-                .notes{
+                .notes {
                     color: #2C2C2C;
                     font-weight: bold;
                 }
             }
         }
-        h5{
+        h5 {
             color: #181818;
             font-size: 14px;
             margin-top: 15px;
@@ -339,39 +336,39 @@
         // .tab-checkbox{
         //     margin-top: 9px;
         // }
-        .tab-checkbox  .mat-checkbox-layout{
+        .tab-checkbox .mat-checkbox-layout {
             margin: 8px 0px;
         }
-        .tab-checkbox .mat-checkbox-label{
+        .tab-checkbox .mat-checkbox-label {
             font-size: 14px;
             font-weight: 600;
             color: #181818;
         }
-        .mat-accordion .mat-expansion-panel:last-of-type{
+        .mat-accordion .mat-expansion-panel:last-of-type {
             box-shadow: none;
             border-bottom: 1px solid #DDDDDD;
             border-bottom-right-radius: 0px;
             border-bottom-left-radius: 0px;
         }
-        .cancel-warn{
-            .note-theme{
+        .cancel-warn {
+            .note-theme {
                 background: #DDEAFD;
                 border-radius: 5px;
                 padding: 16px 15px;
                 display: flex;
-                .notif-icon{
+                .notif-icon {
                     color: #FF6600;
                     margin-right: 15px;
                     transform: rotate(-45deg);
                 }
-                .notification{
+                .notification {
                     align-items: center;
                     display: flex;
                 }
-                .note-message{
+                .note-message {
                     margin-bottom: 0px;
                     color: #595959;
-                    .notes{
+                    .notes {
                         color: #2C2C2C;
                         font-weight: bold;
                     }
@@ -379,90 +376,83 @@
             }
         }
         // .cancel-order-detail{
-
         // }
-        
     }
-    
-    
-  }
-  
-// end export-modal css
+}
 
+// end export-modal css
 // Add-new-order css
-::ng-deep .add-new-order{
-    .booking{
-        .ticket{
-            .ticket-details{
-                p{
+::ng-deep .add-new-order {
+    .booking {
+        .ticket {
+            .ticket-details {
+                p {
                     color: #595959;
                     font-size: 14px;
                 }
-                label{
+                label {
                     margin-bottom: 0px;
                     color: #181818;
                     font-weight: bold;
                     font-size: 16px;
-                }                
+                }
             }
-            .ticket-btn{
+            .ticket-btn {
                 float: right !important;
                 width: 117px !important;
                 text-align: center !important;
             }
         }
-        .line{
+        .line {
             border-bottom: 1px solid #DDDDDD;
             margin: 15px 0px;
-        }  
+        }
     }
 }
+
 // end Add-new-order css
-
-
-
-.search-bar{
+.search-bar {
     font-family: Poppins, Regular;
-    border:1px solid #CECECE;
-    input{
+    border: 1px solid #CECECE;
+    input {
         width: 100%;
         padding-left: 30px;
         background-color: transparent;
         border: none;
         outline: none;
-    }   
-    i{
+    }
+    i {
         position: absolute;
         top: 10px;
         left: 8px;
     }
 }
 
-     // .code-tab{
-       
-    // }   
-        
-    ::ng-deep .code-tab .mat-tab-header{
-        margin-bottom: 20px;
-        border:none;
-        text-align: left;
-    }
-    ::ng-deep .code-tab .mat-ink-bar{
-        background: #1172F4;
-        height: 3px;
-        border-radius: 10px;
-    }
-    ::ng-deep .mat-tab-label{
-        font-size: 16px;
-    }
-    ::ng-deep .mat-tab-label-active{
-        color: #007BFF;
-    }
-    
-    .events{
-        padding-bottom: 30px;
-    .service-listing{
-                 
+// .code-tab{
+// }   
+ ::ng-deep .code-tab .mat-tab-header {
+    margin-bottom: 20px;
+    border: none;
+    text-align: left;
+}
+
+ ::ng-deep .code-tab .mat-ink-bar {
+    background: #1172F4;
+    height: 3px;
+    border-radius: 10px;
+}
+
+ ::ng-deep .mat-tab-label {
+    font-size: 16px;
+}
+
+ ::ng-deep .mat-tab-label-active {
+    color: #007BFF;
+}
+
+.events {
+    padding-bottom: 30px;
+    .service-listing {
         .drageble-list {
             width: 100%;
             border-top: solid 1px #DDDDDD;
@@ -473,40 +463,40 @@
             font-size: 14px;
             font-weight: 500;
         }
-       .main-heading-content{
+        .main-heading-content {
             border-top: solid 1px #00000029;
             // padding: 8px 0px;
-            align-items: center;                
+            align-items: center;
             font-size: 14px;
             color: #595959;
         }
-        .drageble-box{
+        .drageble-box {
             align-items: center;
             // border-bottom: 1px solid #ccc5c5;
         }
-        .th-data{
+        .th-data {
             padding: 8px 8px;
         }
-        .tb-data{
+        .tb-data {
             padding: 15px 0px;
             color: #595959;
         }
-        .order-data-date{
+        .order-data-date {
             font-size: 12px;
             color: #808080;
         }
-        .cpn-title{
+        .cpn-title {
             color: #181818;
         }
-        .cpn-code{
+        .cpn-code {
             color: #1172F4;
         }
-        .cpn-bor{
+        .cpn-bor {
             color: #ffffff;
             // padding: 2px 15px; 
             border-radius: 10px;
         }
-        .action-icon{
+        .action-icon {
             color: #007BFF;
             border-radius: 50%;
             padding: 16px 16px;
@@ -521,485 +511,390 @@
     }
 }
 
-    // flex table css 
-
-    //  Book-ticket modal css
-
-    ::ng-deep .new-order-table .service-listing{
-          .select-qty{
-            width: 56%;
-            height: 30px;
-          }   
-          .fw-600{
-              font-weight: 600;
-          }        
-        .drageble-list {
-            width: 100%;
-            border-bottom: solid 1px #DDDDDD;
-            display: block;
-            background: white;
-            overflow: hidden;
-            font-size: 14px;
-            font-weight: 500;
-        }
-       .main-heading-content{
-            border-bottom: solid 1px #DDDDDD;
-            // padding: 8px 8px;
-            align-items: center;                
-            font-size: 14px;
-            color: #595959;
-        }
-        .drageble-box{
-            align-items: center;
-        }
-        .th-data{
-            padding: 8px 8px;
-        }
-        .tb-data{
-            padding: 8px 8px;
-            color: #181818;
-        }
-        .cpn-title{
-            color: #181818;
-        }
-        .cpn-code{
-            color: #1172F4;
-        }
-        .cpn-bor{
-            border:1px dashed #1172F4;
-            padding: 6px 12px;
-            border-radius: 5px;
-        }
-        .action-icon{
-            color: #007BFF;
-            border-radius: 50%;
-            padding: 16px 16px;
-            background: #ABE6FD;
-            width: 32px;
-            height: 32px;
-            align-items: center;
-            justify-content: center;
-            display: flex;
-            font-size: 30px;
-        }
-    }   
-
-    ::ng-deep .popover-body{
-        padding:  0px  !important;
+// flex table css 
+//  Book-ticket modal css
+ ::ng-deep .new-order-table .service-listing {
+    .select-qty {
+        width: 56%;
+        height: 30px;
     }
-    
-    ::ng-deep .checkout-form{
-        h4{
-            text-align: left;
-            font-size: 17px;
-            letter-spacing: 0px;
-            color: #181818;
-            opacity: 1;
-            font-weight: 500;
-        }
-        .itemlist-table{
-            .service-listing{
-                .align-end{
-                    text-align: end;
-                }
-                .select-qty{
-                  width: 56%;
-                  height: 30px;
-                }   
-                .fw-600{
-                    font-weight: 600;
-                }   
-                .fs-15{
-                    font-size: 15px;
-                } 
-              .drageble-list {
-                  width: 100%;
+    .fw-600 {
+        font-weight: 600;
+    }
+    .drageble-list {
+        width: 100%;
+        border-bottom: solid 1px #DDDDDD;
+        display: block;
+        background: white;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .main-heading-content {
+        border-bottom: solid 1px #DDDDDD;
+        // padding: 8px 8px;
+        align-items: center;
+        font-size: 14px;
+        color: #595959;
+    }
+    .drageble-box {
+        align-items: center;
+    }
+    .th-data {
+        padding: 8px 8px;
+    }
+    .tb-data {
+        padding: 8px 8px;
+        color: #181818;
+    }
+    .cpn-title {
+        color: #181818;
+    }
+    .cpn-code {
+        color: #1172F4;
+    }
+    .cpn-bor {
+        border: 1px dashed #1172F4;
+        padding: 6px 12px;
+        border-radius: 5px;
+    }
+    .action-icon {
+        color: #007BFF;
+        border-radius: 50%;
+        padding: 16px 16px;
+        background: #ABE6FD;
+        width: 32px;
+        height: 32px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        font-size: 30px;
+    }
+}
+
+ ::ng-deep .popover-body {
+    padding: 0px !important;
+}
+
+ ::ng-deep .checkout-form {
+    h4 {
+        text-align: left;
+        font-size: 17px;
+        letter-spacing: 0px;
+        color: #181818;
+        opacity: 1;
+        font-weight: 500;
+    }
+    .itemlist-table {
+        .service-listing {
+            .align-end {
+                text-align: end;
+            }
+            .select-qty {
+                width: 56%;
+                height: 30px;
+            }
+            .fw-600 {
+                font-weight: 600;
+            }
+            .fs-15 {
+                font-size: 15px;
+            }
+            .drageble-list {
+                width: 100%;
                 //   border-bottom: solid 1px #DDDDDD;
-                  display: block;
-                  background: white;
-                  overflow: hidden;
-                  font-size: 14px;
-                  font-weight: 500;
-              }
-             .main-heading-content{
-                  border-bottom: solid 1px #DDDDDD;
+                display: block;
+                background: white;
+                overflow: hidden;
+                font-size: 14px;
+                font-weight: 500;
+            }
+            .main-heading-content {
+                border-bottom: solid 1px #DDDDDD;
                 //   padding: 8px 8px;
-                  align-items: center;                
-                  font-size: 14px;
-                  color: #181818;
-                  font-weight: 600;
-              }
-              .drageble-box{
-                  align-items: center;
-              }
-              .order-item{
-                  font-weight: 100;
-              }
-              .th-data{
-                padding: 8px 8px;
-            }
-              .tb-data{
-                  padding: 8px 8px;
-                  color: #181818;
-              }
-              .cpn-title{
-                  color: #181818;
-              }
-              .cpn-code{
-                  color: #1172F4;
-              }
-              .cpn-bor{
-                  border:1px dashed #1172F4;
-                  padding: 6px 12px;
-                  border-radius: 5px;
-              }
-              .action-icon{
-                  color: #007BFF;
-                  border-radius: 50%;
-                  padding: 16px 16px;
-                  background: #ABE6FD;
-                  width: 32px;
-                  height: 32px;
-                  align-items: center;
-                  justify-content: center;
-                  display: flex;
-                  font-size: 30px;
-              }
-          }  
-
-        }
-        .link{
-            color: #007BFF;
-        }
-           
-        .mt-16{
-            margin-top: 16px;
-        } 
-        .checkout{
-             .fa-asterisk{
-                color: #FF0000;
-                font-size: 5px;
-                position: relative;
-                bottom: 6px;
-            }
-        }
-        .general-admission{
-            .fa-asterisk{
-                color: #FF0000;
-                font-size: 5px;
-                position: relative;
-                bottom: 6px;
-            }
-        }
-        
-    }
-
-    ::ng-deep .book-order{
-        .print-order{
-            margin-left: auto;
-            a{
-                color: #181818;
-                display: flex;
                 align-items: center;
-                .link{
-                    color: #007BFF;
-                }                 
+                font-size: 14px;
+                color: #181818;
+                font-weight: 600;
+            }
+            .drageble-box {
+                align-items: center;
+            }
+            .order-item {
+                font-weight: 100;
+            }
+            .th-data {
+                padding: 8px 8px;
+            }
+            .tb-data {
+                padding: 8px 8px;
+                color: #181818;
+            }
+            .cpn-title {
+                color: #181818;
+            }
+            .cpn-code {
+                color: #1172F4;
+            }
+            .cpn-bor {
+                border: 1px dashed #1172F4;
+                padding: 6px 12px;
+                border-radius: 5px;
+            }
+            .action-icon {
+                color: #007BFF;
+                border-radius: 50%;
+                padding: 16px 16px;
+                background: #ABE6FD;
+                width: 32px;
+                height: 32px;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                font-size: 30px;
             }
         }
     }
+    .link {
+        color: #007BFF;
+    }
+    .mt-16 {
+        margin-top: 16px;
+    }
+    .checkout {
+        .fa-asterisk {
+            color: #FF0000;
+            font-size: 5px;
+            position: relative;
+            bottom: 6px;
+        }
+    }
+    .general-admission {
+        .fa-asterisk {
+            color: #FF0000;
+            font-size: 5px;
+            position: relative;
+            bottom: 6px;
+        }
+    }
+}
 
-    ::ng-deep .order-details{
-        .order-head{
-            padding: 11px 15px;
-            margin: 25px 0px 15px 0px;
-            background: #EFEFEF;
+ ::ng-deep .book-order {
+    .print-order {
+        margin-left: auto;
+        a {
             color: #181818;
-            a{
-                color: #181818;
-            }
-            p{
-                margin-bottom: 0px;
-            }
-            .dwnld-invoice{
-                margin-left: auto;
+            display: flex;
+            align-items: center;
+            .link {
+                color: #007BFF;
             }
         }
-        .order-desc{
-            label{
-                color: #181818;
+    }
+}
+
+ ::ng-deep .order-details {
+    .order-head {
+        padding: 11px 15px;
+        margin: 25px 0px 15px 0px;
+        background: #EFEFEF;
+        color: #181818;
+        a {
+            color: #181818;
+        }
+        p {
+            margin-bottom: 0px;
+        }
+        .dwnld-invoice {
+            margin-left: auto;
+        }
+    }
+    .order-desc {
+        label {
+            color: #181818;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        p {
+            color: #595959;
+            font-size: 14px;
+        }
+    }
+    .order-table {
+        .service-listing {
+            .select-qty {
+                width: 56%;
+                height: 30px;
+            }
+            .fw-600 {
+                font-weight: 600;
+            }
+            .drageble-list {
+                width: 100%;
+                border: solid 1px #DDDDDD;
+                display: block;
+                background: white;
+                overflow: hidden;
+                font-size: 14px;
                 font-weight: 500;
-                font-size: 14px;
             }
-            p{
-                color: #595959;
-                font-size: 14px;
-            }
-        }
-        .order-table{
-            .service-listing{
-                .select-qty{
-                  width: 56%;
-                  height: 30px;
-                }   
-                .fw-600{
-                    font-weight: 600;
-                }        
-              .drageble-list {
-                  width: 100%;
-                  border: solid 1px #DDDDDD;
-                  display: block;
-                  background: white;
-                  overflow: hidden;
-                  font-size: 14px;
-                  font-weight: 500;
-              }
-             .main-heading-content{
-                  border-bottom: solid 1px #DDDDDD;
-                  border-top: solid 1px #DDDDDD;
-                  border: solid 1px #DDDDDD;
+            .main-heading-content {
+                border-bottom: solid 1px #DDDDDD;
+                border-top: solid 1px #DDDDDD;
+                border: solid 1px #DDDDDD;
                 //padding: 8px 8px;
-                  align-items: center;                
-                  font-size: 14px;
-                  color: #181818;
-                  font-weight: 500;
-              }
-              .drageble-box{
-                  align-items: center;
-              }
-              .th-data{
-                padding: 8px 8px;
-            }
-              .tb-data{
-                  padding: 8px 8px;
-                  color: #181818;
-              }
-              .th-data{
-                padding: 8px 8px;
-            }
-              .cpn-title{
-                  color: #181818;
-              }
-              .cpn-code{
-                  color: #1172F4;
-              }
-              .cpn-bor{
-                  border:1px dashed #1172F4;
-                  padding: 6px 12px;
-                  border-radius: 5px;
-              }
-              .action-icon{
-                  color: #007BFF;
-                  border-radius: 50%;
-                  padding: 16px 16px;
-                  background: #ABE6FD;
-                  width: 32px;
-                  height: 32px;
-                  align-items: center;
-                  justify-content: center;
-                  display: flex;
-                  font-size: 30px;
-              }
-          }
-
-        }
-        
-    }
-
-    ::ng-deep .buyer-details{
-        .buyer-head{
-            padding: 11px 15px;
-            margin: 25px 0px 15px 0px;
-            background: #EFEFEF;
-            color: #181818;
-            a{
-                color: #181818;
-            }
-            p{
-                margin-bottom: 0px;
-            }
-            .dwnld-invoice{
-                margin-left: auto;
-            }
-        }
-        .buyer-desc{
-            label{
+                align-items: center;
+                font-size: 14px;
                 color: #181818;
                 font-weight: 500;
-                font-size: 14px;
             }
-            p{
-                color: #595959;
-                font-size: 14px;
+            .drageble-box {
+                align-items: center;
             }
-        }
-    }
-
-    ::ng-deep .ticket-details{
-        .ticket-head{
-            padding: 11px 15px;
-            margin: 25px 0px 15px 0px;
-            background: #EFEFEF;
-            color: #181818;
-            a{
+            .th-data {
+                padding: 8px 8px;
+            }
+            .tb-data {
+                padding: 8px 8px;
                 color: #181818;
             }
-            p{
-                margin-bottom: 0px;
+            .th-data {
+                padding: 8px 8px;
             }
-            .dwnld-invoice{
-                margin-left: auto;
-            }
-        }
-        .ticket-desc{
-            label{
+            .cpn-title {
                 color: #181818;
-                font-weight: 500;
-                font-size: 14px;
             }
-            p{
-                color: #595959;
-                font-size: 14px;
+            .cpn-code {
+                color: #1172F4;
             }
-        }
-    }
-    ::ng-deep .cancel-order{
-        .cancel-warn{
-            .note-theme{
-                background: #ffe6e6;
+            .cpn-bor {
+                border: 1px dashed #1172F4;
+                padding: 6px 12px;
                 border-radius: 5px;
-                padding: 16px 15px;
+            }
+            .action-icon {
+                color: #007BFF;
+                border-radius: 50%;
+                padding: 16px 16px;
+                background: #ABE6FD;
+                width: 32px;
+                height: 32px;
+                align-items: center;
+                justify-content: center;
                 display: flex;
-                .notif-icon{
-                    color: #FF0000;
-                    margin-right: 15px;
-                }
-                .notification{
-                    align-items: center;
-                    display: flex;
-                }
-                .note-message{
-                    margin-bottom: 0px;
-                    color: #595959;
-                    .notes{
-                        color: #2C2C2C;
-                        font-weight: bold;
-                    }
+                font-size: 30px;
+            }
+        }
+    }
+}
+
+ ::ng-deep .buyer-details {
+    .buyer-head {
+        padding: 11px 15px;
+        margin: 25px 0px 15px 0px;
+        background: #EFEFEF;
+        color: #181818;
+        a {
+            color: #181818;
+        }
+        p {
+            margin-bottom: 0px;
+        }
+        .dwnld-invoice {
+            margin-left: auto;
+        }
+    }
+    .buyer-desc {
+        label {
+            color: #181818;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        p {
+            color: #595959;
+            font-size: 14px;
+        }
+    }
+}
+
+ ::ng-deep .ticket-details {
+    .ticket-head {
+        padding: 11px 15px;
+        margin: 25px 0px 15px 0px;
+        background: #EFEFEF;
+        color: #181818;
+        a {
+            color: #181818;
+        }
+        p {
+            margin-bottom: 0px;
+        }
+        .dwnld-invoice {
+            margin-left: auto;
+        }
+    }
+    .ticket-desc {
+        label {
+            color: #181818;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        p {
+            color: #595959;
+            font-size: 14px;
+        }
+    }
+}
+
+ ::ng-deep .cancel-order {
+    .cancel-warn {
+        .note-theme {
+            background: #ffe6e6;
+            border-radius: 5px;
+            padding: 16px 15px;
+            display: flex;
+            .notif-icon {
+                color: #FF0000;
+                margin-right: 15px;
+            }
+            .notification {
+                align-items: center;
+                display: flex;
+            }
+            .note-message {
+                margin-bottom: 0px;
+                color: #595959;
+                .notes {
+                    color: #2C2C2C;
+                    font-weight: bold;
                 }
             }
         }
-        
-        .cancel-order-detail{           
-            padding: 20px 26px 10px 20px;
-            .order-det{
-                label{
-                    color: #181818;
-                    font-weight: 600;
-                    font-size: 14px;
-                }
-                p{
-                    color: #595959;
-                    font-size: 14px;
-                }
+    }
+    .cancel-order-detail {
+        padding: 20px 26px 10px 20px;
+        .order-det {
+            label {
+                color: #181818;
+                font-weight: 600;
+                font-size: 14px;
             }
-        .cancel-order-note{
+            p {
+                color: #595959;
+                font-size: 14px;
+            }
+        }
+        .cancel-order-note {
             margin-top: 15px;
-            .fa-asterisk{
+            .fa-asterisk {
                 color: #FF0000;
                 font-size: 5px;
                 position: relative;
                 bottom: 6px;
             }
         }
-        .order-cancel{
-            .order-cancel-btn{
-                background: #FF0000;
-                color: #FFFFFF;
-                margin-top: 30px;
-            }
-        }
-
-    }
-         
-    }
-
-   .ml-0{margin-left: 0px;}    
-    
-   
-
-    //  end Book-ticket modal css
-   
-    // edit-order modal css
-
-    ::ng-deep .edit-form{
-        .edit-order{
-        .fa-asterisk{
-            color: #FF0000;
-            font-size: 5px;
-            position: relative;
-            bottom: 6px;
-        }
-    }
-    .general-admission{
-        .fa-asterisk{
-            color: #FF0000;
-            font-size: 5px;
-            position: relative;
-            bottom: 6px;
-        }
-    }
-  }
-    //cancel-order modal css
-
-    ::ng-deep .cancel-order{
-        .cancel-warn{
-            .note-theme{
-                background: #ffe6e6;
-                border-radius: 5px;
-                padding: 16px 15px;
-                display: flex;
-                .notif-icon{
-                    color: #FF0000;
-                    margin-right: 15px;
-                }
-                .notification{
-                    align-items: center;
-                    display: flex;
-                }
-                .note-message{
-                    margin-bottom: 0px;
-                    color: #595959;
-                    .notes{
-                        color: #2C2C2C;
-                        font-weight: bold;
-                    }
-                }
-            }
-        }
-        
-        .cancel-order-detail{           
-            padding: 20px 26px 10px 20px;
-            .order-det{
-                label{
-                    color: #181818;
-                    font-weight: 600;
-                    font-size: 14px;
-                }
-                p{
-                    color: #595959;
-                    font-size: 14px;
-                }
-            }
-        .cancel-order-note{
-            margin-top: 15px;
-            .fa-asterisk{
-                color: #FF0000;
-                font-size: 5px;
-                position: relative;
-                bottom: 6px;
-            }
-        }
-        .order-cancel{
-            .order-cancel-btn{
+        .order-cancel {
+            .order-cancel-btn {
                 background: #FF0000;
                 color: #FFFFFF;
                 margin-top: 30px;
@@ -1007,8 +902,108 @@
         }
     }
 }
-    
+
+.ml-0 {
+    margin-left: 0px;
+}
+
+//  end Book-ticket modal css
+// edit-order modal css
+ ::ng-deep .edit-form {
+    .edit-order {
+        .fa-asterisk {
+            color: #FF0000;
+            font-size: 5px;
+            position: relative;
+            bottom: 6px;
+        }
+    }
+    .general-admission {
+        .fa-asterisk {
+            color: #FF0000;
+            font-size: 5px;
+            position: relative;
+            bottom: 6px;
+        }
+    }
+}
+
+//cancel-order modal css
+ ::ng-deep .cancel-order {
+    .cancel-warn {
+        .note-theme {
+            background: #ffe6e6;
+            border-radius: 5px;
+            padding: 16px 15px;
+            display: flex;
+            .notif-icon {
+                color: #FF0000;
+                margin-right: 15px;
+            }
+            .notification {
+                align-items: center;
+                display: flex;
+            }
+            .note-message {
+                margin-bottom: 0px;
+                color: #595959;
+                .notes {
+                    color: #2C2C2C;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    .cancel-order-detail {
+        padding: 20px 26px 10px 20px;
+        .order-det {
+            label {
+                color: #181818;
+                font-weight: 600;
+                font-size: 14px;
+            }
+            p {
+                color: #595959;
+                font-size: 14px;
+            }
+        }
+        .cancel-order-note {
+            margin-top: 15px;
+            .fa-asterisk {
+                color: #FF0000;
+                font-size: 5px;
+                position: relative;
+                bottom: 6px;
+            }
+        }
+        .order-cancel {
+            .order-cancel-btn {
+                background: #FF0000;
+                color: #FFFFFF;
+                margin-top: 30px;
+            }
+        }
+    }
+}
+
 .error {
     color: #FF0000 !important;
 }
 
+::ng-deep .canceled-order-label {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0, 0.1);
+    p {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        color: #000;
+        font-weight: 500;
+        font-size: 15px;
+        .material-icons {
+            margin-right: 10px;
+            color: #ff0000;
+        }
+    }
+}

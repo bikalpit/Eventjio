@@ -27,7 +27,7 @@ export interface DialogData {
 })
 export class CustomersComponent implements OnInit {
   addCustomerForm:FormGroup;
-  onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
   boxofficeId:any;
   customerDetails:any;
   selectedCustomerDetails:any;
