@@ -828,8 +828,8 @@ export class AddNewTicketType {
       this.ErrorService.errorMessage(response.response);
       this.allCouponCodeList = null;
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
 
   fnAddCoupon(event, couponCode){

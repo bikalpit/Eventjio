@@ -81,11 +81,11 @@ constructor(
  
   }
 
-  fngetEventEmail(option_key){
+  fngetEventEmail(){
 
     let requestObject = {
       "boxoffice_id": "null",
-      "option_key": option_key,
+      "option_key": 'event_confirmation',
       "event_id" : this.event_id,
     };
 
@@ -182,10 +182,8 @@ constructor(
         
         if(this.eventDetail.online_event == "Y"){
           this.fngetGlobleEmail('global_confirmation_online');
-          this.fngetEventEmail('event_confirmation_online');
         }else{
           this.fngetGlobleEmail('global_confirmation');
-          this.fngetEventEmail('event_confirmation');
         }
         
 

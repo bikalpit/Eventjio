@@ -686,3 +686,21 @@
         }
     }
 }
+
+::ng-deep .qrcodes {
+    position: relative;
+    .red-ticket-tag {
+        position: absolute;
+        top: 40%;
+        width: 100%;
+        z-index: 999;
+        background-color: #ff0000;
+        padding: 10px 15px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        transform: rotate(-45deg);
+        left: -70px;
+    }
+}

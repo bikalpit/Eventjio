@@ -29,9 +29,9 @@
                     <button mat-raised-button class="comg-btn mr-2" (click)="editOrder()">Edit Order</button>
                     <button mat-raised-button class="comg-btn mr-2" (click)="cancelOrder()">Cancel Order</button>
                 </div>
-                <div class="print-order col-md-4 px-0">
-                    <a href="#" class=""><span class=""><mat-icon aria-hidden="false" aria-label="" (click)="fnDownloadInvoice(orderDetail.unique_code)" class="link mr-2">print</mat-icon></span>Print order confirmation</a>
-                </div>
+                <!-- <div class="print-order col-md-4 px-0">
+                    <a class=""><span class=""><mat-icon aria-hidden="false" aria-label="" (click)="fnDownloadInvoice(orderDetail.unique_code)" class="link mr-2">print</mat-icon></span>Print order confirmation</a>
+                </div> -->
             </div>
             <div class="row mx-0" *ngIf="orderDetail.order_status == 'C'">
                 <div class="col-md-12 canceled-order-label">
@@ -163,7 +163,7 @@
             <div class="ticket-desc">
                 <div class="row">
                     <label class="col-md-4">Ticket code:</label>
-                    <a href="javascript:;" class="col-md-8" target="_blank">
+                    <a class="col-md-8" target="_blank">
                   {{val.ticket ? val.ticket.unique_code : '-'}}
                 </a>
                 </div>
