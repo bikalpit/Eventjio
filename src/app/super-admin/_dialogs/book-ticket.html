@@ -150,7 +150,7 @@
             <form *ngIf="eventForm" [formGroup]="bookTickets">
 
               <div class="form-group">
-                <label>{{eventForm  ? eventForm[0].label : 'Full name'}} <span class="text-danger">*</span> </label>
+                <label>{{eventForm.label  ? eventForm.label : 'Full name'}} <span class="text-danger">*</span> </label>
                 <input type="text" class="form-control" id="" placeholder="" formControlName ="name">
                 <span class="error-wrap" *ngIf="bookTickets.get('name').dirty || bookTickets.get('name').touched">
                   <small *ngIf="bookTickets.get('name').hasError('required')" class="error text-left">full Name is required.</small>
@@ -158,7 +158,7 @@
               </div>
 
               <div class="form-group">
-                <label>{{eventForm[1].label ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
+                <label>{{eventForm.label ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" class="form-control" formControlName="email"  placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('email').dirty || bookTickets.get('email').touched">
                   <small *ngIf="bookTickets.get('email').hasError('required')" class="error text-left">Email is required.</small>
@@ -195,18 +195,18 @@
                 <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('zipcode').dirty || bookTickets.get('zipcode').touched">
                     <small *ngIf="bookTickets.get('zipcode').hasError('required')" class="error text-left">{{addressArr.zipcode}} is required.</small>
-                    <small *ngIf="bookTickets.get('zipcode').hasError('pattern') || bookTickets.get('zipcode').hasError('pattern') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}} Should in numbers</small>
-                    <small *ngIf="bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength')" class="error">{{addressArr.zipcode}}  Should Minimum 5 and Maximum 6 digits.</small>
+                    <small *ngIf=" bookTickets.get('zipcode').hasError('pattern') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}} Should in numbers</small>
+                    <small *ngIf="!bookTickets.get('zipcode').hasError('pattern') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}}  Should Minimum 5 and Maximum 6 digits.</small>
                 </span>
               </div>
               
               <div class="form-group">
-                <label>{{ eventForm ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
+                <label>{{ eventForm.label ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
                 <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
                 <span class="error-wrap" *ngIf="bookTickets.get('phone').dirty || bookTickets.get('phone').touched">
                   <small *ngIf="bookTickets.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
-                  <small *ngIf="bookTickets.get('phone').hasError('pattern') || bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
-                  <small *ngIf="bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength')" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small>
+                  <small *ngIf="bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
+                  <small *ngIf="!bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small>
                 </span>
               </div>
             </form>
