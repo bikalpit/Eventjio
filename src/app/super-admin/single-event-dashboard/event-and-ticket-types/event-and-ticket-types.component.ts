@@ -56,6 +56,8 @@ export class EventAndTicketTypesComponent implements OnInit {
   getCurrancy:any;
   selectedImage:any;
   deletedSalesTaxIndex:any=[];
+  startdateToday:boolean=false;
+  currentTime:any;
 
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
@@ -324,10 +326,32 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   
 
+  // time formate 12 to 24
+  transform(time: any): any {
+    let hour = (time.split(':'))[0];
+    let temp = (time.split(':'))[1];
+    let min = (temp.split(' '))[0];
+    let part = (time.split(' '))[1];
+    if(part == 'PM'){
+      hour = Number(hour)+12;
+    }
+    return `${hour}:${min}`
+  }
+  
+
+
   // add Event Fns
   
   fnChangeEventStartDate(){
     this.minEventEndDate = this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd");
+    var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    var selectedStartDate = this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd")
+    if(selectedStartDate == todayDate){
+      this.editEventForm.get('event_start_time').setValue('');
+      this.startdateToday=true;
+      this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
+      this.currentTime = this.transform(this.currentTime)
+    }
     this.editEventForm.get('event_end_date').setValue('');
     this.editEventForm.get('event_end_time').setValue('');
   }
