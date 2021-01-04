@@ -34,9 +34,9 @@ export class SalesTaxComponent implements OnInit {
       
       this.isLoaderAdmin = true;
       if(event.checked == true){
-        this.boxOfficeSalesTax = 'Y'
+        this.boxOfficeSalesTax = 'Y';
       }else{
-        this.boxOfficeSalesTax = 'N'
+        this.boxOfficeSalesTax = 'N';
       }
     
     
