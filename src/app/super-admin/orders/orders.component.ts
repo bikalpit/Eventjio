@@ -790,7 +790,6 @@ export class AddNewOrderDialog {
           var currentDate: Date = new Date();
 
           if( currentDate > lastDate  ){
-            console.log('false',endDate);
             object.splice(index, 1);
             //return false;
           } else {
