@@ -56,6 +56,8 @@ export class EventAndTicketTypesComponent implements OnInit {
   getCurrancy:any;
   selectedImage:any;
   deletedSalesTaxIndex:any=[];
+  startdateToday:boolean=false;
+  currentTime:any;
 
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
@@ -324,10 +326,32 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   
 
+  // time formate 12 to 24
+  transform(time: any): any {
+    let hour = (time.split(':'))[0];
+    let temp = (time.split(':'))[1];
+    let min = (temp.split(' '))[0];
+    let part = (time.split(' '))[1];
+    if(part == 'PM'){
+      hour = Number(hour)+12;
+    }
+    return `${hour}:${min}`
+  }
+  
+
+
   // add Event Fns
   
   fnChangeEventStartDate(){
     this.minEventEndDate = this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd");
+    var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    var selectedStartDate = this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd")
+    if(selectedStartDate == todayDate){
+      this.editEventForm.get('event_start_time').setValue('');
+      this.startdateToday=true;
+      this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
+      this.currentTime = this.transform(this.currentTime)
+    }
     this.editEventForm.get('event_end_date').setValue('');
     this.editEventForm.get('event_end_time').setValue('');
   }
@@ -479,8 +503,8 @@ export class EventAndTicketTypesComponent implements OnInit {
       else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
 
   fnSaveEvent(){
@@ -569,7 +593,6 @@ export class EventAndTicketTypesComponent implements OnInit {
   updateEvent(requestObject){ 
     this.isLoaderAdmin = true;
     this.SingleEventServiceService.updateEvent(requestObject).subscribe((response:any) => {
-      this.isLoaderAdmin = false;
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
         this.SingleEventDashboard.fnGetEventDetail();
@@ -578,6 +601,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.ErrorService.errorMessage(response.response);
       }
     });
+    this.isLoaderAdmin = false;
 
   }
 
@@ -790,7 +814,7 @@ export class AddNewTicketType {
         console.log(this.selectedTicketDetail)
         if(this.data.selectedTicketDetail.discount.length !== 0){
           console.log(this.data.selectedTicketDetail.discount)
-          this.assignedCouponCodes = JSON.parse(this.data.selectedTicketDetail.discount)
+          this.assignedCouponCodes = this.data.selectedTicketDetail.discount
         }
         this.editTicket = true;
         this.advanceSetting = this.selectedTicketDetail.advance_setting
@@ -878,8 +902,8 @@ export class AddNewTicketType {
       this.ErrorService.errorMessage(response.response);
       this.allCouponCodeList = null;
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
 
   fnAddCoupon(event, couponCode){
@@ -1035,7 +1059,7 @@ export class AddNewTicketType {
         'after_time':  this.addTicketForm.get('after_time').value,
         'sold_out':  this.soldOut,
         'show_qty':  this.showQTY,
-        'discount':  JSON.stringify(this.assignedCouponCodes),
+        'discount':  this.assignedCouponCodes,
         'untill_interval':  this.addTicketForm.get('until_interval').value,
         'after_interval':  this.addTicketForm.get('after_interval').value,
       }
@@ -1086,13 +1110,12 @@ export class AddNewTicketType {
         this.assignedCouponCodes = [];
         this.addTicketForm.reset();
         this.dialogRef.close(requestObject);
-        // this.dialogRef.close();
       }
       else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     })
+    this.isLoaderAdmin = false;
   }
 
   createTicket(requestObject){
@@ -1107,8 +1130,8 @@ export class AddNewTicketType {
       else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     })
+    this.isLoaderAdmin = false;
   }
   
  

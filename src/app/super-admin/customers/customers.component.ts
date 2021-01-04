@@ -233,8 +233,8 @@ export class CustomersComponent implements OnInit {
         this.customerDetails = null;
         this.addFormButtonDiv = false;
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
 }
 
  editCustomerDetails(){
@@ -282,8 +282,8 @@ fnSelectCustomer(selectedCustomerCode){
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
     }
-    this.isLoaderAdmin = false;
   });
+    this.isLoaderAdmin = false;
   
 }
 
@@ -300,8 +300,8 @@ fnUpdateCustomer(requestObject){
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
 }
 
 
@@ -332,8 +332,8 @@ deleteCustomerDetails(){
         this.ErrorService.errorMessage(response.response);
 
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
   }
 
   ExportFile(){
@@ -364,9 +364,9 @@ deleteCustomerDetails(){
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
-        this.isLoaderAdmin = false;
       }
     });
+        this.isLoaderAdmin = false;
   }
   
   
@@ -488,8 +488,8 @@ export class DialogImportFileUpload {
         this.ErrorService.errorMessage(response.response);
 
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
 
 
   //  let requestObject={

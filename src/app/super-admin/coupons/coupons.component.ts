@@ -442,8 +442,8 @@ export class myCreateDiscountCodeDialog {
       else if(response.data == false){
        this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
   updateCouponCode(updateCouponCode){
     this.isLoaderAdmin = true;
@@ -456,8 +456,8 @@ export class myCreateDiscountCodeDialog {
       else if(response.data == false){
        this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
   fnCancelCreateCoupon(){
     this.dialogRef.close();
@@ -529,8 +529,8 @@ export class myBatchVoucherCodeDialog {
         this.ErrorService.errorMessage(response.response);
         this.getAllEventList = null;
         }
-        this.isLoaderAdmin = false;
       })
+        this.isLoaderAdmin = false;
     }
     
   fnAssignEvent(event, eventCode){
@@ -592,9 +592,9 @@ export class myBatchVoucherCodeDialog {
         else if(response.data == false){
          this.ErrorService.errorMessage(response.response);
         }
-        this.isLoaderAdmin = false;
         this.createVoucherForm.reset();
       })
+        this.isLoaderAdmin = false;
     }
 
     updateVoucherCode(updateVoucherCode){
@@ -608,9 +608,9 @@ export class myBatchVoucherCodeDialog {
         else if(response.data == false){
          this.ErrorService.errorMessage(response.response);
         }
-        this.isLoaderAdmin = false;
         this.createVoucherForm.reset();
       })
+        this.isLoaderAdmin = false;
     }
 
   onNoClick(): void {
@@ -666,8 +666,8 @@ export class AssignToEventDialog {
       this.ErrorService.errorMessage(response.response);
       this. getAllEventList = null;
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
 
   fnAssignEventToVoucher(){
@@ -684,8 +684,8 @@ export class AssignToEventDialog {
       else if(response.data == false){
       this.ErrorService.errorMessage(response.response); 
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
 
 
@@ -751,8 +751,8 @@ export class AssignToTicketTypeDialog {
       this.ErrorService.errorMessage(response.response); 
       this. allticketType = null;
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
 
   fnAssignTicketToCoupon(){
@@ -769,8 +769,8 @@ export class AssignToTicketTypeDialog {
       else if(response.data == false){
       this.ErrorService.errorMessage(response.response); 
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
 
  

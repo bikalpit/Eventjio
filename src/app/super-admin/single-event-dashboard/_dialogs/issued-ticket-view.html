@@ -93,8 +93,11 @@
                             </div>
 
                             <div class="qrcodes">
-                                <div *ngIf="value.order_status == 'VO'" class="">
+                                <div *ngIf="value.order_status == 'VO'" class="red-ticket-tag">
                                     Void
+                                </div>
+                                <div *ngIf="value.order_status == 'C'" class="red-ticket-tag">
+                                    Canceled
                                 </div>
                                 <div class="col-6">
                                     <div class="d-inline-block">

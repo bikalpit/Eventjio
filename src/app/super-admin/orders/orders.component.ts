@@ -1473,6 +1473,7 @@ export class BookTicketDialog {
 
 
   // fnDownloadInvoice(orderId) {
+  //   alert('1')
   //   window.open(`${environment.apiUrl}/stream-invoice-pdf?order_id=${orderId}`);
   // }  
 

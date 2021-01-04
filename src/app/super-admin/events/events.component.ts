@@ -85,6 +85,8 @@ export class EventsComponent implements OnInit {
   totalPastEvents:any;
   onlyNumbers= /^[0-9]+$/;
   deletedSalesTaxIndex:any=[];
+  startdateToday:boolean=false;
+  currentTime:any;
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -353,10 +355,28 @@ export class EventsComponent implements OnInit {
 
  
 
-  // add Event Fns
+  // time formate 12 to 24
+  transform(time: any): any {
+    let hour = (time.split(':'))[0];
+    let temp = (time.split(':'))[1];
+    let min = (temp.split(' '))[0];
+    let part = (time.split(' '))[1];
+    if(part == 'PM'){
+      hour = Number(hour)+12;
+    }
+    return `${hour}:${min}`
+  }
   
   fnChangeEventStartDate(){
     this.minEventEndDate = this.addEventForm.get('event_start_date').value;
+    var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    var selectedStartDate = this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd")
+    if(selectedStartDate == todayDate){
+      this.addEventForm.get('event_start_time').setValue('');
+      this.startdateToday=true;
+      this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
+      this.currentTime = this.transform(this.currentTime)
+    }
     this.addEventForm.get('event_end_date').setValue('');
     this.addEventForm.get('event_end_time').setValue('');
   }
@@ -828,8 +848,8 @@ export class AddNewTicketType {
       this.ErrorService.errorMessage(response.response);
       this.allCouponCodeList = null;
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
 
   fnAddCoupon(event, couponCode){

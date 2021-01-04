@@ -218,8 +218,11 @@
                                 <label class="ml-2" for="">Start Time<span><i class="fa fa-asterisk"></i></span> </label>
                                 <div class="form-group">
                                     <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                    <mat-select formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                    <mat-select *ngIf="!startdateToday" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
                                         <mat-option (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                                    </mat-select>
+                                    <mat-select *ngIf="startdateToday" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                        <mat-option [disabled]="currentTime > fullDayTimeSlote" (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                     </mat-select>
                                     <span style="left:0" class="error-wrap offset-7 pl-2" *ngIf="addEventForm.get('event_start_time').touched || addEventForm.get('event_start_time').dirty">
                                     <small *ngIf="addEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
