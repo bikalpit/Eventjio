@@ -611,6 +611,8 @@ export class EventsComponent implements OnInit {
 
       this.createNewEvent(requestObject);
 
+      this.addEventForm.reset();
+
   }
 
   createNewEvent(requestObject){

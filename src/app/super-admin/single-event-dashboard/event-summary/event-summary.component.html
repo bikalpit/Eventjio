@@ -61,7 +61,7 @@
                 {{eventSummery && eventSummery.totalTicket ? eventSummery.totalTicket.issueTicket : 0}}
             </div>
             <div class="more-link">
-                <a>View issued tickets</a>
+                <a (click)="FnRouteViewIssueTicekets()">View issued tickets</a>
             </div>
         </div>
         <div class="total-ticket-summary text-center border-right" fxFlex="25">
@@ -72,7 +72,7 @@
                 {{ ( eventSummery && eventSummery.totalTicket ? eventSummery.totalTicket.salesRevenue : 0 )| currency:currencycode:'symbol'}}
             </div>
             <div class="more-link">
-                <a>View orders</a>
+                <a routerLink="/super-admin/single-event-dashboard/issued-ticket">View orders</a>
             </div>
         </div>
         <div class="total-ticket-summary text-center border-right" fxFlex="25">
@@ -91,7 +91,7 @@
                 {{eventSummery && eventSummery.totalTicket ? eventSummery.totalTicket.eventView : 0}}
             </div>
             <div class="more-link">
-                <a href="javascript:;">View Chart</a>
+                <a href="#eventViewChart">View Chart</a>
             </div>
         </div>
     </div>
@@ -193,7 +193,7 @@
         </div>
     </div>
 
-    <div class="event-page-link border p-3">
+    <div class="event-page-link border p-3" id="eventViewChart">
         <div class="row m-0">
             <div class="title">
                 Event View
