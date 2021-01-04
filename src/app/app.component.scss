@@ -265,12 +265,16 @@
 }
 
 .user-name-menu {
-    width: 150px;
+    min-width: 150px;
     font-size: 18px;
     font-weight: 700;
     display: flex;
     margin-bottom: 0;
     position: relative;
+    white-space: nowrap;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     mat-icon {
         margin-left: auto;
         cursor: pointer;

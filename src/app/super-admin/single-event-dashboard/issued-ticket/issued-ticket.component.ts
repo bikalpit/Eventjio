@@ -468,7 +468,7 @@ export class IssuedTicketViewComponent {
       console.log(this.value)
       this.fnGetEventDetail();
       this.today  = this.datePipe.transform(new Date(new Date()),"EEE MMM d, y h:mm a")
-
+      this.value.canceled_at =  this.datePipe.transform(new Date(new Date(this.value.canceled_at)),"EEE MMM d, y h:mm a")
     }
   
   ngOnInit() {

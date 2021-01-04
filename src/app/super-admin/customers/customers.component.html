@@ -128,7 +128,7 @@
                                             <tr *ngFor="let element of allEventListData.complete">
                                                 <td>{{element.event_title}} </td>
                                                 <td>{{element.start_date}}</td>
-                                                <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
+                                                <td><span class="px-3 py-1 text-white bg-success">Completed</span></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -238,7 +238,7 @@
                                                 <label for="">Add Tags</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" placeholder="Press enter to add tag" formControlName="tags" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('tags').dirty || addCustomerForm.get('tags').touched"><small *ngIf="addCustomerForm.get('tags').hasError('required')" class="error text-left">tags are required is required.</small></span>
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('tags').dirty || addCustomerForm.get('tags').touched"><small *ngIf="addCustomerForm.get('tags').hasError('required')" class="error text-left">tags is required.</small></span>
                                                 </div>
                                             </div>
 

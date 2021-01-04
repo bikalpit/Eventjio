@@ -27,7 +27,7 @@
                 </div>
                 <div class="" *ngIf="value.order_status=='VO'">
                     <div class="col-md-12 canceled-order-label">
-                        <p><span class="material-icons">cancel</span>This Ticket was voided on: Jul 27, 2020 1:16 pm</p>
+                        <p><span class="material-icons">cancel</span>This Ticket was voided on: {{value.canceled_at}}</p>
                     </div>
                 </div>
                 <!-- <div class="px-3 mt-4">

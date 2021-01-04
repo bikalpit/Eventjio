@@ -784,6 +784,9 @@ export class AddNewOrderDialog {
 
           if(status == 'draft'){
             object.splice(index, 1);
+            alert('1')
+            console.log(index)
+            console.log(object)
           }
 
           var lastDate: Date = new Date(endDate);
