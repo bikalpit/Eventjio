@@ -158,7 +158,7 @@ export class OrdersComponent implements OnInit {
     });
     
   }
-
+ 
   DownloadTickets(orders) {
 
     window.open(`${environment.apiUrl}/stream-invoice-pdf?order_id=${orders.unique_code}`);
