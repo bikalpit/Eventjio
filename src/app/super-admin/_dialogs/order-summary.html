@@ -103,6 +103,15 @@
                                     <div class="tb-data fw-600" fxFlex="20">{{orderDetail.tax | currency : currencyCode}}</div>
                                 </div>
                             </div>
+                            <div class="content" *ngIf="orderDetail.donation != null" class="drageble-list">
+                                <div class="drageble-box" fxLayout="row">
+                                    <div class="tb-data fw-600" fxFlex="50">Donation</div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data fw-600" fxFlex="20">{{orderDetail.donation | currency : currencyCode}}</div>
+                                </div>
+                            </div>
                             <div class="content" class="drageble-list" *ngIf="orderDetail.voucher_amt && orderDetail.coupon_amt">
                                 <div class="drageble-box" fxLayout="row">
                                     <div class="tb-data fw-600" fxFlex="50">Discount Amount</div>
