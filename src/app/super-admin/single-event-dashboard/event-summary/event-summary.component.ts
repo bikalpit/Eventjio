@@ -106,6 +106,11 @@ export class EventSummaryComponent implements OnInit {
 
   }
 
+  FnRouteViewIssueTicekets(){
+    alert('router page')
+    this.router.navigateByUrl('/super-admin/single-event-dashboard/issued-ticket');
+    // this.router.navigate(['issued-ticket']);
+  }
 
   fnChartView2(data,arrayLable){
 

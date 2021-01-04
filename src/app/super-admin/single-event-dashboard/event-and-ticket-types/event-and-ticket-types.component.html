@@ -7,7 +7,7 @@
         <form [formGroup]="editEventForm" class="with-validation">
             <div class="add-event-info">
                 <div class="event-content">
-                    <h6 class="col-md-12">update event info</h6>
+                    <h6 class="col-md-12">Update event info</h6>
                     <div class="event-info row mx-0">
                         <div class="form-group col-12">
                             <input type="text" class="form-control" formControlName="event_name" placeholder="Enter the name of your event">
@@ -56,7 +56,7 @@
                                     </span>
                                 </div>
                                 <div class="col-md-5 form-group px-0">
-                                    <label class="ml-2" for="">Ends Time {{eventStartTime}} {{startEndSameDate}} <span><i class="fa fa-asterisk"></i></span> </label>
+                                    <label class="ml-2" for="">Ends Time<span><i class="fa fa-asterisk"></i></span> </label>
                                     <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
                                         <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                     </mat-select>

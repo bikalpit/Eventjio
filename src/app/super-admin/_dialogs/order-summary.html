@@ -43,7 +43,7 @@
         <div class="order-details">
             <div class="order-head row">
                 <p>Order details</p>
-                <a href="#" (click)="fnDownloadInvoice(orderDetail.unique_code)" class="dwnld-invoice">Download invoice</a>
+                <a (click)="fnDownloadInvoice(orderDetail.unique_code)" class="dwnld-invoice">Download invoice</a>
             </div>
             <div class="order-desc">
                 <div class="row">
@@ -140,7 +140,7 @@
                 </div>
                 <div class="row">
                     <label class="col-md-4">E-mail:</label>
-                    <a href="#" class="col-md-8">{{orderDetail.customer ? orderDetail.customer.email : '-'}}</a>
+                    <a class="col-md-8">{{orderDetail.customer ? orderDetail.customer.email : '-'}}</a>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Transaction ID:</label>
