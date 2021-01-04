@@ -70,7 +70,7 @@
                           <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="15">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
                           <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
                           <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="25">{{eventTicket.qty}} </div>
-                          <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="15">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee) | currency:currencyCode:'symbol' }}</div>                        
+                          <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="20">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee) | currency:currencyCode:'symbol' }}</div>                        
                       </div>
                   </div>   
                   <div  class="content drageble-list">

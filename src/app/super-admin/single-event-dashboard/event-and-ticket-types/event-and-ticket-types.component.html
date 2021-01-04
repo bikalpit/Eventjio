@@ -418,13 +418,14 @@
                                         <input formControlName="label" type="text" class="form-control" placeholder="VAT">
                                     </div>
                                 </div>
-                                <span class="delete-tax"><mat-icon (click)="fnDeleteTax(i)">delete_outline</mat-icon></span>
+                                <span class="delete-tax mb-2"><mat-icon (click)="fnDeleteTax(i)">delete_outline</mat-icon></span>
                             </div>
                         </div>
                     </form>
                     <div class="w-100 px-3">
                         <div (click)="fnSalesTaxAdd()" class="tax-add-btn">
-                            <i class="fa fa-plus-circle"></i><span class="ml-2">Add Tax</span>
+                            <i class="fa fa-plus-circle" style="cursor: pointer;"></i>
+                            <span class="ml-2" style="cursor: pointer;">Add Tax</span>
                         </div>
                     </div>
 
