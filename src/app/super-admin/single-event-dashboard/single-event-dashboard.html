@@ -44,10 +44,10 @@
                 </div>
             </div>
 
-            <div class="ml-4 py-2">
+            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" class="ml-4 py-2">
                 <span class="fw-bold">Manage</span>
             </div>
-            <div (click)="fnPostUrl('issued-ticket')" [ngClass]="{'active': pageName == 'issued-ticket'}" class="ml-4 py-2" routerLink="issued-ticket">
+            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" (click)="fnPostUrl('issued-ticket')" [ngClass]="{'active': pageName == 'issued-ticket'}" class="ml-4 py-2" routerLink="issued-ticket">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'issued-ticket' ? 'none' : 'block'}" src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div (click)="fnPostUrl('waitilist-signup')" [ngClass]="{'active': pageName == 'waitilist-signup'}" class="ml-4 py-2" routerLink="waitilist-signup">
+            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" (click)="fnPostUrl('waitilist-signup')" [ngClass]="{'active': pageName == 'waitilist-signup'}" class="ml-4 py-2" routerLink="waitilist-signup">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'waitilist-signup' ? 'none' : 'block'}" src="../../../assets/images/events/waitlist.png" class="w-100" alt="">
@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            <div (click)="fnPostUrl('broadcast')" [ngClass]="{'active': pageName == 'broadcast'}" class="ml-4 py-2" routerLink="broadcast">
+            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" (click)="fnPostUrl('broadcast')" [ngClass]="{'active': pageName == 'broadcast'}" class="ml-4 py-2" routerLink="broadcast">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'broadcast' ? 'none' : 'block'}" src="../../../assets/images/events/shout.png" class="w-100" alt="">

@@ -204,13 +204,19 @@ export class inviteTeamMateDialog {
   
   fnOncheckedEM(event) {
     this.admin_permission = false;
-    this.em_sub_permission = event.checked;
-    this.em_permission = event.checked;
+    if(event.checked == true){
+      this.em_sub_permission = event.checked;
+      this.em_permission = event.checked;
+    }
+    // this.em_permission = event.checked;
   }
 
   fnOncheckedOM(event, type) {
 
     this.admin_permission = false;
+    if(event.checked == true){
+      this.om_permission = true;
+    }
     if (type == 'AUEC') {
       this.om_AUEC_permission = event.checked;
     }
@@ -223,9 +229,9 @@ export class inviteTeamMateDialog {
       this.om_permission = true;
     }
 
-    if (this.om_AUEC_permission == false || this.om_AUER_permission == false) {
-      this.om_permission = false;
-    }
+    // if(this.om_AUEC_permission == false || this.om_AUER_permission == false) {
+    //   this.om_permission = false;
+    // }
 
     this.change.detectChanges();
   }
@@ -247,14 +253,14 @@ export class inviteTeamMateDialog {
     } else if (permission == 'em_permission') {
 
       this.em_permission = event.checked;
-      this.em_sub_permission = event.checked;
+      // this.em_sub_permission = event.checked;
       this.admin_permission = false;
 
     } else if (permission == 'om_permission') {
 
       this.om_permission = event.checked;
-      this.om_AUEC_permission = event.checked;
-      this.om_AUER_permission = event.checked;
+      // this.om_AUEC_permission = event.checked;
+      // this.om_AUER_permission = event.checked;
       this.admin_permission = false;
 
     } else if (permission == 'view_permission') {
@@ -282,9 +288,13 @@ export class inviteTeamMateDialog {
       var sub_permissions = [];
 
       if (this.em_permission == true) {
-        permissions.push('EM')
-        sub_permissions.push('AACD')
+        permissions.push('EM'); 
+        if (this.em_sub_permission == true) {
+          sub_permissions.push('AACD');
+        }
       }
+
+     
 
       if (this.om_permission == true) {
 

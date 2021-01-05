@@ -24,6 +24,8 @@ export class SingleEventDashboard implements OnInit {
   pageSlug:any;
   eventURL:any;
   eventSummery:any = [];
+  currentUser:any;
+  subPermission:any=[];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -35,6 +37,20 @@ export class SingleEventDashboard implements OnInit {
 
   ) {
     this.eventSideMenu = true;
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+      if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
+        if(localStorage.getItem('permision_EM') != 'TRUE'){
+          this.router.navigate(['/super-admin']);
+        }else{
+          if(this.currentUser.sub_permission){
+            this.subPermission = this.currentUser.sub_permission.split(',',2)
+          }
+        }
+      }else{
+        this.subPermission = 'admin';
+      }
     
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
