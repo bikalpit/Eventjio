@@ -637,15 +637,24 @@ export class EventsComponent implements OnInit {
     this.addEventForm.get('event_start_date').value == '' ||
     this.addEventForm.get('event_start_time').value == '' ||
     this.addEventForm.get('event_end_date').value == '' ||
-    this.addEventForm.get('event_end_time').value == '' ||
-    this.addEventForm.get('vanue_name').value == '' ||
+    this.addEventForm.get('event_end_time').value == ''
+    ){
+    if(this.olPlatForm == 'N' && (this.addEventForm.get('vanue_name').value == '' ||
     this.addEventForm.get('vanue_zip').value == '' ||
     this.addEventForm.get('vanue_country').value == '' ||
-    this.addEventForm.get('description').value == ''
+    this.addEventForm.get('description').value == '')
     ){
       this.ErrorService.errorMessage('Please fill above details first');
       return false;
     }
+    if(this.olPlatForm == 'Y' && 
+    (this.addEventForm.get('online_platform').value == '' ||
+    this.addEventForm.get('online_link').value == '')
+    ){
+      this.ErrorService.errorMessage('Please fill above details first');
+      return false;
+    }
+  }
     const dialogRef = this.dialog.open(AddNewTicketType,{
       width: '1100px',
       data : {
