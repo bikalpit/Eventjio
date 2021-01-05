@@ -53,7 +53,7 @@ export class OrdersComponent implements OnInit {
   new_date=new Date();
   single_order_event:any;
   currentUser:any;
-
+  subPermission:any=[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -73,7 +73,13 @@ export class OrdersComponent implements OnInit {
     if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
       if(localStorage.getItem('permision_OM') != 'TRUE'){
         this.router.navigate(['/super-admin']);
+      }else{
+        if(this.currentUser.sub_permission){
+          this.subPermission = this.currentUser.sub_permission.split(',',2)
+        }
       }
+    }else{
+      this.subPermission = 'admin';
     }
 
     if(localStorage.getItem('boxoffice_id')){
@@ -111,7 +117,7 @@ export class OrdersComponent implements OnInit {
   eventSummary(Orderdata){
     const dialogRef = this.dialog.open(eventSummaryDialog, {
       width: '700px',
-      data : Orderdata
+      data : {Orderdata: Orderdata,subPermission:this.subPermission}
     });
   
     dialogRef.afterClosed().subscribe(result => {
@@ -187,7 +193,6 @@ export class OrdersComponent implements OnInit {
     this.superadminService.getAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allEventlist = response.response;
-        console.log(this.allEventlist);
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -686,8 +691,6 @@ export class ExportOrderDialog {
         requestObject[element.variable_name] = element.value ? 'Y' : 'N';
       });
 
-      console.log(this.lineitemDetail);
-
       this.lineitemDetail.forEach((element,key,obj) => {
         requestObject[element.variable_name] = element.value ? 'Y' : 'N';
       });
@@ -784,9 +787,6 @@ export class AddNewOrderDialog {
 
           if(status == 'draft'){
             object.splice(index, 1);
-            alert('1')
-            console.log(index)
-            console.log(object)
           }
 
           var lastDate: Date = new Date(endDate);
@@ -796,7 +796,6 @@ export class AddNewOrderDialog {
             object.splice(index, 1);
             //return false;
           } else {
-            console.log('true',endDate);
             //return true;
           }
 
@@ -1223,7 +1222,6 @@ export class BookTicketDialog {
           this.grandTotal = this.grandTotal - this.coupon_amt;
         }
         
-        console.log(this.voucher_amt,this.discount_amt);
 
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -1242,7 +1240,6 @@ export class BookTicketDialog {
    
     if(fromType=='CheckoutForm'){
       this.addOrderFormType  = fromType;
-      console.log(this.total_qty);
 
       this.dynamicForm = this._formBuilder.group({
         tickets: new FormArray([])
@@ -1592,7 +1589,6 @@ export class EditorderDialog {
     private change:ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-      console.log(this.data)
       let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
       this.editTicket = this._formBuilder.group({
         name:["", Validators.required],
@@ -1716,7 +1712,6 @@ export class EditorderDialog {
         if(response.data == true){
 
           this.singleorderCustomer = response.response;
-          console.log(this.singleorderCustomer)
           this.eventSpecificForm =  JSON.parse(this.singleorderCustomer.customer_info);
         
           this.attendeeForm = JSON.parse(this.singleorderCustomer.attendee_info);
@@ -1746,7 +1741,6 @@ export class EditorderDialog {
             this.editTicket.controls['address2'].setValue(this.customerAddress.province)
             this.editTicket.controls['zipcode'].setValue(this.customerAddress.postalcode)
           }
-          console.log(this.customerAddress)
           
           // this.editTicket.controls['address'].setValue(this.singleorderCustomer.customer.address)
           // this.editTicket.controls['address1'].setValue(this.singleorderCustomer.customer.address1)
@@ -1981,10 +1975,11 @@ export class eventSummaryDialog {
   customerData:any = [];
   isLoaderAdmin = false;
   is_show = false;
-  currencyCode ='USD';  
+  // currencyCode ='USD';  
   attendeeData:any = [];
   customerAddress : any;
-
+  Orderdata:any;
+  subPermission:any;
   constructor(
     public dialogRef: MatDialogRef<eventSummaryDialog>,
     private http: HttpClient,
@@ -1994,19 +1989,18 @@ export class eventSummaryDialog {
     private errorService:ErrorService,
     private change:ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      
-      console.log(this.data);
-      if(this.data.customer.usa_address != null){
-        this.customerAddress = JSON.parse(this.data.customer.usa_address)
+      this.Orderdata = this.data.Orderdata
+      this.subPermission = this.data.subPermission
+      if(this.Orderdata.customer.usa_address != null){
+        this.customerAddress = JSON.parse(this.Orderdata.customer.usa_address)
         this.customerAddress['style']= 'USA';
-      }else if(this.data.customer.uk_address != null){
-        this.customerAddress = JSON.parse(this.data.customer.uk_address)
+      }else if(this.Orderdata.customer.uk_address != null){
+        this.customerAddress = JSON.parse(this.Orderdata.customer.uk_address)
         this.customerAddress['style']= 'UK';
-      }else if(this.data.customer.ca_address != null){
-        this.customerAddress = JSON.parse(this.data.customer.ca_address)
+      }else if(this.Orderdata.customer.ca_address != null){
+        this.customerAddress = JSON.parse(this.Orderdata.customer.ca_address)
         this.customerAddress['style']= 'CA';
       }
-      console.log(this.customerAddress)
 
     }
 
@@ -2022,7 +2016,7 @@ export class eventSummaryDialog {
     cancelOrder(){
       const dialogRef = this.dialog.open(cancelOrderDialog, {
         width: '700px',
-        data : this.data
+        data : this.Orderdata
       });
     
       dialogRef.afterClosed().subscribe(result => {
@@ -2033,7 +2027,7 @@ export class eventSummaryDialog {
     editOrder(){
       const dialogRef = this.dialog.open(EditorderDialog, {
         width: '700px',
-        data : this.data
+        data : this.Orderdata
       });
     
       dialogRef.afterClosed().subscribe(result => {
@@ -2055,7 +2049,7 @@ export class eventSummaryDialog {
 
       const dialogRef = this.dialog.open(ConfirmpaymentreceivedDialog, {
         width: '700px',
-        data: this.data
+        data: this.Orderdata
       });
     
       dialogRef.afterClosed().subscribe(result => {
@@ -2077,7 +2071,7 @@ export class eventSummaryDialog {
   
     resendOrder(){
       this.isLoaderAdmin=true;
-      this.superadminService.fnResendOrder(this.data.unique_code).subscribe((response:any)=>{
+      this.superadminService.fnResendOrder(this.Orderdata.unique_code).subscribe((response:any)=>{
         if(response.data == true){   
           this.errorService.successMessage(response.response);
         } else if(response.data == false){
@@ -2090,7 +2084,7 @@ export class eventSummaryDialog {
     fnGetsingleOrder(){
 
       let requestObject={
-        "unique_code": this.data.unique_code,
+        "unique_code": this.Orderdata.unique_code,
       } 
 
       this.superadminService.fnGetsingleOrder(requestObject).subscribe((response:any) => {
@@ -2101,7 +2095,6 @@ export class eventSummaryDialog {
           this.order_item_data = this.orderDetail.order_item;
           this.customerData = this.orderDetail.customer;
           this.attendeeData  = JSON.parse(response.response.attendee_info);
-          console.log(this.attendeeData);
 
         }else{
           this.singleorderCustomer  = [];
