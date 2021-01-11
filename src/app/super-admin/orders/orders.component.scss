@@ -480,6 +480,9 @@
         .tb-data {
             padding: 15px 0px;
             color: #595959;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .order-data-date {
             font-size: 12px;

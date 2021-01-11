@@ -81,38 +81,50 @@
                 <div class="main-table-content main-cust-table-content ">
                     <div class="">
                         <div class="heads main-heading-content drageble py-3" fxLayout="row">
-                            <div class="ml-5" fxFlex="10">Order ID</div>
-                            <div class="" fxFlex="10">Status</div>
+                            <div class="ml-5" fxFlex="6">Order ID</div>
+                            <div class="" fxFlex="7">Status</div>
+                            <div class="" fxFlex="7">Payment Status</div>
+                            <div class="" fxFlex="7">Payment Mode</div>
                             <div class="" fxFlex="13">Name</div>
                             <div class="" fxFlex="20">Date / Time</div>
                             <div class="" fxFlex="27">Event Name</div>
-                            <div class="" fxFlex="10">Value</div>
-                            <div class="" fxFlex="10">Action</div>
+                            <div class="" fxFlex="8">Value</div>
+                            <div class="" fxFlex="5">Action</div>
                         </div>
 
                         <div class="drageble-list">
                             <div class="drageble-box" fxLayout="row" *ngFor="let element of allorderlist">
-                                <div class="tb-data ml-5 " fxFlex="10" (click)="eventSummary(element)"> <a class="text-dark">
+                                <div class="tb-data ml-5 " fxFlex="6" (click)="eventSummary(element)"> <a class="text-dark">
                                      {{element.order_id}}</a>
                                 </div>
-                                <div class="tb-data" fxFlex="10">
-                                    <span class="cpn-bor" [ngStyle]="{'color': element.order_status=='P' ? '#2BB800' : element.order_status=='C' ? '#FF0000' :  element.order_status=='CO' ? '#2BB800' : '#FF0000'}">
+                                <div class="tb-data" fxFlex="7">
+                                    <span class="" [ngStyle]="{'color': element.order_status=='P' ? '#2BB800' : element.order_status=='C' ? '#FF0000' :  element.order_status=='CO' ? '#2BB800' : '#FF0000'}">
                                         {{element.order_status=='P' ? 'Pending' : element.order_status=='C' ? 'Cancel' :  element.order_status=='CO' ? 'Completed' : 'Void'}}
+                                    </span>
+                                </div>
+                                <div class="tb-data" fxFlex="7">
+                                    <span class="text-capitalize" [ngStyle]="{'color': element.payment.payment_status=='paid' ? '#2BB800' : element.payment.payment_status=='unpaid' ? '#FF0000' :  '#000'}">
+                                       {{element.payment?element.payment.payment_status:''}}
+                                    </span>
+                                </div>
+                                <div class="tb-data" fxFlex="7">
+                                    <span class=" text-capitalize">
+                                        {{element.payment?element.payment.payment_method:''}}
                                     </span>
                                 </div>
                                 <div class="tb-data" fxFlex="13">{{element.customer.firstname + " " +element.customer.lastname}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.order_date |date :'fullDate'}} / {{element.order_time}}</div>
                                 <div class="tb-data" fxFlex="27">{{element.events.event_title}} <span class="order-data-date"> ({{element.order_date |date :'fullDate'}}) </span></div>
-                                <div class="tb-data" fxFlex="10">{{element.grand_total}}</div>
-                                <div class="tb-data" fxFlex="10">
+                                <div class="tb-data" fxFlex="8">{{element.grand_total}}</div>
+                                <div class="tb-data" fxFlex="5">
                                     <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                     <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                     <ng-template class="popover" #popContent>
-                                        <div class="px-3  border-bottom">
+                                        <div *ngIf="element.order_status!='C'" class="px-3  border-bottom">
                                             <i class="fa fa-repeat mr-2 pointer"></i><span class="pointer" (click)="resendOrder(element.unique_code)">Resend</span>
                                         </div>
 
-                                        <div class="px-3  border-bottom">
+                                        <div *ngIf="element.order_status!='C'" class="px-3  border-bottom">
                                             <i class="fa fa-pencil mr-2 pointer"></i><span (click)="editOrder(element)" class="pointer">Edit</span>
                                         </div>
 
@@ -120,7 +132,7 @@
                                             <i class="fa fa-ticket mr-2"></i><span class="pointer" (click)="DownloadTickets(element)">Download Tickets</span>
                                         </div>
 
-                                        <div class="px-3  border-bottom">
+                                        <div *ngIf="element.order_status!='C'" class="px-3  border-bottom">
                                             <i class="fa fa-times-circle mr-2 pointer"></i><span class="pointer" (click)="cancelOrder(element)">Cancel</span>
                                         </div>
 

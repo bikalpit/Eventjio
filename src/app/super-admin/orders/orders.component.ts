@@ -167,7 +167,7 @@ export class OrdersComponent implements OnInit {
  
   DownloadTickets(orders) {
 
-    window.open(`${environment.apiUrl}/stream-invoice-pdf?order_id=${orders.unique_code}`);
+    window.open(`${environment.apiUrl}/download-tickets?unique_code=${orders.unique_code}`);
 
   }
 
@@ -2021,6 +2021,7 @@ export class eventSummaryDialog {
     
       dialogRef.afterClosed().subscribe(result => {
         this.animal = result;
+        this.dialogRef.close();
       });
     }
   
@@ -2032,6 +2033,7 @@ export class eventSummaryDialog {
     
       dialogRef.afterClosed().subscribe(result => {
         this.animal = result;
+        this.dialogRef.close();
       });
     }  
 

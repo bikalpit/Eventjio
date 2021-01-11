@@ -820,6 +820,8 @@ export class AddNewTicketType {
         this.advanceSetting = this.selectedTicketDetail.advance_setting
         this.soldOut = this.selectedTicketDetail.sold_out
         this.showQTY = this.selectedTicketDetail.show_qty
+        this.ticketAvalStatus = this.selectedTicketDetail.ticket_avilable
+        this.ticketUnavalStatus = this.selectedTicketDetail.ticket_unavilable
         this.addTicketForm = this._formBuilder.group({
           title: [this.selectedTicketDetail.ticket_name,[Validators.required]],
           price: [this.selectedTicketDetail.prize,[Validators.required]],
