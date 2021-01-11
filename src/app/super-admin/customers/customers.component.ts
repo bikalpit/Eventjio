@@ -46,8 +46,7 @@ export class CustomersComponent implements OnInit {
     keyword: ""
   };
   currentUser:any;
-  is_selected= 'all';
-
+  eventActiveTab = 'all';
   constructor(
     private formBuilder:FormBuilder,
     private SuperadminService : SuperadminService,
@@ -370,9 +369,9 @@ deleteCustomerDetails(){
   }
   
   
-  eventList(value='all'){
+  eventList(selectedTab){
 
-    this.is_selected = value;
+    this.eventActiveTab = selectedTab;
 
     this.isLoaderAdmin = true;
     let requestObject = {

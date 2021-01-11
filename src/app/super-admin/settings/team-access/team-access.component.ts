@@ -77,6 +77,7 @@ export class TeamAccessComponent implements OnInit {
         this.pendingInviterData = response.response
         this.pendingInviterData.forEach(element => {
           element.updated_at = this.datePipe.transform(element.updated_at, "MMM d, y, h:mm a")
+          element.sub_permission = element.sub_permission.split(",");
         });
         console.log(this.pendingInviterData)
       }
@@ -106,30 +107,49 @@ export class TeamAccessComponent implements OnInit {
     });
   }
 
-    permissionCheck(access){
+  permissionCheck(access){
+    if(access=='A'){
+      return "Admin";
+    }
+    var permistion =   access.split(",");
+    var permistionString = [];
+    
+    if(permistion.indexOf("EM") > -1 ){
+      permistionString.push('Event Manager');
+    }
 
-      
-      if(access=='A'){
-        return "Admin";
-      }
+    if(permistion.indexOf("OM")  >  -1 ){
+      permistionString.push('Order Manager');
+    }
+    
+    if(permistion.indexOf("OV")  >  -1 ){
+      permistionString.push('OverView');
+    } 
+
+    return permistionString.toString();
+  }
+
+  subPermissionCheck(access){
+    if(access=='A'){
+      return false;
+    }
+    var subPermistion =  '';
+    
+    if(access == 'AUEC' ){
+      subPermistion = 'Order manager with edit';
+    }
+    
+    if(access=="AUER"){
+      subPermistion='Order manager with export';
+    }
+    
+    if(access=="AACD"){
+      subPermistion='Event manager with customer data';
+    }
+
     
 
-      var permistion =   access.split(",");
-      var permistionString = [];                     ;
-
-      if(permistion.indexOf("EM") > -1 ){
-        permistionString.push('Event Manager');
-      }
-
-      if(permistion.indexOf("OM")  >  -1 ){
-        permistionString.push('Order Manager');
-      }
-      
-      if(permistion.indexOf("OV")  >  -1 ){
-        permistionString.push('OverView');
-      } 
-
-      return permistionString.toString();
+    return subPermistion.toString();
   }
 
   fnResendInviter(inviterCode){

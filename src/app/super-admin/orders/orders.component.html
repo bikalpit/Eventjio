@@ -92,7 +92,7 @@
                             <div class="" fxFlex="5">Action</div>
                         </div>
 
-                        <div class="drageble-list">
+                        <div class="drageble-list" *ngIf="allorderlist.length != 0">
                             <div class="drageble-box" fxLayout="row" *ngFor="let element of allorderlist">
                                 <div class="tb-data ml-5 " fxFlex="6" (click)="eventSummary(element)"> <a class="text-dark">
                                      {{element.order_id}}</a>
@@ -140,9 +140,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="drageble-list" *ngIf="allorderlist.length == 0">
+                            <p class="no-data-text">No Data Found.</p>
+                        </div>
                     </div>
 
-                    <div class="col-12 text-center">
+                    <div class="col-12 text-center" *ngIf="allorderlist.length != 0">
                         <div class="table_pagination mt-4 pagination-class" *ngIf="allorderlist != ''">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">

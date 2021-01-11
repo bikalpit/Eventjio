@@ -38,12 +38,13 @@
 }
 
 .fixed-wrap {
-    margin-top: 8.7rem;
+    margin-top: 8.1rem;
 }
 
 .side-event {
     width: calc(100% - 300px);
     margin-left: 300px;
+    height: calc(100vh - 8.1rem);
 }
 
 .event-title-bar {

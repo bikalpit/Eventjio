@@ -77,6 +77,7 @@
                                                     <p *ngIf="pendingInviterData.role === 'OV'">Over view</p> -->
                                                     <!-- {{pendingInviterData.permission}} -->
                                                     <p>{{permissionCheck(val.permission)}}</p>
+                                                    <p *ngFor="let subPer of val.sub_permission; let i=index">{{subPermissionCheck(subPer)}}</p>
 
                                                 </div>
                                                 <div class="tb-data" fxFlex="25">{{val.updated_at}}</div>
