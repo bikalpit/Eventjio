@@ -1,48 +1,43 @@
-.page-title{
-    font-size: 16px;
-}
-button{
+button {
     background-color: #007BFF;
     color: #fff;
 }
 
-.card-header{
+.card-header {
     background-color: #92C7FF !important;
     font-size: 16px;
 }
-.card-body{
+
+.card-body {
     background-color: #F6FAFF;
 }
-.card-footer{
+
+.card-footer {
     background-color: #92C7FF !important;
 }
 
-.card-footer .poweredby{
+.card-footer .poweredby {
     opacity: 0.3;
 }
 
-.card-footer .poweredby p{
-font-size: 11px;
+.card-footer .poweredby p {
+    font-size: 11px;
 }
-.card-footer .poweredby .web-title{
+
+.card-footer .poweredby .web-title {
     font-size: 22px;
 }
-    
-.html-code-div{
+
+.html-code-div {
     height: 150px;
     overflow: auto;
 }
-.color-code{
+
+.color-code {
     background-color: #E2E2E2;
 }
-.bg-color-code{
-    width: 20px;
-    height: 20px;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-}
-.text-color-code{
+
+.bg-color-code {
     width: 20px;
     height: 20px;
     border: none;
@@ -50,14 +45,7 @@ font-size: 11px;
     cursor: pointer;
 }
 
-.header-color-code{
-    width: 20px;
-    height: 20px;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-}
-.header-text-color-code{
+.text-color-code {
     width: 20px;
     height: 20px;
     border: none;
@@ -65,60 +53,89 @@ font-size: 11px;
     cursor: pointer;
 }
 
-.btn-color-code{
-    width: 20px;
-    height: 20px;
-    border: none;
-    border-radius: 2px;
-   cursor: pointer;
-}
-.btn-text-color-code{
+.header-color-code {
     width: 20px;
     height: 20px;
     border: none;
     border-radius: 2px;
     cursor: pointer;
 }
-.preview-example{
+
+.header-text-color-code {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.btn-color-code {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.btn-text-color-code {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.preview-example {
     background-color: #F6FAFF;
 }
-.preview{    
+
+.preview {
     border-radius: 10px;
-    .ticket-header{
+    .ticket-header {
         background-color: #92C7FF;
         border-radius: 10px 10px 0px 0px;
     }
-    
 }
 
-.ticket-footer{
+.ticket-footer {
     background-color: #92C7FF;
     border-radius: 0px 0px 10px 10px;
 }
-.ticket-table-title{
+
+.ticket-table-title {
     // background-color: #DCECFF;
 }
 
-.save-btn, .next-btn, .edit-btn {
+.save-btn,
+.next-btn,
+.edit-btn {
     background-color: #007BFF;
-    color:#ffffff;
+    color: #ffffff;
 }
 
-
-.poweredby{
+.poweredby {
     opacity: 0.3;
 }
 
-.poweredby p{
-font-size: 11px;
+.poweredby p {
+    font-size: 11px;
 }
-.poweredby .web-title{
+
+.poweredby .web-title {
     font-size: 22px;
 }
-.main-booking-widget{
+
+.main-booking-widget {
     background-color: #F6F6F645;
 }
-.Customise-widgets-title{
+
+.Customise-widgets-title {
     color: #808080;
     font-size: 12px;
+}
+
+.page-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }

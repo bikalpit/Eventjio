@@ -1,29 +1,29 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-
-.main{
+.main {
     font-family: Poppins, Regular;
+    .page-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
 }
 
-.box{
-        max-width: 31%;
-        height: 100px;
-        border-radius: 5px;
-        color: white;
-
-
-    .btn-head{
+.box {
+    max-width: 31%;
+    height: 100px;
+    border-radius: 5px;
+    color: white;
+    .btn-head {
         font-size: 24px;
-     }
-     
+    }
 }
 
-
-.mat-blue{
+.mat-blue {
     background-color: #1172F4;
-    color:#ffffff;
+    color: #ffffff;
 }
 
-.mat-dull{
-    background-color:#C0C0C0;
-    color:#000000;
+.mat-dull {
+    background-color: #C0C0C0;
+    color: #000000;
 }

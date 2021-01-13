@@ -2,9 +2,10 @@
 #event_page_design {
     height: calc(100vh - 60px);
     position: relative;
-    .event-page-page-title {
-        font-size: 16px;
-        font-weight: bold;
+    .page-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
     }
     .box-office-title {
         font-weight: bold;

@@ -1,50 +1,49 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
-
-.main{
+.main {
     font-family: Poppins, Regular;
 }
-.page-title{
-    font-size: medium;
+
+.page-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
-
- .bottom{
+.bottom {
     margin-top: 10vh;
+    .cancel {
+        background-color: #C0C0C0;
+        color: #000000;
+    }
+    .save {
+        background-color: #1172F4;
+        color: #ffffff;
+    }
+}
 
-        .cancel{
-            background-color:#C0C0C0;
-            color:#000000;
-        }
-        .save{
-            background-color: #1172F4;
-            color:#ffffff;  
-        }
- }
-
- .notification-icon{
+.notification-icon {
     transform: matrix(0.87, -0.48, 0.48, 0.87, 0, 0);
     color: #FF6600;
     margin-top: --50px !important;
- }
+}
 
- .ckeditor{
+.ckeditor {
     max-width: 1185px;
     height: 330px;
- }
- .main-privacy-text{
+}
+
+.main-privacy-text {
     display: flex;
     padding: 16px 10px;
     border-radius: 6px;
- }
+}
 
- ::ng-deep .previewContent{
-    
+ ::ng-deep .previewContent {
     height: 250px;
     overflow: hidden;
     overflow-y: scroll;
+}
 
- }
-
-::ng-deep h3{
+::ng-deep h3 {
     font-weight: bold !important;
 }

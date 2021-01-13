@@ -1,76 +1,72 @@
-.main{
-    width:100%;
-    .page-title{
-        font-size: 16px;;
-        font-weight: bold;
-    
+.main {
+    width: 100%;
+    .page-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
     }
-
-    .tax{
-        .title{
+    .tax {
+        .title {
             font-size: 14px;
-             font-weight: bold;
+            font-weight: bold;
         }
-        .add-tax-btn{
+        .add-tax-btn {
             border-radius: 20px;
             background-color: #1172F4;
             color: #ffffff;
         }
-        .tab-title{
+        .tab-title {
             font-weight: bold;
         }
-        .fa-pencil{
+        .fa-pencil {
             background-color: #E3E6EB;
             cursor: pointer;
             border-radius: 5px;
         }
-        .fa-trash{
+        .fa-trash {
             background-color: #E3E6EB;
             cursor: pointer;
             border-radius: 5px;
         }
     }
-    
 }
 
 // --------------------------------------- Add Tax --------------------------------------------------
-
-::ng-deep .main-sale-tax{
-    .input-box{
+::ng-deep .main-sale-tax {
+    .input-box {
         width: 49%;
         display: inline-block;
     }
-    .tax-input{
+    .tax-input {
         border-radius: 5px;
-
-        .name-input{
+        .name-input {
             width: 100%;
             border: none;
             outline: none;
         }
-        .input{
+        .input {
             width: 87%;
             border: none;
             outline: none;
         }
-        .fa-percent{
+        .fa-percent {
             width: 12%;
-            color:#808080;
+            color: #808080;
         }
     }
-
-    .cancel-btn{
-        background-color:#DDDDDD ;
+    .cancel-btn {
+        background-color: #DDDDDD;
     }
-    .create-btn{
+    .create-btn {
         background-color: #1172F4;
-        color:#ffffff;
+        color: #ffffff;
     }
-    
 }
+
 button:focus {
     outline: none;
 }
+
 ::ng-deep .close-btn {
     background: #B4D4FF !important;
     opacity: 1;

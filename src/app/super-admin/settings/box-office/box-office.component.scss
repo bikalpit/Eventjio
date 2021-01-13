@@ -3,16 +3,18 @@
     font-family: Poppins, Regular;
 }
 
-page-title {
-    font: 24px;
+.page-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .box-office {
-    h5 {
-        font-size: 16px;
-        font-weight: 500;
-        color: #181818;
-    }
+    // h5 {
+    //     font-size: 16px;
+    //     font-weight: 500;
+    //     color: #181818;
+    // }
 }
 
 .my-left-content {

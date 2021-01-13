@@ -4,10 +4,10 @@
             <div class="settins-title py-2">
                 <span>Resource Management</span>
             </div>
-            <div class="py-2 common-setting-menu" (click)=toggleDisplayDiv() (click)="fnPostUrl('')" [ngClass]="{'active': pageName == '' || pageName ==  'websites-embed-codes' || pageName ==  'buttons-and-links'}" routerLink="/super-admin/settings">
+            <div class="py-2 common-setting-menu" (click)=toggleDisplayDiv() (click)="fnPostUrl('')" [ngClass]="{'active': pageName == '' || pageName ==  'websites-embed-codes' || pageName ==  'referral-codes'}" routerLink="/super-admin/settings">
                 <div class="setting-menu-icon d-inline-block mr-2">
-                    <img [ngStyle]="{'display':pageName === ''  || pageName == 'websites-embed-codes' || pageName == 'buttons-and-links' ? 'none' : 'block'}" src="../../../assets/images/settings/school/school.png" class="w-100" alt="">
-                    <img [ngStyle]="{'display':pageName === '' || pageName == 'websites-embed-codes' || pageName == 'buttons-and-links' ? 'block' : 'none'}" src="../../../assets/images/settings/school/school_active.png" class="w-100" alt="">
+                    <img [ngStyle]="{'display':pageName === ''  || pageName == 'websites-embed-codes' || pageName == 'referral-codes' ? 'none' : 'block'}" src="../../../assets/images/settings/school/school.png" class="w-100" alt="">
+                    <img [ngStyle]="{'display':pageName === '' || pageName == 'websites-embed-codes' || pageName == 'referral-codes' ? 'block' : 'none'}" src="../../../assets/images/settings/school/school_active.png" class="w-100" alt="">
                 </div> <span>Event Page Appearance</span><i class="fa fa-angle-down pl-5 ml-2"></i>
             </div>
             <div [hidden]="isShowDiv">

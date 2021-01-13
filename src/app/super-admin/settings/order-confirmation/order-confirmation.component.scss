@@ -1,36 +1,36 @@
-.main{
+.main {
     width: 100%;
-    .page-title{
-        font-size:16px;
-        font-weight: bold;
+    .page-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
     }
-    .save-btn{
-        background-color:#C0C0C0;
-        color:#000000;
+    .save-btn {
+        background-color: #C0C0C0;
+        color: #000000;
         border-radius: 5px;
     }
-    .remove-photo{
-        background-color:#007BFF;
-        color:#000000;
+    .remove-photo {
+        background-color: #007BFF;
+        color: #000000;
         border-radius: 5px;
     }
-    .edit-order-confirmation{
-        .title{
+    .edit-order-confirmation {
+        .title {
             font-size: 14px;
             font-weight: bold;
         }
-        .highlight{
+        .highlight {
             background-color: #E0EFFF;
             border: 1px dashed #007BFF;
             border-radius: 5px;
         }
-
-        .msg-content{
-            padding-bottom:20px ;
+        .msg-content {
+            padding-bottom: 20px;
             border-radius: 5px;
             background-color: #F7F7F7;
         }
-        .msg{
+        .msg {
             position: relative;
             width: 80%;
             top: 0;
@@ -42,12 +42,10 @@
             background-color: #FFFFFF;
         }
     }
-
-    .invoice-preview{
-        padding-bottom:20px ;
+    .invoice-preview {
+        padding-bottom: 20px;
     }
-    
-    .invoive-details{
+    .invoive-details {
         position: relative;
         width: 80%;
         top: 0;
@@ -55,28 +53,25 @@
         right: 0;
         bottom: 0;
         margin: auto;
-
-        .fa-question-circle{
+        .fa-question-circle {
             color: #CECECE;
         }
-        .title{
+        .title {
             font-size: 14px;
             font-weight: bold;
         }
     }
-
-    .invoice-demo{
-        .title{
-            color:#B5B5B5;
+    .invoice-demo {
+        .title {
+            color: #B5B5B5;
             font-weight: bold;
         }
-        .empty-box{
+        .empty-box {
             width: 350px;
             height: 150px;
             border: 1px solid;
         }
-
-        .blank-bar{
+        .blank-bar {
             width: 49%;
             height: 20px;
             border-radius: 10px;
@@ -84,18 +79,17 @@
             background-color: #CECECE;
         }
     }
-    .edit-order-main{
+    .edit-order-main {
         display: flex;
         align-items: center;
     }
-    .main-top-heading{
+    .main-top-heading {
         display: flex;
-         justify-content: space-between;
-        .side-name{
+        justify-content: space-between;
+        .side-name {
             display: flex;
             align-items: center;
             width: 30%;
         }
     }
-
 }
