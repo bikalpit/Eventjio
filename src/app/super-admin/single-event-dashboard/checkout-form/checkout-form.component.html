@@ -1,4 +1,5 @@
 <div class="checkout-form">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="checkout-form-main">
         <div class="checkout-form-content">
             <h5 class="col-md-12">Edit checkout form</h5>
@@ -137,15 +138,15 @@
                                                             </button>
                                                             <!-- [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" -->
 
-                                                            <button  *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)"  mat-raised-button matTooltip="" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                            <button *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)" mat-raised-button matTooltip="" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                               <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span> 
                                                             </button>
 
-                                                            <button  *ngIf="element.is_deleted" (click)="fnUndoBuyerQuestion(element, i)"  mat-raised-button matTooltip="Show in checkout form" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                            <button *ngIf="element.is_deleted" (click)="fnUndoBuyerQuestion(element, i)" mat-raised-button matTooltip="Show in checkout form" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                                 <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span> 
                                                               </button>
 
-                                                            <button [ngStyle]="{'pointer-events' : element.default == true ? 'none' : ''}"  cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                            <button [ngStyle]="{'pointer-events' : element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                               <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span> 
                                                             </button>
 

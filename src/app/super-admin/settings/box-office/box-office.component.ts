@@ -132,7 +132,7 @@ export class BoxOfficeComponent implements OnInit {
       if(response.data == true){
         this.singleBoxofficeDetails = response.response[0];
         this.boxOfficeId = this.singleBoxofficeDetails.id    
-        if(this.singleBoxofficeDetails.add_email !== ''){
+        if(this.singleBoxofficeDetails.add_email !== '' && this.singleBoxofficeDetails.add_email !== null){
           this.Emailshow = true;
           this.showHide = true;
         }

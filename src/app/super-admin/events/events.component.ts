@@ -228,7 +228,6 @@ export class EventsComponent implements OnInit {
       'boxoffice_id'  :this.boxOfficeCode,
       'filter' : 'upcoming'
     }
-    this.isLoaderAdmin = true;
     this.SuperadminService.fnGetAllEventListPaggination(this.upcommintEventApiUrl,requestObject).subscribe((response:any) => {
       if(response.data == true){
         
@@ -288,7 +287,6 @@ export class EventsComponent implements OnInit {
       'filter' : 'past'
     }
 
-    this.isLoaderAdmin = true;
     this.SuperadminService.fnGetAllEventListPaggination(this.pastEventApiUrl,requestObject).subscribe((response:any) => {
       
       if(response.data == true){
@@ -784,6 +782,9 @@ export class AddNewTicketType {
   eventStartTime:any;
   eventEndDate:any;
   eventEndTime:any;
+  minOrderVal:any;
+  maxOrderVal:any;
+  maxOrderCheck:boolean = false
   availUnavailDateSame:boolean=false;
   onlynumeric = /^[0-9]+(?:\.[0-9]+)?$/
   constructor(
@@ -827,6 +828,36 @@ export class AddNewTicketType {
   ngOnInit() {
     this.getAllCouponCodes();
   }
+
+  fnMinOrder(){
+    
+  }
+  fnMaxOrder(){
+    console.log(this.minOrderVal)
+    console.log(this.maxOrderVal)
+    // if(parseInt(this.minOrderVal) > parseInt(this.maxOrderVal)){
+    //   this.maxOrderCheck = true;
+    // }else{
+    //   this.maxOrderCheck = false;
+    // }
+  }
+
+  // maxOrderCheck(control: FormControl) {
+  //   console.log(control.value);
+  //   console.log(this.minOrderVal);
+   
+  //   return new Promise((resolve, reject) => {
+  //       console.log('1')
+  //       if(control.value && this.minOrderVal){
+  //         if(this.minOrderVal > control.value){
+  //           console.log(this.minOrderVal)
+  //           resolve({ maxOrderCheck: true });
+  //         }else{
+  //         resolve(null);
+  //         }
+  //       }
+  //   });
+  // }
 
   fnAvailDateChange(event){
     this.minUnavailDate = event.value

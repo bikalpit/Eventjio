@@ -2,11 +2,11 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div *ngIf="addNewEvents" class="bg-white events">
         <div class="row mx-0 p-3">
-            <div class="font-weight-bold page-title">
+            <div class="page-title">
                 Events
             </div>
 
-            <div class="ml-auto pr-3">
+            <div class="ml-auto mt-2 pr-3">
                 <button (click)="addNewEvents=!addNewEvents" mat-flat-button class="add-event-button px-5">Add Next Event</button>
             </div>
         </div>
@@ -190,8 +190,8 @@
 
             <form [formGroup]="addEventForm" class="with-validation">
                 <div class="px-5 py-3 border rounded bg-light">
-                    <div class=" py-2 font-weight-bold">
-                        <div>Add event info</div>
+                    <div class=" py-2 font-weight-bold mb-3">
+                        <div class="page-sub-title">Add event info</div>
                     </div>
                     <label for=""> Event Name  <span><i class="fa fa-asterisk"></i></span> </label>
                     <div class="form-group">
@@ -203,7 +203,7 @@
 
 
                     <div class="row mx-0">
-                        <div class=" date-and-time">
+                        <div class=" date-and-time mt-3">
                             <div class="w-100">
                                 <label for="">Start Date <span><i class="fa fa-asterisk"></i></span> </label>
                                 <div class="form-group">
@@ -232,7 +232,7 @@
 
                         </div>
 
-                        <div class=" date-and-time ml-2">
+                        <div class=" date-and-time ml-2 mt-3">
 
                             <div class="w-100">
                                 <label for="">Ends Date<span><i class="fa fa-asterisk"></i></span> </label>
@@ -266,7 +266,7 @@
                         </div>
 
                         <div class="w-100" *ngIf="olPlatForm == 'N'">
-                            <div class="row m-0">
+                            <div class="row m-0 mt-3">
                                 <div class="venue-info">
                                     <label for="">Venue Name</label>
                                     <div class="form-group">
@@ -303,7 +303,7 @@
 
 
                         <div class="w-100" *ngIf="olPlatForm == 'Y'">
-                            <div class="row m-0">
+                            <div class="row m-0 mt-3">
                                 <div class="venue-info">
                                     <label for="">Platform</label>
                                     <div class="form-group">
@@ -333,33 +333,37 @@
                             </div>
                         </div>
 
-                        <div class="w-100">
+                        <div class="w-100 mt-3">
                             <div class="form-group">
                                 <!-- <input type="checkbox" class="from-control mr-2"> This is on online event -->
                                 <mat-checkbox class="" (change)="fnolPlatform($event)">This is on online event</mat-checkbox>
                             </div>
                         </div>
 
-                        <label class="w-100" for="">Description <span class="ml-2"><i class="fa fa-question"   matTooltip="You may like to add a short description for your customers.This is used in event listings." aria-hidden="true"></i></span> </label>
-                        <div class="form-group">
-                            <ck-editor formControlName="description" skin="moono-lisa" language="en" [fullPage]="true">
-                            </ck-editor>
-                            <span class="error-wrap" *ngIf="addEventForm.get('description').touched || addEventForm.get('description').dirty">
+                        <div class="w-100 mt-3">
+                            <label class="w-100" for="">Description <span class="ml-2"><i class="fa fa-question"   matTooltip="You may like to add a short description for your customers.This is used in event listings." aria-hidden="true"></i></span> </label>
+                            <div class="form-group">
+                                <ck-editor formControlName="description" skin="moono-lisa" language="en" [fullPage]="true">
+                                </ck-editor>
+                                <span class="error-wrap" *ngIf="addEventForm.get('description').touched || addEventForm.get('description').dirty">
                                 <small *ngIf="addEventForm.get('description').hasError('required')" class="error">Description is required.</small>
                             </span>
+                            </div>
                         </div>
 
-                        <label class="w-100" for="">Choose or upload an images</label>
-                        <div class="row">
-                            <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == allDefaultImages.id}" (click)="fnSelectImage(allDefaultImages.id); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
-                                alt="">
-                            <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage'); fnUploadEventImage()" class="event-images m-2 text-center pointer">
-                                <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
-                                <p>Upload</p>
-                            </div>
-                            <div [ngClass]="{'active-image':eventImageType == 'noImage'}" (click)="fnSelectImage('noImage')" class="event-images m-2 text-center pointer">
-                                <i class="fa fa-ban fa-2x pt-2 "></i>
-                                <p>No image</p>
+                        <div class="w-100 mt-3">
+                            <label class="w-100" for="">Choose or upload an images</label>
+                            <div class="row">
+                                <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == allDefaultImages.id}" (click)="fnSelectImage(allDefaultImages.id); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
+                                    alt="">
+                                <div [ngClass]="{'active-image':eventImageType == 'newUploadImage'}" (click)="fnSelectImage('newUploadImage'); fnUploadEventImage()" class="event-images m-2 text-center pointer">
+                                    <i class="fa fa-cloud-upload fa-2x pt-2 "></i>
+                                    <p>Upload</p>
+                                </div>
+                                <div [ngClass]="{'active-image':eventImageType == 'noImage'}" (click)="fnSelectImage('noImage')" class="event-images m-2 text-center pointer">
+                                    <i class="fa fa-ban fa-2x pt-2 "></i>
+                                    <p>No image</p>
+                                </div>
                             </div>
                         </div>
 
@@ -369,19 +373,19 @@
 
                 <div class="px-5 py-3 mt-3 border rounded create-ticket-types bg-light">
                     <div class=" py-2 font-weight-bold">
-                        <div>Create ticket types</div>
+                        <div class="page-sub-title">Create ticket types</div>
                     </div>
                     <div class="mt-2">
                         <button mat-flat-button (click)="openAddNewTicketTypeDialog()" class="mr-1">Add a new ticket type</button>
                         <!-- <button mat-flat-button (click)="openAddNewTicketGroupDialog()" class="ml-1">Add a new ticket group</button> -->
                     </div>
 
-                    <div *ngIf="eventTicketAlertMSG" class="p-3 mt-3 add-ticket-notification rounded">
+                    <div *ngIf="eventTicketAlertMSG" class="p-3 mt-3 mb-2 add-ticket-notification rounded">
                         <div> <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above to add a ticket to your event.</span>
                         </div>
                     </div>
 
-                    <div *ngFor="let eventTicketList of eventTicketList; let i=index;" class="after-save-general-admission p-3 mt-2 rounded">
+                    <div *ngFor="let eventTicketList of eventTicketList; let i=index;" class="after-save-general-admission p-3 mt-2 mb-2 rounded">
                         <div class="tickets-main-wrap">
                             <div>
                                 {{eventTicketList.ticket_name}}
@@ -421,10 +425,10 @@
 
                 <div class="px-5 py-3 mt-3 border rounded event-settings bg-light">
                     <div class=" py-2 font-weight-bold">
-                        <div>Event Settings</div>
+                        <div class="page-sub-title">Event Settings</div>
                     </div>
 
-                    <label for="">Timezone <span><i class="fa fa-asterisk"></i></span>  </label>
+                    <label class="mt-3" for="">Timezone <span><i class="fa fa-asterisk"></i></span>  </label>
                     <div class="form-group ">
                         <mat-select formControlName="timezone" class="form-control col-8 d-block">
                             <mat-option *ngFor="let allTimeZone of allTimeZone; let i=index" value="{{allTimeZone.id}}">({{allTimeZone.utc}}){{allTimeZone.name}}</mat-option>
@@ -434,13 +438,13 @@
                         </span>
                     </div>
 
-                    <div class="">
+                    <div class="mt-3">
                         <!-- <input type="checkbox" class="from-control mr-2"> Allow customers to make a donation -->
                         <mat-checkbox (change)="fnChangeDonation($event)" [checked]="false">Allow customers to make a donation</mat-checkbox>
                     </div>
 
                     <div class="w-100" *ngIf="donation == 'Y'">
-                        <div class="row m-0">
+                        <div class="row mt-2 m-0">
                             <div class="donation-field mt-2">
                                 <label for="">Donation title <span class="text-danger">*</span></label>
                                 <input formControlName="donation_title" type="text" class="form-control" placeholder="Please make a donation">
@@ -455,7 +459,7 @@
                                     <small *ngIf="addEventForm.get('donation_amount').hasError('required')" class="error">Amount is required.</small>
                                 </span>
                             </div>
-                            <div class="donation-field mt-2">
+                            <div class="donation-field mt-3">
                                 <label for="">Donation desciption <i class="fa fa-question-circle"></i></label>
                                 <input formControlName="donation_description" type="text" class="form-control">
                                 <span class="error-wrap" *ngIf="addEventForm.get('donation_description').touched || addEventForm.get('donation_description').dirty">
@@ -465,7 +469,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-2">
+                    <div class="mt-3">
                         <label for="">Customise the text that appears on the event button and in the title of the event page</label>
                         <div class="form-group">
                             <input formControlName="book_btn_title" type="text" class="form-control" placeholder="Book Tickets">
@@ -477,7 +481,7 @@
 
 
                     <div class=" py-2 font-weight-bold">
-                        <div>Advance Settings</div>
+                        <div class="page-sub-title">Advance Settings</div>
                     </div>
 
                     <!-- <div class="row mx-0">
@@ -510,14 +514,14 @@
                         </div>
                     </div> -->
 
-                    <div class="">
+                    <div class="mt-3">
                         <!-- <input type="checkbox" class="from-control mr-2"> Redirect order confirmation page -->
                         <mat-checkbox (change)="fnRedirectURL($event)" [checked]="false">Redirect order confirmation page</mat-checkbox>
                     </div>
 
-                    <div *ngIf="redirectURL == 'Y'">
+                    <div class="mt-2" *ngIf="redirectURL == 'Y'">
                         <label for="">Redirect to URL</label>
-                        <div class="my-2">
+                        <div class="pb-3">
                             <input formControlName="redirect_url" type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
                             <span class="error-wrap" *ngIf="addEventForm.get('redirect_url').touched || addEventForm.get('redirect_url').dirty">
                                 <small *ngIf="addEventForm.get('redirect_url').hasError('required')" class="error">Redirect URL is required.</small>
@@ -526,19 +530,19 @@
                     </div>
 
 
-                    <div class="">
+                    <div class="mt-1">
                         <!-- <input type="checkbox" class="from-control mr-2"> Hide this event from your box office listings and search engines. -->
                         <mat-checkbox (change)="fnHideEventSearch($event)">Hide this event from your box office listings and search engines.</mat-checkbox>
                     </div>
 
-                    <div class="">
+                    <div class="mt-1">
                         <!-- <input type="checkbox" class="from-control mr-2"> Customers need to enter an access code to buy tickets for this event -->
                         <mat-checkbox (change)="fnAccessCode($event)" [checked]="false">Customers need to enter an access code to buy tickets for this event</mat-checkbox>
                     </div>
 
-                    <div *ngIf="accessCode == 'Y'">
+                    <div class="mt-2" *ngIf="accessCode == 'Y'">
                         <label for="">Access Code</label>
-                        <div class="my-2">
+                        <div class="pb-3">
                             <input formControlName="access_code" type="text" class="form-control col-6">
                             <span class="error-wrap" *ngIf="addEventForm.get('access_code').touched || addEventForm.get('access_code').dirty">
                                 <small *ngIf="addEventForm.get('access_code').hasError('required')" class="error">Access Code is required.</small>
@@ -547,12 +551,12 @@
                     </div>
 
 
-                    <div class="">
+                    <div class="mt-1">
                         <!-- <input type="checkbox" class="from-control mr-2"> Hide share button on event page. -->
                         <mat-checkbox (change)="fnShareButtonStatus($event)">Hide share button on event page.</mat-checkbox>
                     </div>
 
-                    <div class="">
+                    <div class="mt-1">
                         <mat-checkbox (change)="fnCustomSalesTax($event)" [checked]="customSalesTax == 'Y'">Set custom sales tax for this event</mat-checkbox>
                     </div>
 

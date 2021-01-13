@@ -623,6 +623,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         }
         this.eventTicketList.push(result)
         this.eventTicketAlertMSG = false;
+        this.getSingleEvent();
       }
     });
   }

@@ -23,7 +23,7 @@ button:focus {
 ::ng-deep .modal-content .modal-header {
     border: none;
     padding: 0px 16px;
-    .close-btn{
+    .close-btn {
         margin-top: 0px;
     }
 }
@@ -124,6 +124,8 @@ button:focus {
         background: #007BFF 0% 0% no-repeat padding-box;
         color: white;
         border-radius: 25px;
+        font-size: 15px;
+        font-weight: 400;
     }
      ::ng-deep .code-tab {
         .mat-tab-header {
@@ -230,26 +232,25 @@ button:focus {
     }
 }
 
-::ng-deep .matDate{
+::ng-deep .matDate {
     position: relative;
-   .mat-datepicker-toggle{
-    position: absolute;
-   } 
-   .form-control{
-    padding-left: 40px;
+    .mat-datepicker-toggle {
+        position: absolute;
+    }
+    .form-control {
+        padding-left: 40px;
+    }
 }
-} 
 
-::ng-deep .matDate{
+::ng-deep .matDate {
     position: relative;
-   .mat-datepicker-toggle{
-    position: absolute;
-   } 
-   .form-control{
-    padding-left: 40px;
+    .mat-datepicker-toggle {
+        position: absolute;
+    }
+    .form-control {
+        padding-left: 40px;
+    }
 }
-} 
-
 
 ::ng-deep .popover {
     border: none;
@@ -265,10 +266,20 @@ button:focus {
         }
     }
 }
+
  ::ng-deep .bs-popover-bottom>.arrow::before,
 .bs-popover-auto[x-placement^=bottom]>.arrow::before {
     border-bottom-color: transparent;
 }
+
 .sub-container {
     overflow: hidden;
+}
+
+.page-title {
+    font-size: 20px;
+    padding-left: 25px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
 }

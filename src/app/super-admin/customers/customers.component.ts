@@ -13,6 +13,7 @@ import { environment } from '../../../environments/environment';
 import { ExportToCsv } from 'export-to-csv';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 import { DatePipe} from '@angular/common';
+import * as moment from 'moment'; 
 
 export interface DialogData {
   animal: string;
@@ -45,6 +46,7 @@ export class CustomersComponent implements OnInit {
   search = {
     keyword: ""
   };
+  lastEventDateTime:any;
   currentUser:any;
   eventActiveTab = 'all';
   constructor(
@@ -277,6 +279,8 @@ fnSelectCustomer(selectedCustomerCode){
     if(response.data == true){
       this.selectedCustomerDetails = response.response.customer;
       this.allEventListData = response.response
+      this.lastEventDateTime = moment(this.allEventListData.lastOrder.start_date +' '+this.allEventListData.lastOrder.start_time).format('d MMM y, hh:mm a');
+      // this.lastEventDateTime = this.datePipe.transform(new Date(this.allEventListData.lastOrder.start_date), 'MMM d, y')+', '+this.datePipe.transform(new Date(this.allEventListData.lastOrder.start_time), 'h:mm:ss a')
       this.addFormButtonDiv = true;
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);

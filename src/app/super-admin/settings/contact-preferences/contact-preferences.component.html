@@ -18,7 +18,7 @@
                     </mat-select>
                 </div>
 
-                <div class="form-group col-md-8" *ngIf="contactPreferenceOption === 'diffrent_email'">
+                <div class="form-group mt-3 col-md-8" *ngIf="contactPreferenceOption === 'diffrent_email'">
                     <label class="sub-head">Please enter the email address for customer contact enquires</label>
                     <input type="email" formControlName="email_id" class="form-control" placeholder="Enter email address">
                     <span class="error-wrap" *ngIf="contactPreferenceFrom.get('email_id').touched || contactPreferenceFrom.get('email_id').dirty">

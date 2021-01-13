@@ -1,6 +1,9 @@
 .settins-title {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    color: #2c2c2c;
 }
 
 .setting-left-menu {
@@ -26,15 +29,22 @@
 
 .active {
     color: #007BFF;
+    background-color: #DDEAFD;
 }
-.common-setting-menu{
+
+.common-setting-menu {
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    font-weight: 500;
 }
-.common-sub-menu{
+
+.common-sub-menu {
     cursor: pointer;
 }
-.ml-auto{
+
+.ml-auto {
     margin-left: auto;
 }

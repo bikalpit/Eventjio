@@ -226,6 +226,10 @@ export class OrdersComponent implements OnInit {
       if(response.data == true){
 
         this.allorderlist =  response.response.data;
+        // this.allorderlist.forEach(element => {
+        //   element.order_date = this.datePipe.transform(new Date(element.order_date), 'MMM d, y');
+        //   element.order_time = this.datePipe.transform(new Date(element.order_time), 'h:mm a');
+        // });
         this.current_page_orders = response.response.current_page;
         this.first_page_url_orders = response.response.first_page_url;
         this.last_page_orders = response.response.last_page;
@@ -1131,13 +1135,16 @@ export class BookTicketDialog {
    
 
   fnAddQty(index,value){
-    
-    this.eventTicket[index].qty = value;
-    var single_event = this.eventTicket[index];
-    var is_update  = true;
-    this.eventTicket[index].id_added = true ;
-    this.is_added_at_least_item = true;
-
+    if(value < 0){
+    this.eventTicket[index].qty = 0;
+    }else{
+      this.eventTicket[index].qty = value;
+      var single_event = this.eventTicket[index];
+      var is_update  = true;
+      this.eventTicket[index].id_added = true ;
+      this.is_added_at_least_item = true;
+  
+    }
 
     if( single_event.min_per_order  == null && single_event.max_per_order ==  '' ){
       this.eventTicket[index].is_added = true;

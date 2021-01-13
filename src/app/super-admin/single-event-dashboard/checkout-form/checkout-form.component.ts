@@ -153,8 +153,8 @@ export class CheckoutFormComponent implements OnInit {
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
   }
 
   getGlobleQuestions(){
@@ -175,8 +175,8 @@ export class CheckoutFormComponent implements OnInit {
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
   }
   
   fnDeleteBuyerQuestion(selectedQuestion, i){
@@ -299,8 +299,8 @@ export class CheckoutFormComponent implements OnInit {
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
   }
 
   fnCancelSave(){

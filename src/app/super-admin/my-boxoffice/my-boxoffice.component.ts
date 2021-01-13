@@ -202,6 +202,7 @@ export class myCreateNewBoxofficeDialog {
 
   createNewBoxOffice(insertArr){
 
+    this.isLoaderAdmin = true;
     this.superadminService.createNewBusiness(insertArr).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
@@ -211,6 +212,7 @@ export class myCreateNewBoxofficeDialog {
       }
     });
 
+    this.isLoaderAdmin = false;
   }
   
 }

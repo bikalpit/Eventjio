@@ -62,7 +62,7 @@
             <span class="example-fill-remaining-space">
                 <div class="selected-boxoffice-btn-main">
                   <button mat-button color="primary" class="text-capitalize" *ngIf="isBoxOfficeSelected() && !isBoxoffice()">Box Office : {{selectedBoxOfficeName}}</button>
-                  <button mat-button *ngIf="!isBoxoffice() &&  currentUser.type != 'member' "  class="ml-2" color="primary" routerLink="/super-admin">My Box Offices</button>
+                  <button mat-button *ngIf="!isBoxoffice() &&  currentUser.type != 'member' "  class="ml-2" color="primary" (click)="fnPostUrl('Box-Office')"  routerLink="/super-admin">My Box Offices</button>
                 </div>
               </span>
             <div class="ml-auto pr-3">

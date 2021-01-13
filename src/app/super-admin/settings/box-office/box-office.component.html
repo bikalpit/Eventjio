@@ -10,7 +10,7 @@
                             <div class="">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="pl-0">
-                                        <img *ngIf="(!boxofficeImageUrl && singleBoxofficeDetails) && singleBoxofficeDetails.image_name != 'default_image.png'" src="{{singleBoxofficeDetails.image}}" alt="">
+                                        <img *ngIf="(!boxofficeImageUrl && singleBoxofficeDetails) && singleBoxofficeDetails.image" src="{{singleBoxofficeDetails.image}}" alt="">
                                         <img *ngIf="boxofficeImageUrl" src="{{boxofficeImageUrl}}" alt="">
                                         <!-- <img *ngIf="!boxofficeImageUrl  && !singleBoxofficeDetails.image" src="../../../../assets/images/settings/box.png" alt=""> -->
                                     </div>
@@ -34,14 +34,14 @@
                                 <span class="error-wrap" *ngIf="singleBoxOffice.get('boxoffice_name').dirty || singleBoxOffice.get('boxoffice_name').touched"><small *ngIf="singleBoxOffice.get('boxoffice_name').hasError('required')" class="error text-left ml-4">Box Office name required.</small></span>
                             </div>
 
-                            <div class="form-group col-12">
+                            <div class="form-group col-12 mt-3">
                                 <label for="" class="">Language (experimental feature)</label>
                                 <mat-select name=" " id="" class="form-control col-12" formControlName="language">
                                     <mat-option *ngFor="let allLanguage of allLanguage;" value="{{allLanguage.id}}">{{allLanguage.name}}</mat-option>
                                 </mat-select>
                             </div>
 
-                            <div class="form-group col-12">
+                            <div class="form-group col-12 mt-3">
                                 <label for="" class="required">Timezone</label>
                                 <mat-select name=" " id="" class="form-control col-12" formControlName="timezone">
                                     <mat-option *ngFor="let allTimezones of allTimezones;" value="{{allTimezones.id}}">({{allTimezones.utc}}) {{allTimezones.name}}</mat-option>
@@ -107,16 +107,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="pt-2">
+                        <div class="pt-2 my-3">
                             <mat-checkbox class="" [checked]="singleBoxofficeDetails && singleBoxofficeDetails.email_order_notification == 'Y'" (change)="fnEmailOrderNotification($event)">Send new order notifications by email </mat-checkbox>
                         </div>
-                        <div class="">
+                        <div class="mt-2">
                             <label for="" class="pt-2">Who should receive notifications?</label>
                             <div class="">
                                 <mat-checkbox class="" [checked]="singleBoxofficeDetails && singleBoxofficeDetails.account_owner == 'Y'" (change)="fnAccountOwner($event)" formControlName="account_owner">Account Owner</mat-checkbox>
                             </div>
                         </div>
-                        <div class="form-group pt-2">
+                        <div class="form-group pt-2 mt-2">
                             <div *ngIf="!showHide">
                                 <i class="fa fa-plus-circle fa-lg plus-icon" (click)="fnshowHide()"></i>
                                 <a class="ml-2 add-email" (click)="fnshowHide()">Add Email</a>
@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="">
+                        <div class="mt-4">
                             <mat-checkbox [checked]="singleBoxofficeDetails && singleBoxofficeDetails.hide_tailor_logo == 'Y'" class="" (change)="fnHideLogo($event)">Hide Eventjio logo <span class="ml-2"><i class="fa fa-question-circle ml-2"  matTooltip="Hide the Event Jio logo from your box office pages. This feature is only available on certain plans." aria-hidden="true"></i></span></mat-checkbox>
                         </div>
 

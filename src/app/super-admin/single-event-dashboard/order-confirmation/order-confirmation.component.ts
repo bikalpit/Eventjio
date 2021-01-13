@@ -12,7 +12,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./order-confirmation.component.scss']
 })
 export class OrderConfirmationComponent implements OnInit {
-
+isLoaderAdmin:boolean=false;
 confirmationType :any ='GlobalOrderConfirmation';
 attachEventInvoice = false;
 ticketEventVouchersPDF = false;
@@ -39,19 +39,18 @@ constructor(
 
   ngOnInit(): void {
     this.fnGetEventDetail();
+    this.fngetEventEmail();
   }
 
   fnEditOrderConfirmation(event){
-
+    this.isLoaderAdmin = true;
     this.confirmationType = event.value;
-
     let requestObjectconfirmationType = {
       "option_key": "confirmationType",
       "event_id" : this.event_id,
       "json_type":"Y",
       "option_value" : { 'confirmationType' : this.confirmationType }
     };
-
     this.eventServiceService.updateSetting(requestObjectconfirmationType).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
@@ -59,11 +58,11 @@ constructor(
         this.ErrorService.errorMessage(response.response);
       }
     });
-
+    this.isLoaderAdmin = false;
   }
 
   fngetGlobleEmail(option_key){
-
+    this.isLoaderAdmin = true;
     let requestObject = {
       "boxoffice_id": this.boxOfficeCode,
       "option_key": option_key,
@@ -77,12 +76,11 @@ constructor(
         this.ErrorService.errorMessage(response.response);
       }
     });
-
- 
+    this.isLoaderAdmin = false;
   }
 
   fngetEventEmail(){
-
+    this.isLoaderAdmin = true;
     let requestObject = {
       "boxoffice_id": "null",
       "option_key": 'event_confirmation',
@@ -129,13 +127,12 @@ constructor(
         this.ErrorService.errorMessage(response.response);
       }
     });
+    this.isLoaderAdmin = false;
 
   }
 
   fnEventEmail(){
-  
-    /////////////// Update Event Email //////////////////
-
+    this.isLoaderAdmin = true;
     let requestObject = {
         "option_key": "event_confirmation",
         "json_type" : "N",
@@ -150,9 +147,6 @@ constructor(
         this.ErrorService.errorMessage(response.response);
       }
     });
-
-    /////////////// Update Email Attachment //////////////////
-
     let requestObjectData = {
         "option_key": "event_confirmation_setting",
         "event_id" : this.event_id,
@@ -167,33 +161,27 @@ constructor(
         this.ErrorService.errorMessage(response.response);
       }
     });
-
+    this.isLoaderAdmin = false;
   }
 
   fnGetEventDetail(){
-
+    this.isLoaderAdmin = true;
     let requestObject = {
       'unique_code' : this.event_id,
     }
-
     this.eventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
-        
         if(this.eventDetail.online_event == "Y"){
           this.fngetGlobleEmail('global_confirmation_online');
         }else{
           this.fngetGlobleEmail('global_confirmation');
         }
-        
-
-        console.log('---',this.eventDetail);
-
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
     });
-
+    this.isLoaderAdmin = false;
   }
 
 

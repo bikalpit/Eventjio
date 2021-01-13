@@ -59,6 +59,7 @@
     padding-left: 25px;
     display: flex;
     align-items: center;
+    font-weight: 500;
 }
 
 ::ng-deep .event-tabs {
@@ -133,7 +134,7 @@
         border-radius: 4px;
         overflow: hidden;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 400;
         height: calc(100vh - 255px);
         overflow-y: scroll;
     }
@@ -143,6 +144,10 @@
         align-items: center;
         font-size: 14px;
         color: #595959;
+        div {
+            font-weight: 500;
+            font-size: 16px;
+        }
     }
     .drageble-box {
         align-items: center;
@@ -300,6 +305,10 @@
     .add-new-event-form {
         margin: 0 6rem;
         width: calc(100% - 12rem);
+        label {
+            font-size: 15px;
+            font-weight: 500;
+        }
     }
 }
 
@@ -373,4 +382,13 @@
         cursor: pointer;
         color: red;
     }
+}
+
+.event-status-select.status-select {
+    font-size: 14px;
+}
+
+.page-sub-title {
+    font-size: 16px;
+    font-weight: 600;
 }

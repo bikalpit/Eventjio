@@ -10,6 +10,7 @@ import { ExportToCsv } from 'export-to-csv';
   styleUrls: ['./waitilist-signup.component.scss']
 })
 export class WaitilistSignupComponent implements OnInit {
+  isLoaderAdmin:boolean=false;
   activeWaitlist:boolean=false;
   waitListForm:FormGroup;
   checkActiveWaitlist:any="N";
@@ -17,8 +18,7 @@ export class WaitilistSignupComponent implements OnInit {
   showTicket:any = "N";
   boxofficeId:any;
   getSavedlist:any;
-  eventId:any;
-  isLoaderAdmin:any;  
+  eventId:any; 
   waitinglistObject:any;
   getAllWaitingListData:any;
   getNewWaitingListData:any;
@@ -113,8 +113,8 @@ export class WaitilistSignupComponent implements OnInit {
         this.ErrorService.errorMessage(response.response);
         this. getAllWaitingListData = null;
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
 
   
@@ -138,6 +138,7 @@ export class WaitilistSignupComponent implements OnInit {
    
 
   fnSavewaitlist(){
+    this.isLoaderAdmin=true;
     if(this.waitListForm.invalid){
      this.waitListForm.get('btn_text').markAllAsTouched();
      this.waitListForm.get('event_page_text').markAllAsTouched();
@@ -170,11 +171,12 @@ export class WaitilistSignupComponent implements OnInit {
     this.ErrorService.errorMessage(response.response);
     }
 });
+this.isLoaderAdmin=false;
 
   }
 
   fngetSavedwaitlist(){
-   
+    this.isLoaderAdmin=true;
     let requestObject= {
       "boxoffice_id":"NULL",
       "option_key":'waitListForm',
@@ -195,6 +197,7 @@ export class WaitilistSignupComponent implements OnInit {
         this.ErrorService.errorMessage(response.response);
         }
     });
+    this.isLoaderAdmin=false;
   }
 
 }

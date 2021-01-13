@@ -90,7 +90,7 @@
                             <div class="col-6">
                                 <label for="">Min per order</label>
                                 <div class="form-group">
-                                    <input formControlName="min_order" type="text" class="form-control">
+                                    <input (keyup)="fnMinOrder()" [(ngModel)]="minOrderVal" formControlName="min_order" type="text" class="form-control">
                                     <span class="error-wrap" *ngIf="addTicketForm.get('min_order').touched || addTicketForm.get('min_order').dirty">
                                     <small *ngIf="addTicketForm.get('min_order').hasError('pattern')" class="error">Min per order is should numeric only.</small>
                                 </span>
@@ -100,9 +100,10 @@
                             <div class="col-6">
                                 <label for="">Max per order</label>
                                 <div class="form-group">
-                                    <input formControlName="max_order" type="text" class="form-control">
+                                    <input (keyup)="fnMaxOrder()" [(ngModel)]="maxOrderVal" formControlName="max_order" type="text" class="form-control">
                                     <span class="error-wrap" *ngIf="addTicketForm.get('max_order').touched || addTicketForm.get('max_order').dirty">
                                     <small *ngIf="addTicketForm.get('max_order').hasError('pattern')" class="error">Max per order is should numeric only.</small>
+                                    <small *ngIf="maxOrderCheck" class="error">Max per order is should greater then min per order.</small>
                                 </span>
                                 </div>
                             </div>

@@ -1,6 +1,5 @@
     @import "variables";
     @import "my-customer.css";
-    @import url('https://fonts.googleapis.com/css?family=Poppins');
     @import '~@angular/cdk/overlay-prebuilt.css';
     html,
     body {
@@ -111,6 +110,7 @@
                 text-align: center;
                 width: 115px;
                 margin-left: 15px;
+                font-weight: 400;
             }
         }
     }

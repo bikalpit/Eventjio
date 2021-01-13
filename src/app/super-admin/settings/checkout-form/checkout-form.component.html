@@ -2,8 +2,7 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="checkout-form main-work-area main">
         <h6 class="main-head col-md-12">Global checkout form</h6>
-        <p class="col-md-12">Customise the questions that your customers get asked when making an order. You can also override this message for particular events if you wish by going to <span> Events -> Your Event -> Edit checkout form editing </span> the checkout form from
-            there. </p>
+        <p class="col-md-12 instruction-text">Customise the questions that your customers get asked when making an order. You can also override this message for particular events if you wish by going to <span class="speacil-black-text"> Events -> Your Event -> Edit checkout form editing </span>            the checkout form from there. </p>
         <div class="buyer-que">
             <div class="byr-qn">
                 <h5>Buyer only questions</h5>
@@ -31,19 +30,18 @@
                                                     <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
                                                 </button>
                                                 <!-- [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted"  -->
-                                                <button *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)"     mat-raised-button                                             
-                                                    matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                <button *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)" mat-raised-button matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                                 </button>
-                                                
-                                                <button  *ngIf="element.is_deleted" (click)="fnUndoBuyerQuestion(element, i)"  mat-raised-button matTooltip="Show in checkout form" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+
+                                                <button *ngIf="element.is_deleted" (click)="fnUndoBuyerQuestion(element, i)" mat-raised-button matTooltip="Show in checkout form" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                     <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span> 
                                                 </button>
 
                                                 <button [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
                                                 </button>
-                                                
+
                                             </div>
                                         </div>
                                     </div>

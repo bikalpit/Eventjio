@@ -1,350 +1,347 @@
-<div class="modal-dialog modal-notify modal-info export-order modal-lg"  role="document" >
-  <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+<div class="modal-dialog modal-notify modal-info export-order modal-lg" role="document">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
 
-  <div class="modal-content ">
-    <div class="modal-header modal-bcolor-primary px-0 pt-0">
-      <p class="heading lead  work-content">Add new order</p>
-      <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+    <div class="modal-content ">
+        <div class="modal-header modal-bcolor-primary px-0 pt-0">
+            <p class="heading lead  work-content">Add new order</p>
+            <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
-    </div>
-    <div class="modal-body pb-0 px-0"> 
-      <div class="new-order-table" *ngIf="addOrderFormType === 'selectTicket'">
-        <div class="code-tab">
-            <div class="service-listing">
-                <div class="main-table-content main-cust-table-content">
-                    <div class="">
-                        <div class="heads main-heading-content drageble" fxLayout="row">
-                          <!-- <div class="th-data" fxFlex="10"></div>  -->
-                          <div class="th-data" fxFlex="40">Ticket type</div>                           
-                          <div class="th-data" fxFlex="20">Price</div>
-                          <div class="th-data" fxFlex="20">Fee</div>
-                          <div class="th-data" fxFlex="20">QUANTITY</div>
-                        </div>
-                        <div class="content" class="drageble-list" *ngFor="let eventTicket of eventTicket;let i=index">
-                          <div class="drageble-box" fxLayout="row">
-                              <!-- <div class="tb-data" fxFlex="10">
+        </div>
+        <div class="modal-body pb-0 px-0">
+            <div class="new-order-table" *ngIf="addOrderFormType === 'selectTicket'">
+                <div class="code-tab">
+                    <div class="service-listing">
+                        <div class="main-table-content main-cust-table-content">
+                            <div class="">
+                                <div class="heads text-uppercase main-heading-content drageble" fxLayout="row">
+                                    <!-- <div class="th-data" fxFlex="10"></div>  -->
+                                    <div class="th-data" fxFlex="40">Ticket type</div>
+                                    <div class="th-data" fxFlex="20">Price</div>
+                                    <div class="th-data" fxFlex="20">Fee</div>
+                                    <div class="th-data" fxFlex="20">QUANTITY</div>
+                                </div>
+                                <div class="content" class="drageble-list" *ngFor="let eventTicket of eventTicket;let i=index">
+                                    <div class="drageble-box" fxLayout="row">
+                                        <!-- <div class="tb-data" fxFlex="10">
                                 <mat-checkbox  (change)="fnBookTicket($event,i)" ></mat-checkbox>
                               </div>    -->
-                              <div class="tb-data" fxFlex="40">{{eventTicket.ticket_name}} </div>                               
-                              <div class="tb-data" fxFlex="20"><input type="hidden" class="form-control" >{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
-                              <div class="th-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
-                              <div class="tb-data" fxFlex="20">
-                                <input type="number" onlyNumber  class="form-control" value="{{eventTicket.qty}}" (change)="fnAddQty(i,$event.target.value);" >      
-                              </div>
-                          </div>
-                      </div>
-                      <div class="content" class="drageble-list">
-                        <div class="drageble-box" fxLayout="row">
-                            <div class="tb-data fw-600" fxFlex="50">Sub total</div>
-                            <div class="tb-data" fxFlex="30"></div>
-                            <div class="tb-data fw-600" fxFlex="20" >{{ subTotal | currency:currencyCode:'symbol' }}</div>
+                                        <div class="tb-data" fxFlex="40">{{eventTicket.ticket_name}} </div>
+                                        <div class="tb-data" fxFlex="20"><input type="hidden" class="form-control">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
+                                        <div class="th-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
+                                        <div class="tb-data" fxFlex="20">
+                                            <input type="number" onlyNumber [(ngModel)]="eventTicket.qty" class="form-control" value="{{eventTicket.qty}}" (change)="fnAddQty(i,$event.target.value);">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content" class="drageble-list">
+                                    <div class="drageble-box" fxLayout="row">
+                                        <div class="tb-data fw-600" fxFlex="50">Sub total</div>
+                                        <div class="tb-data" fxFlex="30"></div>
+                                        <div class="tb-data fw-600" fxFlex="20">{{ subTotal | currency:currencyCode:'symbol' }}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="example-button-row ml-auto mt-4">
+                        <button mat-raised-button class="comm-btn d-flex ml-auto" [disabled]="is_added_at_least_item" (click)="fnTicketCheckout('CheckoutForm')">Next</button>
                     </div>
                 </div>
             </div>
-            <div class="example-button-row ml-auto mt-4">
-              <button mat-raised-button class="comm-btn d-flex ml-auto"  [disabled]="is_added_at_least_item" (click)="fnTicketCheckout('CheckoutForm')">Next</button>
+        </div>
+
+        <div class="with-validation checkout-form" *ngIf="addOrderFormType === 'CheckoutForm'">
+            <!-- <h4 class="main-head">Checkout</h4> -->
+            <div class="itemlist-table">
+                <div class="service-listing">
+                    <div class="main-table-content main-cust-table-content">
+                        <div class="">
+                            <div class="heads main-heading-content drageble" fxLayout="row">
+                                <div class="th-data" fxFlex="30">Item</div>
+                                <div class="th-data" fxFlex="15">Price</div>
+                                <div class="th-data" fxFlex="20">Booking Fee</div>
+                                <div class="th-data" fxFlex="25">QUANTITY</div>
+                                <div class="th-data" fxFlex="15" class="align-end">Subtotal</div>
+                            </div>
+                            <div class="content" class="drageble-list">
+                                <div class="drageble-box fw-600" fxLayout="row" *ngFor="let eventTicket of eventTicket">
+                                    <div *ngIf="eventTicket.id_added" class="tb-data order-item fw-100" fxFlex="30">{{eventTicket.ticket_name}}</div>
+                                    <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="15">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
+                                    <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
+                                    <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="25">{{eventTicket.qty}} </div>
+                                    <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="20">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee) | currency:currencyCode:'symbol' }}</div>
+                                </div>
+                            </div>
+                            <div class="content drageble-list">
+                                <div class="drageble-box fw-600" fxLayout="row">
+                                    <div class="tb-data fs-15 fw-600" fxFlex="35">Transation Fees</div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data align-end fs-15" fxFlex="20">{{ transaction_fee | currency:currencyCode:'symbol' }}</div>
+                                </div>
+                            </div>
+
+                            <div class="content drageble-list" *ngIf="total_sales_tax_amount">
+                                <div class="drageble-box fw-600" fxLayout="row">
+                                    <div class="tb-data fs-15 fw-600" fxFlex="35">Sales Tax</div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data align-end fs-15" fxFlex="20">{{ total_sales_tax_amount | currency:currencyCode:'symbol' }}</div>
+                                </div>
+                            </div>
+
+                            <div class="content drageble-list" *ngIf="discount_amt">
+                                <div class="drageble-box fw-600" fxLayout="row">
+                                    <div class="tb-data fs-15 fw-600" fxFlex="35">Promo Code</div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data align-end fs-15" fxFlex="20">- {{ discount_amt | currency:currencyCode:'symbol' }}</div>
+                                </div>
+                            </div>
+
+                            <div class="content" class="drageble-list">
+                                <div class="drageble-box fw-600" fxLayout="row">
+                                    <div class="tb-data fs-15 fw-600" fxFlex="35">Order Total</div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data align-end fs-15" fxFlex="20">{{ grandTotal | currency:currencyCode:'symbol' }}</div>
+                                </div>
+                            </div>
+                            <div class="content" class="drageble-list">
+                                <div class="drageble-box fw-600" fxLayout="row">
+                                    <div class="tb-data order-item fw-100" fxFlex="20">
+                                    </div>
+                                    <div class="tb-data" fxFlex="25"></div>
+                                    <div class="b-data align-end fs-15" fxFlex="15"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-      </div>   
-    </div>
-  
-      <div  class="with-validation checkout-form" *ngIf="addOrderFormType === 'CheckoutForm'">
-        <!-- <h4 class="main-head">Checkout</h4> -->
-        <div class="itemlist-table">
-          <div class="service-listing">
-            <div class="main-table-content main-cust-table-content">
-                <div class="">
-                  <div class="heads main-heading-content drageble" fxLayout="row">
-                      <div class="th-data" fxFlex="30">Item</div>
-                      <div class="th-data" fxFlex="15">Price</div>
-                      <div class="th-data" fxFlex="20">Booking Fee</div>
-                      <div class="th-data" fxFlex="25">QUANTITY</div>
-                      <div class="th-data" fxFlex="15" class="align-end">Subtotal</div>
-                  </div>
-                  <div class="content" class="drageble-list">
-                      <div class="drageble-box fw-600" fxLayout="row"  *ngFor="let eventTicket of eventTicket"  >
-                          <div *ngIf="eventTicket.id_added" class="tb-data order-item fw-100" fxFlex="30" >{{eventTicket.ticket_name}}</div>
-                          <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="15">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
-                          <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
-                          <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="25">{{eventTicket.qty}} </div>
-                          <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="20">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee) | currency:currencyCode:'symbol' }}</div>                        
-                      </div>
-                  </div>   
-                  <div  class="content drageble-list">
-                    <div class="drageble-box fw-600"  fxLayout="row">
-                        <div class="tb-data fs-15 fw-600" fxFlex="35">Transation Fees</div>
-                        <div class="tb-data" fxFlex="20"></div>
-                        <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data align-end fs-15" fxFlex="20">{{ transaction_fee | currency:currencyCode:'symbol' }}</div>                        
-                    </div>
-                  </div>  
-
-                  <div  class="content drageble-list" *ngIf="total_sales_tax_amount">
-                    <div class="drageble-box fw-600"  fxLayout="row">
-                        <div class="tb-data fs-15 fw-600" fxFlex="35">Sales Tax</div>
-                        <div class="tb-data" fxFlex="20"></div>
-                        <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data align-end fs-15" fxFlex="20">{{ total_sales_tax_amount | currency:currencyCode:'symbol' }}</div>                        
-                    </div>
-                  </div>  
-
-                  <div  class="content drageble-list" *ngIf="discount_amt">
-                    <div class="drageble-box fw-600"  fxLayout="row">
-                        <div class="tb-data fs-15 fw-600" fxFlex="35">Promo Code</div>
-                        <div class="tb-data" fxFlex="20"></div>
-                        <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data align-end fs-15" fxFlex="20">- {{ discount_amt | currency:currencyCode:'symbol' }}</div>                        
-                    </div>
-                  </div> 
-
-                  <div class="content" class="drageble-list">
-                    <div class="drageble-box fw-600"  fxLayout="row">
-                        <div class="tb-data fs-15 fw-600" fxFlex="35">Order Total</div>
-                        <div class="tb-data" fxFlex="20"></div>
-                        <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data" fxFlex="15"></div>
-                        <div class="tb-data align-end fs-15" fxFlex="20">{{ grandTotal | currency:currencyCode:'symbol' }}</div>                        
-                    </div>
-                </div>  
-                <div class="content" class="drageble-list">
-                  <div class="drageble-box fw-600"  fxLayout="row">
-                      <div class="tb-data order-item fw-100" fxFlex="20">
-                      </div>       
-                      <div class="tb-data" fxFlex="25"></div>
-                      <div class="b-data align-end fs-15" fxFlex="15"></div>       
-                  </div>
-                </div>             
-              </div>
+            <div class="mt-2">
+                <a href="javascript:;" (click)="fnTicketCheckout('selectTicket')" class="link p-0">Change your order</a>
             </div>
-          </div>
-        </div>
-        <div class="mt-2">
-          <a href="javascript:;" (click)="fnTicketCheckout('selectTicket')"  class="link p-0">Change your order</a>
-        </div>
-        <div class="mt-16">
-          <div class="form-group">
-            <label for="" class="main-head fw-600">Do you have a promo code?</label>
-            <div class="row">
-              <div class="col-10 pr-1">
-                  <input type="text" class="form-control" [(ngModel)]="promo_code" [disabled]="coupon_code!='' || voucher_code!=''"  >
-                  <!-- <span class="error-wrap" *ngIf="bookTickets.get('promo_code').dirty || bookTickets.get('promo_code').touched">
+            <div class="mt-16">
+                <div class="form-group">
+                    <label for="" class="main-head fw-600">Do you have a promo code?</label>
+                    <div class="row">
+                        <div class="col-10 pr-1">
+                            <input type="text" class="form-control" [(ngModel)]="promo_code" [disabled]="coupon_code!='' || voucher_code!=''">
+                            <!-- <span class="error-wrap" *ngIf="bookTickets.get('promo_code').dirty || bookTickets.get('promo_code').touched">
                     <small *ngIf="bookTickets.get('promo_code').hasError('required')" class="error text-left">Promo Code is required.</small>
                     <small *ngIf="bookTickets.get('promo_code').hasError('maxlength') || bookTickets.get('promo_code').hasError('minlength')" class="error">Promo Code Should be of 6 digits.</small>
                   </span> -->
-              </div>
-              <div class="col-2 pl-1">
-                <button mat-raised-button class="ticket-btn comm-btn" (click)="fnAddDiscount()" [disabled]="coupon_code!=''" >Apply</button>
-              </div>
-            </div>
-          </div>
+                        </div>
+                        <div class="col-2 pl-1">
+                            <button mat-raised-button class="ticket-btn apply-btn" (click)="fnAddDiscount()" [disabled]="coupon_code!=''">Apply</button>
+                        </div>
+                    </div>
+                </div>
 
-          <div class="checkout mt-2">
-            <label class="main-head mb-3 fw-600">Please complete the form below to checkout</label>
-           
-            <form *ngIf="eventForm" [formGroup]="bookTickets">
+                <div class="checkout mt-2">
+                    <label class="main-head mb-3 fw-600">Please complete the form below to checkout</label>
 
-              <div class="form-group">
-                <label>{{eventForm.label  ? eventForm.label : 'Full name'}} <span class="text-danger">*</span> </label>
-                <input type="text" class="form-control" id="" placeholder="" formControlName ="name">
-                <span class="error-wrap" *ngIf="bookTickets.get('name').dirty || bookTickets.get('name').touched">
+                    <form *ngIf="eventForm" [formGroup]="bookTickets">
+
+                        <div class="form-group">
+                            <label>{{eventForm.label  ? eventForm.label : 'Full name'}} <span class="text-danger">*</span> </label>
+                            <input type="text" class="form-control" id="" placeholder="" formControlName="name">
+                            <span class="error-wrap" *ngIf="bookTickets.get('name').dirty || bookTickets.get('name').touched">
                   <small *ngIf="bookTickets.get('name').hasError('required')" class="error text-left">full Name is required.</small>
                 </span>
-              </div>
+                        </div>
 
-              <div class="form-group">
-                <label>{{eventForm.label ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="email"  placeholder="">
-                <span class="error-wrap" *ngIf="bookTickets.get('email').dirty || bookTickets.get('email').touched">
+                        <div class="form-group">
+                            <label>{{eventForm.label ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
+                            <input matInput type="text" class="form-control" formControlName="email" placeholder="">
+                            <span class="error-wrap" *ngIf="bookTickets.get('email').dirty || bookTickets.get('email').touched">
                   <small *ngIf="bookTickets.get('email').hasError('required')" class="error text-left">Email is required.</small>
                   <small *ngIf="bookTickets.get('email').hasError('pattern')" class="error">Enter valid email.</small>
                   <small *ngIf="bookTickets.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small>
                 </span>
-              </div>
+                        </div>
 
-              <div class="form-group" *ngIf="!is_address_hide">
-                <label> {{addressArr.address}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="address" placeholder="">
-                <span class="error-wrap" *ngIf="bookTickets.get('address').dirty || bookTickets.get('address').touched">
+                        <div class="form-group" *ngIf="!is_address_hide">
+                            <label> {{addressArr.address}} <span class="text-danger">*</span> </label>
+                            <input matInput type="text" class="form-control" formControlName="address" placeholder="">
+                            <span class="error-wrap" *ngIf="bookTickets.get('address').dirty || bookTickets.get('address').touched">
                     <small *ngIf="bookTickets.get('address').hasError('required')" class="error text-left">{{addressArr.address}} is required.</small>
                 </span>
-              </div>
+                        </div>
 
-              <div class="form-group" *ngIf="!is_address_hide">
-                <label> {{addressArr.address1}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="address1" placeholder="">
-                <span class="error-wrap" *ngIf="bookTickets.get('address1').dirty || bookTickets.get('address1').touched">
+                        <div class="form-group" *ngIf="!is_address_hide">
+                            <label> {{addressArr.address1}} <span class="text-danger">*</span> </label>
+                            <input matInput type="text" class="form-control" formControlName="address1" placeholder="">
+                            <span class="error-wrap" *ngIf="bookTickets.get('address1').dirty || bookTickets.get('address1').touched">
                     <small *ngIf="bookTickets.get('address1').hasError('required')" class="error text-left">{{addressArr.address1}} is required.</small>
                 </span>
-              </div>
+                        </div>
 
-              <div class="form-group" *ngIf="!is_address_hide">
-                <label> {{addressArr.address2}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="address2" placeholder="">
-                <span class="error-wrap" *ngIf="bookTickets.get('address2').dirty || bookTickets.get('address2').touched">
+                        <div class="form-group" *ngIf="!is_address_hide">
+                            <label> {{addressArr.address2}} <span class="text-danger">*</span> </label>
+                            <input matInput type="text" class="form-control" formControlName="address2" placeholder="">
+                            <span class="error-wrap" *ngIf="bookTickets.get('address2').dirty || bookTickets.get('address2').touched">
                     <small *ngIf="bookTickets.get('address2').hasError('required')" class="error text-left">{{addressArr.address2}} is required.</small>
                 </span>
-              </div>
-              <div class="form-group" *ngIf="!is_address_hide">
-                <label> {{addressArr.zipcode}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
-                <span class="error-wrap" *ngIf="bookTickets.get('zipcode').dirty || bookTickets.get('zipcode').touched">
+                        </div>
+                        <div class="form-group" *ngIf="!is_address_hide">
+                            <label> {{addressArr.zipcode}} <span class="text-danger">*</span> </label>
+                            <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
+                            <span class="error-wrap" *ngIf="bookTickets.get('zipcode').dirty || bookTickets.get('zipcode').touched">
                     <small *ngIf="bookTickets.get('zipcode').hasError('required')" class="error text-left">{{addressArr.zipcode}} is required.</small>
                     <small *ngIf=" bookTickets.get('zipcode').hasError('pattern') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}} Should in numbers</small>
                     <small *ngIf="!bookTickets.get('zipcode').hasError('pattern') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}}  Should Minimum 5 and Maximum 6 digits.</small>
                 </span>
-              </div>
-              
-              <div class="form-group">
-                <label>{{ eventForm.label ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
-                <span class="error-wrap" *ngIf="bookTickets.get('phone').dirty || bookTickets.get('phone').touched">
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{ eventForm.label ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
+                            <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
+                            <span class="error-wrap" *ngIf="bookTickets.get('phone').dirty || bookTickets.get('phone').touched">
                   <small *ngIf="bookTickets.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
                   <small *ngIf="bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
                   <small *ngIf="!bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small>
                 </span>
-              </div>
-            </form>
+                        </div>
+                    </form>
 
-            <div *ngFor="let val of eventSpecificForm;let i=index" class="form-group">
-              
-              <div class="" *ngIf="val.type=='text'">
-                  <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-                  <input matInput type="text" class="form-control"  [(ngModel)]="val.value" placeholder="">
-                  <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                    <div *ngFor="let val of eventSpecificForm;let i=index" class="form-group">
+
+                        <div class="" *ngIf="val.type=='text'">
+                            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                            <input matInput type="text" class="form-control" [(ngModel)]="val.value" placeholder="">
+                            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                       {{val.label}} is required.
                   </span>
-              </div>
+                        </div>
 
-              <div class="" *ngIf="val.type=='dropdown'">
-                  <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-                  <select [(ngModel)]="val.value" class="form-control">
+                        <div class="" *ngIf="val.type=='dropdown'">
+                            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                            <select [(ngModel)]="val.value" class="form-control">
                       <option *ngFor="let dropVal of optionsArr(val.options);let optionI=index">{{dropVal}}</option>
                   </select>
-                  <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                       <small> {{val.label}} is required.</small>
                   </span>
-              </div>
+                        </div>
 
-              <div class="" *ngIf="val.type=='radio'">
-                  <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-                  <div *ngFor="let radioVal of optionsArr(val.options);let optionCheck=index">
-                      <input  type="radio"   value="{{radioVal}}" [(ngModel)]="val.value" > 
-                      {{radioVal}}
-                  </div>
-                  <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                        <div class="" *ngIf="val.type=='radio'">
+                            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                            <div *ngFor="let radioVal of optionsArr(val.options);let optionCheck=index">
+                                <input type="radio" value="{{radioVal}}" [(ngModel)]="val.value"> {{radioVal}}
+                            </div>
+                            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                     <small> {{val.label}} is required.</small>
                   </span>
-              </div>
+                        </div>
 
-              <div class="" *ngIf="val.type=='checkbox'">
-                  <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-                  <div *ngFor="let checkboxVal of val.selector;let optionCheck=index">
-                      <input  type="checkbox"    value="{{checkboxVal.value}}" [(ngModel)]="checkboxVal.is_check" > 
-                      {{checkboxVal.value}}
-                  </div>
-                  <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                        <div class="" *ngIf="val.type=='checkbox'">
+                            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                            <div *ngFor="let checkboxVal of val.selector;let optionCheck=index">
+                                <input type="checkbox" value="{{checkboxVal.value}}" [(ngModel)]="checkboxVal.is_check"> {{checkboxVal.value}}
+                            </div>
+                            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                     <small> {{val.label}} is required.</small>
                   </span>
-              </div>
+                        </div>
 
-              <div class="" *ngIf="val.type=='marketing'">
-                <label> {{val.label}} <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
-                <div>
-                    <input  type="checkbox" class=""  [(ngModel)]="val.value" >
-                </div>
-                  <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                        <div class="" *ngIf="val.type=='marketing'">
+                            <label> {{val.label}} <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                            <div>
+                                <input type="checkbox" class="" [(ngModel)]="val.value">
+                            </div>
+                            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                     <small> {{val.label}} is required.</small>
                   </span>
-              </div>
+                        </div>
 
-              <div class="" *ngIf="val.type=='terms'">
-                  <label> Terms & Conditions  <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
-                  <div>
-                      <input  type="checkbox" class=""  [(ngModel)]="val.value" >
-                      {{val.label}}
-                  </div>
-                  <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                        <div class="" *ngIf="val.type=='terms'">
+                            <label> Terms & Conditions  <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                            <div>
+                                <input type="checkbox" class="" [(ngModel)]="val.value"> {{val.label}}
+                            </div>
+                            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                     <small> {{val.label}} is required.</small>
                   </span>
-              </div>
+                        </div>
 
-            </div>
-            
-            <div class="tickes-heading mt-4 mb-4">
-              <h3 class="text-center"> Attendee Information </h3>
-            </div>
+                    </div>
 
-            <form [formGroup]="dynamicForm">
-              <div class="row vip-tickets" *ngFor="let ticket of t.controls; let i = index">
-                <div [formGroup]="ticket">
-                  <div class="col-12 col-xl-6 col-md-6 col-sm-6 float-left" *ngFor="let attendeeFormval of attendeeForm; let i=index;">
-                      <div class="" *ngIf="attendeeFormval.type=='text'">
-                          <div class="form-group common-checkout-filed">
-                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
-                              <input matInput [formControlName]="attendeeFormval.controlname" class="form-control" placeholder="">
-                          </div>
-                        
-                      </div>
+                    <div class="tickes-heading mt-4 mb-4">
+                        <h3 class="text-center"> Attendee Information </h3>
+                    </div>
 
-                      <div class="" *ngIf="attendeeFormval.type=='dropdown'">
-                          <div class="form-group common-checkout-filed">
-                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
-                              <select [formControlName]="attendeeFormval.controlname" class="form-control">
+                    <form [formGroup]="dynamicForm" class="row">
+                        <div class="col-12 col-xl-12 col-md-12 col-sm-12 vip-tickets" *ngFor="let ticket of t.controls; let i = index">
+                            <div [formGroup]="ticket">
+                                <div class="single-ticket-attendee-form" *ngFor="let attendeeFormval of attendeeForm; let i=index;">
+                                    <div class="" *ngIf="attendeeFormval.type=='text'">
+                                        <div class="form-group common-checkout-filed">
+                                            <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
+                                            <input matInput [formControlName]="attendeeFormval.controlname" class="form-control" placeholder="">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="" *ngIf="attendeeFormval.type=='dropdown'">
+                                        <div class="form-group common-checkout-filed">
+                                            <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
+                                            <select [formControlName]="attendeeFormval.controlname" class="form-control">
                                   <option *ngFor="let dropVal of optionsArr(attendeeFormval.options);let optionI=index">{{dropVal}}</option>
                               </select>
-                          </div>
-                      </div>
+                                        </div>
+                                    </div>
 
-                      <div class="" *ngIf="attendeeFormval.type=='radio'">
-                          <div class="form-group common-checkout-filed">
-                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
-                              <div *ngFor="let radioVal of optionsArr(attendeeFormval.options);let optionCheck=index">
-                                  <input type="radio" value="{{radioVal}}" [formControlName]="attendeeFormval.controlname"> {{radioVal}}
-                              </div>
-                          </div>
-                      </div>
+                                    <div class="" *ngIf="attendeeFormval.type=='radio'">
+                                        <div class="form-group common-checkout-filed">
+                                            <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
+                                            <div *ngFor="let radioVal of optionsArr(attendeeFormval.options);let optionCheck=index">
+                                                <input type="radio" value="{{radioVal}}" [formControlName]="attendeeFormval.controlname"> {{radioVal}}
+                                            </div>
+                                        </div>
+                                    </div>
 
-                      <div class="" *ngIf="attendeeFormval.type=='checkbox'">
-                          <div class="form-group common-checkout-filed">
-                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
+                                    <div class="" *ngIf="attendeeFormval.type=='checkbox'">
+                                        <div class="form-group common-checkout-filed">
+                                            <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
 
-                              <div *ngFor="let checkboxVal of attendeeFormval.selector;let optionCheck=index">
-                                  <input type="checkbox" [value]="checkboxVal.value" [formControlName]="attendeeFormval.controlname"> {{checkboxVal.value}}
-                              </div>
-                          </div>
-                      </div>
+                                            <div *ngFor="let checkboxVal of attendeeFormval.selector;let optionCheck=index">
+                                                <input type="checkbox" [value]="checkboxVal.value" [formControlName]="attendeeFormval.controlname"> {{checkboxVal.value}}
+                                            </div>
+                                        </div>
+                                    </div>
 
-                      <div class="" *ngIf="attendeeFormval.type=='marketing'">
-                          <div class="form-group common-checkout-filed">
-                              <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
-                              <div>
-                                  <input type="checkbox" class="" [formControlName]="attendeeFormval.controlname">
-                              </div>
-                          </div>
-                        
-                      </div>
+                                    <div class="" *ngIf="attendeeFormval.type=='marketing'">
+                                        <div class="form-group common-checkout-filed">
+                                            <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                                            <div>
+                                                <input type="checkbox" class="" [formControlName]="attendeeFormval.controlname">
+                                            </div>
+                                        </div>
 
-                      <div class="" *ngIf="attendeeFormval.type=='terms'">
-                          <div class="form-group common-checkout-filed">
-                              <label> Terms & Conditions  <span class="text-danger"> {{ attendeeFormval.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
-                              <div>
-                                  <input type="checkbox" class="" [formControlName]="attendeeFormval.controlname"> {{attendeeFormval.label}}
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                                    </div>
+
+                                    <div class="" *ngIf="attendeeFormval.type=='terms'">
+                                        <div class="form-group common-checkout-filed">
+                                            <label> Terms & Conditions  <span class="text-danger"> {{ attendeeFormval.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                                            <div>
+                                                <input type="checkbox" class="" [formControlName]="attendeeFormval.controlname"> {{attendeeFormval.label}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-              </div>
-            </form>
-          </div>
 
-              <!-- <div class="form-group">
+                <!-- <div class="form-group">
                 <label for="">Mobile Phone Number <span><i class="fa fa-asterisk"></i></span> </label>
                 <input type="text" class="form-control" id=""  placeholder="" formControlName = "phone">
                 <span class="error-wrap" *ngIf="bookTickets.get('phone').dirty || bookTickets.get('phone').touched"><small *ngIf="bookTickets.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
@@ -378,9 +375,9 @@
                   <small *ngIf="bookTickets.get('postcode').hasError('pattern') || bookTickets.get('postcode').hasError('pattern') && ( bookTickets.get('postcode').hasError('maxlength') || bookTickets.get('postcode').hasError('minlength') )" class="error">Postcode Should Minimum 5 and Maximum 6 digits</small>
                 </span>
               </div> -->
-           
 
-          <!-- <div class="general-admission">
+
+                <!-- <div class="general-admission">
             <label class="main-head">General Admission 1</label>
               <div class="form-group">
                 <label for="">Attendee name <span><i class="fa fa-asterisk" aria-hidden="true"></i></span> </label>
@@ -388,12 +385,12 @@
                 <span class="error-wrap" *ngIf="bookTickets.get('attendee_name').dirty || bookTickets.get('attendee_name').touched"><small *ngIf="bookTickets.get('attendee_name').hasError('required')" class="error text-left">Attendee Name is required.</small></span>
               </div>
           </div> -->
+            </div>
+            <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="fnTicketCheckout('book-order')">Next</button>
         </div>
-        <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="fnTicketCheckout('book-order')">Next</button>
-      </div>
 
 
-    <!-- <div *ngIf="addOrderFormType === 'book-order'">
+        <!-- <div *ngIf="addOrderFormType === 'book-order'">
       <div class="book-order">
         <div class="row">
           <div class="col-md-8">
@@ -524,5 +521,5 @@
       </div>
     </div> -->
 
-  </div>
+    </div>
 </div>

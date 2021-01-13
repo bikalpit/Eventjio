@@ -29,8 +29,11 @@
 .order {
     padding: 30px 35px;
     .page-title {
-        font-size: 15px;
-        color: #181818;
+        font-size: 20px;
+        padding-left: 25px;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
     }
     .manage-order {
         border: 1px solid #CECECE;
@@ -130,14 +133,35 @@
     padding: 4px 6px !important;
     font-size: 14px;
     color: #1172F4;
+    font-size: 21px;
+    margin-top: -10px !important;
+    margin-right: -5px !important;
 }
 
  ::ng-deep .comm-btn {
     background: #1172F4;
-    font-size: 14px;
+    font-size: 15px;
     color: #FFFFFF;
     border-radius: 5px;
     text-align: center;
+    width: 120px;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 0;
+    font-weight: 400;
+}
+
+ ::ng-deep .apply-btn {
+    background: #1172F4;
+    font-size: 15px;
+    color: #FFFFFF;
+    border-radius: 5px;
+    text-align: center;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 0;
+    font-weight: 400;
 }
 
 ::ng-deep .comg-btn {
@@ -398,9 +422,12 @@
                 }
             }
             .ticket-btn {
-                float: right !important;
-                width: 117px !important;
-                text-align: center !important;
+                float: right;
+                width: 130px;
+                text-align: center;
+                font-weight: 400;
+                font-size: 14px;
+                padding: 5px 0;
             }
         }
         .line {
@@ -549,6 +576,7 @@
     .tb-data {
         padding: 8px 8px;
         color: #181818;
+        font-size: 16px;
     }
     .cpn-title {
         color: #181818;
@@ -1009,4 +1037,16 @@
             color: #ff0000;
         }
     }
+}
+
+.page-sub-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+::ng-deep .single-ticket-attendee-form {
+    padding: 15px;
+    border: 1px solid #b5b5b5;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }

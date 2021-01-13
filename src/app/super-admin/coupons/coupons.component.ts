@@ -234,6 +234,7 @@ export class CouponsComponent implements OnInit {
  }
 
  creatVoucherCode() {
+  this.isLoaderAdmin = true;
   const dialogRef = this.dialog.open(myBatchVoucherCodeDialog, {
     width: '550px',
     data :{boxOfficeCode : this.boxOfficeCode,
@@ -249,6 +250,7 @@ export class CouponsComponent implements OnInit {
 }
 
 assignToEvent(index, voucherCode) {
+  this.isLoaderAdmin = true;
   const dialogRef = this.dialog.open(AssignToEventDialog, {
     width: '550px',
     data :{
@@ -266,6 +268,7 @@ assignToEvent(index, voucherCode) {
 }
 
 assignToTicketType(index, selectedCoupon) {
+  this.isLoaderAdmin = true;
   const dialogRef = this.dialog.open(AssignToTicketTypeDialog, {
     width: '550px',
     data :{

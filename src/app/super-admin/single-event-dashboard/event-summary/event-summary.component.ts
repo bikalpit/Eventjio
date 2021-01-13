@@ -15,7 +15,7 @@ import { environment } from '../../../../environments/environment';
   providers: [DatePipe]
 })
 export class EventSummaryComponent implements OnInit {
-
+  isLoaderAdmin:boolean=false;
   eventId:string = localStorage.getItem('selectedEventCode');
   eventDetail:any;
   eventSummery:any;
@@ -28,7 +28,6 @@ export class EventSummaryComponent implements OnInit {
   setupPayPal:boolean  = false;
   setupOffline:boolean  = false;
   animal:any;
-  isLoaderAdmin:any;
   currencycode = 'USD';
   is_show_referral_data = false;
   
@@ -168,7 +167,7 @@ export class EventSummaryComponent implements OnInit {
   }
 
   fnGetEventViews(event=null){
-
+    this.isLoaderAdmin=true;
     let requestObject = {
       'event_id' : this.eventId,
       'type' : event   ? event.value : "day"
@@ -191,11 +190,12 @@ export class EventSummaryComponent implements OnInit {
         this.ErrorService.errorMessage(response.response);
       }
     });    
+    this.isLoaderAdmin=false;
   }
 
 
   fnGetEventDetail(){
-
+    this.isLoaderAdmin=true;
     let requestObject = {
       'unique_code' : this.eventId,
     }
@@ -245,12 +245,11 @@ export class EventSummaryComponent implements OnInit {
         this.ErrorService.errorMessage(response.response);
       }
     });
-
-
+    this.isLoaderAdmin=false;
   }
 
   fnGetBoxOfficeDetail(){
-
+    this.isLoaderAdmin=true;
     let requestObject = {
       'unique_code' : localStorage.getItem('boxoffice_id'),
     }
@@ -263,11 +262,11 @@ export class EventSummaryComponent implements OnInit {
         this.ErrorService.errorMessage(response.response);
       }
     });
-
+    this.isLoaderAdmin=false;
   }
 
   fnGetSettings(){
-
+    this.isLoaderAdmin=true;
     let requestObject={
       "boxoffice_id"  : localStorage.getItem('boxoffice_id'),
       "event_id" : ''
@@ -294,7 +293,7 @@ export class EventSummaryComponent implements OnInit {
           this.ErrorService.errorMessage(response.response);
         }
     });
-
+    this.isLoaderAdmin=false;
   }
 
   fnShare(type) {

@@ -15,7 +15,7 @@ export class AppComponent {
 
   title = 'Eventjio';
   boxofficeComponent:boolean = false;
-  pageName :any = 'Dashboard';
+  pageName :any = 'Box-Office';
   timer: any = 0;
   selectedBoxOfficeName:any;
   currentUser: User;

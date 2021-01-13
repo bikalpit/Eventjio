@@ -1,4 +1,5 @@
 <div class="main">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="page-title">
         Event Summary
     </div>
@@ -141,7 +142,7 @@
             <div *ngIf="eventSummery  && eventSummery.soldTicket">
 
                 <div class="border" fxLayout="row" *ngFor="let value of eventSummery.soldTicket;let i=index">
-                    <div class="fxflex p-2 pl-3 border-right" fxFlex="35">{{value.event ?  value.event.event_title : '-'}} </div>
+                    <div class="fxflex p-2 pl-3 border-right" fxFlex="35">{{value.event ? value.event.event_title : '-'}} </div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="15">{{ value.ticket_amt | currency:currencycode:'symbol' }}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="10">{{ (value.ticket ? value.ticket.booking_fee : 0) | currency:currencycode:'symbol' }}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20">{{value.sold}}</div>
@@ -200,7 +201,7 @@
             </div>
             <div class="ml-auto">
                 <mat-select class="event-view-dropdown form-control" (selectionChange)="fnGetEventViews($event)" value="day">
-                    <mat-option  value="day">Last 7 Day</mat-option>
+                    <mat-option value="day">Last 7 Day</mat-option>
                     <mat-option value="week">Last 4 Weeks</mat-option>
                     <mat-option value="year">Last Year</mat-option>
                 </mat-select>

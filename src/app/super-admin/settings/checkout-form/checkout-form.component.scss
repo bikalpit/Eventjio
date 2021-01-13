@@ -32,7 +32,7 @@ main {
             opacity: 1;
             margin-left: auto;
             color: #FFFFFF;
-            ;
+            font-weight: 400;
         }
         .buyer {
             background: #e6e6e67a;
@@ -279,4 +279,13 @@ main {
     border: 0;
     font-size: 19px;
     line-height: 1.4;
+}
+
+.instruction-text {
+    color: #808080;
+    font-size: 15px;
+    .speacil-black-text {
+        color: #2c2c2c;
+        font-weight: 500;
+    }
 }
