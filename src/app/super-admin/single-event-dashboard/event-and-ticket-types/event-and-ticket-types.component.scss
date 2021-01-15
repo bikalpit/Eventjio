@@ -1,9 +1,11 @@
 ::ng-deep .event-tickets {
     .event-main {
         .event-head {
-            h5 {
-                font-size: 16px;
+            .page-title {
+                font-size: 18px;
                 font-weight: 500;
+                margin-bottom: 20px;
+                text-align: left;
                 color: #181818;
             }
         }

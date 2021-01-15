@@ -66,7 +66,6 @@ export class AuthenticationService {
         localStorage.removeItem('isFront');
         localStorage.removeItem('logoutTime');
         localStorage.removeItem('isBoxoffice');
-        localStorage.removeItem('adminData');
         localStorage.clear();
         window.location.reload(true);
         this.currentUserSubject.next(null);

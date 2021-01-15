@@ -11,6 +11,7 @@
     position: fixed;
     z-index: 9;
     top: 130px;
+    padding-top: 10px;
 }
 
 // mat-icon{
@@ -19,6 +20,7 @@
 .setting-menu-icon {
     width: 20px;
     height: auto;
+    margin-left: 1rem;
     // background-color: yellow;
 }
 
@@ -28,6 +30,7 @@
 
 .active {
     color: #007BFF;
+    background-color: #DDEAFD;
 }
 
 .event-menu {
@@ -35,6 +38,18 @@
     display: flex;
     align-items: center;
     padding-bottom: 2px;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    font-weight: 500;
+}
+
+.menu-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 1rem;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    color: #2c2c2c;
 }
 
 .fixed-wrap {

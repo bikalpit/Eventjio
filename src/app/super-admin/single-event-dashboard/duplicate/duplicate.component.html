@@ -1,10 +1,12 @@
 <div id="duplicate" class="main">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="container-fluid">
-        <mat-icon class="mr-3 pointer" routerLink="/super-admin/single-event-dashboard/">west</mat-icon>
-        <div class="top-heading-main">
-            <h4> Duplicate Event </h4>
-            <p>Below you can create multiple duplications of the event with different names, start dates and end dates. All other details including tickets will be replicated.</p>
+        <div class="topper">
+            <mat-icon class="mr-3 pointer" routerLink="/super-admin/single-event-dashboard/">west</mat-icon>
+            <div class="top-heading-main">
+                <h4 class="page-title"> Duplicate Event </h4>
+                <p>Below you can create multiple duplications of the event with different names, start dates and end dates. All other details including tickets will be replicated.</p>
+            </div>
         </div>
         <div class="manage-duplicate-table">
             <div class="main-table-content main-cust-table-content">
@@ -24,7 +26,7 @@
                 </div>
 
                 <form [formGroup]="duplicateForm" class="with-validation">
-                    
+
                     <div class="content" class="drageble-list" formArrayName="items" *ngFor="let item of duplicateForm.get('items')['controls']; let i = index">
                         <div class="drageble-box main-drageble" fxLayout="row" [formGroupName]="i">
                             <div class="tb-data heading-table clr-black" fxFlex="20"> New </div>
@@ -40,7 +42,7 @@
                             <div class="tb-data heading-table text-purple" fxFlex="20">
                                 <div class="matDate">
                                     <mat-datepicker-toggle matPrefix [for]="duplicateStartDatePicker" class="dateIcon"> </mat-datepicker-toggle>
-                                    <input type="text"  matInput [matDatepicker]="duplicateStartDatePicker" [min]="minDate" (click)="duplicateStartDatePicker.open()" class="form-control matInputdate" formControlName="start_date">
+                                    <input type="text" matInput [matDatepicker]="duplicateStartDatePicker" [min]="minDate" (click)="duplicateStartDatePicker.open()" class="form-control matInputdate" formControlName="start_date">
                                     <mat-datepicker #duplicateStartDatePicker></mat-datepicker>
 
                                     <div *ngIf="item.controls.start_date.invalid && item.controls.start_date.touched" class="text-danger">
@@ -73,7 +75,7 @@
                                     Event status is required
                                 </div>
                                 <!-- <span class="error-wrap" *ngIf="duplicateForm.get('event_status').dirty || duplicateForm.get('event_status').touched"><small *ngIf="duplicateForm.get('event_status').hasError('required')" class="error text-left">Status is required.</small></span> -->
-                                <div class="delete-duplicate"> 
+                                <div class="delete-duplicate">
                                     <i class="fa fa-times-circle" (click)="fnRemoveDuplicate(i)"></i>
                                 </div>
                             </div>

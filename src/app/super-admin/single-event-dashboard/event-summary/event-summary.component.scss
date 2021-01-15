@@ -1,108 +1,95 @@
-.main{
-    .page-title{
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 22px;
+.main {
+    .page-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 5px;
+        text-align: left;
+        color: #181818;
     }
-    .set-up-payment{
+    .set-up-payment {
         width: 100%;
         border-radius: 5px;
         margin-top: 10px;
         background-color: #abe6fd2e;
-
-        .fa-bell{
+        .fa-bell {
             color: #FF6600;
             transform: rotate(-45deg);
         }
     }
-
-    .total-summary{
+    .total-summary {
         width: 100%;
         border-radius: 5px;
         margin-top: 10px;
-
-        .total-ticket-summary{
+        .total-ticket-summary {
             width: 25%;
             text-align: center;
             display: inline-block;
-            
-            
-            .title{
-              color: #808080;
+            .title {
+                color: #808080;
             }
-            .count{
-                font-size:16px;
+            .count {
+                font-size: 16px;
                 font-weight: bold;
                 margin: 8px 0px;
             }
-            
-            
         }
     }
-
-    .event-page-link{
+    .event-page-link {
         width: 100%;
         border-radius: 5px;
         margin-top: 10px;
-
-        .title{
+        .title {
             font-size: 14px;
             font-weight: bold;
         }
-        .input-div{
+        .input-div {
             width: 50%;
-            .bg-light{
+            .bg-light {
                 background-color: #F8F8F8;
             }
         }
-        .fa-link{
+        .fa-link {
             transform: rotate(90deg);
         }
     }
-
-    .ticket-sales{
+    .ticket-sales {
         width: 100%;
         border-radius: 5px;
         margin-top: 10px;
-
-        .title{
-            font-size: 14px;
-            font-weight: bold;
-        }
-        
-    }
-
-    .referral-sales-summary{
-        width: 100%;
-        border-radius: 5px;
-        margin-top: 10px;
-        .title{
+        .title {
             font-size: 14px;
             font-weight: bold;
         }
     }
-
-    .event-view-dropdown{
+    .referral-sales-summary {
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 10px;
+        .title {
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+    .event-view-dropdown {
         width: 170px;
     }
-
 }
 
-.areaChart{
+.areaChart {
     max-width: 700px;
     height: 400px;
     margin: 0 auto;
 }
 
-::ng-deep .main{ 
-    .form-field{
-        width:49%;
+::ng-deep .main {
+    .form-field {
+        width: 49%;
         display: inline-block;
     }
-    .f-right{
+    .f-right {
         float: right;
     }
-    .save-btn{
+    .save-btn {
         background-color: #007BFF;
         color: #ffffff;
     }

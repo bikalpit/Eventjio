@@ -9,6 +9,7 @@ import { ErrorService } from '../../../_services/error.service';
 import { environment } from '../../../../environments/environment'
 import { eventSummaryDialog } from '../../orders/orders.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SingleEventDashboard } from '../single-event-dashboard'
 import * as moment from 'moment'; 
 // import html2canvas from 'html2canvas';
 // import { jsPDF } from "jspdf";
@@ -54,6 +55,7 @@ export class IssuedTicketComponent implements OnInit {
     private SingleEventServiceService:SingleEventServiceService,
     private ErrorService:ErrorService,
     private datePipe: DatePipe,
+    private SingleEventDashboard: SingleEventDashboard
 
   ) { 
     if(localStorage.getItem('selectedEventCode')){
@@ -100,6 +102,7 @@ export class IssuedTicketComponent implements OnInit {
         this.next_page_url_getIssuedTicket = response.response.next_page_url;
         this.prev_page_url_getIssuedTicket = response.response.prev_page_url;
         this.path_getIssuedTicket = response.response.path;
+        this.SingleEventDashboard.fnEventSummery();
 
       } else if(response.data == false){
         this.getIssuedTicket = [];

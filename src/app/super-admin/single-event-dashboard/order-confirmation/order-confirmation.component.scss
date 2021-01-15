@@ -1,37 +1,37 @@
-.main{
+.main {
     width: 100%;
-    .remove-photo{
-        background-color:#007BFF;
-        color:#000000;
+    .remove-photo {
+        background-color: #007BFF;
+        color: #000000;
         border-radius: 5px;
     }
-    .page-title{
-        font-size:16px;
-        font-weight: bold;
+    .page-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 5px;
+        text-align: left;
+        color: #181818;
     }
-    .order-main-st{
+    .order-main-st {
         color: #808080;
         font-size: 12px;
     }
-
-    .radio-sub-title{
-        font-size:12px;
+    .radio-sub-title {
+        font-size: 12px;
         color: #808080;
     }
-
-    .preview-global-order{
+    .preview-global-order {
         border-radius: 5px;
-        .title{
-            font-size:14px;
+        .title {
+            font-size: 14px;
             font-weight: bold;
         }
-
-        .order-confirm{
-            padding-bottom:20px ;
+        .order-confirm {
+            padding-bottom: 20px;
             border-radius: 5px;
             background-color: #F7F7F7;
         }
-        .msg-content{
+        .msg-content {
             position: relative;
             width: 80%;
             top: 0;
@@ -41,30 +41,28 @@
             margin: auto;
             border-radius: 0px 0px 5px 5px;
             background-color: #FFFFFF;
-
-            .title{
+            .title {
                 font-size: 14px;
                 font-weight: bold;
             }
-            .sub-title{
+            .sub-title {
                 font-size: 14px;
                 font-weight: bold;
             }
         }
     }
-
-    .specific-order-confirmation{
-        .highlight{
+    .specific-order-confirmation {
+        .highlight {
             background-color: #E0EFFF;
             border: 1px dashed #007BFF;
             border-radius: 5px;
         }
-        .specific--order-confirm{
-            padding-bottom:20px ;
+        .specific--order-confirm {
+            padding-bottom: 20px;
             border-radius: 5px;
             background-color: #F7F7F7;
         }
-        .specific-msg-content{
+        .specific-msg-content {
             position: relative;
             width: 80%;
             top: 0;
@@ -74,14 +72,11 @@
             margin: auto;
             border-radius: 0px 0px 5px 5px;
             background-color: #FFFFFF;
-
         }
-
-        .invoice-preview{
-            padding-bottom:20px ;
+        .invoice-preview {
+            padding-bottom: 20px;
         }
-        
-        .invoive-details{
+        .invoive-details {
             position: relative;
             width: 80%;
             top: 0;
@@ -89,28 +84,25 @@
             right: 0;
             bottom: 0;
             margin: auto;
-
-            .fa-question-circle{
+            .fa-question-circle {
                 color: #CECECE;
             }
-            .title{
+            .title {
                 font-size: 14px;
                 font-weight: bold;
             }
         }
-
-        .invoice-demo{
-            .title{
-                color:#B5B5B5;
+        .invoice-demo {
+            .title {
+                color: #B5B5B5;
                 font-weight: bold;
             }
-            .empty-box{
+            .empty-box {
                 width: 350px;
                 height: 150px;
                 border: 1px solid;
             }
-
-            .blank-bar{
+            .blank-bar {
                 width: 46%;
                 height: 14px;
                 border-radius: 10px;
@@ -118,32 +110,33 @@
                 background-color: #cecece6b;
             }
         }
-
-        
-   } 
-  
+    }
 }
-::ng-deep .select-order-main{
+
+::ng-deep .select-order-main {
     border-radius: 5px;
     margin-bottom: 28px;
-    .mat-radio-button{
+    .mat-radio-button {
         .mat-radio-label {
             align-items: end;
         }
     }
 }
-.bottom-thankyou-preview p{
+
+.bottom-thankyou-preview p {
     color: #808080;
 }
-.order-info-line{
+
+.order-info-line {
     display: flex;
     align-items: center;
-    .order-set-icone{
+    .order-set-icone {
         display: inline-table;
     }
 }
-.invoice-preview-title{
-    p{
+
+.invoice-preview-title {
+    p {
         color: #595959;
         font-size: 12px;
     }

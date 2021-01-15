@@ -33,10 +33,10 @@
 <div class="container-fluid fixed-wrap">
     <div class="row">
 
-        <div *ngIf="eventSideMenu" class="p-3 bg-light child-left-content">
-            <div class="ml-4 py-2" (click)="fnPostUrl('event-summary')" [ngClass]="{'active': pageName == 'event-summary'}" routerLink="event-summary">
+        <div *ngIf="eventSideMenu" class="bg-light child-left-content">
+            <div class="py-2" (click)="fnPostUrl('event-summary')" [ngClass]="{'active': pageName == 'event-summary'}" routerLink="event-summary">
                 <div class="event-menu">
-                    <div class="setting-menu-icon d-inline-block py-2 mr-2">
+                    <div class="setting-menu-icon d-inline-block mr-2">
                         <img [ngStyle]="{'display':pageName === 'event-summary' ? 'none' : 'block'}" src="../../../assets/images/events/graph.png" class="w-100" alt="">
                         <img [ngStyle]="{'display':pageName === 'event-summary' ? 'block' : 'none'}" src="../../../assets/images/events/graph_active.png" class="w-100" alt="">
                     </div>
@@ -44,10 +44,10 @@
                 </div>
             </div>
 
-            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" class="ml-4 py-2">
-                <span class="fw-bold">Manage</span>
+            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" class="py-2 menu-title">
+                <span>Manage</span>
             </div>
-            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" (click)="fnPostUrl('issued-ticket')" [ngClass]="{'active': pageName == 'issued-ticket'}" class="ml-4 py-2" routerLink="issued-ticket">
+            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" (click)="fnPostUrl('issued-ticket')" [ngClass]="{'active': pageName == 'issued-ticket'}" class="py-2" routerLink="issued-ticket">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'issued-ticket' ? 'none' : 'block'}" src="../../../assets/images/events/Icon awesome-ticket-alt.png" class="w-100" alt="">
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" (click)="fnPostUrl('waitilist-signup')" [ngClass]="{'active': pageName == 'waitilist-signup'}" class="ml-4 py-2" routerLink="waitilist-signup">
+            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" (click)="fnPostUrl('waitilist-signup')" [ngClass]="{'active': pageName == 'waitilist-signup'}" class="py-2" routerLink="waitilist-signup">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'waitilist-signup' ? 'none' : 'block'}" src="../../../assets/images/events/waitlist.png" class="w-100" alt="">
@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" (click)="fnPostUrl('broadcast')" [ngClass]="{'active': pageName == 'broadcast'}" class="ml-4 py-2" routerLink="broadcast">
+            <div *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1)" (click)="fnPostUrl('broadcast')" [ngClass]="{'active': pageName == 'broadcast'}" class="py-2" routerLink="broadcast">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'broadcast' ? 'none' : 'block'}" src="../../../assets/images/events/shout.png" class="w-100" alt="">
@@ -78,12 +78,12 @@
             </div>
 
 
-            <div class="ml-4 py-2">
-                <span class="fw-bold">Edit</span>
+            <div class="py-2 menu-title">
+                <span>Edit</span>
             </div>
 
 
-            <div (click)="fnPostUrl('event-and-ticket-types')" [ngClass]="{'active': pageName == 'event-and-ticket-types'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/event-and-ticket-types">
+            <div (click)="fnPostUrl('event-and-ticket-types')" [ngClass]="{'active': pageName == 'event-and-ticket-types'}" class="py-2" routerLink="/super-admin/single-event-dashboard/event-and-ticket-types">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'event-and-ticket-types' ? 'none' : 'block'}" src="../../../assets/images/events/events-tickes.png" class="w-100" alt="">
@@ -93,7 +93,7 @@
                 </div>
             </div>
 
-            <div (click)="fnPostUrl('order-confirmation')" [ngClass]="{'active': pageName == 'order-confirmation'}" class="ml-4 py-2" routerLink="order-confirmation">
+            <div (click)="fnPostUrl('order-confirmation')" [ngClass]="{'active': pageName == 'order-confirmation'}" class="py-2" routerLink="order-confirmation">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'order-confirmation' ? 'none' : 'block'}" src="../../../assets/images/events/Order-Confirmation.png" class="w-100" alt="">
@@ -103,7 +103,7 @@
                 </div>
             </div>
 
-            <div (click)="fnPostUrl('checkout-form')" [ngClass]="{'active': pageName == 'checkout-form'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/checkout-form">
+            <div (click)="fnPostUrl('checkout-form')" [ngClass]="{'active': pageName == 'checkout-form'}" class="py-2" routerLink="/super-admin/single-event-dashboard/checkout-form">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'checkout-form' ? 'none' : 'block'}" src="../../../assets/images/events/Checkout-form.png" class="w-100" alt="">
@@ -113,7 +113,7 @@
                 </div>
             </div>
 
-            <div (click)="fnPostUrl('duplicate'); fnClickOnDuplicate()" [ngClass]="{'active': pageName == 'duplicate'}" class="ml-4 py-2" routerLink="duplicate">
+            <div (click)="fnPostUrl('duplicate'); fnClickOnDuplicate()" [ngClass]="{'active': pageName == 'duplicate'}" class="py-2" routerLink="duplicate">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'duplicate' ? 'none' : 'block'}" src="../../../assets/images/events/Duplicate.png" class="w-100" alt="">
@@ -123,7 +123,7 @@
                 </div>
             </div>
 
-            <div (click)="fnPostUrl('delete')" [ngClass]="{'active': pageName == 'delete'}" class="ml-4 py-2" routerLink="/super-admin/single-event-dashboard/delete">
+            <div (click)="fnPostUrl('delete')" [ngClass]="{'active': pageName == 'delete'}" class="py-2" routerLink="/super-admin/single-event-dashboard/delete">
                 <div class="event-menu">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'delete' ? 'none' : 'block'}" src="../../../assets/images/events/Icon material-delete.png" class="w-100" alt="">

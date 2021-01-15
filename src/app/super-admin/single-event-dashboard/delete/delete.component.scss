@@ -1,46 +1,47 @@
-
-.delete{
+.delete {
     padding: 30px 25px;
-    h5{
-        color: #181818;
-        font-size: 16px;
+    .page-title {
+        font-size: 18px;
         font-weight: 500;
+        margin-bottom: 20px;
+        text-align: left;
+        color: #181818;
     }
-    .delete-event{
+    .delete-event {
         border: 1px solid #CECECE;
         border-radius: 8px;
         background: #F6F6F645;
-        h5{
+        h5 {
             color: #181818;
             font-size: 14px;
             font-weight: 500;
         }
-        .event-details{
-            padding: 20px 18px 27px;        
-            .note-theme{
+        .event-details {
+            padding: 20px 18px 27px;
+            .note-theme {
                 background: #DDEAFD;
                 border-radius: 5px;
                 padding: 16px 15px;
                 display: flex;
-                .notif-icon{
+                .notif-icon {
                     color: #FF6600;
                     margin-right: 15px;
                     transform: rotate(-45deg);
                 }
-                .notification{
+                .notification {
                     align-items: center;
                     display: flex;
                 }
-                .note-message{
+                .note-message {
                     margin-bottom: 0px;
                     color: #595959;
-                    .notes{
+                    .notes {
                         color: #2C2C2C;
                         font-weight: bold;
                     }
                 }
             }
-            .delete-btn{
+            .delete-btn {
                 background: #007BFF;
                 border-radius: 5px;
                 opacity: 1;
