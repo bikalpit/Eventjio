@@ -14,9 +14,10 @@
             <div class="row mx-0 mt-2">
 
                 <!-- <img  src="{{myProfileData && myProfileData.image ? myProfileData.image : profileImageUrl}}" alt=""> -->
-
-                <img *ngIf="(!profileImageUrl && myProfileData) && myProfileData.image_name != 'default_image.png'" src="{{myProfileData.image}}" alt="">
-                <img *ngIf="profileImageUrl" src="{{profileImageUrl}}" alt="">
+                <div *ngIf="(!profileImageUrl && myProfileData) && myProfileData.image_name != 'default_image.png'" class="my-profile-img" [ngStyle]="{'backgroundImage': 'url(' + myProfileData.image + ')'}"></div>
+                <div *ngIf="profileImageUrl" class="my-profile-img" [ngStyle]="{'backgroundImage': 'url(' + profileImageUrl + ')'}"></div>
+                <!-- <img *ngIf="(!profileImageUrl && myProfileData) && myProfileData.image_name != 'default_image.png'" src="{{myProfileData.image}}" alt="">
+                <img *ngIf="profileImageUrl" src="{{profileImageUrl}}" alt=""> -->
                 <div class="col-4 py-2">
                     <button *ngIf="myProfileData && myProfileData.image_name != 'default_image.png'" mat-flat-button (click)="fnChangeImage()" class="change-photo">Change Image</button>
                     <button *ngIf="myProfileData && myProfileData.image_name == 'default_image.png'" mat-flat-button (click)="fnChangeImage()" class="change-photo">Upload Image</button>

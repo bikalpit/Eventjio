@@ -92,7 +92,7 @@
                                 <span style="color: #ff0000;">Void</span> Ticket 1 of 1
                             </div>
 
-                            <div class="qrcodes">
+                            <div class="qrcodes row">
                                 <div *ngIf="value.order_status == 'VO'" class="red-ticket-tag">
                                     Void
                                 </div>
@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
 
-                                <div class=" barcode d-inline-block">
+                                <div class=" barcode col-6">
                                     <ngx-barcode [bc-value]="value.unique_code" [bc-display-value]="true"></ngx-barcode>
                                 </div>
 

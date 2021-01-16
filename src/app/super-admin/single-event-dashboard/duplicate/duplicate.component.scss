@@ -95,6 +95,7 @@
                     top: 12px;
                     right: 24px;
                     cursor: pointer;
+                    font-size: 30px;
                     i {
                         color: #FF0000;
                         font-size: 22px;
@@ -128,8 +129,9 @@
 
 .delete-duplicate {
     position: absolute;
-    right: -20px;
+    right: -35px;
     top: 10px;
     color: #cc1212;
     cursor: pointer;
+    font-size: 28px;
 }

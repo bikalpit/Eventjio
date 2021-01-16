@@ -1,13 +1,13 @@
 <div class="order-view">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
-    <div class="p-3 mt-3">
-        <div class="modal-header pl-3 py-0 border-0">
+    <div class="">
+        <div class="modal-header p-0 border-0">
             <p class="font-weight-bold">Order : {{singleOrderDetail.order_id}}</p>
             <button type="button" data-dismiss="modal" aria-label="Close" class="close-btn" (click)="onNoClick()">
         <span aria-hidden="true" class="white-text">&times;</span>
       </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body p-0">
             <div>
                 <div class="book-order">
                     <div class="row">
@@ -55,21 +55,85 @@
                     </div>
                     <div class="order-table">
                         <div class="service-listing">
-                            <div class="main-table-content main-cust-table-content px-3">
-                                <div class="border">
+                            <div class="main-table-content main-cust-table-content">
+                                <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
-                                        <div class="th-data border-right p-2" fxFlex="40">Item</div>
-                                        <div class="th-data border-right p-2" fxFlex="20">
-                                            PRICE
-                                        </div>
+                                        <div class="th-data" fxFlex="50">Item</div>
+                                        <div class="th-data" fxFlex="30">PRICE</div>
+                                        <div class="th-data" fxFlex="20">Fee</div>
+                                        <div class="th-data" fxFlex="30">Qty</div>
+                                        <div class="th-data" fxFlex="20">Subtotal</div>
                                     </div>
-                                    <div class="order-details">
+                                    <!-- <div class="order-details">
                                         <div class="order-head row">
                                             <p>Order details</p>
                                             <a class="dwnld-invoice" download="pdf " href="{{url.apiUrl}}/stream-invoice-pdf?order_id={{orderDetail.order_id}}">Download invoice</a>
                                         </div>
+                                    </div> -->
+                                    <div class="content" class="drageble-list">
+                                        <div class="drageble-box" fxLayout="row">
+                                            <div class="tb-data" fxFlex="80">{{eventDate}}: {{singleOrderDetail.events ? singleOrderDetail.events.event_title : ''}}</div>
+                                            <div class="tb-data" fxFlex="20"></div>
+                                        </div>
                                     </div>
-                                    <div class="content" class="drageble-list" *ngFor="let value of singleOrderDetail.order_item;let i=index">
+                                    <div class="content" class="drageble-list" *ngFor="let eventTicket of singleOrderDetail.order_item">
+                                        <div class="drageble-box fw-600" fxLayout="row">
+                                            <div class="tb-data order-item fw-100" fxFlex="50">{{eventTicket.ticket.ticket_name}}</div>
+                                            <div class="tb-data" fxFlex="30">{{eventTicket.ticket.prize}}</div>
+                                            <div class="tb-data" fxFlex="20">{{ (eventTicket.ticket ? eventTicket.ticket.booking_fee : 0)}}</div>
+                                            <div class="tb-data" fxFlex="30">1</div>
+                                            <div class="tb-data align-end" fxFlex="30">{{eventTicket.sub_total}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="content" class="drageble-list">
+                                        <div class="drageble-box" fxLayout="row">
+                                            <div class="tb-data fw-600" fxFlex="50">Transaction fee</div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data" fxFlex="20"></div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data fw-600" fxFlex="20">{{singleOrderDetail.transaction_fee}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="content" class="drageble-list">
+                                        <div class="drageble-box" fxLayout="row">
+                                            <div class="tb-data fw-600" fxFlex="50">Sales Tax</div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data" fxFlex="20"></div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data fw-600" fxFlex="20">{{singleOrderDetail.tax}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="content" *ngIf="singleOrderDetail.donation != null" class="drageble-list">
+                                        <div class="drageble-box" fxLayout="row">
+                                            <div class="tb-data fw-600" fxFlex="50">Donation</div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data" fxFlex="20"></div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data fw-600" fxFlex="20">{{singleOrderDetail.donation}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="content" class="drageble-list" *ngIf="singleOrderDetail.voucher_amt && singleOrderDetail.coupon_amt">
+                                        <div class="drageble-box" fxLayout="row">
+                                            <div class="tb-data fw-600" fxFlex="50">Discount Amount</div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data" fxFlex="20"></div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data fw-600" fxFlex="20">-{{ ( singleOrderDetail.voucher_amt ? singleOrderDetail.voucher_amt : singleOrderDetail.coupon_amt )}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="content" class="drageble-list">
+                                        <div class="drageble-box" fxLayout="row">
+                                            <div class="tb-data fw-600" fxFlex="50">Grand Total</div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data" fxFlex="20"></div>
+                                            <div class="tb-data" fxFlex="30"></div>
+                                            <div class="tb-data fw-600" fxFlex="20">{{singleOrderDetail.grand_total | currency:currencycode:'symbol' }}</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="content" class="drageble-list" *ngFor="let value of singleOrderDetail.order_item;let i=index">
                                         <div class="drageble-box" fxLayout="row">
                                             <div class="tb-data border-right p-2" fxFlex="40">
                                                 {{value.ticket?.ticket_name}}
@@ -87,8 +151,8 @@
                                                 {{ value.sub_total | currency:currencycode:'symbol' }}
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="content" class="drageble-list">
+                                    </div> -->
+                                    <!-- <div class="content" class="drageble-list">
                                         <div class="drageble-box" fxLayout="row">
                                             <div class="tb-data border-right p-2 fw-600" fxFlex="40">
                                                 Grand Total
@@ -97,11 +161,11 @@
                                             <div class="tb-data border-right p-2" fxFlex="15"></div>
                                             <div class="tb-data border-right p-2" fxFlex="10"></div>
                                             <div class="tb-data p-2 fw-600" fxFlex="15">
-                                                <!-- ${{orderDetail.grand_total}} -->
+                                               
                                                 {{ singleOrderDetail.grand_total | currency:currencycode:'symbol' }}
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="buyer-details">
                                         <div class="buyer-head row">
@@ -130,7 +194,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="ticket-details border-bottom">
+                                    <!-- <div class="ticket-details border-bottom">
                                         <div *ngFor="let value of singleOrderDetail.order_item;let i=index">
                                             <div class="ticket-head row">
                                                 <p>Ticket details</p>
@@ -153,6 +217,34 @@
                                                     <label class="col-md-4">Ticket type:</label>
                                                     <p class="col-md-8">{{value.ticket?.ticket_name}}</p>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="ticket-details" *ngFor="let val of order_item_data;let i=index">
+                                        <div class="ticket-head row">
+                                            <p>Ticket details</p>
+                                            <a target="javascript:;" class="dwnld-invoice" (click)="fnDownloadTicket(val.unique_code)">Download ticket as PDF</a>
+                                        </div>
+                                        <div class="ticket-desc">
+                                            <div class="row">
+                                                <label class="col-md-4">Ticket code:</label>
+                                                <a class="col-md-8" target="_blank">
+                                              {{val.ticket ? val.ticket.unique_code : '-'}}
+                                            </a>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-md-4">Name:</label>
+                                                <p class="col-md-8">{{attendeeData[i][0].value}}</p>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-md-4">Status:</label>
+                                                <p [ngStyle]="{'color': val.order_status=='P' ? '#2BB800' : val.order_status=='C' ? '#FF0000' :  val.order_status=='CO' ? '#2BB800' : '#FF0000'}" class="col-md-8">{{ val.order_status== 'P' ? 'Pending' : val.order_status== 'CO' ? 'complete' : val.order_status== 'C' ? 'Cancel' : 'Void'}}</p>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-md-4">Ticket type:</label>
+                                                <p class="col-md-8">
+                                                    {{val.ticket ? val.ticket.ticket_name : '-'}}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>

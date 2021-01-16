@@ -22,10 +22,12 @@
     .box-office-form {
         padding-right: 30px;
     }
-    img {
+    .boxoffice-profile {
         width: 100px;
         height: 100px;
         border-radius: 50%;
+        background-position: center;
+        background-size: cover;
     }
     .change-logo {
         background-color: #1172F4;

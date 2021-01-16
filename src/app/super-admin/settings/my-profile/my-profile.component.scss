@@ -12,10 +12,12 @@
             font-weight: 500;
             color: #181818;
         }
-        img {
+        .my-profile-img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
+            background-position: center;
+            background-size: cover;
         }
         .change-photo {
             background-color: #1172F4;
@@ -35,10 +37,12 @@ page-title {
 }
 
 .main-content {
-    img {
+    .my-profile-img {
         width: 100px;
         height: 100px;
         border-radius: 50%;
+        background-position: center;
+        background-size: cover;
     }
     .change-photo {
         background-color: #1172F4;

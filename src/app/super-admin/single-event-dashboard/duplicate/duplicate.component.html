@@ -17,11 +17,20 @@
                 </div>
                 <div class="content" class="drageble-list">
                     <div class="drageble-box" fxLayout="row">
+                        <div class="tb-data heading-table clr-black" fxFlex="20"> </div>
+                        <div class="tb-data heading-table" fxFlex="20">Event Name</div>
+                        <div class="tb-data heading-table" fxFlex="20">Start Date</div>
+                        <div class="tb-data heading-table" fxFlex="20">End Date</div>
+                        <div class="tb-data heading-table" fxFlex="20">Status</div>
+                    </div>
+                </div>
+                <div class="content" class="drageble-list">
+                    <div class="drageble-box" fxLayout="row">
                         <div class="tb-data heading-table clr-black" fxFlex="20"> Original </div>
                         <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.event_title:''}} </div>
-                        <div class="tb-data heading-table text-green" fxFlex="20">{{eventName?eventName.start_date:'' | date}}</div>
+                        <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.start_date:'' | date}}</div>
                         <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.end_date:''}}</div>
-                        <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.event_status:''}}</div>
+                        <div class="tb-data heading-table text-capitalize" fxFlex="20">{{eventName?eventName.event_status:''}}</div>
                     </div>
                 </div>
 
@@ -42,7 +51,7 @@
                             <div class="tb-data heading-table text-purple" fxFlex="20">
                                 <div class="matDate">
                                     <mat-datepicker-toggle matPrefix [for]="duplicateStartDatePicker" class="dateIcon"> </mat-datepicker-toggle>
-                                    <input type="text" matInput [matDatepicker]="duplicateStartDatePicker" [min]="minDate" (click)="duplicateStartDatePicker.open()" class="form-control matInputdate" formControlName="start_date">
+                                    <input type="text" (dateChange)="fnChangeEventStartDate($event)" matInput [matDatepicker]="duplicateStartDatePicker" [min]="minDate" (click)="duplicateStartDatePicker.open()" class="form-control matInputdate" formControlName="start_date">
                                     <mat-datepicker #duplicateStartDatePicker></mat-datepicker>
 
                                     <div *ngIf="item.controls.start_date.invalid && item.controls.start_date.touched" class="text-danger">
@@ -76,7 +85,9 @@
                                 </div>
                                 <!-- <span class="error-wrap" *ngIf="duplicateForm.get('event_status').dirty || duplicateForm.get('event_status').touched"><small *ngIf="duplicateForm.get('event_status').hasError('required')" class="error text-left">Status is required.</small></span> -->
                                 <div class="delete-duplicate">
-                                    <i class="fa fa-times-circle" (click)="fnRemoveDuplicate(i)"></i>
+                                    <span class="material-icons" (click)="fnRemoveDuplicate(i)">
+                                        cancel
+                                        </span>
                                 </div>
                             </div>
 

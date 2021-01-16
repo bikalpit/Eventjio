@@ -9,10 +9,12 @@
                         <div>
                             <div class="">
                                 <div class="d-flex justify-content-start align-items-center">
-                                    <div class="pl-0">
-                                        <img *ngIf="(!boxofficeImageUrl && singleBoxofficeDetails) && singleBoxofficeDetails.image" src="{{singleBoxofficeDetails.image}}" alt="">
-                                        <img *ngIf="boxofficeImageUrl" src="{{boxofficeImageUrl}}" alt="">
-                                        <!-- <img *ngIf="!boxofficeImageUrl  && !singleBoxofficeDetails.image" src="../../../../assets/images/settings/box.png" alt=""> -->
+                                    <div *ngIf="(!boxofficeImageUrl && singleBoxofficeDetails) && singleBoxofficeDetails.image" class="pl-0 boxoffice-profile" [ngStyle]="{'backgroundImage': 'url(' + singleBoxofficeDetails.image + ')'}">
+                                        <!-- <img *ngIf="(!boxofficeImageUrl && singleBoxofficeDetails) && singleBoxofficeDetails.image" src="{{singleBoxofficeDetails.image}}" alt="">
+                                        <img *ngIf="boxofficeImageUrl" src="{{boxofficeImageUrl}}" alt=""> -->
+                                    </div>
+                                    <div *ngIf="boxofficeImageUrl" class="pl-0 boxoffice-profile" [ngStyle]="{'backgroundImage': 'url(' + boxofficeImageUrl + ')'}">
+
                                     </div>
                                     <div class="col-md-9">
                                         <div *ngIf="singleBoxofficeDetails && singleBoxofficeDetails.image_name != 'default_image.png'">

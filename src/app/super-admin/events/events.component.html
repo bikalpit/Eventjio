@@ -352,7 +352,7 @@
                         </div>
 
                         <div class="w-100 mt-3">
-                            <label class="w-100" for="">Choose or upload an images</label>
+                            <label class="w-100" for="">Choose or upload an images (Upload recommended size for event is 1500 x 384)</label>
                             <div class="row">
                                 <img *ngFor="let allDefaultImages of allDefaultImages;" [ngClass]="{'active-image':eventImageType == allDefaultImages.id}" (click)="fnSelectImage(allDefaultImages.id); fnSelectDefaultImage(allDefaultImages.name)" src="{{allDefaultImages.path}}" class="event-images m-2"
                                     alt="">

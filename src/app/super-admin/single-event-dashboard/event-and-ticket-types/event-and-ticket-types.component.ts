@@ -19,7 +19,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   value = 50;
   apiUrl = environment.apiFolderUrl; 
   bufferValue = 75;
-  salesTax = [ ];
+  salesTax = [];
   salesTaxVal = [];
   selectedEvent : any;
   boxOfficeCode : any;

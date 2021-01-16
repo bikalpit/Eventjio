@@ -196,7 +196,11 @@
             font-size: 12px;
         }
         .barcode {
-            // transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            position: absolute;
+            right: 60px;
+            top: 20px;
+            z-index: 9;
         }
         .void-label {
             width: 50%;
@@ -699,16 +703,135 @@
     position: relative;
     .red-ticket-tag {
         position: absolute;
-        top: 40%;
-        width: 100%;
+        top: calc(50% - 30px);
+        width: 50%;
         z-index: 999;
         background-color: #ff0000;
         padding: 10px 15px;
-        font-size: 18px;
+        font-size: 22px;
         font-weight: bold;
         color: #fff;
         text-align: center;
-        transform: rotate(-45deg);
-        left: -70px;
+        transform: rotate(-38deg);
+        left: calc(50% - 150px);
+    }
+}
+
+// modal css
+::ng-deep .export-order.modal-dialog {
+    margin: 0px;
+    .modal-content .modal-header {
+        border: none;
+    }
+    .modal-content {
+        border: none;
+    }
+    .modal-content .modal-header .heading {
+        margin-bottom: 0px;
+        font: normal normal medium 22px/33px Poppins;
+        letter-spacing: 0px;
+        color: #181818;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .modal-dialog .form-group label {
+        color: #595959;
+        font-size: 14px;
+    }
+}
+
+// end css
+::ng-deep .order-details {
+    .order-head {
+        padding: 11px 15px;
+        margin: 25px 0px 15px 0px;
+        background: #EFEFEF;
+        color: #181818;
+        a {
+            color: #181818;
+        }
+        p {
+            margin-bottom: 0px;
+        }
+        .dwnld-invoice {
+            margin-left: auto;
+        }
+    }
+    .order-desc {
+        label {
+            color: #181818;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        p {
+            color: #595959;
+            font-size: 14px;
+        }
+    }
+    .order-table {
+        .service-listing {
+            .select-qty {
+                width: 56%;
+                height: 30px;
+            }
+            .fw-600 {
+                font-weight: 600;
+            }
+            .drageble-list {
+                width: 100%;
+                border: solid 1px #DDDDDD;
+                display: block;
+                background: white;
+                overflow: hidden;
+                font-size: 14px;
+                font-weight: 500;
+            }
+            .main-heading-content {
+                border-bottom: solid 1px #DDDDDD;
+                border-top: solid 1px #DDDDDD;
+                border: solid 1px #DDDDDD;
+                //padding: 8px 8px;
+                align-items: center;
+                font-size: 14px;
+                color: #181818;
+                font-weight: 500;
+            }
+            .drageble-box {
+                align-items: center;
+            }
+            .th-data {
+                padding: 8px 8px;
+            }
+            .tb-data {
+                padding: 8px 8px;
+                color: #181818;
+            }
+            .th-data {
+                padding: 8px 8px;
+            }
+            .cpn-title {
+                color: #181818;
+            }
+            .cpn-code {
+                color: #1172F4;
+            }
+            .cpn-bor {
+                border: 1px dashed #1172F4;
+                padding: 6px 12px;
+                border-radius: 5px;
+            }
+            .action-icon {
+                color: #007BFF;
+                border-radius: 50%;
+                padding: 16px 16px;
+                background: #ABE6FD;
+                width: 32px;
+                height: 32px;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                font-size: 30px;
+            }
+        }
     }
 }

@@ -93,7 +93,7 @@ export class MyBoxofficeComponent implements OnInit {
       }
       localStorage.setItem('boxoffice_name', name);
       localStorage.setItem('isBoxoffice','false');
-      this.router.navigate(['/super-admin/events']);
+      this.router.navigate(['/super-admin/dashboard']);
 
     }
 

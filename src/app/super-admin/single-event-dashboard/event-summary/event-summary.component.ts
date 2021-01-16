@@ -54,11 +54,11 @@ export class EventSummaryComponent implements OnInit {
   }
   
   fnChartView(data,arrayLable){
-
+    console.log(data)
     let chartData = {
       "items": [
           {
-            "label":"TIcket sold",
+            "label":"TIcket Sales",
             "data": data,
             "backgroundColor": "#D9EBFF",
             "borderColor": "rgb(40,100,200)",
@@ -74,6 +74,7 @@ export class EventSummaryComponent implements OnInit {
         this.dataArray.push(chartData.items[key])
       }
     } 
+    console.log(this.dataArray)
 
 
     let chart  = new Chart(document.getElementById('areaChart1') as HTMLElement, {
@@ -106,7 +107,6 @@ export class EventSummaryComponent implements OnInit {
   }
 
   FnRouteViewIssueTicekets(){
-    alert('router page')
     this.router.navigateByUrl('/super-admin/single-event-dashboard/issued-ticket');
     // this.router.navigate(['issued-ticket']);
   }
@@ -149,7 +149,7 @@ export class EventSummaryComponent implements OnInit {
         title: {
           display: true,
           position: "left",
-          text:"Event Views ss",
+          text:"Event Views",
           fontSize:12,
           fontColor: "#666"
         },
@@ -223,7 +223,7 @@ export class EventSummaryComponent implements OnInit {
         let arrayLable = [];
         if(this.eventSummery.graphSale){
           this.eventSummery.graphSale.forEach(element => {
-            data.push(element.views);
+            data.push(element.sale);
             arrayLable.push(element.date);
           });
           this.fnChartView(data,arrayLable);

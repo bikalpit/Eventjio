@@ -584,7 +584,13 @@ export class OrderViewComponent {
   currencycode:string = 'USD';
   isLoaderAdmin=false;
   url = environment;
+  is_show = false;
   singleOrderDetail:any = [];
+  orderDate:any;
+  eventDate:any;
+  order_item_data:any = [];
+  attendeeData:any = [];
+  customerData:any = [];
 
   constructor( 
     public dialogRef: MatDialogRef<OrderViewComponent>,
@@ -671,17 +677,24 @@ export class OrderViewComponent {
     this.isLoaderAdmin = true;
 
     let requestObject = {
-      'unique_code':this.data.data.order_id,
+      'unique_code':this.orderDetail.order_id,
     }
 
     this.singleEventServiceService.getsingleOrder(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.singleOrderDetail = response.response;
+        this.orderDate  = this.datePipe.transform(new Date(this.singleOrderDetail.created_at),"EEE MMM d, y");
+        this.eventDate  = this.datePipe.transform(new Date(this.singleOrderDetail.events.start_date),"EEE MMM d, y");
+        this.order_item_data = this.singleOrderDetail.order_item;
+        this.customerData = this.singleOrderDetail.customer;
+        this.attendeeData  = JSON.parse(response.response.attendee_info);
       } else if (response.data == false) {
         this.ErrorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
     });
+    this.is_show = true
+    // this.change.detectChanges();
 
   }
 

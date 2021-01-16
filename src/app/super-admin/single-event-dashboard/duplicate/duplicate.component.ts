@@ -74,6 +74,10 @@ export class DuplicateComponent implements OnInit {
       (this.duplicateForm.get('items') as FormArray).removeAt(index);
     }
   }
+  fnChangeEventStartDate(event){
+    this.minTillDate = event.value;
+    // this.minTillDate = this.duplicateForm.get('start_date').value;
+  }
 
 
 
