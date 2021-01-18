@@ -23,7 +23,8 @@ export class OrderConfirmationComponent implements OnInit {
   boxOfficeCode = localStorage.getItem('boxoffice_id');   
   globalOrderPre:any;
   templateType:string = 'In-person';
-
+  invoiceAddress:any;
+  invoiceValidation:boolean=false;
   constructor(
     private _formBuilder: FormBuilder,
     private SettingService : SettingService,
@@ -91,6 +92,21 @@ export class OrderConfirmationComponent implements OnInit {
       }
     });
 
+    let invoiceRequestObject = {
+      "boxoffice_id": this.boxOfficeCode,
+      "option_key": "invoive_address",
+      "event_id": 'null',
+    };
+
+    this.SettingService.getSettingsValue(invoiceRequestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.invoiceAddress = response.response;
+
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
   }
 
 
@@ -100,6 +116,18 @@ export class OrderConfirmationComponent implements OnInit {
       this.ErrorService.errorMessage('Please Enter Global order confirmation.');
       return;
     }
+    
+
+    if(this.invoiceAddress){
+      var myValueData = this.invoiceAddress.split(/\r*\n/);
+      if(myValueData.length > 7){
+        this.invoiceValidation = true;
+        this.ErrorService.errorMessage('Please correct Invoice Address, Too many lines. Maximum 6.');
+        return;
+      }
+    }
+    
+    
 
     /////////////// Update Email //////////////////
 
@@ -129,6 +157,24 @@ export class OrderConfirmationComponent implements OnInit {
     };
 
     this.SettingService.updateSetting(requestObjectData).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+
+    /////////////// Update Invoice Address //////////////////
+
+    let invoiceRequestObject = {
+        "boxoffice_id": this.boxOfficeCode,
+        "option_key": "invoive_address",
+       // "event_id": 'null',
+        "json_type":"N",
+        "option_value" : this.invoiceAddress
+    };
+
+    this.SettingService.updateSetting(invoiceRequestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
       } else if(response.data == false){

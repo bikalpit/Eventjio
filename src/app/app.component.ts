@@ -129,6 +129,7 @@ export class AppComponent {
 
   private handleRoute(event: RouterEvent) {
     const url = this.getUrl(event);
+    let devidedUrl = url.split('/',4);
     this.currentUrl = url;
     if(url === '/super-admin/dashboard' ){
       this.pageName = 'Dashboard';
@@ -146,6 +147,11 @@ export class AppComponent {
       this.pageName= 'Coupon'
     }else if(url === '/super-admin/settings'){
       this.pageName= 'Settings'
+    }
+    if(devidedUrl[2] == 'settings'){
+      this.pageName= 'Settings'
+    }else if(devidedUrl[2] == 'single-event-dashboard'){
+      this.pageName= 'Events'
     }
   }
   

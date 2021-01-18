@@ -4,7 +4,7 @@ import { MaterialModule } from '../../_helpers/material.module';
 import { SingleEventDashboard } from './single-event-dashboard'
 import { SingleEventDashboardRoutingModule } from './single-event-dashboard-routing.module';
 import { EventSummaryComponent } from './event-summary/event-summary.component';
-import { createTrackingLinkAndView } from './event-summary/event-summary.component';
+// import { createTrackingLinkAndView } from './event-summary/event-summary.component';
 import { EventAndTicketTypesComponent } from './event-and-ticket-types/event-and-ticket-types.component';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { DeleteComponent } from './delete/delete.component';
@@ -54,7 +54,7 @@ import { SharedModule } from '../../shared.module';
    // myPreviewBroadcastDialog,
     DialogEditEventImageUpload,
     AddNewTicketType,
-    createTrackingLinkAndView,
+    // createTrackingLinkAndView,
   ],
     
     imports: [
@@ -84,7 +84,7 @@ import { SharedModule } from '../../shared.module';
       // EditIssurorderDialog,
       DialogEditEventImageUpload,
       AddNewTicketType,
-      createTrackingLinkAndView,
+      // createTrackingLinkAndView,
     ],
   
   

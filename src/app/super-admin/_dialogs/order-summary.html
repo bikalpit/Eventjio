@@ -15,10 +15,10 @@
 
         <div class="book-order">
             <div class="row mt-4 mb-4" style="background-color: #ffe2ad;border-radius: 5px;" *ngIf="orderDetail.payment.payment_status=='unpaid'">
-                <p class="col-12 mt-4">
+                <p class="col-12 mt-3">
                     <span class="material-icons">add_alert</span> payment is <b>Pending</b>. Customer selected Kotak as their payment method.
                 </p>
-                <div class="col-12 p-4">
+                <div class="col-12 px-4 pb-3">
                     <button mat-raised-button class="comm-btn mr-2" (click)="fnPayementpaid()">Payement Paid</button>
                 </div>
             </div>

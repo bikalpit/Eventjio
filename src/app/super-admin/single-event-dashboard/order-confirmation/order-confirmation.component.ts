@@ -24,6 +24,8 @@ event_id = localStorage.getItem('selectedEventCode');
 KisshtHtml;
 eventOrderEmailPre;
 eventDetail:any = [];
+invoiceAddress:any;
+invoiceValidation:boolean=false;
 
 constructor(
   private _formBuilder: FormBuilder,
@@ -127,11 +129,33 @@ constructor(
         this.ErrorService.errorMessage(response.response);
       }
     });
+    let requestObjectInvoiceAddres = {
+      "boxoffice_id": "null",
+      "option_key": "invoive_address",
+      "event_id" : this.event_id,
+    };
+
+    this.eventServiceService.getSettings(requestObjectInvoiceAddres).subscribe((response:any) => {
+      if(response.data == true){
+        this.invoiceAddress  = response.response
+        
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
     this.isLoaderAdmin = false;
 
   }
 
   fnEventEmail(){
+    if(this.invoiceAddress){
+      var myValueData = this.invoiceAddress.split(/\r*\n/);
+      if(myValueData.length > 7){
+        this.invoiceValidation = true;
+        this.ErrorService.errorMessage('Please correct Invoice Address, Too many lines. Maximum 6.');
+        return;
+      }
+    }
     this.isLoaderAdmin = true;
     let requestObject = {
         "option_key": "event_confirmation",
@@ -161,6 +185,21 @@ constructor(
         this.ErrorService.errorMessage(response.response);
       }
     });
+    let invoiceRequestObject = {
+        "option_key": "invoive_address",
+        "event_id" : this.event_id,
+        "json_type":"N",
+        "option_value" : this.invoiceAddress
+    };
+
+    this.eventServiceService.updateSetting(invoiceRequestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.fngetEventEmail();
     this.isLoaderAdmin = false;
   }
 

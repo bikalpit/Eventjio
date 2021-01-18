@@ -1,7 +1,7 @@
 <div class="add-question-form">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="modal-header pl-3 py-0 border-0">
-        <p class="font-weight-bold">Buyer only question</p>
+        <p class="">Buyer only question</p>
         <button class="popup-cros-btn" type="button" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
@@ -45,32 +45,25 @@
                             </span>
                         </div>
                         <div class="form-group" *ngIf="is_address">
-                            <mat-select (selectionChange)="fnaddressForamteStyle($event)" [(value)]="addressForamteStyle"   class="form-control">
+                            <mat-select (selectionChange)="fnaddressForamteStyle($event)" [(value)]="addressForamteStyle" class="form-control">
                                 <mat-option value="US" selected>US Style</mat-option>
                                 <mat-option value="UK">UK Style</mat-option>
                                 <mat-option value="Cadadian">Cadadian Style</mat-option>
                             </mat-select>
                         </div>
-                        
+
                         <div class="form-group" *ngIf="is_address">
                             <p *ngIf="is_address && addressForamteStyle=='US'">
-                                Address Line 1 <br>
-                                City <br>
-                                State <br>
-                                Zip Code <br>
+                                Address Line 1 <br> City <br> State <br> Zip Code <br>
                             </p>
                             <p *ngIf="is_address && addressForamteStyle=='UK'">
-                                Address Line 1<br>
-                                Address Line 2<br>
-                                Address Line 3<br>
-                                Postcode
-                                
+                                Address Line 1<br> Address Line 2<br> Address Line 3<br> Postcode
+
                             </p>
                             <p *ngIf="is_address && addressForamteStyle=='Cadadian'">
-                                Address Line 1<br>
-                                City<br>
-                                Province<br>
-                                Postal Code<br>
+                                Address Line 1<br> City
+                                <br> Province
+                                <br> Postal Code<br>
                             </p>
                         </div>
                     </div>

@@ -50,7 +50,7 @@
                                     <div class="event-des p-2">
                                         <div class="row">
                                             <div class="px-4 py-2">
-                                                <p class="font-weight-bold event-title">{{allEventList.event_title}}</p>
+                                                <p class="event-title">{{allEventList.event_title}}</p>
                                                 <p><i class="fa fa-calendar-check-o pr-2 "></i>{{allEventList.start_date}} </p>
                                                 <p *ngIf="allEventList.online_event == 'N'"><i class="fa fa-map-marker pr-2 "></i>{{allEventList.venue_name}} - {{allEventList.postal_code}}</p>
                                                 <p *ngIf="allEventList.online_event == 'Y'"><i class="fa fa-map-marker pr-2 "></i> Online -
@@ -93,7 +93,7 @@
                             <div class="col-9 p-2">
                                 <div class="row">
                                     <div class="px-4 py-2">
-                                        <p class="font-weight-bold">{{allEventList.event_title}}</p>
+                                        <p class="">{{allEventList.event_title}}</p>
                                         <p><i class="fa fa-calendar-check-o pr-2"></i>{{allEventList.start_date}}</p>
                                         <p *ngIf="allEventList.online_event == 'N'"><i class="fa fa-map-marker pr-2 "></i>{{allEventList.venue_name}} - {{allEventList.postal_code}}</p>
                                         <p *ngIf="allEventList.online_event == 'Y'"><i class="fa fa-map-marker pr-2 "></i> Online -

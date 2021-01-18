@@ -7,51 +7,42 @@
     </div>
 
     <div class="edit-order-confirmation p-3 border rounded mt-2">
-       <div class="main-top-heading">
+        <div class="main-top-heading">
             <div class="title pt-1">
                 Edit order confirmation
             </div>
             <div class="side-name">
                 Template: {{templateType}}
-                <mat-select [(ngModel)]="templateType"  class="form-control ml-2" [value]="templateType">
+                <mat-select [(ngModel)]="templateType" class="form-control ml-2" [value]="templateType">
                     <mat-option value="In-person">In-person event</mat-option>
                     <mat-option value="online">Online event</mat-option>
                 </mat-select>
             </div>
         </div>
         <div class="edit-order-main">
-            Click the <mat-icon class="mx-2">people</mat-icon> icon to insert <span class="highlight p-1 mx-1">Placeholdes</span> which get replaced with order details when the email is sent.
+            Click the
+            <mat-icon class="mx-2">people</mat-icon> icon to insert <span class="highlight p-1 mx-1">Placeholdes</span> which get replaced with order details when the email is sent.
         </div>
 
         <div class="msg-content mt-3 border rounded">
             <div class="msg border">
 
-                <ck-editor *ngIf="templateType=='In-person'"
-                    class="specific-msg-content"
-                    name="editor1" 
-                    skin="moono-lisa" 
-                    [(ngModel)]="globalOrderEmail" 
-                    language="en" [fullPage]="true">
-                </ck-editor>    
+                <ck-editor *ngIf="templateType=='In-person'" class="specific-msg-content" name="editor1" skin="moono-lisa" [(ngModel)]="globalOrderEmail" language="en" [fullPage]="true">
+                </ck-editor>
 
-                <ck-editor *ngIf="templateType=='online'"
-                    class="specific-msg-content"
-                    name="editor1" 
-                    skin="moono-lisa" 
-                    [(ngModel)]="globalOrderEmailOnline" 
-                    language="en" [fullPage]="true">
-                </ck-editor>    
+                <ck-editor *ngIf="templateType=='online'" class="specific-msg-content" name="editor1" skin="moono-lisa" [(ngModel)]="globalOrderEmailOnline" language="en" [fullPage]="true">
+                </ck-editor>
             </div>
-        
+
         </div>
     </div>
 
     <div class="invoice-preview mt-3">
-                
+
         <div class="invoive-details">
-            <mat-checkbox   [(ngModel)]="ticketVouchersPDF"  matTooltip="Attaching ticket vouchers as a PDF can make it easier for your  ticket buyer  to print. share and download tickets to their phone" >Attach ticket vouchers as a PDF <i class="fa fa-question-circle"></i></mat-checkbox><br>
-            <mat-checkbox   [(ngModel)]="attachInvoice" matTooltip="include an invoice with the order confirmation" >Attach invoice <i class="fa fa-question-circle"></i></mat-checkbox>
-            
+            <mat-checkbox [(ngModel)]="ticketVouchersPDF" matTooltip="Attaching ticket vouchers as a PDF can make it easier for your  ticket buyer  to print. share and download tickets to their phone">Attach ticket vouchers as a PDF <i class="fa fa-question-circle"></i></mat-checkbox><br>
+            <mat-checkbox [(ngModel)]="attachInvoice" matTooltip="include an invoice with the order confirmation">Attach invoice <i class="fa fa-question-circle"></i></mat-checkbox>
+
             <div class="title mt-2">
                 Invoice preview
             </div>
@@ -59,30 +50,36 @@
 
             <div class="invoice-demo border rounded p-3">
                 <div class="row m-0">
-                    <!-- <div class="title p-2">Invoice</div>
-                    <div class="empty-box ml-auto rounded">
-                    </div> -->
-                    <div [innerHtml]="globalOrderPre" *ngIf="templateType=='In-person'"></div>
-                    <div [innerHtml]="globalOrderPreOnline" *ngIf="templateType=='online'"></div>
+                    <div class="title p-2">Invoice</div>
+                    <div class="empty-box ml-auto with-validation">
+                        <textarea [(ngModel)]="invoiceAddress" class=" rounded">
+                        </textarea>
+                        <span class="w-100 error-wrap" *ngIf="invoiceValidation">
+                            <small class="error">Too many lines. Maximum 6.</small>       
+                        </span>
+
+                    </div>
+                    <!-- <div [innerHtml]="globalOrderPre" *ngIf="templateType=='In-person'"></div>
+                    <div [innerHtml]="globalOrderPreOnline" *ngIf="templateType=='online'"></div> -->
 
                 </div>
-                <!-- <div class="mt-3">
+                <div class="mt-3">
                     <div class="row m-0">
                         <div class="blank-bar"> </div>
                         <div class="blank-bar ml-auto"> </div>
                         <div class="blank-bar"> </div>
                         <div class="blank-bar ml-auto"> </div>
                     </div>
-                </div> -->
+                </div>
             </div>
             <div class="col-12 text-center">
                 <button mat-flat-button (click)="fnGlobleEmail()" class="save-btn  remove-photo mt-4" style="color: #fff;">Save</button>
             </div>
 
         </div>
-        
+
     </div>
 
 
-    
+
 </div>

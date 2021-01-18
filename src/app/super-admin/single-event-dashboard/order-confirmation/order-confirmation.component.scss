@@ -95,12 +95,15 @@
         .invoice-demo {
             .title {
                 color: #B5B5B5;
-                font-weight: bold;
             }
             .empty-box {
                 width: 350px;
                 height: 150px;
-                border: 1px solid;
+                textarea {
+                    height: 100%;
+                    width: 100%;
+                    text-align: right;
+                }
             }
             .blank-bar {
                 width: 46%;
