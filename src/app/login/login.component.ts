@@ -42,6 +42,9 @@ export class LoginComponent implements OnInit {
 
         if (this.authenticationService.currentUserValue) {
             this.appComponent.fnCheckLoginStatus();
+       
+        }else{
+            this.dataLoaded=true;
         }
     };
 
@@ -64,13 +67,12 @@ export class LoginComponent implements OnInit {
             return false;
         }
 
-        this.isLoaderAdmin = true;
+        this.dataLoaded = false;
+        // this.isLoaderAdmin = true;
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
             .pipe(first()).subscribe(data => {
 
                 if (data.data == true) {
-                    
-                    this.isLoaderAdmin = false;
 
                     localStorage.setItem('currentUser', JSON.stringify(data.response))
 
@@ -102,6 +104,7 @@ export class LoginComponent implements OnInit {
                     }
                     
                     this.router.navigate(["/super-admin"]);
+                    // this.isLoaderAdmin = false;
                     
                 } else if (data.data == false) {
 
@@ -122,5 +125,6 @@ export class LoginComponent implements OnInit {
                 this.error = "Database Connection Error.";
                 this.dataLoaded = true;
             });
+                    
     }
 }

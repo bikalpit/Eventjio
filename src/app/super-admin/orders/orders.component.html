@@ -53,7 +53,7 @@
                         <label class="mb-0">Order date to</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
-                            <input type="text" (dateChange)="fngetallOrders()" [(ngModel)]="end_date" [matDatepicker]="ticketIssuedTo" (click)="ticketIssuedTo.open()" class="form-control matInputdate">
+                            <input type="text" (dateChange)="fngetallOrders()" [(ngModel)]="end_date" [matDatepicker]="ticketIssuedTo" [min]="orderToDate" (click)="ticketIssuedTo.open()" class="form-control matInputdate">
                             <mat-datepicker #ticketIssuedTo></mat-datepicker>
                         </div>
                     </div>

@@ -54,7 +54,7 @@ export class OrdersComponent implements OnInit {
   single_order_event:any;
   currentUser:any;
   subPermission:any=[];
-
+  orderToDate:any;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
@@ -185,6 +185,7 @@ export class OrdersComponent implements OnInit {
   
   fnGetAllEventList(){
 
+    this.isLoaderAdmin = true;
     let requestObject={
       "boxoffice_id": this.boxOfficeCode,
       "filter":'all',
@@ -198,6 +199,7 @@ export class OrdersComponent implements OnInit {
       }
       this.change.detectChanges();
     });
+    this.isLoaderAdmin = false;
 
   }
   
@@ -205,7 +207,7 @@ export class OrdersComponent implements OnInit {
   fngetallOrders(){
  
     this.isLoaderAdmin = true;
-    
+    this.orderToDate = this.start_date
     let requestObject = {
       'global_search' : this.search,
       "boxoffice_id" : this.boxOfficeCode,
@@ -660,7 +662,6 @@ export class ExportOrderDialog {
 
 
           this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
-            this.isLoaderAdmin = false;
 
             if(response.data == true && response.response!='Orders not found.'){   
               this.selectedOrderArr = response.response;
@@ -671,10 +672,12 @@ export class ExportOrderDialog {
             }
         });
 
+        this.isLoaderAdmin = false;
     }
 
     if(this.reportType=="lineItem"){
       
+    this.isLoaderAdmin = true;
       let requestObject = {
         "boxoffice_id" : this.boxOfficeCode,
         "report_type": "L",
@@ -717,8 +720,6 @@ export class ExportOrderDialog {
      
 
       this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
-        this.isLoaderAdmin = false;
-
         if(response.data == true && response.response!='Orders not found.'){   
           this.selectedOrderArr = response.response;
           csvExporter.generateCsv(this.selectedOrderArr);
@@ -728,6 +729,7 @@ export class ExportOrderDialog {
         }
       });
       
+    this.isLoaderAdmin = false;
     }
 
   }
@@ -746,6 +748,7 @@ export class AddNewOrderDialog {
   allEventlist:any;
   boxOfficeCode:any;
   selectedEvent :any;
+  isLoaderAdmin:boolean=false;
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddNewOrderDialog>,
@@ -774,6 +777,7 @@ export class AddNewOrderDialog {
   
   fnGetAllEventList(){
     
+    this.isLoaderAdmin = true;
     let requestObject={
       "boxoffice_id": this.boxOfficeCode,
       "filter":'all',
@@ -809,6 +813,7 @@ export class AddNewOrderDialog {
         this.ErrorService.errorMessage(response.response);
       }
     });
+    this.isLoaderAdmin = false;
   }
 
   bookTicket(singleEventData) {
@@ -970,8 +975,8 @@ export class BookTicketDialog {
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
 
   }
 
@@ -1009,8 +1014,8 @@ export class BookTicketDialog {
         this.eventForm = [];
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
 
 
   }
@@ -1095,8 +1100,8 @@ export class BookTicketDialog {
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
   }
 
   optionsArr(arr){
@@ -1115,6 +1120,7 @@ export class BookTicketDialog {
 
   fnGeteventTicket(){
 
+    this.isLoaderAdmin = true;
     let requestObject={
       "event_id":this.selectedEventCode,
     }
@@ -1131,6 +1137,7 @@ export class BookTicketDialog {
 
       }
     });
+    this.isLoaderAdmin = false;
   }
    
 
@@ -1233,8 +1240,8 @@ export class BookTicketDialog {
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
 
   }
 
@@ -1429,8 +1436,8 @@ export class BookTicketDialog {
       }else{
         return  this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
     
     
   }
@@ -1504,7 +1511,7 @@ export class ConfirmpaymentreceivedDialog {
   
   transaction_id="";
   orderData:any = [];
-
+  isLoaderAdmin:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<ConfirmpaymentreceivedDialog>,
     public superadminService:SuperadminService,
@@ -1524,6 +1531,7 @@ export class ConfirmpaymentreceivedDialog {
   }
 
   fnUpdateStatus(){
+    this.isLoaderAdmin = true;
     
     let requestObject={
       "unique_code": this.data.unique_code,
@@ -1539,6 +1547,7 @@ export class ConfirmpaymentreceivedDialog {
         this.errorService.successMessage(response.response);
       }
     });
+    this.isLoaderAdmin = false;
   }
 }
 
@@ -1654,13 +1663,14 @@ export class EditorderDialog {
         } else if(response.data == false){
           this.errorMessage.errorMessage(response.response);
         }
-        this.isLoaderAdmin = false;
       });
+        this.isLoaderAdmin = false;
 
     } 
 
     getEventForm(requestObject){
      
+      this.isLoaderAdmin = true;
       this.superadminService.getSingleEventSettings(requestObject).subscribe((response:any) => {
         if(response.data == true){
           var data =   JSON.parse(response.response);
@@ -1705,11 +1715,13 @@ export class EditorderDialog {
           this.errorMessage.errorMessage(response.response);
         }
       });
+      this.isLoaderAdmin = false;
 
     }
 
     
     fnGetsingleOrder(){
+      this.isLoaderAdmin = true;
 
       let requestObject={
         "unique_code":this.data.unique_code,
@@ -1760,6 +1772,7 @@ export class EditorderDialog {
           this.errorMessage.errorMessage(response.response);
         }
       });
+      this.isLoaderAdmin = false;
     }
 
     optionsArr(arr){
@@ -1887,8 +1900,8 @@ export class EditorderDialog {
         } else if(response.data == false){
           this.errorMessage.errorMessage(response.response);
         }
-        this.isLoaderAdmin = false;
       });
+        this.isLoaderAdmin = false;
 
     }
 
@@ -1926,6 +1939,7 @@ export class cancelOrderDialog {
    
   fnGetsingleOrder(){
     
+    this.isLoaderAdmin = true;
     let requestObject={
       "unique_code":this.data.unique_code,
     }
@@ -1938,6 +1952,7 @@ export class cancelOrderDialog {
       }
     });
 
+    this.isLoaderAdmin = false;
   }
 
   cancelthisOrder(){
@@ -1957,8 +1972,8 @@ export class cancelOrderDialog {
       }else{
           this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     });
+      this.isLoaderAdmin = false;
     
   }
 
@@ -2086,8 +2101,8 @@ export class eventSummaryDialog {
         } else if(response.data == false){
           this.errorService.errorMessage(response.response);
         }
-        this.isLoaderAdmin=false;
       });
+        this.isLoaderAdmin=false;
     }
 
     fnGetsingleOrder(){

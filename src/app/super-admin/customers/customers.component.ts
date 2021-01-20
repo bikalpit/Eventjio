@@ -202,6 +202,7 @@ export class CustomersComponent implements OnInit {
   
 
   fnCreateCustomer(requestObject){
+    this.isLoaderAdmin = true;
     this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
     if(response.data == true){
       this.ErrorService.successMessage(response.response);
@@ -211,6 +212,7 @@ export class CustomersComponent implements OnInit {
       this.ErrorService.errorMessage(response.response);     
       }
     });
+    this.isLoaderAdmin = false;
  }
 
  
@@ -241,6 +243,7 @@ export class CustomersComponent implements OnInit {
  editCustomerDetails(){
   this.addFormButtonDiv = this.addFormButtonDiv ? false : true;  
   this.editCustomerForm = true;
+  this.isLoaderAdmin = true;
   let requestObject = {
     "unique_code": this.selectedCustomerCode,
   };
@@ -261,6 +264,7 @@ export class CustomersComponent implements OnInit {
       this.ErrorService.errorMessage(response.response);
     }
   });
+  this.isLoaderAdmin = false;
 }
 
 fnSelectCustomer(selectedCustomerCode){
@@ -292,6 +296,7 @@ fnSelectCustomer(selectedCustomerCode){
 
 
 fnUpdateCustomer(requestObject){
+  this.isLoaderAdmin = true;
     this.SuperadminService.updateCustomerDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.updateResponseMsg = JSON.stringify(response.response)
@@ -352,6 +357,7 @@ deleteCustomerDetails(){
       useKeysAsHeaders: true,
     };
     const csvExporter = new ExportToCsv(options);
+    this.isLoaderAdmin = true;
     let requestObject ={
       "boxoffice_id": this.boxofficeId,
     };
@@ -359,7 +365,6 @@ deleteCustomerDetails(){
       if(response.data == true){
         this.selectedCustomerArr = response.response
         csvExporter.generateCsv(this.selectedCustomerArr);
-        this.isLoaderAdmin = false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -381,7 +386,6 @@ deleteCustomerDetails(){
     let requestObject = {
       "unique_code": this.selectedCustomerCode
     }
-    this.isLoaderAdmin = true;
     this.SuperadminService.getSingleCustomersDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.allEventListData = response.response
@@ -400,6 +404,7 @@ deleteCustomerDetails(){
   }
 
   fngetCustomersEventlist(){
+    this.isLoaderAdmin = true;
     let requestObject ={
       "boxoffice_id":this.boxofficeId,
     }
@@ -408,7 +413,8 @@ deleteCustomerDetails(){
         this.filterEventlist = response.response
         console.log(this.filterEventlist);
       }
-    })
+    });
+    this.isLoaderAdmin = false;
   }
 
 }
@@ -482,6 +488,7 @@ export class DialogImportFileUpload {
     formData.append('file', this.fileToUpload);
     formData.append('boxoffice_id',(this.boxofficeId));
 
+    this.isLoaderAdmin = true;
     this.SuperadminService.fnImportCustomer(formData).subscribe((response:any)=>{
       if(response.data == true){
         this.importCustomer = response.response

@@ -116,9 +116,12 @@ button:focus {
         color: #181818;
         font-weight: 500;
     }
-    .page-descp p {
-        font-size: 14px;
-        color: #808080;
+    .page-descp {
+        padding-left: 25px;
+        p {
+            font-size: 14px;
+            color: #808080;
+        }
     }
     .cd-code-btn {
         background: #007BFF 0% 0% no-repeat padding-box;

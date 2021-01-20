@@ -1,4 +1,8 @@
+<div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="!dataLoaded" fxLayoutAlign="center center" class="full-height">
+    <img src="../../../assets/loading-spinner.gif" />
+</div>
 <div class="log-in" id="">
+
     <div class="login">
         <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
         <div class="row mx-0 h-100">

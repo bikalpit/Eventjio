@@ -18,7 +18,8 @@
 
 .page-title {
     font-size: 16px;
-    font-weight: bold;
+    color: #181818;
+    font-weight: 600;
 }
 
 .search-btn {
@@ -50,6 +51,9 @@
 .customer-name {
     font-size: 20px;
     font-weight: 600;
+    span {
+        background-color: transparent !important;
+    }
 }
 
 .customer-edit-delete-btn {

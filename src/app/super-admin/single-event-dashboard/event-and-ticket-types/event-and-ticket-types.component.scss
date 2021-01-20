@@ -336,4 +336,7 @@
 
 .tax-input {
     width: 48%;
+    &:first-child {
+        margin-right: 0.8%;
+    }
 }

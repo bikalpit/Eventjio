@@ -168,11 +168,10 @@ export class AppComponent {
 
   
   fnCheckLoginStatus(){
-    if(!this.authenticationService.currentUserValue.google_id && !this.authenticationService.currentUserValue.facebook_id){
+    
       if(this.authenticationService.currentUserValue.user_type == Role.Admin){
           this.router.navigate(["super-admin"]);
       }
-    }
   }
 
   openLogoutMenu(){

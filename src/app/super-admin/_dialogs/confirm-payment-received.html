@@ -1,4 +1,5 @@
-<div class="modal-dialog modal-notify modal-info export-order modal-lg"  role="document" >
+<div class="modal-dialog modal-notify modal-info export-order modal-lg" role="document">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="modal-content ">
         <div class="modal-header modal-bcolor-primary" style="border-bottom: 4px solid #dddddd;">
             <p class="heading lead  work-content">Confirm Payment Received</p>
@@ -6,8 +7,8 @@
                   <span aria-hidden="true" class="white-text">&times;</span>
             </button>
         </div>
-            
-        <div class="modal-body pb-0"> 
+
+        <div class="modal-body pb-0">
             <div class="order-invoice">
                 <div class="row bill-details">
                     <div class="col-md-6">
@@ -22,7 +23,7 @@
                             <p>{{orderData.customer ? orderData.customer.name : '-'}}</p>
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-12">
                         <label>Transation ID (optional) </label>
                         <input matInput type="text" [(ngModel)]="transaction_id" class="form-control" placeholder="">
@@ -33,7 +34,6 @@
                 </div>
             </div>
         </div>
-    </div>  
-   
+    </div>
+
 </div>
-      

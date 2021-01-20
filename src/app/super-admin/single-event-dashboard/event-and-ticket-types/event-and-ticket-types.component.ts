@@ -287,7 +287,7 @@ export class EventAndTicketTypesComponent implements OnInit {
           this.fnolPlatform(false);
         }
         this.salesTaxVal = JSON.parse(this.singleEventSetting.sales_tax);
-        // this.salesTax.length = 0;
+        this.salesTax.length = 0;
 
         this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
 
@@ -436,6 +436,9 @@ export class EventAndTicketTypesComponent implements OnInit {
   fnCustomSalesTax(event){
     if(event.checked == true){
       this.customSalesTax = 'Y';
+      this.customSalesTaxForm = this._formBuilder.group({
+        customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
+      });
     }else{
       this.customSalesTax = 'N' 
     }
