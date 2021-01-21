@@ -83,9 +83,11 @@ export class EventsComponent implements OnInit {
   path_pastEvent:any;
   totalPastEvents:any;
   onlyNumbers= /^[0-9]+$/;
+  onlynumericAmount = /^(\d*\.)?\d+$/
   deletedSalesTaxIndex:any=[];
   startdateToday:boolean=false;
   currentTime:any;
+  getCurrancy:any;
   // minEndTime:any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -123,6 +125,8 @@ export class EventsComponent implements OnInit {
         online_platform: [''],
         online_link: [''],
         description: ['',Validators.required],
+        currency: ['',Validators.required],
+        transaction_fee: [''],
         timezone: ['',Validators.required],
         donation_title: [''],
         donation_amount: [''],
@@ -147,8 +151,9 @@ export class EventsComponent implements OnInit {
     this.getAllTimeZone();
     this.getDefaultImages();
     this.fnGetUpcomingEventList();
-    this.fnGetPastEventList();
+    // this.fnGetPastEventList();
     this.getTimeSlote();
+    this.getAllCurrancy();
     
   }
 
@@ -157,6 +162,14 @@ export class EventsComponent implements OnInit {
       amount: ['',[Validators.required,Validators.pattern('[0-9.]{0,100}')]],
       label: ['',[Validators.required]]
     })
+  }
+
+  getAllCurrancy(){
+    this.SuperadminService.getAllCurrancy().subscribe((response:any) => {
+      if(response.data == true){
+        this.getCurrancy= response.response
+      }
+    });
   }
 
   
@@ -925,6 +938,26 @@ export class AddNewTicketType {
       this.advanceSetting = 'Y';
     }else{
       this.advanceSetting = 'N';
+    }
+  }
+
+  getTicketAvailTooltip(){
+    if(this.ticketAvalStatus == 'PB'){
+      return 'When the event is published';
+    }else if(this.ticketAvalStatus == 'SDT'){
+      return 'At a scheduled date and time';
+    }else if(this.ticketAvalStatus == 'SIB'){
+      return 'At a scheduled interval before the event starts';
+    }
+  }
+
+  getTicketUnavailTooltip(){
+    if(this.ticketAvalStatus == 'TOS'){
+      return 'When the event is taken off, or the event passes';
+    }else if(this.ticketAvalStatus == 'SDT'){
+      return 'At a scheduled date and time';
+    }else if(this.ticketAvalStatus == 'SIB'){
+      return 'At a scheduled interval before the event starts';
     }
   }
 

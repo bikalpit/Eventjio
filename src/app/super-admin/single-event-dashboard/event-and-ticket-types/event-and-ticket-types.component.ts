@@ -92,7 +92,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         description: ['',Validators.required],
         timezone: ['',Validators.required],
         donation_title: [''],
-        currency: [''],
+        currency: ['',Validators.required],
         transaction_fee: [''],
         donation_amount: [''],
         donation_description: [''],
@@ -947,6 +947,26 @@ export class AddNewTicketType {
     }
   }
 
+  
+  getTicketAvailTooltip(){
+    if(this.ticketAvalStatus == 'PB'){
+      return 'When the event is published';
+    }else if(this.ticketAvalStatus == 'SDT'){
+      return 'At a scheduled date and time';
+    }else if(this.ticketAvalStatus == 'SIB'){
+      return 'At a scheduled interval before the event starts';
+    }
+  }
+
+  getTicketUnavailTooltip(){
+    if(this.ticketAvalStatus == 'TOS'){
+      return 'When the event is taken off, or the event passes';
+    }else if(this.ticketAvalStatus == 'SDT'){
+      return 'At a scheduled date and time';
+    }else if(this.ticketAvalStatus == 'SIB'){
+      return 'At a scheduled interval before the event starts';
+    }
+  }
 
   fnTicketAvailableStatus(event){
     this.ticketAvalStatus = event.value;

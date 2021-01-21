@@ -72,6 +72,9 @@
                             </div>
                         </div>
 
+                        <section class="form-group col-md-12 mt-3">
+                            <mat-checkbox [checked]="olPlatForm == 'Y'" class="" (change)="fnolPlatform($event.checked)">This is on online event</mat-checkbox>
+                        </section>
                         <div class="w-100  mt-3" *ngIf="olPlatForm == 'N'">
                             <div class="row m-0">
                                 <div class="col-4">
@@ -139,9 +142,6 @@
 
                             </div>
                         </div>
-                        <section class="form-group col-md-12 mt-3">
-                            <mat-checkbox [checked]="olPlatForm == 'Y'" class="" (change)="fnolPlatform($event.checked)">This is on online event</mat-checkbox>
-                        </section>
                         <div class="form-group col-md-12  mt-3">
                             <label for="">Description <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings."
                             matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span></label>
@@ -283,6 +283,9 @@
                             <mat-select formControlName="currency" class="form-control" id="">
                                 <mat-option value="{{getCurrancy.CurrencyCode}}" *ngFor="let getCurrancy of getCurrancy; let i=index"> {{getCurrancy.CurrencyName}}</mat-option>
                             </mat-select>
+                            <span class="error-wrap" *ngIf="editEventForm.get('currency').touched || editEventForm.get('currency').dirty">
+                                <small *ngIf="editEventForm.get('currency').hasError('required')" class="error">Currency is required.</small>
+                            </span>
                         </div>
                         <section class="col-md-12 form-group allow-donation mt-3">
                             <mat-checkbox [checked]="donation == 'Y'" (change)="fnChangeDonation($event.checked)" [checked]="false">Allow customers to make a donation</mat-checkbox>
