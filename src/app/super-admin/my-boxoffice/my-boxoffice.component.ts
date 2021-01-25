@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { SuperadminService } from '../_services/superadmin.service';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { ErrorService } from '../../_services/error.service'
+import { ErrorService } from '../../_services/error.service';
+import { AppComponent } from '../../app.component'
 export interface DialogData {
   animal: string;
   name: string;
@@ -25,6 +26,7 @@ export class MyBoxofficeComponent implements OnInit {
   adminId:any;
   token:any;
   getIpAddress : any;
+  pageSlug:any;
  
   constructor(
 
@@ -33,9 +35,14 @@ export class MyBoxofficeComponent implements OnInit {
     public superadminService : SuperadminService,
     private authenticationService : AuthenticationService,
     private ErrorService : ErrorService,
+    public AppComponent: AppComponent
     ) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
       localStorage.setItem('isBoxoffice','true')
+      this.router.events.subscribe(event => {
+        if (event instanceof RouterEvent) this.handleRoute(event);
+          const url = this.getUrl(event);
+      });
      }
 
     ngOnInit(): void {
@@ -106,6 +113,46 @@ export class MyBoxofficeComponent implements OnInit {
         this.getAllBoxoffice();
       });
     }
+
+    
+  // page url conditions
+  dynamicSort(property: string) {
+    let sortOrder = 1;
+
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+
+    return (a, b) => {
+      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    };
+  }
+  private getUrl(event: any) {
+    if (event && event.url) {
+      this.pageSlug = event.url.split('/' , 2)
+      const url = event.url;
+      const state = (event.state) ? event.state.url : null;
+      const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
+      const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
+      if (longest.length > 0) return longest[0];
+    }
+  }
+
+  private handleRoute(event: RouterEvent) {
+    const url = this.getUrl(event);
+    let devidedUrl = url.split('/',4);
+    console.log(devidedUrl)
+    if((devidedUrl[1] == 'super-admin' && devidedUrl.length == 2) || devidedUrl[2] == 'boxoffice'){
+      console.log('boxoffice yes')
+      // this.AppComponent
+      localStorage.setItem('isBoxoffice','true');
+    }else{
+      console.log('boxoffice no')
+      localStorage.setItem('isBoxoffice','false');
+    }
+  }
 }
 
 

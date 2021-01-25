@@ -14,7 +14,7 @@ export class AppComponent {
   
 
   title = 'Eventjio';
-  boxofficeComponent:boolean = false;
+  boxofficeComponent:boolean = true;
   pageName :any = 'Box-Office';
   timer: any = 0;
   selectedBoxOfficeName:any;
@@ -34,7 +34,6 @@ export class AppComponent {
     private renderer: Renderer2,
     private authenticationService: AuthenticationService,
   ) {
-
     // this.renderer.listen('window', 'click',(e:Event)=>{
     //   if(e.target !== this.toggleButton.nativeElement && e.target!==this.logoutMenu.nativeElement){
     //       this.openLogoutMenuBox=false;

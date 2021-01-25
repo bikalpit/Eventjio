@@ -19,7 +19,8 @@
                             <div class="row mx-0">
                                 <div class="col-md-7 pl-0">
                                     <label for="">Start Date <span><i class="fa fa-asterisk"></i></span> </label>
-                                    <div class="form-group">
+                                    <div *ngIf="singleEventDetail" class="form-group">
+                                        <mat-datepicker #event_start_date_picker></mat-datepicker>
                                         <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY"
                                             readonly>
                                         <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_start_date').touched || editEventForm.get('event_start_date').dirty">
@@ -29,8 +30,7 @@
                                 </div>
                                 <div class="col-md-5 px-0">
                                     <label class="ml-2" for="">Start Time <span><i class="fa fa-asterisk"></i></span> </label>
-                                    <div class="form-group">
-                                        <mat-datepicker #event_start_date_picker></mat-datepicker>
+                                    <div *ngIf="singleEventDetail" class="form-group">
                                         <mat-select *ngIf="!startdateToday" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
                                             <mat-option (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                         </mat-select>
@@ -42,6 +42,7 @@
                                         </span>
                                     </div>
                                 </div>
+                                <small *ngIf="singleEventDetail && (selectedStartDate <= todayDate) && (currentTime >= singleEventDetail.start_time)">You can't edit start date time because event is started.</small>
                             </div>
                         </div>
                         <div class="col-md-6 mt-3">

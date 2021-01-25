@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
+import { SuperAdminComponent } from './super-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EventsComponent } from './events/events.component';
 import { MaterialModule } from '../_helpers/material.module';
@@ -43,6 +44,7 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
 @NgModule({
   declarations: [
       DashboardComponent, 
+      SuperAdminComponent,
       EventsComponent,
       CouponsComponent,
       OrdersComponent, 

@@ -58,7 +58,8 @@ export class EventAndTicketTypesComponent implements OnInit {
   deletedSalesTaxIndex:any=[];
   startdateToday:boolean=false;
   currentTime:any;
-
+  selectedStartDate:any =new Date();
+  todayDate:any =new Date();
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,
@@ -233,6 +234,12 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom;
         this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom;
         
+        this.todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+        this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"yyyy-MM-dd")
+        this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
+        this.currentTime = this.transformTime(this.currentTime)
+        console.log(this.currentTime)
+        console.log(this.singleEventDetail.start_time)
        
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
@@ -326,13 +333,13 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   
 
-  // time formate 12 to 24
-  transform(time: any): any {
+   // time formate 12 to 24
+   transformTime(time: any): any {
     let hour = (time.split(':'))[0];
     let temp = (time.split(':'))[1];
     let min = (temp.split(' '))[0];
     let part = (time.split(' '))[1];
-    if(part == 'PM'){
+    if(part == 'PM' && hour !== '12'){
       hour = Number(hour)+12;
     }
     return `${hour}:${min}`
@@ -344,13 +351,15 @@ export class EventAndTicketTypesComponent implements OnInit {
   
   fnChangeEventStartDate(){
     this.minEventEndDate = this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd");
-    var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
-    var selectedStartDate = this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd")
-    if(selectedStartDate == todayDate){
+    this.todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    this.selectedStartDate = this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd")
+    if(this.selectedStartDate == this.todayDate){
       this.editEventForm.get('event_start_time').setValue('');
       this.startdateToday=true;
       this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
-      this.currentTime = this.transform(this.currentTime)
+      this.currentTime = this.transformTime(this.currentTime)
+    }else{
+      this.startdateToday=false;
     }
     this.editEventForm.get('event_end_date').setValue('');
     this.editEventForm.get('event_end_time').setValue('');
@@ -948,22 +957,22 @@ export class AddNewTicketType {
   }
 
   
-  getTicketAvailTooltip(){
-    if(this.ticketAvalStatus == 'PB'){
+  getTicketAvailTooltip(ticketAvalStatus){
+    if(ticketAvalStatus == 'PB'){
       return 'When the event is published';
-    }else if(this.ticketAvalStatus == 'SDT'){
+    }else if(ticketAvalStatus == 'SDT'){
       return 'At a scheduled date and time';
-    }else if(this.ticketAvalStatus == 'SIB'){
+    }else if(ticketAvalStatus == 'SIB'){
       return 'At a scheduled interval before the event starts';
     }
   }
 
-  getTicketUnavailTooltip(){
-    if(this.ticketAvalStatus == 'TOS'){
+  getTicketUnavailTooltip(ticketUnavalStatus){
+    if(ticketUnavalStatus == 'TOS'){
       return 'When the event is taken off, or the event passes';
-    }else if(this.ticketAvalStatus == 'SDT'){
+    }else if(ticketUnavalStatus == 'SDT'){
       return 'At a scheduled date and time';
-    }else if(this.ticketAvalStatus == 'SIB'){
+    }else if(ticketUnavalStatus == 'SIB'){
       return 'At a scheduled interval before the event starts';
     }
   }

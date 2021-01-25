@@ -30,7 +30,7 @@ export class CheckoutFormComponent implements OnInit {
   attendeeGlobelQuestionList :any = [];
   allGlobelQuestionlist:any
   checkoutFormType:any = 'global';
-
+  saveDisabled:boolean=false;
 
   
   constructor(
@@ -296,6 +296,11 @@ export class CheckoutFormComponent implements OnInit {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
         this.getAllQuestions();
+        this.saveDisabled = true;
+        setTimeout(() => {
+          this.saveDisabled = false
+        }, 5000);
+
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
