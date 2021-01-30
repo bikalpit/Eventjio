@@ -335,6 +335,7 @@ export class myCreateDiscountCodeDialog {
     }
 
   onNoClick(): void {
+    this.signleCouponDetail=null;
     this.dialogRef.close();
     
   }
@@ -440,6 +441,7 @@ export class myCreateDiscountCodeDialog {
       if(response.data == true){
        this.ErrorService.successMessage(response.response);
         this.createCouponForm.reset();
+        this.signleCouponDetail=null;
         this.dialogRef.close();
       }
       else if(response.data == false){
@@ -454,6 +456,7 @@ export class myCreateDiscountCodeDialog {
       if(response.data == true){
        this.ErrorService.successMessage(response.response);
         this.createCouponForm.reset();
+        this.signleCouponDetail=null;
         this.dialogRef.close();
       }
       else if(response.data == false){
@@ -463,6 +466,8 @@ export class myCreateDiscountCodeDialog {
       this.isLoaderAdmin = false;
   }
   fnCancelCreateCoupon(){
+    this.createCouponForm.reset();
+    this.signleCouponDetail=null;
     this.dialogRef.close();
   }
   
@@ -590,6 +595,8 @@ export class myBatchVoucherCodeDialog {
         if(response.data == true){
          this.ErrorService.successMessage(response.response);
           this.createVoucherForm.reset();
+          this.assignedEvent = null;
+          this.signleVoucherDetail = null;
           this.dialogRef.close();
         }
         else if(response.data == false){
@@ -606,12 +613,13 @@ export class myBatchVoucherCodeDialog {
         if(response.data == true){
          this.ErrorService.successMessage(response.response);
           this.createVoucherForm.reset();
+          this.assignedEvent = null;
+          this.signleVoucherDetail = null;
           this.dialogRef.close();
         }
         else if(response.data == false){
          this.ErrorService.errorMessage(response.response);
         }
-        this.createVoucherForm.reset();
       })
         this.isLoaderAdmin = false;
     }
@@ -620,6 +628,7 @@ export class myBatchVoucherCodeDialog {
    
     this.createVoucherForm.reset();
     this.signleVoucherDetail = null;
+    this.assignedEvent = null;
     this.dialogRef.close();
   }
   ngOnInit() { 
@@ -682,6 +691,8 @@ export class AssignToEventDialog {
     this.SuperadminService.fnAssignEventToVoucher(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response); 
+        this.assignedEvent= null;
+        this.selectedVoucher=null;
         this.dialogRef.close();
       }
       else if(response.data == false){
@@ -704,6 +715,8 @@ export class AssignToEventDialog {
   }
 
   onNoClick(): void {
+    this.assignedEvent= null;
+    this.selectedVoucher=null;
     this.dialogRef.close();
   }
   ngOnInit() { 
@@ -767,6 +780,8 @@ export class AssignToTicketTypeDialog {
     this.SuperadminService.fnAssignTicketToCoupon(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response); 
+        this.assignedTicket=null;
+        this.selectedCoupon=null;
         this.dialogRef.close();
       }
       else if(response.data == false){
@@ -789,6 +804,8 @@ export class AssignToTicketTypeDialog {
   }
 
   onNoClick(): void {
+    this.assignedTicket=null;
+    this.selectedCoupon=null;
     this.dialogRef.close();
   }
   ngOnInit() { 

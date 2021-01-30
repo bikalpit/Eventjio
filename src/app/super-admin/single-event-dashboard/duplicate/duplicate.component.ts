@@ -20,6 +20,7 @@ export class DuplicateComponent implements OnInit {
   minDate = new Date();
   minTillDate: any = new Date();
   isLoaderAdmin: boolean = false;
+  isPastEvent: boolean = false;
   duplicateId: any;
   eventName: any;
   // duplicateForm:boolean=false;
@@ -94,6 +95,7 @@ export class DuplicateComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.eventName = response.response.event[0];
+        this.isPastEvent = response.response.past
         this.eventName.start_date = this.datePipe.transform(this.eventName.start_date, "EEE MMM d, y")
         this.eventName.end_date = this.datePipe.transform(this.eventName.end_date, "EEE MMM d, y")
       } else if (response.data == false) {

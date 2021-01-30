@@ -206,6 +206,8 @@ export class CustomersComponent implements OnInit {
     this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
     if(response.data == true){
       this.ErrorService.successMessage(response.response);
+      this.addCustomerForm.reset();
+      this.customerImageUrl = null;
       this.getAllCustomersDetails();
       this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     }else if(response.data == false){
@@ -302,6 +304,8 @@ fnUpdateCustomer(requestObject){
         this.updateResponseMsg = JSON.stringify(response.response)
         this.editCustomerForm = false;
         this.ErrorService.successMessage(this.updateResponseMsg);
+        this.addCustomerForm.reset();
+        this.customerImageUrl = null;
         this.fnSelectCustomer(this.selectedCustomerCode);
         this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
 
@@ -333,7 +337,7 @@ deleteCustomerDetails(){
     }
     this.SuperadminService.deleteCustomerDetails(requestObject).subscribe((response:any)=>{
       if(response.data == true){
-        this.deleteCustomer = response.response
+        // this.deleteCustomer = response.response
         this.ErrorService.successMessage(response.response);
         this.getAllCustomersDetails();
       }else if(response.data == false){
@@ -594,6 +598,7 @@ onFileChange(event) {
 }
 uploadImage() {
   this.profileImage = this.imageSrc
+  this.imageSrc= null;
   this.dialogRef.close(this.profileImage);
 }
 

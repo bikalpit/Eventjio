@@ -666,6 +666,8 @@ export class ExportOrderDialog {
             if(response.data == true && response.response!='Orders not found.'){   
               this.selectedOrderArr = response.response;
               csvExporter.generateCsv(this.selectedOrderArr);
+              this.selectedOrderArr=null;
+              this.dialogRef.close();
               this.ErrorService.successMessage("orders exported successfully");
             }else{
               this.ErrorService.errorMessage(response.response);
@@ -723,6 +725,8 @@ export class ExportOrderDialog {
         if(response.data == true && response.response!='Orders not found.'){   
           this.selectedOrderArr = response.response;
           csvExporter.generateCsv(this.selectedOrderArr);
+          this.selectedOrderArr=null;
+          this.dialogRef.close();
           this.ErrorService.successMessage("orders exported successfully");
         }else{
           this.ErrorService.errorMessage(response.response);
@@ -1429,6 +1433,9 @@ export class BookTicketDialog {
 
         this.ErrorService.successMessage('Order created.');
         this.orderDetail = response.response;
+        this.bookTickets.reset();
+        this.eventSpecificForm = null;
+        this.attendeeForm = null;
         this.dialogRef.close();
         
         this.change.detectChanges();
@@ -1620,6 +1627,7 @@ export class EditorderDialog {
     }
 
     onNoClick(): void {
+      this.editTicket.reset();
       this.dialogRef.close();
     }
     
@@ -1895,6 +1903,9 @@ export class EditorderDialog {
       this.superadminService.orderUpdate(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.errorMessage.successMessage(response.response);
+          this.editTicket.reset();
+          this.eventSpecificForm = null;
+          this.attendeeForm = null;
           this.dialogRef.close();
 
         } else if(response.data == false){

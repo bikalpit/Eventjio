@@ -183,6 +183,7 @@ export class myCreateNewBoxofficeDialog {
     }
 
   onNoClick(): void {
+    this.createBoxoffice.reset();
     this.dialogRef.close();
   }
 
@@ -253,6 +254,7 @@ export class myCreateNewBoxofficeDialog {
     this.superadminService.createNewBusiness(insertArr).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
+        this.createBoxoffice.reset();
         this.dialogRef.close();
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);

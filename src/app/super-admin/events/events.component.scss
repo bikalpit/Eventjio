@@ -14,6 +14,9 @@
     font-size: 16px;
     text-decoration: underline;
     cursor: pointer;
+    &.past-event {
+        text-decoration: none;
+    }
 }
 
 .pagination-class {
@@ -189,7 +192,7 @@
 }
 
 .tax-input {
-    width: 48%;
+    width: calc(48% - 10px);
 }
 
 .tax-add-btn {
@@ -219,6 +222,10 @@
 
 ::ng-deep .venue-info {
     width: 32%;
+}
+
+::ng-deep .online-info-field {
+    width: 36%;
 }
 
 .after-save-general-admission {

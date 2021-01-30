@@ -92,7 +92,7 @@
                 {{eventSummery && eventSummery.totalTicket ? eventSummery.totalTicket.eventView : 0}}
             </div>
             <div class="more-link">
-                <a href="#eventViewChart">View Chart</a>
+                <a (click)="redirectTOEventChart()">View Chart</a>
             </div>
         </div>
     </div>
@@ -169,10 +169,11 @@
         </div>
     </div>
 
-    <div class="referral-sales-summary border p-3">
+    <div id="" class="referral-sales-summary border p-3">
         <div class="title">
             Referral sales summary
         </div>
+        <input type="hidden" id="referral_sales_summary">
         <div class="mt-2" (click)="is_show_referral_data=!is_show_referral_data">
             <a>Load referral stats</a>
         </div>

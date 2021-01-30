@@ -1,10 +1,17 @@
 import { Component, OnInit, Inject} from '@angular/core';
-import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import { SettingService } from '../_services/setting.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ErrorService } from '../../../_services/error.service';
 import { environment } from '../../../../environments/environment'
+import { take, takeUntil } from 'rxjs/operators';
+import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 
+
+export interface ListTimeZoneListArry {
+  id: string;
+  name: string;
+}
 @Component({
   selector: 'app-box-office',
   templateUrl: './box-office.component.html',
@@ -31,7 +38,10 @@ export class BoxOfficeComponent implements OnInit {
   hideLogo:any ="N";
   boxOfficeId:any;
   
-
+  protected listTimeZoneListArry: ListTimeZoneListArry[];
+  public timeZoneFilterCtrl: FormControl = new FormControl();
+  public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
+  protected _onDestroy = new Subject<void>();
 
   constructor(
     private formBuilder:FormBuilder,
@@ -138,8 +148,8 @@ export class BoxOfficeComponent implements OnInit {
         }
         this.singleBoxOffice.controls['boxoffice_name'].setValue(this.singleBoxofficeDetails.box_office_name)
         this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
-        this.singleBoxOffice.controls['language'].setValue(this.singleBoxofficeDetails.language)
-        this.singleBoxOffice.controls['timezone'].setValue(this.singleBoxofficeDetails.timezone)
+        this.singleBoxOffice.controls['language'].setValue(JSON.stringify(this.singleBoxofficeDetails.language.id))
+        this.singleBoxOffice.controls['timezone'].setValue(JSON.stringify(this.singleBoxofficeDetails.timezone.id))
         this.singleBoxOffice.controls['add_email'].setValue(this.singleBoxofficeDetails.add_email)
 
 
@@ -160,10 +170,48 @@ export class BoxOfficeComponent implements OnInit {
   getAllTimezone(){
     this.settingService.getAllTimezone().subscribe((response:any) => {
       if(response.data == true){
-        this.allTimezones = response.response
+        this.listTimeZoneListArry = response.response
+        // load the initial bank list
+        this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+        this.timeZoneFilterCtrl.valueChanges
+        .pipe(takeUntil(this._onDestroy))
+        .subscribe(() => {
+        this.filterTimezones();
+      });
       }
     });
   }
+  
+    /**
+   * Sets the initial value after the filteredBanks are loaded initially
+   */
+  protected setInitialValue() {
+    this.listTimeZoneList
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        console.log('fail')
+      });
+  }
+
+  protected filterTimezones() {
+    if (!this.listTimeZoneListArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.timeZoneFilterCtrl.value;
+    if (!search) {
+      this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.listTimeZoneList.next(
+      this.listTimeZoneListArry.filter(listTimeZoneListArry => listTimeZoneListArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  
   
 
   fnshowHide(){

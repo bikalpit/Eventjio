@@ -181,6 +181,7 @@ export class AddAppUser {
 
 
   onNoClick(): void {
+    this.addAppUser.reset();
     this.dialogRef.close();
   }
   ngOnInit() {

@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import { ErrorService } from '../../../_services/error.service';
 import { environment } from '../../../../environments/environment'
 import { SettingService } from '../_services/setting.service';
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-referral-code',
@@ -81,11 +82,26 @@ export class ReferralCodeComponent implements OnInit {
   }
 
   fnDeleteReferralCode(i){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.fnDeleteCustomer(i);
+        }
+    });
+  }
+
+  fnDeleteCustomer(i){
     let selectedCodeData= this.allReferralCodeList[i];
     const index: number = this.allReferralCodeList.indexOf(selectedCodeData);
     if (index !== -1) {
         this.allReferralCodeList.splice(index, 1);
     }    
+    if(this.allReferralCodeList.length == 0){
+      this.allReferralCodeList = null;
+    }
     let requestObject = {
       "boxoffice_id"  : this.boxOfficeCode,
       "option_key"    :  "referralCode",
@@ -97,14 +113,14 @@ export class ReferralCodeComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.SettingService.updateSetting(requestObject).subscribe((response:any) => {
       if(response.data == true){
-       this.ErrorService.successMessage(response.response);
-      this.fnGetAllReferralCodes();
+        this.ErrorService.successMessage(response.response);
+        this.fnGetAllReferralCodes();
       }
       else if(response.data == false){
-       this.ErrorService.errorMessage(response.response);
+        this.ErrorService.errorMessage(response.response);
       }
-      this.isLoaderAdmin = false;
     })
+      this.isLoaderAdmin = false;
   }
   
   fnAddReferralCode(){
@@ -240,6 +256,7 @@ export class addReferralCodeDialog {
 
 
   onNoClick(): void {
+    this.addRefferalCodeForm.reset();
     this.dialogRef.close();
   }
 

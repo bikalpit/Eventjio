@@ -45,8 +45,9 @@
 
                             <div class="form-group col-12 mt-3">
                                 <label for="" class="required">Timezone</label>
-                                <mat-select name=" " id="" class="form-control col-12" formControlName="timezone">
-                                    <mat-option *ngFor="let allTimezones of allTimezones;" value="{{allTimezones.id}}">({{allTimezones.utc}}) {{allTimezones.name}}</mat-option>
+                                <mat-select name=" " id="" class="form-control col-12" formControlName="timezone" #singleSelect>
+                                    <ngx-mat-select-search [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
+                                    <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" value="{{listTimeZone.id}}">({{listTimeZone.utc}}){{listTimeZone.name}}</mat-option>
                                 </mat-select>
                                 <span class="error-wrap" *ngIf="singleBoxOffice.get('timezone').dirty || singleBoxOffice.get('timezone').touched"><small *ngIf="singleBoxOffice.get('timezone').hasError('required')" class="error text-left ml-4">Timezone  required.</small></span>
                             </div>

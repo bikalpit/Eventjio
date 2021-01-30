@@ -36,6 +36,7 @@ import { DialogEventImageUpload } from './events/events.component'
 import { MatTimepickerModule } from 'mat-timepicker';
 import { DialogImportFileUpload } from './customers/customers.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -86,6 +87,7 @@ import { DialogCustomerImageUpload } from './customers/customers.component';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
+    NgxMatSelectSearchModule
   ],
   
   entryComponents: [

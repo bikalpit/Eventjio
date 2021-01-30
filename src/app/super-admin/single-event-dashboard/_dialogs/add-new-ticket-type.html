@@ -15,7 +15,7 @@
                         <div class="col-6">
                             <label for="">Ticket Name<span><i class="fa fa-asterisk"></i></span></label>
                             <div class="form-group">
-                                <input type="text" formControlName="title" class="form-control" placeholder="Ticket Name">
+                                <input type="text" formControlName="title" class="form-control">
                                 <span class="error-wrap" *ngIf="addTicketForm.get('title').touched || addTicketForm.get('title').dirty">
                                     <small *ngIf="addTicketForm.get('title').hasError('required')" class="error">Ticket Name is required.</small>
                                 </span>
@@ -25,10 +25,10 @@
                         <div class="col-6">
                             <label for="">Price<span><i class="fa fa-asterisk"></i></span></label>
                             <div class="form-group">
-                                <input type="text" formControlName="price" class="form-control" placeholder="0.00">
+                                <input type="text" formControlName="price" class="form-control">
                                 <span class="error-wrap" *ngIf="addTicketForm.get('price').touched || addTicketForm.get('price').dirty">
                                     <small *ngIf="addTicketForm.get('price').hasError('required')" class="error">Price is required.</small>
-                                    <small *ngIf="addTicketForm.get('price').hasError('pattern')" class="error">Price is should numeric only.</small>
+                                    <small *ngIf="addTicketForm.get('price').hasError('pattern')" class="error">Enter valid price.</small>
                                 </span>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                         <div class="col-6">
                             <label for="">Quantity<span><i class="fa fa-asterisk"></i></span></label>
                             <div class="form-group">
-                                <input type="text" formControlName="qty" class="form-control" placeholder="General Adminssion">
+                                <input (change)="fnChangeQTY($event)" type="text" formControlName="qty" class="form-control">
                                 <span class="error-wrap" *ngIf="addTicketForm.get('qty').touched || addTicketForm.get('qty').dirty">
                                     <small *ngIf="addTicketForm.get('qty').hasError('required')" class="error">Quantity is required.</small>
                                     <small *ngIf="addTicketForm.get('qty').hasError('pattern')" class="error">Quantity is should numeric only.</small>
@@ -52,7 +52,7 @@
                     <div *ngIf="advanceSetting == 'Y'">
                         <label for="">Description</label>
                         <div class="form-group">
-                            <input type="text" formControlName="description" class="form-control" placeholder="General Admission">
+                            <input type="text" formControlName="description" class="form-control">
                             <!-- <span class="error-wrap" *ngIf="addTicketForm.get('description').touched || addTicketForm.get('description').dirty">
                             <small *ngIf="addTicketForm.get('description').hasError('required')" class="error">Description is required.</small>
                         </span> -->
@@ -63,9 +63,9 @@
                             <div class="col-6">
                                 <label for="">Booking Fee</label>
                                 <div class="form-group">
-                                    <input type="text" formControlName="fee" class="form-control" placeholder="0.00">
+                                    <input type="text" formControlName="fee" class="form-control">
                                     <span class="error-wrap" *ngIf="addTicketForm.get('fee').touched || addTicketForm.get('fee').dirty">
-                                        <small *ngIf="addTicketForm.get('fee').hasError('pattern')" class="error">Booking Fee is should numeric only.</small>
+                                        <small *ngIf="addTicketForm.get('fee').hasError('pattern')" class="error">Enter valid booking fee.</small>
                                     </span>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                             <div class="col-6">
                                 <label for="">Min per order</label>
                                 <div class="form-group">
-                                    <input formControlName="min_order" type="text" class="form-control" placeholder="1">
+                                    <input (change)="fnChangeMinOr($event)" formControlName="min_order" type="text" class="form-control">
                                     <span class="error-wrap" *ngIf="addTicketForm.get('min_order').touched || addTicketForm.get('min_order').dirty">
                                     <small *ngIf="addTicketForm.get('min_order').hasError('pattern')" class="error">Min per order is should numeric only.</small>
                                 </span>
@@ -100,7 +100,7 @@
                             <div class="col-6">
                                 <label for="">Max per order</label>
                                 <div class="form-group">
-                                    <input formControlName="max_order" type="text" class="form-control" placeholder="20">
+                                    <input (change)="fnChangeMaxOr($event)" formControlName="max_order" type="text" class="form-control">
                                     <span class="error-wrap" *ngIf="addTicketForm.get('max_order').touched || addTicketForm.get('max_order').dirty">
                                     <small *ngIf="addTicketForm.get('max_order').hasError('pattern')" class="error">Max per order is should numeric only.</small>
                                 </span>
@@ -142,7 +142,7 @@
                             </span>
                         </div>
                         <div class="d-flex flex-wrap w-50">
-                            <mat-select formControlName="until_time" class="w-100 ml-2 form-control d-inline-block">
+                            <mat-select (selectionChange)="fnAvailTimeChange($event)" formControlName="until_time" class="w-100 ml-2 form-control d-inline-block">
                                 <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{fullDayTimeSlote}}</mat-option>
                             </mat-select>
                             <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('until_time').touched || addTicketForm.get('until_time').dirty">

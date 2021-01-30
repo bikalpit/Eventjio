@@ -30,6 +30,7 @@ import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared.module';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [EventSummaryComponent,
@@ -70,7 +71,8 @@ import { SharedModule } from '../../shared.module';
       NgxQRCodeModule,
       FormsModule,
       ReactiveFormsModule,
-      SharedModule
+      SharedModule,
+      NgxMatSelectSearchModule
     ],
 
     entryComponents: [

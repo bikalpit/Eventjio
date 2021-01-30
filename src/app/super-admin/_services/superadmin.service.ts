@@ -36,6 +36,10 @@ export class SuperadminService {
     ngOnInit() {
        
     }
+    public getIPAddress()  
+    {  
+      return this.http.get("https://api.ipify.org/?format=json");  
+    }  
   
    
     getAllCountry(){

@@ -1,15 +1,21 @@
-import {Component, OnInit, ViewChild,Inject,ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ViewChild,Inject,ChangeDetectorRef, ElementRef} from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
 import { ErrorService } from '../../_services/error.service';
 import { DatePipe} from '@angular/common';
+import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
+import { take, takeUntil } from 'rxjs/operators';
 
 interface Status {
   value: string;
   viewValue: string;
+}
+export interface ListTimeZoneListArry {
+  id: string;
+  name: string;
 }
 
 @Component({
@@ -41,6 +47,7 @@ export class EventsComponent implements OnInit {
  allDefaultImages:any;
  selecetdDefaultImage:any;
  eventStartTime:any;
+ saveDisabled:boolean=false;
   // timeIntervals:any = ['00:00','00:30','01:00','01:30','02:00','02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30'];
   allUpcomingEventListData:any =[];
   allPastEventListData:any =[];
@@ -88,13 +95,23 @@ export class EventsComponent implements OnInit {
   startdateToday:boolean=false;
   currentTime:any;
   getCurrancy:any;
+  ipAddress:any;
   // minEndTime:any;
+
+  
+  protected listTimeZoneListArry: ListTimeZoneListArry[];
+  public timeZoneFilterCtrl: FormControl = new FormControl();
+  public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
+  protected _onDestroy = new Subject<void>();
+
+
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
     private ErrorService: ErrorService,
     private datePipe: DatePipe,
     private router: Router,
+    private el: ElementRef,
     private SuperadminService: SuperadminService,
     private change:ChangeDetectorRef
     ) {
@@ -126,7 +143,7 @@ export class EventsComponent implements OnInit {
         online_link: [''],
         description: ['',Validators.required],
         currency: ['',Validators.required],
-        transaction_fee: [''],
+        transaction_fee: ['',Validators.pattern(this.onlynumericAmount)],
         timezone: ['',Validators.required],
         donation_title: [''],
         donation_amount: [''],
@@ -145,16 +162,34 @@ export class EventsComponent implements OnInit {
 
     }
 
+    ngAfterViewInit() {
+      this.setInitialValue();
+    }
+    
    
   ngOnInit(): void {
     this.getAllCountry();
     this.getAllTimeZone();
     this.getDefaultImages();
-    this.fnGetUpcomingEventList();
-    // this.fnGetPastEventList();
     this.getTimeSlote();
     this.getAllCurrancy();
+    this.SuperadminService.getIPAddress().subscribe((res:any)=>{  
+      this.ipAddress = res.ip
+      this.fnGetUpcomingEventList();
+      this.fnGetPastEventList();
+    });
     
+
+    
+  }
+
+  
+  private scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+      "form .ng-invalid"
+    );
+
+    firstInvalidControl.focus(); //without smooth behavior
   }
 
   createSalesTaxItem() {
@@ -217,10 +252,51 @@ export class EventsComponent implements OnInit {
   getAllTimeZone(){
     this.SuperadminService.getAllTimeZone().subscribe((response:any) => {
       if(response.data == true){
-        this.allTimeZone = response.response
+        // this.allTimeZone = response.response
+        this.listTimeZoneListArry = response.response
+        // load the initial bank list
+        this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+        this.timeZoneFilterCtrl.valueChanges
+        .pipe(takeUntil(this._onDestroy))
+        .subscribe(() => {
+        this.filterTimezones();
+      });
+
       }
     });
   }
+
+  
+    /**
+   * Sets the initial value after the filteredBanks are loaded initially
+   */
+  protected setInitialValue() {
+    this.listTimeZoneList
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        console.log('fail')
+      });
+  }
+
+  protected filterTimezones() {
+    if (!this.listTimeZoneListArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.timeZoneFilterCtrl.value;
+    if (!search) {
+      this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.listTimeZoneList.next(
+      this.listTimeZoneListArry.filter(listTimeZoneListArry => listTimeZoneListArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  
 
   // List Event fns
 
@@ -238,6 +314,8 @@ export class EventsComponent implements OnInit {
     this.isLoaderAdmin = true;
     let requestObject = {
       'boxoffice_id'  :this.boxOfficeCode,
+      // 'IP_address':this.ipAddress,
+      'IP_address':'123.201.143.228',
       'filter' : 'upcoming'
     }
     this.SuperadminService.fnGetAllEventListPaggination(this.upcommintEventApiUrl,requestObject).subscribe((response:any) => {
@@ -266,7 +344,7 @@ export class EventsComponent implements OnInit {
         this.addNewEvents = true;
       }else if(response.data == false){
         this.allUpcomingEventListData.length = 0;
-        this.ErrorService.errorMessage(response.response);
+        // this.ErrorService.errorMessage(response.response);
       }
     });
     this.isLoaderAdmin = false;
@@ -296,6 +374,8 @@ export class EventsComponent implements OnInit {
 
     let requestObject = {
       'boxoffice_id'  :this.boxOfficeCode,
+      'IP_address':'123.201.143.228',
+      // 'cleantowho':this.ipAddress,
       'filter' : 'past'
     }
 
@@ -328,7 +408,7 @@ export class EventsComponent implements OnInit {
 
       }else if(response.data == false){
         this.allPastEventListData.lenght = 0
-        this.ErrorService.errorMessage(response.response);
+        // this.ErrorService.errorMessage(response.response);
       }
     });
     this.isLoaderAdmin = false;
@@ -441,7 +521,7 @@ export class EventsComponent implements OnInit {
   }
 
   viewEventPage(eventCode){
-    this.eventURL = environment.bookingPageUrl+'/event/'+eventCode;
+    this.eventURL = environment.bookingPageUrl+'/event/'+eventCode+'?preview=true';
     window.open(this.eventURL,'_blank');
   }
 
@@ -449,7 +529,7 @@ export class EventsComponent implements OnInit {
     if(event.checked == true){
       this.donation = 'Y' ;
       this.addEventForm.controls["donation_title"].setValidators(Validators.required);
-      this.addEventForm.controls["donation_amount"].setValidators(Validators.required);
+      this.addEventForm.controls["donation_amount"].setValidators([Validators.required,Validators.pattern(this.onlynumericAmount)]);
       this.addEventForm.controls["donation_description"].setValidators(Validators.required);
       this.addEventForm.controls["donation_title"].updateValueAndValidity();
       this.addEventForm.controls["donation_amount"].updateValueAndValidity();
@@ -567,6 +647,7 @@ export class EventsComponent implements OnInit {
       this.addEventForm.get('description').markAsTouched();
       this.addEventForm.get('timezone').markAsTouched();
       this.addEventForm.get('book_btn_title').markAsTouched();
+      this.addEventForm.get('currency').markAsTouched();
       // this.addEventForm.get('ticket_available').markAsTouched();
       // this.addEventForm.get('ticket_unavailable').markAsTouched();
       this.addEventForm.get('donation_title').markAsTouched();
@@ -577,6 +658,8 @@ export class EventsComponent implements OnInit {
       this.addEventForm.get('vanue_name').markAsTouched();
       this.addEventForm.get('vanue_zip').markAsTouched();
       this.addEventForm.get('vanue_country').markAsTouched();
+      
+      this.scrollToFirstInvalidControl();
       return false;
      }
 
@@ -596,6 +679,8 @@ export class EventsComponent implements OnInit {
       'description':this.addEventForm.get('description').value,
       'platform':this.addEventForm.get('online_platform').value,
       'event_link':this.addEventForm.get('online_link').value,
+      'currency':this.addEventForm.get('currency').value,
+      'transaction_fee':this.addEventForm.get('transaction_fee').value,
       'event_status':'draft',
       'timezone':this.addEventForm.get('timezone').value,
       'make_donation':this.donation,
@@ -623,7 +708,6 @@ export class EventsComponent implements OnInit {
 
       this.createNewEvent(requestObject);
 
-      this.addEventForm.reset();
 
   }
 
@@ -632,8 +716,13 @@ export class EventsComponent implements OnInit {
     this.SuperadminService.createNewEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
+        this.saveDisabled = true;
+        setTimeout(() => {
+          this.saveDisabled = false
+        }, 4000);
         this.fnGetUpcomingEventList()
         this.fnGetPastEventList()
+        this.addEventForm.reset();
         this.addNewEvents = true;
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -651,22 +740,10 @@ export class EventsComponent implements OnInit {
     this.addEventForm.get('event_end_date').value == '' ||
     this.addEventForm.get('event_end_time').value == ''
     ){
-    if(this.olPlatForm == 'N' && (this.addEventForm.get('vanue_name').value == '' ||
-    this.addEventForm.get('vanue_zip').value == '' ||
-    this.addEventForm.get('vanue_country').value == '' ||
-    this.addEventForm.get('description').value == '')
-    ){
+  
       this.ErrorService.errorMessage('Please fill above details first');
       return false;
     }
-    if(this.olPlatForm == 'Y' && 
-    (this.addEventForm.get('online_platform').value == '' ||
-    this.addEventForm.get('online_link').value == '')
-    ){
-      this.ErrorService.errorMessage('Please fill above details first');
-      return false;
-    }
-  }
     const dialogRef = this.dialog.open(AddNewTicketType,{
       width: '1100px',
       data : {
@@ -762,6 +839,7 @@ onFileChange(event) {
 uploadImage() {
   this.profileImage = this.imageSrc
   this.dialogRef.close(this.profileImage);
+  this.imageSrc=undefined;
 }
 
 
@@ -800,7 +878,9 @@ export class AddNewTicketType {
   maxOrderVal:any;
   maxOrderCheck:boolean = false
   availUnavailDateSame:boolean=false;
+  onlynumericAmount = /^(\d*\.)?\d+$/
   onlynumeric = /^[0-9]+(?:\.[0-9]+)?$/
+  onlynumericQTY = /^[1-9]\d*$/
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
@@ -818,10 +898,10 @@ export class AddNewTicketType {
       this.maxUnavailDate = this.eventEndDate;
       this.addTicketForm = this._formBuilder.group({
         title: ['',[Validators.required]],
-        price: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
-        qty: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+        price: ['',[Validators.required,Validators.pattern(this.onlynumericAmount)]],
+        qty: ['',[Validators.required,Validators.pattern(this.onlynumericQTY)]],
         description: [''],
-        fee: ['',[Validators.pattern(this.onlynumeric)]],
+        fee: ['',[Validators.pattern(this.onlynumericAmount)]],
         status: [''],
         min_order: ['',[Validators.pattern(this.onlynumeric)]],
         max_order: ['',[Validators.pattern(this.onlynumeric)]],
@@ -845,6 +925,30 @@ export class AddNewTicketType {
 
   fnMinOrder(){
     
+  }
+
+  
+  fnChangeQTY(event){
+    this.addTicketForm.controls['min_order'].setValue(null);
+    this.addTicketForm.controls['max_order'].setValue(null);
+  }
+  
+  fnChangeMinOr(event){
+    if(this.addTicketForm.get('min_order').value > this.addTicketForm.get('qty').value){
+      this.ErrorService.errorMessage('Minimum order should not greater then quntity.');
+      this.addTicketForm.controls['min_order'].setValue('');
+    }
+  }
+  
+  fnChangeMaxOr(event){
+    if(this.addTicketForm.get('max_order').value > this.addTicketForm.get('qty').value){
+      this.ErrorService.errorMessage('Maximum order should not greater then quntity.');
+      this.addTicketForm.controls['max_order'].setValue('');
+    }else if(this.addTicketForm.get('max_order').value < this.addTicketForm.get('min_order').value){
+      this.ErrorService.errorMessage('Maximum order should not less then min order.');
+      this.addTicketForm.controls['max_order'].setValue('');
+    }
+
   }
   fnMaxOrder(){
     console.log(this.minOrderVal)
@@ -878,6 +982,11 @@ export class AddNewTicketType {
     this.addTicketForm.controls['until_time'].setValue('');
     this.addTicketForm.controls['after_date'].setValue(null);
     this.addTicketForm.controls['after_time'].setValue('');
+    
+  }
+  
+  fnAvailTimeChange(event){
+    this.addTicketForm.controls['after_time'].setValue(null);
     
   }
   fnUnavailDateChange(event){
@@ -1088,6 +1197,7 @@ export class AddNewTicketType {
       'after_interval':  this.addTicketForm.get('after_interval').value,
     }
     this.dialogRef.close(this.newTicketData);
+    this.addTicketForm.reset();
     
   }
 

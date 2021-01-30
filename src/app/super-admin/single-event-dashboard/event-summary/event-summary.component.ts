@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ElementRef } from '@angular/core';
  import { Chart } from 'chart.js';
 import { SingleEventServiceService } from '../_services/single-event-service.service';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
@@ -6,7 +6,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { SuperadminService } from '../../_services/superadmin.service';
 import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-event-summary',
@@ -29,6 +29,7 @@ export class EventSummaryComponent implements OnInit {
   setupOffline:boolean  = false;
   animal:any;
   currencycode = 'USD';
+  pageURL:any;
   is_show_referral_data = false;
   
   constructor(
@@ -36,11 +37,13 @@ export class EventSummaryComponent implements OnInit {
     public dialog: MatDialog,
     private ErrorService: ErrorService,
     private router: Router,
+    private el: ElementRef,
     private SuperadminService: SuperadminService,
     private SingleEventServiceService: SingleEventServiceService,
     private datePipe:DatePipe,
 
-  ) {}
+  ) {
+  }
   
   
 
@@ -52,9 +55,19 @@ export class EventSummaryComponent implements OnInit {
     this.fnGetEventViews(null);
 
   }
+  private scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+      "#referral_sales_summary"
+    );
+
+    firstInvalidControl.focus(); //without smooth behavior
+  }
+
+  redirectTOEventChart(){
+    this.scrollToFirstInvalidControl();
+  }
   
   fnChartView(data,arrayLable){
-    console.log(data)
     let chartData = {
       "items": [
           {
@@ -74,8 +87,6 @@ export class EventSummaryComponent implements OnInit {
         this.dataArray.push(chartData.items[key])
       }
     } 
-    console.log(this.dataArray)
-
 
     let chart  = new Chart(document.getElementById('areaChart1') as HTMLElement, {
       type: "line",
@@ -178,7 +189,6 @@ export class EventSummaryComponent implements OnInit {
 
           var data = [];
           var arrayLable = [];
-          console.log(response.response)
           response.response.forEach(element => {
             data.push(element.views);
             arrayLable.push(element.date);
@@ -203,9 +213,7 @@ export class EventSummaryComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
-        this.currencycode = this.eventDetail.event_setting.currency ? this.eventDetail.event_setting.currency  : 'USD'
-        // console.log(this.currencycode);
-        // console.log(this.eventDetail);
+        this.currencycode = this.eventDetail.event_setting.currency ? this.eventDetail.event_setting.currency  : 'USD';
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -307,7 +315,7 @@ export class EventSummaryComponent implements OnInit {
   
   PreviewPage(){
    
-    return window.open(this.eventURL,'_blank');
+    return window.open(this.eventURL+'?preview=true','_blank');
   }
 
   // createTrackingLinkandView() {

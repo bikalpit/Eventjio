@@ -299,7 +299,7 @@ export class CheckoutFormComponent implements OnInit {
         this.saveDisabled = true;
         setTimeout(() => {
           this.saveDisabled = false
-        }, 5000);
+        }, 4000);
 
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);

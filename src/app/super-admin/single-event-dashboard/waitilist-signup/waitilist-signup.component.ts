@@ -27,6 +27,7 @@ export class WaitilistSignupComponent implements OnInit {
   search = {
     keyword: ""
   };
+  saveDisabled:boolean=false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -166,8 +167,11 @@ export class WaitilistSignupComponent implements OnInit {
       if(response.data == true){
       this.ErrorService.successMessage(response.response);
       this.fngetSavedwaitlist();
-      
-  } else if(response.data == false){
+      this.saveDisabled = true;
+        setTimeout(() => {
+          this.saveDisabled = false
+        }, 4000);
+    } else if(response.data == false){
     this.ErrorService.errorMessage(response.response);
     }
 });
@@ -188,6 +192,8 @@ this.isLoaderAdmin=false;
           this.waitListForm.controls['btn_text'].setValue(this.getSavedlist.btn_text)
           this.waitListForm.controls['event_page_text'].setValue(this.getSavedlist.event_page_text)
           this.waitListForm.controls['confirmation_msg'].setValue(this.getSavedlist.confirmation_msg)
+          this.checkActiveWaitlist = this.getSavedlist.active_watlist;
+          this.showTicket = this.getSavedlist.show_when_ticket_available;
           if(this.getSavedlist.active_watlist == 'Y'){
             this.activeWaitlist = true;
           }else{

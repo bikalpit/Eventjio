@@ -33,6 +33,7 @@ import { PaymentSystemsComponent } from './payment-systems/payment-systems.compo
 import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-form/checkout-form.component';
 import { ReferralCodeComponent, addReferralCodeDialog } from './referral-code/referral-code.component';
 import { AppUsersComponent, AddAppUser, appUserDetail } from './app-users/app-users.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { AppUsersComponent, AddAppUser, appUserDetail } from './app-users/app-us
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    NgxMatSelectSearchModule
     
   ],
   entryComponents: [

@@ -180,6 +180,9 @@ button:focus {
         .tb-data {
             padding: 12px 0px;
             color: #181818;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             p {
                 color: #181818;
             }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject,ChangeDetectorRef, ElementRef } from '@angular/core';
 import { SingleEventServiceService } from '../_services/single-event-service.service';
 import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
@@ -8,6 +8,14 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { element } from 'protractor';
 import { SingleEventDashboard } from '../single-event-dashboard'
 import { environment } from '../../../../environments/environment';
+import { take, takeUntil } from 'rxjs/operators';
+import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
+
+export interface ListTimeZoneListArry {
+  id: string;
+  name: string;
+}
+
 
 @Component({
   selector: 'app-event-and-ticket-types',
@@ -58,11 +66,19 @@ export class EventAndTicketTypesComponent implements OnInit {
   deletedSalesTaxIndex:any=[];
   startdateToday:boolean=false;
   currentTime:any;
+  onlynumericAmount = /^(\d*\.)?\d+$/
   selectedStartDate:any =new Date();
   todayDate:any =new Date();
+  protected listTimeZoneListArry: ListTimeZoneListArry[];
+  public timeZoneFilterCtrl: FormControl = new FormControl();
+  public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
+  protected _onDestroy = new Subject<void>();
+
+
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,
+    private el: ElementRef,
     private datePipe: DatePipe,
     private SingleEventDashboard: SingleEventDashboard,
     private router: Router,
@@ -93,8 +109,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         description: ['',Validators.required],
         timezone: ['',Validators.required],
         donation_title: [''],
-        currency: ['',Validators.required],
-        transaction_fee: [''],
+        currency: ['',[Validators.required]],
+        transaction_fee: ['',Validators.pattern(this.onlynumericAmount)],
         donation_amount: [''],
         donation_description: [''],
         book_btn_title: ['',Validators.required],
@@ -118,6 +134,16 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.getAllCurrancy();
 
   }
+
+  
+  private scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+      "form .ng-invalid"
+    );
+
+    firstInvalidControl.focus(); //without smooth behavior
+  }
+
 
   fnCancelEvent(){
     this.getSingleEvent();
@@ -187,10 +213,48 @@ export class EventAndTicketTypesComponent implements OnInit {
   getAllTimeZone(){
     this.SingleEventServiceService.getAllTimeZone().subscribe((response:any) => {
       if(response.data == true){
-        this.allTimeZone = response.response
+        this.listTimeZoneListArry = response.response
+        // load the initial bank list
+        this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+        this.timeZoneFilterCtrl.valueChanges
+        .pipe(takeUntil(this._onDestroy))
+        .subscribe(() => {
+        this.filterTimezones();
+      });
       }
     });
   }
+  
+    /**
+   * Sets the initial value after the filteredBanks are loaded initially
+   */
+  protected setInitialValue() {
+    this.listTimeZoneList
+      .pipe(take(1), takeUntil(this._onDestroy))
+      .subscribe(() => {
+        console.log('fail')
+      });
+  }
+
+  protected filterTimezones() {
+    if (!this.listTimeZoneListArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.timeZoneFilterCtrl.value;
+    if (!search) {
+      this.listTimeZoneList.next(this.listTimeZoneListArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.listTimeZoneList.next(
+      this.listTimeZoneListArry.filter(listTimeZoneListArry => listTimeZoneListArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  
 
   fnChangeThumbZoom(event){
     this.thumbZoomLavel = event.value
@@ -226,9 +290,18 @@ export class EventAndTicketTypesComponent implements OnInit {
 
         var start_time = this.singleEventDetail.start_time.split(":")
         var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
+        console.log(start_time)
+        console.log(start_time_key)
 
         var end_time = this.singleEventDetail.end_time.split(":")
+        console.log(end_time)
         var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+        console.log(end_time_key)
+        if(this.singleEventDetail.start_date == this.singleEventDetail.end_date){
+          this.startEndSameDate = true;
+        }else{
+          this.startEndSameDate = false;
+        }
         
 
         this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom;
@@ -238,8 +311,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"yyyy-MM-dd")
         this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
         this.currentTime = this.transformTime(this.currentTime)
-        console.log(this.currentTime)
-        console.log(this.singleEventDetail.start_time)
+        // console.log(this.currentTime)
+        // console.log(this.singleEventDetail.start_time)
        
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
@@ -270,7 +343,6 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.donation= this.singleEventSetting.make_donation;
         this.shareButtonStatus= this.singleEventSetting.hide_share_button;
         this.olPlatForm = this.singleEventDetail.online_event;
-        
         
 
         if(this.redirectURL == 'Y'){
@@ -390,7 +462,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     if(checked == true){
       this.donation = 'Y' ;
       this.editEventForm.controls["donation_title"].setValidators(Validators.required);
-      this.editEventForm.controls["donation_amount"].setValidators(Validators.required);
+      this.editEventForm.controls["donation_amount"].setValidators([Validators.required,Validators.pattern(this.onlynumericAmount)]);
       this.editEventForm.controls["donation_description"].setValidators(Validators.required);
       this.editEventForm.controls["donation_title"].updateValueAndValidity();
       this.editEventForm.controls["donation_amount"].updateValueAndValidity();
@@ -554,6 +626,8 @@ export class EventAndTicketTypesComponent implements OnInit {
       this.editEventForm.get('vanue_name').markAsTouched();
       this.editEventForm.get('vanue_zip').markAsTouched();
       this.editEventForm.get('vanue_country').markAsTouched();
+      
+      this.scrollToFirstInvalidControl();
       return false;
     }
     // if(this.customSalesTaxForm.invalid){
@@ -649,11 +723,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.editEventForm.get('event_start_date').value == '' ||
     this.editEventForm.get('event_start_time').value == '' ||
     this.editEventForm.get('event_end_date').value == '' ||
-    this.editEventForm.get('event_end_time').value == '' ||
-    this.editEventForm.get('vanue_name').value == '' ||
-    this.editEventForm.get('vanue_zip').value == '' ||
-    this.editEventForm.get('vanue_country').value == '' ||
-    this.editEventForm.get('description').value == ''
+    this.editEventForm.get('event_end_time').value == ''
     ){
       this.ErrorService.errorMessage('Please fill above details first');
       return false;
@@ -804,6 +874,7 @@ export class AddNewTicketType {
   eventStartTime:any;
   eventEndDate:any;
   eventEndTime:any;
+  onlynumericAmount = /^(\d*\.)?\d+$/
   availUnavailDateSame:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
@@ -837,10 +908,10 @@ export class AddNewTicketType {
         this.ticketUnavalStatus = this.selectedTicketDetail.ticket_unavilable
         this.addTicketForm = this._formBuilder.group({
           title: [this.selectedTicketDetail.ticket_name,[Validators.required]],
-          price: [this.selectedTicketDetail.prize,[Validators.required]],
-          qty: [this.selectedTicketDetail.qty,[Validators.required]],
+          price: [this.selectedTicketDetail.prize,[Validators.required,Validators.pattern(this.onlynumericAmount)]],
+          qty: [this.selectedTicketDetail.qty,[Validators.required,Validators.pattern(this.onlynumeric)]],
           description: [this.selectedTicketDetail.description,[]],
-          fee: [this.selectedTicketDetail.booking_fee,[Validators.pattern(this.onlynumeric)]],
+          fee: [this.selectedTicketDetail.booking_fee,[Validators.pattern(this.onlynumericAmount)]],
           status: [this.selectedTicketDetail.status],
           min_order: [this.selectedTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
           max_order: [this.selectedTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
@@ -857,10 +928,10 @@ export class AddNewTicketType {
         this.editTicket = false;
         this.addTicketForm = this._formBuilder.group({
           title: ['',[Validators.required]],
-          price: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
+          price: ['',[Validators.required,Validators.pattern(this.onlynumericAmount)]],
           qty: ['',[Validators.required,Validators.pattern(this.onlynumeric)]],
           description: [''],
-          fee: ['',[Validators.pattern(this.onlynumeric)]],
+          fee: ['',[Validators.pattern(this.onlynumericAmount)]],
           status: [''],
           min_order: ['',[Validators.pattern(this.onlynumeric)]],
           max_order: ['',[Validators.pattern(this.onlynumeric)]],
@@ -885,11 +956,38 @@ export class AddNewTicketType {
   ngOnInit() {
     this.getAllCouponCodes();
   }
+  
+  fnChangeQTY(event){
+    this.addTicketForm.controls['min_order'].setValue(null);
+    this.addTicketForm.controls['max_order'].setValue(null);
+  }
+  
+  fnChangeMinOr(event){
+    if(this.addTicketForm.get('min_order').value > this.addTicketForm.get('qty').value){
+      this.ErrorService.errorMessage('Minimum order should not greater then quntity.');
+      this.addTicketForm.controls['min_order'].setValue('');
+    }
+  }
+  
+  fnChangeMaxOr(event){
+    if(this.addTicketForm.get('max_order').value > this.addTicketForm.get('qty').value){
+      this.ErrorService.errorMessage('Maximum order should not greater then quntity.');
+      this.addTicketForm.controls['max_order'].setValue('');
+    }else if(this.addTicketForm.get('max_order').value < this.addTicketForm.get('min_order').value){
+      this.ErrorService.errorMessage('Maximum order should not less then min order.');
+      this.addTicketForm.controls['max_order'].setValue('');
+    }
+
+  }
 
   fnAvailDateChange(event){
     this.minUnavailDate = event.value
     this.addTicketForm.controls['until_time'].setValue(null);
     this.addTicketForm.controls['after_date'].setValue(null);
+    this.addTicketForm.controls['after_time'].setValue(null);
+    
+  }
+  fnAvailTimeChange(event){
     this.addTicketForm.controls['after_time'].setValue(null);
     
   }
@@ -993,6 +1091,7 @@ export class AddNewTicketType {
       this.addTicketForm.controls["until_date"].updateValueAndValidity();
       this.addTicketForm.controls["until_time"].updateValueAndValidity();
       this.addTicketForm.controls["until_interval"].updateValueAndValidity();
+
     }else if(event.value == 'SIB'){
       this.addTicketForm.controls["until_interval"].setValidators(Validators.required);
       this.addTicketForm.controls["until_date"].setValidators(null);
@@ -1062,6 +1161,8 @@ export class AddNewTicketType {
       this.addTicketForm.get('after_time').markAsTouched();
       this.addTicketForm.get('until_interval').markAsTouched();
       this.addTicketForm.get('after_interval').markAsTouched();
+      this.addTicketForm.get('ticket_available').markAsTouched();
+      this.addTicketForm.get('ticket_unavailable').markAsTouched();
       return false;
     }
 

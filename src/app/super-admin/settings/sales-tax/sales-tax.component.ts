@@ -254,6 +254,7 @@ export class AddSalesTax {
 
 
   onNoClick(): void {
+    this.addTaxForm.reset();
     this.dialogRef.close();
   }
   ngOnInit() {

@@ -26,7 +26,7 @@ export class SingleEventDashboard implements OnInit {
   eventSummery:any = [];
   currentUser:any;
   subPermission:any=[];
-
+  isPastEvent:boolean=false;
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -90,6 +90,7 @@ export class SingleEventDashboard implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
+        this.isPastEvent = response.response.past;
         if(this.eventDetail.images.length === 0){
           this.eventDetail.images = undefined
         }else{
@@ -225,7 +226,7 @@ export class SingleEventDashboard implements OnInit {
   }
 
   previewEvent(){
-     window.open(this.eventURL,'_blank');
+     window.open(this.eventURL+'?preview=true','_blank');
      return false;
   }
 

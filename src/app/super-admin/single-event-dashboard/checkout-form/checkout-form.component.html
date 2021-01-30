@@ -218,7 +218,13 @@
     <div class="footer-action-btn">
         <div class="can-save">
             <button mat-raised-button class="cancel-btn" (click)="fnCancelSave()">Cancel</button>
-            <button mat-raised-button [disabled]="saveDisabled" class="save-btn" (click)="fnSaveCheckoutForm()">Save</button>
+            <button mat-raised-button [disabled]="saveDisabled" class="save-btn" (click)="fnSaveCheckoutForm()">
+                <span *ngIf="!saveDisabled">Save</span>
+                <div *ngIf="saveDisabled" class="button-spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            </button>
         </div>
     </div>
 </div>

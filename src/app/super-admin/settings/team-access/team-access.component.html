@@ -30,7 +30,8 @@
                                             <div class="drageble-box" fxLayout="row">
                                                 <div class="tb-data" fxFlex="5">
                                                     <div class="user-details">
-                                                        <img src="../assets/images/settings/profile.png" class="user-profile" alt="">
+                                                        <img *ngIf="val.image" src="{{val.image}}" class="user-profile" alt="">
+                                                        <img *ngIf="!val.image" src="../assets/images/settings/profile.png" class="user-profile" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="tb-data" fxFlex="20">

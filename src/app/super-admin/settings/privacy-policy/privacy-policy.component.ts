@@ -155,6 +155,7 @@ export class PrivacyPolicyGenerateDialog implements OnInit {
   }
 
   onNoClick(){
+    this.generatePrivacyPolicyForm.reset();
     this.dialogRef.close();
   }
 
