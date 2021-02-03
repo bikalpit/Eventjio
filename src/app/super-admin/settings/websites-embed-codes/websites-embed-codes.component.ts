@@ -87,6 +87,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
       selBox.select();
       document.execCommand('copy');
       document.body.removeChild(selBox);
+      this.ErrorService.successMessage('Copied.');
     }
 
 

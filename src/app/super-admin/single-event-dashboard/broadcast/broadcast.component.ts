@@ -237,6 +237,7 @@ sendBroadcast(broadcastData, uniqueCode) {
     this.animal = result;
     if(result == 'sent'){
       this.createBroadcast = true;
+      this.getAllBroadcast();
     }
    });
 }
