@@ -31,6 +31,8 @@
                                 <mat-option value="individual">Individual</mat-option>
                                 <mat-option value="Parent Teacher Association (PTA)">Parent Teacher Association (PTA)</mat-option>
                                 <mat-option value="Venue">Venue</mat-option>
+                                <mat-option value="Promoter">Promoter</mat-option>
+                                <mat-option value="Other">Other</mat-option>
                             </mat-select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_type').dirty || createBoxoffice.get('boxoffice_type').touched">
                             <small *ngIf="createBoxoffice.get('boxoffice_type').hasError('required')" class="error">Box office type is required.</small></span>
@@ -75,8 +77,11 @@
                                 <mat-option value="Food and Drink">Food and Drink</mat-option>
                                 <mat-option value="Health and wellbeing">Health and wellbeing</mat-option>
                                 <mat-option value="History/Heritage">History/Heritage</mat-option>
+                                <mat-option value="Music">Music</mat-option>
                                 <mat-option value="Private(Friend,family,group)">Private(Friend,family,group)</mat-option>
                                 <mat-option value="Religious/Spiritual">Religious/Spiritual</mat-option>
+                                <mat-option value="Sports and fitness">Sports and fitness</mat-option>
+                                <mat-option value="Theatre">Theatre</mat-option>
                                 <mat-option value="Tour/Travel">Tour/Travel</mat-option>
                                 <mat-option value="Other">Other</mat-option>
                             </mat-select>
@@ -97,9 +102,13 @@
                                 <mat-option value="Gallery">Gallery</mat-option>
                                 <mat-option value="Gig/concert">Gig/Concert</mat-option>
                                 <mat-option value="Meeting">Meeting</mat-option>
+                                <mat-option value="Networking">Networking</mat-option>
+                                <mat-option value="Nightclub">Nightclub</mat-option>
                                 <mat-option value="Private Party">Private Party</mat-option>
+                                <mat-option value="Race / Competition">Race / Competition</mat-option>
                                 <mat-option value="Show/Performance/Viewing">Show/Performance/Viewing</mat-option>
                                 <mat-option value="Tour">Tour</mat-option>
+                                <mat-option value="Trade show">Trade show</mat-option>
                                 <mat-option value="Other">Other</mat-option>
                             </mat-select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_genre_type').dirty || createBoxoffice.get('boxoffice_genre_type').touched">

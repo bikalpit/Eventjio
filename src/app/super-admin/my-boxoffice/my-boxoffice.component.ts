@@ -84,7 +84,7 @@ export class MyBoxofficeComponent implements OnInit {
         if(response.data == true){
           this.allBoxoffice = response.response
         }else if(response.data == false){
-          this.ErrorService.errorMessage(response.response)
+          // this.ErrorService.errorMessage(response.response)
         }
       });
       this.isLoaderAdmin = false;

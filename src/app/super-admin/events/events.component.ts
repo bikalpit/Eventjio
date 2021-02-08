@@ -97,7 +97,7 @@ export class EventsComponent implements OnInit {
   getCurrancy:any;
   ipAddress:any;
   // minEndTime:any;
-
+  recurringEvent:any='N';
   
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
@@ -207,6 +207,31 @@ export class EventsComponent implements OnInit {
     });
   }
 
+  fnRecurringEvent(event){
+    if(event.checked == true){
+      this.recurringEvent = 'Y';
+      this.addEventForm.controls["event_start_date"].setValidators(null);
+      this.addEventForm.controls["event_start_time"].setValidators(null);
+      this.addEventForm.controls["event_end_date"].setValidators(null);
+      this.addEventForm.controls["event_end_time"].setValidators(null);
+      this.addEventForm.controls["event_start_date"].updateValueAndValidity();
+      this.addEventForm.controls["event_start_time"].updateValueAndValidity();
+      this.addEventForm.controls["event_end_date"].updateValueAndValidity();
+      this.addEventForm.controls["event_end_time"].updateValueAndValidity();
+    }else{
+      this.recurringEvent = 'N';
+      this.addEventForm.controls["vanue_name"].setValidators(Validators.required);
+      this.addEventForm.controls["event_start_date"].setValidators(Validators.required);
+      this.addEventForm.controls["event_start_time"].setValidators(Validators.required);
+      this.addEventForm.controls["event_end_date"].setValidators(Validators.required);
+      this.addEventForm.controls["event_end_time"].setValidators(Validators.required);
+      this.addEventForm.controls["event_start_date"].updateValueAndValidity();
+      this.addEventForm.controls["event_start_time"].updateValueAndValidity();
+      this.addEventForm.controls["event_end_date"].updateValueAndValidity();
+      this.addEventForm.controls["event_end_time"].updateValueAndValidity();
+    }
+    this.addEventForm.updateValueAndValidity();
+  }
   
   fnSalesTaxAdd(){
     
@@ -316,7 +341,8 @@ export class EventsComponent implements OnInit {
       'boxoffice_id'  :this.boxOfficeCode,
       // 'IP_address':this.ipAddress,
       'IP_address':'123.201.143.228',
-      'filter' : 'upcoming'
+      'filter' : 'all'
+      // 'filter' : 'upcoming'
     }
     this.SuperadminService.fnGetAllEventListPaggination(this.upcommintEventApiUrl,requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -331,9 +357,22 @@ export class EventsComponent implements OnInit {
         this.next_page_url_upCommintEvent = response.response.next_page_url;
         this.prev_page_url_upCommintEvent = response.response.prev_page_url;
         this.path_upCommintEvent = response.response.path;
-
+        let count = 0;
         this.allUpcomingEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
+          count = count+1
+         
+          console.log('-------------------------------------')
+          console.log(count+'-------------------------------------'+element.soldout.length)
+          if(element.event_occurrence_type == 'Y' && element.soldout.length == 0){
+            element.soldout = 'Occurrence not created'
+          }
+          if(element.event_occurrence_type == 'Y' && element.final_revenue.length == 0){
+            element.final_revenue = 'Occurrence not created'
+          }
+          if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
+            element.remaining = 'Occurrence not created'
+          }
           if(element.event_tickets.length === 0){
             element.soldout = undefined
             element.final_revenue = undefined
@@ -344,7 +383,6 @@ export class EventsComponent implements OnInit {
         this.addNewEvents = true;
       }else if(response.data == false){
         this.allUpcomingEventListData.length = 0;
-        // this.ErrorService.errorMessage(response.response);
       }
     });
     this.isLoaderAdmin = false;
@@ -408,7 +446,6 @@ export class EventsComponent implements OnInit {
 
       }else if(response.data == false){
         this.allPastEventListData.lenght = 0
-        // this.ErrorService.errorMessage(response.response);
       }
     });
     this.isLoaderAdmin = false;
@@ -474,18 +511,13 @@ export class EventsComponent implements OnInit {
   }
   
   fnChangeEventEndDate(){
-    // let startDate = this.addEventForm.get('event_start_date').value;
     let startDate = this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd");
-    // let endDate = this.addEventForm.get('event_end_date').value;
     let endDate = this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd");
     if(startDate == endDate){
       this.startEndSameDate = true;
     }else{
       this.startEndSameDate = false;
     }
-    // this.minEventEndDate = this.addEventForm.get('event_start_date').value;
-    // this.addEventForm.get('event_end_date').setValue('');
-    // this.addEventForm.get('event_end_time').setValue('');
   }
 
    fnChangeStartTime(i){
@@ -648,8 +680,6 @@ export class EventsComponent implements OnInit {
       this.addEventForm.get('timezone').markAsTouched();
       this.addEventForm.get('book_btn_title').markAsTouched();
       this.addEventForm.get('currency').markAsTouched();
-      // this.addEventForm.get('ticket_available').markAsTouched();
-      // this.addEventForm.get('ticket_unavailable').markAsTouched();
       this.addEventForm.get('donation_title').markAsTouched();
       this.addEventForm.get('donation_amount').markAsTouched();
       this.addEventForm.get('donation_description').markAsTouched();
@@ -664,50 +694,85 @@ export class EventsComponent implements OnInit {
      }
 
 
+    if(this.recurringEvent == 'N'){
+      let requestObject = {
+        'boxoffice_id':this.boxOfficeCode,
+        'event_title':this.addEventForm.get('event_name').value,
+        'start_date':this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
+        'end_date': this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
+        'start_time':this.fullDayTimeSlote[this.addEventForm.get('event_start_time').value],
+        'end_time':this.addEventForm.get('event_end_time').value,
+        'venue_name':this.addEventForm.get('vanue_name').value,
+        'postal_code':this.addEventForm.get('vanue_zip').value,
+        'country':this.addEventForm.get('vanue_country').value,
+        'online_event':this.olPlatForm,
+        'description':this.addEventForm.get('description').value,
+        'platform':this.addEventForm.get('online_platform').value,
+        'event_link':this.addEventForm.get('online_link').value,
+        'currency':this.addEventForm.get('currency').value,
+        'transaction_fee':this.addEventForm.get('transaction_fee').value,
+        'event_status':'draft',
+        'timezone':this.addEventForm.get('timezone').value,
+        'make_donation':this.donation,
+        'event_button_title':this.addEventForm.get('book_btn_title').value,
+        'donation_title':this.addEventForm.get('donation_title').value,
+        'donation_amt':this.addEventForm.get('donation_amount').value,
+        'donation_description':this.addEventForm.get('donation_description').value,
+        'redirect_confirm_page':this.redirectURL,
+        'redirect_url':this.addEventForm.get('redirect_url').value,
+        'hide_office_listing':this.hideEventSearch,
+        'customer_access_code':this.accessCode,
+        'access_code':this.addEventForm.get('access_code').value,
+        'hide_share_button':this.shareButtonStatus,
+        'custom_sales_tax':this.customSalesTax,
+        'sales_tax':this.salesTax,
+        'tickets':this.eventTicketList,
+        'event_occurrence_type':this.recurringEvent,
+        'image' : this.newEventImageUrl,
+        'default_img' : this.selecetdDefaultImage,
+        };
 
-     let requestObject = {
-      'boxoffice_id':this.boxOfficeCode,
-      'event_title':this.addEventForm.get('event_name').value,
-      'start_date':this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
-      'end_date': this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
-      'start_time':this.fullDayTimeSlote[this.addEventForm.get('event_start_time').value],
-      'end_time':this.addEventForm.get('event_end_time').value,
-      'venue_name':this.addEventForm.get('vanue_name').value,
-      'postal_code':this.addEventForm.get('vanue_zip').value,
-      'country':this.addEventForm.get('vanue_country').value,
-      'online_event':this.olPlatForm,
-      'description':this.addEventForm.get('description').value,
-      'platform':this.addEventForm.get('online_platform').value,
-      'event_link':this.addEventForm.get('online_link').value,
-      'currency':this.addEventForm.get('currency').value,
-      'transaction_fee':this.addEventForm.get('transaction_fee').value,
-      'event_status':'draft',
-      'timezone':this.addEventForm.get('timezone').value,
-      'make_donation':this.donation,
-      'event_button_title':this.addEventForm.get('book_btn_title').value,
-      'donation_title':this.addEventForm.get('donation_title').value,
-      'donation_amt':this.addEventForm.get('donation_amount').value,
-      'donation_description':this.addEventForm.get('donation_description').value,
-      // 'ticket_avilable':this.addEventForm.get('ticket_available').value,
-      // 'ticket_unavilable':this.addEventForm.get('ticket_unavailable').value,
-      'redirect_confirm_page':this.redirectURL,
-      'redirect_url':this.addEventForm.get('redirect_url').value,
-      'hide_office_listing':this.hideEventSearch,
-      'customer_access_code':this.accessCode,
-      'access_code':this.addEventForm.get('access_code').value,
-      'hide_share_button':this.shareButtonStatus,
-      'custom_sales_tax':this.customSalesTax,
-      'sales_tax':this.salesTax,
-      // 'ticket_ids':this.assignedTicketId,
-      'tickets':this.eventTicketList,
-      'image' : this.newEventImageUrl,
-      'default_img' : this.selecetdDefaultImage,
-      };
+      
 
+        this.createNewEvent(requestObject);
+
+    }else{
+      let requestObject = {
+        'boxoffice_id':this.boxOfficeCode,
+        'event_title':this.addEventForm.get('event_name').value,
+        'venue_name':this.addEventForm.get('vanue_name').value,
+        'postal_code':this.addEventForm.get('vanue_zip').value,
+        'country':this.addEventForm.get('vanue_country').value,
+        'online_event':this.olPlatForm,
+        'description':this.addEventForm.get('description').value,
+        'platform':this.addEventForm.get('online_platform').value,
+        'event_link':this.addEventForm.get('online_link').value,
+        'currency':this.addEventForm.get('currency').value,
+        'transaction_fee':this.addEventForm.get('transaction_fee').value,
+        'event_status':'draft',
+        'timezone':this.addEventForm.get('timezone').value,
+        'make_donation':this.donation,
+        'event_button_title':this.addEventForm.get('book_btn_title').value,
+        'donation_title':this.addEventForm.get('donation_title').value,
+        'donation_amt':this.addEventForm.get('donation_amount').value,
+        'donation_description':this.addEventForm.get('donation_description').value,
+        'redirect_confirm_page':this.redirectURL,
+        'redirect_url':this.addEventForm.get('redirect_url').value,
+        'hide_office_listing':this.hideEventSearch,
+        'customer_access_code':this.accessCode,
+        'access_code':this.addEventForm.get('access_code').value,
+        'hide_share_button':this.shareButtonStatus,
+        'custom_sales_tax':this.customSalesTax,
+        'sales_tax':this.salesTax,
+        'tickets':this.eventTicketList,
+        'event_occurrence_type':this.recurringEvent,
+        'image' : this.newEventImageUrl,
+        'default_img' : this.selecetdDefaultImage,
+        };
+        this.createNewEvent(requestObject);
+
+    }
      
-
-      this.createNewEvent(requestObject);
-
 
   }
 
@@ -733,35 +798,56 @@ export class EventsComponent implements OnInit {
   }
   
   openAddNewTicketTypeDialog() {
-    if(
-    this.addEventForm.get('event_name').value == '' ||
-    this.addEventForm.get('event_start_date').value == '' ||
-    this.addEventForm.get('event_start_time').value == '' ||
-    this.addEventForm.get('event_end_date').value == '' ||
-    this.addEventForm.get('event_end_time').value == ''
-    ){
+    if(this.recurringEvent == 'N'){
+      if(
+        this.addEventForm.get('event_name').value == '' ||
+        this.addEventForm.get('event_start_date').value == '' ||
+        this.addEventForm.get('event_start_time').value == '' ||
+        this.addEventForm.get('event_end_date').value == '' ||
+        this.addEventForm.get('event_end_time').value == ''
+        ){
+      
+          this.ErrorService.errorMessage('Please fill above details first');
+          return false;
+        }
+        const dialogRef = this.dialog.open(AddNewTicketType,{
+          width: '1100px',
+          data : {
+            boxOfficeCode : this.boxOfficeCode,
+            fullDayTimeSlote : this.fullDayTimeSlote,
+            startDate : this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
+            endDate : this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
+            startTime : this.addEventForm.get('event_start_time').value,
+            endTime : this.addEventForm.get('event_end_time').value,
+            recurringEvent:this.recurringEvent
+          }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+            this.eventTicketList.push(result)
+            this.eventTicketAlertMSG = false;
+          }
+        });
+    }else{
+      const dialogRef = this.dialog.open(AddNewTicketType,{
+        width: '1100px',
+        data : {
+          boxOfficeCode : this.boxOfficeCode,
+          fullDayTimeSlote : this.fullDayTimeSlote,
+          recurringEvent:this.recurringEvent
+        }
+      });
   
-      this.ErrorService.errorMessage('Please fill above details first');
-      return false;
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.eventTicketList.push(result)
+          this.eventTicketAlertMSG = false;
+        }
+      });
     }
-    const dialogRef = this.dialog.open(AddNewTicketType,{
-      width: '1100px',
-      data : {
-        boxOfficeCode : this.boxOfficeCode,
-        fullDayTimeSlote : this.fullDayTimeSlote,
-        startDate : this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
-        endDate : this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
-        startTime : this.addEventForm.get('event_start_time').value,
-        endTime : this.addEventForm.get('event_end_time').value,
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.eventTicketList.push(result)
-        this.eventTicketAlertMSG = false;
-      }
-    });
+   
+    
   }
 
   // openAddNewTicketGroupDialog() {
@@ -866,6 +952,9 @@ export class AddNewTicketType {
   soldOut:any = 'N';
   showDes:any = 'N';
   advanceSetting:any = 'N';
+  recurringEvent:any = 'N';
+  recurringUntil:any = 'N';
+  recurringAfter:any = 'N';
   fullDayTimeSlote:any;
   newTicketData:any;
   ticketAvalStatus:any;
@@ -888,32 +977,58 @@ export class AddNewTicketType {
     private datePipe: DatePipe,
     private SuperadminService: SuperadminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.boxOfficeCode = this.data.boxOfficeCode;
-      this.fullDayTimeSlote = this.data.fullDayTimeSlote;
-      this.eventStartDate = this.data.startDate;
-      this.eventStartTime = this.data.startTime;
-      this.eventEndDate = this.data.endDate;
-      this.eventEndTime = this.data.endTime;
-      this.maxAvailDate = this.eventStartDate;
-      this.maxUnavailDate = this.eventEndDate;
-      this.addTicketForm = this._formBuilder.group({
-        title: ['',[Validators.required]],
-        price: ['',[Validators.required,Validators.pattern(this.onlynumericAmount)]],
-        qty: ['',[Validators.required,Validators.pattern(this.onlynumericQTY)]],
-        description: [''],
-        fee: ['',[Validators.pattern(this.onlynumericAmount)]],
-        status: [''],
-        min_order: ['',[Validators.pattern(this.onlynumeric)]],
-        max_order: ['',[Validators.pattern(this.onlynumeric)]],
-        ticket_available: ['',[Validators.required]],
-        ticket_unavailable: ['',[Validators.required]],
-        until_date: [null],
-        until_time: [null],
-        until_interval: [null],
-        after_date: [null],
-        after_time: [null],
-        after_interval: ['']
-      });
+      if(this.data.recurringEvent == 'N'){
+        this.boxOfficeCode = this.data.boxOfficeCode;
+        this.fullDayTimeSlote = this.data.fullDayTimeSlote;
+        this.eventStartDate = this.data.startDate;
+        this.eventStartTime = this.data.startTime;
+        this.eventEndDate = this.data.endDate;
+        this.eventEndTime = this.data.endTime;
+        this.maxAvailDate = this.eventStartDate;
+        this.maxUnavailDate = this.eventEndDate;
+      }else{
+
+        this.boxOfficeCode = this.data.boxOfficeCode;
+        this.fullDayTimeSlote = this.data.fullDayTimeSlote;
+        this.recurringEvent = this.data.recurringEvent;
+      }
+      
+      if(this.recurringEvent == 'N'){
+        this.addTicketForm = this._formBuilder.group({
+          title: ['',[Validators.required]],
+          price: ['',[Validators.required,Validators.pattern(this.onlynumericAmount)]],
+          qty: ['',[Validators.required,Validators.pattern(this.onlynumericQTY)]],
+          description: [''],
+          fee: ['',[Validators.pattern(this.onlynumericAmount)]],
+          status: [''],
+          min_order: ['',[Validators.pattern(this.onlynumeric)]],
+          max_order: ['',[Validators.pattern(this.onlynumeric)]],
+          ticket_available: ['',[Validators.required]],
+          ticket_unavailable: ['',[Validators.required]],
+          until_date: [null],
+          until_time: [null],
+          until_interval: [null],
+          after_date: [null],
+          after_time: [null],
+          after_interval: ['']
+        });
+      }else{
+        this.addTicketForm = this._formBuilder.group({
+          title: ['',[Validators.required]],
+          price: ['',[Validators.required,Validators.pattern(this.onlynumericAmount)]],
+          qty: ['',[Validators.required,Validators.pattern(this.onlynumericQTY)]],
+          description: [''],
+          fee: ['',[Validators.pattern(this.onlynumericAmount)]],
+          status: [''],
+          min_order: ['',[Validators.pattern(this.onlynumeric)]],
+          max_order: ['',[Validators.pattern(this.onlynumeric)]],
+          recurring_until_date: [null],
+          recurring_until_time: [null],
+          recurring_after_date: [null],
+          recurring_after_time: [null],
+        });
+      }
+      
     }
 
   onNoClick(): void {
@@ -1036,6 +1151,43 @@ export class AddNewTicketType {
     }
   }
 
+  fnChangeRecurringUntil(event){
+    if(event.checked == true){
+      this.recurringUntil = 'Y';
+      this.addTicketForm.controls["recurring_until_date"].setValidators(Validators.required);
+      this.addTicketForm.controls["recurring_until_time"].setValidators(Validators.required);
+      this.addTicketForm.controls["recurring_until_date"].updateValueAndValidity();
+      this.addTicketForm.controls["recurring_until_time"].updateValueAndValidity();
+
+    }else{
+      this.recurringUntil = 'N';
+      this.addTicketForm.controls["recurring_until_date"].setValidators(null);
+      this.addTicketForm.controls["recurring_until_time"].setValidators(null);
+      this.addTicketForm.controls["recurring_until_date"].updateValueAndValidity();
+      this.addTicketForm.controls["recurring_until_time"].updateValueAndValidity();
+
+    }
+    this.addTicketForm.updateValueAndValidity();
+  }
+
+  fnChangeRecurringAfter(event){
+    if(event.checked == true){
+      this.recurringAfter = 'Y';
+      this.addTicketForm.controls["recurring_after_date"].setValidators(Validators.required);
+      this.addTicketForm.controls["recurring_after_time"].setValidators(Validators.required);
+      this.addTicketForm.controls["recurring_after_date"].updateValueAndValidity();
+      this.addTicketForm.controls["recurring_after_time"].updateValueAndValidity();
+
+    }else{
+      this.recurringAfter = 'N';
+      this.addTicketForm.controls["recurring_after_date"].setValidators(null);
+      this.addTicketForm.controls["recurring_after_time"].setValidators(null);
+      this.addTicketForm.controls["recurring_after_date"].updateValueAndValidity();
+      this.addTicketForm.controls["recurring_after_time"].updateValueAndValidity();
+    }
+    this.addTicketForm.updateValueAndValidity();
+  }
+
   fnChangeSoldOut(event){
     if(event.checked == true){
       this.soldOut = 'Y';
@@ -1140,6 +1292,8 @@ export class AddNewTicketType {
     this.addTicketForm.controls['after_interval'].setValue('');
   }
 
+  
+
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
@@ -1158,19 +1312,33 @@ export class AddNewTicketType {
       this.addTicketForm.get('until_time').markAsTouched();
       this.addTicketForm.get('after_date').markAsTouched();
       this.addTicketForm.get('after_time').markAsTouched();
+      this.addTicketForm.get('recurring_until_date').markAsTouched();
+      this.addTicketForm.get('recurring_until_time').markAsTouched();
+      this.addTicketForm.get('recurring_after_date').markAsTouched();
+      this.addTicketForm.get('recurring_after_time').markAsTouched();
       this.addTicketForm.get('until_interval').markAsTouched();
       this.addTicketForm.get('after_interval').markAsTouched();
       return false;
     }
-
-    if(this.addTicketForm.get('until_date').value){
-      this.addTicketForm.controls['until_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"))
+    if(this.recurringEvent == 'N'){
+      if(this.addTicketForm.get('until_date').value){
+        this.addTicketForm.controls['until_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd"))
+      }
+  
+      if(this.addTicketForm.get('after_date').value){
+        this.addTicketForm.controls['after_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"))
+      }
+  
+    }else if(this.recurringEvent == 'Y'){
+      if(this.addTicketForm.get('recurring_until_date').value){
+        this.addTicketForm.controls['recurring_until_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('recurring_until_date').value),"yyyy-MM-dd"))
+      }
+  
+      if(this.addTicketForm.get('recurring_after_date').value){
+        this.addTicketForm.controls['recurring_after_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('recurring_after_date').value),"yyyy-MM-dd"))
+      }
     }
-
-    if(this.addTicketForm.get('after_date').value){
-      this.addTicketForm.controls['after_date'].setValue(this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd"))
-    }
-
+   if(this.recurringEvent == 'N'){
     this.newTicketData = {
       'box_office_id': this.boxOfficeCode,
       'ticket_name': this.addTicketForm.get('title').value,
@@ -1180,8 +1348,8 @@ export class AddNewTicketType {
       'description':  this.addTicketForm.get('description').value,
       'booking_fee':  this.addTicketForm.get('fee').value,
       'status':  this.addTicketForm.get('status').value,
-      'min_per_order':  this.addTicketForm.get('min_order').value,
-      'max_per_order':this.addTicketForm.get('max_order').value,
+      'min_per_order':  this.addTicketForm.get('min_order').value ? this.addTicketForm.get('min_order').value : null,
+      'max_per_order':this.addTicketForm.get('max_order').value ? this.addTicketForm.get('max_order').value : null,
       'hide_untill': 'Y',
       'hide_after':  'Y',
       'untill_date':this.addTicketForm.get('until_date').value,
@@ -1196,6 +1364,30 @@ export class AddNewTicketType {
       'untill_interval':  this.addTicketForm.get('until_interval').value,
       'after_interval':  this.addTicketForm.get('after_interval').value,
     }
+   }else{
+    this.newTicketData = {
+      'box_office_id': this.boxOfficeCode,
+      'ticket_name': this.addTicketForm.get('title').value,
+      'prize': this.addTicketForm.get('price').value,
+      'qty': this.addTicketForm.get('qty').value,
+      'advance_setting': this.advanceSetting,
+      'description':  this.addTicketForm.get('description').value,
+      'booking_fee':  this.addTicketForm.get('fee').value,
+      'status':  this.addTicketForm.get('status').value,
+      'min_per_order':  this.addTicketForm.get('min_order').value ? this.addTicketForm.get('min_order').value:null,
+      'max_per_order':this.addTicketForm.get('max_order').value ? this.addTicketForm.get('max_order').value : null,
+      'sold_out':  this.soldOut,
+      'show_qty':  this.showQTY,
+      'discount':  this.assignedCouponCodes,
+      'hide_until_set_date_and_time_status': this.recurringUntil,
+      'hide_after_set_date_and_time_status': this.recurringAfter,
+      'hide_until_date':this.addTicketForm.get('recurring_until_date').value,
+      'hide_until_time': this.addTicketForm.get('recurring_until_time').value ? this.addTicketForm.get('recurring_until_time').value : null,
+      'hide_after_date':  this.addTicketForm.get('recurring_after_date').value ? this.addTicketForm.get('recurring_after_date').value : null,
+      'hide_after_time':  this.addTicketForm.get('recurring_after_time').value,
+    }
+   }
+    
     this.dialogRef.close(this.newTicketData);
     this.addTicketForm.reset();
     

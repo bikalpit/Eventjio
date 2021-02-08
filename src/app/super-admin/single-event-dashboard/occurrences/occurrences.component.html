@@ -1,0 +1,73 @@
+<div id="occurrence" class="main">
+    <div class="occurrence-deatails">
+        <div class="container-fluid">
+            <div class="top-heading-main">
+                <h4 class="page-title"> Occurrence </h4>
+                <p>Send important event updates to your ticket buyers via email.</p>
+            </div>
+            <div class="bottom-occurrence-wrap">
+                <div class="occurrence-notification">
+                    <i class="fa fa-bell" aria-hidden="true"></i>
+                    <p>occurrences can not be used for sending anything other than important event updates. If you would like to send marketing emails please use our <a> MailChimp integration. </a> </p>
+
+                </div>
+                <div class="manage-occurrence-table">
+                    <div class="main-table-content main-cust-table-content">
+                        <div class="add-occurrence-main">
+                            <h3>
+                                Manage occurrences
+                            </h3>
+                            <div class="top-add-btns ml-auto">
+                                <button class="mr-2" mat-flat-button color="primary" (click)="fnCreateRepeatOccurrence()"> Add Repeating occurrences </button>
+                                <button mat-flat-button color="primary" (click)="fnCreateSingleOccurrence()"> Add Single occurrences </button>
+                            </div>
+
+                        </div>
+                        <div class="">
+                            <div class="heads main-heading-content drageble" fxLayout="row">
+                                <div class="heading-table" fxFlex="40">
+                                    <mat-checkbox></mat-checkbox>
+                                    Date and Time
+                                </div>
+                                <div class="heading-table" fxFlex="15">Sold</div>
+                                <div class="heading-table" fxFlex="15">Remaining</div>
+                                <div class="heading-table" fxFlex="15">Revenue</div>
+                                <div class="heading-table" fxFlex="15">Action</div>
+                            </div>
+                            <div class="content" class="drageble-list">
+                                <div class="drageble-box" fxLayout="row">
+                                    <div class="tb-data" fxFlex="40">
+                                        <mat-checkbox></mat-checkbox>
+                                        Date and Time
+                                    </div>
+                                    <div class="tb-data" fxFlex="15">Sold</div>
+                                    <div class="tb-data" fxFlex="15">Remaining</div>
+                                    <div class="tb-data" fxFlex="15">Revenue</div>
+                                    <div class="tb-data" fxFlex="15">
+                                        <mat-icon [ngbPopover]="popContent" placement="left" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
+                                        <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
+                                        <ng-template class="popover custom-popover" #popContent>
+                                            <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/duplicate')">
+                                                <span class="material-icons">block</span><span>Set Unavailable</span>
+                                            </div>
+                                            <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/duplicate')">
+                                                <span class="material-icons">visibility_off</span><span>Set Hidden</span>
+                                            </div>
+                                            <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/duplicate')">
+                                                <span class="material-icons">create</span><span>Edit</span>
+                                            </div>
+                                            <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/delete')">
+                                                <span class="material-icons">delete_outline</span><span>Delete</span>
+                                            </div>
+
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

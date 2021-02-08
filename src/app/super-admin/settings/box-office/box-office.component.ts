@@ -105,7 +105,6 @@ export class BoxOfficeComponent implements OnInit {
      dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
             this.boxofficeImageUrl = result;
-            console.log(result);
            }
      });
   }
@@ -146,6 +145,10 @@ export class BoxOfficeComponent implements OnInit {
           this.Emailshow = true;
           this.showHide = true;
         }
+        
+        this.accountOwner = this.singleBoxofficeDetails.account_owner
+        this.emailOrderNotification = this.singleBoxofficeDetails.email_order_notification
+        this.hideLogo = this.singleBoxofficeDetails.hide_tailor_logo
         this.singleBoxOffice.controls['boxoffice_name'].setValue(this.singleBoxofficeDetails.box_office_name)
         this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
         this.singleBoxOffice.controls['language'].setValue(JSON.stringify(this.singleBoxofficeDetails.language.id))

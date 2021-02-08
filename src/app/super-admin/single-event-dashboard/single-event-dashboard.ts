@@ -90,7 +90,9 @@ export class SingleEventDashboard implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
-        this.isPastEvent = response.response.past;
+        if(this.eventDetail.event_occurrence_type == 'N'){
+          this.isPastEvent = response.response.past;
+        }
         if(this.eventDetail.images.length === 0){
           this.eventDetail.images = undefined
         }else{

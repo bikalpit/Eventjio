@@ -19,6 +19,7 @@ export class ForgotPasswordComponent implements OnInit {
   emailSentContainer: boolean = false;
   forgotEmail: any;
   error = '';
+  saveDisabled:boolean=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,6 +47,10 @@ export class ForgotPasswordComponent implements OnInit {
 forgotPwdSubmit(){
   this.forgotEmail =  this.forgotForm.get('email').value
   if(this.forgotForm.valid){
+  this.saveDisabled = true;
+  setTimeout(() => {
+    this.saveDisabled = false
+  }, 3000);
      let site_url = environment.urlForLink;
   let requestObject = {
         "email":this.forgotEmail,
@@ -62,17 +67,18 @@ forgotPwdSubmit(){
       ).subscribe((response:any) => {
         if(response.data == true){
           this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
           this.forgotPwdContainer =false
           this.emailSentContainer = true;
           setTimeout(() => {
             this.router.navigate(['/login']);
-          }, 4000);
+          }, 3000);
         }
-        else if(response.data == false){
+        else if(response.data == false){  this.saveDisabled = true;
+         
           this._snackBar.open(response.response, "X", {
             duration: 2000,
             verticalPosition:'top',

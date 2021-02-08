@@ -31,6 +31,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared.module';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OccurrencesComponent, addRepeatOccurrence, addSingleOccurrence } from './occurrences/occurrences.component';
 
 @NgModule({
   declarations: [EventSummaryComponent,
@@ -55,6 +57,9 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
    // myPreviewBroadcastDialog,
     DialogEditEventImageUpload,
     AddNewTicketType,
+    addRepeatOccurrence,
+    addSingleOccurrence,
+    OccurrencesComponent,
     // createTrackingLinkAndView,
   ],
     
@@ -72,6 +77,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
       FormsModule,
       ReactiveFormsModule,
       SharedModule,
+      NgbModule,
       NgxMatSelectSearchModule
     ],
 
@@ -85,6 +91,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
       OrderViewComponent,
       // EditIssurorderDialog,
       DialogEditEventImageUpload,
+      addRepeatOccurrence,
+      addSingleOccurrence,
       AddNewTicketType,
       // createTrackingLinkAndView,
     ],

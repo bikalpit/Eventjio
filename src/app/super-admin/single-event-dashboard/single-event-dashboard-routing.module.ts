@@ -10,6 +10,7 @@ import { IssuedTicketComponent } from './issued-ticket/issued-ticket.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 import { DuplicateComponent } from './duplicate/duplicate.component';
+import { OccurrencesComponent } from './occurrences/occurrences.component';
 
 const routes: Routes = [
   { 
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
       path:'event-and-ticket-types',
       component:EventAndTicketTypesComponent 
+      },
+      {
+      path:'manage-occurrences',
+      component:OccurrencesComponent 
       },
       {
       path:'checkout-form',

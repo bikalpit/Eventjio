@@ -19,6 +19,7 @@ export class ResetPasswordComponent implements OnInit {
   accesToken : any;
   newPassword: any;
   hide= true;
+  saveDisabled:boolean=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,6 +58,10 @@ get f() { return this.resetPasswordForm.controls; }
  
   fnSubmitResetPassword(){
     if (this.resetPasswordForm.valid) {
+      this.saveDisabled = true;
+      setTimeout(() => {
+        this.saveDisabled = false
+      }, 3000);
       this.newPassword = this.resetPasswordForm.get('ReNewPassword').value
       let requestObject = {
         "password":this.newPassword,

@@ -18,7 +18,8 @@ export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
   hide = true;
   adminSignUpData:any;
-  termsCheckbox:boolean = false;
+  termsCheckbox:boolean = true;
+  termsCheckboxChecked:boolean = false;
   isLoaderAdmin:boolean = false;
   inviter : boolean = false;
   inviterEmail:any;
@@ -48,7 +49,6 @@ export class SignupComponent implements OnInit {
 			email:     [this.inviterEmail,[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
 			password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
 			description:[''],
-			termsCheckbox:[''],
 		});
 		this.signUpForm.controls['email'].disable();
 	}else{
@@ -57,10 +57,9 @@ export class SignupComponent implements OnInit {
 			email:     ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
 			password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
 			description:[''],
-			termsCheckbox:[''],
 	
 		});
-	}
+	} 
 	
    }
 
@@ -71,11 +70,13 @@ export class SignupComponent implements OnInit {
 	}
 
 	fnChangeTermsPrivacyCheck(check){
+		this.termsCheckboxChecked = check;
 		this.termsCheckbox = check;
 	}
 
   	fnSignUp(){
-		if(!this.termsCheckbox){
+		if(!this.termsCheckboxChecked){
+			this.termsCheckbox = false;
 			return false;
 		}
     

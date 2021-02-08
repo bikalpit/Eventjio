@@ -1,0 +1,208 @@
+.text-green {
+    color: #30A81E !important;
+}
+
+.text-purple {
+    color: #6B1FC0 !important;
+}
+
+.clr-black {
+    color: #000!important;
+}
+
+#occurrence {
+    font-family: Poppins;
+    .top-heading-main {
+        .page-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            text-align: left;
+            color: #181818;
+        }
+        p {
+            color: #808080;
+        }
+    }
+    .bottom-occurrence-wrap {
+        margin-top: 20px;
+        .occurrence-notification {
+            padding: 14px;
+            background-color: #007bff1c;
+            border-radius: 4px;
+            display: flex;
+            i {
+                margin-right: 10px;
+                color: #FF6600;
+                transform: rotate(-40deg);
+                font-size: 16px;
+                margin-left: 8px;
+            }
+            p {
+                margin-bottom: 0px;
+            }
+        }
+        .manage-occurrence-table {
+            margin-top: 26px;
+            border: 1px solid #CECECE;
+            border-radius: 4px;
+            background-color: #F6F6F645;
+            .add-occurrence-main {
+                border-bottom: solid 1px #DDDDDD;
+                padding: 14px 18px 24px 14px;
+                display: flex;
+                align-items: center;
+                h3 {
+                    margin: 0px;
+                    text-align: justify;
+                    color: #000;
+                    font-weight: 500;
+                }
+            }
+            .drageble-list {
+                width: 100%;
+                border-top: solid 1px #dddddd00;
+                display: block;
+                background: #f6f6f645;
+                border-radius: 4px;
+                overflow: hidden;
+                font-size: 14px;
+                font-weight: 500;
+            }
+            .main-heading-content {
+                border-bottom: solid 2px #DDDDDD;
+                padding: 14px 20px;
+                align-items: center;
+                font-size: 14px;
+                color: #595959;
+                flex-direction: row;
+                box-sizing: border-box;
+                display: flex;
+            }
+            .heading-table {
+                flex: 1 1 100%;
+                box-sizing: border-box;
+                max-width: 25%;
+            }
+            .drageble-box {
+                align-items: center;
+                flex-direction: row;
+                box-sizing: border-box;
+                display: flex;
+                padding: 10px 20px;
+                a {
+                    color: #007BFF;
+                    cursor: pointer;
+                }
+            }
+            .tb-data {
+                padding: 6px 0px;
+                color: #595959;
+            }
+            .cpn-title {
+                color: #181818;
+            }
+            .cpn-code {
+                color: #1172F4;
+            }
+            .cpn-bor {
+                border: 1px dashed #1172F4;
+                padding: 6px 12px;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+// end css
+ ::ng-deep .cancel-btn {
+    background: #DDDDDD;
+    font-size: 14px;
+    color: #181818;
+}
+
+ ::ng-deep .save-btn {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+ ::ng-deep .close-btn {
+    background: #B4D4FF !important;
+    opacity: 1;
+    border-radius: 50%;
+    padding: 4px 6px !important;
+    font-size: 14px;
+    color: #1172F4;
+}
+
+ ::ng-deep .comm-btn {
+    background: #1172F4;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 5px;
+    text-align: center;
+}
+
+::ng-deep .comg-btn {
+    background: #DDDDDD;
+    font-size: 14px;
+    color: #181818;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.botttom-buttons {
+    text-align: end;
+    padding: 10px 2px;
+    .save-draf-btn {
+        background-color: #E1E1E1;
+        color: #000000;
+    }
+}
+
+.action-icon {
+    color: #007BFF;
+    border-radius: 50%;
+    padding: 16px 16px;
+    background: #ABE6FD;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 30px;
+}
+
+::ng-deep .add-occurrence-form {
+    .section-head {
+        width: 100%;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .single-form-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        .form-group {
+            width: 180px;
+        }
+    }
+    .date-time-add-btn {
+        background-color: #007BFF;
+        color: #fff;
+    }
+    .fa-asterisk {
+        color: #FF0000;
+        font-size: 5px;
+        position: relative;
+        bottom: 6px;
+    }
+}
+
+::ng-deep .cdk-global-overlay-wrapper {
+    .cdk-overlay-pane {
+        max-width: 650px !important;
+        width: 80vw !important;
+    }
+}

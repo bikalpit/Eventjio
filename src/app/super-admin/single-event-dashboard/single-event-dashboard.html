@@ -92,6 +92,15 @@
                     <span>Event and ticket types</span>
                 </div>
             </div>
+            <div *ngIf="!isPastEvent && eventDetail && eventDetail.event_occurrence_type == 'Y'" (click)="fnPostUrl('manage-occurrences')" [ngClass]="{'active': pageName == 'manage-occurrences'}" class="py-2" routerLink="/super-admin/single-event-dashboard/manage-occurrences">
+                <div class="event-menu">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img [ngStyle]="{'display':pageName === 'manage-occurrences' ? 'none' : 'block'}" src="../../../assets/images/events/occurrence.png" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'manage-occurrences' ? 'block' : 'none'}" src="../../../assets/images/events/occurrence_active.png" class="w-100" alt="">
+                    </div>
+                    <span>Occurrences</span>
+                </div>
+            </div>
 
             <div *ngIf="!isPastEvent" (click)="fnPostUrl('order-confirmation')" [ngClass]="{'active': pageName == 'order-confirmation'}" class="py-2" routerLink="order-confirmation">
                 <div class="event-menu">

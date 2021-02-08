@@ -273,20 +273,22 @@
         background-color: #1172F4;
         color: #ffffff;
     }
-    .add-ticket-notification {
-        background-color: #CEE6FF;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .fa-bell {
-        transform: rotate(-45deg);
-        color: #FF6600;
-    }
     .delete-btn {
         background-color: #fff;
         color: #212529;
     }
+}
+
+.add-ticket-notification {
+    background-color: #CEE6FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa-bell {
+    transform: rotate(-45deg);
+    color: #FF6600;
 }
 
 .event-setting-btn {
