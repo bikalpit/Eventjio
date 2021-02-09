@@ -257,7 +257,7 @@
                     <mat-checkbox *ngIf="recurringEvent == 'Y'" class="w-100 d-block mt-2" (change)="fnChangeRecurringAfter($event)">Hide after a set date and time</mat-checkbox>
                     <div *ngIf="recurringAfter == 'Y'" class="form-group d-flex">
                         <div class="matDate w-50 d-inline-block">
-                            <input formControlName="recurring_after_date" type="text" [matDatepicker]="hideDatePicker" [max]="maxAvailDate" [min]="minAvailDate" id="recurring_after_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailDateChange($event)" class="form-control  ">
+                            <input formControlName="recurring_after_date" type="text" [matDatepicker]="hideDatePicker" [min]="minAvailDate" id="recurring_after_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailDateChange($event)" class="form-control  ">
                             <mat-datepicker #hideDatePicker></mat-datepicker>
                             <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('recurring_after_date').touched || addTicketForm.get('recurring_after_date').dirty">
                             <small *ngIf="addTicketForm.get('recurring_after_date').hasError('required')" class="error">Hide untill Date is required.</small>

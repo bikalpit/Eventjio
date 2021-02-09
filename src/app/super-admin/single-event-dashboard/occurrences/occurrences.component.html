@@ -1,16 +1,17 @@
 <div id="occurrence" class="main">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="occurrence-deatails">
         <div class="container-fluid">
             <div class="top-heading-main">
                 <h4 class="page-title"> Occurrence </h4>
-                <p>Send important event updates to your ticket buyers via email.</p>
+                <p>Occurrences are the dates and times your recurring event takes place.</p>
             </div>
             <div class="bottom-occurrence-wrap">
-                <div class="occurrence-notification">
+                <!-- <div class="occurrence-notification">
                     <i class="fa fa-bell" aria-hidden="true"></i>
-                    <p>occurrences can not be used for sending anything other than important event updates. If you would like to send marketing emails please use our <a> MailChimp integration. </a> </p>
+                    <p>Occurrences are the dates and times your recurring event takes place.</p>
 
-                </div>
+                </div> -->
                 <div class="manage-occurrence-table">
                     <div class="main-table-content main-cust-table-content">
                         <div class="add-occurrence-main">
@@ -26,7 +27,7 @@
                         <div class="">
                             <div class="heads main-heading-content drageble" fxLayout="row">
                                 <div class="heading-table" fxFlex="40">
-                                    <mat-checkbox></mat-checkbox>
+                                    <mat-checkbox [checked]="selectAll" (change)="checkAll($event)"></mat-checkbox>
                                     Date and Time
                                 </div>
                                 <div class="heading-table" fxFlex="15">Sold</div>
@@ -35,14 +36,17 @@
                                 <div class="heading-table" fxFlex="15">Action</div>
                             </div>
                             <div class="content" class="drageble-list">
-                                <div class="drageble-box" fxLayout="row">
+                                <div class="drageble-box" fxLayout="row" *ngFor="let element of allOccurrenceList; let i=index;">
                                     <div class="tb-data" fxFlex="40">
-                                        <mat-checkbox></mat-checkbox>
-                                        Date and Time
+                                        <mat-checkbox [checked]="element.is_selected" (change)="fnAddOccurrenceId($event.checked, element.unique_code,i)"></mat-checkbox>
+                                        {{element.occurance_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}
                                     </div>
-                                    <div class="tb-data" fxFlex="15">Sold</div>
-                                    <div class="tb-data" fxFlex="15">Remaining</div>
-                                    <div class="tb-data" fxFlex="15">Revenue</div>
+                                    <div class="tb-data" fxFlex="15" *ngIf="element.soldout == 'Tickets are not available'">{{element.soldout}}</div>
+                                    <div class="tb-data" fxFlex="15" *ngIf="element.soldout !== 'Tickets are not available'">{{element.soldout[0].Sold}}</div>
+                                    <div class="tb-data" fxFlex="15" *ngIf="element.remaining == 'Tickets are not available'">{{element.remaining}}</div>
+                                    <div class="tb-data" fxFlex="15" *ngIf="element.remaining !== 'Tickets are not available'">{{element.remaining[0].Remaining}}</div>
+                                    <div class="tb-data" fxFlex="15" *ngIf="element.final_revenue == 'Tickets are not available'">{{element.final_revenue}}</div>
+                                    <div class="tb-data" fxFlex="15" *ngIf="element.final_revenue !== 'Tickets are not available'">{{element.final_revenue[0].Revenue}}</div>
                                     <div class="tb-data" fxFlex="15">
                                         <mat-icon [ngbPopover]="popContent" placement="left" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                         <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
@@ -51,13 +55,13 @@
                                                 <span class="material-icons">block</span><span>Set Unavailable</span>
                                             </div>
                                             <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/duplicate')">
-                                                <span class="material-icons">visibility_off</span><span>Set Hidden</span>
+                                                <i class="fa fa-eye-slash"></i><span>Set Hidden</span>
                                             </div>
                                             <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/duplicate')">
-                                                <span class="material-icons">create</span><span>Edit</span>
+                                                <i class="fa fa-pencil mr-2"></i><span>Edit</span>
                                             </div>
                                             <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/delete')">
-                                                <span class="material-icons">delete_outline</span><span>Delete</span>
+                                                <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                             </div>
 
                                         </ng-template>

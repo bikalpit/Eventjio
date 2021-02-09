@@ -305,5 +305,33 @@ export class SingleEventServiceService {
                 return res;
         }),catchError(this.handleError));
     }
+    getAllOccurrenceList(requestObject) {
+        console.log(requestObject);
+        return this.http.post(`${environment.apiUrl}/list-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+    createOccurence(requestObject) {
+        console.log(requestObject);
+        return this.http.post(`${environment.apiUrl}/create-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+    occurrenceStatusUpdate(requestObject) {
+        console.log(requestObject);
+        return this.http.post(`${environment.apiUrl}/status-update-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+    occurrenceDelete(requestObject) {
+        console.log(requestObject);
+        return this.http.post(`${environment.apiUrl}/delete-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
 
 }
