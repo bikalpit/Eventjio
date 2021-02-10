@@ -333,5 +333,12 @@ export class SingleEventServiceService {
                 return res;
         }),catchError(this.handleError));
     }
+    singleOccurrenceDetail(requestObject) {
+        console.log(requestObject);
+        return this.http.post(`${environment.apiUrl}/occurrence-summery-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
 
 }
