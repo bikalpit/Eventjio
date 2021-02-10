@@ -77,6 +77,17 @@ export class addRepeatOccurrence {
   dayTimeForm:FormGroup;
   dayTimeArr:FormArray;
   startEndTime:any=[];
+  minSelectStartDate:any = new Date();
+  minSelectEndDate:any = new Date();
+  dateSelectfield:boolean = false;
+
+  repeatForm:FormGroup;
+  repeatDataArr:FormArray;
+  finalRepeatData:any = [];
+
+  selected = 'na';
+  checkAllDayValue:any = 'hide';
+
   constructor(
     public dialogRef: MatDialogRef<addRepeatOccurrence>,
     private _formBuilder: FormBuilder,
@@ -84,21 +95,77 @@ export class addRepeatOccurrence {
     private datePipe: DatePipe,
     private SingleEventServiceService: SingleEventServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.startEndTime.length = 1
+      
+      this.startEndTime.length = 1;
+      this.finalRepeatData.length = 1;
+
       this.dayTimeForm = this._formBuilder.group({
-        dayTimeArr: this._formBuilder.array([this.createDayTimeItem()])
+        dayTimeArr: this._formBuilder.array([this.createTimeSlote()])
       });
+
+      this.repeatForm = this._formBuilder.group({
+        repeatDataArr:this._formBuilder.array([this.createRepeatSlote()])
+      });
+
     }
 
     ngOnInit(): void {
       this.getTimeSlote();
     }
 
-    createDayTimeItem() {
+    createTimeSlote(){
       return this._formBuilder.group({
-        startTime: ['',[Validators.required]],
-        endTime: ['',[Validators.required]]
+        stratTime:['',[Validators.required]],
+        endTime:['',[Validators.required]]
       })
+    }
+
+    createRepeatSlote(){
+      return this._formBuilder.group({
+        stratDate:['',[Validators.required]],
+        repeat:['',[Validators.required]],
+        endDate:['',[Validators.required]]
+      })
+    }
+
+
+    fnAddStartEndTime(){
+      this.dayTimeArr = this.dayTimeForm.get('dayTimeArr') as FormArray;
+      this.dayTimeArr.push(this.createTimeSlote());
+      this.startEndTime = this.dayTimeForm.value.dayTimeArr
+      console.log('this.startEndTime-------------------------------------')
+      console.log(this.startEndTime)
+    }
+
+    fnAddRepeat(){
+      this.repeatDataArr = this.repeatForm.get('repeatDataArr') as FormArray; 
+      this.repeatDataArr.push(this.createRepeatSlote());
+      this.finalRepeatData = this.repeatForm.value.repeatDataArr;
+      console.log('this.finalRepeatData-----------------------------------')
+      console.log(this.finalRepeatData);
+    } 
+    
+    fnDeleteDayTime(index){
+  
+    }
+
+    fnChangeWholeDay(e){
+      if(e.checked == true){
+        this.checkAllDayValue = "show"
+      }
+      if(e.checked == false){
+        this.checkAllDayValue = "hide"
+      }
+    }
+
+    onChangeRepeat(event){
+      console.log(this.selected)
+      if(event.value == this.selected){
+        this.dateSelectfield = false
+      }else{
+        this.dateSelectfield = true
+      }
+
     }
     
   getTimeSlote(){
@@ -119,20 +186,8 @@ export class addRepeatOccurrence {
     console.log(this.dayStartTime)
   }
 
-  fnChangeWholeDay(event){
-
-  }
-
-  fnAddStartEndTime(){
-    this.dayTimeArr = this.dayTimeForm.get('dayTimeArr') as FormArray;
-    this.dayTimeArr.push(this.createDayTimeItem());
-    this.startEndTime = this.dayTimeForm.value.dayTimeArr;
-    console.log(this.startEndTime.length)
-  }
-
-  fnDeleteDayTime(index){
-
-  }
+  
+  
 
   onNoClick(): void {
     this.dialogRef.close();
