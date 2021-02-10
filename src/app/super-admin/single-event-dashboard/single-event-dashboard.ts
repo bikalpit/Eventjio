@@ -225,6 +225,9 @@ export class SingleEventDashboard implements OnInit {
     else if(url === '/super-admin/single-event-dashboard/delete'){
       this.pageName= 'delete'
     }
+    else if(url === '/super-admin/single-event-dashboard/manage-occurrences'){
+      this.pageName= 'manage-occurrences'
+    }
   }
 
   previewEvent(){

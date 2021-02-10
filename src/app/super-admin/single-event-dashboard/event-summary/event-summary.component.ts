@@ -8,6 +8,7 @@ import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
 import { Router, RouterEvent } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import * as moment from 'moment'; 
 @Component({
   selector: 'app-event-summary',
   templateUrl: './event-summary.component.html',
@@ -29,9 +30,13 @@ export class EventSummaryComponent implements OnInit {
   setupOffline:boolean  = false;
   animal:any;
   currencycode = 'USD';
+  recurringEvent:any='N';
   pageURL:any;
   is_show_referral_data = false;
-  
+  allOccurrenceList:any;
+  upcomingOccurrenceList:any;
+  pastOccurrenceList:any;
+  selectedOccurrence:any='all';
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -50,6 +55,9 @@ export class EventSummaryComponent implements OnInit {
   ngOnInit(): void {
     this.fnGetEventDetail();
     this.fnGetBoxOfficeDetail();   
+    this.getAllOccurrenceList('all');   
+    this.getAllOccurrenceList('upcoming');   
+    this.getAllOccurrenceList('past');   
     this.fnGetSettings();
     
     this.fnGetEventViews(null);
@@ -203,6 +211,70 @@ export class EventSummaryComponent implements OnInit {
     this.isLoaderAdmin=false;
   }
 
+  onTabChange(event){
+    let clickedIndex = event.index;
+    if(clickedIndex == 0){
+      this.getAllOccurrenceList('upcoming');  
+    }else if(clickedIndex == 1){ 
+      this.getAllOccurrenceList('past');   
+    }
+  }
+  
+  getAllOccurrenceList(filter){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'event_id':this.eventId,
+      'filter':filter
+    }
+    this.SingleEventServiceService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        if(filter == 'upcoming'){
+          this.upcomingOccurrenceList= response.response;
+          this.upcomingOccurrenceList.forEach(element => {
+            if(element.soldout.length == 0){
+              element.soldout = 'Tickets are not available'
+            }
+            if(element.final_revenue.length == 0){
+              element.final_revenue = 'Tickets are not available'
+            }
+            if(element.remaining.length == 0){
+              element.remaining = 'Tickets are not available'
+            }
+            // element.occurance_start_time = moment(element.occurance_start_time).format('hh:mm a');
+            // element.occurance_end_time = moment(element.occurance_end_time).format('hh:mm a');
+          });
+        }else if(filter == 'past'){
+          this.pastOccurrenceList= response.response;
+          this.pastOccurrenceList.forEach(element => {
+            if(element.soldout.length == 0){
+              element.soldout = 'Tickets are not available'
+            }
+            if(element.final_revenue.length == 0){
+              element.final_revenue = 'Tickets are not available'
+            }
+            if(element.remaining.length == 0){
+              element.remaining = 'Tickets are not available'
+            }
+            // element.occurance_start_time = moment(element.occurance_start_time).format('hh:mm a');
+            // element.occurance_end_time = moment(element.occurance_end_time).format('hh:mm a');
+          });
+        }else if(filter = 'all'){
+          this.allOccurrenceList= response.response;
+         
+        }
+       
+        console.log(this.allOccurrenceList)
+
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
+  }
+
+  fnChangeOccurrence(event){
+    this.selectedOccurrence = event.value
+  }
 
   fnGetEventDetail(){
     this.isLoaderAdmin=true;
@@ -213,6 +285,7 @@ export class EventSummaryComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
+        this.recurringEvent = this.eventDetail.event_occurrence_type;
         this.currencycode = this.eventDetail.event_setting.currency ? this.eventDetail.event_setting.currency  : 'USD';
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -254,6 +327,33 @@ export class EventSummaryComponent implements OnInit {
       }
     });
     this.isLoaderAdmin=false;
+  }
+
+  fnOccurrenceDelete(occurrenceCode){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'occurance_id': occurrenceCode,
+    }
+    
+    this.SingleEventServiceService.occurrenceDelete(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+        this.getAllOccurrenceList('upcoming'); 
+        this.getAllOccurrenceList('past'); 
+        
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin=false;
+  }
+
+  fnOccurrenceOrder(occurrenceCode){
+
+  }
+
+  fnOccurrenceSummary(occurrenceCode){
+
   }
 
   fnGetBoxOfficeDetail(){

@@ -8,6 +8,7 @@ import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
 import { take, takeUntil } from 'rxjs/operators';
+import * as moment from 'moment'; 
 
 @Component({
   selector: 'app-occurrences',
@@ -16,9 +17,14 @@ import { take, takeUntil } from 'rxjs/operators';
   providers: [DatePipe]
 })
 export class OccurrencesComponent implements OnInit {
+  isLoaderAdmin:boolean=false;
+  event_id:any;
+  boxoffice_id:any;
+  allOccurrenceList:any;
+  selectedOccurrenceAarry:any=[];
+  selectAll: boolean = false;
 
   constructor(
-    
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
     private ErrorService: ErrorService,
@@ -28,10 +34,95 @@ export class OccurrencesComponent implements OnInit {
     private SingleEventServiceService: SingleEventServiceService,
     private change:ChangeDetectorRef
   ) {
-    
+    if(localStorage.getItem('selectedEventCode')){
+      this.event_id = localStorage.getItem('selectedEventCode')
+    }
+
+    this.boxoffice_id = localStorage.getItem('boxoffice_id')
    }
 
   ngOnInit(): void {
+    this.getAllOccurrenceList();
+  }
+
+
+  getAllOccurrenceList(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'event_id':this.event_id,
+      'filter':'all'
+    }
+    this.SingleEventServiceService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.allOccurrenceList= response.response;
+        this.allOccurrenceList.forEach(element => {
+          if(element.soldout.length == 0){
+            element.soldout = 'Tickets are not available'
+          }
+          if(element.final_revenue.length == 0){
+            element.final_revenue = 'Tickets are not available'
+          }
+          if(element.remaining.length == 0){
+            element.remaining = 'Tickets are not available'
+          }
+          // element.occurance_start_time = moment(element.occurance_start_time).format('hh:mm a');
+          // element.occurance_end_time = moment(element.occurance_end_time).format('hh:mm a');
+        });
+        console.log(this.allOccurrenceList)
+
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
+  }
+
+  checkAll(event){
+
+    this.selectedOccurrenceAarry = [];
+
+    for (let i = 0; i < this.allOccurrenceList.length; i++) {
+      const item = this.allOccurrenceList[i];
+      item.is_selected = event.checked;
+      if(event.checked){
+        
+
+        this.selectedOccurrenceAarry.push(item.unique_code)
+      }
+    }
+
+    if(event.checked){
+      this.selectAll = true;
+    }else{
+      this.selectAll = false;
+    }
+
+    console.log(this.selectedOccurrenceAarry);
+
+  }
+
+  
+  fnAddOccurrenceId(event, OccId,i){
+
+    if(event == true){
+      this.selectedOccurrenceAarry.push(OccId);
+      this.allOccurrenceList[i].is_selected = true;
+
+    }else if(event == false){
+      this.allOccurrenceList[i].is_selected = false;
+
+      const index = this.selectedOccurrenceAarry.indexOf(OccId, 0);
+      if (index > -1) {
+          this.selectedOccurrenceAarry.splice(index, 1);
+      }
+    }
+    if (this.selectedOccurrenceAarry.length == this.allOccurrenceList.length ) {
+      this.selectAll = true;
+    } else {
+      this.selectAll = false;
+    }
+
+    console.log(this.selectedOccurrenceAarry);
   }
 
 
@@ -70,7 +161,7 @@ export class OccurrencesComponent implements OnInit {
   providers: [DatePipe]
 })
 export class addRepeatOccurrence {
-
+  isLoaderAdmin:boolean=false;
   addRepeatRecurrenceForm:FormGroup;
   fullDayTimeSlote:any;
   dayStartTime:any;
@@ -88,6 +179,8 @@ export class addRepeatOccurrence {
   selected = 'na';
   checkAllDayValue:any = 'hide';
 
+  event_id:any;
+  boxoffice_id:any;
   constructor(
     public dialogRef: MatDialogRef<addRepeatOccurrence>,
     private _formBuilder: FormBuilder,
@@ -99,6 +192,12 @@ export class addRepeatOccurrence {
       this.startEndTime.length = 1;
       this.finalRepeatData.length = 1;
 
+      if(localStorage.getItem('selectedEventCode')){
+        this.event_id = localStorage.getItem('selectedEventCode')
+      }
+  
+      this.boxoffice_id = localStorage.getItem('boxoffice_id')
+      this.startEndTime.length = 1
       this.dayTimeForm = this._formBuilder.group({
         dayTimeArr: this._formBuilder.array([this.createTimeSlote()])
       });
@@ -189,6 +288,10 @@ export class addRepeatOccurrence {
   
   
 
+  createSingleOccurrence(){
+
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -209,7 +312,10 @@ export class addSingleOccurrence {
   minStartDate:any=new Date();
   minEndDate:any=new Date();
   startdateToday:boolean=false;
+  isLoaderAdmin:boolean=false;
   currentTime:any;
+  event_id:any;
+  boxoffice_id:any;
   constructor(
     public dialogRef: MatDialogRef<addSingleOccurrence>,
     private _formBuilder: FormBuilder,
@@ -217,6 +323,12 @@ export class addSingleOccurrence {
     private datePipe: DatePipe,
     private SingleEventServiceService: SingleEventServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+
+      if(localStorage.getItem('selectedEventCode')){
+        this.event_id = localStorage.getItem('selectedEventCode')
+      }
+  
+      this.boxoffice_id = localStorage.getItem('boxoffice_id')
       this.singleOccurrenceForm =  this._formBuilder.group({
         occurrence_start_date: ['',[Validators.required]],
         occurrenceStartTime: ['',[Validators.required]],
@@ -273,12 +385,48 @@ export class addSingleOccurrence {
     this.singleOccurrenceForm.get('occurrenceEndTime').setValue('');
   }
   
+  fnChangeEndTime(){
+
+  }
 
   fnChangeStartTime(event){
     this.singleOccurrenceForm.get('occurrenceEndTime').setValue('');
   }
 
+  createSingleOccurrence(){
+    if(this.singleOccurrenceForm.invalid){
+      this.singleOccurrenceForm.get('occurrence_start_date').markAsTouched();
+      this.singleOccurrenceForm.get('occurrenceStartTime').markAsTouched();
+      this.singleOccurrenceForm.get('occurrence_end_date').markAsTouched();
+      this.singleOccurrenceForm.get('occurrenceEndTime').markAsTouched();
+      return false;
+    }else{
+      let requestObject = {
+        "event_id":this.event_id,
+        "occurnace_type":'ounce',
+        "all_day":'N',
+        "occurance_date":this.singleOccurrenceForm.get('occurrence_start_date').value,
+        "occurance_start_time":this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurrenceStartTime').value],
+        "occurance_end_time":this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurrenceEndTime').value],
+      }
+      this.createSingleOccurrencde(requestObject);
+    }
+    
 
+  }
+
+  createSingleOccurrencde(requestObject){
+    this.isLoaderAdmin = true;
+    this.SingleEventServiceService.createOccurence(requestObject).subscribe((response:any)=>{
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response)
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+
+    });
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

@@ -357,13 +357,8 @@ export class EventsComponent implements OnInit {
         this.next_page_url_upCommintEvent = response.response.next_page_url;
         this.prev_page_url_upCommintEvent = response.response.prev_page_url;
         this.path_upCommintEvent = response.response.path;
-        let count = 0;
         this.allUpcomingEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
-          count = count+1
-         
-          console.log('-------------------------------------')
-          console.log(count+'-------------------------------------'+element.soldout.length)
           if(element.event_occurrence_type == 'Y' && element.soldout.length == 0){
             element.soldout = 'Occurrence not created'
           }
@@ -546,6 +541,14 @@ export class EventsComponent implements OnInit {
 
   fnSelectImage(imageType){
     this.eventImageType = imageType
+    if(this.eventImageType === 'newUploadImage'){
+      this.selecetdDefaultImage = undefined;
+    }else if(this.eventImageType === 'noImage'){
+      this.selecetdDefaultImage = undefined;
+      this.newEventImageUrl = "";
+    }else{
+      this.newEventImageUrl = undefined;
+    }
   }
   
   fnSelectDefaultImage(imageName){

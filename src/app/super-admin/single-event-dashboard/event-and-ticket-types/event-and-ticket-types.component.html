@@ -15,64 +15,71 @@
                                 <small *ngIf="editEventForm.get('event_name').hasError('required')" class="error">Event Name is required.</small>
                             </span>
                         </div>
-                        <div class="form-group col-md-6 mt-3">
-                            <div class="row mx-0">
-                                <div class="col-md-7 pl-0">
-                                    <label for="">Start Date <span><i class="fa fa-asterisk"></i></span> </label>
-                                    <div *ngIf="singleEventDetail" class="form-group">
-                                        <mat-datepicker #event_start_date_picker></mat-datepicker>
-                                        <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY"
-                                            readonly>
-                                        <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_start_date').touched || editEventForm.get('event_start_date').dirty">
+                        <div *ngIf="recurringEvent == 'Y'" class="col-12 mt-3">
+                            <div class="p-3 mt-3 mb-2 add-ticket-notification rounded">
+                                <div> <i class="fa fa-bell mr-3"></i><span>Dates and times for recurring events are managed from the 'Occurrences' section of the side menu.                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mx-0" *ngIf="recurringEvent == 'N'">
+                            <div class="form-group col-md-6 mt-3">
+                                <div class="row mx-0">
+                                    <div class="col-md-7 pl-0">
+                                        <label for="">Start Date <span><i class="fa fa-asterisk"></i></span> </label>
+                                        <div *ngIf="singleEventDetail" class="form-group">
+                                            <mat-datepicker #event_start_date_picker></mat-datepicker>
+                                            <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY"
+                                                readonly>
+                                            <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_start_date').touched || editEventForm.get('event_start_date').dirty">
                                             <small *ngIf="editEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
                                         </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-5 px-0">
-                                    <label class="ml-2" for="">Start Time <span><i class="fa fa-asterisk"></i></span> </label>
-                                    <div *ngIf="singleEventDetail" class="form-group">
-                                        <mat-select *ngIf="!startdateToday" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
-                                        </mat-select>
-                                        <mat-select *ngIf="startdateToday" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option [disabled]="currentTime > fullDayTimeSlote" (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
-                                        </mat-select>
-                                        <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_start_time').touched || editEventForm.get('event_start_time').dirty">
+                                    <div class="col-md-5 px-0">
+                                        <label class="ml-2" for="">Start Time <span><i class="fa fa-asterisk"></i></span> </label>
+                                        <div *ngIf="singleEventDetail" class="form-group">
+                                            <mat-select *ngIf="!startdateToday" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                                <mat-option (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                                            </mat-select>
+                                            <mat-select *ngIf="startdateToday" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                                <mat-option [disabled]="currentTime > fullDayTimeSlote" (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                                            </mat-select>
+                                            <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_start_time').touched || editEventForm.get('event_start_time').dirty">
                                             <small *ngIf="editEventForm.get('event_start_time').hasError('required')" class="error">Event Start Time is required.</small>
                                         </span>
+                                        </div>
                                     </div>
+                                    <small *ngIf="singleEventDetail && (selectedStartDate <= todayDate) && (currentTime >= singleEventDetail.start_time)">You can't edit start date time because event is started.</small>
                                 </div>
-                                <small *ngIf="singleEventDetail && (selectedStartDate <= todayDate) && (currentTime >= singleEventDetail.start_time)">You can't edit start date time because event is started.</small>
                             </div>
-                        </div>
-                        <div class="col-md-6 mt-3">
-                            <div class="row mx-0">
-                                <div class="col-md-7 form-group pl-0">
-                                    <label for="">Ends Date <span><i class="fa fa-asterisk"></i></span> </label>
-                                    <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY"
-                                        readonly>
-                                    <mat-datepicker #event_end_date_picker></mat-datepicker>
-                                    <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_end_date').touched || editEventForm.get('event_end_date').dirty">
+                            <div class="col-md-6 mt-3">
+                                <div class="row mx-0">
+                                    <div class="col-md-7 form-group pl-0">
+                                        <label for="">Ends Date <span><i class="fa fa-asterisk"></i></span> </label>
+                                        <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY"
+                                            readonly>
+                                        <mat-datepicker #event_end_date_picker></mat-datepicker>
+                                        <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_end_date').touched || editEventForm.get('event_end_date').dirty">
                                         <small *ngIf="editEventForm.get('event_end_date').hasError('required')" class="error">Event End Date is required.</small>
                                     </span>
-                                </div>
-                                <div class="col-md-5 form-group px-0">
-                                    <label class="ml-2" for="">Ends Time<span><i class="fa fa-asterisk"></i></span> </label>
-                                    <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
-                                    </mat-select>
+                                    </div>
+                                    <div class="col-md-5 form-group px-0">
+                                        <label class="ml-2" for="">Ends Time<span><i class="fa fa-asterisk"></i></span> </label>
+                                        <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                                        </mat-select>
 
 
-                                    <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                        <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
-                                    </mat-select>
-                                    <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_end_time').touched || editEventForm.get('event_end_time').dirty">
+                                        <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                                        </mat-select>
+                                        <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_end_time').touched || editEventForm.get('event_end_time').dirty">
                                         <small *ngIf="editEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
                                     </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                         <section class="form-group col-md-12 mt-3">
                             <mat-checkbox [checked]="olPlatForm == 'Y'" class="" (change)="fnolPlatform($event.checked)">This is on online event</mat-checkbox>
                         </section>
