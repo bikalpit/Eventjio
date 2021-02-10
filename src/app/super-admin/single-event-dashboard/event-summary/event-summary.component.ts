@@ -353,7 +353,36 @@ export class EventSummaryComponent implements OnInit {
   }
 
   fnOccurrenceSummary(occurrenceCode){
+    this.getSingleOccurrenceSummary(occurrenceCode);
+  }
 
+  getSingleOccurrenceSummary(occurrenceCode){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'occurrence_id' : occurrenceCode,
+    };
+    
+    this.SingleEventServiceService.singleOccurrenceDetail(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+
+        this.eventSummery = response.response;
+
+        let data = [];
+        let arrayLable = [];
+        if(this.eventSummery.graphSale){
+          this.eventSummery.graphSale.forEach(element => {
+            data.push(element.sale);
+            arrayLable.push(element.date);
+          });
+          this.fnChartView(data,arrayLable);
+        }
+
+
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });    
+    this.isLoaderAdmin=false;
   }
 
   fnGetBoxOfficeDetail(){

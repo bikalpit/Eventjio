@@ -23,7 +23,7 @@
                         <label>End</label>
                         <div class="form-group">
                             <mat-select formControlName="endTime" class="col-10 ml-2 form-control d-inline-block">
-                                <mat-option [disabled]="startEndTime >= fullDayTimeSlote" (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                                <mat-option [disabled]="startEndTime >= fullDayTimeSlote" (onSelectionChange)="fnChangeEndTime()" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                             </mat-select>
                         </div>
                         <div *ngIf="startEndTime.length == 1" class="whole-day-check ml-auto ">
@@ -46,6 +46,6 @@
 
     <div class="text-right">
         <button mat-flat-button class="cancel-btn" (click)="onNoClick()">Cancel</button>
-        <button mat-flat-button class="save-btn ml-3" (click)="createNewBuyerQuestion()">Save</button>
+        <button mat-flat-button class="save-btn ml-3">Save</button>
     </div>
 </div>

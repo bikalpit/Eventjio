@@ -51,16 +51,16 @@
                                         <mat-icon [ngbPopover]="popContent" placement="left" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                         <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                         <ng-template class="popover custom-popover" #popContent>
-                                            <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/duplicate')">
+                                            <div class="px-3  border-bottom">
                                                 <span class="material-icons">block</span><span>Set Unavailable</span>
                                             </div>
-                                            <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/duplicate')">
+                                            <div class="px-3  border-bottom">
                                                 <i class="fa fa-eye-slash"></i><span>Set Hidden</span>
                                             </div>
-                                            <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/duplicate')">
+                                            <div class="px-3  border-bottom">
                                                 <i class="fa fa-pencil mr-2"></i><span>Edit</span>
                                             </div>
-                                            <div class="px-3  border-bottom" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/delete')">
+                                            <div class="px-3  border-bottom">
                                                 <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                             </div>
 
