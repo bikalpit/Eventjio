@@ -8,6 +8,7 @@ import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 import { environment } from '../../../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
 import { take, takeUntil } from 'rxjs/operators';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-occurrences',
@@ -74,6 +75,7 @@ export class addRepeatOccurrence {
   addRepeatRecurrenceForm:FormGroup;
   fullDayTimeSlote:any;
   dayStartTime:any;
+  dayEndTime:any;
   dayTimeForm:FormGroup;
   dayTimeArr:FormArray;
   startEndTime:any=[];
@@ -86,8 +88,8 @@ export class addRepeatOccurrence {
   finalRepeatData:any = [];
 
   selected = 'na';
-  checkAllDayValue:any = 'show';
-
+  allDayCheckOption:any = 'N';
+  checkAllDayValue:boolean = true;
   constructor(
     public dialogRef: MatDialogRef<addRepeatOccurrence>,
     private _formBuilder: FormBuilder,
@@ -97,12 +99,11 @@ export class addRepeatOccurrence {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       
       this.startEndTime.length = 1;
-      this.finalRepeatData.length = 1;
-
       this.dayTimeForm = this._formBuilder.group({
         dayTimeArr: this._formBuilder.array([this.createTimeSlote()])
       });
 
+      this.finalRepeatData.length = 1;
       this.repeatForm = this._formBuilder.group({
         repeatDataArr:this._formBuilder.array([this.createRepeatSlote()])
       });
@@ -113,21 +114,57 @@ export class addRepeatOccurrence {
       this.getTimeSlote();
     }
 
+    onSubmit(){
+      this.dayTimeArr = this.dayTimeForm.get('dayTimeArr') as FormArray;
+      this.startEndTime = this.dayTimeForm.value.dayTimeArr;
+
+      if(this.startEndTime[this.startEndTime.length-1].start_time == '' && this.startEndTime[this.startEndTime.length-1].label == ''){
+        this.startEndTime.splice(this.startEndTime.length-1, 1);
+      }else if(this.startEndTime[this.startEndTime.length-1].start_time == '' && this.startEndTime[this.startEndTime.length-1].label != ''){
+        this.ErrorService.errorMessage('start time is blank.');
+        return false;
+      }else if(this.startEndTime[this.startEndTime.length-1].start_time != '' && this.startEndTime[this.startEndTime.length-1].label == ''){
+        this.ErrorService.errorMessage('end time is blank.');
+        return false;
+      }
+     
+
+      this.repeatDataArr = this.repeatForm.get('repeatDataArr') as FormArray;
+      this.finalRepeatData = this.repeatForm.value.repeatDataArr;
+
+     
+
+
+      let requestObject = {
+        "all_day" : this.allDayCheckOption,
+        "event_id" : localStorage.getItem('selectedEventCode'),
+        "timeslots" : this.startEndTime,
+        "dateslots" : this.finalRepeatData  
+      }
+      this.SingleEventServiceService.repeatOccurrenceCreate(requestObject).subscribe((response:any) =>   {
+        if(response.data == true){
+          this.ErrorService.errorMessage(response.response); 
+          this.dialogRef.close()
+        }else{
+          this.ErrorService.errorMessage(response.response);
+        }
+      })
+    }
+
     createTimeSlote(){
       return this._formBuilder.group({
-        stratTime:['',[Validators.required]],
-        endTime:['',[Validators.required]]
+        start_time:['',[Validators.required]],
+        end_time:['',[Validators.required]]
       })
     }
 
     createRepeatSlote(){
       return this._formBuilder.group({
-        stratDate:['',[Validators.required]],
+        start_date:['',[Validators.required]],
         repeat:['',[Validators.required]],
-        endDate:['',[Validators.required]]
-      })
+        end_date:['',[Validators.required]]
+      });
     }
-
 
     fnAddStartEndTime(){
       this.dayTimeArr = this.dayTimeForm.get('dayTimeArr') as FormArray;
@@ -151,10 +188,13 @@ export class addRepeatOccurrence {
 
     fnChangeWholeDay(e){
       if(e.checked == true){
-        this.checkAllDayValue = "show"
+        this.checkAllDayValue = false
+        this.allDayCheckOption = 'Y';
+        this.dayTimeForm.reset();
       }
       if(e.checked == false){
-        this.checkAllDayValue = "hide"
+        this.checkAllDayValue = true;
+        this.allDayCheckOption = 'N'
       }
     }
 
@@ -180,11 +220,6 @@ export class addRepeatOccurrence {
     });
   }
 
-  fnChangeStartTime(event){
-    console.log(event)
-    this.dayStartTime = this.fullDayTimeSlote[event];
-    console.log(this.dayStartTime)
-  }
 
   
   
@@ -218,10 +253,10 @@ export class addSingleOccurrence {
     private SingleEventServiceService: SingleEventServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.singleOccurrenceForm =  this._formBuilder.group({
-        occurrence_start_date: ['',[Validators.required]],
-        occurrenceStartTime: ['',[Validators.required]],
-        occurrence_end_date: ['',[Validators.required]],
-        occurrenceEndTime: ['',[Validators.required]],
+        occurance_start_date: ['',[Validators.required]],
+        occurance_end_date: ['',[Validators.required]],
+        occurance_start_time: ['',[Validators.required]],
+        occurance_end_time: ['',[Validators.required]],
       })
     }
 
@@ -255,27 +290,65 @@ export class addSingleOccurrence {
     }
     return `${hour}:${min}`
   }
+  fnChangeEventStartDate(){
+
+  }
 
   fnChangeEventEndDate(){
-    this.minEndDate = this.singleOccurrenceForm.get('occurrence_start_date').value
+    // alert(this.singleOccurrenceForm.get('occurance_end_date').value)
+    this.minEndDate = this.singleOccurrenceForm.get('occurance_start_date').value
 
     var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
-    var selectedStartDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurrence_start_date').value),"yyyy-MM-dd")
+    var selectedStartDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value),"yyyy-MM-dd")
     if(selectedStartDate === todayDate){
-      this.singleOccurrenceForm.get('occurrence_start_date').setValue('');
+      this.singleOccurrenceForm.get('occurance_start_date').setValue('');
       this.startdateToday=true;
       this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
       this.currentTime = this.transformTime(this.datePipe.transform(new Date(),"h:mm a"))
     }else{
       this.startdateToday=false;
     }
-    this.singleOccurrenceForm.get('occurrence_end_date').setValue('');
-    this.singleOccurrenceForm.get('occurrenceEndTime').setValue('');
+    // this.singleOccurrenceForm.get('occurrence_end_date').setValue('');
+    // this.singleOccurrenceForm.get('occurrenceEndTime').setValue('');
   }
   
 
   fnChangeStartTime(event){
     this.singleOccurrenceForm.get('occurrenceEndTime').setValue('');
+  }
+
+  fnChangeEndTime(event){
+
+  }
+  onSubmit(){
+    if(this.singleOccurrenceForm.valid){
+      var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
+      var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
+      let requestObject = {
+        
+        "event_id":localStorage.getItem('selectedEventCode'),
+        "all_day":'N',
+        "occurance_start_date": stratDate,
+        "occurance_end_date": endDate,
+        "occurance_start_time": this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_start_time').value],
+        "occurance_end_time": this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_end_time').value],
+      
+      }
+      this.SingleEventServiceService.singleOccurrenceCreate(requestObject).subscribe((response:any)=>{
+        if(response.data == true){
+          this.ErrorService.errorMessage(response.response)
+          this.dialogRef.close();
+        }else{
+          this.ErrorService.errorMessage(response.response)
+        }
+      })
+    }else{
+      this.singleOccurrenceForm.get('occurance_start_date').markAllAsTouched()
+      this.singleOccurrenceForm.get('occurance_end_date').markAllAsTouched()
+      this.singleOccurrenceForm.get('occurance_start_time').markAllAsTouched()
+      this.singleOccurrenceForm.get('occurance_end_time').markAllAsTouched()
+    }
+    
   }
 
 
