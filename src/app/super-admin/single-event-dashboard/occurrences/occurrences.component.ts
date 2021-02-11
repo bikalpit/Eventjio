@@ -35,7 +35,9 @@ export class OccurrencesComponent implements OnInit {
     private SingleEventServiceService: SingleEventServiceService,
     private change:ChangeDetectorRef
   ) {
-    
+    if(localStorage.getItem('selectedEventCode')){
+      this.event_id = localStorage.getItem('selectedEventCode')
+    }
    }
 
   ngOnInit(): void {
@@ -181,6 +183,7 @@ export class OccurrencesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        this.getAllOccurrenceList();
       }
     });
   }
@@ -195,6 +198,7 @@ export class OccurrencesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        this.getAllOccurrenceList();
       }
     });
   }
@@ -279,7 +283,7 @@ export class addRepeatOccurrence {
       this.SingleEventServiceService.repeatOccurrenceCreate(requestObject).subscribe((response:any) =>   {
         if(response.data == true){
           this.ErrorService.errorMessage(response.response); 
-          this.dialogRef.close()
+          this.dialogRef.close('created')
         }else{
           this.ErrorService.errorMessage(response.response);
         }
@@ -472,7 +476,7 @@ export class addSingleOccurrence {
       this.SingleEventServiceService.singleOccurrenceCreate(requestObject).subscribe((response:any)=>{
         if(response.data == true){
           this.ErrorService.errorMessage(response.response)
-          this.dialogRef.close();
+          this.dialogRef.close('created');
         }else{
           this.ErrorService.errorMessage(response.response)
         }
