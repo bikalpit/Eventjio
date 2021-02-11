@@ -9,7 +9,7 @@
 
             <div class="">
                 <p class="selected-label">With {{selectedOccurrenceAarry.length}} selected:</p>
-                <mat-select [disabled]="selectedOccurrenceAarry.length < 1" (selectionChange)="fnChangeOccuStatus($event.value)" class="form-control col-lg-3 col-sm-4 col-12 ml-auto">
+                <mat-select [disabled]="selectedOccurrenceAarry.length < 1" [(ngModel)]="selectedfilter" (selectionChange)="fnChangeOccuStatus($event.value)" class="form-control col-lg-3 col-sm-4 col-12 ml-auto">
                     <mat-option value="UNAVI">Set unavailable</mat-option>
                     <mat-option value="AVI">Set available</mat-option>
                     <mat-option value="HIDD">Set hidden</mat-option>
@@ -50,7 +50,12 @@
                                 <div class="drageble-box" fxLayout="row" *ngFor="let element of allOccurrenceList; let i=index;">
                                     <div class="tb-data" fxFlex="40">
                                         <mat-checkbox [checked]="element.is_selected" (change)="fnAddOccurrenceId($event.checked, element.unique_code,i)"></mat-checkbox>
-                                        {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}
+                                        <span *ngIf="element.occurance_start_date!=element.occurance_end_date">
+                                            {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time}}
+                                        </span>
+                                        <span *ngIf="element.occurance_start_date==element.occurance_end_date">
+                                            {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time?'-':''}} {{element.occurance_end_time}}
+                                        </span>
                                     </div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.soldout == 'Tickets are not available'">{{element.soldout}}</div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.soldout !== 'Tickets are not available'">{{element.soldout[0].Sold}}</div>
