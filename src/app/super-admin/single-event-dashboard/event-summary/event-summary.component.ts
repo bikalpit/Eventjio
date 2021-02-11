@@ -220,6 +220,18 @@ export class EventSummaryComponent implements OnInit {
     }
   }
   
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour > 12){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
+  
   getAllOccurrenceList(filter){
     this.isLoaderAdmin=true;
     let requestObject = {
@@ -239,6 +251,12 @@ export class EventSummaryComponent implements OnInit {
             }
             if(element.remaining.length == 0){
               element.remaining = 'Tickets are not available'
+            }
+            if(element.occurance_start_time){
+              element.occurance_start_time = this.transformTime24To12(element.occurance_start_time);
+            }
+            if(element.occurance_end_time){
+              element.occurance_end_time = this.transformTime24To12(element.occurance_end_time);
             }
             // element.occurance_start_time = moment(element.occurance_start_time).format('hh:mm a');
             // element.occurance_end_time = moment(element.occurance_end_time).format('hh:mm a');

@@ -145,7 +145,12 @@
                     <div class="content" class="drageble-list" *ngIf="upcomingOccurrenceList">
                         <div class="drageble-box" fxLayout="row" *ngFor="let element of upcomingOccurrenceList; let i=index;">
                             <div class="tb-data" fxFlex="40">
-                                {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}
+                                <span *ngIf="element.occurance_start_date!=element.occurance_end_date">
+                                    {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time}}
+                                </span>
+                                <span *ngIf="element.occurance_start_date==element.occurance_end_date">
+                                    {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time?'-':''}} {{element.occurance_end_time}}
+                                </span>
                             </div>
                             <div class="tb-data" fxFlex="15" *ngIf="element.soldout == 'Tickets are not available'">{{element.soldout}}</div>
                             <div class="tb-data" fxFlex="15" *ngIf="element.soldout !== 'Tickets are not available'">{{element.soldout[0].Sold}}</div>

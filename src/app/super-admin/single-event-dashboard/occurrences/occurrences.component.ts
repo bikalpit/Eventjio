@@ -25,6 +25,7 @@ export class OccurrencesComponent implements OnInit {
   selectAll: boolean = false;
   singleOccurenceData:any;
   // selectedfilter:any;
+  selectedfilter:any;
   constructor(
     
     private _formBuilder: FormBuilder,
@@ -45,6 +46,17 @@ export class OccurrencesComponent implements OnInit {
     this.getAllOccurrenceList();
   }
 
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour > 12){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
 
   getAllOccurrenceList(){
     this.isLoaderAdmin=true;
@@ -64,6 +76,12 @@ export class OccurrencesComponent implements OnInit {
           }
           if(element.remaining.length == 0){
             element.remaining = 'Tickets are not available'
+          }
+          if(element.occurance_start_time){
+            element.occurance_start_time = this.transformTime24To12(element.occurance_start_time);
+          }
+          if(element.occurance_end_time){
+            element.occurance_end_time = this.transformTime24To12(element.occurance_end_time);
           }
           // element.occurance_start_time = moment(element.occurance_start_time).format('hh:mm a');
           // element.occurance_end_time = moment(element.occurance_end_time).format('hh:mm a');
@@ -117,6 +135,7 @@ export class OccurrencesComponent implements OnInit {
           this.ErrorService.successMessage(response.response)
           this.selectedOccurrenceAarry.length = 0;
           this.selectAll = false;
+          this.selectedfilter=null;
           this.getAllOccurrenceList();
   
         }else if(response.data == false){
@@ -138,6 +157,7 @@ export class OccurrencesComponent implements OnInit {
         this.ErrorService.successMessage(response.response);
         this.selectedOccurrenceAarry.length = 0;
         this.selectAll = false;
+        this.selectedfilter=null;
         this.getAllOccurrenceList();
         
       } else if(response.data == false){
@@ -460,6 +480,19 @@ export class addSingleOccurrence {
     }
     return `${hour}:${min}`
   }
+  
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour > 12){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
+
   fnChangeEventStartDate(){
 
   }
@@ -497,6 +530,8 @@ export class addSingleOccurrence {
 
       }
 
+      alert(this.singleOccurrenceForm.get('occurance_start_time').value)
+      alert(this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_start_time').value])
       var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
       var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
       let requestObject = {

@@ -13,7 +13,7 @@
             <form [formGroup]="singleOccurrenceForm" class="with-validation">
                 <div class="row mx-0 mt-2">
                     <label class="w-100">Starts<span><i class="fa fa-asterisk"></i></span></label>
-                    
+
                     <div class="form-group col-6 pl-0">
                         <input (dateChange)="fnChangeEventStartDate()" (click)="occurrence_start_date_picker.open()" [min]="minStartDate" [matDatepicker]="occurrence_start_date_picker" type="text" formControlName="occurance_start_date" class=" col-12 form-control d-inline-block"
                             placeholder="DD/MM/YY" readonly>
@@ -22,10 +22,10 @@
                         <small *ngIf="singleOccurrenceForm.get('occurance_start_date').hasError('required')" class="error">Occurence start date is required.</small>
                         </span>
                     </div>
-                    
+
                     <div class="form-group col-6">
                         <mat-select formControlName="occurance_start_time" class="col-10 form-control d-inline-block">
-                            <mat-option (onSelectionChange)="fnChangeEndTime()" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                            <mat-option (onSelectionChange)="fnChangeEndTime()" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                         </mat-select>
 
                         <span style="left:0" class="error-wrap" *ngIf="singleOccurrenceForm.get('occurance_start_time').touched || singleOccurrenceForm.get('occurance_start_time').dirty">
@@ -37,16 +37,17 @@
 
                 <div class="row mx-0 mt-3">
                     <label class="w-100">Ends<span><i class="fa fa-asterisk"></i></span></label>
-                    
+
                     <div class="form-group col-6 pl-0">
-                        <input (dateChange)="fnChangeEventEndDate()" (click)="occurance_end_date_picker.open()" [min]="minEndDate" [matDatepicker]="occurance_end_date_picker" type="text" formControlName="occurance_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly>
+                        <input (dateChange)="fnChangeEventEndDate()" (click)="occurance_end_date_picker.open()" [min]="minEndDate" [matDatepicker]="occurance_end_date_picker" type="text" formControlName="occurance_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY"
+                            readonly>
                         <mat-datepicker #occurance_end_date_picker></mat-datepicker>
                         <span style="left:0" class="error-wrap" *ngIf="singleOccurrenceForm.get('occurance_end_date').touched || singleOccurrenceForm.get('occurance_end_date').dirty">
                         <small *ngIf="singleOccurrenceForm.get('occurance_end_date').hasError('required')" class="error">Occurence end date is required.</small>
                         </span>
                     </div>
-                   
-                   
+
+
                     <div class="form-group col-6">
                         <!-- <mat-select formControlName="occurrenceEndTime" class="col-10 form-control d-inline-block">
                             <mat-option [disabled]="startEndTime >= fullDayTimeSlote" (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
@@ -56,9 +57,9 @@
                         </mat-select>
 
                         <mat-select *ngIf="startdateToday" formControlName="occurance_end_time" class="col-10 form-control d-inline-block">
-                            <mat-option [disabled]="currentTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                            <mat-option [disabled]="currentTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                         </mat-select>
-               
+
                         <span style="left:0" class="error-wrap" *ngIf="singleOccurrenceForm.get('occurance_end_time').touched || singleOccurrenceForm.get('occurance_end_time').dirty">
                             <small *ngIf="singleOccurrenceForm.get('occurance_end_time').hasError('required')" class="error">Occurence end time is required.</small>
                         </span>
