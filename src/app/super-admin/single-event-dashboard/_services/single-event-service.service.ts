@@ -341,4 +341,19 @@ export class SingleEventServiceService {
         }),catchError(this.handleError));
     }
 
+    repeatOccurrenceCreate(requestObject) {
+        console.log(requestObject);
+        return this.http.post(`${environment.apiUrl}/create-repeat-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+    singleOccurrenceCreate(requestObject) {
+        console.log(requestObject);
+        return this.http.post(`${environment.apiUrl}/create-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+
 }
