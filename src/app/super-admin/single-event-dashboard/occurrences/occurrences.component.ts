@@ -23,6 +23,7 @@ export class OccurrencesComponent implements OnInit {
   allOccurrenceList:any;
   selectedOccurrenceAarry:any=[];
   selectAll: boolean = false;
+  singleOccurenceData:any;
   // selectedfilter:any;
   constructor(
     
@@ -75,6 +76,8 @@ export class OccurrencesComponent implements OnInit {
     });
     this.isLoaderAdmin=false;
   }
+
+  
 
   checkAll(event){
 
@@ -201,6 +204,22 @@ export class OccurrencesComponent implements OnInit {
         this.getAllOccurrenceList();
       }
     });
+  }
+
+  editSingleOccurence(index){
+    this.singleOccurenceData = this.allOccurrenceList[index]
+    const dialogRef = this.dialog.open(addSingleOccurrence,{
+      width:'1100px',
+      data:{
+        singleOccurenceData:this.singleOccurenceData
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        this.getAllOccurrenceList();
+      }
+    })
   }
 }
 
@@ -384,6 +403,7 @@ export class addSingleOccurrence {
   minEndDate:any=new Date();
   startdateToday:boolean=false;
   currentTime:any;
+  singleOccurenceData:any
   constructor(
     public dialogRef: MatDialogRef<addSingleOccurrence>,
     private _formBuilder: FormBuilder,
@@ -391,12 +411,23 @@ export class addSingleOccurrence {
     private datePipe: DatePipe,
     private SingleEventServiceService: SingleEventServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.singleOccurenceData = this.data.singleOccurenceData;
+      
+
       this.singleOccurrenceForm =  this._formBuilder.group({
         occurance_start_date: ['',[Validators.required]],
         occurance_end_date: ['',[Validators.required]],
         occurance_start_time: ['',[Validators.required]],
         occurance_end_time: ['',[Validators.required]],
       })
+
+      
+      if(this.singleOccurenceData){
+        this.singleOccurrenceForm.controls['occurance_start_date'].setValue(this.singleOccurenceData.occurance_start_date)
+        this.singleOccurrenceForm.controls['occurance_end_date'].setValue(this.singleOccurenceData.occurance_end_date)
+        this.singleOccurrenceForm.controls['occurance_start_time'].setValue(this.singleOccurenceData.occurance_start_time)
+        this.singleOccurrenceForm.controls['occurance_end_time'].setValue(this.singleOccurenceData.occurance_end_time)
+      }
     }
 
     ngOnInit(): void {
@@ -461,6 +492,11 @@ export class addSingleOccurrence {
   }
   onSubmit(){
     if(this.singleOccurrenceForm.valid){
+      
+      if(this.singleOccurenceData){
+
+      }
+
       var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
       var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
       let requestObject = {
