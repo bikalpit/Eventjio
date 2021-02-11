@@ -28,6 +28,9 @@ export class WaitilistSignupComponent implements OnInit {
     keyword: ""
   };
   saveDisabled:boolean=false;
+  allOccurrenceList:any;
+  selectedOccurrence:any='all';
+  recurringEvent:any='N';
   
   constructor(
     private formBuilder: FormBuilder,
@@ -37,6 +40,9 @@ export class WaitilistSignupComponent implements OnInit {
   {
     if(localStorage.getItem('boxoffice_id')){
       this.boxofficeId = localStorage.getItem('boxoffice_id');   
+    }
+    if(localStorage.getItem('selectedOccurrence')){
+      this.selectedOccurrence = localStorage.getItem('selectedOccurrence');
     }
     if(localStorage.getItem('selectedEventCode')){
       this.eventId = localStorage.getItem('selectedEventCode')
@@ -55,6 +61,7 @@ export class WaitilistSignupComponent implements OnInit {
     this.getSignupWaitingList('ALL');
     this.getSignupWaitingList('NOTIFY');
     this. fngetSavedwaitlist();
+    this.getAllOccurrenceList();  
   }
 
   fnALLSearch(){
@@ -90,6 +97,10 @@ export class WaitilistSignupComponent implements OnInit {
    
   }
 
+  fnChangeOccurrence(event){
+
+  }
+
   getSignupWaitingList(status){
     this.isLoaderAdmin = true;
     let requestObject = {
@@ -118,6 +129,24 @@ export class WaitilistSignupComponent implements OnInit {
       this.isLoaderAdmin = false;
   }
 
+  getAllOccurrenceList(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'event_id':this.eventId,
+      'filter':'all'
+    }
+    this.SingleEventServiceService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+          this.allOccurrenceList= response.response;
+         
+        console.log(this.allOccurrenceList)
+
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
+  }
   
   fnActiveWaitlist(event){
     this.activeWaitlist=event.checked

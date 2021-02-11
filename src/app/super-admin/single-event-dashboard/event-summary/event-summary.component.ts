@@ -48,6 +48,9 @@ export class EventSummaryComponent implements OnInit {
     private datePipe:DatePipe,
 
   ) {
+    if(localStorage.getItem('selectedOccurrence')){
+      this.selectedOccurrence = localStorage.getItem('selectedOccurrence');
+    }
   }
   
   
@@ -292,6 +295,7 @@ export class EventSummaryComponent implements OnInit {
 
   fnChangeOccurrence(event){
     this.selectedOccurrence = event.value
+    localStorage.setItem('selectedOccurrence',this.selectedOccurrence);
     this.getSingleOccurrenceSummary(this.selectedOccurrence);
   }
 
@@ -311,6 +315,9 @@ export class EventSummaryComponent implements OnInit {
       }
     });
 
+    if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+      this.fnOccurrenceSummary(this.selectedOccurrence);
+    }else{
     let request = {
       'event_id' : this.eventId,
     }
@@ -318,7 +325,6 @@ export class EventSummaryComponent implements OnInit {
     this.SingleEventServiceService.getSingleSummery(request).subscribe((response:any) => {
       if(response.data == true){
         this.eventSummery = response.response;
-
         let data = [];
         let arrayLable = [];
         if(this.eventSummery.graphSale){
@@ -346,6 +352,9 @@ export class EventSummaryComponent implements OnInit {
       }
     });
     this.isLoaderAdmin=false;
+    
+      
+  }
   }
 
   fnOccurrenceDelete(occurrenceCode){

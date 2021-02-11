@@ -2,7 +2,12 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="row">
         <div class="col-12 tickes-heading">
-            <div class="page-title">Issued tickets</div>
+            <div class="page-title d-flex">Issued tickets
+                <mat-select (selectionChange)="fnChangeOccurrence($event)" [(ngModel)]="selectedOccurrence" *ngIf="recurringEvent == 'Y'" class="form-control col-4 ml-auto">
+                    <mat-option value="all">All Occurrences</mat-option>
+                    <mat-option *ngFor="let element of allOccurrenceList; let i=index;" value="{{element.unique_code}}">{{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}</mat-option>
+                </mat-select>
+            </div>
             <p class="mt-2">
                 Find all the issued tickets for your event below, along with attendee data. Looking for orders? See all the orders for this event.
             </p>

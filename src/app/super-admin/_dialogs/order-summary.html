@@ -24,7 +24,7 @@
             </div>
 
             <div class="row mx-0" *ngIf="orderDetail.order_status != 'C'">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <button mat-raised-button class="comm-btn mr-2" (click)="resendOrder()">Resend Ticket</button>
                     <button *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AUEC') > -1)" mat-raised-button class="comg-btn mr-2" (click)="editOrder()">Edit Order</button>
                     <button *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AUEC') > -1)" mat-raised-button class="comg-btn mr-2" (click)="cancelOrder()">Cancel Order</button>

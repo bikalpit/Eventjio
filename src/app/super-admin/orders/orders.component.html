@@ -114,7 +114,8 @@
                                 </div>
                                 <div class="tb-data" fxFlex="13">{{element.customer.firstname + " " +element.customer.lastname}}</div>
                                 <div class="tb-data" fxFlex="20">{{element.order_date |date :'fullDate'}} / {{element.order_time}}</div>
-                                <div class="tb-data" fxFlex="27">{{element.events.event_title}} <span class="order-data-date"> ({{element.order_date |date :'fullDate'}}) </span></div>
+                                <div class="tb-data" fxFlex="27" *ngIf="element.events">{{element.events.event_title}} <span class="order-data-date"> ({{element.order_date |date :'fullDate'}}) </span></div>
+                                <div class="tb-data" fxFlex="27" *ngIf="!element.events">-</div>
                                 <div class="tb-data" fxFlex="8">{{element.grand_total| currency:element.events.event_setting.currency:'symbol'}}</div>
                                 <div class="tb-data" fxFlex="5">
                                     <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>

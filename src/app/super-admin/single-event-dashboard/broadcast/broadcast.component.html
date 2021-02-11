@@ -66,6 +66,25 @@
                             <small *ngIf="createBroadcastForm.get('recipients').hasError('required')" class="error">Recipients is required.</small>
                         </span>
                     </div>
+                    <div *ngIf="recurrenceEvent == 'Y'" class="form-group col-md-12 col-lg-12 col-sm-12">
+                        <label>Occurrences<span class="text-danger">*</span> <i class="fa fa-question-circle" aria-hidden="true" matTooltip="When your customers have a question they can either contact you via contact form that forwards on to you can specify your own contact instructions." ></i> 
+                        </label>
+                        <mat-select (selectionChange)="fnChangeOccurrence($event)" class="form-control clr-black" id="exampleFormControlSelect2">
+                            <!-- <mat-option value="select Recipients">select Recipients</mat-option> -->
+                            <mat-option *ngFor="let element of allOccurrenceList; let i=index" value="{{element.unique_code}}">
+                                <span *ngIf="element.occurance_start_date!=element.occurance_end_date">
+                                    {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time}}
+                                </span>
+                                <span *ngIf="element.occurance_start_date==element.occurance_end_date">
+                                    {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time?'-':''}} {{element.occurance_end_time}}
+                                </span>
+                            </mat-option>
+
+                        </mat-select><br>
+                        <span class="error-wrap" *ngIf="occurrenceError">
+                            <small *ngIf="occurrenceError" class="error">Occurrence is required.</small>
+                        </span>
+                    </div>
 
 
                     <div class="form-group col-md-12 col-lg-12 col-sm-12">

@@ -240,7 +240,7 @@ export class addRepeatOccurrence {
   minSelectStartDate:any = new Date();
   minSelectEndDate:any = new Date();
   dateSelectfield:boolean = false;
-
+  isLoaderAdmin:boolean=false;
   repeatForm:FormGroup;
   repeatDataArr:FormArray;
   finalRepeatData:any = [];
@@ -398,6 +398,7 @@ export class addSingleOccurrence {
   addRepeatRecurrenceForm:FormGroup;
   fullDayTimeSlote:any;
   dayStartTime:any;
+  isLoaderAdmin:boolean=false;
   singleOccurrenceForm:FormGroup;
   minStartDate:any=new Date();
   minEndDate:any=new Date();

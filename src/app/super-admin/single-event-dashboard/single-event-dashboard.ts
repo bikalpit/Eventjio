@@ -90,6 +90,7 @@ export class SingleEventDashboard implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
+        localStorage.setItem('isRecurrenceEvent',this.eventDetail.event_occurrence_type)
         if(this.eventDetail.event_occurrence_type == 'N'){
           this.isPastEvent = response.response.past;
         }

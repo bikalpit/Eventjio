@@ -35,6 +35,10 @@ export class BroadcastComponent implements OnInit {
   scheduledDate:any;
   unique_id:any;
   messageContent:any;
+  recurrenceEvent :any ;
+  selectedOccurrence:any;
+  occurrenceError:boolean=false;
+  allOccurrenceList:any;
   // status:string = "draft";
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
@@ -48,8 +52,13 @@ export class BroadcastComponent implements OnInit {
       if(localStorage.getItem('boxoffice_id')){
         this.BoxofficeId = localStorage.getItem('boxoffice_id');
       }
+      if(localStorage.getItem('isRecurrenceEvent')){
+        this.recurrenceEvent = localStorage.getItem('isRecurrenceEvent');
+      }
       if(localStorage.getItem('selectedEventCode')){
         this.eventId = localStorage.getItem('selectedEventCode');
+        
+        this.getAllOccurrenceList();
       }  
      
     this.createBroadcastForm = this._formBuilder.group({
@@ -64,7 +73,10 @@ export class BroadcastComponent implements OnInit {
     });
   }
 
-
+  fnChangeOccurrence(event){
+    this.selectedOccurrence = event.value
+    this.occurrenceError = false;
+  }
 
   fnOnSubmitForm(status){
     // console.log(this.createBroadcastForm);
@@ -79,17 +91,39 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.get('terms').markAllAsTouched();
       return false;
     }else{
-      this.createBroadcastData = { 
-        "recipients" : this.createBroadcastForm.get('recipients').value,
-        "subject" : this.createBroadcastForm.get('subject').value,
-        "message" : this.createBroadcastForm.get('message').value,
-        "send" : this.createBroadcastForm.get('send').value,
-        "scheduledDate" : this.scheduledDate,
-        "scheduledTime" : this.createBroadcastForm.get('scheduledTime').value,
-        "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
-        "terms" : this.createBroadcastForm.get('terms').value,
-        "event_id" : this.eventId, 
+      if(this.recurrenceEvent == 'Y'){
+        if(this.selectedOccurrence){
+          this.createBroadcastData = { 
+            "recipients" : this.createBroadcastForm.get('recipients').value,
+            "subject" : this.createBroadcastForm.get('subject').value,
+            "message" : this.createBroadcastForm.get('message').value,
+            "send" : this.createBroadcastForm.get('send').value,
+            "scheduledDate" : this.scheduledDate,
+            "scheduledTime" : this.createBroadcastForm.get('scheduledTime').value,
+            "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
+            "terms" : this.createBroadcastForm.get('terms').value,
+            "event_id" : this.eventId, 
+            "occurrence_id" : this.selectedOccurrence, 
+          }
+        }else{
+          this.occurrenceError = true;
+          return false;
+        }
+        
+      }else{
+        this.createBroadcastData = { 
+          "recipients" : this.createBroadcastForm.get('recipients').value,
+          "subject" : this.createBroadcastForm.get('subject').value,
+          "message" : this.createBroadcastForm.get('message').value,
+          "send" : this.createBroadcastForm.get('send').value,
+          "scheduledDate" : this.scheduledDate,
+          "scheduledTime" : this.createBroadcastForm.get('scheduledTime').value,
+          "scheduledInterval" : this.createBroadcastForm.get('scheduledInterval').value,
+          "terms" : this.createBroadcastForm.get('terms').value,
+          "event_id" : this.eventId, 
+        }
       }
+     
      
       this.createNewBroadCast(this.createBroadcastData,status);
     
@@ -103,6 +137,7 @@ export class BroadcastComponent implements OnInit {
         if(response.data == true){
          this.ErrorService.successMessage(response.response);
          this.createBroadcastForm.reset();
+         this.selectedOccurrence=null;
          this.getAllBroadcast();
          if(status == 'send'){
           setTimeout(() => {
@@ -114,8 +149,8 @@ export class BroadcastComponent implements OnInit {
         else if(response.data == false){
          this.ErrorService.errorMessage(response.response);
         }
-        this.isLoaderAdmin = false;
       })
+      this.isLoaderAdmin = false;
   }
   fnSelectionChange(event){
     // this.sendOptions = event.value; 
@@ -149,6 +184,46 @@ export class BroadcastComponent implements OnInit {
     }
     this.createBroadcastForm.updateValueAndValidity();
     
+  }
+
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour > 12){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
+
+  getAllOccurrenceList(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'event_id':this.eventId,
+      'filter':'all'
+    }
+    this.SingleEventServiceService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+          this.allOccurrenceList= response.response;
+          this.allOccurrenceList.forEach(element => {
+            
+            if(element.occurance_start_time){
+              element.occurance_start_time = this.transformTime24To12(element.occurance_start_time);
+            }
+            if(element.occurance_end_time){
+              element.occurance_end_time = this.transformTime24To12(element.occurance_end_time);
+            }
+            // element.occurance_start_time = moment(element.occurance_start_time).format('hh:mm a');
+            // element.occurance_end_time = moment(element.occurance_end_time).format('hh:mm a');
+          });
+
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
   }
 
   fnChangeEventStartDate(){

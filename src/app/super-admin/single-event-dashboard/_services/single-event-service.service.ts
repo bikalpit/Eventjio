@@ -355,5 +355,12 @@ export class SingleEventServiceService {
                 return res;
         }),catchError(this.handleError));
     }
+    singleOccurrIssuedTickets(requestObject,path) {
+        console.log(requestObject);
+        return this.http.post(path,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
 
 }

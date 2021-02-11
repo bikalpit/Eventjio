@@ -2,7 +2,12 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="container-fluid">
         <div class="top-heading-main">
-            <h4 class="page-title"> Waitlist </h4>
+            <h4 class="page-title d-flex"> Waitlist
+                <mat-select (selectionChange)="fnChangeOccurrence($event)" [(ngModel)]="selectedOccurrence" *ngIf="recurringEvent == 'Y'" class="form-control col-4 ml-auto">
+                    <mat-option value="all">All Occurrences</mat-option>
+                    <mat-option *ngFor="let element of allOccurrenceList; let i=index;" value="{{element.unique_code}}">{{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}</mat-option>
+                </mat-select>
+            </h4>
             <p> Set up a waitlist to collect email addresses from prospective tickets buyers. When tickets become available you can notify the signups by sending them a Broadcast or exporting the data and using an alternative tool.
                 <a> Learn more about how to set up a waitlist in our helpdesk article. </a>
             </p>

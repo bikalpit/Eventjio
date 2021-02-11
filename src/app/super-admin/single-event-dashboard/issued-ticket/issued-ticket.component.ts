@@ -38,6 +38,7 @@ export class IssuedTicketComponent implements OnInit {
   Issued_to_date:any;
   boxoffice_id:any;
   filter:any = "all";
+  recurringEvent:any='N';
   isLoaderAdmin = false;
 
   //getIssuedTicketApiUrl:any =  `${environment.apiUrl}/get-allboxoffice-event-api`;
@@ -49,6 +50,9 @@ export class IssuedTicketComponent implements OnInit {
   prev_page_url_getIssuedTicket:any;
   path_getIssuedTicket:any =  `${environment.apiUrl}/get-all-issue-ticket`;
 
+  
+  allOccurrenceList:any;
+  selectedOccurrence:any='all';
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
@@ -61,6 +65,10 @@ export class IssuedTicketComponent implements OnInit {
     if(localStorage.getItem('selectedEventCode')){
       this.event_id = localStorage.getItem('selectedEventCode')
     }
+    if(localStorage.getItem('selectedOccurrence')){
+      this.selectedOccurrence = localStorage.getItem('selectedOccurrence');
+      
+    }
 
     this.boxoffice_id = localStorage.getItem('boxoffice_id')
     
@@ -69,31 +77,43 @@ export class IssuedTicketComponent implements OnInit {
  
   ngOnInit(): void {
     this.fnGetEventDetail();
+    this.getAllOccurrenceList();  
   }
   
-  issuedTickets(){
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour > 12){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
 
+  issuedTickets(){
+    if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+      this.path_getIssuedTicket = `${environment.apiUrl}/get-all-occurence-issue-ticket`
+      this.singleOccurrIssuedTickets(this.selectedOccurrence);
+    }else{
+      this.path_getIssuedTicket =  `${environment.apiUrl}/get-all-issue-ticket`;
     let requestObject = {
       "event_id": this.event_id,
       "ticket_type": this.Ticket_Type,
       "issued_status": this.status_ticket,
-      "filter": this.global_search,
+      "global_search": this.global_search,
       "boxoffice_id" : this.boxoffice_id
     }
-
     if(this.Issued_from_date){ 
       requestObject['issued_fromdate'] = moment(this.Issued_from_date).format('Y-M-D');
     }
-
     if(this.Issued_to_date){ 
       requestObject['issued_todate'] = moment(this.Issued_to_date).format('Y-M-D');
     }
-    
     this.isLoaderAdmin = true;
-
     this.SingleEventServiceService.issuedTickets(requestObject,this.path_getIssuedTicket).subscribe((response:any)=>{
       if(response.data == true){
-
         this.getIssuedTicket = response.response.data;
         this.current_page_getIssuedTicket = response.response.current_page;
         this.first_page_url_getIssuedTicket = response.response.first_page_url;
@@ -103,15 +123,46 @@ export class IssuedTicketComponent implements OnInit {
         this.prev_page_url_getIssuedTicket = response.response.prev_page_url;
         this.path_getIssuedTicket = response.response.path;
         this.SingleEventDashboard.fnEventSummery();
-
       } else if(response.data == false){
         this.getIssuedTicket = [];
         this.ErrorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
-
     });
-
+  }
+  }
+  
+  singleOccurrIssuedTickets(selectedOccurrence){
+    let requestObject = {
+      'occurrence_id':selectedOccurrence,
+      "ticket_type": this.Ticket_Type,
+      "issued_status": this.status_ticket,
+      "global_search": this.global_search,
+    }
+    if(this.Issued_from_date){ 
+      requestObject['issued_fromdate'] = moment(this.Issued_from_date).format('Y-M-D');
+    }
+    if(this.Issued_to_date){ 
+      requestObject['issued_todate'] = moment(this.Issued_to_date).format('Y-M-D');
+    }
+    this.isLoaderAdmin = true;
+    this.SingleEventServiceService.singleOccurrIssuedTickets(requestObject,this.path_getIssuedTicket).subscribe((response:any)=>{
+      if(response.data == true){
+        this.getIssuedTicket = response.response.data;
+        this.current_page_getIssuedTicket = response.response.current_page;
+        this.first_page_url_getIssuedTicket = response.response.first_page_url;
+        this.last_page_getIssuedTicket = response.response.last_page;
+        this.last_page_url_getIssuedTicket = response.response.last_page_url;
+        this.next_page_url_getIssuedTicket = response.response.next_page_url;
+        this.prev_page_url_getIssuedTicket = response.response.prev_page_url;
+        this.path_getIssuedTicket = response.response.path;
+        this.SingleEventDashboard.fnEventSummery();
+      } else if(response.data == false){
+        this.getIssuedTicket = [];
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
   }
 
   fnExportDoorList() {
@@ -169,6 +220,7 @@ export class IssuedTicketComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.EventDetail = response.response;
+        this.recurringEvent = this.EventDetail.event[0].event_occurrence_type;
 
         
         this.EventDetail.tickets.forEach((element,index,object) => {
@@ -185,7 +237,31 @@ export class IssuedTicketComponent implements OnInit {
 
   }
 
+  getAllOccurrenceList(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'event_id':this.event_id,
+      'filter':'all'
+    }
+    this.SingleEventServiceService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+          this.allOccurrenceList= response.response;
+         
+        console.log(this.allOccurrenceList)
+
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
+  }
+
   
+  fnChangeOccurrence(event){
+    this.selectedOccurrence = event.value
+    localStorage.setItem('selectedOccurrence',this.selectedOccurrence);
+      this.issuedTickets();
+  }
 
   arrayOneTicket(n: number): any[] {
     return Array(n);
