@@ -274,6 +274,7 @@ export class EventSummaryComponent implements OnInit {
 
   fnChangeOccurrence(event){
     this.selectedOccurrence = event.value
+    this.getSingleOccurrenceSummary(this.selectedOccurrence);
   }
 
   fnGetEventDetail(){
@@ -353,6 +354,7 @@ export class EventSummaryComponent implements OnInit {
   }
 
   fnOccurrenceSummary(occurrenceCode){
+    this.selectedOccurrence = occurrenceCode
     this.getSingleOccurrenceSummary(occurrenceCode);
   }
 

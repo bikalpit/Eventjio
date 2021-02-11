@@ -6,6 +6,17 @@
                 <h4 class="page-title"> Occurrence </h4>
                 <p>Occurrences are the dates and times your recurring event takes place.</p>
             </div>
+
+            <div class="">
+                <p class="selected-label">With {{selectedOccurrenceAarry.length}} selected:</p>
+                <mat-select [disabled]="selectedOccurrenceAarry.length < 1" (selectionChange)="fnChangeOccuStatus($event.value)" class="form-control col-lg-3 col-sm-4 col-12 ml-auto">
+                    <mat-option value="UNAVI">Set unavailable</mat-option>
+                    <mat-option value="AVI">Set available</mat-option>
+                    <mat-option value="HIDD">Set hidden</mat-option>
+                    <mat-option value="VIS">Set visible</mat-option>
+                    <mat-option value="DEL">Delete</mat-option>
+                </mat-select>
+            </div>
             <div class="bottom-occurrence-wrap">
                 <!-- <div class="occurrence-notification">
                     <i class="fa fa-bell" aria-hidden="true"></i>
@@ -39,7 +50,7 @@
                                 <div class="drageble-box" fxLayout="row" *ngFor="let element of allOccurrenceList; let i=index;">
                                     <div class="tb-data" fxFlex="40">
                                         <mat-checkbox [checked]="element.is_selected" (change)="fnAddOccurrenceId($event.checked, element.unique_code,i)"></mat-checkbox>
-                                        {{element.occurance_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}
+                                        {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}
                                     </div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.soldout == 'Tickets are not available'">{{element.soldout}}</div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.soldout !== 'Tickets are not available'">{{element.soldout[0].Sold}}</div>
@@ -51,16 +62,19 @@
                                         <mat-icon [ngbPopover]="popContent" placement="left" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                         <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                         <ng-template class="popover custom-popover" #popContent>
-                                            <div class="px-3  border-bottom">
+                                            <div *ngIf="element.status == 'AVI'" class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'UNAVI')">
                                                 <span class="material-icons">block</span><span>Set Unavailable</span>
                                             </div>
-                                            <div class="px-3  border-bottom">
+                                            <div *ngIf="element.status == 'UNAVI'" class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'AVI')">
+                                                <span class="material-icons">block</span><span>Set Available</span>
+                                            </div>
+                                            <div class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'HIDD')">
                                                 <i class="fa fa-eye-slash"></i><span>Set Hidden</span>
                                             </div>
                                             <div class="px-3  border-bottom">
                                                 <i class="fa fa-pencil mr-2"></i><span>Edit</span>
                                             </div>
-                                            <div class="px-3  border-bottom">
+                                            <div class="px-3  border-bottom" (click)="singleStatusUpdate(element.unique_code,'DEL')">
                                                 <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                             </div>
 

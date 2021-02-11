@@ -23,7 +23,7 @@ export class OccurrencesComponent implements OnInit {
   allOccurrenceList:any;
   selectedOccurrenceAarry:any=[];
   selectAll: boolean = false;
-
+  // selectedfilter:any;
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -101,7 +101,55 @@ export class OccurrencesComponent implements OnInit {
 
   }
 
+  fnChangeOccuStatus(value){
+    if(value == 'DEL'){
+      this.fnOccurrenceDelete();
+    }else {
+      this.isLoaderAdmin=true;
+      let requestObject = {
+        'occurance_id':this.selectedOccurrenceAarry,
+        'status':value
+      }
+      this.SingleEventServiceService.occurrenceStatusUpdate(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.ErrorService.successMessage(response.response)
+          this.selectedOccurrenceAarry.length = 0;
+          this.selectAll = false;
+          this.getAllOccurrenceList();
   
+        }else if(response.data == false){
+          this.ErrorService.errorMessage(response.response)
+        }
+      });
+      this.isLoaderAdmin=false;
+    }
+  }
+
+  fnOccurrenceDelete(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'occurance_id':this.selectedOccurrenceAarry,
+    }
+    
+    this.SingleEventServiceService.occurrenceDelete(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+        this.selectedOccurrenceAarry.length = 0;
+        this.selectAll = false;
+        this.getAllOccurrenceList();
+        
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin=false;
+  }
+  
+  singleStatusUpdate(occCode,status){
+    this.selectedOccurrenceAarry.push(occCode);
+    this.fnChangeOccuStatus(status);
+  }
+
   fnAddOccurrenceId(event, OccId,i){
 
     if(event == true){
@@ -224,6 +272,8 @@ export class addRepeatOccurrence {
   fnChangeEndTime(){
     
   }
+
+  
 
   fnAddStartEndTime(){
     this.dayTimeArr = this.dayTimeForm.get('dayTimeArr') as FormArray;
