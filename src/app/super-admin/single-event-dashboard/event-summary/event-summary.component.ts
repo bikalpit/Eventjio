@@ -296,7 +296,9 @@ export class EventSummaryComponent implements OnInit {
   fnChangeOccurrence(event){
     this.selectedOccurrence = event.value
     localStorage.setItem('selectedOccurrence',this.selectedOccurrence);
-    this.getSingleOccurrenceSummary(this.selectedOccurrence);
+    if(this.selectedOccurrence != 'all'){
+      this.getSingleOccurrenceSummary(this.selectedOccurrence);
+    }
   }
 
   fnGetEventDetail(){
@@ -377,12 +379,15 @@ export class EventSummaryComponent implements OnInit {
   }
 
   fnOccurrenceOrder(occurrenceCode){
-
+    
+    this.router.navigateByUrl('/super-admin/orders?event='+this.eventId+'&occurrence='+occurrenceCode);
   }
 
   fnOccurrenceSummary(occurrenceCode){
     this.selectedOccurrence = occurrenceCode
-    this.getSingleOccurrenceSummary(occurrenceCode);
+    if(this.selectedOccurrence != 'all'){
+      this.getSingleOccurrenceSummary(occurrenceCode);
+    }
   }
 
   getSingleOccurrenceSummary(occurrenceCode){

@@ -272,6 +272,14 @@ export class SuperadminService {
           }),
          catchError(this.handleError));
     }
+    
+    fnGetOccurrenceOrders(url,requestObject){
+        return this.http.post(`${url}`,requestObject,{headers:this.globalHeaders}).pipe(
+         map((res) => {
+            return res;
+          }),
+         catchError(this.handleError));
+    }
 
     fnResendOrder(orderId){
         return this.http.get(`${environment.apiUrl}/resend-order?unique_code=${orderId}`,{headers:this.globalHeaders}).pipe(
@@ -401,6 +409,13 @@ export class SuperadminService {
         return this.http.post(`${environment.apiUrl}/update-order-status`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
+        }),catchError(this.handleError));
+    }
+
+    getAllOccurrenceList(requestObject) {
+        return this.http.post(`${environment.apiUrl}/list-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
         }),catchError(this.handleError));
     }
 

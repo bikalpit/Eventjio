@@ -299,42 +299,42 @@ export class SingleEventServiceService {
     }
 
     orderUpdate(requestObject) {
-        console.log(requestObject);
+        
         return this.http.post(`${environment.apiUrl}/order-update`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));
     }
     getAllOccurrenceList(requestObject) {
-        console.log(requestObject);
+        
         return this.http.post(`${environment.apiUrl}/list-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));
     }
     createOccurence(requestObject) {
-        console.log(requestObject);
+        
         return this.http.post(`${environment.apiUrl}/create-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));
     }
     occurrenceStatusUpdate(requestObject) {
-        console.log(requestObject);
+        
         return this.http.post(`${environment.apiUrl}/status-update-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));
     }
     occurrenceDelete(requestObject) {
-        console.log(requestObject);
+        
         return this.http.post(`${environment.apiUrl}/delete-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));
     }
     singleOccurrenceDetail(requestObject) {
-        console.log(requestObject);
+        
         return this.http.post(`${environment.apiUrl}/occurrence-summery-api`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
@@ -342,28 +342,28 @@ export class SingleEventServiceService {
     }
 
     repeatOccurrenceCreate(requestObject) {
-        console.log(requestObject);
+        
         return this.http.post(`${environment.apiUrl}/create-repeat-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));
     }
     singleOccurrenceCreate(requestObject) {
-        console.log(requestObject);
+        
         return this.http.post(`${environment.apiUrl}/create-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));
     }
     singleOccurrIssuedTickets(requestObject,path) {
-        console.log(requestObject);
+        
         return this.http.post(path,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));
     }
     singleOccurrenceUpdate(requestObject) {
-        console.log(requestObject);
+        
         return this.http.post(`${environment.apiUrl}/update-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;

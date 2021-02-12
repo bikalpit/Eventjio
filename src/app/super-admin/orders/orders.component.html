@@ -28,13 +28,29 @@
                     <input matInput type="text" class="form-control" [(ngModel)]="search" (keyup)="fngetallOrders()" placeholder="Search by name, email, transaction id, or ticket code">
                 </div>
                 <div class="col-12 p-0 order-event">
-                    <div class="" fxFlex="34">
+                    <div class="" fxFlex="34" *ngIf="!selectedEvent && !selectedOccurrence">
                         <label class="mb-0">Event</label>
                         <div class="">
                             <mat-select class="form-control" [(ngModel)]="single_order_event" (selectionChange)="fngetallOrders()">
                                 <mat-option value="">All Events</mat-option>
                                 <mat-option *ngFor="let val of allEventlist;let i = index;" value="{{val.unique_code}}">
                                     {{val.event_title}} {{val.start_date}} - {{val.start_time}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                    <div class="" fxFlex="34" *ngIf="selectedEvent && selectedOccurrence">
+                        <label class="mb-0">Occurrence</label>
+                        <div class="">
+                            <mat-select class="form-control" [(ngModel)]="selectedOccurrence" (selectionChange)="fnChangeOccurrence()">
+                                <mat-option value="">All Occurrence</mat-option>
+                                <mat-option *ngFor="let element of allOccurrenceList;let i = index;" value="{{element.unique_code}}">
+                                    <span *ngIf="element.occurance_start_date!=element.occurance_end_date">
+                                        {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time}}
+                                    </span>
+                                    <span *ngIf="element.occurance_start_date==element.occurance_end_date">
+                                        {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time?'-':''}} {{element.occurance_end_time}}
+                                    </span>
                                 </mat-option>
                             </mat-select>
                         </div>

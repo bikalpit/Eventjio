@@ -37,6 +37,7 @@ export class OrdersComponent implements OnInit {
   search="";
   
   ordersApiUrl:any =  `${environment.apiUrl}/get-all-order`;
+  occurrenceOrdersApiUrl:any =  `${environment.apiUrl}/get-all-occurrence-orders`;
   
   current_page_orders:any;
   first_page_url_orders:any;
@@ -55,6 +56,11 @@ export class OrdersComponent implements OnInit {
   currentUser:any;
   subPermission:any=[];
   orderToDate:any;
+  urlString:any;
+  urlString2:any;
+  selectedOccurrence:any;
+  selectedEvent:any;
+  allOccurrenceList:any;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
@@ -69,7 +75,24 @@ export class OrdersComponent implements OnInit {
   ) { 
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    
+    console.log(window.location.search)
+    var queryString = window.location.search
+    var queryStringCount = queryString.includes("event",1)
+    console.log(queryStringCount)
+    if(queryStringCount){
+      this.urlString = window.location.search.split("?event="); 
+      this.urlString2= this.urlString[1].split('&occurrence=')
+      this.selectedEvent = this.urlString2[0];
+      this.selectedOccurrence = this.urlString2[1];
+      console.log('url ---------------'+this.urlString);
+      console.log('Occurrence ---------------'+this.selectedOccurrence);
+      console.log('Event  ---------------'+this.selectedEvent);
+    }
+
+   
+    if(this.selectedOccurrence && this.selectedEvent){
+      this.getAllOccurrenceList();
+    }
     if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
       if(localStorage.getItem('permision_OM') != 'TRUE'){
         this.router.navigate(['/super-admin']);
@@ -93,13 +116,34 @@ export class OrdersComponent implements OnInit {
  
 
   ngOnInit(): void {
-     this.fngetallOrders();
+    if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+      this.fnChangeOccurrence();
+    }else{
+      this.fngetallOrders();
+    }
      this.fnGetAllEventList();
   }
 
   
   fnTicketCheckout(fromType){
     this.addOrderFormType = fromType;
+  }
+
+  getAllOccurrenceList(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'event_id':this.selectedEvent,
+      'filter':'all'
+    }
+    this.superadminService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+          this.allOccurrenceList= response.response;
+
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
   }
 
   editOrder(Orderdata){
@@ -110,7 +154,11 @@ export class OrdersComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fngetallOrders();
+      if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+        this.fnChangeOccurrence();
+      }else{
+        this.fngetallOrders();
+      }
     });
   }  
   
@@ -122,7 +170,11 @@ export class OrdersComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fngetallOrders();
+      if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+        this.fnChangeOccurrence();
+      }else{
+        this.fngetallOrders();
+      }
     });
   }
 
@@ -135,7 +187,11 @@ export class OrdersComponent implements OnInit {
   
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fngetallOrders();
+      if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+        this.fnChangeOccurrence();
+      }else{
+        this.fngetallOrders();
+      }
      });
   }  
 
@@ -178,7 +234,11 @@ export class OrdersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fngetallOrders();
+      if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+        this.fnChangeOccurrence();
+      }else{
+        this.fngetallOrders();
+      }
     });
   }
 
@@ -224,6 +284,53 @@ export class OrdersComponent implements OnInit {
     }
 
     this.superadminService.fnGetallOrders(this.ordersApiUrl,requestObject).subscribe((response:any) => {
+
+      if(response.data == true){
+
+        this.allorderlist =  response.response.data;
+        // this.allorderlist.forEach(element => {
+        //   element.order_date = this.datePipe.transform(new Date(element.order_date), 'MMM d, y');
+        //   element.order_time = this.datePipe.transform(new Date(element.order_time), 'h:mm a');
+        // });
+        this.current_page_orders = response.response.current_page;
+        this.first_page_url_orders = response.response.first_page_url;
+        this.last_page_orders = response.response.last_page;
+        this.last_page_url_orders = response.response.last_page_url;
+        this.next_page_url_orders = response.response.next_page_url;
+        this.prev_page_url_orders = response.response.prev_page_url;
+        this.path_orders = response.response.path;
+      }else{
+          this.ErrorService.errorMessage(response.response);
+          this.allorderlist = [];
+      }
+      this.isLoaderAdmin = false;
+    });
+    
+  } 
+
+  fnChangeOccurrence(){
+    if(this.selectedOccurrence == 'all'){
+      this.fngetallOrders();
+      return false;
+    }
+    this.isLoaderAdmin = true;
+    this.orderToDate = this.start_date
+    let requestObject = {
+      'global_search' : this.search,
+      "boxoffice_id" : this.boxOfficeCode,
+      "occurrence_id":   this.selectedOccurrence ? this.selectedOccurrence : 'all',
+      "order_status" : this.order_status ? this.order_status : 'all',
+    }
+
+    if(this.start_date){
+      requestObject ['order_fromdate'] = this.datePipe.transform(new Date(this.start_date),"yyyy-MM-dd");
+    }
+    
+    if(this.end_date){
+      requestObject ['order_todate'] = this.datePipe.transform(new Date(this.end_date),"yyyy-MM-dd");
+    }
+
+    this.superadminService.fnGetOccurrenceOrders(this.occurrenceOrdersApiUrl,requestObject).subscribe((response:any) => {
 
       if(response.data == true){
 
