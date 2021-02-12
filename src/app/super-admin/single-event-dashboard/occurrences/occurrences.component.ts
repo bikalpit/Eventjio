@@ -27,6 +27,8 @@ export class OccurrencesComponent implements OnInit {
   // selectedfilter:any;
   selectedfilter:any;
   fullDayTimeSlote:any;
+  visibilityStatus:any;
+  avaibilityStatus:any;
   constructor(
     
     private _formBuilder: FormBuilder,
@@ -99,7 +101,6 @@ export class OccurrencesComponent implements OnInit {
           // element.occurance_start_time = moment(element.occurance_start_time).format('hh:mm a');
           // element.occurance_end_time = moment(element.occurance_end_time).format('hh:mm a');
         });
-        console.log(this.allOccurrenceList)
 
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response)
@@ -130,19 +131,29 @@ export class OccurrencesComponent implements OnInit {
       this.selectAll = false;
     }
 
-    console.log(this.selectedOccurrenceAarry);
 
   }
 
   fnChangeOccuStatus(value){
     if(value == 'DEL'){
       this.fnOccurrenceDelete();
-    }else {
-      this.isLoaderAdmin=true;
+    }else if(value == 'AVI' || value == 'UNAVI') {
       let requestObject = {
         'occurance_id':this.selectedOccurrenceAarry,
-        'status':value
+        'status_availability':value
       }
+      this.updateStatus(requestObject);
+    }else if(value == 'HIDD' || value == 'VIS') {
+      let requestObject = {
+        'occurance_id':this.selectedOccurrenceAarry,
+        'status_visibility':value
+      }
+      this.updateStatus(requestObject);
+    }
+  }
+
+  updateStatus(requestObject){
+    this.isLoaderAdmin=true;
       this.SingleEventServiceService.occurrenceStatusUpdate(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.ErrorService.successMessage(response.response)
@@ -150,13 +161,11 @@ export class OccurrencesComponent implements OnInit {
           this.selectAll = false;
           this.selectedfilter=null;
           this.getAllOccurrenceList();
-  
         }else if(response.data == false){
           this.ErrorService.errorMessage(response.response)
         }
       });
       this.isLoaderAdmin=false;
-    }
   }
 
   fnOccurrenceDelete(){
@@ -205,7 +214,6 @@ export class OccurrencesComponent implements OnInit {
       this.selectAll = false;
     }
 
-    console.log(this.selectedOccurrenceAarry);
   }
 
 
@@ -373,17 +381,13 @@ export class addRepeatOccurrence {
       this.dayTimeArr = this.dayTimeForm.get('dayTimeArr') as FormArray;
       this.dayTimeArr.push(this.createTimeSlote());
       this.startEndTime = this.dayTimeForm.value.dayTimeArr
-      console.log('this.startEndTime-------------------------------------')
-      console.log(this.startEndTime)
     }
 
     fnAddRepeat(){
       this.repeatDataArr = this.repeatForm.get('repeatDataArr') as FormArray; 
       this.repeatDataArr.push(this.createRepeatSlote());
       this.finalRepeatData = this.repeatForm.value.repeatDataArr;
-      alert('12')
       if(this.finalRepeatData[this.finalRepeatData.length+1].repeat == ''){
-        alert('n')
         this.dateSelectfield = false
       }
     } 
@@ -405,7 +409,6 @@ export class addRepeatOccurrence {
     }
 
     onChangeRepeat(event){
-    alert(this.selected)
       this.dateSelectfield = true
       // if(event.value == this.selected){
       //   this.dateSelectfield = false
@@ -452,6 +455,7 @@ export class addSingleOccurrence {
   minStartDate:any=new Date();
   minEndDate:any=new Date();
   startdateToday:boolean=false;
+  startEndDateSame:boolean=false;
   currentTime:any;
   singleOccurenceData:any;
   occurance_id:any;
@@ -465,7 +469,6 @@ export class addSingleOccurrence {
       this.singleOccurenceData = this.data.singleOccurenceData;
       this.fullDayTimeSlote = this.data.fullDayTimeSlote;
       
-      console.log(this.fullDayTimeSlote)
       this.singleOccurrenceForm =  this._formBuilder.group({
         occurance_start_date: ['',[Validators.required]],
         occurance_end_date: ['',[Validators.required]],
@@ -484,21 +487,14 @@ export class addSingleOccurrence {
 
 
     fnEditSingleOccurence(){
-
-      console.log(this.singleOccurenceData)
-      console.log(this.singleOccurenceData.occurance_start_time)
-      console.log(this.singleOccurenceData.occurance_end_time)
-      console.log(this.singleOccurenceData.id)
       if(this.fullDayTimeSlote){
         var start_time = this.singleOccurenceData.occurance_start_time.split(":")
         var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
-        console.log(start_time_key)
         
         var end_time = this.singleOccurenceData.occurance_end_time.split(":")
         var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
-        console.log(end_time_key)
       }
-      this.occurance_id = this.singleOccurenceData.id
+      this.occurance_id = this.singleOccurenceData.unique_code
       this.singleOccurrenceForm.controls['occurance_start_date'].setValue(this.singleOccurenceData.occurance_start_date)
       this.singleOccurrenceForm.controls['occurance_end_date'].setValue(this.singleOccurenceData.occurance_end_date)
       this.singleOccurrenceForm.controls['occurance_start_time'].setValue(start_time_key)
@@ -535,30 +531,35 @@ export class addSingleOccurrence {
   }
 
   fnChangeEventStartDate(){
+      this.minEndDate = this.singleOccurrenceForm.get('occurance_start_date').value
 
+      var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+      var selectedStartDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value),"yyyy-MM-dd")
+      if(selectedStartDate === todayDate){
+        // this.singleOccurrenceForm.get('occurance_start_date').setValue('');
+        this.startdateToday=true;
+        this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
+        this.currentTime = this.transformTime(this.datePipe.transform(new Date(),"h:mm a"))
+      }else{
+        this.startdateToday=false;
+      }
+      this.singleOccurrenceForm.controls['occurance_end_date'].setValue(null);
+      this.singleOccurrenceForm.controls['occurance_end_time'].setValue(null);
   }
 
   fnChangeEventEndDate(){
-    // alert(this.singleOccurrenceForm.get('occurance_end_date').value)
-    this.minEndDate = this.singleOccurrenceForm.get('occurance_start_date').value
-
-    var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    
     var selectedStartDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value),"yyyy-MM-dd")
-    if(selectedStartDate === todayDate){
-      this.singleOccurrenceForm.get('occurance_start_date').setValue('');
-      this.startdateToday=true;
-      this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
-      this.currentTime = this.transformTime(this.datePipe.transform(new Date(),"h:mm a"))
-    }else{
-      this.startdateToday=false;
+    var selectedEndDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value),"yyyy-MM-dd")
+    if(selectedStartDate == selectedEndDate){
+      this.startEndDateSame = true;
     }
-    // this.singleOccurrenceForm.get('occurrence_end_date').setValue('');
-    // this.singleOccurrenceForm.get('occurrenceEndTime').setValue('');
+    this.singleOccurrenceForm.controls['occurance_end_time'].setValue(null);
   }
   
 
   fnChangeStartTime(event){
-    this.singleOccurrenceForm.get('occurrenceEndTime').setValue('');
+    this.singleOccurrenceForm.controls['occurance_end_time'].setValue(null);
   }
 
   fnChangeEndTime(event){
@@ -566,11 +567,9 @@ export class addSingleOccurrence {
   }
 
   onSubmit(){
-    alert('submit')
     if(this.singleOccurrenceForm.valid){
       
       if(this.singleOccurenceData){
-        alert('edit')
         var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
         var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
         let requestObject = {
@@ -586,7 +585,7 @@ export class addSingleOccurrence {
         }
         this.SingleEventServiceService.singleOccurrenceUpdate(requestObject).subscribe((response:any)=>{
           if(response.data == true){
-            this.ErrorService.errorMessage(response.response)
+            this.ErrorService.successMessage(response.response)
             this.dialogRef.close('created');
           }else{
             this.ErrorService.errorMessage(response.response)
@@ -607,7 +606,7 @@ export class addSingleOccurrence {
         }
         this.SingleEventServiceService.singleOccurrenceCreate(requestObject).subscribe((response:any)=>{
           if(response.data == true){
-            this.ErrorService.errorMessage(response.response)
+            this.ErrorService.successMessage(response.response)
             this.dialogRef.close('created');
           }else{
             this.ErrorService.errorMessage(response.response)

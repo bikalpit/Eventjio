@@ -259,7 +259,6 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.listTimeZoneList
       .pipe(take(1), takeUntil(this._onDestroy))
       .subscribe(() => {
-        console.log('fail')
       });
   }
 
@@ -335,7 +334,7 @@ export class EventAndTicketTypesComponent implements OnInit {
           this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
           this.editEventForm.controls['event_start_time'].setValue(start_time_key)
           this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
-          this.editEventForm.controls['event_end_time'].setValue(end_time_key)
+          this.editEventForm.controls['event_end_time'].setValue(JSON.stringify(end_time_key))
             
           
           this.todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
@@ -366,8 +365,6 @@ export class EventAndTicketTypesComponent implements OnInit {
 
         this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom;
         this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom;
-        // console.log(this.currentTime)
-        // console.log(this.singleEventDetail.start_time)
        
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
@@ -611,8 +608,6 @@ export class EventAndTicketTypesComponent implements OnInit {
   
   fnDeleteTicket(ticketCode, index){
 
-    console.log(ticketCode);
-
     if(ticketCode=='' || ticketCode==null){
       return false;
     }
@@ -682,8 +677,6 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.scrollToFirstInvalidControl();
         return false;
       }else{
-        console.log(this.editEventForm)
-        alert('1')
         this.editEventForm.get('event_name').markAsTouched();
         this.editEventForm.get('description').markAsTouched();
         this.editEventForm.get('timezone').markAsTouched();
@@ -883,7 +876,6 @@ export class EventAndTicketTypesComponent implements OnInit {
           
           // this.getSingleEvent();
           this.eventTicketList.push(result);
-          console.log(this.eventTicketList)
           this.eventTicketAlertMSG = false;
           this.getSingleEvent();
 
@@ -1059,13 +1051,10 @@ export class AddNewTicketType {
         this.recurringEvent = this.data.recurringEvent;
         this.selectedTicketDetail = this.data.selectedTicketDetail
         this.selectedEventId = this.data.selectedEventId
-        console.log(this.recurringEvent)
       }
       if(this.recurringEvent == 'N'){
         if(this.selectedTicketDetail){
-          console.log(this.selectedTicketDetail)
           if(this.data.selectedTicketDetail.discount.length !== 0){
-            console.log(this.data.selectedTicketDetail.discount)
             this.assignedCouponCodes = this.data.selectedTicketDetail.discount
           }
           this.editTicket = true;
@@ -1545,7 +1534,6 @@ export class AddNewTicketType {
       'hide_after_date':  this.addTicketForm.get('recurring_after_date').value ? this.addTicketForm.get('recurring_after_date').value : null,
       'hide_after_time':  this.addTicketForm.get('recurring_after_time').value,
     }
-    console.log(this.newTicketData)
     this.createTicket(this.newTicketData)
     }
   }
