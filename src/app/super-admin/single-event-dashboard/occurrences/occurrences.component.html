@@ -64,7 +64,7 @@
                                     <div class="tb-data" fxFlex="15" *ngIf="element.final_revenue == 'Tickets are not available'">{{element.final_revenue}}</div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.final_revenue !== 'Tickets are not available'">{{element.final_revenue[0].Revenue}}</div>
                                     <div class="tb-data" fxFlex="15">
-                                        
+                                        <div (click)="editSingleOccurence(i)">Edit</div>
                                         <mat-icon [ngbPopover]="popContent" placement="left" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                         <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                         <ng-template class="popover custom-popover" #popContent>
