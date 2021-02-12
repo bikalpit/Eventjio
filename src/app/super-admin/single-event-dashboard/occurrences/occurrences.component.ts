@@ -23,7 +23,10 @@ export class OccurrencesComponent implements OnInit {
   allOccurrenceList:any;
   selectedOccurrenceAarry:any=[];
   selectAll: boolean = false;
+  singleOccurenceData:any;
+  // selectedfilter:any;
   selectedfilter:any;
+  fullDayTimeSlote:any;
   constructor(
     
     private _formBuilder: FormBuilder,
@@ -42,6 +45,7 @@ export class OccurrencesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllOccurrenceList();
+    this.getTimeSlote();
   }
 
   transformTime24To12(time: any): any {
@@ -56,6 +60,17 @@ export class OccurrencesComponent implements OnInit {
     return `${finalhrs}:${min} ${part}`
   }
 
+  getTimeSlote(){
+    let requestObject = {
+      'interval'  :'30',
+    }
+    this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fullDayTimeSlote= response.response;
+
+      }
+    });
+  }
   getAllOccurrenceList(){
     this.isLoaderAdmin=true;
     let requestObject = {
@@ -76,10 +91,10 @@ export class OccurrencesComponent implements OnInit {
             element.remaining = 'Tickets are not available'
           }
           if(element.occurance_start_time){
-            element.occurance_start_time = this.transformTime24To12(element.occurance_start_time);
+            element.occurance_start_time_modified = this.transformTime24To12(element.occurance_start_time);
           }
           if(element.occurance_end_time){
-            element.occurance_end_time = this.transformTime24To12(element.occurance_end_time);
+            element.occurance_end_time_modified = this.transformTime24To12(element.occurance_end_time);
           }
           // element.occurance_start_time = moment(element.occurance_start_time).format('hh:mm a');
           // element.occurance_end_time = moment(element.occurance_end_time).format('hh:mm a');
@@ -92,6 +107,8 @@ export class OccurrencesComponent implements OnInit {
     });
     this.isLoaderAdmin=false;
   }
+
+  
 
   checkAll(event){
 
@@ -211,7 +228,7 @@ export class OccurrencesComponent implements OnInit {
     const dialogRef = this.dialog.open(addSingleOccurrence,{
       width: '1100px',
       data : {
-        // boxOfficeCode : this.boxOfficeCode,
+        fullDayTimeSlote:this.fullDayTimeSlote
       }
     });
 
@@ -220,6 +237,23 @@ export class OccurrencesComponent implements OnInit {
         this.getAllOccurrenceList();
       }
     });
+  }
+
+  editSingleOccurence(index){
+    this.singleOccurenceData = this.allOccurrenceList[index]
+    const dialogRef = this.dialog.open(addSingleOccurrence,{
+      width:'1100px',
+      data:{
+        singleOccurenceData:this.singleOccurenceData,
+        fullDayTimeSlote:this.fullDayTimeSlote,
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        this.getAllOccurrenceList();
+      }
+    })
   }
 }
 
@@ -404,6 +438,8 @@ export class addSingleOccurrence {
   minEndDate:any=new Date();
   startdateToday:boolean=false;
   currentTime:any;
+  singleOccurenceData:any;
+  occurance_id:any;
   constructor(
     public dialogRef: MatDialogRef<addSingleOccurrence>,
     private _formBuilder: FormBuilder,
@@ -411,31 +447,52 @@ export class addSingleOccurrence {
     private datePipe: DatePipe,
     private SingleEventServiceService: SingleEventServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.singleOccurenceData = this.data.singleOccurenceData;
+      this.fullDayTimeSlote = this.data.fullDayTimeSlote;
+      
+      console.log(this.fullDayTimeSlote)
       this.singleOccurrenceForm =  this._formBuilder.group({
         occurance_start_date: ['',[Validators.required]],
         occurance_end_date: ['',[Validators.required]],
         occurance_start_time: ['',[Validators.required]],
         occurance_end_time: ['',[Validators.required]],
       })
+
+      if(this.singleOccurenceData){
+        this.fnEditSingleOccurence();
+      }
+      
     }
 
     ngOnInit(): void {
-      this.getTimeSlote();
     }
 
+
+    fnEditSingleOccurence(){
+
+      console.log(this.singleOccurenceData)
+      console.log(this.singleOccurenceData.occurance_start_time)
+      console.log(this.singleOccurenceData.occurance_end_time)
+      console.log(this.singleOccurenceData.id)
+      if(this.fullDayTimeSlote){
+        var start_time = this.singleOccurenceData.occurance_start_time.split(":")
+        var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
+        console.log(start_time_key)
+        
+        var end_time = this.singleOccurenceData.occurance_end_time.split(":")
+        var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+        console.log(end_time_key)
+      }
+      this.occurance_id = this.singleOccurenceData.id
+      this.singleOccurrenceForm.controls['occurance_start_date'].setValue(this.singleOccurenceData.occurance_start_date)
+      this.singleOccurrenceForm.controls['occurance_end_date'].setValue(this.singleOccurenceData.occurance_end_date)
+      this.singleOccurrenceForm.controls['occurance_start_time'].setValue(start_time_key)
+      this.singleOccurrenceForm.controls['occurance_end_time'].setValue(end_time_key)
+      
+    }
      
     
-  getTimeSlote(){
-    let requestObject = {
-      'interval'  :'30',
-    }
-    this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.fullDayTimeSlote= response.response;
-
-      }
-    });
-  }
+  
 
   
   // time formate 12 to 24
@@ -492,30 +549,55 @@ export class addSingleOccurrence {
   fnChangeEndTime(event){
 
   }
+
   onSubmit(){
     if(this.singleOccurrenceForm.valid){
-      alert(this.singleOccurrenceForm.get('occurance_start_time').value)
-      alert(this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_start_time').value])
-      var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
-      var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
-      let requestObject = {
-        
-        "event_id":localStorage.getItem('selectedEventCode'),
-        "all_day":'N',
-        "occurance_start_date": stratDate,
-        "occurance_end_date": endDate,
-        "occurance_start_time": this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_start_time').value],
-        "occurance_end_time": this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_end_time').value],
       
-      }
-      this.SingleEventServiceService.singleOccurrenceCreate(requestObject).subscribe((response:any)=>{
-        if(response.data == true){
-          this.ErrorService.errorMessage(response.response)
-          this.dialogRef.close('created');
-        }else{
-          this.ErrorService.errorMessage(response.response)
+      if(this.singleOccurenceData){
+        var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
+        var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
+        let requestObject = {
+          
+          "occurance_id": this.occurance_id,
+          "event_id":localStorage.getItem('selectedEventCode'),
+          "all_day":'N',
+          "occurance_start_date": stratDate,
+          "occurance_end_date": endDate,
+          "occurance_start_time": this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_start_time').value],
+          "occurance_end_time": this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_end_time').value],
+        
         }
-      })
+        this.SingleEventServiceService.singleOccurrenceUpdate(requestObject).subscribe((response:any)=>{
+          if(response.data == true){
+            this.ErrorService.errorMessage(response.response)
+            this.dialogRef.close('created');
+          }else{
+            this.ErrorService.errorMessage(response.response)
+          }
+        })
+      }else{
+        var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
+        var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
+        let requestObject = {
+          
+          "event_id":localStorage.getItem('selectedEventCode'),
+          "all_day":'N',
+          "occurance_start_date": stratDate,
+          "occurance_end_date": endDate,
+          "occurance_start_time": this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_start_time').value],
+          "occurance_end_time": this.fullDayTimeSlote[this.singleOccurrenceForm.get('occurance_end_time').value],
+        
+        }
+        this.SingleEventServiceService.singleOccurrenceCreate(requestObject).subscribe((response:any)=>{
+          if(response.data == true){
+            this.ErrorService.errorMessage(response.response)
+            this.dialogRef.close('created');
+          }else{
+            this.ErrorService.errorMessage(response.response)
+          }
+        })
+      }
+      
     }else{
       this.singleOccurrenceForm.get('occurance_start_date').markAllAsTouched()
       this.singleOccurrenceForm.get('occurance_end_date').markAllAsTouched()

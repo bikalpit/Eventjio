@@ -51,10 +51,10 @@
                                     <div class="tb-data" fxFlex="40">
                                         <mat-checkbox [checked]="element.is_selected" (change)="fnAddOccurrenceId($event.checked, element.unique_code,i)"></mat-checkbox>
                                         <span *ngIf="element.occurance_start_date!=element.occurance_end_date">
-                                            {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time}}
+                                            {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time_modified}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time_modified}}
                                         </span>
                                         <span *ngIf="element.occurance_start_date==element.occurance_end_date">
-                                            {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time?'-':''}} {{element.occurance_end_time}}
+                                            {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time_modified?'-':''}} {{element.occurance_end_time_modified}}
                                         </span>
                                     </div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.soldout == 'Tickets are not available'">{{element.soldout}}</div>
@@ -64,6 +64,7 @@
                                     <div class="tb-data" fxFlex="15" *ngIf="element.final_revenue == 'Tickets are not available'">{{element.final_revenue}}</div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.final_revenue !== 'Tickets are not available'">{{element.final_revenue[0].Revenue}}</div>
                                     <div class="tb-data" fxFlex="15">
+                                        
                                         <mat-icon [ngbPopover]="popContent" placement="left" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                         <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                         <ng-template class="popover custom-popover" #popContent>
@@ -77,7 +78,7 @@
                                                 <i class="fa fa-eye-slash"></i><span>Set Hidden</span>
                                             </div>
                                             <div class="px-3  border-bottom">
-                                                <i class="fa fa-pencil mr-2"></i><span>Edit</span>
+                                                <i class="fa fa-pencil mr-2" (click)="editSingleOccurence(i)"></i><span>Edit</span>
                                             </div>
                                             <div class="px-3  border-bottom" (click)="singleStatusUpdate(element.unique_code,'DEL')">
                                                 <i class="fa fa-trash mr-2"></i><span>Delete</span>
