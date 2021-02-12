@@ -95,7 +95,7 @@ export class EventsComponent implements OnInit {
   startdateToday:boolean=false;
   currentTime:any;
   getCurrancy:any;
-  ipAddress:any;
+  ipAddress:any="123.201.143.247";
   // minEndTime:any;
   recurringEvent:any='N';
   
@@ -173,11 +173,11 @@ export class EventsComponent implements OnInit {
     this.getDefaultImages();
     this.getTimeSlote();
     this.getAllCurrancy();
-    this.SuperadminService.getIPAddress().subscribe((res:any)=>{  
-      this.ipAddress = res.ip
+    // this.SuperadminService.getIPAddress().subscribe((res:any)=>{  
+    //   this.ipAddress = res.ip
       this.fnGetUpcomingEventList();
       this.fnGetPastEventList();
-    });
+    // });
     
 
     
