@@ -310,21 +310,32 @@ export class addRepeatOccurrence {
       this.dayTimeArr = this.dayTimeForm.get('dayTimeArr') as FormArray;
       this.startEndTime = this.dayTimeForm.value.dayTimeArr;
 
-      if(this.startEndTime[this.startEndTime.length-1].start_time == '' && this.startEndTime[this.startEndTime.length-1].label == ''){
-        this.startEndTime.splice(this.startEndTime.length-1, 1);
-      }else if(this.startEndTime[this.startEndTime.length-1].start_time == '' && this.startEndTime[this.startEndTime.length-1].label != ''){
-        this.ErrorService.errorMessage('start time is blank.');
-        return false;
-      }else if(this.startEndTime[this.startEndTime.length-1].start_time != '' && this.startEndTime[this.startEndTime.length-1].label == ''){
-        this.ErrorService.errorMessage('end time is blank.');
-        return false;
-      }
-     
-
       this.repeatDataArr = this.repeatForm.get('repeatDataArr') as FormArray;
       this.finalRepeatData = this.repeatForm.value.repeatDataArr;
 
-     
+      if(this.allDayCheckOption == 'N'){
+        if(this.startEndTime[this.startEndTime.length - 1].start_time == ''){
+          this.ErrorService.errorMessage('start time is blank.');
+          return false;
+        }else if(this.startEndTime[this.startEndTime.length - 1].end_time == ''){
+          this.ErrorService.errorMessage('end time is blank.');
+          return false;
+        }
+      }
+
+    
+
+      if(this.finalRepeatData[this.finalRepeatData.length-1].start_date == ''){
+        this.ErrorService.errorMessage('start date is blank')
+        return false;
+      }else if(this.finalRepeatData[this.finalRepeatData.length-1].repeat == 'na'){
+        this.ErrorService.errorMessage('repeat option is blank')
+        return false;
+      }else if(this.finalRepeatData[this.finalRepeatData.length-1].end_date == ''){
+        this.ErrorService.errorMessage('end date is blank')
+        return false;
+      }
+      
 
 
       let requestObject = {
@@ -370,8 +381,11 @@ export class addRepeatOccurrence {
       this.repeatDataArr = this.repeatForm.get('repeatDataArr') as FormArray; 
       this.repeatDataArr.push(this.createRepeatSlote());
       this.finalRepeatData = this.repeatForm.value.repeatDataArr;
-      console.log('this.finalRepeatData-----------------------------------')
-      console.log(this.finalRepeatData);
+      alert('12')
+      if(this.finalRepeatData[this.finalRepeatData.length+1].repeat == ''){
+        alert('n')
+        this.dateSelectfield = false
+      }
     } 
     
     fnDeleteDayTime(index){
@@ -391,12 +405,13 @@ export class addRepeatOccurrence {
     }
 
     onChangeRepeat(event){
-      console.log(this.selected)
-      if(event.value == this.selected){
-        this.dateSelectfield = false
-      }else{
-        this.dateSelectfield = true
-      }
+    alert(this.selected)
+      this.dateSelectfield = true
+      // if(event.value == this.selected){
+      //   this.dateSelectfield = false
+      // }else{
+      //   this.dateSelectfield = true
+      // }
 
     }
     
@@ -551,9 +566,11 @@ export class addSingleOccurrence {
   }
 
   onSubmit(){
+    alert('submit')
     if(this.singleOccurrenceForm.valid){
       
       if(this.singleOccurenceData){
+        alert('edit')
         var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
         var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
         let requestObject = {

@@ -814,7 +814,7 @@ export class EventsComponent implements OnInit {
           return false;
         }
         const dialogRef = this.dialog.open(AddNewTicketType,{
-          width: '1100px',
+          width: '1300px',
           data : {
             boxOfficeCode : this.boxOfficeCode,
             fullDayTimeSlote : this.fullDayTimeSlote,
