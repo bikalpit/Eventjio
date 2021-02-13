@@ -28,10 +28,12 @@
 
                                 <div class="content" class="drageble-list" *ngIf="allUpcomingEventListData && allUpcomingEventListData.length != 0">
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of allUpcomingEventListData">
-                                        <div class="tb-data " fxFlex="25"> <a class="event-title" (click)="fnSelectSingleEvent(element.unique_code)"> {{element.event_title}} </a> <br> {{element.start_date}}</div>
+                                        <div class="tb-data " fxFlex="25"> <a class="event-title" (click)="fnSelectSingleEvent(element.unique_code)"> {{element.event_title}} </a> <br>
+                                            <span *ngIf="element.event_occurrence_type == 'Y'">+ {{element.upcoming_count>0?element.upcoming_count-1:'0'}} more upcoming occurrences</span>
+                                            <span *ngIf="element.event_occurrence_type == 'N'">{{element.start_date}}</span>
+                                        </div>
                                         <div class="tb-data mat-common-radius" fxFlex="20">
                                             <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
-
                                                 <mat-option value="draft">Draft</mat-option>
                                                 <mat-option value="publish">Published</mat-option>
                                             </mat-select>
@@ -116,7 +118,10 @@
 
                                 <div class="content" class="drageble-list" *ngIf="allPastEventListData && allPastEventListData.length != 0">
                                     <div class="drageble-box" fxLayout="row" *ngFor="let element of allPastEventListData">
-                                        <div class="tb-data" fxFlex="25"><a class="event-title past-event"> {{element.event_title}} </a> <br> {{element.start_date}}</div>
+                                        <div class="tb-data" fxFlex="25"><a class="event-title past-event"> {{element.event_title}} </a> <br>
+                                            <span *ngIf="element.event_occurrence_type == 'Y'">+ {{element.past_count>0?element.past_count-1:'0'}} more past occurrences</span>
+                                            <span *ngIf="element.event_occurrence_type == 'N'">{{element.start_date}}</span>
+                                        </div>
                                         <div class="tb-data" fxFlex="20">
                                             <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
                                                 <mat-option value="draft">Draft</mat-option>
@@ -124,10 +129,13 @@
                                             </mat-select>
                                         </div>
                                         <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined">{{element.soldout[0].Sold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout === 'Occurrence not created'">Occurrence not created</div>
                                         <div class="tb-data" fxFlex="13" *ngIf="element.soldout === undefined">No Tickets</div>
-                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining !== undefined">{{element.remaining[0].Remaining}}</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining !== undefined && element.remaining !== 'Occurrence not created'">{{element.remaining[0].Remaining}}</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining === 'Occurrence not created'">Occurrence not created</div>
                                         <div class="tb-data" fxFlex="15" *ngIf="element.remaining === undefined">No Tickets</div>
-                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue !== undefined">{{element.final_revenue[0].Revenue| currency:element.event_setting.currency:'symbol'}}</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue !== undefined && element.final_revenue !== 'Occurrence not created'">{{element.final_revenue[0].Revenue| currency:element.event_setting.currency:'symbol'}}</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue === 'Occurrence not created'">Occurrence not created</div>
                                         <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue === undefined">No Tickets</div>
                                         <div class="tb-data" fxFlex="10">
                                             <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>

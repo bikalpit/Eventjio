@@ -58,9 +58,6 @@ export class EventSummaryComponent implements OnInit {
   ngOnInit(): void {
     this.fnGetEventDetail();
     this.fnGetBoxOfficeDetail();   
-    this.getAllOccurrenceList('all');   
-    this.getAllOccurrenceList('upcoming');   
-    this.getAllOccurrenceList('past');   
     this.fnGetSettings();
     
     this.fnGetEventViews(null);
@@ -293,8 +290,8 @@ export class EventSummaryComponent implements OnInit {
     this.isLoaderAdmin=false;
   }
 
-  fnChangeOccurrence(event){
-    this.selectedOccurrence = event.value
+  fnChangeOccurrence(value){
+    this.selectedOccurrence = value
     localStorage.setItem('selectedOccurrence',this.selectedOccurrence);
     if(this.selectedOccurrence != 'all'){
       this.getSingleOccurrenceSummary(this.selectedOccurrence);
@@ -311,13 +308,20 @@ export class EventSummaryComponent implements OnInit {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
         this.recurringEvent = this.eventDetail.event_occurrence_type;
+        if(this.recurringEvent == 'Y'){
+          this.getAllOccurrenceList('all');   
+          this.getAllOccurrenceList('upcoming');   
+          this.getAllOccurrenceList('past');   
+        }else{
+          localStorage.removeItem('selectedOccurrence');
+        }
         this.currencycode = this.eventDetail.event_setting.currency ? this.eventDetail.event_setting.currency  : 'USD';
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
     });
 
-    if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+    if(this.recurringEvent == 'Y' && (this.selectedOccurrence && this.selectedOccurrence != 'all')){
       this.fnOccurrenceSummary(this.selectedOccurrence);
     }else{
     let request = {

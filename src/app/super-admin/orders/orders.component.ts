@@ -13,6 +13,7 @@ import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
 import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 import {  environment } from '../../../environments/environment'
 import { ServiceService } from 'src/app/_services/service.service';
+import { AnyMxRecord } from 'dns';
 
 export interface DialogData {
   animal: string;
@@ -859,7 +860,11 @@ export class AddNewOrderDialog {
   allEventlist:any;
   boxOfficeCode:any;
   selectedEvent :any;
+  openPage:any='eventlist';
   isLoaderAdmin:boolean=false;
+  allOccurrenceList:any;
+  recurringEvent :any ='N';
+  singleEventData:any;
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddNewOrderDialog>,
@@ -883,7 +888,42 @@ export class AddNewOrderDialog {
 
   fnBookTicketType(selecetedEvent,singleEventData){
     this.selectedEvent = selecetedEvent;
-    this.bookTicket(singleEventData);
+    this.singleEventData = singleEventData
+    this.recurringEvent = singleEventData.event_occurrence_type;
+    if(singleEventData.event_occurrence_type && singleEventData.event_occurrence_type ==  'Y'){
+      this.getAllOccurrenceList();
+      this.openPage = 'occurrenceList';
+    }else{
+      this.bookTicket(this.singleEventData);
+    }
+  }
+
+  getAllOccurrenceList(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'event_id':this.selectedEvent,
+      'filter':'all'
+    }
+    this.superadminService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+          this.allOccurrenceList= response.response;
+
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
+  }
+
+  fnBookOccurrence(occurrenceCode){
+      const dialogRef = this.dialog.open(BookTicketDialog, {
+        width: '700px',
+        data :{occurrenceCode : occurrenceCode,singleEventData: this.singleEventData}
+      });
+    
+       dialogRef.afterClosed().subscribe(result => {
+        this.animal = result;
+       });
   }
   
   fnGetAllEventList(){
@@ -930,7 +970,7 @@ export class AddNewOrderDialog {
   bookTicket(singleEventData) {
     const dialogRef = this.dialog.open(BookTicketDialog, {
       width: '700px',
-      data :{selecetedEvent : this.selectedEvent,'singleEventData' : singleEventData}
+      data :{selecetedEvent : this.selectedEvent,singleEventData: singleEventData}
     });
   
      dialogRef.afterClosed().subscribe(result => {
@@ -998,7 +1038,8 @@ export class BookTicketDialog {
     'zipcode': 'Zip Code',
   };
   is_address_hide = false;
-
+  occurrenceCode:any;
+  recurringEvent:boolean=false;
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<BookTicketDialog>,
@@ -1012,9 +1053,16 @@ export class BookTicketDialog {
     @Inject(MAT_DIALOG_DATA) public data: any
     ) {
       
-
+      if(this.data.occurrenceCode){
+        this.occurrenceCode = this.data.occurrenceCode;
+        this.recurringEvent =true;
+        console.log(this.occurrenceCode)
+      }
       this.selectedEventCode = this.data.selecetedEvent;
       this.eventDetail = this.data.singleEventData;
+      console.log(this.selectedEventCode)
+      console.log(this.eventDetail)
+    
       
       this.eventSettings = this.eventDetail.event_setting;
       this.donation_amt = this.eventSettings.donation_amt ? parseInt(this.eventSettings.donation_amt) : 0;
@@ -1059,7 +1107,11 @@ export class BookTicketDialog {
   }
 
   ngOnInit() {
-    this.fnGeteventTicket();
+    if(this.recurringEvent){
+      this.fnGetOccurrenceTicket();
+    }else{
+      this.fnGeteventTicket();
+    }
     this.getEventForm();
     this.fnGetSalesTax();
   }
@@ -1083,13 +1135,13 @@ export class BookTicketDialog {
         });
 
         
-      } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
-      }
+      } 
     });
       this.isLoaderAdmin = false;
 
   }
+
+  
 
   getEventForm(){
 
@@ -1237,6 +1289,28 @@ export class BookTicketDialog {
     }
 
     this.superadminService.fnGeteventTicket(requestObject).subscribe((response:any) => {
+
+      if(response.data == true){
+        this.eventTicket = response.response;
+        this.eventTicket.forEach(element => {
+          element.qty = 0;
+          element.id_added = false;
+          this.event_tickets.push(element.unique_code)
+        });
+
+      }
+    });
+    this.isLoaderAdmin = false;
+  }
+
+  fnGetOccurrenceTicket(){
+
+    this.isLoaderAdmin = true;
+    let requestObject={
+      "occurance_id":this.occurrenceCode,
+    }
+
+    this.superadminService.fnGetOccurrenceTicket(requestObject).subscribe((response:any) => {
 
       if(response.data == true){
         this.eventTicket = response.response;

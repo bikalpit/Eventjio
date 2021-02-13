@@ -2,7 +2,7 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="page-title d-flex">
         Event Summary
-        <mat-select (selectionChange)="fnChangeOccurrence($event)" [(ngModel)]="selectedOccurrence" *ngIf="recurringEvent == 'Y'" class="form-control col-4 ml-auto">
+        <mat-select (selectionChange)="fnChangeOccurrence($event.value)" [(ngModel)]="selectedOccurrence" *ngIf="recurringEvent == 'Y'" class="form-control col-4 ml-auto">
             <mat-option value="all">All Occurrences</mat-option>
             <mat-option *ngFor="let element of allOccurrenceList; let i=index;" value="{{element.unique_code}}">{{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}</mat-option>
         </mat-select>
@@ -56,7 +56,7 @@
     </div>
 
 
-    <div class="total-summary border p-3" fxLayout="row">
+    <div *ngIf="(selectedOccurrence != 'all' && recurringEvent == 'Y') || recurringEvent == 'N'" class="total-summary border p-3" fxLayout="row">
 
         <div class="total-ticket-summary text-center border-right" fxFlex="25">
             <div class="title">
@@ -145,10 +145,10 @@
                     <div class="content" class="drageble-list" *ngIf="upcomingOccurrenceList">
                         <div class="drageble-box" fxLayout="row" *ngFor="let element of upcomingOccurrenceList; let i=index;">
                             <div class="tb-data" fxFlex="40">
-                                <span *ngIf="element.occurance_start_date!=element.occurance_end_date">
+                                <span (click)="fnChangeOccurrence(element.unique_code)" *ngIf="element.occurance_start_date!=element.occurance_end_date" class="pointer text-primary">
                                     {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time}}
                                 </span>
-                                <span *ngIf="element.occurance_start_date==element.occurance_end_date">
+                                <span (click)="fnChangeOccurrence(element.unique_code)" *ngIf="element.occurance_start_date==element.occurance_end_date" class="pointer text-primary">
                                     {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time?'-':''}} {{element.occurance_end_time}}
                                 </span>
                             </div>
@@ -193,7 +193,12 @@
                     <div class="content" class="drageble-list" *ngIf="pastOccurrenceList">
                         <div class="drageble-box" fxLayout="row" *ngFor="let element of pastOccurrenceList; let i=index;">
                             <div class="tb-data" fxFlex="40">
-                                {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}
+                                <span (click)="fnChangeOccurrence(element.unique_code)" *ngIf="element.occurance_start_date!=element.occurance_end_date" class="pointer text-primary">
+                                    {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time}}
+                                </span>
+                                <span (click)="fnChangeOccurrence(element.unique_code)" *ngIf="element.occurance_start_date==element.occurance_end_date" class="pointer text-primary">
+                                    {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time?'-':''}} {{element.occurance_end_time}}
+                                </span>
                             </div>
                             <div class="tb-data" fxFlex="15" *ngIf="element.soldout == 'Tickets are not available'">{{element.soldout}}</div>
                             <div class="tb-data" fxFlex="15" *ngIf="element.soldout !== 'Tickets are not available'">{{element.soldout[0].Sold}}</div>
@@ -227,7 +232,7 @@
         </div>
     </div>
 
-    <div class="ticket-sales border p-3">
+    <div *ngIf="(selectedOccurrence != 'all' && recurringEvent == 'Y') || recurringEvent == 'N'" class="ticket-sales border p-3">
         <div class="row m-0">
             <div class="title">
                 Ticket Sales
@@ -249,7 +254,7 @@
             <div *ngIf="eventSummery  && eventSummery.soldTicket">
 
                 <div class="border" fxLayout="row" *ngFor="let value of eventSummery.soldTicket;let i=index">
-                    <div class="fxflex p-2 pl-3 border-right" fxFlex="35">{{value.event ? value.event.event_title : '-'}} </div>
+                    <div class="fxflex p-2 pl-3 border-right" fxFlex="35">{{value.ticket ? value.ticket.ticket_name : '-'}} </div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="15">{{ value.ticket_amt | currency:currencycode:'symbol' }}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="10">{{ (value.ticket ? value.ticket.booking_fee : 0) | currency:currencycode:'symbol' }}</div>
                     <div class="fxflex p-2 pl-3 border-right" fxFlex="20">{{value.sold}}</div>
@@ -276,7 +281,7 @@
         </div>
     </div>
 
-    <div id="" class="referral-sales-summary border p-3">
+    <div *ngIf="(selectedOccurrence != 'all' && recurringEvent == 'Y') || recurringEvent == 'N'" id="" class="referral-sales-summary border p-3">
         <div class="title">
             Referral sales summary
         </div>
@@ -302,7 +307,7 @@
         </div>
     </div>
 
-    <div class="event-page-link border p-3" id="eventViewChart">
+    <div *ngIf="(selectedOccurrence != 'all' && recurringEvent == 'Y') || recurringEvent == 'N'" class="event-page-link border p-3" id="eventViewChart">
         <div class="row m-0">
             <div class="title">
                 Event View

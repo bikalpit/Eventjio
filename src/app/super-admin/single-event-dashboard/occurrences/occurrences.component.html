@@ -67,10 +67,10 @@
                                         <mat-icon [ngbPopover]="popContentForStatus" placement="left" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                         <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                         <ng-template class="popover custom-popover" #popContentForStatus>
-                                            <div *ngIf="element.status == 'AVI'" class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'UNAVI')">
+                                            <div class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'UNAVI')">
                                                 <span class="material-icons">block</span><span>Set Unavailable</span>
                                             </div>
-                                            <div *ngIf="element.status == 'UNAVI'" class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'AVI')">
+                                            <div class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'AVI')">
                                                 <span class="material-icons">block</span><span>Set Available</span>
                                             </div>
                                             <div class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'HIDD')">

@@ -130,10 +130,17 @@ export class SuperadminService {
 
     fnGeteventTicket(requestObject){
         return this.http.post(`${environment.apiUrl}/get-event-tickets `,requestObject,{headers:this.globalHeaders}).pipe(
-            map((res) => {
-                return res;
-            }),catchError(this.handleError));
-        }
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    fnGetOccurrenceTicket(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-occurrence-ticket-api `,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     
     changeCouponStaus(requestObject){
         return this.http.post(`${environment.apiUrl}/update-coupon-status-api`,requestObject,{headers:this.globalHeaders}).pipe(
