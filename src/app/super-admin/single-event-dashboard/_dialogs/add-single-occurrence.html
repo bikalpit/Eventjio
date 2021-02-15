@@ -24,9 +24,17 @@
                     </div>
 
                     <div class="form-group col-6">
-                        <mat-select formControlName="occurance_start_time" class="col-10 form-control d-inline-block">
+                        <!-- <mat-select formControlName="occurance_start_time" class="col-10 form-control d-inline-block">
                             <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                        </mat-select> -->
+                        <mat-select (selectionChange)="fnChangeStartTime($event)" *ngIf="!startdateToday" formControlName="occurance_start_time" class="col-10 form-control d-inline-block">
+                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                         </mat-select>
+
+                        <mat-select (selectionChange)="fnChangeStartTime($event)" *ngIf="startdateToday" formControlName="occurance_start_time" class="col-10 form-control d-inline-block">
+                            <mat-option [disabled]="currentTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                        </mat-select>
+
 
                         <span style="left:0" class="error-wrap" *ngIf="singleOccurrenceForm.get('occurance_start_time').touched || singleOccurrenceForm.get('occurance_start_time').dirty">
                             <small *ngIf="singleOccurrenceForm.get('occurance_start_time').hasError('required')" class="error">Occurence start time is required.</small>
@@ -52,12 +60,12 @@
                         <!-- <mat-select formControlName="occurrenceEndTime" class="col-10 form-control d-inline-block">
                             <mat-option [disabled]="startEndTime >= fullDayTimeSlote" (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                         </mat-select> -->
-                        <mat-select *ngIf="!startdateToday" formControlName="occurance_end_time" class="col-10 form-control d-inline-block">
+                        <mat-select (selectionChange)="fnChangeEndTime($event)" *ngIf="!startEndDateSame" formControlName="occurance_end_time" class="col-10 form-control d-inline-block">
                             <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                         </mat-select>
 
-                        <mat-select *ngIf="startdateToday" formControlName="occurance_end_time" class="col-10 form-control d-inline-block">
-                            <mat-option [disabled]="currentTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                        <mat-select (selectionChange)="fnChangeEndTime($event)" *ngIf="startEndDateSame" formControlName="occurance_end_time" class="col-10 form-control d-inline-block">
+                            <mat-option [disabled]="singleOccurrenceForm.get('occurance_start_time').value > (i-1)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                         </mat-select>
 
                         <span style="left:0" class="error-wrap" *ngIf="singleOccurrenceForm.get('occurance_end_time').touched || singleOccurrenceForm.get('occurance_end_time').dirty">

@@ -168,6 +168,7 @@ export class IssuedTicketComponent implements OnInit {
   fnExportDoorList() {
     const dialogRef = this.dialog.open(ExportDoorListComponent, {
       width: '900px',
+      data:{recurringEvent:this.recurringEvent,selectedOccurrence:this.selectedOccurrence}
     });
   
      dialogRef.afterClosed().subscribe(result => {
@@ -314,11 +315,15 @@ export class ExportDoorListComponent {
   attendeeQtionList:any=[];
   selectedBuyerQuestion:any=[];
   selectedAttendeeQuestion:any=[];
+  recurringEvent:any='N';
+  selectedOccurrence:any;
   constructor(
     public dialogRef: MatDialogRef<ExportDoorListComponent>,
     public singleEventServiceService:SingleEventServiceService,
     private ErrorService:ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.recurringEvent=this.data.recurringEvent;
+      this.selectedOccurrence=this.data.selectedOccurrence;
     }
    
     
@@ -486,6 +491,27 @@ export class ExportDoorListComponent {
       return;
     }
 
+
+    if(this.recurringEvent && this.selectedOccurrence && this.selectedOccurrence != 'all'){
+      let requestObject = {
+        'occurrence_id' : this.selectedOccurrence,
+        'group_by' : this.exportArr.group_by,
+        'format' : this.exportArr.format_by,
+        'size_by' : this.exportArr.size_by ? this.exportArr.size_by : 10,
+        'sort_by' : this.exportArr.sort_by,
+        'buyer_questions' : this.selectedBuyerQuestion,
+        'attendee_questions' : this.selectedAttendeeQuestion,
+      }
+      var str = [];
+      for (var p in requestObject)
+        if (requestObject.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(requestObject[p]));
+        }
+      var param =  str.join("&");
+      
+      return window.open(`${environment.apiUrl}/export-Occurrence-doorlist/?${param}`,'_blank')
+      
+    }
 
     let requestObject = {
       'event_id' : localStorage.getItem('selectedEventCode'),

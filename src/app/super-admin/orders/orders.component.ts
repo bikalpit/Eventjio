@@ -13,6 +13,7 @@ import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
 import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 import {  environment } from '../../../environments/environment'
 import { ServiceService } from 'src/app/_services/service.service';
+import { AnyMxRecord } from 'dns';
 
 export interface DialogData {
   animal: string;
@@ -37,6 +38,7 @@ export class OrdersComponent implements OnInit {
   search="";
   
   ordersApiUrl:any =  `${environment.apiUrl}/get-all-order`;
+  occurrenceOrdersApiUrl:any =  `${environment.apiUrl}/get-all-occurrence-orders`;
   
   current_page_orders:any;
   first_page_url_orders:any;
@@ -55,6 +57,11 @@ export class OrdersComponent implements OnInit {
   currentUser:any;
   subPermission:any=[];
   orderToDate:any;
+  urlString:any;
+  urlString2:any;
+  selectedOccurrence:any;
+  selectedEvent:any;
+  allOccurrenceList:any;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
@@ -69,7 +76,24 @@ export class OrdersComponent implements OnInit {
   ) { 
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    
+    console.log(window.location.search)
+    var queryString = window.location.search
+    var queryStringCount = queryString.includes("event",1)
+    console.log(queryStringCount)
+    if(queryStringCount){
+      this.urlString = window.location.search.split("?event="); 
+      this.urlString2= this.urlString[1].split('&occurrence=')
+      this.selectedEvent = this.urlString2[0];
+      this.selectedOccurrence = this.urlString2[1];
+      console.log('url ---------------'+this.urlString);
+      console.log('Occurrence ---------------'+this.selectedOccurrence);
+      console.log('Event  ---------------'+this.selectedEvent);
+    }
+
+   
+    if(this.selectedOccurrence && this.selectedEvent){
+      this.getAllOccurrenceList();
+    }
     if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
       if(localStorage.getItem('permision_OM') != 'TRUE'){
         this.router.navigate(['/super-admin']);
@@ -93,13 +117,34 @@ export class OrdersComponent implements OnInit {
  
 
   ngOnInit(): void {
-     this.fngetallOrders();
+    if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+      this.fnChangeOccurrence();
+    }else{
+      this.fngetallOrders();
+    }
      this.fnGetAllEventList();
   }
 
   
   fnTicketCheckout(fromType){
     this.addOrderFormType = fromType;
+  }
+
+  getAllOccurrenceList(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'event_id':this.selectedEvent,
+      'filter':'all'
+    }
+    this.superadminService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+          this.allOccurrenceList= response.response;
+
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
   }
 
   editOrder(Orderdata){
@@ -110,7 +155,11 @@ export class OrdersComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fngetallOrders();
+      if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+        this.fnChangeOccurrence();
+      }else{
+        this.fngetallOrders();
+      }
     });
   }  
   
@@ -122,7 +171,11 @@ export class OrdersComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fngetallOrders();
+      if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+        this.fnChangeOccurrence();
+      }else{
+        this.fngetallOrders();
+      }
     });
   }
 
@@ -135,7 +188,11 @@ export class OrdersComponent implements OnInit {
   
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fngetallOrders();
+      if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+        this.fnChangeOccurrence();
+      }else{
+        this.fngetallOrders();
+      }
      });
   }  
 
@@ -178,7 +235,11 @@ export class OrdersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
-      this.fngetallOrders();
+      if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
+        this.fnChangeOccurrence();
+      }else{
+        this.fngetallOrders();
+      }
     });
   }
 
@@ -224,6 +285,53 @@ export class OrdersComponent implements OnInit {
     }
 
     this.superadminService.fnGetallOrders(this.ordersApiUrl,requestObject).subscribe((response:any) => {
+
+      if(response.data == true){
+
+        this.allorderlist =  response.response.data;
+        // this.allorderlist.forEach(element => {
+        //   element.order_date = this.datePipe.transform(new Date(element.order_date), 'MMM d, y');
+        //   element.order_time = this.datePipe.transform(new Date(element.order_time), 'h:mm a');
+        // });
+        this.current_page_orders = response.response.current_page;
+        this.first_page_url_orders = response.response.first_page_url;
+        this.last_page_orders = response.response.last_page;
+        this.last_page_url_orders = response.response.last_page_url;
+        this.next_page_url_orders = response.response.next_page_url;
+        this.prev_page_url_orders = response.response.prev_page_url;
+        this.path_orders = response.response.path;
+      }else{
+          this.ErrorService.errorMessage(response.response);
+          this.allorderlist = [];
+      }
+      this.isLoaderAdmin = false;
+    });
+    
+  } 
+
+  fnChangeOccurrence(){
+    if(this.selectedOccurrence == 'all'){
+      this.fngetallOrders();
+      return false;
+    }
+    this.isLoaderAdmin = true;
+    this.orderToDate = this.start_date
+    let requestObject = {
+      'global_search' : this.search,
+      "boxoffice_id" : this.boxOfficeCode,
+      "occurrence_id":   this.selectedOccurrence ? this.selectedOccurrence : 'all',
+      "order_status" : this.order_status ? this.order_status : 'all',
+    }
+
+    if(this.start_date){
+      requestObject ['order_fromdate'] = this.datePipe.transform(new Date(this.start_date),"yyyy-MM-dd");
+    }
+    
+    if(this.end_date){
+      requestObject ['order_todate'] = this.datePipe.transform(new Date(this.end_date),"yyyy-MM-dd");
+    }
+
+    this.superadminService.fnGetOccurrenceOrders(this.occurrenceOrdersApiUrl,requestObject).subscribe((response:any) => {
 
       if(response.data == true){
 
@@ -752,7 +860,11 @@ export class AddNewOrderDialog {
   allEventlist:any;
   boxOfficeCode:any;
   selectedEvent :any;
+  openPage:any='eventlist';
   isLoaderAdmin:boolean=false;
+  allOccurrenceList:any;
+  recurringEvent :any ='N';
+  singleEventData:any;
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddNewOrderDialog>,
@@ -776,7 +888,42 @@ export class AddNewOrderDialog {
 
   fnBookTicketType(selecetedEvent,singleEventData){
     this.selectedEvent = selecetedEvent;
-    this.bookTicket(singleEventData);
+    this.singleEventData = singleEventData
+    this.recurringEvent = singleEventData.event_occurrence_type;
+    if(singleEventData.event_occurrence_type && singleEventData.event_occurrence_type ==  'Y'){
+      this.getAllOccurrenceList();
+      this.openPage = 'occurrenceList';
+    }else{
+      this.bookTicket(this.singleEventData);
+    }
+  }
+
+  getAllOccurrenceList(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'event_id':this.selectedEvent,
+      'filter':'all'
+    }
+    this.superadminService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+          this.allOccurrenceList= response.response;
+
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
+  }
+
+  fnBookOccurrence(occurrenceCode){
+      const dialogRef = this.dialog.open(BookTicketDialog, {
+        width: '700px',
+        data :{occurrenceCode : occurrenceCode,singleEventData: this.singleEventData}
+      });
+    
+       dialogRef.afterClosed().subscribe(result => {
+        this.animal = result;
+       });
   }
   
   fnGetAllEventList(){
@@ -823,7 +970,7 @@ export class AddNewOrderDialog {
   bookTicket(singleEventData) {
     const dialogRef = this.dialog.open(BookTicketDialog, {
       width: '700px',
-      data :{selecetedEvent : this.selectedEvent,'singleEventData' : singleEventData}
+      data :{selecetedEvent : this.selectedEvent,singleEventData: singleEventData}
     });
   
      dialogRef.afterClosed().subscribe(result => {
@@ -891,7 +1038,8 @@ export class BookTicketDialog {
     'zipcode': 'Zip Code',
   };
   is_address_hide = false;
-
+  occurrenceCode:any;
+  recurringEvent:boolean=false;
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<BookTicketDialog>,
@@ -905,9 +1053,16 @@ export class BookTicketDialog {
     @Inject(MAT_DIALOG_DATA) public data: any
     ) {
       
-
+      if(this.data.occurrenceCode){
+        this.occurrenceCode = this.data.occurrenceCode;
+        this.recurringEvent =true;
+        console.log(this.occurrenceCode)
+      }
       this.selectedEventCode = this.data.selecetedEvent;
       this.eventDetail = this.data.singleEventData;
+      console.log(this.selectedEventCode)
+      console.log(this.eventDetail)
+    
       
       this.eventSettings = this.eventDetail.event_setting;
       this.donation_amt = this.eventSettings.donation_amt ? parseInt(this.eventSettings.donation_amt) : 0;
@@ -952,7 +1107,11 @@ export class BookTicketDialog {
   }
 
   ngOnInit() {
-    this.fnGeteventTicket();
+    if(this.recurringEvent){
+      this.fnGetOccurrenceTicket();
+    }else{
+      this.fnGeteventTicket();
+    }
     this.getEventForm();
     this.fnGetSalesTax();
   }
@@ -976,13 +1135,13 @@ export class BookTicketDialog {
         });
 
         
-      } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
-      }
+      } 
     });
       this.isLoaderAdmin = false;
 
   }
+
+  
 
   getEventForm(){
 
@@ -1130,6 +1289,28 @@ export class BookTicketDialog {
     }
 
     this.superadminService.fnGeteventTicket(requestObject).subscribe((response:any) => {
+
+      if(response.data == true){
+        this.eventTicket = response.response;
+        this.eventTicket.forEach(element => {
+          element.qty = 0;
+          element.id_added = false;
+          this.event_tickets.push(element.unique_code)
+        });
+
+      }
+    });
+    this.isLoaderAdmin = false;
+  }
+
+  fnGetOccurrenceTicket(){
+
+    this.isLoaderAdmin = true;
+    let requestObject={
+      "occurance_id":this.occurrenceCode,
+    }
+
+    this.superadminService.fnGetOccurrenceTicket(requestObject).subscribe((response:any) => {
 
       if(response.data == true){
         this.eventTicket = response.response;

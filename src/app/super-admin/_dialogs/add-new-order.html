@@ -10,14 +10,31 @@
 
         <div class="modal-body px-0">
             <div class="add-new-order">
-                <div class="booking">
+                <div class="booking" *ngIf="openPage == 'eventlist'">
                     <div class="row ticket ticket-book-popup-border" *ngFor="let event of allEventlist; let i of index;">
                         <div class="col-md-8 ticket-details">
                             <p style="margin-bottom: 5px;">{{event.start_date|date}} - {{event.end_date|date}}</p>
                             <label>{{event.event_title}}</label>
                         </div>
                         <div class="col-md-4 mt-2 mb-2">
-                            <button mat-raised-button class="ticket-btn comm-btn" (click)="fnBookTicketType(event.unique_code,event)">Book Ticket</button>
+                            <button mat-raised-button class="ticket-btn comm-btn" (click)="fnBookTicketType(event.unique_code,event)">{{event.event_setting?event.event_setting.event_button_title:'Book'}}</button>
+                        </div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="booking" *ngIf="openPage == 'occurrenceList'">
+                    <div class="row ticket ticket-book-popup-border" *ngFor="let element of allOccurrenceList; let i of index;">
+                        <div class="col-md-8 ticket-details d-flex align-items-center">
+                            <!-- <p style="margin-bottom: 5px;">{{event.event_title}} </p> -->
+                            <label><span *ngIf="element.occurance_start_date!=element.occurance_end_date">
+                                {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time}}
+                            </span>
+                                <span *ngIf="element.occurance_start_date==element.occurance_end_date">
+                                {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time?'-':''}} {{element.occurance_end_time}}
+                            </span></label>
+                        </div>
+                        <div class="col-md-4 mt-2 mb-2">
+                            <button mat-raised-button class="ml-auto d-flex comm-btn" (click)="fnBookOccurrence(element.unique_code)"><span class="material-icons">arrow_right_alt</span></button>
                         </div>
                         <div class="line"></div>
                     </div>

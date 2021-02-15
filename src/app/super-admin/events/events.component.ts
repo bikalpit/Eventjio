@@ -341,8 +341,8 @@ export class EventsComponent implements OnInit {
       'boxoffice_id'  :this.boxOfficeCode,
       // 'IP_address':this.ipAddress,
       'IP_address':'123.201.143.228',
-      'filter' : 'all'
-      // 'filter' : 'upcoming'
+      // 'filter' : 'all'
+      'filter' : 'upcoming'
     }
     this.SuperadminService.fnGetAllEventListPaggination(this.upcommintEventApiUrl,requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -430,6 +430,15 @@ export class EventsComponent implements OnInit {
 
         this.allPastEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(element.start_date,"EEE MMM d, y")
+          if(element.event_occurrence_type == 'Y' && element.soldout.length == 0){
+            element.soldout = 'Occurrence not created'
+          }
+          if(element.event_occurrence_type == 'Y' && element.final_revenue.length == 0){
+            element.final_revenue = 'Occurrence not created'
+          }
+          if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
+            element.remaining = 'Occurrence not created'
+          }
           if(element.event_tickets.length === 0){
             element.soldout = undefined
             element.final_revenue = undefined
@@ -1300,7 +1309,7 @@ export class AddNewTicketType {
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
-      
+     
       this.addTicketForm.get('title').markAsTouched();
       this.addTicketForm.get('price').markAsTouched();
       this.addTicketForm.get('qty').markAsTouched();
@@ -1309,18 +1318,21 @@ export class AddNewTicketType {
       this.addTicketForm.get('status').markAsTouched();
       this.addTicketForm.get('min_order').markAsTouched();
       this.addTicketForm.get('max_order').markAsTouched();
-      this.addTicketForm.get('ticket_available').markAsTouched();
-      this.addTicketForm.get('ticket_unavailable').markAsTouched();
-      this.addTicketForm.get('until_date').markAsTouched();
-      this.addTicketForm.get('until_time').markAsTouched();
-      this.addTicketForm.get('after_date').markAsTouched();
-      this.addTicketForm.get('after_time').markAsTouched();
-      this.addTicketForm.get('recurring_until_date').markAsTouched();
-      this.addTicketForm.get('recurring_until_time').markAsTouched();
-      this.addTicketForm.get('recurring_after_date').markAsTouched();
-      this.addTicketForm.get('recurring_after_time').markAsTouched();
-      this.addTicketForm.get('until_interval').markAsTouched();
-      this.addTicketForm.get('after_interval').markAsTouched();
+      if(this.recurringEvent == 'N'){
+        this.addTicketForm.get('ticket_available').markAsTouched();
+        this.addTicketForm.get('ticket_unavailable').markAsTouched();
+        this.addTicketForm.get('until_date').markAsTouched();
+        this.addTicketForm.get('until_time').markAsTouched();
+        this.addTicketForm.get('after_date').markAsTouched();
+        this.addTicketForm.get('after_time').markAsTouched();
+        this.addTicketForm.get('until_interval').markAsTouched();
+        this.addTicketForm.get('after_interval').markAsTouched();
+      }else{
+        this.addTicketForm.get('recurring_until_date').markAsTouched();
+        this.addTicketForm.get('recurring_until_time').markAsTouched();
+        this.addTicketForm.get('recurring_after_date').markAsTouched();
+        this.addTicketForm.get('recurring_after_time').markAsTouched();
+      }
       return false;
     }
     if(this.recurringEvent == 'N'){
