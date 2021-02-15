@@ -1309,7 +1309,7 @@ export class AddNewTicketType {
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
-      
+     
       this.addTicketForm.get('title').markAsTouched();
       this.addTicketForm.get('price').markAsTouched();
       this.addTicketForm.get('qty').markAsTouched();
@@ -1318,18 +1318,21 @@ export class AddNewTicketType {
       this.addTicketForm.get('status').markAsTouched();
       this.addTicketForm.get('min_order').markAsTouched();
       this.addTicketForm.get('max_order').markAsTouched();
-      this.addTicketForm.get('ticket_available').markAsTouched();
-      this.addTicketForm.get('ticket_unavailable').markAsTouched();
-      this.addTicketForm.get('until_date').markAsTouched();
-      this.addTicketForm.get('until_time').markAsTouched();
-      this.addTicketForm.get('after_date').markAsTouched();
-      this.addTicketForm.get('after_time').markAsTouched();
-      this.addTicketForm.get('recurring_until_date').markAsTouched();
-      this.addTicketForm.get('recurring_until_time').markAsTouched();
-      this.addTicketForm.get('recurring_after_date').markAsTouched();
-      this.addTicketForm.get('recurring_after_time').markAsTouched();
-      this.addTicketForm.get('until_interval').markAsTouched();
-      this.addTicketForm.get('after_interval').markAsTouched();
+      if(this.recurringEvent == 'N'){
+        this.addTicketForm.get('ticket_available').markAsTouched();
+        this.addTicketForm.get('ticket_unavailable').markAsTouched();
+        this.addTicketForm.get('until_date').markAsTouched();
+        this.addTicketForm.get('until_time').markAsTouched();
+        this.addTicketForm.get('after_date').markAsTouched();
+        this.addTicketForm.get('after_time').markAsTouched();
+        this.addTicketForm.get('until_interval').markAsTouched();
+        this.addTicketForm.get('after_interval').markAsTouched();
+      }else{
+        this.addTicketForm.get('recurring_until_date').markAsTouched();
+        this.addTicketForm.get('recurring_until_time').markAsTouched();
+        this.addTicketForm.get('recurring_after_date').markAsTouched();
+        this.addTicketForm.get('recurring_after_time').markAsTouched();
+      }
       return false;
     }
     if(this.recurringEvent == 'N'){

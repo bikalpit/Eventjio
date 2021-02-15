@@ -387,9 +387,9 @@ export class addRepeatOccurrence {
       this.repeatDataArr = this.repeatForm.get('repeatDataArr') as FormArray; 
       this.repeatDataArr.push(this.createRepeatSlote());
       this.finalRepeatData = this.repeatForm.value.repeatDataArr;
-      if(this.finalRepeatData[this.finalRepeatData.length+1].repeat == ''){
-        this.dateSelectfield = false
-      }
+      // if(this.finalRepeatData[this.finalRepeatData.length+1].repeat == ''){
+      //   this.dateSelectfield = false
+      // }
     } 
     
     fnDeleteDayTime(index){
