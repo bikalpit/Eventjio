@@ -479,7 +479,7 @@
                                 </span>
                             </div>
                             <div class="donation-field ml-auto mt-2">
-                                <label for="">Suggested donation amount <i class="fa fa-question-circle"></i></label>
+                                <label for="">Suggested donation amount <i class="fa fa-question-circle" matTooltipPosition="above" matTooltip="Set an amount you would like people to donate. This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."></i></label>
                                 <input formControlName="donation_amount" type="text" class="form-control" placeholder="0.00">
                                 <span class="error-wrap" *ngIf="addEventForm.get('donation_amount').touched || addEventForm.get('donation_amount').dirty">
                                     <small *ngIf="addEventForm.get('donation_amount').hasError('required')" class="error">Amount is required.</small>
@@ -487,7 +487,7 @@
                                 </span>
                             </div>
                             <div class="donation-field mt-3">
-                                <label for="">Donation desciption <i class="fa fa-question-circle"></i></label>
+                                <label for="">Donation desciption <i class="fa fa-question-circle" matTooltipPosition="above" matTooltip="Tell people more about the donation here."></i></label>
                                 <input formControlName="donation_description" type="text" class="form-control">
                                 <span class="error-wrap" *ngIf="addEventForm.get('donation_description').touched || addEventForm.get('donation_description').dirty">
                                     <small *ngIf="addEventForm.get('donation_description').hasError('required')" class="error">Description is required.</small>

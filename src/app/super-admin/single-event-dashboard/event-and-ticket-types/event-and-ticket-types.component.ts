@@ -294,6 +294,7 @@ export class EventAndTicketTypesComponent implements OnInit {
 
 
   getSingleEvent(){
+
     let requestObject = {
       'unique_code'  :this.selectedEvent,
     }
@@ -318,20 +319,27 @@ export class EventAndTicketTypesComponent implements OnInit {
           this.eventTicketAlertMSG= false;
         }
         if(this.singleEventDetail.event_occurrence_type && this.singleEventDetail.event_occurrence_type == 'N'){
+          
           var start_time = this.singleEventDetail.start_time.split(":")
           var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
-          console.log(start_time)
-          console.log(start_time_key)
-  
+          
+
           var end_time = this.singleEventDetail.end_time.split(":")
-          console.log(end_time)
           var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
-          console.log(end_time_key)
+         
+  
+          // var end_time = this.singleEventDetail.end_time.split(":")
+          // alert(end_time + 'end')
+          
+          // var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+          // alert(end_time_key + 'end key')
+          
           if(this.singleEventDetail.start_date == this.singleEventDetail.end_date){
             this.startEndSameDate = true;
           }else{
             this.startEndSameDate = false;
           }
+          
           this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
           this.editEventForm.controls['event_start_time'].setValue(start_time_key)
           this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
@@ -369,12 +377,17 @@ export class EventAndTicketTypesComponent implements OnInit {
         // console.log(this.currentTime)
         // console.log(this.singleEventDetail.start_time)
        
+        
+        this.olPlatForm = this.singleEventDetail.online_event;
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
-        this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
-        this.editEventForm.controls['vanue_zip'].setValue(this.singleEventDetail.postal_code)
-        this.editEventForm.controls['vanue_country'].setValue(this.singleEventDetail.country[0].id)
-        this.editEventForm.controls['online_platform'].setValue(this.singleEventDetail.platform)
-        this.editEventForm.controls['online_link'].setValue(this.singleEventDetail.event_link)
+        if(this.olPlatForm == 'N'){
+          this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
+          this.editEventForm.controls['vanue_zip'].setValue(this.singleEventDetail.postal_code)
+          this.editEventForm.controls['vanue_country'].setValue(this.singleEventDetail.country[0].id)
+        }else{
+          this.editEventForm.controls['online_platform'].setValue(this.singleEventDetail.platform)
+          this.editEventForm.controls['online_link'].setValue(this.singleEventDetail.event_link)
+        }
         this.editEventForm.controls['description'].setValue(this.singleEventDetail.description)
         this.editEventForm.controls['currency'].setValue(this.singleEventSetting.currency)
         this.editEventForm.controls['transaction_fee'].setValue(this.singleEventSetting.transaction_fee)
@@ -393,7 +406,6 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.accessCode= this.singleEventSetting.customer_access_code;
         this.donation= this.singleEventSetting.make_donation;
         this.shareButtonStatus= this.singleEventSetting.hide_share_button;
-        this.olPlatForm = this.singleEventDetail.online_event;
         
 
         if(this.redirectURL == 'Y'){

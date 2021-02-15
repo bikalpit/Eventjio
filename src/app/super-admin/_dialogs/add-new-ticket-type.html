@@ -274,8 +274,8 @@
                     </div>
                     <mat-checkbox class="w-100 d-block mt-2" (change)="fnChangeSoldOut($event)">Hide when sold out</mat-checkbox>
                     <mat-checkbox class="w-100 d-block" (change)="fnChangeShowQTY($event)">Show quantity remaining on event page</mat-checkbox>
-
-                    <h3 class="font-weight-medium mt-2 text-left">Discounts</h3>
+                    
+                    <h3 class="font-weight-medium mt-2 text-left" *ngIf="allCouponCodeList != null" >Discounts</h3>
                     <div class="form-group pb-0 mb-0" *ngFor="let allCouponCodeList of allCouponCodeList; let i=index">
                         <mat-checkbox class="d-block" [checked]="assignedCouponCodes.indexOf(allCouponCodeList.unique_code) > -1" (change)="fnAddCoupon($event,allCouponCodeList.unique_code)">{{allCouponCodeList.coupon_title}}</mat-checkbox>
                     </div>
