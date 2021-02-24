@@ -314,6 +314,7 @@ export class ExportDoorListComponent {
   buyerQtionList:any = [];
   attendeeQtionList:any=[];
   selectedBuyerQuestion:any=[];
+  selectedCustomerFields:any=[];
   selectedAttendeeQuestion:any=[];
   recurringEvent:any='N';
   selectedOccurrence:any;
@@ -460,6 +461,19 @@ export class ExportDoorListComponent {
           this.selectedBuyerQuestion.splice(index, 1);
       }
     }
+    console.log(this.selectedBuyerQuestion)
+  }
+  fnAddCustomerFields(event, selectedQuestion){
+    // selectedQuestion = JSON.stringify(selectedQuestion)
+    if(event.checked){
+      this.selectedCustomerFields.push(selectedQuestion);
+    }else{
+      const index = this.selectedCustomerFields.indexOf(selectedQuestion, 0);
+      if (index > -1) {
+          this.selectedCustomerFields.splice(index, 1);
+      }
+    }
+    console.log(this.selectedCustomerFields)
   }
   
   fnAddAttendeeQtion(event, selectedQuestion){
@@ -501,6 +515,7 @@ export class ExportDoorListComponent {
         'sort_by' : this.exportArr.sort_by,
         'buyer_questions' : this.selectedBuyerQuestion,
         'attendee_questions' : this.selectedAttendeeQuestion,
+        'customer_fields' : this.selectedCustomerFields,
       }
       var str = [];
       for (var p in requestObject)
@@ -521,6 +536,7 @@ export class ExportDoorListComponent {
       'sort_by' : this.exportArr.sort_by,
       'buyer_questions' : this.selectedBuyerQuestion,
       'attendee_questions' : this.selectedAttendeeQuestion,
+      'customer_fields' : this.selectedCustomerFields,
     }
     var str = [];
     for (var p in requestObject)

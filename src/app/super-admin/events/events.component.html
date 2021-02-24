@@ -377,6 +377,59 @@
                             </div>
                         </div>
 
+                        <div class="form-group col-md-12 mt-3" *ngIf="eventImageType!='noImage'">
+                            <label for="">Uploaded an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
+                            matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
+                            </label>
+                            <div class="select-event-img-sm row mx-0">
+                                <!-- <div *ngIf="!selectedImage && singleEventDetail && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + singleEventDetail.images[0].image + ')'}" class="select-event-image">
+                                </div> -->
+                                <div *ngIf="selecetdDefaultImage !== 'newUploadImage' && !newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/event-images/'+ selecetdDefaultImage + ')'}" class="select-event-image">
+                                    <!-- <img src="{{apiUrl}}/event-images/{{selectedImage}}" class="select-event-image" alt=""> -->
+                                </div>
+                                <div *ngIf="eventImageType == 'newUploadImage' && newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
+                                    <!-- <img src="{{newEventImageUrl}}" class="select-event-image" alt=""> -->
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center mx-3">
+                                    <div>
+                                        <div class="image-status">
+                                            <mat-slider (change)="fnChangeThumbZoom($event)" class="image-slider" min="100" max="200" step="10" value="{{thumbZoomLavel}}"></mat-slider>
+                                        </div>
+                                        <!-- <div class="">
+                                            <button mat-raised-button class="delete-button">Delete Image</button>
+                                            <button mat-raised-button class="choose-img-btn">Choose Image</button>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12  mt-3" *ngIf="eventImageType!='noImage'">
+                            <label for="">Choose or upload an image <span class="info" matTooltip="Used as a thumbnail image on your event listings page.Dimensions : 108px X 108px."
+                                 matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
+                            </label>
+                            <div class="select-event-img-lg row mx-0">
+                                <!-- <div *ngIf="!selectedImage && singleEventDetail && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + singleEventDetail.images[0].image + ')'}" class="select-event-image">
+                                </div> -->
+                                <div *ngIf="selecetdDefaultImage && !newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/event-images/'+ selecetdDefaultImage + ')'}" class="select-event-image">
+                                </div>
+                                <div *ngIf="eventImageType == 'newUploadImage' && newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center mx-3">
+                                    <div>
+                                        <div class="image-status">
+                                            <mat-slider (change)="fnChangeBannerZoom($event)" class="image-slider" min="100" max="200" step="10" value="{{bannerZoomLavel}}"></mat-slider>
+                                        </div>
+                                        <!-- <div class="">
+                                            <button mat-raised-button class="delete-button">Delete Image</button>
+                                            <button mat-raised-button class="choose-img-btn">Choose Image</button>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>

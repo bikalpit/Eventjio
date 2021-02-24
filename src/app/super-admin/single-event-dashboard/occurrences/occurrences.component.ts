@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { take, takeUntil } from 'rxjs/operators';
 import { invalid } from '@angular/compiler/src/render3/view/util';
 
+
 @Component({
   selector: 'app-occurrences',
   templateUrl: './occurrences.component.html',
@@ -219,7 +220,7 @@ export class OccurrencesComponent implements OnInit {
 
   fnCreateRepeatOccurrence(){
     const dialogRef = this.dialog.open(addRepeatOccurrence,{
-      width: '1100px',
+      width: '700px',
       data : {
         // boxOfficeCode : this.boxOfficeCode,
       }
@@ -274,22 +275,28 @@ export class addRepeatOccurrence {
 
   addRepeatRecurrenceForm:FormGroup;
   fullDayTimeSlote:any;
+  fullDayTimeSloteEnd:any=[];
+  disabledEndSlote:any;
+
   dayStartTime:any;
   dayEndTime:any;
   dayTimeForm:FormGroup;
   dayTimeArr:FormArray;
   startEndTime:any=[];
   minSelectStartDate:any = new Date();
-  minSelectEndDate:any = new Date();
-  dateSelectfield:boolean = false;
+  minSelectEndDate:any = [];
+  dateSelectfield:any=[];
   isLoaderAdmin:boolean=false;
   repeatForm:FormGroup;
   repeatDataArr:FormArray;
   finalRepeatData:any = [];
 
-  selected = 'na';
+  selected:any = [];
   allDayCheckOption:any = 'N';
   checkAllDayValue:boolean = true;
+
+  public isStartTimeChange: Boolean = true;
+
   constructor(
     public dialogRef: MatDialogRef<addRepeatOccurrence>,
     private _formBuilder: FormBuilder,
@@ -312,6 +319,10 @@ export class addRepeatOccurrence {
 
     ngOnInit(): void {
       this.getTimeSlote();
+      this.disabledEndSlote = true;
+      this.selected.push("na");
+      this.dateSelectfield.push(false);
+      this.minSelectEndDate.push(new Date());
     }
 
     onSubmit(){
@@ -387,14 +398,38 @@ export class addRepeatOccurrence {
       this.repeatDataArr = this.repeatForm.get('repeatDataArr') as FormArray; 
       this.repeatDataArr.push(this.createRepeatSlote());
       this.finalRepeatData = this.repeatForm.value.repeatDataArr;
+      this.selected.push("na");
       // if(this.finalRepeatData[this.finalRepeatData.length+1].repeat == ''){
       //   this.dateSelectfield = false
       // }
     } 
     
     fnDeleteDayTime(index){
-  
+
+      this.dayTimeArr = this.dayTimeForm.get('dayTimeArr') as FormArray; 
+      this.dayTimeArr.removeAt(index);
+      this.startEndTime = this.dayTimeForm.value.dayTimeArr;
     }
+
+    fnDeleteDayDate(index){
+
+      this.repeatDataArr = this.repeatForm.get('repeatDataArr') as FormArray; 
+      this.repeatDataArr.removeAt(index);
+      // this.startEndTime = this.dayTimeForm.value.dayTimeArr;
+    }
+
+    onEnableEndTime(a,index) {
+      /*Enables end time if start time is selected*/
+            
+            if (this.isStartTimeChange) {
+              var _fullDayTimeSlote = this.fullDayTimeSlote;
+              this.disabledEndSlote = false;
+              this.fullDayTimeSloteEnd[index]= _fullDayTimeSlote.filter(function(e){ return e > a.value })
+          } else {
+              this.isStartTimeChange = true;
+          }
+            
+        }
 
     fnChangeWholeDay(e){
       if(e.checked == true){
@@ -408,16 +443,21 @@ export class addRepeatOccurrence {
       }
     }
 
-    onChangeRepeat(event){
-      this.dateSelectfield = true
-      // if(event.value == this.selected){
-      //   this.dateSelectfield = false
-      // }else{
-      //   this.dateSelectfield = true
-      // }
+    onChangeRepeat(event,index){
+      this.dateSelectfield[index] = true
+      if(event.value == this.selected[index]){
+        this.dateSelectfield[index] = false
+      }else{
+        this.dateSelectfield[index] = true
+      }
 
     }
     
+ 
+  changeEvent(event,index){
+      this.minSelectEndDate[index] =event.value;
+  }
+
   getTimeSlote(){
     let requestObject = {
       'interval'  :'30',
@@ -425,7 +465,7 @@ export class addRepeatOccurrence {
     this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fullDayTimeSlote= response.response;
-
+        this.fullDayTimeSloteEnd[0] = response.response;
       }
     });
   }

@@ -17,15 +17,15 @@
                         <div [formGroupName]="i" class="single-form-row mt-3">
                             <label>Start</label>
                             <div class="form-group">
-                                <mat-select formControlName="start_time" class="col-10 ml-2 form-control d-inline-block" (selectionChange)="onEnableEndTime($event,i)">
+                                <mat-select formControlName="start_time" class="col-10 ml-2 form-control d-inline-block">
                                     <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
                             </div>
 
                             <label>End</label>
                             <div class="form-group">
-                                <mat-select formControlName="end_time" class="col-10 ml-2 form-control d-inline-block" [disabled]="disabledEndSlote">
-                                    <mat-option *ngFor="let tse of fullDayTimeSloteEnd[i]; let i=index" value="{{tse}}">{{tse}}</mat-option>
+                                <mat-select formControlName="end_time" class="col-10 ml-2 form-control d-inline-block">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
                             </div>
 
@@ -50,7 +50,7 @@
                         <div class="col-md-4 d-inline-block">
                             <div class="w-100">
                                 <label for="">Start Date</label>
-                                <input (click)="select_start_date_picker.open()" [min]="minSelectStartDate" [matDatepicker]="select_start_date_picker" type="text" formControlName="start_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly (dateChange)="changeEvent($event,i)">
+                                <input (click)="select_start_date_picker.open()" [min]="minSelectStartDate" [matDatepicker]="select_start_date_picker" type="text" formControlName="start_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly>
                                 <mat-datepicker #select_start_date_picker></mat-datepicker>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                             <div class="w-100">
                                 <label for="">Repeat</label>
                                 <div class="form-group">
-                                    <mat-select formControlName="repeat" [ngModel]="selected" class="col-12 form-control d-inline-block" (selectionChange)="onChangeRepeat($event,i)">
+                                    <mat-select formControlName="repeat" [ngModel]="selected" class="col-12 form-control d-inline-block" (selectionChange)="onChangeRepeat($event)">
                                         <mat-option value="na">n/a</mat-option>
                                         <mat-option value="Daily">Daily Until...</mat-option>
                                         <mat-option value="Weekly">Weekly Until...</mat-option>
@@ -68,15 +68,15 @@
                             </div>
                         </div>
 
-                        <div *ngIf="dateSelectfield[i]" class="col-md-4 d-inline-block">
+                        <div *ngIf="dateSelectfield" class="col-md-4 d-inline-block">
                             <div class="w-100">
                                 <label for="">End Date</label>
-                                <input (click)="select_end_date_picker.open()" [min]="minSelectEndDate[i]" [matDatepicker]="select_end_date_picker" type="text" formControlName="end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly>
+                                <input (click)="select_end_date_picker.open()" [min]="minSelectEndDate" [matDatepicker]="select_end_date_picker" type="text" formControlName="end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly>
                                 <mat-datepicker #select_end_date_picker></mat-datepicker>
                             </div>
                         </div>
                         <div *ngIf="finalRepeatData.length > 1" class="col-md-1 d-inline-block">
-                            <span *ngIf="i>0" class="delete-daytime "><mat-icon (click)="fnDeleteDayDate(i)">delete_outline</mat-icon></span>
+                            <span *ngIf="i>0" class="delete-daytime "><mat-icon (click)="fnDeleteDayTime(i)">delete_outline</mat-icon></span>
                         </div>
                     </div>
                 </div>

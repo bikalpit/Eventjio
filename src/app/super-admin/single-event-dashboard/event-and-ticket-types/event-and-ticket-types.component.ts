@@ -54,7 +54,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   shareButtonStatus: any = 'N';
   olPlatForm : any = 'N';
   eventStartTime:any=0;
-  minEventStartDate:any = new Date();
+  minEventStartDate:any = Date();
   minEventEndDate:any = new Date();
   startEndSameDate:boolean = false;
   eventTicketAlertMSG :boolean = true;
@@ -94,7 +94,6 @@ export class EventAndTicketTypesComponent implements OnInit {
     if(localStorage.getItem('selectedEventCode')){
       this.selectedEvent = localStorage.getItem('selectedEventCode')
     }
-    
 
       this.editEventForm = this._formBuilder.group({
         event_name: ['',[Validators.required]],
@@ -349,6 +348,12 @@ export class EventAndTicketTypesComponent implements OnInit {
           this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"yyyy-MM-dd")
           this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
           this.currentTime = this.transformTime(this.currentTime)
+          
+        if(this.singleEventDetail.start_date < this.todayDate){
+          this.minEventStartDate = this.singleEventDetail.start_date
+        }else{
+          this.minEventStartDate = this.todayDate
+        }
         }else{
           this.editEventForm = this._formBuilder.group({
             event_name: ['',[Validators.required]],
@@ -650,6 +655,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
 
   fnSaveEvent(){
+    console.log('1')
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
     if(this.customSalesTax == 'Y'){
@@ -663,9 +669,11 @@ export class EventAndTicketTypesComponent implements OnInit {
         return false;
       }
     }
+    console.log(this.editEventForm)
     
     
     if(this.editEventForm.invalid){
+      console.log('invalid')
       if(this.recurringEvent == 'N'){
         this.editEventForm.get('event_name').markAsTouched();
         this.editEventForm.get('event_start_date').markAsTouched();
@@ -750,6 +758,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       'event_occurrence_type':this.recurringEvent,
       'default_img' : this.selecetdDefaultImage,
       };
+      console.log(requestObject)
       this.updateEvent(requestObject);
     }else{
       let requestObject = {
@@ -1138,10 +1147,10 @@ export class AddNewTicketType {
             status: [this.selectedTicketDetail.status],
             min_order: [this.selectedTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
             max_order: [this.selectedTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
-            recurring_until_date: [this.selectedTicketDetail.hide_until_date,[Validators.required]],
-            recurring_until_time: [this.selectedTicketDetail.hide_until_time,[Validators.required]],
-            recurring_after_date: [this.selectedTicketDetail.hide_after_date,[Validators.required]],
-            recurring_after_time: [this.selectedTicketDetail.hide_after_time,[Validators.required]],
+            recurring_until_date: [this.selectedTicketDetail.hide_until_date],
+            recurring_until_time: [this.selectedTicketDetail.hide_until_time],
+            recurring_after_date: [this.selectedTicketDetail.hide_after_date],
+            recurring_after_time: [this.selectedTicketDetail.hide_after_time],
           });
         }else{
           this.editTicket = false;
@@ -1400,22 +1409,37 @@ export class AddNewTicketType {
 
   fnSubmitAddTicketForm(){
     if(this.addTicketForm.invalid){
-      this.addTicketForm.get('title').markAsTouched();
-      this.addTicketForm.get('price').markAsTouched();
-      this.addTicketForm.get('qty').markAsTouched();
-      this.addTicketForm.get('description').markAsTouched();
-      this.addTicketForm.get('fee').markAsTouched();
-      this.addTicketForm.get('status').markAsTouched();
-      this.addTicketForm.get('min_order').markAsTouched();
-      this.addTicketForm.get('max_order').markAsTouched();
-      this.addTicketForm.get('until_date').markAsTouched();
-      this.addTicketForm.get('until_time').markAsTouched();
-      this.addTicketForm.get('after_date').markAsTouched();
-      this.addTicketForm.get('after_time').markAsTouched();
-      this.addTicketForm.get('until_interval').markAsTouched();
-      this.addTicketForm.get('after_interval').markAsTouched();
-      this.addTicketForm.get('ticket_available').markAsTouched();
-      this.addTicketForm.get('ticket_unavailable').markAsTouched();
+      if(this.recurringEvent == 'N'){
+        this.addTicketForm.get('title').markAsTouched();
+        this.addTicketForm.get('price').markAsTouched();
+        this.addTicketForm.get('qty').markAsTouched();
+        this.addTicketForm.get('description').markAsTouched();
+        this.addTicketForm.get('fee').markAsTouched();
+        this.addTicketForm.get('status').markAsTouched();
+        this.addTicketForm.get('min_order').markAsTouched();
+        this.addTicketForm.get('max_order').markAsTouched();
+        this.addTicketForm.get('until_date').markAsTouched();
+        this.addTicketForm.get('until_time').markAsTouched();
+        this.addTicketForm.get('after_date').markAsTouched();
+        this.addTicketForm.get('after_time').markAsTouched();
+        this.addTicketForm.get('until_interval').markAsTouched();
+        this.addTicketForm.get('after_interval').markAsTouched();
+        this.addTicketForm.get('ticket_available').markAsTouched();
+        this.addTicketForm.get('ticket_unavailable').markAsTouched();
+      }else{
+        this.addTicketForm.get('title').markAsTouched();
+        this.addTicketForm.get('price').markAsTouched();
+        this.addTicketForm.get('qty').markAsTouched();
+        this.addTicketForm.get('description').markAsTouched();
+        this.addTicketForm.get('fee').markAsTouched();
+        this.addTicketForm.get('status').markAsTouched();
+        this.addTicketForm.get('min_order').markAsTouched();
+        this.addTicketForm.get('max_order').markAsTouched();
+        this.addTicketForm.get('recurring_until_date').markAsTouched();
+        this.addTicketForm.get('recurring_until_time').markAsTouched();
+        this.addTicketForm.get('recurring_after_date').markAsTouched();
+        this.addTicketForm.get('recurring_after_time').markAsTouched();
+      }
       return false;
     }
 

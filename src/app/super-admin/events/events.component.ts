@@ -27,6 +27,7 @@ export interface ListTimeZoneListArry {
 export class EventsComponent implements OnInit {
  
   isLoaderAdmin:boolean = false;
+  apiUrl = environment.apiFolderUrl; 
  redirectURL:any = 'N';
  hideEventSearch:any = 'N';
  customSalesTax:any = 'N';
@@ -98,6 +99,8 @@ export class EventsComponent implements OnInit {
   ipAddress:any="123.201.143.247";
   // minEndTime:any;
   recurringEvent:any='N';
+  thumbZoomLavel:any = '100'
+  bannerZoomLavel:any = '100'
   
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
@@ -559,9 +562,22 @@ export class EventsComponent implements OnInit {
       this.newEventImageUrl = undefined;
     }
   }
+
+  
+
+  fnChangeThumbZoom(event){
+    this.thumbZoomLavel = event.value
+  }
+
+  fnChangeBannerZoom(event){
+    this.bannerZoomLavel = event.value
+  }
+
+
   
   fnSelectDefaultImage(imageName){
     this.selecetdDefaultImage = imageName;
+    console.log(this.selecetdDefaultImage)
   }
 
   viewEventPage(eventCode){
@@ -775,6 +791,8 @@ export class EventsComponent implements OnInit {
         'access_code':this.addEventForm.get('access_code').value,
         'hide_share_button':this.shareButtonStatus,
         'custom_sales_tax':this.customSalesTax,
+        'event_thumb_zoom':this.thumbZoomLavel,
+        'event_banner_zoom':this.bannerZoomLavel,
         'sales_tax':this.salesTax,
         'tickets':this.eventTicketList,
         'event_occurrence_type':this.recurringEvent,

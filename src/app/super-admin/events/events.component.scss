@@ -407,3 +407,28 @@
     font-size: 18px;
     font-weight: 500;
 }
+
+.select-event-img-sm {
+    .select-event-image {
+        border-radius: 10px;
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        background-position: center !important;
+        box-shadow: 6px 6px 10px #f1f1f1;
+        background-repeat: no-repeat !important;
+        background-size: 100%;
+    }
+}
+
+.select-event-img-lg {
+    .select-event-image {
+        width: 400px;
+        height: 150px;
+        border-radius: 10px;
+        overflow: hidden;
+        background-position: center !important;
+        box-shadow: 6px 6px 10px #f1f1f1;
+        background-repeat: no-repeat !important;
+    }
+}

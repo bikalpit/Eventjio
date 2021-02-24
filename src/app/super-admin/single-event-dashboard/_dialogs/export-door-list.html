@@ -51,26 +51,30 @@
                 <label for="">Buyer questions</label>
                 <div *ngFor="let buyerQtion of buyerQtionList; let i=index" class="ques-checkbox w-100">
                     <div *ngIf="buyerQtion.addressForamteStyle && buyerQtion.addressForamteStyle == 'Cadadian'" class="">
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'address1')">Address 1</mat-checkbox>
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'city')">City</mat-checkbox>
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'province')">Province</mat-checkbox>
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'postalcode')">Postal code</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'address1')">Address 1</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'city')">City</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'province')">Province</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'postalcode')">Postal code</mat-checkbox>
                     </div>
                     <div *ngIf="buyerQtion.addressForamteStyle && buyerQtion.addressForamteStyle == 'UK'" class="">
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'address1')">Address 1</mat-checkbox>
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'address2')">Address 2</mat-checkbox>
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'address3')">Address 3</mat-checkbox>
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'zipcode')">Zipcode</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'address1')">Address 1</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'address2')">Address 2</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'address3')">Address 3</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'zipcode')">Zipcode</mat-checkbox>
                     </div>
                     <div *ngIf="buyerQtion.addressForamteStyle && buyerQtion.addressForamteStyle == 'US'" class="">
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'address1')">Address 1</mat-checkbox>
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'city')">City</mat-checkbox>
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'state')">State</mat-checkbox>
-                        <mat-checkbox class="d-flex" (change)="fnAddBuyerQtion($event,'zipcode')">Zipcode</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'address1')">Address 1</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'city')">City</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'state')">State</mat-checkbox>
+                        <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'zipcode')">Zipcode</mat-checkbox>
                     </div>
-                    <div *ngIf="!buyerQtion.addressForamteStyle">
+                    <div *ngIf="((!buyerQtion.addressForamteStyle) && buyerQtion.label != 'Name') && ((!buyerQtion.addressForamteStyle) && buyerQtion.label != 'Email') && ((!buyerQtion.addressForamteStyle) && buyerQtion.label != 'Mobile Phone Number')">
                         <mat-checkbox (change)="fnAddBuyerQtion($event,buyerQtion.label)">{{buyerQtion.label}}</mat-checkbox>
                     </div>
+                    <div *ngIf="buyerQtion.label == 'Name' || buyerQtion.label == 'Email' || buyerQtion.label == 'Mobile Phone Number'">
+                        <mat-checkbox (change)="fnAddCustomerFields($event,buyerQtion.label)">{{buyerQtion.label}}</mat-checkbox>
+                    </div>
+
                 </div>
             </div>
             <div class="question-list pl-2">
