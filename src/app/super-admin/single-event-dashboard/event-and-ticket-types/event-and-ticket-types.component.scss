@@ -226,6 +226,11 @@
         }
     }
 }
+::ng-deep .angular-editor{
+    .angular-editor-textarea{
+        background-color: #ffffff !important;
+    }
+} 
 
 .after-save-general-admission {
     background-color: #CEE6FF;

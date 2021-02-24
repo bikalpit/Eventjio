@@ -101,6 +101,11 @@
     opacity: 0.47;
     margin-left: 5px;
 }
+::ng-deep .angular-editor{
+    .angular-editor-textarea{
+        background-color: #ffffff !important;
+    }
+} 
 
 ::ng-deep .events {
     .mat-select-trigger {
