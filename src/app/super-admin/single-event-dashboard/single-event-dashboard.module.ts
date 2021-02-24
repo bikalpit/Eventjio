@@ -32,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared.module';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 import { OccurrencesComponent, addRepeatOccurrence, addSingleOccurrence } from './occurrences/occurrences.component';
 
 @NgModule({
@@ -78,7 +79,8 @@ import { OccurrencesComponent, addRepeatOccurrence, addSingleOccurrence } from '
       ReactiveFormsModule,
       SharedModule,
       NgbModule,
-      NgxMatSelectSearchModule
+      NgxMatSelectSearchModule,
+      AngularEditorModule 
     ],
 
     entryComponents: [

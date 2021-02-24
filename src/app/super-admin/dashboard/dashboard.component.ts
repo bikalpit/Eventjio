@@ -68,10 +68,8 @@ export class DashboardComponent implements OnInit {
     const url = this.getUrl(event);
     let devidedUrl = url.split('/',4);
     if(devidedUrl[1] == '' || devidedUrl[1] == 'boxoffice'){
-      console.log('boxoffice yes')
       localStorage.setItem('isBoxoffice','true');
     }else{
-      console.log('boxoffice no')
       localStorage.setItem('isBoxoffice','false');
     }
   }
