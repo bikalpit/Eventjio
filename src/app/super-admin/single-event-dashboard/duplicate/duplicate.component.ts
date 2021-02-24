@@ -23,6 +23,9 @@ export class DuplicateComponent implements OnInit {
   isPastEvent: boolean = false;
   duplicateId: any;
   eventName: any;
+  fullDayTimeSlote:any;
+  starTime:any;
+  endTime:any;
   // duplicateForm:boolean=false;
 
   constructor(
@@ -52,13 +55,16 @@ export class DuplicateComponent implements OnInit {
 
   ngOnInit(): void {
     this.fnGetEventDetail();
+    this.getTimeSlote()
   }
 
   createItem(): FormGroup {
     return this.formBuilder.group({
       event_title: ['',Validators.required],
       start_date:  ['',Validators.required],
+      start_time:  ['',Validators.required],
       end_date:  ['',Validators.required],
+      end_time:  ['',Validators.required],
       event_status:  ['',Validators.required]
     });
   }
@@ -80,7 +86,29 @@ export class DuplicateComponent implements OnInit {
     // this.minTillDate = this.duplicateForm.get('start_date').value;
   }
 
+  getTimeSlote(){
+    let requestObject = {
+      'interval'  :'30',
+    }
+    this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
+      // alert(response.data)
+      if(response.data == true){
+        this.fullDayTimeSlote= response.response
+      }
+    });
+  }
 
+  onChangeStartTime(e){
+    console.log('start')
+    this.starTime = e.source.value
+    console.log(this.starTime)
+  }
+
+  onChangeEndTime(e){
+    console.log('end')
+    this.endTime = e.source.value
+    console.log(this.endTime)
+  }
 
   getContactsFormGroup(index): FormGroup {
     return this.duplicateForm.controls[index] as FormGroup;
@@ -137,10 +165,12 @@ export class DuplicateComponent implements OnInit {
     
     var i = 0;
     await this.duplicateForm.value.items.forEach(element => {
-
+      
       let requestObject = {
         "start_date" : this.datePipe.transform(new Date(element.start_date), "yyyy-MM-dd"),
         "end_date" : this.datePipe.transform(new Date(element.end_date), "yyyy-MM-dd"),
+        "start_time" : this.starTime,
+        "end_time" : this.endTime,
         "event_title" : element.event_title,
         "event_status" : element.event_status,
         "unique_code": this.duplicateId,

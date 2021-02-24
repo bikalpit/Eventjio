@@ -17,20 +17,24 @@
                 </div>
                 <div class="content" class="drageble-list">
                     <div class="drageble-box" fxLayout="row">
-                        <div class="tb-data heading-table clr-black" fxFlex="20"> </div>
-                        <div class="tb-data heading-table" fxFlex="20">Event Name</div>
-                        <div class="tb-data heading-table" fxFlex="20">Start Date</div>
-                        <div class="tb-data heading-table" fxFlex="20">End Date</div>
-                        <div class="tb-data heading-table" fxFlex="20">Status</div>
+                        <div class="tb-data heading-table clr-black" fxFlex="10"> </div>
+                        <div class="tb-data heading-table" fxFlex="15">Event Name</div>
+                        <div class="tb-data heading-table" fxFlex="15">Start Date</div>
+                        <div class="tb-data heading-table" fxFlex="15">Start Time</div>
+                        <div class="tb-data heading-table" fxFlex="15">End Date</div>
+                        <div class="tb-data heading-table" fxFlex="15">End Time</div>
+                        <div class="tb-data heading-table" fxFlex="15">Status</div>
                     </div>
                 </div>
                 <div class="content" class="drageble-list">
                     <div class="drageble-box" fxLayout="row">
-                        <div class="tb-data heading-table clr-black" fxFlex="20"> Original </div>
-                        <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.event_title:''}} </div>
-                        <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.start_date:'' | date}}</div>
-                        <div class="tb-data heading-table" fxFlex="20">{{eventName?eventName.end_date:''}}</div>
-                        <div class="tb-data heading-table text-capitalize" fxFlex="20">{{eventName?eventName.event_status:''}}</div>
+                        <div class="tb-data heading-table clr-black" fxFlex="10"> Original </div>
+                        <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.event_title:''}} </div>
+                        <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.start_date:'' | date}}</div>
+                        <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.start_time:''}}</div>
+                        <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.end_date:'' | date}}</div>
+                        <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.end_time:''}}</div>
+                        <div class="tb-data heading-table text-capitalize" fxFlex="15">{{eventName?eventName.event_status:''}}</div>
                     </div>
                 </div>
 
@@ -38,9 +42,9 @@
 
                     <div class="content" class="drageble-list" formArrayName="items" *ngFor="let item of duplicateForm.get('items')['controls']; let i = index">
                         <div class="drageble-box main-drageble" fxLayout="row" [formGroupName]="i">
-                            <div class="tb-data heading-table clr-black" fxFlex="20"> New </div>
+                            <div class="tb-data heading-table clr-black" fxFlex="10"> New </div>
 
-                            <div class="tb-data heading-table" fxFlex="20">
+                            <div class="tb-data heading-table" fxFlex="15">
                                 <input class="form-control" formControlName="event_title" placeholder="{{eventName?eventName.event_title:''}}">
                                 <div *ngIf="item.controls.event_title.invalid && item.controls.event_title.touched" class="text-danger">
                                     Event title is required
@@ -48,7 +52,7 @@
                             </div>
 
 
-                            <div class="tb-data heading-table text-purple" fxFlex="20">
+                            <div class="tb-data heading-table text-purple" fxFlex="15">
                                 <div class="matDate">
                                     <mat-datepicker-toggle matPrefix [for]="duplicateStartDatePicker" class="dateIcon"> </mat-datepicker-toggle>
                                     <input type="text" (dateChange)="fnChangeEventStartDate($event)" matInput [matDatepicker]="duplicateStartDatePicker" [min]="minDate" (click)="duplicateStartDatePicker.open()" class="form-control matInputdate" formControlName="start_date">
@@ -61,7 +65,16 @@
                                 </div>
                             </div>
 
-                            <div class="tb-data heading-table" fxFlex="20">
+                            <div class="tb-data heading-table" fxFlex="15">
+                                <mat-select class="form-control clr-black custom-fc-width" formControlName="start_time">
+                                    <mat-option value="{{time}}" (onSelectionChange)="onChangeStartTime($event)" *ngFor="let time of fullDayTimeSlote; let i=index">{{time}}</mat-option> 
+                                </mat-select>
+                                <div *ngIf="item.controls.event_title.invalid && item.controls.event_title.touched" class="text-danger">
+                                    Event start time is required
+                                </div>
+                            </div>
+
+                            <div class="tb-data heading-table" fxFlex="15">
                                 <div class="matDate">
                                     <mat-datepicker-toggle matPrefix [for]="duplicateEndDatePicker" class="dateIcon"> </mat-datepicker-toggle>
                                     <input type="text" matInput [matDatepicker]="duplicateEndDatePicker" [min]="minTillDate" (click)="duplicateEndDatePicker.open()" class="form-control matInputdate" formControlName="end_date">
@@ -75,7 +88,16 @@
                                 </div>
                             </div>
 
-                            <div class="tb-data heading-table" fxFlex="20">
+                            <div class="tb-data heading-table" fxFlex="15">
+                                <mat-select class="form-control clr-black custom-fc-width" formControlName="end_time">
+                                    <mat-option value="{{time}}" (onSelectionChange)="onChangeEndTime($event)" *ngFor="let time of fullDayTimeSlote;let i=index">{{time}}</mat-option> 
+                                </mat-select>
+                                <div *ngIf="item.controls.event_title.invalid && item.controls.event_title.touched" class="text-danger">
+                                    Event end time is required
+                                </div>
+                            </div>
+
+                            <div class="tb-data heading-table" fxFlex="15">
                                 <mat-select class="form-control clr-black custom-fc-width" id="exampleFormControlSelect1" formControlName="event_status">
                                     <mat-option value="draft">Draft</mat-option>
                                     <mat-option value="publish">Published</mat-option>
