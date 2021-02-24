@@ -317,13 +317,14 @@ export class EventAndTicketTypesComponent implements OnInit {
           this.eventTicketAlertMSG= false;
         }
         if(this.singleEventDetail.event_occurrence_type && this.singleEventDetail.event_occurrence_type == 'N'){
-          
-          var start_time = this.singleEventDetail.start_time.split(":")
-          var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
-          
-
-          var end_time = this.singleEventDetail.end_time.split(":")
-          var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+          if(this.singleEventDetail.start_time){
+            var start_time = this.singleEventDetail.start_time.split(":")
+            var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
+          }
+          if(this.singleEventDetail.end_time){
+            var end_time = this.singleEventDetail.end_time.split(":")
+            var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+          }
          
   
           // var end_time = this.singleEventDetail.end_time.split(":")
@@ -380,7 +381,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom;
        
         
-        this.olPlatForm = this.singleEventDetail.online_event;
+        this.olPlatForm = JSON.stringify(this.singleEventDetail.online_event);
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         if(this.olPlatForm == 'N'){
           this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
@@ -824,6 +825,7 @@ export class EventAndTicketTypesComponent implements OnInit {
           boxOfficeCode : this.boxOfficeCode,
           fullDayTimeSlote : this.fullDayTimeSlote,
           selectedEventId : this.singleEventDetail.unique_code,
+          recurringEvent:this.recurringEvent,
           selectedTicketDetail : this.selectedTicketDetail,
         }
       });
@@ -885,6 +887,7 @@ export class EventAndTicketTypesComponent implements OnInit {
           boxOfficeCode : this.boxOfficeCode,
           fullDayTimeSlote : this.fullDayTimeSlote,
           selectedEventId : this.singleEventDetail.unique_code,
+          recurringEvent:this.recurringEvent,
           startDate : this.datePipe.transform(new Date(this.editEventForm.get('event_start_date').value),"yyyy-MM-dd"),
           endDate : this.datePipe.transform(new Date(this.editEventForm.get('event_end_date').value),"yyyy-MM-dd"),
           startTime : this.editEventForm.get('event_start_time').value,
@@ -1054,6 +1057,7 @@ export class AddNewTicketType {
     private datePipe: DatePipe,
     private SingleEventServiceService: SingleEventServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      alert(this.data.recurringEvent)
       if(this.data.recurringEvent == 'N'){
         this.boxOfficeCode = this.data.boxOfficeCode;
         this.fullDayTimeSlote = this.data.fullDayTimeSlote;

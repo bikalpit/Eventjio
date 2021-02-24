@@ -23,4 +23,9 @@ npm install ngx-barcode --save
 export-to-csv:
 npm install export-to-csv --save
 
+Angualr text editor
+npm i @kolkov/angular-editor
+
+Social Media 
+npm i angularx-social-login
 

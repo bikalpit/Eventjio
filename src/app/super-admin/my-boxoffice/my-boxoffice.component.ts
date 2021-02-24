@@ -143,13 +143,10 @@ export class MyBoxofficeComponent implements OnInit {
   private handleRoute(event: RouterEvent) {
     const url = this.getUrl(event);
     let devidedUrl = url.split('/',4);
-    console.log(devidedUrl)
     if((devidedUrl[1] == 'super-admin' && devidedUrl.length == 2) || devidedUrl[2] == 'boxoffice'){
-      console.log('boxoffice yes')
       // this.AppComponent
       localStorage.setItem('isBoxoffice','true');
     }else{
-      console.log('boxoffice no')
       localStorage.setItem('isBoxoffice','false');
     }
   }
