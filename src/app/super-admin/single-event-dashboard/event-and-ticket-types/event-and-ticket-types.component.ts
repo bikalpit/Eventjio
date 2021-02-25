@@ -446,7 +446,6 @@ export class EventAndTicketTypesComponent implements OnInit {
       //  this.customSalesTaxArr.removeAt(this.createSalesTaxItem[0]);
         this.salesTax.shift();
         this.change.detectChanges();
-        
       }
     });
 
@@ -721,6 +720,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     //   return false;
     // }
     if(this.recurringEvent == 'N'){
+      console.log(this.datePipe.transform(new Date(this.editEventForm.get('event_end_date').value),"yyyy-MM-dd"))
     let requestObject = {
       'unique_code' : this.singleEventDetail.unique_code,
       'boxoffice_id':this.boxOfficeCode,
