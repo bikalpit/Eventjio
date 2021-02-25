@@ -1,8 +1,12 @@
 import { Component, Renderer2, ElementRef,ViewChild } from '@angular/core';
 import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
+// import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User, Role } from './_models';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -20,9 +24,11 @@ export class AppComponent {
   selectedBoxOfficeName:any;
   currentUser: User;
   adminTopMenuselected:any
+  loginForm: FormGroup;
   currentUrl: string = '';
   openLogoutMenuBox :boolean = false;
   pageSlug:any;
+  isAllowed:boolean=true;
   
   @ViewChild('toggleButton') toggleButton: ElementRef;
   @ViewChild('logoutMenu') logoutMenu: ElementRef;
@@ -32,6 +38,8 @@ export class AppComponent {
     private router: Router,
     private bnIdle: BnNgIdleService,
     private renderer: Renderer2,
+    private _snackBar: MatSnackBar,
+    // private authService: AuthService,
     private authenticationService: AuthenticationService,
   ) {
     // this.renderer.listen('window', 'click',(e:Event)=>{
@@ -260,6 +268,111 @@ export class AppComponent {
       return true;
     }
 
+  }
+
+  signInWithGoogle(loginForm): void {
+    this.loginForm=loginForm;
+    // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(res=>{
+    //   this.fnLoginWithGoogleFacebook(res);
+    // });
+
+  }
+
+  signInWithFB(loginForm): void {
+    this.loginForm=loginForm;
+    // this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(res=>{
+    //   console.log("facebook res=>",res);
+    //   this.fnLoginWithGoogleFacebook(res);
+
+    // });
+  }
+
+  fnLoginWithGoogleFacebook(user){
+    this.isAllowed=false;
+    if(user.email == ''){
+          this._snackBar.open('Please add email id in your facebook account.', "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+          });
+          return false;
+      }
+    this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
+      if(data.idExists == true){
+        
+          this.router.navigate(["admin"]);
+
+        // this.initiateTimeout();
+      
+      }else if(data.idExists == false && data.emailExists == true){
+        this.signOut();
+        this.isAllowed=true;
+        this._snackBar.open("It seems that you already have account with Schedulic", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        //this.error = "It seems that you already have account with Schedulic";
+        this.loginForm.controls['email'].setValue(data.userData.email);
+        //this.dataLoaded = true;
+      }else if(data.idExists == false && data.emailExists == false){
+        this.fnSignup(user);
+      }
+    },
+    error => {
+      this._snackBar.open("Database Connection Error", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+      }); 
+      // this.error = "Database Connection Error"; 
+      // this.dataLoaded = true;  
+    });
+  }
+
+  signOut(): void {
+    // this.authService.signOut();
+  }
+
+  
+  fnSignup(user_data){
+    let signUpUserObj={
+      "password":"",
+      "firstname":user_data.firstName,
+      "lastname":user_data.lastName,
+      "phone":"",
+      "email":user_data.email,
+      "address":"",
+      "zip":"",
+      "state":"",
+      "city":"",
+      "country":"",
+      "google_id":user_data.provider=="GOOGLE"?user_data.id:null,
+      "facebook_id":user_data.provider=="FACEBOOK"?user_data.id:null
+    }
+    // .subscribe((response: any) => 
+    this.authenticationService.signup(signUpUserObj).pipe(first()).subscribe(data => {
+      if(data.data == true){
+        this.fnLoginWithGoogleFacebook(user_data);
+      }else{
+        this._snackBar.open("Unable to signin with "+user_data.provider, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+          // this.error = "Unable to signin with "+user_data.provider; 
+          // this.dataLoaded = true;
+      }
+    },
+    error => { 
+      this._snackBar.open("Database Connection Error", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+      });
+      // this.error = "Database Connection Error"; 
+      // this.dataLoaded = true;  
+    });
   }
 
  

@@ -810,11 +810,15 @@ export class EventsComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.SuperadminService.createNewEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response);
+        this.ErrorService.successMessage('Event created successfully.');
         this.saveDisabled = true;
         setTimeout(() => {
           this.saveDisabled = false
         }, 4000);
+        if(requestObject['event_occurrence_type'] == 'Y'){
+          localStorage.setItem('selectedEventCode', response.response);
+          this.router.navigate(["super-admin/single-event-dashboard/manage-occurrences"]);     
+        }
         this.fnGetUpcomingEventList()
         this.fnGetPastEventList()
         this.addEventForm.reset();

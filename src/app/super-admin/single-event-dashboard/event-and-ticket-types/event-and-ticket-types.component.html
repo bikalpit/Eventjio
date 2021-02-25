@@ -55,7 +55,7 @@
                             <div class="col-md-6 mt-3">
                                 <div class="row mx-0">
                                     <div class="col-md-7 form-group pl-0">
-                                        <label for="">Ends Date <span><i class="fa fa-asterisk"></i></span> </label>
+                                        <label for="">End Date <span><i class="fa fa-asterisk"></i></span> </label>
                                         <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY"
                                             readonly>
                                         <mat-datepicker #event_end_date_picker></mat-datepicker>
@@ -64,14 +64,14 @@
                                     </span>
                                     </div>
                                     <div class="col-md-5 form-group px-0">
-                                        <label class="ml-2" for="">Ends Time<span><i class="fa fa-asterisk"></i></span> </label>
-                                        <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                                        <label class="ml-2" for="">End Time<span><i class="fa fa-asterisk"></i></span> </label>
+                                        <mat-select formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                            <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                         </mat-select>
 
 
                                         <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
+                                            <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                         </mat-select>
                                         <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_end_time').touched || editEventForm.get('event_end_time').dirty">
                                         <small *ngIf="editEventForm.get('event_end_time').hasError('required')" class="error">Event End Time is required.</small>
@@ -336,7 +336,7 @@
 
 
                         <div class="form-group col-md-12 mt-2 mb-0 mt-3">
-                            <label for="">Customise the text that appears on the event button and in the title of the event page</label>
+                            <label for="">Customise the text that appears on the event button and in the title of the event page <span><i class="fa fa-asterisk asterisk"></i></span></label>
                             <div class="form-group">
                                 <input formControlName="book_btn_title" type="text" class="form-control" placeholder="Book Tickets">
                                 <span class="error-wrap" *ngIf="editEventForm.get('book_btn_title').touched || editEventForm.get('book_btn_title').dirty">

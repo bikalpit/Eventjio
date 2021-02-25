@@ -49,6 +49,11 @@
                                 <p>Don't have an account? <a routerLink="/sign-up">Sign Up Now</a></p>
                             </div>
                         </form>
+
+                        <div class="social-btns" fxLayoutalign="center center">
+                            <a class="btn social-login facebook" (click)="signInWithFB()"><i class="fa fa-facebook-f"></i></a>
+                            <a class="btn social-login google_plus" (click)="signInWithGoogle()"><i class="fa fa-google-plus"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>

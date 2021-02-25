@@ -135,6 +135,18 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   }
 
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour > 12){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
+
   fnRecurringEvent(event){
     if(event.checked == true){
       this.recurringEvent = 'Y';
@@ -230,6 +242,10 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fullDayTimeSlote= response.response;
+        this.fullDayTimeSlote.forEach(element => {
+          element = this.transformTime24To12(element)
+        });
+        console.log(this.fullDayTimeSlote)
         this.getSingleEvent();
 
       }
@@ -317,13 +333,22 @@ export class EventAndTicketTypesComponent implements OnInit {
           this.eventTicketAlertMSG= false;
         }
         if(this.singleEventDetail.event_occurrence_type && this.singleEventDetail.event_occurrence_type == 'N'){
+          if(this.singleEventDetail.start_date == this.singleEventDetail.end_date){
+            this.startEndSameDate = true;
+          }else{
+            this.startEndSameDate = false;
+          }
           if(this.singleEventDetail.start_time){
             var start_time = this.singleEventDetail.start_time.split(":")
             var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
+            this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
+            this.editEventForm.controls['event_start_time'].setValue(start_time_key)
           }
           if(this.singleEventDetail.end_time){
             var end_time = this.singleEventDetail.end_time.split(":")
             var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+            this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
+            this.editEventForm.controls['event_end_time'].setValue(end_time_key)
           }
          
   
@@ -332,17 +357,9 @@ export class EventAndTicketTypesComponent implements OnInit {
           
           // var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
           // alert(end_time_key + 'end key')
+        
           
-          if(this.singleEventDetail.start_date == this.singleEventDetail.end_date){
-            this.startEndSameDate = true;
-          }else{
-            this.startEndSameDate = false;
-          }
-          
-          this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
-          this.editEventForm.controls['event_start_time'].setValue(start_time_key)
-          this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
-          this.editEventForm.controls['event_end_time'].setValue(JSON.stringify(end_time_key))
+         
             
           
           this.todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
@@ -519,6 +536,11 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   fnChangeStartTime(event){
     this.editEventForm.get('event_end_time').setValue('');
+   
+  }
+
+  fnChangeEndTime(event){
+    // this.editEventForm.get('event_end_time').setValue('');
    
   }
 
@@ -1057,7 +1079,6 @@ export class AddNewTicketType {
     private datePipe: DatePipe,
     private SingleEventServiceService: SingleEventServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      alert(this.data.recurringEvent)
       if(this.data.recurringEvent == 'N'){
         this.boxOfficeCode = this.data.boxOfficeCode;
         this.fullDayTimeSlote = this.data.fullDayTimeSlote;

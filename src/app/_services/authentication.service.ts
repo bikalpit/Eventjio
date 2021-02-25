@@ -87,4 +87,34 @@ export class AuthenticationService {
             }
         }
     }
+
+    loginWithGoogleFacebook(authId,email,provider) {
+        // if(email == ''){
+        //     this._snackBar.open('Please add email id in your facebook account.', "X", {
+        //         duration: 2000,
+        //         verticalPosition:'top',
+        //         panelClass :['red-snackbar']
+        //     });
+        //     return false;
+        // }
+        let requestObject={
+            "auth_id":authId,
+            "email_id":email,
+            "provider":provider
+        }
+        return this.http.post<any>(`${environment.apiUrl}/facebook-google-login`, requestObject)
+        .pipe(map(user => {
+            if (user && user.response.idExists == true) {
+                localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                this.currentUserSubject.next(user.response.userData);
+                var logoutTime = new Date();
+               logoutTime.setHours( logoutTime.getHours() + 6 );
+               localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
+                console.log(user.response);
+            }
+                console.log(user.response);
+            return user.response;
+        }));
+    }
+
 }
