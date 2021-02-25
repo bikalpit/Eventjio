@@ -37,7 +37,7 @@ import { MatTimepickerModule } from 'mat-timepicker';
 import { DialogImportFileUpload } from './customers/customers.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 
@@ -87,7 +87,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    AngularEditorModule
   ],
   
   entryComponents: [

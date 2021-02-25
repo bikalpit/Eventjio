@@ -93,6 +93,20 @@
     margin-left: 5px;
 }
 
+::ng-deep .modal-body .fa-question{
+    border-radius: 50%;
+    font-size: 9px;
+    padding: 3px 5px;
+    background: #CECECE;
+    opacity: 0.47;
+    margin-left: 5px;
+}
+::ng-deep .angular-editor{
+    .angular-editor-textarea{
+        background-color: #ffffff !important;
+    }
+} 
+
 ::ng-deep .events {
     .mat-select-trigger {
         line-height: 1.5;
