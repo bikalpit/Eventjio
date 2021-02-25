@@ -25,7 +25,7 @@
         }
     }
     .bottom-occurrence-wrap {
-        margin-top: 20px;
+        margin-top: 10px;
         .occurrence-notification {
             padding: 14px;
             background-color: #007bff1c;
@@ -43,7 +43,7 @@
             }
         }
         .manage-occurrence-table {
-            margin-top: 26px;
+            // margin-top: 26px;
             border: 1px solid #CECECE;
             border-radius: 4px;
             background-color: #F6F6F645;
@@ -233,4 +233,26 @@
 
 .selected-label {
     font-size: 16;
+}
+
+::ng-deep .occurrence-action {
+    width: 300px;
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    p.selected-label {
+        margin-bottom: 0;
+    }
+    .mat-form-field-infix {
+        padding: 10px 0 10px 10px;
+        border-top: 0px;
+    }
+    .mat-select-trigger {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .mat-select-value {
+        max-width: unset;
+    }
 }

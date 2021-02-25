@@ -69,6 +69,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   onlynumericAmount = /^(\d*\.)?\d+$/
   selectedStartDate:any =new Date();
   todayDate:any =new Date();
+  startTimeForCheck:any;
   recurringEvent:any='N';
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
@@ -338,6 +339,7 @@ export class EventAndTicketTypesComponent implements OnInit {
           }else{
             this.startEndSameDate = false;
           }
+         
           if(this.singleEventDetail.start_time){
             var start_time = this.singleEventDetail.start_time.split(":")
             var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
@@ -362,16 +364,23 @@ export class EventAndTicketTypesComponent implements OnInit {
          
             
           
-          this.todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
-          this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"yyyy-MM-dd")
+          this.todayDate = this.datePipe.transform(new Date(),"M/d/yy")
+          this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"M/d/yy")
           this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
           this.currentTime = this.transformTime(this.currentTime)
-          
+          this.startTimeForCheck = this.transformTime2Part(this.singleEventDetail.start_time)
         if(this.singleEventDetail.start_date < this.todayDate){
           this.minEventStartDate = this.singleEventDetail.start_date
         }else{
           this.minEventStartDate = this.todayDate
         }
+
+        console.log('this.todayDate ---- '+this.todayDate)
+        console.log('this.selectedStartDate ---- '+this.selectedStartDate)
+        console.log('this.currentTime ---- '+this.currentTime)
+        console.log('this.singleEventDetail.start_time ---- '+this.startTimeForCheck)
+        alert('date-check---'+this.todayDate > this.selectedStartDate)
+        alert('time-check---'+this.currentTime > this.startTimeForCheck)
         }else{
           this.editEventForm = this._formBuilder.group({
             event_name: ['',[Validators.required]],
@@ -497,6 +506,14 @@ export class EventAndTicketTypesComponent implements OnInit {
     if(part == 'PM' && hour !== '12'){
       hour = Number(hour)+12;
     }
+    return `${hour}:${min}`
+  }
+
+   // time formate 12 to 24
+   transformTime2Part(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    
     return `${hour}:${min}`
   }
   

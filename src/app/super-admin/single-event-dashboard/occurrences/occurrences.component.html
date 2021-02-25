@@ -7,15 +7,19 @@
                 <p>Occurrences are the dates and times your recurring event takes place.</p>
             </div>
 
-            <div class="">
-                <p class="selected-label">With {{selectedOccurrenceAarry.length}} selected:</p>
-                <mat-select [disabled]="selectedOccurrenceAarry.length < 1" [(ngModel)]="selectedfilter" (selectionChange)="fnChangeOccuStatus($event.value)" class="form-control col-lg-3 col-sm-4 col-12 ml-auto">
-                    <mat-option value="UNAVI">Set unavailable</mat-option>
-                    <mat-option value="AVI">Set available</mat-option>
-                    <mat-option value="HIDD">Set hidden</mat-option>
-                    <mat-option value="VIS">Set visible</mat-option>
-                    <mat-option value="DEL">Delete</mat-option>
-                </mat-select>
+            <div class=" occurrence-action">
+                <p class="selected-label">Select multiple occurrence</p>
+                <!-- <p class="selected-label">With {{selectedOccurrenceAarry.length}} selected:</p> -->
+                <mat-form-field appearance="outline" class="my-2 w-100">
+                    <mat-label>Actions</mat-label>
+                    <mat-select [disabled]="selectedOccurrenceAarry.length < 1" [(ngModel)]="selectedfilter" (selectionChange)="fnChangeOccuStatus($event.value)" class="col-12 d-flex">
+                        <mat-option value="UNAVI">Set unavailable</mat-option>
+                        <mat-option value="AVI">Set available</mat-option>
+                        <mat-option value="HIDD">Set hidden</mat-option>
+                        <mat-option value="VIS">Set visible</mat-option>
+                        <mat-option value="DEL">Delete</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div class="bottom-occurrence-wrap">
                 <!-- <div class="occurrence-notification">

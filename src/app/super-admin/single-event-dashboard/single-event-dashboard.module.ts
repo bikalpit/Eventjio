@@ -80,7 +80,7 @@ import { OccurrencesComponent, addRepeatOccurrence, addSingleOccurrence } from '
       SharedModule,
       NgbModule,
       NgxMatSelectSearchModule,
-      AngularEditorModule 
+      AngularEditorModule ,
     ],
 
     entryComponents: [
