@@ -29,7 +29,7 @@ export class DuplicateComponent implements OnInit {
   errorMessage:any;
   startEndSameDate:any;
   // duplicateForm:boolean=false;
-
+  finalArr = [];
   constructor(
     private formBuilder: FormBuilder,
     private SingleEventServiceService: SingleEventServiceService,
@@ -41,13 +41,6 @@ export class DuplicateComponent implements OnInit {
     if (localStorage.getItem('selectedEventCode')) {
       this.duplicateId = localStorage.getItem('selectedEventCode')
     }
-
-    // this.duplicateForm = this.formBuilder.group({
-    //   event_title: ['', Validators.required],
-    //   start_date: ['', Validators.required],
-    //   end_date: ['', Validators.required],
-    //   event_status: ['', Validators.required],
-    // });
 
     this.duplicateForm = this.formBuilder.group({
       items: this.formBuilder.array([ this.createItem() ])
@@ -75,6 +68,7 @@ export class DuplicateComponent implements OnInit {
   fnAddDuplicate() {
     this.items = this.duplicateForm.get('items') as FormArray;
     this.items.push(this.createItem());
+    this.finalArr = this.duplicateForm.value.items
   }
 
   fnRemoveDuplicate(index) {
@@ -86,11 +80,10 @@ export class DuplicateComponent implements OnInit {
   fnChangeEventStartDate(event){
     this.minTillDate = event.value;
     this.errorMessage = null;
+
     // this.minTillDate = this.duplicateForm.get('start_date').value;
   }
   fnChangeEventEndDate(event){
-    alert()
-    console.log(event)
     let startDate = this.datePipe.transform(new Date(this.minTillDate),"yyyy-MM-dd");
     let endDate = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd");
    
@@ -149,77 +142,54 @@ export class DuplicateComponent implements OnInit {
       if (response.data == true) {
         this.eventName = response.response.event[0];
         this.isPastEvent = response.response.past
-        this.eventName.start_date = this.datePipe.transform(this.eventName.start_date, "EEE MMM d, y")
-        this.eventName.end_date = this.datePipe.transform(this.eventName.end_date, "EEE MMM d, y")
       } else if (response.data == false) {
         this.ErrorService.errorMessage(response.response);
       }
     });
 
   }
- 
 
-  async saveDuplicate() {
+  fnFinalSubmit(){
+    this.items = this.duplicateForm.get('items') as FormArray;
+    this.finalArr = this.duplicateForm.value.items;
+    this.finalArr.forEach(element => {
+      element.end_time = this.fullDayTimeSlote[element.end_time]
+      element.start_time = this.fullDayTimeSlote[element.start_time]   
+      element.start_date = this.datePipe.transform(new Date(element.start_date), "yyyy-MM-dd")
+      element.end_date = this.datePipe.transform(new Date(element.end_date), "yyy-MM-dd")
+      // alert(element.start_date)
+    });
 
-    if (this.duplicateForm.invalid) {
-      // this.duplicateForm.get('event_title').markAsTouched();
-      // this.duplicateForm.get('start_date').markAsTouched();
-      // this.duplicateForm.get('end_date').markAsTouched();
-      // this.duplicateForm.get('event_status').markAsTouched();
-      // this.ErrorService.errorMessage('please fill up the required fields');
-      this.errorMessage = "Please fill up the required fields"
-      return false;
-    }
-    
+    if(this.finalArr[this.finalArr.length - 1].event_title == "" && this.finalArr[this.finalArr.length - 1].start_date == "" &&
+    this.finalArr[this.finalArr.length - 1].start_time == "" && this.finalArr[this.finalArr.length - 1].end_date == "" &&
+    this.finalArr[this.finalArr.length - 1].end_time == "" && this.finalArr[this.finalArr.length - 1].event_status == ""){
+      this.finalArr.splice(this.finalArr.length-1, 1);
+     }else if(this.finalArr[this.finalArr.length - 1].event_title == "" || this.finalArr[this.finalArr.length - 1].start_date == "" ||
+     this.finalArr[this.finalArr.length - 1].start_time == "" || this.finalArr[this.finalArr.length - 1].end_date == "" ||
+     this.finalArr[this.finalArr.length - 1].end_time == "" || this.finalArr[this.finalArr.length - 1].event_status == ""){
+       this.errorMessage = 'Please fill up the required fields'
+       return false
+     }else{
 
-    var is_wrong_date_select = false;
-    this.duplicateForm.value.items.forEach((element,aa,key) => {
-      var start_date = this.datePipe.transform(new Date(element.start_date), "yyyy-MM-dd");
-      var end_date = this.datePipe.transform(new Date(element.end_date), "yyyy-MM-dd");
-
-      var g1 = new Date(start_date); 
-      var g2 = new Date(end_date);
-     
-      if (g1.getTime() >  g2.getTime()) {
-        is_wrong_date_select = true;
+      let requestObject = {
+        "unique_code": this.duplicateId,
+        "eventArry" : this.finalArr
       }
-    });
+      console.log(requestObject)
+      
+      this.SingleEventServiceService.duplicateForm(requestObject).subscribe((response: any) => {
+        if (response.data == true) {
+          this.ErrorService.successMessage(response.response);
+          this.duplicateForm.reset();
+          this.router.navigate(["/super-admin/events"]);
+        } else if (response.data == false) {
+          this.ErrorService.errorMessage(response.response);
+        }
+        this.isLoaderAdmin = false;
+      });
 
-    if(is_wrong_date_select){
-      this.ErrorService.errorMessage('please select valid date of events');
-      return;
-    }
-    
-   
-    var i = 0;
-    await this.duplicateForm.value.items.forEach(element => {
-      
-        let requestObject = {
-          "start_date" : this.datePipe.transform(new Date(element.start_date), "yyyy-MM-dd"),
-          "end_date" : this.datePipe.transform(new Date(element.end_date), "yyyy-MM-dd"),
-          "start_time" : this.starTime,
-          "end_time" : this.endTime,
-          "event_title" : element.event_title,
-          "event_status" : element.event_status,
-          "unique_code": this.duplicateId,
-        };
-        this.isLoaderAdmin = true;
-        i++;
-  
-         this.SingleEventServiceService.duplicateForm(requestObject).subscribe((response: any) => {
-          if (response.data == true) {
-            this.ErrorService.successMessage(response.response);
-            if(this.duplicateForm.value.items.length == i){
-              this.router.navigate(["/super-admin/events"]);
-            }
-          } else if (response.data == false) {
-            this.ErrorService.errorMessage(response.response);
-          }
-          this.isLoaderAdmin = false;
-        });
-     
-      
-    });
-  
+     }
+
+
   }
 }
