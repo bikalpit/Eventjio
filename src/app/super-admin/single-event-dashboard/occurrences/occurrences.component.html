@@ -60,6 +60,8 @@
                                         <span *ngIf="element.occurance_start_date==element.occurance_end_date">
                                             {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time_modified}} {{element.occurance_start_time_modified?'-':''}} {{element.occurance_end_time_modified}}
                                         </span>
+                                        <span *ngIf="element.status_availability == 'UNAVI'" class="material-icons">block</span>
+                                        <i *ngIf="element.status_visibility == 'HIDD'" class="fa fa-eye-slash"></i>
                                     </div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.soldout == 'Tickets are not available'">{{element.soldout}}</div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.soldout !== 'Tickets are not available'">{{element.soldout[0].Sold}}</div>

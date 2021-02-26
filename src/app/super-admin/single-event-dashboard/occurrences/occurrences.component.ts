@@ -363,6 +363,8 @@ export class addRepeatOccurrence {
         "timeslots" : this.startEndTime,
         "dateslots" : this.finalRepeatData  
       }
+      console.log(requestObject)
+      debugger;
       this.SingleEventServiceService.repeatOccurrenceCreate(requestObject).subscribe((response:any) =>   {
         if(response.data == true){
           this.ErrorService.errorMessage(response.response); 

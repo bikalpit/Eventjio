@@ -117,16 +117,16 @@ export class DuplicateComponent implements OnInit {
     });
   }
 
-  onChangeStartTime(e,i){
+  onChangeStartTime(i){
     console.log('start')
-    this.starTime = this.fullDayTimeSlote[e.source.value]
+    this.starTime = this.fullDayTimeSlote[i]
     console.log(this.starTime)
     this.errorMessage = null;
   }
 
-  onChangeEndTime(e){
+  onChangeEndTime(i){
     console.log('end')
-    this.endTime =this.fullDayTimeSlote[e.source.value]
+    this.endTime =this.fullDayTimeSlote[i]
     console.log(this.endTime)
     this.errorMessage = null;
   }
