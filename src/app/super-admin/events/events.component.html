@@ -41,6 +41,9 @@
                                         <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined && element.soldout !== 'Occurrence not created'">{{element.soldout[0].Sold}}</div>
                                         <div class="tb-data" fxFlex="13" *ngIf="element.soldout === 'Occurrence not created'">Occurrence not created</div>
                                         <div class="tb-data" fxFlex="13" *ngIf="element.soldout === undefined">No Tickets</div>
+                                        <!-- <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined && element.occurrences !== 'Occurrence not created'">{{element.soldout[0].Sold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.occurrences === 'Occurrence not created'">Occurrence not created</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout === undefined && element.occurrences !== 'Occurrence not created'">No Tickets</div> -->
                                         <div class="tb-data" fxFlex="15" *ngIf="element.remaining !== undefined && element.remaining !== 'Occurrence not created'">{{element.remaining[0].Remaining}}</div>
                                         <div class="tb-data" fxFlex="15" *ngIf="element.remaining === 'Occurrence not created'">Occurrence not created</div>
                                         <div class="tb-data" fxFlex="15" *ngIf="element.remaining === undefined">No Tickets</div>

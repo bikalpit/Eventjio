@@ -9,6 +9,7 @@ import { element } from 'protractor';
 import { SingleEventDashboard } from '../single-event-dashboard'
 import { environment } from '../../../../environments/environment';
 import { take, takeUntil } from 'rxjs/operators';
+import * as moment from 'moment'; 
 import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 
 export interface ListTimeZoneListArry {
@@ -148,31 +149,31 @@ export class EventAndTicketTypesComponent implements OnInit {
     return `${finalhrs}:${min} ${part}`
   }
 
-  fnRecurringEvent(event){
-    if(event.checked == true){
-      this.recurringEvent = 'Y';
-      this.editEventForm.controls["event_start_date"].setValidators(null);
-      this.editEventForm.controls["event_start_time"].setValidators(null);
-      this.editEventForm.controls["event_end_date"].setValidators(null);
-      this.editEventForm.controls["event_end_time"].setValidators(null);
-      this.editEventForm.controls["event_start_date"].updateValueAndValidity();
-      this.editEventForm.controls["event_start_time"].updateValueAndValidity();
-      this.editEventForm.controls["event_end_date"].updateValueAndValidity();
-      this.editEventForm.controls["event_end_time"].updateValueAndValidity();
-    }else{
-      this.recurringEvent = 'N';
-      this.editEventForm.controls["vanue_name"].setValidators(Validators.required);
-      this.editEventForm.controls["event_start_date"].setValidators(Validators.required);
-      this.editEventForm.controls["event_start_time"].setValidators(Validators.required);
-      this.editEventForm.controls["event_end_date"].setValidators(Validators.required);
-      this.editEventForm.controls["event_end_time"].setValidators(Validators.required);
-      this.editEventForm.controls["event_start_date"].updateValueAndValidity();
-      this.editEventForm.controls["event_start_time"].updateValueAndValidity();
-      this.editEventForm.controls["event_end_date"].updateValueAndValidity();
-      this.editEventForm.controls["event_end_time"].updateValueAndValidity();
-    }
-    this.editEventForm.updateValueAndValidity();
-  }
+  // fnRecurringEvent(event){
+  //   if(event.checked == true){
+  //     this.recurringEvent = 'Y';
+  //     this.editEventForm.controls["event_start_date"].setValidators(null);
+  //     this.editEventForm.controls["event_start_time"].setValidators(null);
+  //     this.editEventForm.controls["event_end_date"].setValidators(null);
+  //     this.editEventForm.controls["event_end_time"].setValidators(null);
+  //     this.editEventForm.controls["event_start_date"].updateValueAndValidity();
+  //     this.editEventForm.controls["event_start_time"].updateValueAndValidity();
+  //     this.editEventForm.controls["event_end_date"].updateValueAndValidity();
+  //     this.editEventForm.controls["event_end_time"].updateValueAndValidity();
+  //   }else{
+  //     this.recurringEvent = 'N';
+  //     this.editEventForm.controls["vanue_name"].setValidators(Validators.required);
+  //     this.editEventForm.controls["event_start_date"].setValidators(Validators.required);
+  //     this.editEventForm.controls["event_start_time"].setValidators(Validators.required);
+  //     this.editEventForm.controls["event_end_date"].setValidators(Validators.required);
+  //     this.editEventForm.controls["event_end_time"].setValidators(Validators.required);
+  //     this.editEventForm.controls["event_start_date"].updateValueAndValidity();
+  //     this.editEventForm.controls["event_start_time"].updateValueAndValidity();
+  //     this.editEventForm.controls["event_end_date"].updateValueAndValidity();
+  //     this.editEventForm.controls["event_end_time"].updateValueAndValidity();
+  //   }
+  //   this.editEventForm.updateValueAndValidity();
+  // }
 
   
   private scrollToFirstInvalidControl() {
@@ -364,8 +365,10 @@ export class EventAndTicketTypesComponent implements OnInit {
          
             
           
-          this.todayDate = this.datePipe.transform(new Date(),"M/d/yy")
-          this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"M/d/yy")
+          // this.todayDate = this.datePipe.transform(new Date(),"MM-DD-YYYY")
+          this.selectedStartDate = moment(new Date()).format('MM-DD-YYYY');
+          // this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"MM-DD-YYYY")
+          this.selectedStartDate = moment(new Date(this.singleEventDetail.start_date)).format('MM-DD-YYYY');
           this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
           this.currentTime = this.transformTime(this.currentTime)
           this.startTimeForCheck = this.transformTime2Part(this.singleEventDetail.start_time)
@@ -379,7 +382,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         console.log('this.selectedStartDate ---- '+this.selectedStartDate)
         console.log('this.currentTime ---- '+this.currentTime)
         console.log('this.singleEventDetail.start_time ---- '+this.startTimeForCheck)
-        alert('date-check---'+this.todayDate > this.selectedStartDate)
+        alert('date-check---'+(this.todayDate > this.selectedStartDate))
         alert('time-check---'+this.currentTime > this.startTimeForCheck)
         }else{
           this.editEventForm = this._formBuilder.group({
@@ -407,7 +410,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom;
        
         
-        this.olPlatForm = JSON.stringify(this.singleEventDetail.online_event);
+        this.olPlatForm = this.singleEventDetail.online_event;
         this.editEventForm.controls['event_name'].setValue(this.singleEventDetail.event_title)
         if(this.olPlatForm == 'N'){
           this.editEventForm.controls['vanue_name'].setValue(this.singleEventDetail.venue_name)
@@ -1115,10 +1118,11 @@ export class AddNewTicketType {
         this.selectedTicketDetail = this.data.selectedTicketDetail
         this.selectedEventId = this.data.selectedEventId
       }
+      console.log(this.selectedTicketDetail)
       if(this.recurringEvent == 'N'){
         if(this.selectedTicketDetail){
-          if(this.data.selectedTicketDetail.discount.length !== 0){
-            this.assignedCouponCodes = this.data.selectedTicketDetail.discount
+          if(this.selectedTicketDetail.discount.length !== 0){
+            this.assignedCouponCodes = this.selectedTicketDetail.discount
           }
           this.editTicket = true;
           this.advanceSetting = this.selectedTicketDetail.advance_setting
@@ -1169,8 +1173,8 @@ export class AddNewTicketType {
         } 
       }else{
         if(this.selectedTicketDetail){
-          if(this.data.selectedTicketDetail.discount.length !== 0){
-            this.assignedCouponCodes = this.data.selectedTicketDetail.discount
+          if(this.selectedTicketDetail.discount && this.selectedTicketDetail.discount.length !== 0){
+            this.assignedCouponCodes = this.selectedTicketDetail.discount
           }
           this.editTicket = true;
           this.recurringUntil = this.selectedTicketDetail.hide_until_set_date_and_time_status;
@@ -1495,6 +1499,7 @@ export class AddNewTicketType {
       }
       let requestObject = {
         'unique_code': this.selectedTicketDetail.unique_code,
+        'event_id': this.selectedEventId,
         'box_office_id': this.boxOfficeCode,
         'ticket_name': this.addTicketForm.get('title').value,
         'prize': this.addTicketForm.get('price').value,
@@ -1580,10 +1585,10 @@ export class AddNewTicketType {
         'discount':  this.assignedCouponCodes,
         'hide_until_set_date_and_time_status': this.recurringUntil,
         'hide_after_set_date_and_time_status': this.recurringAfter,
-        'hide_until_date':this.addTicketForm.get('recurring_until_date').value,
+        'hide_until_date':this.addTicketForm.get('recurring_until_date').value ? this.datePipe.transform(new Date(this.addTicketForm.get('recurring_until_date').value),"yyyy-MM-dd") : null,
         'hide_until_time': this.addTicketForm.get('recurring_until_time').value ? this.addTicketForm.get('recurring_until_time').value : null,
-        'hide_after_date':  this.addTicketForm.get('recurring_after_date').value ? this.addTicketForm.get('recurring_after_date').value : null,
-        'hide_after_time':  this.addTicketForm.get('recurring_after_time').value,
+        'hide_after_date':  this.addTicketForm.get('recurring_after_date').value ? this.datePipe.transform(new Date(this.addTicketForm.get('recurring_after_date').value),"yyyy-MM-dd") : null,
+        'hide_after_time':  this.addTicketForm.get('recurring_after_time').value ? this.addTicketForm.get('recurring_after_time').value: null,
       }
       this.UpdateTicket(requestObject);
     }else {
@@ -1603,14 +1608,15 @@ export class AddNewTicketType {
       'hide_after':  'Y',
       'ticket_avilable':null,
       'ticket_unavilable':null,
+      'discount':  this.assignedCouponCodes,
       'sold_out':  this.soldOut,
       'show_qty':  this.showQTY,
       'hide_until_set_date_and_time_status': this.recurringUntil,
       'hide_after_set_date_and_time_status': this.recurringAfter,
-      'hide_until_date':this.addTicketForm.get('recurring_until_date').value,
+      'hide_until_date':this.addTicketForm.get('recurring_until_date').value ? this.datePipe.transform(new Date(this.addTicketForm.get('recurring_until_date').value),"yyyy-MM-dd") : null,
       'hide_until_time': this.addTicketForm.get('recurring_until_time').value ? this.addTicketForm.get('recurring_until_time').value : null,
-      'hide_after_date':  this.addTicketForm.get('recurring_after_date').value ? this.addTicketForm.get('recurring_after_date').value : null,
-      'hide_after_time':  this.addTicketForm.get('recurring_after_time').value,
+      'hide_after_date':  this.addTicketForm.get('recurring_after_date').value ? this.datePipe.transform(new Date(this.addTicketForm.get('recurring_after_date').value),"yyyy-MM-dd") : null,
+      'hide_after_time':  this.addTicketForm.get('recurring_after_time').value ? this.addTicketForm.get('recurring_after_time').value: null,
     }
     this.createTicket(this.newTicketData)
     }
