@@ -50,7 +50,7 @@
                                 <div class="heading-table" fxFlex="15">Revenue</div>
                                 <div class="heading-table" fxFlex="15">Action</div>
                             </div>
-                            <div class="content" class="drageble-list">
+                            <div class="content" class="drageble-list occurrence-list">
                                 <div class="drageble-box" fxLayout="row" *ngFor="let element of allOccurrenceList; let i=index;">
                                     <div class="tb-data" fxFlex="40">
                                         <mat-checkbox [checked]="element.is_selected" (change)="fnAddOccurrenceId($event.checked, element.unique_code,i)"></mat-checkbox>
@@ -60,8 +60,8 @@
                                         <span *ngIf="element.occurance_start_date==element.occurance_end_date">
                                             {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time_modified}} {{element.occurance_start_time_modified?'-':''}} {{element.occurance_end_time_modified}}
                                         </span>
-                                        <span *ngIf="element.status_availability == 'UNAVI'" class="material-icons">block</span>
-                                        <i *ngIf="element.status_visibility == 'HIDD'" class="fa fa-eye-slash"></i>
+                                        <span *ngIf="element.status_availability == 'UNAVI'" class="material-icons status-icon">block</span>
+                                        <i *ngIf="element.status_visibility == 'HIDD'" class="fa fa-eye-slash status-icon"></i>
                                     </div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.soldout == 'Tickets are not available'">{{element.soldout}}</div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.soldout !== 'Tickets are not available'">{{element.soldout[0].Sold}}</div>
@@ -73,13 +73,16 @@
                                         <mat-icon [ngbPopover]="popContentForStatus" placement="left" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                         <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                         <ng-template class="popover custom-popover" #popContentForStatus>
-                                            <div class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'UNAVI')">
+                                            <div *ngIf="element.status_availability == 'AVI'" class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'UNAVI')">
                                                 <span class="material-icons">block</span><span>Set Unavailable</span>
                                             </div>
-                                            <div class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'AVI')">
+                                            <div *ngIf="element.status_availability == 'UNAVI'" class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'AVI')">
                                                 <span class="material-icons">block</span><span>Set Available</span>
                                             </div>
-                                            <div class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'HIDD')">
+                                            <div *ngIf="element.status_visibility == 'HIDD'" class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'VIS')">
+                                                <i class="fa fa-eye"></i><span>Set Visible</span>
+                                            </div>
+                                            <div *ngIf="element.status_visibility == 'VIS'" class="px-3 border-bottom" (click)="singleStatusUpdate(element.unique_code,'HIDD')">
                                                 <i class="fa fa-eye-slash"></i><span>Set Hidden</span>
                                             </div>
                                             <div class="px-3  border-bottom" (click)="editSingleOccurence(i)">

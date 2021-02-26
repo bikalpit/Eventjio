@@ -235,7 +235,7 @@ export class OccurrencesComponent implements OnInit {
 
   fnCreateSingleOccurrence(){
     const dialogRef = this.dialog.open(addSingleOccurrence,{
-      width: '1100px',
+      width: '700px',
       data : {
         fullDayTimeSlote:this.fullDayTimeSlote
       }
@@ -251,7 +251,7 @@ export class OccurrencesComponent implements OnInit {
   editSingleOccurence(index){
     this.singleOccurenceData = this.allOccurrenceList[index]
     const dialogRef = this.dialog.open(addSingleOccurrence,{
-      width:'1100px',
+      width:'700px',
       data:{
         singleOccurenceData:this.singleOccurenceData,
         fullDayTimeSlote:this.fullDayTimeSlote,
@@ -364,7 +364,6 @@ export class addRepeatOccurrence {
         "dateslots" : this.finalRepeatData  
       }
       console.log(requestObject)
-      debugger;
       this.SingleEventServiceService.repeatOccurrenceCreate(requestObject).subscribe((response:any) =>   {
         if(response.data == true){
           this.ErrorService.errorMessage(response.response); 

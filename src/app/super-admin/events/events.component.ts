@@ -362,7 +362,7 @@ export class EventsComponent implements OnInit {
         this.path_upCommintEvent = response.response.path;
         this.allUpcomingEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
-          if(element.event_occurrence_type == 'Y' && element.soldout.length == 0){
+          if(element.event_occurrence_type == 'Y' && element.soldout.length == 0){ 
             element.soldout = 'Occurrence not created'
           }
           if(element.event_occurrence_type == 'Y' && element.final_revenue.length == 0){
@@ -371,6 +371,15 @@ export class EventsComponent implements OnInit {
           if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
             element.remaining = 'Occurrence not created'
           }
+          // if(element.event_occurrence_type == 'Y' && element.occurrence.length == 0){ 
+          //   element.occurrence = 'Occurrence not created';
+          // }
+          // if(element.event_occurrence_type == 'Y' && element.final_revenue.length == 0){
+          //   element.final_revenue = 'Occurrence not created'
+          // }
+          // if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
+          //   element.remaining = 'Occurrence not created'
+          // }
           if(element.event_tickets.length === 0){
             element.soldout = undefined
             element.final_revenue = undefined
