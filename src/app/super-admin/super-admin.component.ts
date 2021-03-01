@@ -14,7 +14,6 @@ export class SuperAdminComponent implements OnInit {
   currentUser:any;
   pageSlug:any;
   keepMe:any;
-  currentUserData:any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -22,11 +21,11 @@ export class SuperAdminComponent implements OnInit {
     alert('3')
     this.keepMe = localStorage.getItem('keepMeSignIn')
         if (this.keepMe == 'true') {
-          this.currentUserData = localStorage.getItem('currentUser')
+          this.currentUser = localStorage.getItem('currentUser')
         } else {
-          this.currentUserData = sessionStorage.getItem('currentUser')
+          this.currentUser = sessionStorage.getItem('currentUser')
         }
-    this.currentUser = JSON.parse(this.currentUserData);
+    this.currentUser = JSON.parse(this.currentUser);
   }
 
   

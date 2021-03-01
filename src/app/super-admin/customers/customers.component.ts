@@ -50,7 +50,6 @@ export class CustomersComponent implements OnInit {
   currentUser:any;
   eventActiveTab = 'all';
   keepMe:any;
-  currentUserData:any
   constructor(
     private formBuilder:FormBuilder,
     private SuperadminService : SuperadminService,
@@ -62,11 +61,11 @@ export class CustomersComponent implements OnInit {
   ) {
     this.keepMe = localStorage.getItem('keepMeSignIn')
         if (this.keepMe == 'true') {
-          this.currentUserData = localStorage.getItem('currentUser')
+          this.currentUser = localStorage.getItem('currentUser')
         } else {
-          this.currentUserData = sessionStorage.getItem('currentUser')
+          this.currentUser = sessionStorage.getItem('currentUser')
         }
-    this.currentUser = JSON.parse(this.currentUserData);
+    this.currentUser = JSON.parse(this.currentUser);
 
     if(this.currentUser.type == 'member' && this.currentUser.permission != 'A'){
       this.router.navigate(['/super-admin']);
