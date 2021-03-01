@@ -27,7 +27,8 @@ export class MyBoxofficeComponent implements OnInit {
   token:any;
   getIpAddress : any;
   pageSlug:any;
- 
+  keepMe:any;
+  currentUserData:any;
   constructor(
 
     public dialog: MatDialog,
@@ -46,8 +47,13 @@ export class MyBoxofficeComponent implements OnInit {
      }
 
     ngOnInit(): void {
-
-      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.keepMe = localStorage.getItem('keepMeSignIn')
+        if (this.keepMe == 'true') {
+          this.currentUserData = localStorage.getItem('currentUser')
+        } else {
+          this.currentUserData = sessionStorage.getItem('currentUser')
+        }
+      this.currentUser = JSON.parse(this.currentUserData);
 
        if(this.currentUser.type == 'member'){
 

@@ -49,6 +49,8 @@ export class CustomersComponent implements OnInit {
   lastEventDateTime:any;
   currentUser:any;
   eventActiveTab = 'all';
+  keepMe:any;
+  currentUserData:any
   constructor(
     private formBuilder:FormBuilder,
     private SuperadminService : SuperadminService,
@@ -58,8 +60,13 @@ export class CustomersComponent implements OnInit {
     private _snackBar:MatSnackBar,
     private datePipe: DatePipe,
   ) {
-
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.keepMe = localStorage.getItem('keepMeSignIn')
+        if (this.keepMe == 'true') {
+          this.currentUserData = localStorage.getItem('currentUser')
+        } else {
+          this.currentUserData = sessionStorage.getItem('currentUser')
+        }
+    this.currentUser = JSON.parse(this.currentUserData);
 
     if(this.currentUser.type == 'member' && this.currentUser.permission != 'A'){
       this.router.navigate(['/super-admin']);

@@ -12,14 +12,22 @@ export class DashboardComponent implements OnInit {
 
   currentUser:any;
   pageSlug:any;
-
+  keepMe:any;
+  currentUserData:any;
   constructor(
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
 
   ) { 
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.keepMe = localStorage.getItem('keepMeSignIn')
+        if (this.keepMe == 'true') {
+          this.currentUserData = localStorage.getItem('currentUser')
+        } else {
+          this.currentUserData = sessionStorage.getItem('currentUser')
+        }
+
+    this.currentUser = JSON.parse(this.currentUserData);
 
     if(this.currentUser.type == 'member'  && this.currentUser.permission != 'A'){
       if(localStorage.getItem('permision_OV') != 'TRUE'){

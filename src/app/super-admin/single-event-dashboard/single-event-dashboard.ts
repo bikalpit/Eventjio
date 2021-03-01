@@ -27,6 +27,8 @@ export class SingleEventDashboard implements OnInit {
   currentUser:any;
   subPermission:any=[];
   isPastEvent:boolean=false;
+  keepMe:any;
+  currentUserData:any;
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -37,8 +39,14 @@ export class SingleEventDashboard implements OnInit {
 
   ) {
     this.eventSideMenu = true;
+    this.keepMe = localStorage.getItem('keepMeSignIn')
+    if (this.keepMe == 'true') {
+      this.currentUserData = localStorage.getItem('currentUser')
+    } else {
+      this.currentUserData = sessionStorage.getItem('currentUser')
+    }
 
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = JSON.parse(this.currentUserData);
 
       if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
         if(localStorage.getItem('permision_EM') != 'TRUE'){

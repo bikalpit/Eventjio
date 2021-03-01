@@ -12,10 +12,16 @@ export class ServiceService {
     public currentUser: Observable<User>;
     user_id: any;
     globalHeaders:any;
-
+    keepMe:any;
+    currentUserData:any;
     constructor(private http: HttpClient) {
-
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        this.keepMe = localStorage.getItem('keepMeSignIn')
+        if (this.keepMe == 'true') {
+          this.currentUserData = localStorage.getItem('currentUser')
+        } else {
+          this.currentUserData = sessionStorage.getItem('currentUser')
+        }
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(this.currentUserData));
         this.currentUser = this.currentUserSubject.asObservable();
 
         this.globalHeaders = new HttpHeaders({

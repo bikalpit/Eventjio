@@ -12,14 +12,21 @@ export class SuperAdminComponent implements OnInit {
   openEventMenuBox :boolean = false;
   currentUrl:any;
   currentUser:any;
-
   pageSlug:any;
+  keepMe:any;
+  currentUserData:any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
   ) { 
     alert('3')
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.keepMe = localStorage.getItem('keepMeSignIn')
+        if (this.keepMe == 'true') {
+          this.currentUserData = localStorage.getItem('currentUser')
+        } else {
+          this.currentUserData = sessionStorage.getItem('currentUser')
+        }
+    this.currentUser = JSON.parse(this.currentUserData);
   }
 
   

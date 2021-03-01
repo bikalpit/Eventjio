@@ -1,5 +1,5 @@
-import { Component, Renderer2, ElementRef,ViewChild } from '@angular/core';
-import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
+import { Component, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Router, RouterEvent, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 // import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User, Role } from './_models';
@@ -15,21 +15,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent {
 
-  
+
 
   title = 'Eventjio';
-  boxofficeComponent:boolean = true;
-  pageName :any = 'Box-Office';
+  boxofficeComponent: boolean = true;
+  pageName: any = 'Box-Office';
   timer: any = 0;
-  selectedBoxOfficeName:any;
+  selectedBoxOfficeName: any;
   currentUser: User;
-  adminTopMenuselected:any
+  adminTopMenuselected: any
   loginForm: FormGroup;
   currentUrl: string = '';
-  openLogoutMenuBox :boolean = false;
-  pageSlug:any;
-  isAllowed:boolean=true;
-  
+  openLogoutMenuBox: boolean = false;
+  pageSlug: any;
+  isAllowed: boolean = true;
+  keepMe: any;
+  currentUserData: any;
+
   @ViewChild('toggleButton') toggleButton: ElementRef;
   @ViewChild('logoutMenu') logoutMenu: ElementRef;
 
@@ -47,28 +49,39 @@ export class AppComponent {
     //       this.openLogoutMenuBox=false;
     //   }
     // });
-    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+    this.keepMe = localStorage.getItem('keepMeSignIn')
+    if (this.keepMe == 'true') {
+      this.currentUserData = localStorage.getItem('currentUser')
+      // alert("app local").
+      this.currentUser = this.currentUserData
+    } else {
+      this.currentUserData = sessionStorage.getItem('currentUser')
+      // alert("app sessions")
+      this.currentUser = this.currentUserData
+    }
+     this.currentUser = this.currentUserData
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
-        const url = this.getUrl(event);
-        this.currentUrl = url;
-      if(localStorage.getItem('currentUser') && this.currentUrl == ''){
-        if(this.currentUser.user_type == 'A' ){
+      const url = this.getUrl(event);
+      this.currentUrl = url;
+      if (this.currentUserData && this.currentUrl == '') {
+        if (this.currentUser.user_type == 'A') {
           this.router.navigate(['/super-admin/']);
         }
 
       }
     });
-    
-    if(this.currentUser && this.currentUser !== null){
+
+    if (this.currentUser && this.currentUser !== null) {
       this.adminTopMenuselected = this.currentUser.firstname
       this.loadLocalStorage();
     }
 
     this.bnIdle.startWatching(6600).subscribe((res) => {
-      if(res) {
-        if(this.authenticationService.currentUserValue){
-            this.logout();
+      if (res) {
+        if (this.authenticationService.currentUserValue) {
+          this.logout();
         }
       }
     });
@@ -78,20 +91,20 @@ export class AppComponent {
 
 
   ngOnInit() {
- 
-   
+
+
     var is_logout = this.authenticationService.logoutTime();
 
-    if(is_logout==true){
-        this.router.navigate(['/login']);
-        return false;
-    } 
- 
+    if (is_logout == true) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+
 
 
   }
 
-  
+
   dynamicSort(property: string) {
     let sortOrder = 1;
 
@@ -108,7 +121,7 @@ export class AppComponent {
 
   private getUrl(event: any) {
     if (event && event.url) {
-      this.pageSlug = event.url.split('/' , 2)
+      this.pageSlug = event.url.split('/', 2)
       const url = event.url;
       const state = (event.state) ? event.state.url : null;
       const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
@@ -136,35 +149,35 @@ export class AppComponent {
 
   private handleRoute(event: RouterEvent) {
     const url = this.getUrl(event);
-    let devidedUrl = url.split('/',4);
+    let devidedUrl = url.split('/', 4);
     this.currentUrl = url;
-    if(url === '/super-admin/dashboard' ){
+    if (url === '/super-admin/dashboard') {
       this.pageName = 'Dashboard';
     }
-    else if(url === '/super-admin/events'){
-      this.pageName= 'Events'
+    else if (url === '/super-admin/events') {
+      this.pageName = 'Events'
     }
-    else if(url === '/super-admin/orders'){
-      this.pageName= 'Orders'
+    else if (url === '/super-admin/orders') {
+      this.pageName = 'Orders'
     }
-    else if(url === '/super-admin/customers'){
-      this.pageName= 'Customers'
+    else if (url === '/super-admin/customers') {
+      this.pageName = 'Customers'
     }
-    else if(url === '/super-admin/coupons'){
-      this.pageName= 'Coupon'
-    }else if(url === '/super-admin/settings'){
-      this.pageName= 'Settings'
+    else if (url === '/super-admin/coupons') {
+      this.pageName = 'Coupon'
+    } else if (url === '/super-admin/settings') {
+      this.pageName = 'Settings'
     }
-    if(devidedUrl[2] == 'settings'){
-      this.pageName= 'Settings'
-    }else if(devidedUrl[2] == 'single-event-dashboard'){
-      this.pageName= 'Events'
+    if (devidedUrl[2] == 'settings') {
+      this.pageName = 'Settings'
+    } else if (devidedUrl[2] == 'single-event-dashboard') {
+      this.pageName = 'Events'
     }
   }
-  
 
-  loadLocalStorage(){
-    this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x );
+
+  loadLocalStorage() {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.adminTopMenuselected = this.currentUser.firstname
   }
 
@@ -173,22 +186,22 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 
-  
-  fnCheckLoginStatus(){
-    
-      if(this.authenticationService.currentUserValue.user_type == Role.Admin){
-          this.router.navigate(["super-admin"]);
-      }
+
+  fnCheckLoginStatus() {
+
+    if (this.authenticationService.currentUserValue.user_type == Role.Admin) {
+      this.router.navigate(["super-admin"]);
+    }
   }
 
-  openLogoutMenu(){
+  openLogoutMenu() {
     this.openLogoutMenuBox = !this.openLogoutMenuBox;
   }
 
   // onClickedOutside(){
   //   this.openLogoutMenuBox = false;
   // }
-  
+
 
   initiateTimeout() {
     let that = this
@@ -197,9 +210,9 @@ export class AppComponent {
     }, 1080000);
   }
 
-  fnLogout(){
-      this.logout();
-      this.openLogoutMenuBox = false;
+  fnLogout() {
+    this.logout();
+    this.openLogoutMenuBox = false;
   }
 
   isBoxoffice() {
@@ -212,8 +225,8 @@ export class AppComponent {
     }
   }
 
-  fnPostUrl(postUrl){
-    this.pageName = postUrl; 
+  fnPostUrl(postUrl) {
+    this.pageName = postUrl;
   }
 
   isBoxOfficeSelected() {
@@ -229,49 +242,49 @@ export class AppComponent {
   isAdminUser() {
     return this.currentUser && (this.currentUser.user_type === Role.Admin);
   }
-  
+
   isLogin() {
-    if (localStorage.getItem('currentUser')) {
+
+    if (this.currentUser) {
       return true;
-     
+
     } else {
       return false;
     }
   }
-  
-  isPermisionPage(pageName){
 
-    var loginUser = JSON.parse(localStorage.getItem('currentUser'));
+  isPermisionPage(pageName) {
 
+    var loginUser = this.currentUser;
 
-    if(!loginUser){
+    if (!loginUser) {
       return false;
     }
-  
-    if(loginUser.type == 'member' && loginUser.permission !="A"){
 
-      if(pageName=='Dashboard' &&  localStorage.getItem('permision_OV')){
+    if (loginUser.type == 'member' && loginUser.permission != "A") {
+
+      if (pageName == 'Dashboard' && localStorage.getItem('permision_OV')) {
         return true;
       }
 
-      if(pageName=='Events' &&  localStorage.getItem('permision_EM')){
+      if (pageName == 'Events' && localStorage.getItem('permision_EM')) {
         return true;
       }
 
-      if(pageName=='Orders' &&  localStorage.getItem('permision_OM')){
+      if (pageName == 'Orders' && localStorage.getItem('permision_OM')) {
         return true;
       }
 
-    }else if(loginUser.type == 'member' && loginUser.permission == "A"){
+    } else if (loginUser.type == 'member' && loginUser.permission == "A") {
       return true;
-    }else if(loginUser.type == 'admin' ){
+    } else if (loginUser.type == 'admin') {
       return true;
     }
 
   }
 
   signInWithGoogle(loginForm): void {
-    this.loginForm=loginForm;
+    this.loginForm = loginForm;
     // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(res=>{
     //   this.fnLoginWithGoogleFacebook(res);
     // });
@@ -279,7 +292,7 @@ export class AppComponent {
   }
 
   signInWithFB(loginForm): void {
-    this.loginForm=loginForm;
+    this.loginForm = loginForm;
     // this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(res=>{
     //   console.log("facebook res=>",res);
     //   this.fnLoginWithGoogleFacebook(res);
@@ -287,26 +300,26 @@ export class AppComponent {
     // });
   }
 
-  fnLoginWithGoogleFacebook(user){
-    this.isAllowed=false;
-    if(user.email == ''){
-          this._snackBar.open('Please add email id in your facebook account.', "X", {
-              duration: 2000,
-              verticalPosition:'top',
-              panelClass :['red-snackbar']
-          });
-          return false;
-      }
-    this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
-      if(data.idExists == true){
-        
-          this.router.navigate(["admin"]);
+  fnLoginWithGoogleFacebook(user) {
+    this.isAllowed = false;
+    if (user.email == '') {
+      this._snackBar.open('Please add email id in your facebook account.', "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+      });
+      return false;
+    }
+    this.authenticationService.loginWithGoogleFacebook(user.id, user.email, user.provider).pipe(first()).subscribe(data => {
+      if (data.idExists == true) {
+
+        this.router.navigate(["admin"]);
 
         // this.initiateTimeout();
-      
-      }else if(data.idExists == false && data.emailExists == true){
+
+      } else if (data.idExists == false && data.emailExists == true) {
         this.signOut();
-        this.isAllowed=true;
+        this.isAllowed = true;
         this._snackBar.open("It seems that you already have account with Schedulic", "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -315,65 +328,65 @@ export class AppComponent {
         //this.error = "It seems that you already have account with Schedulic";
         this.loginForm.controls['email'].setValue(data.userData.email);
         //this.dataLoaded = true;
-      }else if(data.idExists == false && data.emailExists == false){
+      } else if (data.idExists == false && data.emailExists == false) {
         this.fnSignup(user);
       }
     },
-    error => {
-      this._snackBar.open("Database Connection Error", "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass: ['red-snackbar']
-      }); 
-      // this.error = "Database Connection Error"; 
-      // this.dataLoaded = true;  
-    });
+      error => {
+        this._snackBar.open("Database Connection Error", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        // this.error = "Database Connection Error"; 
+        // this.dataLoaded = true;  
+      });
   }
 
   signOut(): void {
     // this.authService.signOut();
   }
 
-  
-  fnSignup(user_data){
-    let signUpUserObj={
-      "password":"",
-      "firstname":user_data.firstName,
-      "lastname":user_data.lastName,
-      "phone":"",
-      "email":user_data.email,
-      "address":"",
-      "zip":"",
-      "state":"",
-      "city":"",
-      "country":"",
-      "google_id":user_data.provider=="GOOGLE"?user_data.id:null,
-      "facebook_id":user_data.provider=="FACEBOOK"?user_data.id:null
+
+  fnSignup(user_data) {
+    let signUpUserObj = {
+      "password": "",
+      "firstname": user_data.firstName,
+      "lastname": user_data.lastName,
+      "phone": "",
+      "email": user_data.email,
+      "address": "",
+      "zip": "",
+      "state": "",
+      "city": "",
+      "country": "",
+      "google_id": user_data.provider == "GOOGLE" ? user_data.id : null,
+      "facebook_id": user_data.provider == "FACEBOOK" ? user_data.id : null
     }
     // .subscribe((response: any) => 
     this.authenticationService.signup(signUpUserObj).pipe(first()).subscribe(data => {
-      if(data.data == true){
+      if (data.data == true) {
         this.fnLoginWithGoogleFacebook(user_data);
-      }else{
-        this._snackBar.open("Unable to signin with "+user_data.provider, "X", {
+      } else {
+        this._snackBar.open("Unable to signin with " + user_data.provider, "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['red-snackbar']
         });
-          // this.error = "Unable to signin with "+user_data.provider; 
-          // this.dataLoaded = true;
+        // this.error = "Unable to signin with "+user_data.provider; 
+        // this.dataLoaded = true;
       }
     },
-    error => { 
-      this._snackBar.open("Database Connection Error", "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass: ['red-snackbar']
+      error => {
+        this._snackBar.open("Database Connection Error", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        // this.error = "Database Connection Error"; 
+        // this.dataLoaded = true;  
       });
-      // this.error = "Database Connection Error"; 
-      // this.dataLoaded = true;  
-    });
   }
 
- 
+
 }
