@@ -120,9 +120,8 @@
                                         </div>
                                         <div class="col-12 col-sm-4 customer-detail-bottom">
                                             <label class="w-100" for="">Tags</label>
-                                            <p class="tags">
-                                                <!-- {{selectedCustomerDetails.tags}} -->
-                                                asd
+                                            <p class="tags" *ngIf="selectedCustomerDetails.tags != null">
+                                                {{selectedCustomerDetails.tags}}  
                                             </p>
                                         </div>
                                     </div>

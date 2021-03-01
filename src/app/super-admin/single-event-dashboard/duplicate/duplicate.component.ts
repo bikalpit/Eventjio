@@ -155,7 +155,8 @@ export class DuplicateComponent implements OnInit {
       element.end_time = this.fullDayTimeSlote[element.end_time]
       element.start_time = this.fullDayTimeSlote[element.start_time]   
       element.start_date = this.datePipe.transform(new Date(element.start_date), "yyyy-MM-dd")
-      element.end_date = this.datePipe.transform(new Date(element.end_date), "yyy-MM-dd")
+      element.end_date = this.datePipe.transform(new Date(element.end_date), "yyyy-MM-dd")
+      // alert(element.start_date)
     });
 
     if(this.finalArr[this.finalArr.length - 1].event_title == "" && this.finalArr[this.finalArr.length - 1].start_date == "" &&

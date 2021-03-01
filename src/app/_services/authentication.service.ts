@@ -11,82 +11,115 @@ export class AuthenticationService {
     public currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     user_id: any;
+    keepMe: any
+    currentUserData: any
     constructor(
         private http: HttpClient,
         private _snackBar: MatSnackBar,
         ) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        if(localStorage.getItem('keepMeSignIn')){
+            this.keepMe = localStorage.getItem('keepMeSignIn')
+        }
+        if (this.keepMe == 'true') {
+            this.currentUserData = localStorage.getItem('currentUser')
+        } else {
+            this.currentUserData = sessionStorage.getItem('currentUser')
+        }
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(this.currentUserData));
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    public getIPAddress()  
-    {  
-      return this.http.get("http://api.ipify.org/?format=json");  
-    }  
+    public getIPAddress() {
+        return this.http.get("http://api.ipify.org/?format=json");
+    }
 
-    public get currentUserValue(): User {       
+    public get currentUserValue(): User {
         return this.currentUserSubject.value;
     }
 
     login(email: string, password: string) {
         return this.http.post<any>(`${environment.apiUrl}/login`, { email, password })
-        .pipe(map(user => {
-            if (user && user.data== true && user.response.token) {
-                localStorage.setItem('currentUser', JSON.stringify(user.response));
-                this.currentUserSubject.next(user.response);
-            }
-            return user;
-        }));
+            .pipe(map(user => {
+                if (user && user.data == true && user.response.token) {
+                    if(localStorage.getItem('keepMeSignIn')){
+                        this.keepMe = localStorage.getItem('keepMeSignIn')
+                        // alert(this.keepMe)
+                        if (this.keepMe == 'true') {
+                            localStorage.setItem('currentUser', JSON.stringify(user.response));
+                            // alert('local')
+                        } else {
+                            sessionStorage.setItem('currentUser', JSON.stringify(user.response));
+                            // alert('session')
+                        }
+                    }
+                   
+                    this.currentUserSubject.next(user.response);
+
+                }
+                return user;
+            }));
     }
 
 
     signup(signUpUserObj) {
-        return this.http.post<any>(`${environment.apiUrl}/signup`,signUpUserObj)
-        .pipe(map(data => {
-            return data;
-        }));
+        return this.http.post<any>(`${environment.apiUrl}/signup`, signUpUserObj)
+            .pipe(map(data => {
+                return data;
+            }));
     }
 
-    sendResetLink(user_email: string){
-         let site_url = environment.urlForLink;
-         return this.http.post<any>(`${environment.apiUrl}/ForgotPasswordProcess/send_reset_link`, { user_email, site_url })
-            .pipe(map(data => { 
+    sendResetLink(user_email: string) {
+        let site_url = environment.urlForLink;
+        return this.http.post<any>(`${environment.apiUrl}/ForgotPasswordProcess/send_reset_link`, { user_email, site_url })
+            .pipe(map(data => {
                 return data;
             }));
 
     }
 
-    setNewPassword(npassword: string, user_id: string){
+    setNewPassword(npassword: string, user_id: string) {
         return this.http.post<any>(`${environment.apiUrl}/ForgotPasswordProcess/set_reset_password`, { npassword, user_id })
-            .pipe(map(data => {                                              
+            .pipe(map(data => {
                 return data;
             }));
 
     }
 
     logout() {
+        if (this.keepMe == 'true') {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('isFront');
+            localStorage.removeItem('logoutTime');
+            localStorage.removeItem('isBoxoffice');
+            sessionStorage.removeItem('currentUser');
+            localStorage.clear();
+            window.location.reload(true);
+            this.currentUserSubject.next(null);
+        } else {
+            sessionStorage.removeItem('currentUser');
+            sessionStorage.removeItem('isFront');
+            sessionStorage.removeItem('logoutTime');
+            sessionStorage.removeItem('isBoxoffice');
+            sessionStorage.clear();
+            window.location.reload(true);
+            this.currentUserSubject.next(null);
+        }
 
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('isFront');
-        localStorage.removeItem('logoutTime');
-        localStorage.removeItem('isBoxoffice');
-        localStorage.clear();
-        window.location.reload(true);
-        this.currentUserSubject.next(null);
+
     }
 
-    
 
-    logoutTime(){
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if(currentUser){
+
+    logoutTime() {
+        var currentUser = JSON.parse(this.currentUserData);
+        if (currentUser) {
             var logoutTime = JSON.parse(localStorage.getItem('logoutTime'));
             logoutTime = new Date(logoutTime);
             var currentTime = new Date();
-            if(currentTime>logoutTime && localStorage.getItem('logoutTime')){
+            if (currentTime > logoutTime && localStorage.getItem('logoutTime')) {
                 this.logout();
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
@@ -107,18 +140,18 @@ export class AuthenticationService {
             "provider":provider
         }
         return this.http.post<any>(`${environment.apiUrl}/facebook-google-login`, requestObject)
-        .pipe(map(user => {
-            if (user && user.response.idExists == true) {
-                localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
-                this.currentUserSubject.next(user.response.userData);
-                var logoutTime = new Date();
-               logoutTime.setHours( logoutTime.getHours() + 6 );
-               localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
+            .pipe(map(user => {
+                if (user && user.response.idExists == true) {
+                    localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                    this.currentUserSubject.next(user.response.userData);
+                    var logoutTime = new Date();
+                    logoutTime.setHours(logoutTime.getHours() + 6);
+                    localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
+                    console.log(user.response);
+                }
                 console.log(user.response);
-            }
-                console.log(user.response);
-            return user.response;
-        }));
+                return user.response;
+            }));
     }
 
 }

@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     dataLoaded: boolean = false;
     isIE: boolean = false;
     currentUser: User;
+    keepMe: any = false;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -44,22 +45,25 @@ export class LoginComponent implements OnInit {
 
         if (this.authenticationService.currentUserValue) {
             this.appComponent.fnCheckLoginStatus();
-       
-        }else{
-            this.dataLoaded=true;
+
+        } else {
+            this.dataLoaded = true;
         }
         
         // this._cookieService.put("test", "123123213213");
     };
 
     ngOnInit(): void {
+
         let emailPattern = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
         this.loginForm = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email, Validators.pattern(emailPattern)]],
             password: ['', Validators.required]
         });
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        localStorage.setItem('keepMeSignIn', this.keepMe)
     }
+    
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
@@ -77,40 +81,45 @@ export class LoginComponent implements OnInit {
             .pipe(first()).subscribe(data => {
 
                 if (data.data == true) {
-
-                    localStorage.setItem('currentUser', JSON.stringify(data.response))
+                    // alert(this.keepMe)
+                    if (this.keepMe == 'true') {
+                        // alert('localStorage')
+                        localStorage.setItem('currentUser', JSON.stringify(data.response))
+                    } else {
+                        sessionStorage.setItem('currentUser', JSON.stringify(data.response))
+                    }
 
                     let currentUser = data.response;
+                    if (currentUser.type == 'member') {
+                        localStorage.setItem('isBoxoffice', 'false');
+                        localStorage.setItem('boxoffice_id', currentUser.boxoffice_id);
+                        localStorage.setItem('boxoffice_name', currentUser.boxoffice_name);
 
-                    if(currentUser.type == 'member'){
-                        localStorage.setItem('isBoxoffice','false');
-                        localStorage.setItem('boxoffice_id',currentUser.boxoffice_id);
-                        localStorage.setItem('boxoffice_name',currentUser.boxoffice_name);
-                        // console.log(this._cookieService.get("test"))
-                        if(currentUser.permission != 'A'){
-                            var permistion =   currentUser.permission.split(",");
-                            
-                            if(permistion.indexOf("EM") > -1 ){
-                                localStorage.setItem('permision_EM','TRUE');
+                        if (currentUser.permission != 'A') {
+                            var permistion = currentUser.permission.split(",");
+
+                            if (permistion.indexOf("EM") > -1) {
+                                localStorage.setItem('permision_EM', 'TRUE');
                             }
 
-                            if(permistion.indexOf("OM")  >  -1 ){
-                                localStorage.setItem('permision_OM','TRUE');
-                            }
-                            
-                            if(permistion.indexOf("OV")  >  -1 ){
-                                localStorage.setItem('permision_OV','TRUE');
+                            if (permistion.indexOf("OM") > -1) {
+                                localStorage.setItem('permision_OM', 'TRUE');
                             }
 
-                        }else{
-                            localStorage.setItem('permision_ALL','TRUE');
+                            if (permistion.indexOf("OV") > -1) {
+                                localStorage.setItem('permision_OV', 'TRUE');
+                            }
+
+                        } else {
+                            alert('1')
+                            localStorage.setItem('permision_ALL', 'TRUE');
                         }
 
                     }
-                    
+
                     this.router.navigate(["/super-admin"]);
                     // this.isLoaderAdmin = false;
-                    
+
                 } else if (data.data == false) {
 
                     this._snackBar.open(data.response, "X", {
@@ -130,10 +139,18 @@ export class LoginComponent implements OnInit {
                 this.error = "Database Connection Error.";
                 this.dataLoaded = true;
             });
-                    
+
     }
 
-    
+    keepMeSignIn(event) {
+        console.log(event)
+        this.keepMe = event.checked
+        console.log(event.checked)
+        localStorage.setItem('keepMeSignIn', this.keepMe)
+        // alert(this.keepMe)
+    }
+
+
     signInWithGoogle(): void {
         this.appComponent.signInWithGoogle(this.loginForm);
     }

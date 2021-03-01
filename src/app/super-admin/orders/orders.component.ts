@@ -62,6 +62,8 @@ export class OrdersComponent implements OnInit {
   selectedOccurrence:any;
   selectedEvent:any;
   allOccurrenceList:any;
+  keepMe:any;
+  currentUserData:any;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
@@ -74,8 +76,13 @@ export class OrdersComponent implements OnInit {
     public router: Router,
     public change: ChangeDetectorRef
   ) { 
-
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.keepMe = localStorage.getItem('keepMeSignIn')
+        if (this.keepMe == 'true') {
+          this.currentUserData = localStorage.getItem('currentUser')
+        } else {
+          this.currentUserData = sessionStorage.getItem('currentUser')
+        }
+    this.currentUser = JSON.parse(this.currentUserData);
     console.log(window.location.search)
     var queryString = window.location.search
     var queryStringCount = queryString.includes("event",1)

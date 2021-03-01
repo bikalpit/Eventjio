@@ -101,7 +101,8 @@ export class EventsComponent implements OnInit {
   recurringEvent:any='N';
   thumbZoomLavel:any = '100'
   bannerZoomLavel:any = '100'
-  
+  keepMe:any;
+  currentUserData:any
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
@@ -118,8 +119,14 @@ export class EventsComponent implements OnInit {
     private SuperadminService: SuperadminService,
     private change:ChangeDetectorRef
     ) {
+      this.keepMe = localStorage.getItem('keepMeSignIn')
+        if (this.keepMe == 'true') {
+          this.currentUserData = localStorage.getItem('currentUser')
+        } else {
+          this.currentUserData = sessionStorage.getItem('currentUser')
+        }
 
-      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.currentUser = JSON.parse(this.currentUserData);
 
       if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
         if(localStorage.getItem('permision_EM') != 'TRUE'){

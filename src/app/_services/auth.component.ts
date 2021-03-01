@@ -1,7 +1,7 @@
 import { Component, Inject, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import {  throwError, from } from 'rxjs';
+import { throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -13,27 +13,36 @@ export interface DialogData {
     animal: string;
     name: string;
 }
-  
+
 @Component({
     selector: 're-authentication-popup',
     templateUrl: './../_dialogs/re-authentication-password.html',
 })
 export class DialogAuthentication {
 
-    currentUser:any;
-    reAuthenticationForm :FormGroup
-
+    currentUser: any;
+    reAuthenticationForm: FormGroup
+    keepMe:any;
+    currentUserData:any
     constructor(
-    public dialogRef: MatDialogRef<DialogAuthentication>,
-    public dialogRef2: MatDialog,
-    private _formBuilder: FormBuilder,
-    public router: Router,
-    private _snackBar : MatSnackBar,
-    private http: HttpClient,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        public dialogRef: MatDialogRef<DialogAuthentication>,
+        public dialogRef2: MatDialog,
+        private _formBuilder: FormBuilder,
+        public router: Router,
+        private _snackBar: MatSnackBar,
+        private http: HttpClient,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        this.keepMe = localStorage.getItem('keepMeSignIn')
+        if (this.keepMe == 'true') {
+            this.currentUserData = localStorage.getItem('currentUser')
+            // alert("app local")
+        } else {
+            this.currentUserData = sessionStorage.getItem('currentUser')
+            // alert("app sessions")
+        }
+        this.currentUser = JSON.parse(this.currentUserData);
         this.reAuthenticationForm = this._formBuilder.group({
-         user_password : ['',[ Validators.required]],
+            user_password: ['', [Validators.required]],
         });
     }
 
@@ -42,56 +51,56 @@ export class DialogAuthentication {
         return throwError('Error! something went wrong.');
     }
 
-    fnEnterKeyPress(event){
-        if(event.keyCode === 13){
+    fnEnterKeyPress(event) {
+        if (event.keyCode === 13) {
             this.submit();
         }
     }
 
-    
-    submit(){
 
-        if(this.reAuthenticationForm.valid){
+    submit() {
+
+        if (this.reAuthenticationForm.valid) {
 
             let requestObject = {
                 "user_type": this.currentUser.user_type,
-                "user_id" : this.currentUser.user_id,
-                "password" : this.reAuthenticationForm.get('user_password').value
+                "user_id": this.currentUser.user_id,
+                "password": this.reAuthenticationForm.get('user_password').value
             };
 
-            this.http.post(`${environment.apiUrl}/user-re-login`,requestObject).pipe( map((res) => {
+            this.http.post(`${environment.apiUrl}/user-re-login`, requestObject).pipe(map((res) => {
                 return res;
-            }), catchError(this.handleError) ).subscribe((response:any) => {
+            }), catchError(this.handleError)).subscribe((response: any) => {
 
                 if (response.data == true) {
 
-                    localStorage.setItem('currentUser',JSON.stringify(response.response));
+                    localStorage.setItem('currentUser', JSON.stringify(response.response));
                     this.dialogRef.close(response.response);
                     setTimeout(() => {
                         window.location.reload();
                     }, 1000);
 
-                } else if(response.data == false){
+                } else if (response.data == false) {
 
                     this._snackBar.open(response.response, "X", {
                         duration: 2000,
                         verticalPosition: 'top',
                         panelClass: ['red-snackbar']
                     });
-                        
+
                     this.reAuthenticationForm.get('user_password').markAsTouched();
                 }
 
-            },(err) =>{
+            }, (err) => {
                 console.log(err)
             });
-        }else{
+        } else {
             this.reAuthenticationForm.get('user_password').markAsTouched();
         }
     }
 
     onNoClick(): void {
-         this.dialogRef.close(); 
+        this.dialogRef.close();
     }
 
     closePopup() {
