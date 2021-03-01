@@ -354,7 +354,15 @@ export class addRepeatOccurrence {
         this.ErrorService.errorMessage('end date is blank')
         return false;
       }
-      
+      if(this.finalRepeatData.length > 0){
+        this.finalRepeatData.forEach(element => {
+          element.start_date = this.datePipe.transform(new Date(element.start_date+1),"yyyy-MM-dd");
+          element.end_date = this.datePipe.transform(new Date(element.end_date+1),"yyyy-MM-dd");
+          // element.end_date = element.end_date-1
+          
+            console.log(element)
+        });
+      }
 
 
       let requestObject = {

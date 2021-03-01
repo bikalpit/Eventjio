@@ -176,11 +176,11 @@ export class EventsComponent implements OnInit {
     this.getDefaultImages();
     this.getTimeSlote();
     this.getAllCurrancy();
-    // this.SuperadminService.getIPAddress().subscribe((res:any)=>{  
-    //   this.ipAddress = res.ip
+    this.SuperadminService.getIPAddress().subscribe((res:any)=>{  
+      this.ipAddress = res.ip
       this.fnGetUpcomingEventList();
       this.fnGetPastEventList();
-    // });
+    });
     
 
     
@@ -342,8 +342,8 @@ export class EventsComponent implements OnInit {
     this.isLoaderAdmin = true;
     let requestObject = {
       'boxoffice_id'  :this.boxOfficeCode,
-      // 'IP_address':this.ipAddress,
-      'IP_address':'123.201.143.228',
+      'IP_address':this.ipAddress,
+      // 'IP_address':'123.201.143.228',
       // 'filter' : 'all'
       'filter' : 'upcoming'
     }
@@ -362,15 +362,45 @@ export class EventsComponent implements OnInit {
         this.path_upCommintEvent = response.response.path;
         this.allUpcomingEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(new Date(element.start_date),"EEE MMM d, y")
-          if(element.event_occurrence_type == 'Y' && element.soldout.length == 0){ 
-            element.soldout = 'Occurrence not created'
+          if(element.event_occurrence_type === 'N'){
+            if(element.event_tickets.length === 0){
+              element.soldout = undefined
+              element.final_revenue = undefined
+              element.remaining = undefined
+            }
+          }else if(element.event_occurrence_type === 'Y'){
+          
+            if(element.occurrence.length != 0){
+              element.totalOccurrencSold = 0;
+              element.totalOccurrencRemaining = 0;
+              element.totalOccurrencRevenue = 0;
+              element.occurrence.forEach(element1 => {
+                if(element1.soldout.length > 0){
+
+                element.totalOccurrencSold = element.totalOccurrencSold+element1.soldout[0].Sold
+                }
+                if(element1.remaining.length > 0){
+
+                element.totalOccurrencRemaining = element.totalOccurrencSold+element1.remaining[0].Remaining
+                }
+                if(element1.final_revenue && element1.final_revenue.length > 0){
+
+                element.totalOccurrencRevenue = element.totalOccurrencSold+element1.final_revenue[0].Revenue
+                }
+              });
+            }else{
+             
+              element.totalOccurrencSold = 'Occurrence not created'
+              element.totalOccurrencRemaining = 'Occurrence not created'
+              element.totalOccurrencRevenue = 'Occurrence not created'
+            }
+            if(element.event_tickets.length === 0){
+              element.totalOccurrencSold = 'No Tickets'
+              element.totalOccurrencRemaining = 'No Tickets'
+              element.totalOccurrencRevenue = 'No Tickets'
+            }
           }
-          if(element.event_occurrence_type == 'Y' && element.final_revenue.length == 0){
-            element.final_revenue = 'Occurrence not created'
-          }
-          if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
-            element.remaining = 'Occurrence not created'
-          }
+         
           // if(element.event_occurrence_type == 'Y' && element.occurrence.length == 0){ 
           //   element.occurrence = 'Occurrence not created';
           // }
@@ -380,11 +410,7 @@ export class EventsComponent implements OnInit {
           // if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
           //   element.remaining = 'Occurrence not created'
           // }
-          if(element.event_tickets.length === 0){
-            element.soldout = undefined
-            element.final_revenue = undefined
-            element.remaining = undefined
-          }
+         
         });
 
         this.addNewEvents = true;
@@ -419,8 +445,8 @@ export class EventsComponent implements OnInit {
 
     let requestObject = {
       'boxoffice_id'  :this.boxOfficeCode,
-      'IP_address':'123.201.143.228',
-      // 'cleantowho':this.ipAddress,
+      // 'IP_address':'123.201.143.228',
+      'IP_address':this.ipAddress,
       'filter' : 'past'
     }
 
@@ -442,19 +468,58 @@ export class EventsComponent implements OnInit {
 
         this.allPastEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(element.start_date,"EEE MMM d, y")
-          if(element.event_occurrence_type == 'Y' && element.soldout.length == 0){
-            element.soldout = 'Occurrence not created'
-          }
-          if(element.event_occurrence_type == 'Y' && element.final_revenue.length == 0){
-            element.final_revenue = 'Occurrence not created'
-          }
-          if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
-            element.remaining = 'Occurrence not created'
-          }
-          if(element.event_tickets.length === 0){
-            element.soldout = undefined
-            element.final_revenue = undefined
-            element.remaining = undefined
+          // if(element.event_occurrence_type == 'Y' && element.soldout.length == 0){
+          //   element.soldout = 'Occurrence not created'
+          // }
+          // if(element.event_occurrence_type == 'Y' && element.final_revenue.length == 0){
+          //   element.final_revenue = 'Occurrence not created'
+          // }
+          // if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
+          //   element.remaining = 'Occurrence not created'
+          // }
+          // if(element.event_tickets.length === 0){
+          //   element.soldout = undefined
+          //   element.final_revenue = undefined
+          //   element.remaining = undefined
+          // }
+
+          if(element.event_occurrence_type === 'N'){
+            if(element.event_tickets.length === 0){
+              element.soldout = undefined
+              element.final_revenue = undefined
+              element.remaining = undefined
+            }
+          }else if(element.event_occurrence_type === 'Y'){
+          
+            if(element.occurrence.length != 0){
+              element.totalOccurrencSold = 0;
+              element.totalOccurrencRemaining = 0;
+              element.totalOccurrencRevenue = 0;
+              element.occurrence.forEach(element1 => {
+                if(element1.soldout.length > 0){
+
+                element.totalOccurrencSold = element.totalOccurrencSold+element1.soldout[0].Sold
+                }
+                if(element1.remaining.length > 0){
+
+                element.totalOccurrencRemaining = element.totalOccurrencSold+element1.remaining[0].Remaining
+                }
+                if(element1.final_revenue && element1.final_revenue.length > 0){
+
+                element.totalOccurrencRevenue = element.totalOccurrencSold+element1.final_revenue[0].Revenue
+                }
+              });
+            }else{
+             
+              element.totalOccurrencSold = 'Occurrence not created'
+              element.totalOccurrencRemaining = 'Occurrence not created'
+              element.totalOccurrencRevenue = 'Occurrence not created'
+            }
+            if(element.event_tickets.length === 0){
+              element.totalOccurrencSold = 'No Tickets'
+              element.totalOccurrencRemaining = 'No Tickets'
+              element.totalOccurrencRevenue = 'No Tickets'
+            }
           }
         });
 

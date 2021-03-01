@@ -18,7 +18,6 @@ export class SuperAdminComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
   ) { 
-    alert('3')
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 

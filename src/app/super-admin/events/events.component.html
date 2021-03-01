@@ -38,18 +38,18 @@
                                                 <mat-option value="publish">Published</mat-option>
                                             </mat-select>
                                         </div>
-                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined && element.soldout !== 'Occurrence not created'">{{element.soldout[0].Sold}}</div>
-                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout === 'Occurrence not created'">Occurrence not created</div>
-                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout === undefined">No Tickets</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.event_occurrence_type == 'N' && element.soldout !== undefined">{{element.soldout[0].Sold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.event_occurrence_type == 'Y'">{{element.totalOccurrencSold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.event_occurrence_type == 'N' && element.soldout === undefined">No Tickets</div>
                                         <!-- <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined && element.occurrences !== 'Occurrence not created'">{{element.soldout[0].Sold}}</div>
                                         <div class="tb-data" fxFlex="13" *ngIf="element.occurrences === 'Occurrence not created'">Occurrence not created</div>
                                         <div class="tb-data" fxFlex="13" *ngIf="element.soldout === undefined && element.occurrences !== 'Occurrence not created'">No Tickets</div> -->
-                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining !== undefined && element.remaining !== 'Occurrence not created'">{{element.remaining[0].Remaining}}</div>
-                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining === 'Occurrence not created'">Occurrence not created</div>
-                                        <div class="tb-data" fxFlex="15" *ngIf="element.remaining === undefined">No Tickets</div>
-                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue !== undefined && element.final_revenue !== 'Occurrence not created'">{{element.final_revenue[0].Revenue| currency:element.event_setting.currency:'symbol'}}</div>
-                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue === 'Occurrence not created'">Occurrence not created</div>
-                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue === undefined">No Tickets</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'N' && element.remaining !== undefined">{{element.remaining[0].Remaining}}</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'Y'">Occurrence not created</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'N' && element.remaining === undefined">No Tickets</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'N' && element.final_revenue !== undefined">{{element.final_revenue[0].Revenue| currency:element.event_setting.currency:'symbol'}}</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'Y'">Occurrence not created</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'N' && element.final_revenue === undefined">No Tickets</div>
                                         <div class="tb-data" fxFlex="10">
                                             <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
@@ -131,7 +131,19 @@
                                                 <mat-option value="publish">Published</mat-option>
                                             </mat-select>
                                         </div>
-                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined">{{element.soldout[0].Sold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.event_occurrence_type == 'N' && element.soldout !== undefined">{{element.soldout[0].Sold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.event_occurrence_type == 'Y'">{{element.totalOccurrencSold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.event_occurrence_type == 'N' && element.soldout === undefined">No Tickets</div>
+                                        <!-- <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined && element.occurrences !== 'Occurrence not created'">{{element.soldout[0].Sold}}</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.occurrences === 'Occurrence not created'">Occurrence not created</div>
+                                        <div class="tb-data" fxFlex="13" *ngIf="element.soldout === undefined && element.occurrences !== 'Occurrence not created'">No Tickets</div> -->
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'N' && element.remaining !== undefined">{{element.remaining[0].Remaining}}</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'Y'">Occurrence not created</div>
+                                        <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'N' && element.remaining === undefined">No Tickets</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'N' && element.final_revenue !== undefined">{{element.final_revenue[0].Revenue| currency:element.event_setting.currency:'symbol'}}</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'Y'">Occurrence not created</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'N' && element.final_revenue === undefined">No Tickets</div>
+                                        <!-- <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined">{{element.soldout[0].Sold}}</div>
                                         <div class="tb-data" fxFlex="13" *ngIf="element.soldout === 'Occurrence not created'">Occurrence not created</div>
                                         <div class="tb-data" fxFlex="13" *ngIf="element.soldout === undefined">No Tickets</div>
                                         <div class="tb-data" fxFlex="15" *ngIf="element.remaining !== undefined && element.remaining !== 'Occurrence not created'">{{element.remaining[0].Remaining}}</div>
@@ -139,7 +151,7 @@
                                         <div class="tb-data" fxFlex="15" *ngIf="element.remaining === undefined">No Tickets</div>
                                         <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue !== undefined && element.final_revenue !== 'Occurrence not created'">{{element.final_revenue[0].Revenue| currency:element.event_setting.currency:'symbol'}}</div>
                                         <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue === 'Occurrence not created'">Occurrence not created</div>
-                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue === undefined">No Tickets</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.final_revenue === undefined">No Tickets</div> -->
                                         <div class="tb-data" fxFlex="10">
                                             <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                             <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->

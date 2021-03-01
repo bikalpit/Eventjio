@@ -1049,3 +1049,8 @@
     border-radius: 5px;
     margin-bottom: 20px;
 }
+
+::ng-deep .soldout-btn {
+    background-color: #c51b13;
+    pointer-events: none;
+}

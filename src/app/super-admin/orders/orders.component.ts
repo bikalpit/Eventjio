@@ -874,7 +874,7 @@ export class AddNewOrderDialog {
     private ErrorService: ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       if(localStorage.getItem('boxoffice_id')){
-        this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
+        this.boxOfficeCode = localStorage.getItem('boxoffice_id'); 
       }
       this.fnGetAllEventList();
     }
@@ -918,7 +918,7 @@ export class AddNewOrderDialog {
   fnBookOccurrence(occurrenceCode){
       const dialogRef = this.dialog.open(BookTicketDialog, {
         width: '700px',
-        data :{occurrenceCode : occurrenceCode,singleEventData: this.singleEventData}
+        data :{selecetedEvent : this.selectedEvent,occurrenceCode : occurrenceCode,singleEventData: this.singleEventData}
       });
     
        dialogRef.afterClosed().subscribe(result => {
@@ -1144,7 +1144,6 @@ export class BookTicketDialog {
   
 
   getEventForm(){
-
     this.isLoaderAdmin = true;
     let requestObject = {
       'event_id' : this.selectedEventCode,
@@ -1296,6 +1295,12 @@ export class BookTicketDialog {
           element.qty = 0;
           element.id_added = false;
           this.event_tickets.push(element.unique_code)
+          
+          if(parseInt(element.remaining.remaining) == 0 && element.hide_after=='Y'){
+            element.hideTicket = true;
+          }else{
+            element.hideTicket = false;
+          }
         });
 
       }
@@ -1673,9 +1678,7 @@ export class BookTicketDialog {
   // }  
 
 
-  // fnDownloadInvoice(orderId) {
-  //   alert('1')
-  //   window.open(`${environment.apiUrl}/stream-invoice-pdf?order_id=${orderId}`);
+  // fnDownloadInvoice(orderId) {  //   window.open(`${environment.apiUrl}/stream-invoice-pdf?order_id=${orderId}`);
   // }  
 
   makeid(length) {

@@ -103,7 +103,6 @@ export class DuplicateComponent implements OnInit {
       'interval'  :'30',
     }
     this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
-      // alert(response.data)
       if(response.data == true){
         this.fullDayTimeSlote= response.response
       }
@@ -157,7 +156,6 @@ export class DuplicateComponent implements OnInit {
       element.start_time = this.fullDayTimeSlote[element.start_time]   
       element.start_date = this.datePipe.transform(new Date(element.start_date), "yyyy-MM-dd")
       element.end_date = this.datePipe.transform(new Date(element.end_date), "yyy-MM-dd")
-      // alert(element.start_date)
     });
 
     if(this.finalArr[this.finalArr.length - 1].event_title == "" && this.finalArr[this.finalArr.length - 1].start_date == "" &&

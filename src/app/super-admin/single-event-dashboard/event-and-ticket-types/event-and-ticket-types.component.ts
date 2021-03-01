@@ -356,10 +356,7 @@ export class EventAndTicketTypesComponent implements OnInit {
          
   
           // var end_time = this.singleEventDetail.end_time.split(":")
-          // alert(end_time + 'end')
-          
           // var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
-          // alert(end_time_key + 'end key')
         
           
          
@@ -382,8 +379,8 @@ export class EventAndTicketTypesComponent implements OnInit {
         console.log('this.selectedStartDate ---- '+this.selectedStartDate)
         console.log('this.currentTime ---- '+this.currentTime)
         console.log('this.singleEventDetail.start_time ---- '+this.startTimeForCheck)
-        alert('date-check---'+(this.todayDate > this.selectedStartDate))
-        alert('time-check---'+this.currentTime > this.startTimeForCheck)
+        // alert('date-check---'+(this.todayDate > this.selectedStartDate))
+        // alert('time-check---'+this.currentTime > this.startTimeForCheck)
         }else{
           this.editEventForm = this._formBuilder.group({
             event_name: ['',[Validators.required]],
@@ -1080,7 +1077,7 @@ export class AddNewTicketType {
   selectedTicketDetail:any;
   editTicket : boolean = false;
   selectedEventId:any;
-  minAvailDate= new Date();
+  minAvailDate:any;
   maxAvailDate= new Date();
   minUnavailDate= new Date();
   maxUnavailDate= new Date();
@@ -1253,21 +1250,28 @@ export class AddNewTicketType {
 
   fnAvailDateChange(event){
     this.minUnavailDate = event.value
-    this.addTicketForm.controls['until_time'].setValue(null);
-    this.addTicketForm.controls['after_date'].setValue(null);
-    this.addTicketForm.controls['after_time'].setValue(null);
+    this.minAvailDate = new Date();
+    if(this.recurringEvent == 'N'){
+      this.addTicketForm.controls['until_time'].setValue(null);
+      this.addTicketForm.controls['after_date'].setValue(null);
+      this.addTicketForm.controls['after_time'].setValue(null);
+    }
     
   }
   fnAvailTimeChange(event){
-    this.addTicketForm.controls['after_time'].setValue(null);
+    if(this.recurringEvent == 'N'){
+      this.addTicketForm.controls['after_time'].setValue(null);
+    }
     
   }
   fnUnavailDateChange(event){
-    this.addTicketForm.controls['after_time'].setValue(null);
-    if(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd") == this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd")){
-      this.availUnavailDateSame = true;
-    }else{
-      this.availUnavailDateSame = false;
+    if(this.recurringEvent == 'N'){
+      this.addTicketForm.controls['after_time'].setValue(null);
+      if(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd") == this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd")){
+        this.availUnavailDateSame = true;
+      }else{
+        this.availUnavailDateSame = false;
+      }
     }
     // this.minUnavailDate = event.value
   }
@@ -1562,7 +1566,6 @@ export class AddNewTicketType {
     }
   }else{
     if(this.editTicket){
-      
       let requestObject = {
         'unique_code': this.selectedTicketDetail.unique_code,
         'box_office_id': this.boxOfficeCode,
