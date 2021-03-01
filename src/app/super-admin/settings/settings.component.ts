@@ -13,7 +13,6 @@ export class SettingsComponent implements OnInit {
   currentUrl:any;
   currentUser:any;
   keepMe:any;
-  currentUserData:any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,

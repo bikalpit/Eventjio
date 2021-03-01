@@ -22,7 +22,6 @@ export class ErrorService {
   boxOfficeCode: any;
   dialogRef: any;
   keepMe: any;
-  currentUserData: any;
   constructor(
     private http: HttpClient,
     public dialog: MatDialog,
@@ -33,12 +32,12 @@ export class ErrorService {
 
     this.keepMe = localStorage.getItem('keepMeSignIn')
     if (this.keepMe == 'true') {
-      this.currentUserData = localStorage.getItem('currentUser')
+      this.currentUser = localStorage.getItem('currentUser')
     } else {
-      this.currentUserData = sessionStorage.getItem('currentUser')
+      this.currentUser = sessionStorage.getItem('currentUser')
     }
 
-    this.currentUser = JSON.parse(this.currentUserData);
+    this.currentUser = JSON.parse(this.currentUser);
 
     localStorage.setItem('isBusiness', 'false');
     if (localStorage.getItem('boxoffice_id')) {
@@ -71,9 +70,9 @@ export class ErrorService {
 
   checkAuthentication() {
     let requestObject = {
-      "user_type": JSON.parse(this.currentUserData).user_type,
-      "user_id": JSON.parse(this.currentUserData).user_id,
-      "token": JSON.parse(this.currentUserData).token
+      "user_type": JSON.parse(this.currentUser).user_type,
+      "user_id": JSON.parse(this.currentUser).user_id,
+      "token": JSON.parse(this.currentUser).token
     };
     this.http.post(`${environment.apiUrl}/check-token`, requestObject).pipe(
       map((res) => {

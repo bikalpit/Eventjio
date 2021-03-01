@@ -23,7 +23,6 @@ export class DialogAuthentication {
     currentUser: any;
     reAuthenticationForm: FormGroup
     keepMe:any;
-    currentUserData:any
     constructor(
         public dialogRef: MatDialogRef<DialogAuthentication>,
         public dialogRef2: MatDialog,
@@ -34,13 +33,13 @@ export class DialogAuthentication {
         @Inject(MAT_DIALOG_DATA) public data: DialogData) {
         this.keepMe = localStorage.getItem('keepMeSignIn')
         if (this.keepMe == 'true') {
-            this.currentUserData = localStorage.getItem('currentUser')
+            this.currentUser = localStorage.getItem('currentUser')
             // alert("app local")
         } else {
-            this.currentUserData = sessionStorage.getItem('currentUser')
+            this.currentUser = sessionStorage.getItem('currentUser')
             // alert("app sessions")
         }
-        this.currentUser = JSON.parse(this.currentUserData);
+        this.currentUser = JSON.parse(this.currentUser);
         this.reAuthenticationForm = this._formBuilder.group({
             user_password: ['', [Validators.required]],
         });

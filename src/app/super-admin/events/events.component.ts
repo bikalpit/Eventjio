@@ -102,7 +102,6 @@ export class EventsComponent implements OnInit {
   thumbZoomLavel:any = '100'
   bannerZoomLavel:any = '100'
   keepMe:any;
-  currentUserData:any
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
@@ -121,9 +120,9 @@ export class EventsComponent implements OnInit {
     ) {
       this.keepMe = localStorage.getItem('keepMeSignIn')
         if (this.keepMe == 'true') {
-          this.currentUser = localStorage.getItem('currentUser')
+          this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
         } else {
-          this.currentUser = sessionStorage.getItem('currentUser')
+          this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
 
       // this.currentUser = JSON.parse(this.currentUserData);
