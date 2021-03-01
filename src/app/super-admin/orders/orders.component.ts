@@ -76,12 +76,11 @@ export class OrdersComponent implements OnInit {
     public change: ChangeDetectorRef
   ) { 
     this.keepMe = localStorage.getItem('keepMeSignIn')
-        if (this.keepMe == 'true') {
-          this.currentUser = localStorage.getItem('currentUser')
-        } else {
-          this.currentUser = sessionStorage.getItem('currentUser')
-        }
-    this.currentUser = JSON.parse(this.currentUser);
+    if (this.keepMe == 'true') {
+      this.currentUser =  JSON.parse(localStorage.getItem('currentUser'))
+    } else {
+      this.currentUser =  JSON.parse(sessionStorage.getItem('currentUser'))
+    }
     console.log(window.location.search)
     var queryString = window.location.search
     var queryStringCount = queryString.includes("event",1)

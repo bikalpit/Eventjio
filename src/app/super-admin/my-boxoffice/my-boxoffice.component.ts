@@ -47,12 +47,11 @@ export class MyBoxofficeComponent implements OnInit {
 
     ngOnInit(): void {
       this.keepMe = localStorage.getItem('keepMeSignIn')
-        if (this.keepMe == 'true') {
-          this.currentUser = localStorage.getItem('currentUser')
-        } else {
-          this.currentUser = sessionStorage.getItem('currentUser')
-        }
-      this.currentUser = JSON.parse(this.currentUser);
+      if (this.keepMe == 'true') {
+        this.currentUser =  JSON.parse(localStorage.getItem('currentUser'))
+      } else {
+        this.currentUser =  JSON.parse(sessionStorage.getItem('currentUser'))
+      }
 
        if(this.currentUser.type == 'member'){
 

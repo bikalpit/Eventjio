@@ -13,17 +13,18 @@ export class SettingsComponent implements OnInit {
   currentUrl:any;
   currentUser:any;
   keepMe:any;
+  currentUserData:any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
   ) { 
     this.keepMe = localStorage.getItem('keepMeSignIn')
         if (this.keepMe == 'true') {
-          this.currentUser = localStorage.getItem('currentUser')
+          this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
         } else {
-          this.currentUser = sessionStorage.getItem('currentUser')
+          this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
-    this.currentUser = JSON.parse(this.currentUser);
+    // this.currentUser = JSON.parse(this.currentUser);
 
     if(this.currentUser.type == 'member' && this.currentUser.permission != 'A'){
         this.router.navigate(['/super-admin']);

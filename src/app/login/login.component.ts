@@ -111,7 +111,6 @@ export class LoginComponent implements OnInit {
                             }
 
                         } else {
-                            alert('1')
                             localStorage.setItem('permision_ALL', 'TRUE');
                         }
 
