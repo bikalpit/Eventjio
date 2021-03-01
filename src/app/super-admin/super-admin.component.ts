@@ -20,11 +20,11 @@ export class SuperAdminComponent implements OnInit {
   ) { 
     this.keepMe = localStorage.getItem('keepMeSignIn')
         if (this.keepMe == 'true') {
-          this.currentUser = localStorage.getItem('currentUser')
+          this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
         } else {
-          this.currentUser = sessionStorage.getItem('currentUser')
+          this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
-    this.currentUser = JSON.parse(this.currentUser);
+    // this.currentUser = JSON.parse(this.currentUser);
   }
 
   
