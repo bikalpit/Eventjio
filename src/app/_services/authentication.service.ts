@@ -43,13 +43,10 @@ export class AuthenticationService {
                 if (user && user.data == true && user.response.token) {
                     if(localStorage.getItem('keepMeSignIn')){
                         this.keepMe = localStorage.getItem('keepMeSignIn')
-                        // alert(this.keepMe)
                         if (this.keepMe == 'true') {
                             localStorage.setItem('currentUser', JSON.stringify(user.response));
-                            // alert('local')
                         } else {
                             sessionStorage.setItem('currentUser', JSON.stringify(user.response));
-                            // alert('session')
                         }
                     }
                    
