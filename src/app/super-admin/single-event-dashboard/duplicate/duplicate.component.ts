@@ -103,7 +103,6 @@ export class DuplicateComponent implements OnInit {
       'interval'  :'30',
     }
     this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
-      // alert(response.data)
       if(response.data == true){
         this.fullDayTimeSlote= response.response
       }

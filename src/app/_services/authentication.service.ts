@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { User } from '../_models/index';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -12,7 +13,10 @@ export class AuthenticationService {
     user_id: any;
     keepMe: any
     currentUserData: any
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private _snackBar: MatSnackBar,
+        ) {
         if(localStorage.getItem('keepMeSignIn')){
             this.keepMe = localStorage.getItem('keepMeSignIn')
         }
@@ -121,19 +125,19 @@ export class AuthenticationService {
         }
     }
 
-    loginWithGoogleFacebook(authId, email, provider) {
-        // if(email == ''){
-        //     this._snackBar.open('Please add email id in your facebook account.', "X", {
-        //         duration: 2000,
-        //         verticalPosition:'top',
-        //         panelClass :['red-snackbar']
-        //     });
-        //     return false;
-        // }
-        let requestObject = {
-            "auth_id": authId,
-            "email_id": email,
-            "provider": provider
+    loginWithGoogleFacebook(authId,email,provider) {
+        if(email == ''){
+            this._snackBar.open('Please add email id in your facebook account.', "X", {
+                duration: 2000,
+                verticalPosition:'top',
+                panelClass :['red-snackbar']
+            });
+            return false;
+        }
+        let requestObject={
+            "auth_id":authId,
+            "email_id":email,
+            "provider":provider
         }
         return this.http.post<any>(`${environment.apiUrl}/facebook-google-login`, requestObject)
             .pipe(map(user => {

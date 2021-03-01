@@ -1,7 +1,7 @@
 import { Component, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterEvent, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
-// import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User, Role } from './_models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BnNgIdleService } from 'bn-ng-idle';
@@ -41,7 +41,7 @@ export class AppComponent {
     private bnIdle: BnNgIdleService,
     private renderer: Renderer2,
     private _snackBar: MatSnackBar,
-    // private authService: AuthService,
+    private authService: AuthService,
     private authenticationService: AuthenticationService,
   ) {
     // this.renderer.listen('window', 'click',(e:Event)=>{
@@ -284,63 +284,62 @@ export class AppComponent {
   }
 
   signInWithGoogle(loginForm): void {
-    this.loginForm = loginForm;
-    // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(res=>{
-    //   this.fnLoginWithGoogleFacebook(res);
-    // });
-
+    this.loginForm=loginForm;
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(res=>{
+      this.fnLoginWithGoogleFacebook(res);
+    });
   }
 
   signInWithFB(loginForm): void {
-    this.loginForm = loginForm;
-    // this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(res=>{
-    //   console.log("facebook res=>",res);
-    //   this.fnLoginWithGoogleFacebook(res);
+    this.loginForm=loginForm;
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(res=>{
+      console.log("facebook res=>",res);
+      this.fnLoginWithGoogleFacebook(res);
 
-    // });
+    });
   }
 
-  fnLoginWithGoogleFacebook(user) {
-    this.isAllowed = false;
-    if (user.email == '') {
-      this._snackBar.open('Please add email id in your facebook account.', "X", {
-        duration: 2000,
-        verticalPosition: 'top',
-        panelClass: ['red-snackbar']
-      });
-      return false;
-    }
-    this.authenticationService.loginWithGoogleFacebook(user.id, user.email, user.provider).pipe(first()).subscribe(data => {
-      if (data.idExists == true) {
-
-        this.router.navigate(["admin"]);
-
-        // this.initiateTimeout();
-
-      } else if (data.idExists == false && data.emailExists == true) {
-        this.signOut();
-        this.isAllowed = true;
-        this._snackBar.open("It seems that you already have account with Schedulic", "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass: ['red-snackbar']
-        });
-        //this.error = "It seems that you already have account with Schedulic";
-        this.loginForm.controls['email'].setValue(data.userData.email);
-        //this.dataLoaded = true;
-      } else if (data.idExists == false && data.emailExists == false) {
-        this.fnSignup(user);
+  fnLoginWithGoogleFacebook(user){
+    this.isAllowed=false;
+    if(user.email == ''){
+          this._snackBar.open('Please add email id in your facebook account.', "X", {
+              duration: 2000,
+              verticalPosition:'top',
+              panelClass :['red-snackbar']
+          });
+          return false;
       }
-    },
-      error => {
-        this._snackBar.open("Database Connection Error", "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass: ['red-snackbar']
-        });
-        // this.error = "Database Connection Error"; 
-        // this.dataLoaded = true;  
-      });
+    // this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
+    //   if(data.idExists == true){
+        
+    //       this.router.navigate(["admin"]);
+
+    //     // this.initiateTimeout();
+      
+    //   }else if(data.idExists == false && data.emailExists == true){
+    //     this.signOut();
+    //     this.isAllowed=true;
+    //     this._snackBar.open("It seems that you already have account with Eventjio", "X", {
+    //       duration: 2000,
+    //       verticalPosition: 'top',
+    //       panelClass: ['red-snackbar']
+    //     });
+    //     //this.error = "It seems that you already have account with Eventjio";
+    //     this.loginForm.controls['email'].setValue(data.userData.email);
+    //     //this.dataLoaded = true;
+    //   }else if(data.idExists == false && data.emailExists == false){
+    //     this.fnSignup(user);
+    //   }
+    // },
+    // error => {
+    //   this._snackBar.open("Database Connection Error", "X", {
+    //     duration: 2000,
+    //     verticalPosition: 'top',
+    //     panelClass: ['red-snackbar']
+    //   }); 
+    //   // this.error = "Database Connection Error"; 
+    //   // this.dataLoaded = true;  
+    // });
   }
 
   signOut(): void {

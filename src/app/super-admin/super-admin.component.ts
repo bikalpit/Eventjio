@@ -18,7 +18,6 @@ export class SuperAdminComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
   ) { 
-    alert('3')
     this.keepMe = localStorage.getItem('keepMeSignIn')
         if (this.keepMe == 'true') {
           this.currentUser = localStorage.getItem('currentUser')

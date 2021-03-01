@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from '../_services/authentication.service';
 import { AppComponent } from '../app.component';
 import { User, Role } from '../_models';
+// import { CookieService } from "angular2-cookie/core";
 
 
 @Component({
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
         private _snackBar: MatSnackBar,
         private authenticationService: AuthenticationService,
         private appComponent: AppComponent,
+        // private _cookieService: CookieService
         //private appComponent:AppComponent,
     ) {
         if (/msie\s|trident\//i.test(window.navigator.userAgent)) {
@@ -47,6 +49,8 @@ export class LoginComponent implements OnInit {
         } else {
             this.dataLoaded = true;
         }
+        
+        // this._cookieService.put("test", "123123213213");
     };
 
     ngOnInit(): void {

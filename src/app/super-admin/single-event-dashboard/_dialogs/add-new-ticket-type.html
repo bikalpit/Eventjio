@@ -131,7 +131,7 @@
                             </div>
                         </div>
 
-                        <label *ngIf="ticketAvalStatus == 'SDT'" class="mt-4">Hide untill a set date and time</label>
+                        <label *ngIf="ticketAvalStatus == 'SDT'" class="mt-4">Hide until a set date and time</label>
 
                         <div *ngIf="ticketAvalStatus == 'SDT'" class="form-group d-flex align-items-start">
                             <div class="matDate w-50 d-inline-block">
@@ -139,7 +139,7 @@
                                 <input formControlName="until_date" type="text" [matDatepicker]="hideDatePicker" [max]="maxAvailDate" [min]="minAvailDate" id="until_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailDateChange($event)" class="form-control  " readonly>
                                 <mat-datepicker #hideDatePicker></mat-datepicker>
                                 <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('until_date').touched || addTicketForm.get('until_date').dirty">
-                                <small *ngIf="addTicketForm.get('until_date').hasError('required')" class="error">Hide untill Date is required.</small>
+                                <small *ngIf="addTicketForm.get('until_date').hasError('required')" class="error">Hide until Date is required.</small>
                             </span>
                             </div>
                             <div class="d-flex flex-wrap w-50">
@@ -147,12 +147,12 @@
                                     <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{fullDayTimeSlote}}</mat-option>
                                 </mat-select>
                                 <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('until_time').touched || addTicketForm.get('until_time').dirty">
-                                <small *ngIf="addTicketForm.get('until_time').hasError('required')" class="error">Hide untill Time is required.</small>
+                                <small *ngIf="addTicketForm.get('until_time').hasError('required')" class="error">Hide until Time is required.</small>
                             </span>
                             </div>
                         </div>
 
-                        <label *ngIf="ticketAvalStatus == 'SIB'" class="mt-2" for="">Hide untill a set available interval hours</label>
+                        <label *ngIf="ticketAvalStatus == 'SIB'" class="mt-2" for="">Hide until a set available interval hours</label>
 
                         <div *ngIf="ticketAvalStatus == 'SIB'" class="form-group ">
                             <mat-select (selectionChange)="fnUntilIntervalChange($event)" formControlName="until_interval" class="form-control w-50">
@@ -213,7 +213,7 @@
                             </div>
                         </div>
 
-                        <label *ngIf="ticketUnavalStatus == 'SIB'" class="mt-2">Hide untill a set unavailable interval hours</label>
+                        <label *ngIf="ticketUnavalStatus == 'SIB'" class="mt-2">Hide until a set unavailable interval hours</label>
 
                         <div *ngIf="ticketUnavalStatus == 'SIB'" class="form-group ">
                             <mat-select formControlName="after_interval" class="form-control w-50">
@@ -241,7 +241,7 @@
                             <input formControlName="recurring_until_date" type="text" [matDatepicker]="hideDatePicker" [min]="minAvailDate" id="recurring_until_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailDateChange($event)" class="form-control  ">
                             <mat-datepicker #hideDatePicker></mat-datepicker>
                             <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('recurring_until_date').touched || addTicketForm.get('recurring_until_date').dirty">
-                            <small *ngIf="addTicketForm.get('recurring_until_date').hasError('required')" class="error">Hide untill Date is required.</small>
+                            <small *ngIf="addTicketForm.get('recurring_until_date').hasError('required')" class="error">Hide until Date is required.</small>
                         </span>
                         </div>
                         <div class="d-flex flex-wrap w-50">
@@ -249,17 +249,17 @@
                                 <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{fullDayTimeSlote}}</mat-option>
                             </mat-select>
                             <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('recurring_until_time').touched || addTicketForm.get('recurring_until_time').dirty">
-                            <small *ngIf="addTicketForm.get('recurring_until_time').hasError('required')" class="error">Hide untill Time is required.</small>
+                            <small *ngIf="addTicketForm.get('recurring_until_time').hasError('required')" class="error">Hide until Time is required.</small>
                         </span>
                         </div>
                     </div>
                     <mat-checkbox [checked]="recurringAfter == 'Y'" *ngIf="recurringEvent == 'Y'" class="w-100 d-block mt-2" (change)="fnChangeRecurringAfter($event)">Hide after a set date and time</mat-checkbox>
                     <div *ngIf="recurringAfter == 'Y'" class="form-group d-flex">
                         <div class="matDate w-50 d-inline-block">
-                            <input formControlName="recurring_after_date" type="text" [matDatepicker]="hideDatePicker" [min]="minAvailDate" id="recurring_after_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailDateChange($event)" class="form-control  ">
+                            <input formControlName="recurring_after_date" type="text" [matDatepicker]="hideDatePicker" [min]="minAvailDate" id="recurring_after_date" (click)="hideDatePicker.open()" (dateChange)="fnUnavailDateChange($event)" class="form-control  ">
                             <mat-datepicker #hideDatePicker></mat-datepicker>
                             <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('recurring_after_date').touched || addTicketForm.get('recurring_after_date').dirty">
-                            <small *ngIf="addTicketForm.get('recurring_after_date').hasError('required')" class="error">Hide untill Date is required.</small>
+                            <small *ngIf="addTicketForm.get('recurring_after_date').hasError('required')" class="error">Hide until Date is required.</small>
                         </span>
                         </div>
                         <div class="d-flex flex-wrap w-50">
@@ -267,7 +267,7 @@
                                 <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{fullDayTimeSlote}}</mat-option>
                             </mat-select>
                             <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('recurring_after_time').touched || addTicketForm.get('recurring_after_time').dirty">
-                            <small *ngIf="addTicketForm.get('recurring_after_time').hasError('required')" class="error">Hide untill Time is required.</small>
+                            <small *ngIf="addTicketForm.get('recurring_after_time').hasError('required')" class="error">Hide until Time is required.</small>
                         </span>
                         </div>
                     </div>
