@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     dataLoaded: boolean = false;
     isIE: boolean = false;
     currentUser: User;
-    keepMe: any = false;
+    keepMe: any = 'false';
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -61,13 +61,17 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         });
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        localStorage.setItem('keepMeSignIn', this.keepMe)
+        if(localStorage.getItem('keepMeSignIn')){
+            this.keepMe = localStorage.getItem('keepMeSignIn')
+        }
+        // localStorage.setItem('keepMeSignIn', this.keepMe)
     }
     
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
 
+        localStorage.setItem('keepMeSignIn', this.keepMe)
         this.submitted = true;
         if (this.loginForm.invalid) {
             this.loginForm.get('email').markAsTouched();
@@ -143,7 +147,12 @@ export class LoginComponent implements OnInit {
 
     keepMeSignIn(event) {
         console.log(event)
-        this.keepMe = event.checked
+        if(event.checked == true){
+            this.keepMe = 'true';
+        }else{
+            this.keepMe = 'false';
+        }
+        // this.keepMe = event.checked
         console.log(event.checked)
         localStorage.setItem('keepMeSignIn', this.keepMe)
         // alert(this.keepMe)
@@ -151,9 +160,11 @@ export class LoginComponent implements OnInit {
 
 
     signInWithGoogle(): void {
+        localStorage.setItem('keepMeSignIn', this.keepMe)
         this.appComponent.signInWithGoogle(this.loginForm);
     }
     signInWithFB(): void {
+        localStorage.setItem('keepMeSignIn', this.keepMe)
         this.appComponent.signInWithFB(this.loginForm);
     }
 }
