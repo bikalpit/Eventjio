@@ -136,18 +136,37 @@ export class AuthenticationService {
             "email_id":email,
             "provider":provider
         }
-        return this.http.post<any>(`${environment.apiUrl}/facebook-google-login`, requestObject)
+        return this.http.post<any>(`${environment.apiUrl}/social-signup`, requestObject)
             .pipe(map(user => {
+                console.log(user)
+                if(user.data == true){
+
                 if (user && user.response.idExists == true) {
-                    localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                    if(localStorage.getItem('keepMeSignIn')){
+                        this.keepMe = localStorage.getItem('keepMeSignIn')
+                        if (this.keepMe == 'true') {
+                            localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                        } else {
+                            sessionStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                        }
+                    }
+                    // localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
                     this.currentUserSubject.next(user.response.userData);
                     var logoutTime = new Date();
                     logoutTime.setHours(logoutTime.getHours() + 6);
                     localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
                     console.log(user.response);
-                }
-                console.log(user.response);
+                    
                 return user.response;
+                }
+            }else{
+                this._snackBar.open(user.response, "X", {
+                    duration: 2000,
+                    verticalPosition: 'top',
+                    panelClass: ['red-snackbar']
+                  });
+            }
+                console.log(user.response);
             }));
     }
 

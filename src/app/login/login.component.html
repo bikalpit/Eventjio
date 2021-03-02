@@ -41,7 +41,7 @@
                                 <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small></span>
                             </div>
                             <div class="input-group px-1">
-                                <mat-checkbox class="text-primary" [checked]='keepMe' (change)="keepMeSignIn($event)">Keep me sign in!</mat-checkbox>
+                                <mat-checkbox class="text-primary" [checked]="keepMe == 'true'" (change)="keepMeSignIn($event)">Keep me sign in!</mat-checkbox>
                             </div>
                             <a class="fr-pswd-link" routerLink="/forgot-password">Forgot Password?</a>
                             <div>

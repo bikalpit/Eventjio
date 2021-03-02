@@ -309,37 +309,40 @@ export class AppComponent {
           });
           return false;
       }
-    // this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
-    //   if(data.idExists == true){
-        
-    //       this.router.navigate(["admin"]);
+    this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
+      if(data.idExists == true){
+        alert('1')
+          this.router.navigate(["super-admin"]);
 
-    //     // this.initiateTimeout();
-      
-    //   }else if(data.idExists == false && data.emailExists == true){
-    //     this.signOut();
-    //     this.isAllowed=true;
-    //     this._snackBar.open("It seems that you already have account with Eventjio", "X", {
-    //       duration: 2000,
-    //       verticalPosition: 'top',
-    //       panelClass: ['red-snackbar']
-    //     });
-    //     //this.error = "It seems that you already have account with Eventjio";
-    //     this.loginForm.controls['email'].setValue(data.userData.email);
-    //     //this.dataLoaded = true;
-    //   }else if(data.idExists == false && data.emailExists == false){
-    //     this.fnSignup(user);
-    //   }
-    // },
-    // error => {
-    //   this._snackBar.open("Database Connection Error", "X", {
-    //     duration: 2000,
-    //     verticalPosition: 'top',
-    //     panelClass: ['red-snackbar']
-    //   }); 
-    //   // this.error = "Database Connection Error"; 
-    //   // this.dataLoaded = true;  
-    // });
+      }else if(data.idExists == false && data.emailExists == true){
+        this.signOut();
+        this.isAllowed=true;
+        this._snackBar.open("It seems that you already have account with Eventjio", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+        //this.error = "It seems that you already have account with Eventjio";
+        this.loginForm.controls['email'].setValue(data.userData.email);
+        //this.dataLoaded = true;
+      }else if(data.idExists == false && data.emailExists == false){
+        // this.fnSignup(user);this.isAllowed=true;
+        // this._snackBar.open("It seems that you already have account with Eventjio", "X", {
+        //   duration: 2000,
+        //   verticalPosition: 'top',
+        //   panelClass: ['red-snackbar']
+        // });
+      }
+    },
+    error => {
+      this._snackBar.open("Database Connection Error", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+      }); 
+      // this.error = "Database Connection Error"; 
+      // this.dataLoaded = true;  
+    });
   }
 
   signOut(): void {
