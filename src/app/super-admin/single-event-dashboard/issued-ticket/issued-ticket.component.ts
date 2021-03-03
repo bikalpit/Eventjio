@@ -388,7 +388,7 @@ export class ExportDoorListComponent {
         var data =   JSON.parse(response.response);
         this.attendeeQtionList = data[0].attendee_questions;
         this.buyerQtionList = data[0].buyer_questions;
-        
+        console.log(data)
         // this.attendeeFormLength = this.attendeeForm.length;
 
         

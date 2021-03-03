@@ -141,7 +141,6 @@ export class AuthenticationService {
                 console.log(user)
                 if(user.data == true){
 
-                if (user && user.response.idExists == true) {
                     if(localStorage.getItem('keepMeSignIn')){
                         this.keepMe = localStorage.getItem('keepMeSignIn')
                         if (this.keepMe == 'true') {
@@ -158,7 +157,6 @@ export class AuthenticationService {
                     console.log(user.response);
                     
                 return user.response;
-                }
             }else{
                 this._snackBar.open(user.response, "X", {
                     duration: 2000,

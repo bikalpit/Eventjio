@@ -296,7 +296,7 @@ export class AppComponent {
       console.log("facebook res=>",res);
       this.fnLoginWithGoogleFacebook(res);
 
-    });
+    }); 
   }
 
   fnLoginWithGoogleFacebook(user){
@@ -310,28 +310,36 @@ export class AppComponent {
           return false;
       }
     this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
-      if(data.idExists == true){
-        alert('1')
+      if(data.idExists == true && data.emailExists == true){
           this.router.navigate(["super-admin"]);
 
       }else if(data.idExists == false && data.emailExists == true){
-        this.signOut();
-        this.isAllowed=true;
-        this._snackBar.open("It seems that you already have account with Eventjio", "X", {
+        this._snackBar.open("You are successfully loggedin with Eventjio using google account.", "X", {
           duration: 2000,
           verticalPosition: 'top',
-          panelClass: ['red-snackbar']
+          panelClass: ['green-snackbar']
         });
-        //this.error = "It seems that you already have account with Eventjio";
-        this.loginForm.controls['email'].setValue(data.userData.email);
-        //this.dataLoaded = true;
+        this.router.navigate(["super-admin"]);
+        // this.loginForm.controls['email'].setValue(data.userData.email);
+      }else if(data.idExists == true && data.emailExists == false){
+        
+        this._snackBar.open("You are successfully registered with Eventjio.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
+        
+        // this.router.navigate(["super-admin"]);
+        // //this.error = "It seems that you already have account with Eventjio";
+        // this.loginForm.controls['email'].setValue(data.userData.email);
+        // //this.dataLoaded = true;
       }else if(data.idExists == false && data.emailExists == false){
         // this.fnSignup(user);this.isAllowed=true;
-        // this._snackBar.open("It seems that you already have account with Eventjio", "X", {
-        //   duration: 2000,
-        //   verticalPosition: 'top',
-        //   panelClass: ['red-snackbar']
-        // });
+        this._snackBar.open("You are successfully registered with Eventjio.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['green-snackbar']
+        });
       }
     },
     error => {
@@ -343,6 +351,9 @@ export class AppComponent {
       // this.error = "Database Connection Error"; 
       // this.dataLoaded = true;  
     });
+
+
+    
   }
 
   signOut(): void {
