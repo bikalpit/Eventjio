@@ -16,8 +16,8 @@ export class AuthenticationService {
     constructor(
         private http: HttpClient,
         private _snackBar: MatSnackBar,
-        ) {
-        if(localStorage.getItem('keepMeSignIn')){
+    ) {
+        if (localStorage.getItem('keepMeSignIn')) {
             this.keepMe = localStorage.getItem('keepMeSignIn')
         }
         if (this.keepMe == 'true') {
@@ -41,7 +41,7 @@ export class AuthenticationService {
         return this.http.post<any>(`${environment.apiUrl}/login`, { email, password })
             .pipe(map(user => {
                 if (user && user.data == true && user.response.token) {
-                    if(localStorage.getItem('keepMeSignIn')){
+                    if (localStorage.getItem('keepMeSignIn')) {
                         this.keepMe = localStorage.getItem('keepMeSignIn')
                         if (this.keepMe == 'true') {
                             localStorage.setItem('currentUser', JSON.stringify(user.response));
@@ -49,7 +49,7 @@ export class AuthenticationService {
                             sessionStorage.setItem('currentUser', JSON.stringify(user.response));
                         }
                     }
-                   
+
                     this.currentUserSubject.next(user.response);
 
                 }
@@ -122,50 +122,49 @@ export class AuthenticationService {
         }
     }
 
-    loginWithGoogleFacebook(authId,email,provider) {
-        if(email == ''){
+    loginWithGoogleFacebook (authId, email, provider) : Observable<any> {
+        if (email == '') {
             this._snackBar.open('Please add email id in your facebook account.', "X", {
                 duration: 2000,
-                verticalPosition:'top',
-                panelClass :['red-snackbar']
+                verticalPosition: 'top',
+                panelClass: ['red-snackbar']
             });
-            return false;
         }
-        let requestObject={
-            "auth_id":authId,
-            "email_id":email,
-            "provider":provider
+        let requestObject = {
+            "auth_id": authId,
+            "email_id": email,
+            "provider": provider
         }
         return this.http.post<any>(`${environment.apiUrl}/social-signup`, requestObject)
             .pipe(map(user => {
                 console.log(user)
-                if(user.data == true){
+                if (user.data == true) {
 
-                if (user && user.response.idExists == true) {
-                    if(localStorage.getItem('keepMeSignIn')){
-                        this.keepMe = localStorage.getItem('keepMeSignIn')
-                        if (this.keepMe == 'true') {
-                            localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
-                        } else {
-                            sessionStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                    if (user && user.response.idExists == true) {
+                        if (localStorage.getItem('keepMeSignIn')) {
+                            this.keepMe = localStorage.getItem('keepMeSignIn')
+                            if (this.keepMe == 'true') {
+                                localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                            } else {
+                                sessionStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                            }
                         }
+                        // localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
+                        this.currentUserSubject.next(user.response.userData);
+                        var logoutTime = new Date();
+                        logoutTime.setHours(logoutTime.getHours() + 6);
+                        localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
+                        console.log(user.response);
+
+                        return user.response;
                     }
-                    // localStorage.setItem('currentUser', JSON.stringify(user.response.userData));
-                    this.currentUserSubject.next(user.response.userData);
-                    var logoutTime = new Date();
-                    logoutTime.setHours(logoutTime.getHours() + 6);
-                    localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
-                    console.log(user.response);
-                    
-                return user.response;
+                } else {
+                    this._snackBar.open(user.response, "X", {
+                        duration: 2000,
+                        verticalPosition: 'top',
+                        panelClass: ['red-snackbar']
+                    });
                 }
-            }else{
-                this._snackBar.open(user.response, "X", {
-                    duration: 2000,
-                    verticalPosition: 'top',
-                    panelClass: ['red-snackbar']
-                  });
-            }
                 console.log(user.response);
             }));
     }

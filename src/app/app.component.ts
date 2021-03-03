@@ -5,7 +5,7 @@ import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } fr
 import { User, Role } from './_models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -299,7 +299,7 @@ export class AppComponent {
     });
   }
 
-  fnLoginWithGoogleFacebook(user){
+  fnLoginWithGoogleFacebook (user) {
     this.isAllowed=false;
     if(user.email == ''){
           this._snackBar.open('Please add email id in your facebook account.', "X", {
@@ -310,6 +310,7 @@ export class AppComponent {
           return false;
       }
     this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
+     
       if(data.idExists == true){
         alert('1')
           this.router.navigate(["super-admin"]);
