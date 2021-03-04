@@ -76,8 +76,11 @@ export class EventAndTicketTypesComponent implements OnInit {
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
   protected _onDestroy = new Subject<void>();
-
-
+  currentDate:any;
+  eventStartDate:any;
+  SingleEventStartTime:any;
+  currentTimeToday:any;
+  eventStarted:any;
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,
@@ -317,6 +320,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.singleEventDetail= response.response.event[0];
+        this.eventStarted = response.response.event_started;
+        console.log(this.eventStarted);
         if(this.singleEventDetail.images.length !== 0){
           if(this.singleEventDetail.images[0].type == 'default'){
             this.eventImageType = this.singleEventDetail.images[0].image_name
@@ -340,21 +345,21 @@ export class EventAndTicketTypesComponent implements OnInit {
           }else{
             this.startEndSameDate = false;
           }
-         
+          // alert(this.singleEventDetail.start_time + 'start time')
           if(this.singleEventDetail.start_time){
             var start_time = this.singleEventDetail.start_time.split(":")
             var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
             this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
             this.editEventForm.controls['event_start_time'].setValue(start_time_key)
           }
-          alert('event_end_time');
-          alert(this.singleEventDetail.end_time)
+          // alert(this.singleEventDetail.end_time + 'end time')
           if(this.singleEventDetail.end_time){
+
             var end_time = this.singleEventDetail.end_time.split(":")
             var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
-            this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
+            this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date);
             this.editEventForm.controls['event_end_time'].setValue(end_time_key)
-            alert(end_time_key)
+            //  alert(end_time_key + 'endtimekey')
           }
          
   
@@ -362,26 +367,34 @@ export class EventAndTicketTypesComponent implements OnInit {
           // var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
         
           
-         
-            
-          
-          // this.todayDate = this.datePipe.transform(new Date(),"MM-DD-YYYY")
-          this.selectedStartDate = moment(new Date()).format('MM-DD-YYYY');
-          // this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"MM-DD-YYYY")
-          this.selectedStartDate = moment(new Date(this.singleEventDetail.start_date)).format('MM-DD-YYYY');
-          this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
-          this.currentTime = this.transformTime(this.currentTime)
-          this.startTimeForCheck = this.transformTime2Part(this.singleEventDetail.start_time)
-        if(this.singleEventDetail.start_date < this.todayDate){
-          this.minEventStartDate = this.singleEventDetail.start_date
-        }else{
-          this.minEventStartDate = this.todayDate
-        }
+         this.currentDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+         console.log(this.currentDate + '  ' + 'today date')
+         this.eventStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date), 'yyyy-MM-dd')
+         console.log(this.eventStartDate + '  ' +'strat event date')
+         this.currentTimeToday = this.datePipe.transform(new Date(),"hh:mm")
+         console.log(this.currentTimeToday + '  ' +'current time')
+         this.SingleEventStartTime = this.transformTime2Part(this.singleEventDetail.start_time)
+         console.log(this.SingleEventStartTime + '  ' + 'start event time')
 
-        console.log('this.todayDate ---- '+this.todayDate)
-        console.log('this.selectedStartDate ---- '+this.selectedStartDate)
-        console.log('this.currentTime ---- '+this.currentTime)
-        console.log('this.singleEventDetail.start_time ---- '+this.startTimeForCheck)
+        
+        //  // this.todayDate = this.datePipe.transform(new Date(),"MM-DD-YYYY")
+        //   this.selectedStartDate = moment(new Date()).format('MM-DD-YYYY');
+        //   // this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"MM-DD-YYYY")
+        //   this.selectedStartDate = moment(new Date(this.singleEventDetail.start_date)).format('MM-DD-YYYY');
+        //   this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
+        //   this.currentTime = this.transformTime(this.currentTime)
+        //   this.startTimeForCheck = this.transformTime2Part(this.singleEventDetail.start_time)
+      
+      if(this.currentDate > this.eventStartDate){
+
+      }else if(this.currentDate == this.eventStartDate){
+
+      }
+
+        // console.log('this.todayDate ---- '+this.todayDate)
+        // console.log('this.selectedStartDate ---- '+this.selectedStartDate)
+        // console.log('this.currentTime ---- '+this.currentTime)
+        // console.log('this.singleEventDetail.start_time ---- '+this.startTimeForCheck)
         // alert('date-check---'+(this.todayDate > this.selectedStartDate))
         // alert('time-check---'+this.currentTime > this.startTimeForCheck)
         }else{
