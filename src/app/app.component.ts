@@ -322,7 +322,7 @@ export class AppComponent {
         this.router.navigate(["super-admin"]);
         // this.loginForm.controls['email'].setValue(data.userData.email);
       }else if(data.idExists == true && data.emailExists == false){
-        
+        this.router.navigate(["super-admin"]);
         this._snackBar.open("You are successfully registered with Eventjio.", "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -335,6 +335,7 @@ export class AppComponent {
         // //this.dataLoaded = true;
       }else if(data.idExists == false && data.emailExists == false){
         // this.fnSignup(user);this.isAllowed=true;
+        this.router.navigate(["super-admin"]);
         this._snackBar.open("You are successfully registered with Eventjio.", "X", {
           duration: 2000,
           verticalPosition: 'top',

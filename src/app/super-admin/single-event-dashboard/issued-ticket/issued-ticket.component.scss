@@ -835,3 +835,10 @@
         }
     }
 }
+
+::ng-deep .error {
+    color: red;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 15px;
+}

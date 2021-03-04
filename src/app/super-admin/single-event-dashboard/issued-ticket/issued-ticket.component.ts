@@ -317,6 +317,7 @@ export class ExportDoorListComponent {
   selectedCustomerFields:any=[];
   selectedAttendeeQuestion:any=[];
   recurringEvent:any='N';
+  totalQuestionExportCount:any=0;
   selectedOccurrence:any;
   constructor(
     public dialogRef: MatDialogRef<ExportDoorListComponent>,
@@ -372,8 +373,6 @@ export class ExportDoorListComponent {
       }
       this.isLoaderAdmin = false;
     });
-
-
   }
 
 
@@ -455,10 +454,12 @@ export class ExportDoorListComponent {
     // selectedQuestion = JSON.stringify(selectedQuestion)
     if(event.checked){
       this.selectedBuyerQuestion.push(selectedQuestion);
+      this.totalQuestionExportCount = this.totalQuestionExportCount+1
     }else{
       const index = this.selectedBuyerQuestion.indexOf(selectedQuestion, 0);
       if (index > -1) {
           this.selectedBuyerQuestion.splice(index, 1);
+          this.totalQuestionExportCount = this.totalQuestionExportCount-1
       }
     }
     console.log(this.selectedBuyerQuestion)
@@ -467,10 +468,12 @@ export class ExportDoorListComponent {
     // selectedQuestion = JSON.stringify(selectedQuestion)
     if(event.checked){
       this.selectedCustomerFields.push(selectedQuestion);
+      this.totalQuestionExportCount = this.totalQuestionExportCount+1
     }else{
       const index = this.selectedCustomerFields.indexOf(selectedQuestion, 0);
       if (index > -1) {
           this.selectedCustomerFields.splice(index, 1);
+          this.totalQuestionExportCount = this.totalQuestionExportCount-1
       }
     }
     console.log(this.selectedCustomerFields)
@@ -479,10 +482,12 @@ export class ExportDoorListComponent {
   fnAddAttendeeQtion(event, selectedQuestion){
     if(event.checked){
       this.selectedAttendeeQuestion.push(selectedQuestion);
+      this.totalQuestionExportCount = this.totalQuestionExportCount+1
     }else{
       const index = this.selectedAttendeeQuestion.indexOf(selectedQuestion, 0);
       if (index > -1) {
           this.selectedAttendeeQuestion.splice(index, 1);
+          this.totalQuestionExportCount = this.totalQuestionExportCount-1
       }
     }
   }

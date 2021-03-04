@@ -47,6 +47,7 @@
         </div>
 
         <div class="row m-0 mt-3">
+            <small *ngIf="totalQuestionExportCount > 5" class="error">Warning: a maximum of 5 questions will be shown</small>
             <div class="question-list pr-2">
                 <label for="">Buyer questions</label>
                 <div *ngFor="let buyerQtion of buyerQtionList; let i=index" class="ques-checkbox w-100">

@@ -375,27 +375,22 @@ export class EventsComponent implements OnInit {
               element.remaining = undefined
             }
           }else if(element.event_occurrence_type === 'Y'){
-          
-            if(element.occurrence.length != 0){
+            if(element.occurrence.length > 0){
               element.totalOccurrencSold = 0;
               element.totalOccurrencRemaining = 0;
               element.totalOccurrencRevenue = 0;
               element.occurrence.forEach(element1 => {
-                if(element1.soldout.length > 0){
-
-                element.totalOccurrencSold = element.totalOccurrencSold+element1.soldout[0].Sold
+                if(element1.soldout && element1.soldout.length > 0){
+                  element.totalOccurrencSold = element.totalOccurrencSold+parseInt(element1.soldout[0].Sold)
                 }
-                if(element1.remaining.length > 0){
-
-                element.totalOccurrencRemaining = element.totalOccurrencSold+element1.remaining[0].Remaining
+                if(element1.remaining && element1.remaining.length > 0){
+                  element.totalOccurrencRemaining = element.totalOccurrencSold+parseInt(element1.remaining[0].Remaining)
                 }
                 if(element1.final_revenue && element1.final_revenue.length > 0){
-
-                element.totalOccurrencRevenue = element.totalOccurrencSold+element1.final_revenue[0].Revenue
+                  element.totalOccurrencRevenue = element.totalOccurrencSold+parseInt(element1.final_revenue[0].Revenue)
                 }
               });
             }else{
-             
               element.totalOccurrencSold = 'Occurrence not created'
               element.totalOccurrencRemaining = 'Occurrence not created'
               element.totalOccurrencRevenue = 'Occurrence not created'
@@ -502,17 +497,14 @@ export class EventsComponent implements OnInit {
               element.totalOccurrencRemaining = 0;
               element.totalOccurrencRevenue = 0;
               element.occurrence.forEach(element1 => {
-                if(element1.soldout.length > 0){
-
-                element.totalOccurrencSold = element.totalOccurrencSold+element1.soldout[0].Sold
+                if(element1.soldout && element1.soldout.length > 0){
+                  element.totalOccurrencSold = element.totalOccurrencSold+element1.soldout[0].Sold
                 }
-                if(element1.remaining.length > 0){
-
-                element.totalOccurrencRemaining = element.totalOccurrencSold+element1.remaining[0].Remaining
+                if(element1.remaining && element1.remaining.length > 0){
+                  element.totalOccurrencRemaining = element.totalOccurrencSold+element1.remaining[0].Remaining
                 }
                 if(element1.final_revenue && element1.final_revenue.length > 0){
-
-                element.totalOccurrencRevenue = element.totalOccurrencSold+element1.final_revenue[0].Revenue
+                  element.totalOccurrencRevenue = element.totalOccurrencSold+element1.final_revenue[0].Revenue
                 }
               });
             }else{

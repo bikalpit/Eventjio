@@ -347,27 +347,16 @@ export class EventAndTicketTypesComponent implements OnInit {
             this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
             this.editEventForm.controls['event_start_time'].setValue(start_time_key)
           }
-          alert('event_end_time');
-          alert(this.singleEventDetail.end_time)
           if(this.singleEventDetail.end_time){
             var end_time = this.singleEventDetail.end_time.split(":")
+            console.log(end_time)
             var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
             this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
             this.editEventForm.controls['event_end_time'].setValue(end_time_key)
-            alert(end_time_key)
+            console.log(parseInt(end_time_key))
           }
          
-  
-          // var end_time = this.singleEventDetail.end_time.split(":")
-          // var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
-        
-          
-         
-            
-          
-          // this.todayDate = this.datePipe.transform(new Date(),"MM-DD-YYYY")
           this.selectedStartDate = moment(new Date()).format('MM-DD-YYYY');
-          // this.selectedStartDate = this.datePipe.transform(new Date(this.singleEventDetail.start_date),"MM-DD-YYYY")
           this.selectedStartDate = moment(new Date(this.singleEventDetail.start_date)).format('MM-DD-YYYY');
           this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
           this.currentTime = this.transformTime(this.currentTime)
@@ -378,12 +367,6 @@ export class EventAndTicketTypesComponent implements OnInit {
           this.minEventStartDate = this.todayDate
         }
 
-        console.log('this.todayDate ---- '+this.todayDate)
-        console.log('this.selectedStartDate ---- '+this.selectedStartDate)
-        console.log('this.currentTime ---- '+this.currentTime)
-        console.log('this.singleEventDetail.start_time ---- '+this.startTimeForCheck)
-        // alert('date-check---'+(this.todayDate > this.selectedStartDate))
-        // alert('time-check---'+this.currentTime > this.startTimeForCheck)
         }else{
           this.editEventForm = this._formBuilder.group({
             event_name: ['',[Validators.required]],
