@@ -111,7 +111,7 @@
 
                                         <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
                                             <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
-                                        </mat-select> -->
+                                        </mat-select>
                                         <span style="left:0" class="error-wrap pl-2"
                                             *ngIf="editEventForm.get('event_end_time').touched || editEventForm.get('event_end_time').dirty">
                                             <small *ngIf="editEventForm.get('event_end_time').hasError('required')"
