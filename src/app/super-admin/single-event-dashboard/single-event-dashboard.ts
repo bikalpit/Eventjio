@@ -28,6 +28,8 @@ export class SingleEventDashboard implements OnInit {
   subPermission:any=[];
   isPastEvent:boolean=false;
   keepMe:any;
+  selectedOccurrence:any='all';
+  recurringEvent:any='N';
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -44,6 +46,9 @@ export class SingleEventDashboard implements OnInit {
     } else {
       this.currentUser =  JSON.parse(sessionStorage.getItem('currentUser'))
     }
+    // if(localStorage.getItem('selectedOccurrence')){
+    //   this.selectedOccurrence = localStorage.getItem('selectedOccurrence');
+    // }
 
       if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
         if(localStorage.getItem('permision_EM') != 'TRUE'){
@@ -67,7 +72,6 @@ export class SingleEventDashboard implements OnInit {
   ngOnInit(): void {
     this.fnGetEventDetail();
     this.fnGetBoxOfficeDetail();
-    this.fnEventSummery();
   }
 
   fnEventSummery(){
@@ -86,6 +90,22 @@ export class SingleEventDashboard implements OnInit {
 
   }
 
+  
+  getSingleOccurrenceSummary(occurrenceCode){
+    let requestObject = {
+      'occurrence_id' : occurrenceCode,
+      'event_id' : this.eventId,
+    };
+    
+    this.SingleEventServiceService.singleOccurrenceDetail(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.eventSummery = response.response;
+      } else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+    });    
+  }
+
   fnGetEventDetail(){
 
     let requestObject = {
@@ -96,6 +116,8 @@ export class SingleEventDashboard implements OnInit {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
         localStorage.setItem('isRecurrenceEvent',this.eventDetail.event_occurrence_type)
+        
+        this.recurringEvent = this.eventDetail.event_occurrence_type;
         if(this.eventDetail.event_occurrence_type == 'N'){
           this.isPastEvent = response.response.past;
         }
@@ -104,6 +126,13 @@ export class SingleEventDashboard implements OnInit {
         }else{
         }
         this.eventStatus = this.eventDetail.event_status;
+        if(this.recurringEvent == 'Y'){
+          
+          this.getSingleOccurrenceSummary(this.selectedOccurrence);
+        }else{ 
+
+          this.fnEventSummery();
+        }
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }

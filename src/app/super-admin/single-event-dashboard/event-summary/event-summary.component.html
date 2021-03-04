@@ -84,8 +84,11 @@
             <div class="title">
                 DAYS TO GO
             </div>
-            <div class="count ">
+            <div *ngIf="recurringEvent == 'N'" class="count ">
                 {{eventSummery && eventSummery.totalTicket ? eventSummery.totalTicket.daysToGo : 0}} Days
+            </div>
+            <div *ngIf="recurringEvent == 'Y'" class="count ">
+                -
             </div>
         </div>
         <div class="total-ticket-summary text-center" fxFlex="25">
