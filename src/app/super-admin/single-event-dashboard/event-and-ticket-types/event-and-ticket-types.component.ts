@@ -76,8 +76,11 @@ export class EventAndTicketTypesComponent implements OnInit {
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
   protected _onDestroy = new Subject<void>();
-
-
+  currentDate:any;
+  eventStartDate:any;
+  SingleEventStartTime:any;
+  currentTimeToday:any;
+  eventStarted:any;
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,
@@ -319,6 +322,8 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.singleEventDetail= response.response.event[0];
+        this.eventStarted = response.response.event_started;
+        console.log(this.eventStarted);
         if(this.singleEventDetail.images.length !== 0){
           if(this.singleEventDetail.images[0].type == 'default'){
             this.eventImageType = this.singleEventDetail.images[0].image_name
@@ -342,18 +347,20 @@ export class EventAndTicketTypesComponent implements OnInit {
           }else{
             this.startEndSameDate = false;
           }
-         
+          // alert(this.singleEventDetail.start_time + 'start time')
           if(this.singleEventDetail.start_time){
             var start_time = this.singleEventDetail.start_time.split(":")
             var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
             this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
             this.editEventForm.controls['event_start_time'].setValue(start_time_key)
           }
+          // alert(this.singleEventDetail.end_time + 'end time')
           if(this.singleEventDetail.end_time){
+
             var end_time = this.singleEventDetail.end_time.split(":")
             console.log(end_time)
             var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
-            this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
+            this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date);
             this.editEventForm.controls['event_end_time'].setValue(end_time_key)
             console.log(parseInt(end_time_key))
           }
