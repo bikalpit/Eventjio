@@ -533,6 +533,21 @@ export class EventsComponent implements OnInit {
     this.router.navigate([redirectUrl]);
   }
 
+  
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour > 11){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
  
 
   // time formate 12 to 24
@@ -775,7 +790,7 @@ export class EventsComponent implements OnInit {
         'start_date':this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
         'end_date': this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
         'start_time':this.fullDayTimeSlote[this.addEventForm.get('event_start_time').value],
-        'end_time':this.addEventForm.get('event_end_time').value,
+        'end_time':this.fullDayTimeSlote[this.addEventForm.get('event_end_time').value],
         'venue_name':this.addEventForm.get('vanue_name').value,
         'postal_code':this.addEventForm.get('vanue_zip').value,
         'country':this.addEventForm.get('vanue_country').value,
@@ -1122,6 +1137,22 @@ export class AddNewTicketType {
     
   }
 
+  
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour > 11){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
+ 
   
   fnChangeQTY(event){
     this.addTicketForm.controls['min_order'].setValue(null);

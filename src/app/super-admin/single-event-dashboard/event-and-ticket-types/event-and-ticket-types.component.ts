@@ -142,7 +142,10 @@ export class EventAndTicketTypesComponent implements OnInit {
     let min = (time.split(':'))[1];
     let part = 'AM';
     let finalhrs = hour
-    if(hour > 12){
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour > 11){
       finalhrs  = hour - 12
       part = 'PM' 
     }
@@ -244,10 +247,9 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.SingleEventServiceService.getTimeSlote(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.fullDayTimeSlote= response.response;
-        this.fullDayTimeSlote.forEach(element => {
-          element = this.transformTime24To12(element)
-        });
-        console.log(this.fullDayTimeSlote)
+        // this.fullDayTimeSlote.forEach(element => {
+        //   element = this.transformTime24To12(element)
+        // });
         this.getSingleEvent();
 
       }
@@ -1234,9 +1236,26 @@ export class AddNewTicketType {
 
   }
 
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour > 11){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
+
   fnAvailDateChange(event){
     this.minUnavailDate = event.value
-    this.minAvailDate = new Date();
+    // if(this.recurringEvent == 'Y'){
+    // this.minAvailDate = new Date();
+    // }
     if(this.recurringEvent == 'N'){
       this.addTicketForm.controls['until_time'].setValue(null);
       this.addTicketForm.controls['after_date'].setValue(null);
@@ -1444,6 +1463,7 @@ export class AddNewTicketType {
   
 
   fnSubmitAddTicketForm(){
+    console.log(this.addTicketForm)
     if(this.addTicketForm.invalid){
       if(this.recurringEvent == 'N'){
         this.addTicketForm.get('title').markAsTouched();
