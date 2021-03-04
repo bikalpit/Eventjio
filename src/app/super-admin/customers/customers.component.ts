@@ -219,8 +219,8 @@ export class CustomersComponent implements OnInit {
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);     
       }
-    });
     this.isLoaderAdmin = false;
+    });
  }
 
  
@@ -244,8 +244,8 @@ export class CustomersComponent implements OnInit {
         this.customerDetails = null;
         this.addFormButtonDiv = false;
       }
-    });
       this.isLoaderAdmin = false;
+    });
 }
 
  editCustomerDetails(){
@@ -271,19 +271,19 @@ export class CustomersComponent implements OnInit {
       this.selectedCustomerDetails = null;
       this.ErrorService.errorMessage(response.response);
     }
-  });
   this.isLoaderAdmin = false;
+  });
 }
 
 fnSelectCustomer(selectedCustomerCode){
 
+  this.isLoaderAdmin = true;
   this.selectedCustomerCode = selectedCustomerCode;
     
   if(!selectedCustomerCode){
     return false;
   }
 
-  this.isLoaderAdmin = true;
   let requestObject =  {
     "unique_code": selectedCustomerCode,
   };
@@ -291,14 +291,17 @@ fnSelectCustomer(selectedCustomerCode){
     if(response.data == true){
       this.selectedCustomerDetails = response.response.customer;
       this.allEventListData = response.response
+      if(this.allEventListData.lastOrder){
+
       this.lastEventDateTime = moment(this.allEventListData.lastOrder.start_date +' '+this.allEventListData.lastOrder.start_time).format('d MMM y, hh:mm a');
+      }
       // this.lastEventDateTime = this.datePipe.transform(new Date(this.allEventListData.lastOrder.start_date), 'MMM d, y')+', '+this.datePipe.transform(new Date(this.allEventListData.lastOrder.start_time), 'h:mm:ss a')
       this.addFormButtonDiv = true;
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);
     }
-  });
     this.isLoaderAdmin = false;
+  });
   
 }
 
@@ -318,8 +321,8 @@ fnUpdateCustomer(requestObject){
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    });
       this.isLoaderAdmin = false;
+    });
 }
 
 
@@ -350,8 +353,8 @@ deleteCustomerDetails(){
         this.ErrorService.errorMessage(response.response);
 
       }
-    });
       this.isLoaderAdmin = false;
+    });
   }
 
   ExportFile(){
@@ -383,8 +386,8 @@ deleteCustomerDetails(){
           panelClass : ['red-snackbar']
         });
       }
-    });
         this.isLoaderAdmin = false;
+    });
   }
   
   
@@ -404,8 +407,8 @@ deleteCustomerDetails(){
         this.allEventListData.length = 0;
         this.ErrorService.errorMessage(response.response);
       }
-    });
     this.isLoaderAdmin = false;
+    });
   }
 
   fnFilterCustomer(event){
@@ -423,8 +426,8 @@ deleteCustomerDetails(){
         this.filterEventlist = response.response
         console.log(this.filterEventlist);
       }
-    });
     this.isLoaderAdmin = false;
+    });
   }
 
 }
@@ -508,8 +511,8 @@ export class DialogImportFileUpload {
         this.ErrorService.errorMessage(response.response);
 
       }
-    });
       this.isLoaderAdmin = false;
+    });
 
 
   //  let requestObject={

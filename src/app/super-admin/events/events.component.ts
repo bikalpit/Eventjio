@@ -177,19 +177,20 @@ export class EventsComponent implements OnInit {
     
    
   ngOnInit(): void {
+    
     this.getAllCountry();
     this.getAllTimeZone();
     this.getDefaultImages();
     this.getTimeSlote();
     this.getAllCurrancy();
-    this.SuperadminService.getIPAddress().subscribe((res:any)=>{  
+    
+    this.isLoaderAdmin = true;
+    this.SuperadminService.getIPAddress().subscribe((res:any)=>{ 
+      this.isLoaderAdmin = false 
       this.ipAddress = res.ip
       this.fnGetUpcomingEventList();
       this.fnGetPastEventList();
     });
-    
-
-    
   }
 
   
@@ -402,24 +403,14 @@ export class EventsComponent implements OnInit {
             }
           }
          
-          // if(element.event_occurrence_type == 'Y' && element.occurrence.length == 0){ 
-          //   element.occurrence = 'Occurrence not created';
-          // }
-          // if(element.event_occurrence_type == 'Y' && element.final_revenue.length == 0){
-          //   element.final_revenue = 'Occurrence not created'
-          // }
-          // if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
-          //   element.remaining = 'Occurrence not created'
-          // }
-         
         });
 
         this.addNewEvents = true;
       }else if(response.data == false){
         this.allUpcomingEventListData.length = 0;
       }
+        this.isLoaderAdmin = false;
     });
-    this.isLoaderAdmin = false;
   }
 
   arrayOneUpcomming(n: number): any[] {
@@ -441,9 +432,7 @@ export class EventsComponent implements OnInit {
   }
 
   fnGetPastEventList(){
-    
     this.isLoaderAdmin = true;
-
     let requestObject = {
       'boxoffice_id'  :this.boxOfficeCode,
       // 'IP_address':'123.201.143.228',
@@ -469,21 +458,6 @@ export class EventsComponent implements OnInit {
 
         this.allPastEventListData.forEach(element => {
           element.start_date =  this.datePipe.transform(element.start_date,"EEE MMM d, y")
-          // if(element.event_occurrence_type == 'Y' && element.soldout.length == 0){
-          //   element.soldout = 'Occurrence not created'
-          // }
-          // if(element.event_occurrence_type == 'Y' && element.final_revenue.length == 0){
-          //   element.final_revenue = 'Occurrence not created'
-          // }
-          // if(element.event_occurrence_type == 'Y' && element.remaining.length == 0){
-          //   element.remaining = 'Occurrence not created'
-          // }
-          // if(element.event_tickets.length === 0){
-          //   element.soldout = undefined
-          //   element.final_revenue = undefined
-          //   element.remaining = undefined
-          // }
-
           if(element.event_occurrence_type === 'N'){
             if(element.event_tickets.length === 0){
               element.soldout = undefined
@@ -526,8 +500,8 @@ export class EventsComponent implements OnInit {
       }else if(response.data == false){
         this.allPastEventListData.lenght = 0
       }
+        this.isLoaderAdmin = false;
     });
-    this.isLoaderAdmin = false;
   }
 
 
@@ -615,8 +589,8 @@ export class EventsComponent implements OnInit {
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    });
     this.isLoaderAdmin = false;
+    });
   }
 
   fnCancelNewEvent(){
@@ -898,8 +872,8 @@ export class EventsComponent implements OnInit {
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    });
     this.isLoaderAdmin = false;
+    });
 
   }
   
@@ -1234,8 +1208,8 @@ export class AddNewTicketType {
       this.ErrorService.errorMessage(response.response);
       this.allCouponCodeList = null;
       }
-    })
       this.isLoaderAdmin = false;
+    })
   }
 
   fnAddCoupon(event, couponCode){
