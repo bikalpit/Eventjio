@@ -112,10 +112,12 @@
                         text-align: center;
                         line-height: 1.6;
                         &.facebook {
-                            color: #475992;
+                            color: #ffff !important;
+                            background-color: #475992;
                         }
                         &.google_plus {
-                            color: #f34a38 !important;
+                            color: #fff !important;
+                            background-color: #f34a38 !important;
                         }
                     }
                 }

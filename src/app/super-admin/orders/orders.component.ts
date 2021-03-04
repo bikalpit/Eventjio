@@ -148,8 +148,8 @@ export class OrdersComponent implements OnInit {
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response)
       }
-    });
     this.isLoaderAdmin=false;
+    });
   }
 
   editOrder(Orderdata){
@@ -264,8 +264,8 @@ export class OrdersComponent implements OnInit {
         this.ErrorService.errorMessage(response.response);
       }
       this.change.detectChanges();
-    });
     this.isLoaderAdmin = false;
+    });
 
   }
   
@@ -785,9 +785,9 @@ export class ExportOrderDialog {
             }else{
               this.ErrorService.errorMessage(response.response);
             }
+        this.isLoaderAdmin = false;
         });
 
-        this.isLoaderAdmin = false;
     }
 
     if(this.reportType=="lineItem"){
@@ -844,9 +844,9 @@ export class ExportOrderDialog {
         }else{
           this.ErrorService.errorMessage(response.response);
         }
+    this.isLoaderAdmin = false;
       });
       
-    this.isLoaderAdmin = false;
     }
 
   }
@@ -916,8 +916,8 @@ export class AddNewOrderDialog {
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response)
       }
-    });
     this.isLoaderAdmin=false;
+    });
   }
 
   fnBookOccurrence(occurrenceCode){
@@ -968,8 +968,8 @@ export class AddNewOrderDialog {
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    });
     this.isLoaderAdmin = false;
+    });
   }
 
   bookTicket(singleEventData) {
@@ -1141,8 +1141,8 @@ export class BookTicketDialog {
 
         
       } 
-    });
       this.isLoaderAdmin = false;
+    });
 
   }
 
@@ -1181,8 +1181,8 @@ export class BookTicketDialog {
         this.eventForm = [];
         this.ErrorService.errorMessage(response.response);
       }
-    });
       this.isLoaderAdmin = false;
+    });
 
 
   }
@@ -1267,8 +1267,8 @@ export class BookTicketDialog {
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    });
       this.isLoaderAdmin = false;
+    });
   }
 
   optionsArr(arr){
@@ -1309,8 +1309,8 @@ export class BookTicketDialog {
         });
 
       }
-    });
     this.isLoaderAdmin = false;
+    });
   }
 
   fnGetOccurrenceTicket(){
@@ -1331,8 +1331,8 @@ export class BookTicketDialog {
         });
 
       }
-    });
     this.isLoaderAdmin = false;
+    });
   }
    
 
@@ -1435,8 +1435,8 @@ export class BookTicketDialog {
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    });
       this.isLoaderAdmin = false;
+    });
 
   }
 
@@ -1741,9 +1741,9 @@ export class ConfirmpaymentreceivedDialog {
         this.dialogRef.close();
       }else{
         this.errorService.successMessage(response.response);
-      }
+      }this.isLoaderAdmin = false;
     });
-    this.isLoaderAdmin = false;
+    
   }
 }
 
@@ -1860,8 +1860,8 @@ export class EditorderDialog {
         } else if(response.data == false){
           this.errorMessage.errorMessage(response.response);
         }
-      });
         this.isLoaderAdmin = false;
+      });
 
     } 
 
@@ -1911,8 +1911,8 @@ export class EditorderDialog {
         } else if(response.data == false){
           this.errorMessage.errorMessage(response.response);
         }
-      });
       this.isLoaderAdmin = false;
+      });
 
     }
 
@@ -1968,8 +1968,8 @@ export class EditorderDialog {
         }else{
           this.errorMessage.errorMessage(response.response);
         }
-      });
       this.isLoaderAdmin = false;
+      });
     }
 
     optionsArr(arr){
@@ -2100,8 +2100,8 @@ export class EditorderDialog {
         } else if(response.data == false){
           this.errorMessage.errorMessage(response.response);
         }
-      });
         this.isLoaderAdmin = false;
+      });
 
     }
 
@@ -2150,9 +2150,9 @@ export class cancelOrderDialog {
       }else{
         this.ErrorService.errorMessage(response.response);
       }
+    this.isLoaderAdmin = false;
     });
 
-    this.isLoaderAdmin = false;
   }
 
   cancelthisOrder(){
@@ -2172,8 +2172,8 @@ export class cancelOrderDialog {
       }else{
           this.ErrorService.errorMessage(response.response);
       }
-    });
       this.isLoaderAdmin = false;
+    });
     
   }
 

@@ -47,6 +47,7 @@
         </div>
 
         <div class="row m-0 mt-3">
+            <small *ngIf="totalQuestionExportCount > 5" class="error">Warning: a maximum of 5 questions will be shown</small>
             <div class="question-list pr-2">
                 <label for="">Buyer questions</label>
                 <div *ngFor="let buyerQtion of buyerQtionList; let i=index" class="ques-checkbox w-100">
@@ -68,11 +69,11 @@
                         <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'state')">State</mat-checkbox>
                         <mat-checkbox class="d-flex" (change)="fnAddCustomerFields($event,'zipcode')">Zipcode</mat-checkbox>
                     </div>
-                    <div *ngIf="((!buyerQtion.addressForamteStyle) && buyerQtion.label != 'Name') && ((!buyerQtion.addressForamteStyle) && buyerQtion.label != 'Email') && ((!buyerQtion.addressForamteStyle) && buyerQtion.label != 'Mobile Phone Number')">
+                    <div *ngIf="((!buyerQtion.addressForamteStyle) && buyerQtion.controlName != 'name') && ((!buyerQtion.addressForamteStyle) && buyerQtion.controlName != 'email') && ((!buyerQtion.addressForamteStyle) && buyerQtion.controlName != 'phone')">
                         <mat-checkbox (change)="fnAddBuyerQtion($event,buyerQtion.label)">{{buyerQtion.label}}</mat-checkbox>
                     </div>
-                    <div *ngIf="buyerQtion.label == 'Name' || buyerQtion.label == 'Email' || buyerQtion.label == 'Mobile Phone Number'">
-                        <mat-checkbox (change)="fnAddCustomerFields($event,buyerQtion.label)">{{buyerQtion.label}}</mat-checkbox>
+                    <div *ngIf="buyerQtion.controlName == 'name' || buyerQtion.controlName== 'email' || buyerQtion.controlName == 'phone'">
+                        <mat-checkbox (change)="fnAddCustomerFields($event,buyerQtion.controlName)">{{buyerQtion.label}}</mat-checkbox>
                     </div>
 
                 </div>
