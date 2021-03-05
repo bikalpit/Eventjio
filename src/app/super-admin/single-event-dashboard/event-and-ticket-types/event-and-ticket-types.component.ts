@@ -355,11 +355,11 @@ export class EventAndTicketTypesComponent implements OnInit {
           if(this.fullDayTimeSlote){
           var start_time = this.singleEventDetail.start_time.split(":")
           var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
-          alert(start_time_key + '   start time')
+          // alert(start_time_key + '   start time')
           
           var end_time = this.singleEventDetail.end_time.split(":")
           var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
-          alert(end_time_key + '   end time')
+          // alert(end_time_key + '   end time')
           }
           
           this.editEventForm.controls['event_start_time'].setValue(start_time_key)
