@@ -138,7 +138,7 @@
                         <div class="col-3 d-inline-block">
                             <label for="">Time :</label>
                             <mat-select formControlName="scheduledTime" class="form-control">
-                                <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                             </mat-select><br>
                             <span class="error-wrap" *ngIf="createBroadcastForm.get('scheduledTime').touched || createBroadcastForm.get('scheduledTime').dirty">
                                 <small *ngIf="createBroadcastForm.get('scheduledTime').hasError('required')" class="error">Scheduled time is required.</small>

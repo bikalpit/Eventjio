@@ -293,9 +293,9 @@ export class EventSummaryComponent implements OnInit {
   fnChangeOccurrence(value){
     this.selectedOccurrence = value
     localStorage.setItem('selectedOccurrence',this.selectedOccurrence);
-    if(this.selectedOccurrence != 'all'){
+    // if(this.selectedOccurrence != 'all'){
       this.getSingleOccurrenceSummary(this.selectedOccurrence);
-    }
+    // }
   }
 
   fnGetEventDetail(){
@@ -312,55 +312,48 @@ export class EventSummaryComponent implements OnInit {
           this.getAllOccurrenceList('all');   
           this.getAllOccurrenceList('upcoming');   
           this.getAllOccurrenceList('past');   
+          this.fnOccurrenceSummary(this.selectedOccurrence);
         }else{
           localStorage.removeItem('selectedOccurrence');
+          let request = {
+            'event_id' : this.eventId,
+          }
+      
+          this.SingleEventServiceService.getSingleSummery(request).subscribe((response:any) => {
+            if(response.data == true){
+              this.eventSummery = response.response;
+              let data = [];
+              let arrayLable = [];
+              if(this.eventSummery.graphSale){
+                this.eventSummery.graphSale.forEach(element => {
+                  data.push(element.sale);
+                  arrayLable.push(element.date);
+                });
+                this.fnChartView(data,arrayLable);
+              }
+      
+              // data = [];
+              // arrayLable = [];
+      
+              // if(this.eventSummery.graphViews){
+              //   this.eventSummery.graphViews.forEach(element => {
+              //     data.push(element.sale);
+              //     arrayLable.push(element.date);
+              //   });
+              //   this.fnChartView2(data,arrayLable);
+              // }
+              
+      
+            } else if(response.data == false){
+              this.ErrorService.errorMessage(response.response);
+            }
+          });
         }
         this.currencycode = this.eventDetail.event_setting.currency ? this.eventDetail.event_setting.currency  : 'USD';
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
     });
-
-    if(this.recurringEvent == 'Y' && (this.selectedOccurrence && this.selectedOccurrence != 'all')){
-      this.fnOccurrenceSummary(this.selectedOccurrence);
-    }else{
-    let request = {
-      'event_id' : this.eventId,
-    }
-
-    this.SingleEventServiceService.getSingleSummery(request).subscribe((response:any) => {
-      if(response.data == true){
-        this.eventSummery = response.response;
-        let data = [];
-        let arrayLable = [];
-        if(this.eventSummery.graphSale){
-          this.eventSummery.graphSale.forEach(element => {
-            data.push(element.sale);
-            arrayLable.push(element.date);
-          });
-          this.fnChartView(data,arrayLable);
-        }
-
-        // data = [];
-        // arrayLable = [];
-
-        // if(this.eventSummery.graphViews){
-        //   this.eventSummery.graphViews.forEach(element => {
-        //     data.push(element.sale);
-        //     arrayLable.push(element.date);
-        //   });
-        //   this.fnChartView2(data,arrayLable);
-        // }
-        
-
-      } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
-      }
-    });
-    this.isLoaderAdmin=false;
-    
-      
-  }
   }
 
   fnOccurrenceDelete(occurrenceCode){
@@ -389,15 +382,16 @@ export class EventSummaryComponent implements OnInit {
 
   fnOccurrenceSummary(occurrenceCode){
     this.selectedOccurrence = occurrenceCode
-    if(this.selectedOccurrence != 'all'){
+    // if(this.selectedOccurrence != 'all'){
       this.getSingleOccurrenceSummary(occurrenceCode);
-    }
+    // }
   }
 
   getSingleOccurrenceSummary(occurrenceCode){
     this.isLoaderAdmin=true;
     let requestObject = {
       'occurrence_id' : occurrenceCode,
+      'event_id' : this.eventId,
     };
     
     this.SingleEventServiceService.singleOccurrenceDetail(requestObject).subscribe((response:any) => {

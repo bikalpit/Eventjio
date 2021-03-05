@@ -77,6 +77,7 @@ export class BroadcastComponent implements OnInit {
     this.selectedOccurrence = event.value
     this.occurrenceError = false;
   }
+  
 
   fnOnSubmitForm(status){
     // console.log(this.createBroadcastForm);

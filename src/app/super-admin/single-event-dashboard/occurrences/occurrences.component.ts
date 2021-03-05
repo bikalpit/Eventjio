@@ -325,6 +325,22 @@ export class addRepeatOccurrence {
       this.minSelectEndDate.push(new Date());
     }
 
+    
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour > 11){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
+
     onSubmit(){
       this.dayTimeArr = this.dayTimeForm.get('dayTimeArr') as FormArray;
       this.startEndTime = this.dayTimeForm.value.dayTimeArr;
@@ -462,6 +478,7 @@ export class addRepeatOccurrence {
 
     }
     
+
  
   changeEvent(event,index){
       this.minSelectEndDate[index] =event.value;

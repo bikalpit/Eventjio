@@ -18,7 +18,7 @@
                             <label>Start</label>
                             <div class="form-group">
                                 <mat-select [disabled]="!checkAllDayValue" formControlName="start_time" class="col-10 ml-2 form-control d-inline-block" (selectionChange)="onEnableEndTime($event,i)">
-                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{fullDayTimeSlote}}</mat-option>
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                             </div>
 
