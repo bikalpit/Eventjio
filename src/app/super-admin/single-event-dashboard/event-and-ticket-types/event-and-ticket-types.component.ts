@@ -563,7 +563,6 @@ export class EventAndTicketTypesComponent implements OnInit {
 
   fnOnChangeTime(i){
     console.log(i)
-    alert('1')
     this.editEventForm.get('event_end_time').setValue('');
   }
 

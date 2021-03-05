@@ -65,9 +65,20 @@ export class IssuedTicketComponent implements OnInit {
     if(localStorage.getItem('selectedEventCode')){
       this.event_id = localStorage.getItem('selectedEventCode')
     }
+    if(localStorage.getItem('isRecurrenceEvent')){
+      this.recurringEvent = localStorage.getItem('isRecurrenceEvent')
+    }
     if(localStorage.getItem('selectedOccurrence')){
       this.selectedOccurrence = localStorage.getItem('selectedOccurrence');
       
+    }
+
+    if(this.recurringEvent == 'Y'  && this.selectedOccurrence && this.selectedOccurrence != 'all'){
+      
+      this.path_getIssuedTicket = `${environment.apiUrl}/get-all-occurence-issue-ticket`
+    }else{
+      this.path_getIssuedTicket =  `${environment.apiUrl}/get-all-issue-ticket`;
+
     }
 
     this.boxoffice_id = localStorage.getItem('boxoffice_id')
@@ -93,11 +104,11 @@ export class IssuedTicketComponent implements OnInit {
   }
 
   issuedTickets(){
-    if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
-      this.path_getIssuedTicket = `${environment.apiUrl}/get-all-occurence-issue-ticket`
+    if(this.recurringEvent == 'Y' && this.selectedOccurrence && this.selectedOccurrence != 'all'){
+      // this.path_getIssuedTicket = `${environment.apiUrl}/get-all-occurence-issue-ticket`
       this.singleOccurrIssuedTickets(this.selectedOccurrence);
     }else{
-      this.path_getIssuedTicket =  `${environment.apiUrl}/get-all-issue-ticket`;
+      // this.path_getIssuedTicket =  `${environment.apiUrl}/get-all-issue-ticket`;
     let requestObject = {
       "event_id": this.event_id,
       "ticket_type": this.Ticket_Type,
@@ -122,7 +133,7 @@ export class IssuedTicketComponent implements OnInit {
         this.next_page_url_getIssuedTicket = response.response.next_page_url;
         this.prev_page_url_getIssuedTicket = response.response.prev_page_url;
         this.path_getIssuedTicket = response.response.path;
-        if(this.selectedOccurrence){
+        if(this.recurringEvent == 'Y' && this.selectedOccurrence){
           this.SingleEventDashboard.getSingleOccurrenceSummary(this.selectedOccurrence);
         }else{
         this.SingleEventDashboard.fnEventSummery();
@@ -230,7 +241,10 @@ export class IssuedTicketComponent implements OnInit {
       if (response.data == true) {
         this.EventDetail = response.response;
         this.recurringEvent = this.EventDetail.event[0].event_occurrence_type;
-
+        if(this.EventDetail.event[0].event_occurrence_type){
+          
+        this.issuedTickets();
+        }
         
         this.EventDetail.tickets.forEach((element,index,object) => {
           if(element == null || element =='null'){
@@ -238,7 +252,6 @@ export class IssuedTicketComponent implements OnInit {
           }
         });
 
-        this.issuedTickets();
       } else if (response.data == false) {
         this.ErrorService.errorMessage(response.response);
       }
@@ -268,6 +281,11 @@ export class IssuedTicketComponent implements OnInit {
   
   fnChangeOccurrence(event){
     this.selectedOccurrence = event.value
+    if(this.selectedOccurrence != 'all'){
+      this.path_getIssuedTicket = `${environment.apiUrl}/get-all-occurence-issue-ticket`
+    }else{
+      this.path_getIssuedTicket =  `${environment.apiUrl}/get-all-issue-ticket`;
+    }
     localStorage.setItem('selectedOccurrence',this.selectedOccurrence);
       this.issuedTickets();
   }
@@ -278,6 +296,7 @@ export class IssuedTicketComponent implements OnInit {
     
   navigateToTicket(api_url){
     this.path_getIssuedTicket=api_url;
+    console.log(this.path_getIssuedTicket)
     if(this.path_getIssuedTicket){
       this.issuedTickets();
     }

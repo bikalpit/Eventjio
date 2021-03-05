@@ -127,7 +127,6 @@ export class SingleEventDashboard implements OnInit {
         }
         this.eventStatus = this.eventDetail.event_status;
         if(this.recurringEvent == 'Y'){
-          
           this.getSingleOccurrenceSummary(this.selectedOccurrence);
         }else{ 
 
