@@ -44,11 +44,13 @@
                                         <label class="ml-2" for="">Start Time <span><i
                                                     class="fa fa-asterisk"></i></span> </label>
                                         <div *ngIf="singleEventDetail" class="form-group">
-                                            <mat-select [disabled]="eventStarted" *ngIf="!startdateToday" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
-                                                <mat-option (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+
+                                            <mat-select [disabled]="eventStarted" *ngIf="!startdateToday" (selectionChange)="fnOnChangeTime($event)" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                                <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                             </mat-select>
-                                            <mat-select *ngIf="startdateToday" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
-                                                <mat-option [disabled]="eventStarted" (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+
+                                            <mat-select *ngIf="startdateToday" (selectionChange)="fnOnChangeTime($event)" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
+                                                <mat-option [disabled]="eventStarted" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                             </mat-select>
                                             <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_start_time').touched || editEventForm.get('event_start_time').dirty">
                                                 <small
@@ -75,17 +77,14 @@
                                     <div class="col-md-5 form-group px-0">
                                         <label class="ml-2" for="">End Time<span><i class="fa fa-asterisk"></i></span>
                                         </label>
-                                        <!-- <mat-select formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
-                                        </mat-select> -->
 
-                                        <mat-select formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                        <mat-select *ngIf="!startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
+                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                         </mat-select>
 
 
                                         <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                                         </mat-select>
                                         <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_end_time').touched || editEventForm.get('event_end_time').dirty">
                                             <small *ngIf="editEventForm.get('event_end_time').hasError('required')"
@@ -95,6 +94,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <section class="form-group col-md-12 mt-3">
                             <mat-checkbox [checked]="olPlatForm == 'Y'" class="" (change)="fnolPlatform($event.checked)">This is on online event</mat-checkbox>
                         </section>
@@ -219,7 +220,8 @@
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
                                         <div class="image-status">
-                                            <mat-slider (change)="fnChangeThumbZoom($event)" class="image-slider" min="100" max="200" step="10" value="{{thumbZoomLavel}}"></mat-slider>
+                                            <mat-slider (change)="fnChangeThumbZoom($event)" class="image-slider" min="100" max="200" step="10" value="{{thumbZoomLavel}}">
+                                            </mat-slider>
                                         </div>
                                         <!-- <div class="">
                                             <button mat-raised-button class="delete-button">Delete Image</button>
@@ -246,7 +248,8 @@
                                 <div class="d-flex justify-content-center align-items-center mx-3">
                                     <div>
                                         <div class="image-status">
-                                            <mat-slider (change)="fnChangeBannerZoom($event)" class="image-slider" min="100" max="200" step="10" value="{{bannerZoomLavel}}"></mat-slider>
+                                            <mat-slider (change)="fnChangeBannerZoom($event)" class="image-slider" min="100" max="200" step="10" value="{{bannerZoomLavel}}">
+                                            </mat-slider>
                                         </div>
                                         <!-- <div class="">
                                             <button mat-raised-button class="delete-button">Delete Image</button>
@@ -273,7 +276,8 @@
                         </div> -->
                     </div>
                     <div *ngIf="eventTicketAlertMSG" class="p-3 mt-3 add-ticket-notification rounded">
-                        <div> <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button above
+                        <div> <i class="fa fa-bell mr-3"></i><span>Click the <b>Add a new ticket type</b> button
+                                above
                                 to add a ticket to your event.</span>
                         </div>
                     </div>
@@ -310,7 +314,8 @@
                             <label for="">Timezone<span><i class="fa fa-asterisk asterisk"></i></span> </label>
                             <div class="form-group ">
                                 <mat-select formControlName="timezone" class="form-control col-8 d-block" #singleSelect>
-                                    <ngx-mat-select-search [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
+                                    <ngx-mat-select-search [formControl]="timeZoneFilterCtrl">
+                                    </ngx-mat-select-search>
                                     <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" value="{{listTimeZone.id}}">({{listTimeZone.utc}}){{listTimeZone.name}}
                                     </mat-option>
                                 </mat-select>
@@ -338,7 +343,8 @@
                                     matTooltipPosition="above"><i class="fa fa-question"
                                         aria-hidden="true"></i></span></label>
                             <mat-select formControlName="currency" class="form-control" id="">
-                                <mat-option value="{{getCurrancy.CurrencyCode}}" *ngFor="let getCurrancy of getCurrancy; let i=index"> {{getCurrancy.CurrencyName}}
+                                <mat-option value="{{getCurrancy.CurrencyCode}}" *ngFor="let getCurrancy of getCurrancy; let i=index">
+                                    {{getCurrancy.CurrencyName}}
                                 </mat-option>
                             </mat-select>
                             <span class="error-wrap" *ngIf="editEventForm.get('currency').touched || editEventForm.get('currency').dirty">
@@ -393,7 +399,8 @@
 
 
                         <div class="form-group col-md-12 mt-2 mb-0 mt-3">
-                            <label for="">Customise the text that appears on the event button and in the title of the
+                            <label for="">Customise the text that appears on the event button and in the title of
+                                the
                                 event page <span><i class="fa fa-asterisk asterisk"></i></span></label>
                             <div class="form-group">
                                 <input formControlName="book_btn_title" type="text" class="form-control" placeholder="Book Tickets">

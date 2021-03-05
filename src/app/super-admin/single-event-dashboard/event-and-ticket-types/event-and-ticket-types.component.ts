@@ -348,36 +348,39 @@ export class EventAndTicketTypesComponent implements OnInit {
           }else{
             this.startEndSameDate = false;
           }
-          // alert(this.singleEventDetail.start_time + 'start time')
-          // if(this.singleEventDetail.start_time){
 
-            var end_time = this.singleEventDetail.end_time.split(":")
-            // var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
-            var end_time_key =  this.fullDayTimeSlote.indexOf(end_time[0]+":"+end_time[1], 0);
-            // alert(end_time_key)
-            this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
-            this.editEventForm.controls['event_end_time'].setValue(end_time_key)
-    
-          // if(this.singleEventDetail.end_time){
+          this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
+          this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
 
+          if(this.fullDayTimeSlote){
+          var start_time = this.singleEventDetail.start_time.split(":")
+          var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
+          // alert(start_time_key + '   start time')
           
-            
-            var start_time = this.singleEventDetail.start_time.split(":")
-            var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
-            this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
-            this.editEventForm.controls['event_start_time'].setValue(start_time_key)
-          // }
-          // }
+          var end_time = this.singleEventDetail.end_time.split(":")
+          var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+          // alert(end_time_key + '   end time')
+          }
+          
+          this.editEventForm.controls['event_start_time'].setValue(start_time_key)
+          this.editEventForm.controls['event_end_time'].setValue(end_time_key)
+          
+          // // alert(this.singleEventDetail.start_time + 'start time')
+          // // if(this.singleEventDetail.start_time){
+          //   var start_time = this.singleEventDetail.start_time.split(":")
+          //   var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
+          //   this.editEventForm.controls['event_start_date'].setValue(this.singleEventDetail.start_date)
+          //   this.editEventForm.controls['event_start_time'].setValue(end_time_key)
+          // // }
           // alert(this.singleEventDetail.end_time + 'end time')
-          // if(this.singleEventDetail.end_time){
-
+          // // if(this.singleEventDetail.end_time){
           //   var end_time = this.singleEventDetail.end_time.split(":")
           //   console.log(end_time)
           //   var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
           //   this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date);
-          //   this.editEventForm.controls['event_end_time'].setValue(end_time_key)
-          //   console.log(parseInt(end_time_key))
-          // }
+          //   this.editEventForm.controls['event_end_time'].setValue(start_time_key)
+          //   alert(parseInt(end_time_key))
+          // // }
          
           this.selectedStartDate = moment(new Date()).format('MM-DD-YYYY');
           this.selectedStartDate = moment(new Date(this.singleEventDetail.start_date)).format('MM-DD-YYYY');
@@ -558,14 +561,10 @@ export class EventAndTicketTypesComponent implements OnInit {
   
   
 
-  fnChangeStartTime(event){
+  fnOnChangeTime(i){
+    console.log(i)
+    alert('1')
     this.editEventForm.get('event_end_time').setValue('');
-   
-  }
-
-  fnChangeEndTime(event){
-    // this.editEventForm.get('event_end_time').setValue('');
-   
   }
 
 
