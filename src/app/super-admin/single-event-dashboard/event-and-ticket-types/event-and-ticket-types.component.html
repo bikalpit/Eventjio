@@ -57,8 +57,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <small *ngIf="singleEventDetail && (todayDate > selectedStartDate) || (todayDate == selectedStartDate && currentTime > singleEventDetail.start_time)">You
-                                        can't edit start date time because event is started.</small>
+                                    <small *ngIf="eventStarted">You can't edit start date time because event is started.</small>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-3">
@@ -81,12 +80,12 @@
                                         </mat-select> -->
 
                                         <mat-select formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option (onSelectionChange)="fnChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                            <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                         </mat-select>
 
 
                                         <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                            <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                         </mat-select>
                                         <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_end_time').touched || editEventForm.get('event_end_time').dirty">
                                             <small *ngIf="editEventForm.get('event_end_time').hasError('required')"

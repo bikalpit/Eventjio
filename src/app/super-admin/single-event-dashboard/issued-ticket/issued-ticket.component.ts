@@ -122,7 +122,11 @@ export class IssuedTicketComponent implements OnInit {
         this.next_page_url_getIssuedTicket = response.response.next_page_url;
         this.prev_page_url_getIssuedTicket = response.response.prev_page_url;
         this.path_getIssuedTicket = response.response.path;
+        if(this.selectedOccurrence){
+          this.SingleEventDashboard.getSingleOccurrenceSummary(this.selectedOccurrence);
+        }else{
         this.SingleEventDashboard.fnEventSummery();
+        }
       } else if(response.data == false){
         this.getIssuedTicket = [];
         this.ErrorService.errorMessage(response.response);
@@ -156,7 +160,11 @@ export class IssuedTicketComponent implements OnInit {
         this.next_page_url_getIssuedTicket = response.response.next_page_url;
         this.prev_page_url_getIssuedTicket = response.response.prev_page_url;
         this.path_getIssuedTicket = response.response.path;
-        this.SingleEventDashboard.fnEventSummery();
+        if(this.selectedOccurrence){
+          this.SingleEventDashboard.getSingleOccurrenceSummary(this.selectedOccurrence);
+        }else{
+          this.SingleEventDashboard.fnEventSummery();
+        }
       } else if(response.data == false){
         this.getIssuedTicket = [];
         this.ErrorService.errorMessage(response.response);

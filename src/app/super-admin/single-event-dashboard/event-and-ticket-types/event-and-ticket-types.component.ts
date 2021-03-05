@@ -350,7 +350,17 @@ export class EventAndTicketTypesComponent implements OnInit {
           }
           // alert(this.singleEventDetail.start_time + 'start time')
           // if(this.singleEventDetail.start_time){
+
+            var end_time = this.singleEventDetail.end_time.split(":")
+            // var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+            var end_time_key =  this.fullDayTimeSlote.indexOf(end_time[0]+":"+end_time[1], 0);
+            // alert(end_time_key)
+            this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
+            this.editEventForm.controls['event_end_time'].setValue(end_time_key)
+    
           // if(this.singleEventDetail.end_time){
+
+          
             
             var start_time = this.singleEventDetail.start_time.split(":")
             var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
@@ -435,18 +445,6 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.donation= this.singleEventSetting.make_donation;
         this.shareButtonStatus= this.singleEventSetting.hide_share_button;
         
-        if(this.singleEventDetail.event_occurrence_type && this.singleEventDetail.event_occurrence_type == 'N'){
-        var end_time = this.singleEventDetail.end_time.split(":")
-        console.log(end_time)
-        console.log(this.fullDayTimeSlote)
-        console.log(end_time[0]+":"+end_time[1])
-        // var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
-        var end_time_key =  this.fullDayTimeSlote.indexOf(end_time[0]+":"+end_time[1], 0);
-        // alert(end_time_key)
-        this.editEventForm.controls['event_end_date'].setValue(this.singleEventDetail.end_date)
-        this.editEventForm.controls['event_end_time'].setValue(JSON.stringify(end_time[0]+":"+end_time[1]))
-
-        }
         if(this.redirectURL == 'Y'){
           this.fnRedirectURL(true);
         }else{

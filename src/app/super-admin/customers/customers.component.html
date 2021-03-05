@@ -112,16 +112,22 @@
                                                 {{selectedCustomerDetails.created_at |date :'fullDate'}}<br> Added By {{selectedCustomerDetails.register_by}}
                                             </p>
                                         </div>
-                                        <div class="col-12 col-sm-4 customer-detail-bottom">
+                                        <div *ngIf="allEventListData.lastOrder" class="col-12 col-sm-4 customer-detail-bottom">
                                             <label for="">Last Events</label>
                                             <p>
-                                                {{allEventListData.lastOrder?allEventListData.lastOrder.event_title:'-'}}<br/> {{lastEventDateTime}}
+                                                {{allEventListData.lastOrder?allEventListData.lastOrder.event_title:'-'}}<br/> {{allEventListData.lastOrder.event_occurrence_type == 'N'?lastEventDateTime:''}}
+                                            </p>
+                                        </div>
+                                        <div *ngIf="!allEventListData.lastOrder" class="col-12 col-sm-4 customer-detail-bottom">
+                                            <label for="">Last Events</label>
+                                            <p>
+                                                -
                                             </p>
                                         </div>
                                         <div class="col-12 col-sm-4 customer-detail-bottom">
                                             <label class="w-100" for="">Tags</label>
                                             <p class="tags" *ngIf="selectedCustomerDetails.tags != null">
-                                                {{selectedCustomerDetails.tags}}  
+                                                {{selectedCustomerDetails.tags}}
                                             </p>
                                         </div>
                                     </div>
