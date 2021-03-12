@@ -137,9 +137,14 @@
         }
     }
     .signup-right {
-        background: url('/assets/images/login/sigup.png');
+        background: url('/assets/images/login/sigup---.png');
         background-size: cover;
         background-position: 60% center;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
     }
 }
 

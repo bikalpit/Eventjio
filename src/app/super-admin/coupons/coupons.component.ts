@@ -82,7 +82,7 @@ export class CouponsComponent implements OnInit {
         this.allCouponCodeList = response.response
       }
       else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        // this.ErrorService.errorMessage(response.response);
         this.allCouponCodeList.length = 0
       // this.allCouponCodeList = null;
       }

@@ -2,25 +2,28 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="occurrence-deatails">
         <div class="container-fluid">
-            <div class="top-heading-main">
-                <h4 class="page-title"> Occurrence </h4>
-                <p>Occurrences are the dates and times your recurring event takes place.</p>
+            <div class="page-top-head d-flex">
+                <div class="top-heading-main">
+                    <h4 class="page-title"> Occurrence </h4>
+                    <p>Occurrences are the dates and times your recurring event takes place.</p>
+                </div>
+
+                <div class=" occurrence-action">
+                    <p class="selected-label">Select multiple occurrence</p>
+                    <!-- <p class="selected-label">With {{selectedOccurrenceAarry.length}} selected:</p> -->
+                    <mat-form-field appearance="outline" class="my-2 w-100">
+                        <mat-label>Actions</mat-label>
+                        <mat-select [disabled]="selectedOccurrenceAarry.length < 1" [(ngModel)]="selectedfilter" (selectionChange)="fnChangeOccuStatus($event.value)" class="col-12 d-flex">
+                            <mat-option value="UNAVI">Set unavailable</mat-option>
+                            <mat-option value="AVI">Set available</mat-option>
+                            <mat-option value="HIDD">Set hidden</mat-option>
+                            <mat-option value="VIS">Set visible</mat-option>
+                            <mat-option value="DEL">Delete</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
 
-            <div class=" occurrence-action">
-                <p class="selected-label">Select multiple occurrence</p>
-                <!-- <p class="selected-label">With {{selectedOccurrenceAarry.length}} selected:</p> -->
-                <mat-form-field appearance="outline" class="my-2 w-100">
-                    <mat-label>Actions</mat-label>
-                    <mat-select [disabled]="selectedOccurrenceAarry.length < 1" [(ngModel)]="selectedfilter" (selectionChange)="fnChangeOccuStatus($event.value)" class="col-12 d-flex">
-                        <mat-option value="UNAVI">Set unavailable</mat-option>
-                        <mat-option value="AVI">Set available</mat-option>
-                        <mat-option value="HIDD">Set hidden</mat-option>
-                        <mat-option value="VIS">Set visible</mat-option>
-                        <mat-option value="DEL">Delete</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
             <div class="bottom-occurrence-wrap">
                 <!-- <div class="occurrence-notification">
                     <i class="fa fa-bell" aria-hidden="true"></i>
@@ -50,7 +53,7 @@
                                 <div class="heading-table" fxFlex="15">Revenue</div>
                                 <div class="heading-table" fxFlex="15">Action</div>
                             </div>
-                            <div class="content" class="drageble-list occurrence-list">
+                            <div class="content" *ngIf="allOccurrenceList && allOccurrenceList.length != 0" class="drageble-list occurrence-list">
                                 <div class="drageble-box" fxLayout="row" *ngFor="let element of allOccurrenceList; let i=index;">
                                     <div class="tb-data" fxFlex="40">
                                         <mat-checkbox [checked]="element.is_selected" (change)="fnAddOccurrenceId($event.checked, element.unique_code,i)"></mat-checkbox>
@@ -68,7 +71,7 @@
                                     <div class="tb-data" fxFlex="15" *ngIf="element.remaining == 'Tickets are not available'">{{element.remaining}}</div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.remaining !== 'Tickets are not available'">{{element.remaining[0].Remaining}}</div>
                                     <div class="tb-data" fxFlex="15" *ngIf="element.final_revenue == 'Tickets are not available'">{{element.final_revenue}}</div>
-                                    <div class="tb-data" fxFlex="15" *ngIf="element.final_revenue !== 'Tickets are not available'">{{element.final_revenue[0].Revenue}}</div>
+                                    <div class="tb-data" fxFlex="15" *ngIf="element.final_revenue !== 'Tickets are not available'">{{(element.final_revenue[0].Revenue)| currency:currencycode:'symbol'}}</div>
                                     <div class="tb-data" fxFlex="15">
                                         <mat-icon [ngbPopover]="popContentForStatus" placement="left" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                         <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
@@ -94,6 +97,9 @@
                                         </ng-template>
                                     </div>
                                 </div>
+                            </div>
+                            <div *ngIf="allOccurrenceList && allOccurrenceList.length == 0">
+                                <p class="text-center my-2">No record found.</p>
                             </div>
                         </div>
                     </div>

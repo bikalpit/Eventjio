@@ -46,35 +46,28 @@
                         </div>
 
                         <div class="form-group" *ngIf="is_address">
-                            <mat-select (selectionChange)="fnaddressForamteStyle($event)" [(value)]="addressForamteStyle"   class="form-control">
+                            <mat-select (selectionChange)="fnaddressForamteStyle($event)" [(value)]="addressForamteStyle" class="form-control">
                                 <mat-option value="US" selected>US Style</mat-option>
                                 <mat-option value="UK">UK Style</mat-option>
                                 <mat-option value="Cadadian">Cadadian Style</mat-option>
                             </mat-select>
                         </div>
-                        
+
                         <div class="form-group" *ngIf="is_address">
                             <p *ngIf="is_address && addressForamteStyle=='US'">
-                                Address Line 1 <br>
-                                City <br>
-                                State <br>
-                                Zip Code <br>
+                                Address Line 1 <br> City <br> State <br> Zip Code <br>
                             </p>
                             <p *ngIf="is_address && addressForamteStyle=='UK'">
-                                Address Line 1<br>
-                                Address Line 2<br>
-                                Address Line 3<br>
-                                Postcode
-                                
+                                Address Line 1<br> Address Line 2<br> Address Line 3<br> Postcode
+
                             </p>
                             <p *ngIf="is_address && addressForamteStyle=='Cadadian'">
-                                Address Line 1<br>
-                                City<br>
-                                Province<br>
-                                Postal Code<br>
+                                Address Line 1<br> City
+                                <br> Province
+                                <br> Postal Code<br>
                             </p>
                         </div>
-                        
+
                     </div>
                     <div class="col-12" *ngIf="optionField">
                         <label class="mb-0" for="">Options for answer (Enter one answer per line)</label>
@@ -85,8 +78,8 @@
                     <div class="col-12" *ngIf="termsField">
                         <label class="mb-0" for="">Terms and conditions</label>
                         <div class="form-group">
-                            <ck-editor formControlName="terms" skin="moono-lisa" language="en" [fullPage]="true">
-                            </ck-editor>
+                            <angular-editor class="description_field" formControlName="terms">
+                            </angular-editor>
                         </div>
                     </div>
                 </div>

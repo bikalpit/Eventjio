@@ -370,9 +370,7 @@
                         <div class="w-100 mt-3">
                             <label class="w-100" for="">Description <span class="ml-2"><i class="fa fa-question"   matTooltip="You may like to add a short description for your customers.This is used in event listings." aria-hidden="true"></i></span> </label>
                             <div class="form-group">
-                                <!-- <ck-editor formControlName="description" skin="moono-lisa" language="en" [fullPage]="true">
-                                </ck-editor> -->
-                                <angular-editor formControlName="description"></angular-editor>
+                                <angular-editor class="description_field" formControlName="description"></angular-editor>
                                 <span class="error-wrap" *ngIf="addEventForm.get('description').touched || addEventForm.get('description').dirty">
                                 <small *ngIf="addEventForm.get('description').hasError('required')" class="error">Description is required.</small>
                             </span>
@@ -558,7 +556,7 @@
                                 </span>
                             </div>
                             <div class="donation-field ml-auto mt-2">
-                                <label for="">Suggested donation amount <i class="fa fa-question-circle" matTooltipPosition="above" matTooltip="Set an amount you would like people to donate. This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."></i></label>
+                                <label for="">Donation amount <i class="fa fa-question-circle" matTooltipPosition="above" matTooltip="Set an amount you would like people to donate. This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."></i></label>
                                 <input formControlName="donation_amount" type="text" class="form-control" placeholder="0.00">
                                 <span class="error-wrap" *ngIf="addEventForm.get('donation_amount').touched || addEventForm.get('donation_amount').dirty">
                                     <small *ngIf="addEventForm.get('donation_amount').hasError('required')" class="error">Amount is required.</small>

@@ -64,6 +64,26 @@ export class DuplicateComponent implements OnInit {
     });
   }
 
+  
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour == 12){
+      finalhrs = 12;
+      part = 'PM';
+    }
+    if(hour > 12){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
+
 
   fnAddDuplicate() {
     this.items = this.duplicateForm.get('items') as FormArray;

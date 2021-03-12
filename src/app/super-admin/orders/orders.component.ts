@@ -146,7 +146,7 @@ export class OrdersComponent implements OnInit {
           this.allOccurrenceList= response.response;
 
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response)
+        // this.ErrorService.errorMessage(response.response)
       }
     this.isLoaderAdmin=false;
     });
@@ -261,7 +261,7 @@ export class OrdersComponent implements OnInit {
       if(response.data == true){
         this.allEventlist = response.response;
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        // this.ErrorService.errorMessage(response.response);
       }
       this.change.detectChanges();
     this.isLoaderAdmin = false;
@@ -306,7 +306,8 @@ export class OrdersComponent implements OnInit {
         this.prev_page_url_orders = response.response.prev_page_url;
         this.path_orders = response.response.path;
       }else{
-          this.ErrorService.errorMessage(response.response);
+        this.allorderlist.length = 0;
+          // this.ErrorService.errorMessage(response.response);
           this.allorderlist = [];
       }
       this.isLoaderAdmin = false;
@@ -353,7 +354,7 @@ export class OrdersComponent implements OnInit {
         this.prev_page_url_orders = response.response.prev_page_url;
         this.path_orders = response.response.path;
       }else{
-          this.ErrorService.errorMessage(response.response);
+          // this.ErrorService.errorMessage(response.response);
           this.allorderlist = [];
       }
       this.isLoaderAdmin = false;
@@ -914,7 +915,8 @@ export class AddNewOrderDialog {
           this.allOccurrenceList= response.response;
 
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response)
+        this.allOccurrenceList.length = 0;
+        // this.ErrorService.errorMessage(response.response)
       }
     this.isLoaderAdmin=false;
     });

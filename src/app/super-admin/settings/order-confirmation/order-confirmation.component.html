@@ -27,11 +27,11 @@
         <div class="msg-content mt-3 border rounded">
             <div class="msg border">
 
-                <ck-editor *ngIf="templateType=='In-person'" class="specific-msg-content" name="editor1" skin="moono-lisa" [(ngModel)]="globalOrderEmail" language="en" [fullPage]="true">
-                </ck-editor>
+                <angular-editor class="description_field" *ngIf="templateType=='In-person'" [(ngModel)]="globalOrderEmail">
+                </angular-editor>
 
-                <ck-editor *ngIf="templateType=='online'" class="specific-msg-content" name="editor1" skin="moono-lisa" [(ngModel)]="globalOrderEmailOnline" language="en" [fullPage]="true">
-                </ck-editor>
+                <angular-editor class="description_field" *ngIf="templateType=='online'" [(ngModel)]="globalOrderEmailOnline">
+                </angular-editor>
             </div>
 
         </div>

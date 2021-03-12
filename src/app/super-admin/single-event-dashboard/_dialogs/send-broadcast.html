@@ -44,7 +44,8 @@
                 </div>
                 <div class="preview-deatils-describtion">
                     <!-- <p>{{createBroadcastData.message}} </p> -->
-                    <ck-editor [(ngModel)]="editorValue" readonly="true" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+                    <angular-editor class="description_field" [(ngModel)]="editorValue" readonly="true">
+                    </angular-editor>
                 </div>
             </div>
             <div class="botttom-buttons send-broadcast-wrap">

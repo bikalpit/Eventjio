@@ -215,7 +215,7 @@ export class myCreateNewBoxofficeDialog {
       if(response.data == true){
         this.allCurency = response.response
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response)
+        // this.ErrorService.errorMessage(response.response)
       }
     });
 

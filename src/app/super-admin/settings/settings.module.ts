@@ -34,6 +34,7 @@ import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-fo
 import { ReferralCodeComponent, addReferralCodeDialog } from './referral-code/referral-code.component';
 import { AppUsersComponent, AddAppUser, appUserDetail } from './app-users/app-users.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    AngularEditorModule
     
   ],
   entryComponents: [

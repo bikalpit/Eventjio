@@ -240,7 +240,7 @@ export class CustomersComponent implements OnInit {
         this.selectedCustomerCode =  this.customerDetails[0].unique_code
         this.fnSelectCustomer(this.selectedCustomerCode)
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        // this.ErrorService.errorMessage(response.response);
         this.customerDetails = null;
         this.addFormButtonDiv = false;
       }
@@ -405,7 +405,7 @@ deleteCustomerDetails(){
       
       }else if(response.data == false){
         this.allEventListData.length = 0;
-        this.ErrorService.errorMessage(response.response);
+        // this.ErrorService.errorMessage(response.response);
       }
     this.isLoaderAdmin = false;
     });

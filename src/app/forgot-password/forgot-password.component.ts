@@ -15,6 +15,7 @@ import { environment } from '../../environments/environment';
 export class ForgotPasswordComponent implements OnInit {
   forgotForm:FormGroup;
   dataLoaded: boolean = true;
+  isLoaderAdmin: boolean = false;
   forgotPwdContainer: boolean = true;
   emailSentContainer: boolean = false;
   forgotEmail: any;
@@ -45,6 +46,7 @@ export class ForgotPasswordComponent implements OnInit {
 
 
 forgotPwdSubmit(){
+  this.isLoaderAdmin=true;
   this.forgotEmail =  this.forgotForm.get('email').value
   if(this.forgotForm.valid){
   this.saveDisabled = true;
@@ -71,11 +73,8 @@ forgotPwdSubmit(){
             verticalPosition:'top',
             panelClass :['green-snackbar']
           });
-          this.forgotPwdContainer =false
-          this.emailSentContainer = true;
-          setTimeout(() => {
             this.router.navigate(['/login']);
-          }, 3000);
+            this.isLoaderAdmin=false;
         }
         else if(response.data == false){  this.saveDisabled = true;
          
@@ -84,6 +83,7 @@ forgotPwdSubmit(){
             verticalPosition:'top',
             panelClass :['red-snackbar']
           });
+          this.isLoaderAdmin=false;
         }
       }, (err) =>{
         console.log(err)

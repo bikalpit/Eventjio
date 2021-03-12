@@ -100,8 +100,8 @@
 
                     <div class="form-group col-md-12 col-lg-12 col-sm-12">
                         <label>Message<span class="text-danger">*</span> </label>
-                        <ck-editor name="editor1" skin="moono-lisa" language="en" [fullPage]="true" formControlName="message">
-                        </ck-editor>
+                        <angular-editor class="description_field" name="editor1" formControlName="message">
+                        </angular-editor>
                         <span class="error-wrap" *ngIf="createBroadcastForm.get('message').touched || createBroadcastForm.get('message').dirty">
                             <small *ngIf="createBroadcastForm.get('message').hasError('required')" class="error">Enter your message, Message is required.</small>
                         </span>

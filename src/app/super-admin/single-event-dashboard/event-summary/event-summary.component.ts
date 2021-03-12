@@ -225,6 +225,13 @@ export class EventSummaryComponent implements OnInit {
     let min = (time.split(':'))[1];
     let part = 'AM';
     let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour == 12){
+      finalhrs = 12;
+      part = 'PM';
+    }
     if(hour > 12){
       finalhrs  = hour - 12
       part = 'PM' 

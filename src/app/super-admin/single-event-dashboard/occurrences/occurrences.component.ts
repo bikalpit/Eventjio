@@ -30,6 +30,8 @@ export class OccurrencesComponent implements OnInit {
   fullDayTimeSlote:any;
   visibilityStatus:any;
   avaibilityStatus:any;
+  eventDetail:any
+  currencycode:any;
   constructor(
     
     private _formBuilder: FormBuilder,
@@ -48,6 +50,7 @@ export class OccurrencesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllOccurrenceList();
+    this.fnGetEventDetail();
     this.getTimeSlote();
   }
 
@@ -56,11 +59,17 @@ export class OccurrencesComponent implements OnInit {
     let min = (time.split(':'))[1];
     let part = 'AM';
     let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour == 12){
+      finalhrs = 12;
+      part = 'PM';
+    }
     if(hour > 12){
       finalhrs  = hour - 12
       part = 'PM' 
-    }
-    return `${finalhrs}:${min} ${part}`
+    } `${finalhrs}:${min} ${part}`
   }
 
   getTimeSlote(){
@@ -104,7 +113,8 @@ export class OccurrencesComponent implements OnInit {
         });
 
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response)
+        this.allOccurrenceList.length = 0;
+        // this.ErrorService.errorMessage(response.response)
       }
     });
     this.isLoaderAdmin=false;
@@ -133,6 +143,25 @@ export class OccurrencesComponent implements OnInit {
     }
 
 
+  }
+
+  
+  fnGetEventDetail(){
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'unique_code' : this.event_id,
+    }
+    
+    this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.eventDetail = response.response.event[0];
+       
+        this.currencycode = this.eventDetail.event_setting.currency ? this.eventDetail.event_setting.currency  : 'USD';
+      } else if(response.data == false){
+        // this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin=false;
+    });
   }
 
   fnChangeOccuStatus(value){
@@ -334,7 +363,11 @@ export class addRepeatOccurrence {
     if(hour == 0){
       finalhrs = 12
     }
-    if(hour > 11){
+    if(hour == 12){
+      finalhrs = 12;
+      part = 'PM';
+    }
+    if(hour > 12){
       finalhrs  = hour - 12
       part = 'PM' 
     }
@@ -589,6 +622,13 @@ export class addSingleOccurrence {
     let min = (time.split(':'))[1];
     let part = 'AM';
     let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour == 12){
+      finalhrs = 12;
+      part = 'PM';
+    }
     if(hour > 12){
       finalhrs  = hour - 12
       part = 'PM' 

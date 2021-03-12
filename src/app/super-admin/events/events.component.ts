@@ -542,7 +542,11 @@ export class EventsComponent implements OnInit {
     if(hour == 0){
       finalhrs = 12
     }
-    if(hour > 11){
+    if(hour == 12){
+      finalhrs = 12;
+      part = 'PM';
+    }
+    if(hour > 12){
       finalhrs  = hour - 12
       part = 'PM' 
     }
@@ -1146,7 +1150,11 @@ export class AddNewTicketType {
     if(hour == 0){
       finalhrs = 12
     }
-    if(hour > 11){
+    if(hour == 12){
+      finalhrs = 12;
+      part = 'PM';
+    }
+    if(hour > 12){
       finalhrs  = hour - 12
       part = 'PM' 
     }
@@ -1236,7 +1244,7 @@ export class AddNewTicketType {
       this.allCouponCodeList = response.response
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
+      // this.ErrorService.errorMessage(response.response);
       this.allCouponCodeList = null;
       }
       this.isLoaderAdmin = false;
