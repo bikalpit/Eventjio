@@ -169,6 +169,9 @@ export class DuplicateComponent implements OnInit {
   }
 
   fnFinalSubmit(){
+    if(this.duplicateForm.get('items').invalid){
+      this.duplicateForm.get('items').markAllAsTouched();
+    }
     this.items = this.duplicateForm.get('items') as FormArray;
     this.finalArr = this.duplicateForm.value.items;
     this.finalArr.forEach(element => {

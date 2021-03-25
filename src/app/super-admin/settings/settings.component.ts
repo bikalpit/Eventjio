@@ -13,21 +13,25 @@ export class SettingsComponent implements OnInit {
   currentUrl:any;
   currentUser:any;
   keepMe:any;
+  teamAccessAllowed:boolean = true;
   currentUserData:any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
   ) { 
     this.keepMe = localStorage.getItem('keepMeSignIn')
-        if (this.keepMe == 'true') {
-          this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-        } else {
-          this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
-        }
+    if (this.keepMe == 'true') {
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    } else {
+      this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
+    }
     // this.currentUser = JSON.parse(this.currentUser);
-
+    if(this.currentUser.permission == "A"){
+      this.teamAccessAllowed = false;
+    }
     if(this.currentUser.type == 'member' && this.currentUser.permission != 'A'){
         this.router.navigate(['/super-admin']);
+        
     }
     
     this.router.events.subscribe(event => {

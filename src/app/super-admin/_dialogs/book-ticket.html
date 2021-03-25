@@ -70,7 +70,7 @@
                             </div>
                             <div class="content" class="drageble-list">
                                 <div class="drageble-box fw-600" fxLayout="row" *ngFor="let eventTicket of eventTicket">
-                                    <div *ngIf="eventTicket.id_added" class="tb-data order-item fw-100" fxFlex="30">{{eventTicket.ticket_name}}</div>
+                                    <div *ngIf="eventTicket.id_added" class="tb-data order-item" fxFlex="30">{{eventTicket.ticket_name}}</div>
                                     <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="15">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
                                     <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
                                     <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="25">{{eventTicket.qty}} </div>

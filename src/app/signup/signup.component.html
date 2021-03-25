@@ -19,7 +19,7 @@
                                     <span class="">
                                         <mat-icon class="login-icon">person_outline</mat-icon>
                                     </span>
-                                    <input type="text" class="form-control" placeholder="Full name" formControlName="firstname" />
+                                    <input type="text" class="form-control" placeholder="Name" formControlName="firstname" />
                                 </div>
                                 <span class="error-wrap" *ngIf="signUpForm.get('firstname').dirty || signUpForm.get('firstname').touched"><small *ngIf="signUpForm.get('firstname').hasError('required')" class="error text-left ml-4">Full name is required.</small></span>
                             </div>
@@ -52,6 +52,10 @@
                                 <button mat-raised-button (click)="fnSignUp()" class="signup-btn">SIGN UP</button>
                             </div>
                         </form>
+                        <div class="social-btns" fxLayoutalign="center center">
+                            <a class="btn social-login facebook" (click)="signInWithFB()"><i class="fa fa-facebook-f"></i></a>
+                            <a class="btn social-login google_plus" (click)="signInWithGoogle()"><i class="fa fa-google-plus"></i></a>
+                        </div>
                     </div>
                 </div>
 

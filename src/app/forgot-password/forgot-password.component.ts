@@ -46,9 +46,9 @@ export class ForgotPasswordComponent implements OnInit {
 
 
 forgotPwdSubmit(){
-  this.isLoaderAdmin=true;
   this.forgotEmail =  this.forgotForm.get('email').value
   if(this.forgotForm.valid){
+    this.isLoaderAdmin=true;
   this.saveDisabled = true;
   setTimeout(() => {
     this.saveDisabled = false

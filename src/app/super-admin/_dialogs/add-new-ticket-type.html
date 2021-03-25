@@ -272,8 +272,8 @@
                         </span>
                         </div>
                     </div>
-                    <mat-checkbox class="w-100 d-block mt-2" (change)="fnChangeSoldOut($event)">Hide when sold out <i class="fa fa-question" matTooltipPosition="above" matTooltip="Tick this box to hide the ticket when it has sold out."></i> </mat-checkbox>
-                    <mat-checkbox class="w-100 d-block" (change)="fnChangeShowQTY($event)">Show quantity remaining on event page <i class="fa fa-question" matTooltipPosition="above" matTooltip="Tick this box to show the number of tickets still available   ."></i></mat-checkbox>
+                    <mat-checkbox [checked]="soldOut == 'Y'" class="w-100 d-block mt-2" (change)="fnChangeSoldOut($event)">Hide when sold out <i class="fa fa-question" matTooltipPosition="above" matTooltip="Tick this box to hide the ticket when it has sold out."></i> </mat-checkbox>
+                    <mat-checkbox [checked]="showQTY == 'Y'" class="w-100 d-block" (change)="fnChangeShowQTY($event)">Show quantity remaining on event page <i class="fa fa-question" matTooltipPosition="above" matTooltip="Tick this box to show the number of tickets still available   ."></i></mat-checkbox>
 
                     <h3 class="font-weight-medium mt-2 text-left" *ngIf="allCouponCodeList != null">Discounts</h3>
                     <div class="form-group pb-0 mb-0" *ngFor="let allCouponCodeList of allCouponCodeList; let i=index">

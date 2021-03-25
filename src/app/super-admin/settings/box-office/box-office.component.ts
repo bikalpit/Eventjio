@@ -58,7 +58,7 @@ export class BoxOfficeComponent implements OnInit {
       language:[''],
       timezone:[''],
       add_email:['',Validators.pattern(emailPattern)],
-      box_office_link:[''],
+      box_office_link:['',[Validators.required]],
       account_owner:[''],
 
     }); 

@@ -391,11 +391,11 @@ export class EventAndTicketTypesComponent implements OnInit {
           this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
           this.currentTime = this.transformTime(this.currentTime)
           this.startTimeForCheck = this.transformTime2Part(this.singleEventDetail.start_time)
-        if(this.singleEventDetail.start_date < this.todayDate){
-          this.minEventStartDate = this.singleEventDetail.start_date
-        }else{
-          this.minEventStartDate = this.todayDate
-        }
+          if(this.eventStarted){
+            this.minEventStartDate = this.singleEventDetail.start_date
+          }else{
+            this.minEventStartDate = new Date();
+          }
 
         }else{
           this.editEventForm = this._formBuilder.group({
@@ -1124,6 +1124,7 @@ export class AddNewTicketType {
         this.recurringEvent = this.data.recurringEvent;
         this.selectedTicketDetail = this.data.selectedTicketDetail
         this.selectedEventId = this.data.selectedEventId
+        console.log(this.selectedTicketDetail)
       }
       console.log(this.selectedTicketDetail)
       if(this.recurringEvent == 'N'){
@@ -1241,17 +1242,18 @@ export class AddNewTicketType {
   }
   
   fnChangeMinOr(event){
-    if(this.addTicketForm.get('min_order').value > this.addTicketForm.get('qty').value){
+    if(parseInt(this.addTicketForm.get('min_order').value) > parseInt(this.addTicketForm.get('qty').value)){
       this.ErrorService.errorMessage('Minimum order should not greater then quntity.');
       this.addTicketForm.controls['min_order'].setValue('');
     }
+    this.addTicketForm.controls['max_order'].setValue('');
   }
   
   fnChangeMaxOr(event){
-    if(this.addTicketForm.get('max_order').value > this.addTicketForm.get('qty').value){
+    if(parseInt(this.addTicketForm.get('max_order').value) > parseInt(this.addTicketForm.get('qty').value)){
       this.ErrorService.errorMessage('Maximum order should not greater then quntity.');
       this.addTicketForm.controls['max_order'].setValue('');
-    }else if(this.addTicketForm.get('max_order').value < this.addTicketForm.get('min_order').value){
+    }else if(parseInt(this.addTicketForm.get('max_order').value) < parseInt(this.addTicketForm.get('min_order').value)){
       this.ErrorService.errorMessage('Maximum order should not less then min order.');
       this.addTicketForm.controls['max_order'].setValue('');
     }

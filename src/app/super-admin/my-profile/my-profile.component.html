@@ -24,7 +24,6 @@
                     <button *ngIf="myProfileData && myProfileData.image_name != 'default_image.png'" mat-flat-button class="remove-photo mt-2" (click)="fnRemoveImage()">Remove Image</button>
                 </div>
             </div>
-        </div>
 
 
         <div class="p-2">
@@ -32,7 +31,7 @@
                 <form [formGroup]="myProfileForm" class="with-validation">
                     <div class="row mx-0 mt-4">
                         <div class="col-12">
-                            <label for="first-name" class="">Full Name</label>
+                            <label for="first-name" class="">Name</label>
                             <input type="text" class="form-control" formControlName="firstname">
                             <span class="error-wrap" *ngIf="myProfileForm.get('firstname').touched || myProfileForm.get('firstname').dirty">
                         <small *ngIf="myProfileForm.get('firstname').hasError('required')" class="error">Full Name is required.</small>
@@ -73,8 +72,9 @@
 
         </div>
     </div>
+    </div>
 </div>
-<div class="footer-action-btn">
+<div class="footer-btn">
 
     <div class="can-save">
         <button mat-raised-button class="cancel-btn" (click)="onCancel()">Cancel</button>

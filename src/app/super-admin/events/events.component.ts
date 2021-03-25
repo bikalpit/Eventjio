@@ -43,10 +43,10 @@ export class EventsComponent implements OnInit {
  allCountry:any;
  allTimeZone:any;
  boxOfficeCode:any;
- eventImageType:any = 'noImage';
+ eventImageType:any = '1';
  newEventImageUrl:any = '';
  allDefaultImages:any;
- selecetdDefaultImage:any;
+ selecetdDefaultImage:any = 'default1.jpg';
  eventStartTime:any;
  saveDisabled:boolean=false;
   // timeIntervals:any = ['00:00','00:30','01:00','01:30','02:00','02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30'];
@@ -309,7 +309,6 @@ export class EventsComponent implements OnInit {
     this.listTimeZoneList
       .pipe(take(1), takeUntil(this._onDestroy))
       .subscribe(() => {
-        console.log('fail')
       });
   }
 
@@ -385,10 +384,10 @@ export class EventsComponent implements OnInit {
                   element.totalOccurrencSold = element.totalOccurrencSold+parseInt(element1.soldout[0].Sold)
                 }
                 if(element1.remaining && element1.remaining.length > 0){
-                  element.totalOccurrencRemaining = element.totalOccurrencSold+parseInt(element1.remaining[0].Remaining)
+                  element.totalOccurrencRemaining = element.totalOccurrencRemaining+parseInt(element1.remaining[0].Remaining)
                 }
                 if(element1.final_revenue && element1.final_revenue.length > 0){
-                  element.totalOccurrencRevenue = element.totalOccurrencSold+parseInt(element1.final_revenue[0].Revenue)
+                  element.totalOccurrencRevenue = element.totalOccurrencRevenue+parseInt(element1.final_revenue[0].Revenue)
                 }
               });
             }else{
@@ -472,13 +471,13 @@ export class EventsComponent implements OnInit {
               element.totalOccurrencRevenue = 0;
               element.occurrence.forEach(element1 => {
                 if(element1.soldout && element1.soldout.length > 0){
-                  element.totalOccurrencSold = element.totalOccurrencSold+element1.soldout[0].Sold
+                  element.totalOccurrencSold = element.totalOccurrencSold+parseInt(element1.soldout[0].Sold)
                 }
                 if(element1.remaining && element1.remaining.length > 0){
-                  element.totalOccurrencRemaining = element.totalOccurrencSold+element1.remaining[0].Remaining
+                  element.totalOccurrencRemaining = element.totalOccurrencRemaining+parseInt(element1.remaining[0].Remaining)
                 }
                 if(element1.final_revenue && element1.final_revenue.length > 0){
-                  element.totalOccurrencRevenue = element.totalOccurrencSold+element1.final_revenue[0].Revenue
+                  element.totalOccurrencRevenue = element.totalOccurrencRevenue+parseInt(element1.final_revenue[0].Revenue)
                 }
               });
             }else{
@@ -895,6 +894,71 @@ export class EventsComponent implements OnInit {
     });
 
   }
+
+  fnDeleteTicket(index){
+    if (index > -1) {
+      this.eventTicketList.splice(index, 1);
+    }
+  }
+
+  fnEditTicket(index){
+    if(this.recurringEvent == 'N'){
+      if(
+        this.addEventForm.get('event_name').value == '' ||
+        this.addEventForm.get('event_start_date').value == '' ||
+        this.addEventForm.get('event_start_time').value == '' ||
+        this.addEventForm.get('event_end_date').value == '' ||
+        this.addEventForm.get('event_end_time').value == ''
+        ){
+      
+          this.ErrorService.errorMessage('Please fill above details first');
+          return false;
+        }
+        const dialogRef = this.dialog.open(AddNewTicketType,{
+          width: '1300px',
+          data : {
+            boxOfficeCode : this.boxOfficeCode,
+            fullDayTimeSlote : this.fullDayTimeSlote,
+            startDate : this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd"),
+            endDate : this.datePipe.transform(new Date(this.addEventForm.get('event_end_date').value),"yyyy-MM-dd"),
+            startTime : this.addEventForm.get('event_start_time').value,
+            endTime : this.addEventForm.get('event_end_time').value,
+            recurringEvent:this.recurringEvent,
+            editTicketDetail : this.eventTicketList[index]
+          }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+            // const index = this.eventTicketList.indexOf(index, 0);
+            if (index > -1) {
+                this.eventTicketList.splice(index, 1);
+            }
+            console.log('before--'+this.eventTicketList)
+            this.eventTicketList.push(result)
+            console.log('after---'+this.eventTicketList)
+            this.eventTicketAlertMSG = false;
+          }
+        });
+    }else{
+      const dialogRef = this.dialog.open(AddNewTicketType,{
+        width: '1100px',
+        data : {
+          boxOfficeCode : this.boxOfficeCode,
+          fullDayTimeSlote : this.fullDayTimeSlote,
+          recurringEvent:this.recurringEvent,
+          editTicketDetail : this.eventTicketList[index]
+        }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.eventTicketList.push(result)
+          this.eventTicketAlertMSG = false;
+        }
+      });
+    }
+  }
   
   openAddNewTicketTypeDialog() {
     if(this.recurringEvent == 'N'){
@@ -1064,7 +1128,9 @@ export class AddNewTicketType {
   eventEndTime:any;
   minOrderVal:any;
   maxOrderVal:any;
-  maxOrderCheck:boolean = false
+  editTicketDetail:any;
+  maxOrderCheck:boolean = false;
+  editTicket:boolean = false
   availUnavailDateSame:boolean=false;
   onlynumericAmount = /^(\d*\.)?\d+$/
   onlynumeric = /^[0-9]+(?:\.[0-9]+)?$/
@@ -1076,6 +1142,12 @@ export class AddNewTicketType {
     private datePipe: DatePipe,
     private SuperadminService: SuperadminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+      if(this.data.editTicketDetail){
+        this.editTicket = true;
+        this.editTicketDetail = this.data.editTicketDetail
+        console.log(this.editTicketDetail)
+        this.assignedCouponCodes = this.editTicketDetail.discount
+      }
       if(this.data.recurringEvent == 'N'){
         this.boxOfficeCode = this.data.boxOfficeCode;
         this.fullDayTimeSlote = this.data.fullDayTimeSlote;
@@ -1093,39 +1165,90 @@ export class AddNewTicketType {
       }
       
       if(this.recurringEvent == 'N'){
-        this.addTicketForm = this._formBuilder.group({
-          title: ['',[Validators.required]],
-          price: ['',[Validators.required,Validators.pattern(this.onlynumericAmount)]],
-          qty: ['',[Validators.required,Validators.pattern(this.onlynumericQTY)]],
-          description: [''],
-          fee: ['',[Validators.pattern(this.onlynumericAmount)]],
-          status: [''],
-          min_order: ['',[Validators.pattern(this.onlynumeric)]],
-          max_order: ['',[Validators.pattern(this.onlynumeric)]],
-          ticket_available: ['',[Validators.required]],
-          ticket_unavailable: ['',[Validators.required]],
-          until_date: [null],
-          until_time: [null],
-          until_interval: [null],
-          after_date: [null],
-          after_time: [null],
-          after_interval: ['']
-        });
+        if(this.editTicket){
+          this.advanceSetting = this.editTicketDetail.advance_setting;
+          this.soldOut = this.editTicketDetail.sold_out;
+          this.showQTY = this.editTicketDetail.show_qty;
+          this.ticketAvalStatus = this.editTicketDetail.ticket_avilable;
+          this.ticketUnavalStatus = this.editTicketDetail.ticket_unavilable;
+          this.addTicketForm = this._formBuilder.group({
+            title: [this.editTicketDetail.ticket_name,[Validators.required]],
+            price: [this.editTicketDetail.prize,[Validators.required,Validators.pattern(this.onlynumericAmount)]],
+            qty: [this.editTicketDetail.qty,[Validators.required,Validators.pattern(this.onlynumericQTY)]],
+            description: [this.editTicketDetail.description],
+            fee: [this.editTicketDetail.booking_fee,[Validators.pattern(this.onlynumericAmount)]],
+            status: [this.editTicketDetail.status],
+            min_order: [this.editTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
+            max_order: [this.editTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
+            ticket_available: [this.editTicketDetail.ticket_avilable,[Validators.required]],
+            ticket_unavailable: [this.editTicketDetail.ticket_unavilable,[Validators.required]],
+            until_date: [this.editTicketDetail.untill_date],
+            until_time: [this.editTicketDetail.untill_time],
+            until_interval: [this.editTicketDetail.untill_interval],
+            after_date: [this.editTicketDetail.after_date],
+            after_time: [this.editTicketDetail.after_time],
+            after_interval: [this.editTicketDetail.after_interval]
+          });
+        }else{
+          this.addTicketForm = this._formBuilder.group({
+            title: ['',[Validators.required]],
+            price: ['',[Validators.required,Validators.pattern(this.onlynumericAmount)]],
+            qty: ['',[Validators.required,Validators.pattern(this.onlynumericQTY)]],
+            description: [''],
+            fee: ['',[Validators.pattern(this.onlynumericAmount)]],
+            status: [''],
+            min_order: ['',[Validators.pattern(this.onlynumeric)]],
+            max_order: ['',[Validators.pattern(this.onlynumeric)]],
+            ticket_available: ['',[Validators.required]],
+            ticket_unavailable: ['',[Validators.required]],
+            until_date: [null],
+            until_time: [null],
+            until_interval: [null],
+            after_date: [null],
+            after_time: [null],
+            after_interval: ['']
+          });
+        }
+        
       }else{
-        this.addTicketForm = this._formBuilder.group({
-          title: ['',[Validators.required]],
-          price: ['',[Validators.required,Validators.pattern(this.onlynumericAmount)]],
-          qty: ['',[Validators.required,Validators.pattern(this.onlynumericQTY)]],
-          description: [''],
-          fee: ['',[Validators.pattern(this.onlynumericAmount)]],
-          status: [''],
-          min_order: ['',[Validators.pattern(this.onlynumeric)]],
-          max_order: ['',[Validators.pattern(this.onlynumeric)]],
-          recurring_until_date: [null],
-          recurring_until_time: [null],
-          recurring_after_date: [null],
-          recurring_after_time: [null],
-        });
+        
+        if(this.editTicket){
+          this.advanceSetting = this.editTicketDetail.advance_setting;
+          this.soldOut = this.editTicketDetail.sold_out;
+          this.showQTY = this.editTicketDetail.show_qty;
+          this.recurringUntil = this.editTicketDetail.hide_until_set_date_and_time_status;
+          this.recurringAfter = this.editTicketDetail.hide_after_set_date_and_time_status;
+          this.addTicketForm = this._formBuilder.group({
+            title: [this.editTicketDetail.ticket_name,[Validators.required]],
+            price: [this.editTicketDetail.prize,[Validators.required,Validators.pattern(this.onlynumericAmount)]],
+            qty: [this.editTicketDetail.qty,[Validators.required,Validators.pattern(this.onlynumericQTY)]],
+            description: [this.editTicketDetail.description],
+            fee: [this.editTicketDetail.booking_fee,[Validators.pattern(this.onlynumericAmount)]],
+            status: [this.editTicketDetail.status],
+            min_order: [this.editTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
+            max_order: [this.editTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
+            recurring_until_date: [this.editTicketDetail.hide_until_date],
+            recurring_until_time: [this.editTicketDetail.hide_until_time],
+            recurring_after_date: [this.editTicketDetail.hide_after_date],
+            recurring_after_time: [this.editTicketDetail.hide_after_time],
+          });
+        }else{
+          this.addTicketForm = this._formBuilder.group({
+            title: ['',[Validators.required]],
+            price: ['',[Validators.required,Validators.pattern(this.onlynumericAmount)]],
+            qty: ['',[Validators.required,Validators.pattern(this.onlynumericQTY)]],
+            description: [''],
+            fee: ['',[Validators.pattern(this.onlynumericAmount)]],
+            status: [''],
+            min_order: ['',[Validators.pattern(this.onlynumeric)]],
+            max_order: ['',[Validators.pattern(this.onlynumeric)]],
+            recurring_until_date: [null],
+            recurring_until_time: [null],
+            recurring_after_date: [null],
+            recurring_after_time: [null],
+          });
+        }
+        
       }
       
     }
@@ -1168,17 +1291,18 @@ export class AddNewTicketType {
   }
   
   fnChangeMinOr(event){
-    if(this.addTicketForm.get('min_order').value > this.addTicketForm.get('qty').value){
+    if(parseInt(this.addTicketForm.get('min_order').value) > parseInt(this.addTicketForm.get('qty').value)){
       this.ErrorService.errorMessage('Minimum order should not greater then quntity.');
       this.addTicketForm.controls['min_order'].setValue('');
     }
+    this.addTicketForm.controls['max_order'].setValue('');
   }
   
   fnChangeMaxOr(event){
-    if(this.addTicketForm.get('max_order').value > this.addTicketForm.get('qty').value){
+    if(parseInt(this.addTicketForm.get('max_order').value) > parseInt(this.addTicketForm.get('qty').value)){
       this.ErrorService.errorMessage('Maximum order should not greater then quntity.');
       this.addTicketForm.controls['max_order'].setValue('');
-    }else if(this.addTicketForm.get('max_order').value < this.addTicketForm.get('min_order').value){
+    }else if(parseInt(this.addTicketForm.get('max_order').value) < parseInt(this.addTicketForm.get('min_order').value)){
       this.ErrorService.errorMessage('Maximum order should not less then min order.');
       this.addTicketForm.controls['max_order'].setValue('');
     }

@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "Eventjio": {
+        "Eventsmatic": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -72,18 +72,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "Eventjio:build"
+                        "browserTarget": "Eventsmatic:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "Eventjio:build:production"
+                            "browserTarget": "Eventsmatic:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "Eventjio:build"
+                        "browserTarget": "Eventsmatic:build"
                     }
                 },
                 "test": {
@@ -120,18 +120,18 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "Eventjio:serve"
+                        "devServerTarget": "Eventsmatic:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "Eventjio:serve:production"
+                            "devServerTarget": "Eventsmatic:serve:production"
                         }
                     }
                 }
             }
         }
     },
-    "defaultProject": "Eventjio",
+    "defaultProject": "Eventsmatic",
     "cli": {
         "analytics": "799ae259-fec3-4c29-bf2f-af98b1d1ae1d"
     }

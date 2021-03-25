@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { MyProfileComponent } from './my-profile/my-profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EventsComponent } from './events/events.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -34,6 +35,10 @@ const routes: Routes = [
   { 
     path: 'boxoffice', 
     component: MyBoxofficeComponent
+  }, 
+  {
+    path:'my-profile',
+    component:MyProfileComponent
   },
   { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
  { 

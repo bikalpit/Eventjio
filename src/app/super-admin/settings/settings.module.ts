@@ -11,7 +11,7 @@ import { ButttonAndLinksComponent } from './buttton-and-links/buttton-and-links.
 import { ContactPreferencesComponent } from './contact-preferences/contact-preferences.component';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { WebsitesEmbedCodesComponent } from './websites-embed-codes/websites-embed-codes.component';
-import { MyProfileComponent } from './my-profile/my-profile.component';
+// import { MyProfileComponent } from '../my-profile/my-profile.component';
 import { BoxOfficeComponent } from './box-office/box-office.component';
 import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
 import { TeamAccessComponent } from './team-access/team-access.component';
@@ -27,7 +27,7 @@ import { inviteTeamMateDialog} from './team-access/team-access.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { AddSalesTax } from './sales-tax/sales-tax.component';
-import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component';
+import { DialogAdminProfileImageUpload } from '../my-profile/my-profile.component';
 import { DialogAdminBoxofficeImageUpload } from './box-office/box-office.component';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
 import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-form/checkout-form.component';
@@ -46,7 +46,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     ButttonAndLinksComponent, 
     WebsitesEmbedCodesComponent,
     TeamAccessComponent, 
-    MyProfileComponent, 
+    // MyProfileComponent, 
     BoxOfficeComponent, 
     SeatingChartsComponent, 
     ConnectAppsComponent, 

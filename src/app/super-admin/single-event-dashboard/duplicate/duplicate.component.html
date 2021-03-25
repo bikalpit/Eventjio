@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="content" class="drageble-list">
-                    <div class="drageble-box" fxLayout="row">
+                    <div class="drageble-box align-items-start" fxLayout="row">
                         <div class="tb-data heading-table clr-black" fxFlex="10"> Original </div>
                         <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.event_title:''}} </div>
                         <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.start_date:'' | date}}</div>
@@ -43,7 +43,7 @@
                     <div class="content" class="drageble-list" formArrayName="items" *ngFor="let item of duplicateForm.get('items')['controls']; let i = index">
 
                         <div [formGroupName]="i">
-                            <div class="drageble-box main-drageble" fxLayout="row">
+                            <div class="drageble-box main-drageble align-items-start" fxLayout="row">
                                 <div class="tb-data heading-table clr-black" fxFlex="10"> New </div>
 
                                 <div class="tb-data heading-table" fxFlex="15">
@@ -57,7 +57,7 @@
                                 <div class="tb-data heading-table text-purple" fxFlex="15">
                                     <div class="matDate">
                                         <mat-datepicker-toggle matPrefix [for]="duplicateStartDatePicker" class="dateIcon"> </mat-datepicker-toggle>
-                                        <input type="text" (dateChange)="fnChangeEventStartDate($event)" matInput [matDatepicker]="duplicateStartDatePicker" [min]="minDate" (click)="duplicateStartDatePicker.open()" class="form-control matInputdate" formControlName="start_date">
+                                        <input type="text" (dateChange)="fnChangeEventStartDate($event)" [matDatepicker]="duplicateStartDatePicker" [min]="minDate" (click)="duplicateStartDatePicker.open()" class="form-control matInputdate" formControlName="start_date">
                                         <mat-datepicker #duplicateStartDatePicker></mat-datepicker>
                                         <span *ngIf="item.get('start_date').touched || item.get('start_date').dirty">
                                             <small *ngIf="item.get('start_date').hasError('required')" class="error"> Start date is required </small>
@@ -84,7 +84,7 @@
                                 <div class="tb-data heading-table" fxFlex="15">
                                     <div class="matDate">
                                         <mat-datepicker-toggle matPrefix [for]="duplicateEndDatePicker" class="dateIcon"> </mat-datepicker-toggle>
-                                        <input type="text" matInput [matDatepicker]="duplicateEndDatePicker" (dateChange)="fnChangeEventEndDate($event)" [min]="minTillDate" (click)="duplicateEndDatePicker.open()" class="form-control matInputdate" formControlName="end_date">
+                                        <input type="text" [matDatepicker]="duplicateEndDatePicker" (dateChange)="fnChangeEventEndDate($event)" [min]="minTillDate" (click)="duplicateEndDatePicker.open()" class="form-control matInputdate" formControlName="end_date">
                                         <mat-datepicker #duplicateEndDatePicker></mat-datepicker>
                                         <span *ngIf="item.get('end_date').touched || item.get('end_date').dirty">
                                             <small *ngIf="item.get('end_date').hasError('required')" class="error"> End date is required </small>

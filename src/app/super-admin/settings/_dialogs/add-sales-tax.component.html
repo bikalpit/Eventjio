@@ -30,6 +30,7 @@
                         <span class="error-wrap" *ngIf="addTaxForm.get('value').touched || addTaxForm.get('value').dirty">
                       <small *ngIf="addTaxForm.get('value').hasError('required')" class="error">TAX value is required.</small>
                       <small *ngIf="addTaxForm.get('value').hasError('pattern')" class="error">Please enter value in numaric.</small>
+                      <small *ngIf="addTaxForm.get('value').hasError('max')" class="error">TAX value should maximum 100.</small>
                     </span>
                     </div>
 
@@ -48,7 +49,7 @@
     </div>
 
     <div class="text-right">
-        <button mat-flat-button class="cancel-btn" (click)="onNoClick()">Cnacel</button>
+        <button mat-flat-button class="cancel-btn" (click)="onNoClick()">Cancel</button>
         <button mat-flat-button class="create-btn ml-3" (click)="fnOnSubmit()">Create</button>
     </div>
 

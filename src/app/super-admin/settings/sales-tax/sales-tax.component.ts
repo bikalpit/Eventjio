@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import {HttpClient} from '@angular/common/http';
 import { ErrorService } from '../../../_services/error.service'
 import { SettingService } from '../_services/setting.service';
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-sales-tax',
@@ -18,7 +19,7 @@ export class SalesTaxComponent implements OnInit {
   singleTaxData:any;
   status:any;
   taxStatus:any;
-  boxOfficeSalesTax:any = 'N';
+  boxOfficeSalesTax:any = 'Y';
   constructor(public dialog: MatDialog,
     private SettingService : SettingService,
     private ErrorService : ErrorService,) { 
@@ -29,6 +30,7 @@ export class SalesTaxComponent implements OnInit {
 
       
     }
+    
 
     fnBoxOfficeSalesTax(event){
       
@@ -60,21 +62,35 @@ export class SalesTaxComponent implements OnInit {
   }
     
     getAllAddTax(){
-    this.isLoaderAdmin = true;
-    let requestObject = {
-      'boxoffice_id' : this.boxOfficeCode,
+      this.isLoaderAdmin = true;
+   
+      let requestObject1 = {
+        "boxoffice_id"  : localStorage.getItem('boxoffice_id'),
+        "option_key"    :  "boxOfficeSalesTax",
+        "event_id" :  'NULL',
       }
-     this.SettingService.getAllAddTax(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.allAddTax = response.response
-        console.log(this.allAddTax);
+      this.SettingService.getSettingsValue(requestObject1).subscribe((response:any) => {
+        if(response.data == true){
+          this.boxOfficeSalesTax = JSON.parse(response.response)
+
+        }else if(response.data == false){
+        }
+        this.isLoaderAdmin = false;
+      });
+      this.isLoaderAdmin = true;
+      let requestObject = {
+        'boxoffice_id' : this.boxOfficeCode,
       }
-      else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
-      this.allAddTax.length = 0
-      }
-      this.isLoaderAdmin = false;
-    })
+      this.SettingService.getAllAddTax(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.allAddTax = response.response
+          console.log(this.allAddTax);
+        }
+        else if(response.data == false){
+          this.allAddTax.length = 0
+        }
+        this.isLoaderAdmin = false;
+      })
   }
 
   updateTax(index){
@@ -86,6 +102,12 @@ export class SalesTaxComponent implements OnInit {
   }
 
   fnDeleteTax(unique_code){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to delete?"
+    });
+     dialogRef.afterClosed().subscribe(result => {
+        if(result){
     this.isLoaderAdmin = true;
     let requestObject = {
       'unique_code': unique_code,
@@ -100,6 +122,8 @@ export class SalesTaxComponent implements OnInit {
       }
     })
     this.isLoaderAdmin = false;
+  }
+});
   }
 
   changeTaxStaus(event,unique_code){
@@ -178,7 +202,7 @@ export class AddSalesTax {
 
       this.addTaxForm = this._formBuilder.group({
         name:['',[Validators.required]],
-        value:['',[Validators.required,Validators.pattern('[0-9.]{0,1000}')]],
+        value:['',[Validators.required,Validators.pattern('[0-9.]{0,1000}'),Validators.max(100)]],
       })
 
       if(this.singleTaxData){

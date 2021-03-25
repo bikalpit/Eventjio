@@ -31,7 +31,7 @@
                                         <div *ngIf="singleEventDetail" class="form-group">
                                             <mat-datepicker #event_start_date_picker></mat-datepicker>
                                             <input [disabled]="eventStarted" (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block"
-                                                placeholder="DD/MM/YY" readonly>
+                                                placeholder="MM/DD/YYYY" readonly>
 
                                             <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_start_date').touched || editEventForm.get('event_start_date').dirty">
                                                 <small
@@ -66,7 +66,7 @@
                                 <div class="row mx-0">
                                     <div class="col-md-7 form-group pl-0">
                                         <label for="">End Date  <span><i class="fa fa-asterisk"></i></span> </label>
-                                        <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY"
+                                        <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="MM/DD/YYYY"
                                             readonly>
                                         <mat-datepicker #event_end_date_picker></mat-datepicker>
                                         <span style="left:0" class="error-wrap" *ngIf="editEventForm.get('event_end_date').touched || editEventForm.get('event_end_date').dirty">
@@ -288,7 +288,7 @@
                                 {{eventTicketList.ticket_name}}
                             </div>
                             <div class="ticket-status ml-auto">
-                                <div class="d-inline-block ">
+                                <div *ngIf="recurringEvent == 'N'" class="d-inline-block ">
                                     <i class="fa fa-ticket fa-lg mr-2"></i><span>{{eventTicketList.remaining ?
                                         eventTicketList.remaining.sold : 0}} Ticket Sold</span>
                                 </div>

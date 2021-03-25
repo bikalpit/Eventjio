@@ -938,7 +938,7 @@ export class AddNewOrderDialog {
     this.isLoaderAdmin = true;
     let requestObject={
       "boxoffice_id": this.boxOfficeCode,
-      "filter":'all',
+      "filter":'upcoming',
     }
 
     this.superadminService.getAllEventList(requestObject).subscribe((response:any) => {
@@ -1006,6 +1006,7 @@ export class BookTicketDialog {
   boxOfficeCode:any;
   selecetdTickets : any =[];
   subTotal :any = 0;
+  subTotalWithTransactionFee :any = 0;
   is_added_at_least_item  = true;
   currencyCode = "USD";
   isLoaderAdmin = false;
@@ -1029,6 +1030,9 @@ export class BookTicketDialog {
   promo_code ="";
   grandTotal = 0;
   total_sales_tax_amount = 0;
+  
+  boxOfficeSalesTaxStatus:any;
+  subTotalWithDiscount:any=0;
   coupon_code = '';
   coupon_amt = 0;
   gloabelSalesTax = 0;
@@ -1070,7 +1074,7 @@ export class BookTicketDialog {
       console.log(this.selectedEventCode)
       console.log(this.eventDetail)
     
-      
+      console.log(this.eventSettings)
       this.eventSettings = this.eventDetail.event_setting;
       this.donation_amt = this.eventSettings.donation_amt ? parseInt(this.eventSettings.donation_amt) : 0;
       this.transaction_fee =  this.eventSettings.transaction_fee ? parseInt(this.eventSettings.transaction_fee) : 0;
@@ -1120,14 +1124,29 @@ export class BookTicketDialog {
       this.fnGeteventTicket();
     }
     this.getEventForm();
-    this.fnGetSalesTax();
+    this.isLoaderAdmin = true;
+    let requestObject ={
+      'boxoffice_id' : localStorage.getItem('boxoffice_id'),
+      'event_id' :'NULL',
+      'option_key':'boxOfficeSalesTax',
+    }
+    this.superadminService.getSettings(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.boxOfficeSalesTaxStatus = JSON.parse(response.response)
+        if(this.boxOfficeSalesTaxStatus == 'Y'){
+          this.fnGetSalesTax();
+        }
+      } else if(response.data == false){
+        // this.errorService.errorMessage(response.response);
+      }
+    });
+    this.isLoaderAdmin = false;
   }
 
   get f() { return this.dynamicForm.controls; }
   get t() { return this.f.tickets as FormArray; }
 
   fnGetSalesTax(){
-    
     this.isLoaderAdmin = true;
     let requestObject = {
       'boxoffice_id' : this.boxOfficeCode,
@@ -1135,7 +1154,7 @@ export class BookTicketDialog {
 
     this.superadminService.getAllAddTax(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.gloabelSalesTax = response.response;
+        // this.gloabelSalesTax = response.response;
 
         response.response.forEach(element => {
           this.gloabelSalesTax = this.gloabelSalesTax +  parseInt(element.value);
@@ -1146,6 +1165,7 @@ export class BookTicketDialog {
       this.isLoaderAdmin = false;
     });
 
+   
   }
 
   
@@ -1374,16 +1394,16 @@ export class BookTicketDialog {
           this.total_qty = this.total_qty +  parseInt(element.qty);
         }
       });
+      this.subTotalWithTransactionFee = this.subTotal+this.transaction_fee
     }
     
-
-    if(this.total_sales_tax  > 0){
-      this.total_sales_tax_amount = this.subTotal*this.total_sales_tax/100;
-    }else if(this.gloabelSalesTax > 0){
-      this.total_sales_tax_amount = this.subTotal*this.gloabelSalesTax/100;
+    if(this.eventSettings.custom_sales_tax == 'Y'){
+      this.total_sales_tax_amount = this.subTotalWithTransactionFee*this.total_sales_tax/100;
+    }else if(this.eventSettings.custom_sales_tax == 'N' && this.boxOfficeSalesTaxStatus == 'Y'){
+      this.total_sales_tax_amount = this.subTotalWithTransactionFee*this.gloabelSalesTax/100;
     }
 
-    this.grandTotal = this.subTotal+this.total_sales_tax_amount+this.transaction_fee;
+    this.grandTotal = this.subTotalWithTransactionFee+this.total_sales_tax_amount;
 
     
   }
@@ -1413,7 +1433,7 @@ export class BookTicketDialog {
             this.voucher_amt = this.grandTotal;
           }
           this.discount_amt = this.voucher_amt;
-          this.grandTotal = this.grandTotal - this.voucher_amt;
+          // this.grandTotal = this.grandTotal - this.voucher_amt;
 
         }else{
         
@@ -1430,8 +1450,42 @@ export class BookTicketDialog {
             this.coupon_amt = this.grandTotal;
           }
           this.discount_amt = this.coupon_amt;
-          this.grandTotal = this.grandTotal - this.coupon_amt;
+          // this.grandTotal = this.grandTotal - this.coupon_amt;
         }
+
+        this.subTotalWithDiscount = this.subTotalWithTransactionFee-this.discount_amt;
+        if(this.eventSettings.custom_sales_tax == 'Y'){
+          // this.total_sales_tax = 0;
+          // this.sales_tax.forEach(element => {
+          //   element.finalAmount = 0
+          //   if(parseInt(element.amount) > 0){
+          //     element.finalAmount = element.amount*this.subTotalWithDiscount/100
+          //     this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
+          //   }
+          // });
+          // if(this.total_sales_tax  > 0){
+            this.total_sales_tax_amount = this.subTotalWithDiscount*this.total_sales_tax/100;
+          // }else if(this.gloabelSalesTax > 0){
+          //   this.total_sales_tax_amount = this.subTotalWithDiscount*this.gloabelSalesTax/100;
+          // }
+          // this.total_sales_tax_amount = this.subTotalWithDiscount*this.total_sales_tax/100;
+          // this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount+this.transaction_fee;
+          this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
+        }else if(this.eventSettings.custom_sales_tax == 'N' && this.boxOfficeSalesTaxStatus == 'Y'){
+          // this.gloabelSalesTax = 0;
+          // if(this.subTotalWithDiscount != 0){
+          //   this.gloabelSalesTax.forEach(element => {
+          //     element.finalAmount = 0;
+              // element.finalAmount =  this.gloabelSalesTax*this.subTotalWithDiscount / 100;
+              // this.totalGlobelSalesTax = this.totalGlobelSalesTax + parseInt(element.value);
+            // });
+          // this.total_sales_tax_amount = this.total_sales_tax_amount +  this.totalGlobelSalesTax;
+          // this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount+this.transaction_fee;
+          this.total_sales_tax_amount = this.subTotalWithDiscount*this.gloabelSalesTax/100;
+          this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
+          }else{
+            this.grandTotal = this.subTotalWithDiscount
+          }
         
 
       } else if(response.data == false){

@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {SettingService} from '../_services/setting.service';
-import { ErrorService } from '../../../_services/error.service';
-import { AuthenticationService } from '../../../_services/authentication.service'
+import {SettingService} from '../settings/_services/setting.service';
+import { ErrorService } from '../../_services/error.service';
+import { AuthenticationService } from '../../_services/authentication.service'
 
 @Component({
   selector: 'app-my-profile',

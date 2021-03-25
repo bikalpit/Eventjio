@@ -7,6 +7,7 @@ import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { SuperAdminComponent } from './super-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EventsComponent } from './events/events.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 import { MaterialModule } from '../_helpers/material.module';
 import { MatTableModule } from '@angular/material/table';
 import { OrdersComponent } from './orders/orders.component';
@@ -47,6 +48,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
       DashboardComponent, 
       SuperAdminComponent,
       EventsComponent,
+      MyProfileComponent,
       CouponsComponent,
       OrdersComponent, 
       CustomersComponent,

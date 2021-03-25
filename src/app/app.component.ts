@@ -22,7 +22,7 @@ export class AppComponent {
   pageName: any = 'Box-Office';
   timer: any = 0;
   selectedBoxOfficeName: any;
-  currentUser: User;
+  currentUser: any;
   adminTopMenuselected: any
   loginForm: FormGroup;
   currentUrl: string = '';
@@ -31,6 +31,7 @@ export class AppComponent {
   isAllowed: boolean = true;
   keepMe: any;
   currentUserData: any;
+  currentUserImage: any;
 
   @ViewChild('toggleButton') toggleButton: ElementRef;
   @ViewChild('logoutMenu') logoutMenu: ElementRef;
@@ -48,7 +49,7 @@ export class AppComponent {
     //   if(e.target !== this.toggleButton.nativeElement && e.target!==this.logoutMenu.nativeElement){
     //       this.openLogoutMenuBox=false;
     //   }
-    // });
+    // }); 
     this.keepMe = localStorage.getItem('keepMeSignIn')
     if (this.keepMe == 'true') {
       this.currentUserData = localStorage.getItem('currentUser')
@@ -58,6 +59,7 @@ export class AppComponent {
       this.currentUserData = sessionStorage.getItem('currentUser')
       // alert("app sessions")
       this.currentUser = this.currentUserData
+      // this.currentUserImage = this.currentUserData.image
     }
      this.currentUser = this.currentUserData
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -212,6 +214,11 @@ export class AppComponent {
 
   fnLogout() {
     this.logout();
+    this.openLogoutMenuBox = false;
+  }
+
+  fnMyProfile() {
+    this.router.navigate(['/super-admin/my-profile']);
     this.openLogoutMenuBox = false;
   }
 

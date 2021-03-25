@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ErrorService } from '../_services/error.service'
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-signup',
@@ -32,6 +33,7 @@ export class SignupComponent implements OnInit {
   private route: ActivatedRoute,
   private _snackBar: MatSnackBar,
   private ErrorService: ErrorService,
+  private appComponent: AppComponent,
     )
      {
 		if(this.route.snapshot.queryParamMap.get('email')){
@@ -77,69 +79,73 @@ export class SignupComponent implements OnInit {
   	fnSignUp(){
 		if(!this.termsCheckboxChecked){
 			this.termsCheckbox = false;
-			return false;
 		}
     
-    if(this.signUpForm.invalid){
-      this.signUpForm.get('firstname').markAsTouched();
-      this.signUpForm.get('email').markAsTouched();
-      this.signUpForm.get('password').markAsTouched();
-      this.signUpForm.get('description').markAsTouched();
-      return false;
-    }
-	this.isLoaderAdmin = true;
+		if(this.signUpForm.invalid){
+		this.signUpForm.get('firstname').markAsTouched();
+		this.signUpForm.get('email').markAsTouched();
+		this.signUpForm.get('password').markAsTouched();
+		this.signUpForm.get('description').markAsTouched();
+		return false;
+		}
+		if(!this.termsCheckboxChecked){
+			this.termsCheckbox = false;
+			return false;
+		}
 
-	if(this.inviter){
+		this.isLoaderAdmin = true;
+
+		if(this.inviter){
+			this.requestObject = {
+				"firstname":this.signUpForm.get("firstname").value,
+				"email":this.signUpForm.get("email").value,
+				"password":this.signUpForm.get("password").value,
+				"description":this.signUpForm.get("description").value,
+				"inviter_id": this.inviterCode,
+			};
+		}else{
+			
 		this.requestObject = {
 			"firstname":this.signUpForm.get("firstname").value,
 			"email":this.signUpForm.get("email").value,
 			"password":this.signUpForm.get("password").value,
 			"description":this.signUpForm.get("description").value,
-			"inviter_id": this.inviterCode,
 		};
-	}else{
-		
-	this.requestObject = {
-		"firstname":this.signUpForm.get("firstname").value,
-		"email":this.signUpForm.get("email").value,
-		"password":this.signUpForm.get("password").value,
-		"description":this.signUpForm.get("description").value,
-	};
-	}
-	let headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	
-	this.http.post(`${environment.apiUrl}/signup`,this.requestObject,{headers:headers} ).pipe(	
-	map((res) => {
-		return res;
-	}),
-	catchError(this.handleError)
-	).subscribe((response:any) => {
-		this.adminSignUpData = JSON.stringify(response.response)
-
-		localStorage.setItem('adminData',this.adminSignUpData)
-		if(response.data == true){
-		this._snackBar.open("Account Succesfully Created", "X", {
-			duration: 2000,
-			verticalPosition: 'top',
-			panelClass : ['green-snackbar']
-		});
-			
-			this.router.navigate(["/login"]);
-		}else{
-		this.ErrorService.errorMessage(response.response);
-		this._snackBar.open(response.response, "X", {
-			duration: 2000,
-			verticalPosition: 'top',
-			panelClass : ['red-snackbar']
-			});
 		}
+		let headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+		});
 		
-	},
-	(err) =>{
-		console.log(err)
-	})
+		this.http.post(`${environment.apiUrl}/signup`,this.requestObject,{headers:headers} ).pipe(	
+		map((res) => {
+			return res;
+		}),
+		catchError(this.handleError)
+		).subscribe((response:any) => {
+			this.adminSignUpData = JSON.stringify(response.response)
+
+			if(response.data == true){
+				this._snackBar.open("Account Succesfully Created", "X", {
+					duration: 2000,
+					verticalPosition: 'top',
+					panelClass : ['green-snackbar']
+				});
+				this.isLoaderAdmin = false;
+				this.router.navigate(["/login"]);
+			}else{
+				this.ErrorService.errorMessage(response.response);
+				this._snackBar.open(response.response, "X", {
+					duration: 2000,
+					verticalPosition: 'top',
+					panelClass : ['red-snackbar']
+				});
+				this.isLoaderAdmin = false;
+			}
+			
+		},
+		(err) =>{
+			console.log(err)
+		})
 
 
     
@@ -165,5 +171,14 @@ export class SignupComponent implements OnInit {
 		  }, 500);
 		});
 	  }
+
+	  signInWithGoogle(): void {
+        // localStorage.setItem('keepMeSignIn', this.keepMe)
+        this.appComponent.signInWithGoogle(this.signUpForm);
+    }
+    signInWithFB(): void {
+        // localStorage.setItem('keepMeSignIn', this.keepMe)
+        this.appComponent.signInWithFB(this.signUpForm);
+    }
 
 }

@@ -3,11 +3,11 @@
     <div *ngIf="addNewEvents" class="bg-white events">
         <div class="row mx-0 p-3">
             <div class="page-title">
-                Events {{isLoaderAdmin}}
+                Manage Events
             </div>
 
             <div class="ml-auto mt-2 pr-3">
-                <button (click)="addNewEvents=!addNewEvents" mat-flat-button class="add-event-button px-5">Add Next Event</button>
+                <button (click)="addNewEvents=!addNewEvents" mat-flat-button class="add-event-button px-5">Add New Event</button>
             </div>
         </div>
 
@@ -49,7 +49,10 @@
                                         <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'Y'">{{element.totalOccurrencRemaining}}</div>
                                         <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'N' && element.remaining === undefined">No Tickets</div>
                                         <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'N' && element.final_revenue !== undefined">{{element.final_revenue[0].Revenue| currency:element.event_setting.currency:'symbol'}}</div>
-                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'Y'">{{element.totalOccurrencRevenue}}</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'Y'">
+                                            <span *ngIf="element.totalOccurrencRevenue !== 'Occurrence not created' && element.totalOccurrencRevenue !== 'No Tickets'">{{element.totalOccurrencRevenue| currency:element.event_setting.currency:'symbol'}}</span>
+                                            <span *ngIf="element.totalOccurrencRevenue === 'Occurrence not created' || element.totalOccurrencRevenue === 'No Tickets'">{{element.totalOccurrencRevenue}}</span>
+                                        </div>
                                         <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'N' && element.final_revenue === undefined">No Tickets</div>
                                         <div class="tb-data" fxFlex="10">
                                             <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
@@ -143,7 +146,10 @@
                                         <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'Y'">{{element.totalOccurrencRemaining}}</div>
                                         <div class="tb-data" fxFlex="15" *ngIf="element.event_occurrence_type == 'N' && element.remaining === undefined">No Tickets</div>
                                         <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'N' && element.final_revenue !== undefined">{{element.final_revenue[0].Revenue| currency:element.event_setting.currency:'symbol'}}</div>
-                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'Y'">{{element.totalOccurrencRevenue}}</div>
+                                        <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'Y'">
+                                            <span *ngIf="element.totalOccurrencRevenue !== 'Occurrence not created' && element.totalOccurrencRevenue !== 'No Tickets'">{{element.totalOccurrencRevenue| currency:element.event_setting.currency:'symbol'}}</span>
+                                            <span *ngIf="element.totalOccurrencRevenue === 'Occurrence not created' || element.totalOccurrencRevenue === 'No Tickets'">{{element.totalOccurrencRevenue}}</span>
+                                        </div>
                                         <div class="tb-data" fxFlex="17" *ngIf="element.event_occurrence_type == 'N' && element.final_revenue === undefined">No Tickets</div>
                                         <!-- <div class="tb-data" fxFlex="13" *ngIf="element.soldout !== undefined">{{element.soldout[0].Sold}}</div>
                                         <div class="tb-data" fxFlex="13" *ngIf="element.soldout === 'Occurrence not created'">Occurrence not created</div>
@@ -235,7 +241,7 @@
                                 <div class="w-100">
                                     <label for="">Start Date <span><i class="fa fa-asterisk"></i></span> </label>
                                     <div class="form-group">
-                                        <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="DD/MM/YY"
+                                        <input (dateChange)="fnChangeEventStartDate()" (click)="event_start_date_picker.open()" [min]="minEventStartDate" [matDatepicker]="event_start_date_picker" type="text" formControlName="event_start_date" class="col-12 form-control d-inline-block" placeholder="MM/DD/YYYY"
                                             readonly>
                                         <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_start_date').touched || addEventForm.get('event_start_date').dirty">
                                     <small *ngIf="addEventForm.get('event_start_date').hasError('required')" class="error">Event Start Date is required.</small>
@@ -263,7 +269,7 @@
                             <div class=" date-and-time ml-2 mt-3">
                                 <div class="w-100">
                                     <label for="">End Date<span><i class="fa fa-asterisk"></i></span> </label>
-                                    <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY"
+                                    <input (dateChange)="fnChangeEventEndDate()" (click)="event_end_date_picker.open()" [min]="minEventEndDate" [matDatepicker]="event_end_date_picker" type="text" formControlName="event_end_date" class=" col-12 form-control d-inline-block" placeholder="MM/DD/YYYY"
                                         readonly>
                                     <mat-datepicker #event_end_date_picker></mat-datepicker>
                                     <span style="left:0" class="error-wrap" *ngIf="addEventForm.get('event_end_date').touched || addEventForm.get('event_end_date').dirty">
@@ -301,7 +307,7 @@
                         <div class="w-100" *ngIf="olPlatForm == 'N'">
                             <div class="row m-0 mt-3">
                                 <div class="venue-info">
-                                    <label for="">Venue Name</label>
+                                    <label for="">Venue Name <span><i class="fa fa-asterisk"></i></span></label>
                                     <div class="form-group">
                                         <input formControlName="vanue_name" type="text" class="form-control" placeholder="e.g. Blues Star">
                                         <span class="error-wrap" *ngIf="addEventForm.get('vanue_name').touched || addEventForm.get('vanue_name').dirty">
@@ -311,7 +317,7 @@
                                 </div>
 
                                 <div class="venue-info ml-2">
-                                    <label for="">Venue postalcode / Zip</label>
+                                    <label for="">Venue postalcode / Zip <span><i class="fa fa-asterisk"></i></span></label>
                                     <div class="form-group">
                                         <input formControlName="vanue_zip" type="text" class="form-control" placeholder="e.g. 400001">
                                         <span class="error-wrap" *ngIf="addEventForm.get('vanue_zip').touched || addEventForm.get('vanue_zip').dirty">
@@ -321,7 +327,7 @@
                                 </div>
 
                                 <div class="venue-info ml-2">
-                                    <label for="">Venue Country</label>
+                                    <label for="">Venue Country <span><i class="fa fa-asterisk"></i></span></label>
                                     <div class="form-group">
                                         <mat-select formControlName="vanue_country" class="form-control">
                                             <mat-option *ngFor="let allCountry of allCountry; let i=index" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
@@ -368,7 +374,7 @@
 
 
                         <div class="w-100 mt-3">
-                            <label class="w-100" for="">Description <span class="ml-2"><i class="fa fa-question"   matTooltip="You may like to add a short description for your customers.This is used in event listings." aria-hidden="true"></i></span> </label>
+                            <label class="w-100" for="">Description <span><i class="mr-1 fa fa-asterisk"></i></span> <span class=""><i class="fa fa-question"   matTooltip="You may like to add a short description for your customers.This is used in event listings." aria-hidden="true"></i></span> </label>
                             <div class="form-group">
                                 <angular-editor class="description_field" formControlName="description"></angular-editor>
                                 <span class="error-wrap" *ngIf="addEventForm.get('description').touched || addEventForm.get('description').dirty">
@@ -476,7 +482,10 @@
                                 <div class="d-inline-block ml-2 mr-2">
                                     <i class="fa fa-ticket fa-lg mr-2"></i><span>{{eventTicketList.qty}} Tickets Remaining</span>
                                 </div>
-
+                                <button mat-flat-button class="mr-1 edit-btn" (click)="fnEditTicket(i)"><i
+                                    class="fa fa-pencil pr-2"></i>Edit</button>
+                            <button mat-flat-button class="ml-1 delete-btn" (click)="fnDeleteTicket(i)"><i
+                                    class="fa fa-trash pr-2"></i>Delete</button>
                             </div>
                         </div>
                     </div>
@@ -549,14 +558,14 @@
                     <div class="w-100" *ngIf="donation == 'Y'">
                         <div class="row mt-2 m-0">
                             <div class="donation-field mt-2">
-                                <label for="">Donation title <span class="text-danger">*</span></label>
+                                <label for="">Donation title  <span><i class="fa fa-asterisk"></i></span></label>
                                 <input formControlName="donation_title" type="text" class="form-control" placeholder="Please make a donation">
                                 <span class="error-wrap" *ngIf="addEventForm.get('donation_title').touched || addEventForm.get('donation_title').dirty">
                                     <small *ngIf="addEventForm.get('donation_title').hasError('required')" class="error">Donation title is required.</small>
                                 </span>
                             </div>
                             <div class="donation-field ml-auto mt-2">
-                                <label for="">Donation amount <i class="fa fa-question-circle" matTooltipPosition="above" matTooltip="Set an amount you would like people to donate. This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."></i></label>
+                                <label for="">Donation amount  <span><i class="mr-1 fa fa-asterisk"></i></span> <i class="fa fa-question-circle" matTooltipPosition="above" matTooltip="Set an amount you would like people to donate. This will be pre-filled to the value you set but the customer will be able to change it to whatever they want."></i></label>
                                 <input formControlName="donation_amount" type="text" class="form-control" placeholder="0.00">
                                 <span class="error-wrap" *ngIf="addEventForm.get('donation_amount').touched || addEventForm.get('donation_amount').dirty">
                                     <small *ngIf="addEventForm.get('donation_amount').hasError('required')" class="error">Amount is required.</small>

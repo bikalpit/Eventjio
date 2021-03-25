@@ -25,7 +25,7 @@
                             <label>End</label>
                             <div class="form-group">
                                 <mat-select formControlName="end_time" class="col-10 ml-2 form-control d-inline-block" [disabled]="disabledEndSlote || !checkAllDayValue">
-                                    <mat-option *ngFor=" let tse of fullDayTimeSloteEnd[i]; let i=index " value="{{tse}} ">{{tse}}</mat-option>
+                                    <mat-option *ngFor=" let tse of fullDayTimeSloteEnd[i]; let i=index " value="{{tse}} ">{{transformTime24To12(tse)}}</mat-option>
                                 </mat-select>
                             </div>
 

@@ -2,9 +2,9 @@
     float: right !important;
 }
 
-::ng-deep .mat-dialog-container {
-    padding: 0;
-}
+// ::ng-deep .mat-dialog-container {
+//     padding: 0;
+// }
 
 #confirmation_dialog {
     .yes-btn {
@@ -21,4 +21,7 @@
         background-color: #9b9b9b;
         color: white;
     }
+}
+.mat-dialog-container{
+    padding: 0;
 }

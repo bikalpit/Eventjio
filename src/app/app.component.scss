@@ -158,6 +158,8 @@
 .user-image-icon {
     width: 48px;
     height: 48px;
+    border-radius: 100%;
+    background-size: cover;
     img {
         border-radius: 30px;
     }
@@ -287,6 +289,9 @@
         width: 170px;
         border-radius: 4px;
         z-index: 99;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
         label {
             width: 100%;
             margin-bottom: 0;

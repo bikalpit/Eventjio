@@ -51,7 +51,7 @@
                     </div> <span>Order Confirmation</span>
                 </div>
 
-                <div (click)="fnPostUrl('team-access')" [ngClass]="{'active': pageName == 'team-access'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/team-access">
+                <div (click)="fnPostUrl('team-access')" [ngClass]="{'active': pageName == 'team-access'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/team-access" *ngIf="teamAccessAllowed">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'team-access' ? 'none' : 'block'}" src="../../../assets/images/settings/Teamaccess/Team access.png" class="w-100" alt="">
                         <img [ngStyle]="{'display':pageName === 'team-access' ? 'block' : 'none'}" src="../../../assets/images/settings/Teamaccess/Team access_active.png" class="w-100" alt="">
@@ -74,12 +74,12 @@
                     <span>Account</span>
                 </div>
 
-                <div (click)="fnPostUrl('my-profile')" [ngClass]="{'active': pageName == 'my-profile'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/my-profile">
+                <!-- <div (click)="fnPostUrl('my-profile')" [ngClass]="{'active': pageName == 'my-profile'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/my-profile">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'my-profile' ? 'none' : 'block'}" src="../../../assets/images/settings/user/user.png" class="w-100" alt="">
                         <img [ngStyle]="{'display':pageName === 'my-profile' ? 'block' : 'none'}" src="../../../assets/images/settings/user/user_active.png" class="w-100" alt="">
                     </div> <span>My Profile</span>
-                </div>
+                </div> -->
 
                 <div (click)="fnPostUrl('box-office')" [ngClass]="{'active': pageName == 'box-office'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/box-office">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
