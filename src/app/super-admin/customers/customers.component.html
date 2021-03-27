@@ -219,7 +219,14 @@
 
                                     <div class="col-12 px-3 mt-3">
                                         <div class="row">
-                                            <div class="col-6 ">
+											<div class="col-6 ">
+                                                <label for="">Name</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" formControlName="cust_name" />
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('cust_name').dirty || addCustomerForm.get('cust_name').touched"><small *ngIf="addCustomerForm.get('cust_name').hasError('required')" class="error text-left">name is required.</small></span>
+                                                </div>
+                                            </div>
+                                            <!---<div class="col-6 ">
                                                 <label for="">First Name</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="firstname" />
@@ -233,7 +240,7 @@
                                                     <input type="text" class="form-control" formControlName="lastname" />
                                                     <span class="error-wrap" *ngIf="addCustomerForm.get('lastname').dirty || addCustomerForm.get('lastname').touched"><small *ngIf="addCustomerForm.get('lastname').hasError('required')" class="error text-left">Last name is required.</small></span>
                                                 </div>
-                                            </div>
+                                            </div>--->
 
                                             <div class="col-6 ">
                                                 <label for="">Phone No. </label>

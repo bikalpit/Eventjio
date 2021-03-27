@@ -77,8 +77,9 @@ export class CustomersComponent implements OnInit {
     
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/ 
     this.addCustomerForm = this.formBuilder.group({
-      firstname:['',Validators.required],
-      lastname:['',Validators.required],
+		cust_name:['',Validators.required],
+      //firstname:['',Validators.required],
+      //lastname:['',Validators.required],
       phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
       // image:[''],
@@ -140,10 +141,11 @@ export class CustomersComponent implements OnInit {
   }
 
 
-  submitForm(){
+  submitForm(){	 
     if(this.addCustomerForm.invalid){
-      this.addCustomerForm.get("firstname").markAsTouched();
-      this.addCustomerForm.get("lastname").markAsTouched();
+      //this.addCustomerForm.get("firstname").markAsTouched();
+      //this.addCustomerForm.get("lastname").markAsTouched();
+	  this.addCustomerForm.get("cust_name").markAsTouched();
       this.addCustomerForm.get("phone").markAsTouched();
       this.addCustomerForm.get("email").markAsTouched();
       this.addCustomerForm.get("address").markAsTouched();
@@ -152,9 +154,16 @@ export class CustomersComponent implements OnInit {
     }else{
       if(this.editCustomerForm == true){
         if(this.customerImageUrl){
-          let requestObject={
-            "firstname":this.addCustomerForm.get('firstname').value,
-            "lastname":this.addCustomerForm.get('lastname').value,
+		  var cust_name = this.addCustomerForm.get('cust_name').value;
+		  var cust_name = cust_name.split(" ");
+		  var firstname=cust_name[0];
+		  var lastname=cust_name[1];
+		  if(cust_name[1]=='undefined' || cust_name[1]==undefined){
+			  lastname="";
+		  }
+          let requestObject={			
+            "firstname":firstname,
+            "lastname":lastname,			
             "email":this.addCustomerForm.get('email').value,
             "phone":this.addCustomerForm.get('phone').value,
             "image": this.customerImageUrl,
@@ -163,11 +172,19 @@ export class CustomersComponent implements OnInit {
             "tags": this.addCustomerForm.get("tags").value,
             "boxoffice_id": this.boxofficeId,
           };
+		  
           this.fnUpdateCustomer(requestObject)
         }else{
-          let requestObject={
-            "firstname":this.addCustomerForm.get('firstname').value,
-            "lastname":this.addCustomerForm.get('lastname').value,
+          var cust_name = this.addCustomerForm.get('cust_name').value;
+		  var cust_name = cust_name.split(" ");
+		  var firstname=cust_name[0];
+		  var lastname=cust_name[1];
+		  if(cust_name[1]=='undefined' || cust_name[1]==undefined){
+			  lastname="";
+		  }
+          let requestObject={			
+            "firstname":firstname,
+            "lastname":lastname,			
             "email":this.addCustomerForm.get('email').value,
             "phone":this.addCustomerForm.get('phone').value,
             "address":this.addCustomerForm.get('address').value,
@@ -175,13 +192,21 @@ export class CustomersComponent implements OnInit {
             "tags": this.addCustomerForm.get("tags").value,
             "boxoffice_id": this.boxofficeId,
           };
+		  
           this.fnUpdateCustomer(requestObject)
         }
       }else if(this.editCustomerForm == false){
         if(this.customerImageUrl){
-          let requestObject={
-            "firstname": this.addCustomerForm.get("firstname").value,
-            "lastname": this.addCustomerForm.get("lastname").value,
+          var cust_name = this.addCustomerForm.get('cust_name').value;
+		  var cust_name = cust_name.split(" ");
+		  var firstname=cust_name[0];
+		  var lastname=cust_name[1];
+		  if(cust_name[1]=='undefined' || cust_name[1]==undefined){
+			  lastname="";
+		  }
+          let requestObject={			
+            "firstname":firstname,
+            "lastname":lastname,			
             "phone": this.addCustomerForm.get("phone").value,
             "email": this.addCustomerForm.get("email").value,
             "address": this.addCustomerForm.get("address").value,
@@ -189,17 +214,26 @@ export class CustomersComponent implements OnInit {
             "image": this.customerImageUrl,
             "boxoffice_id": this.boxofficeId,
           }
+		  
           this.fnCreateCustomer(requestObject)
         }else{
-          let requestObject={
-            "firstname": this.addCustomerForm.get("firstname").value,
-            "lastname": this.addCustomerForm.get("lastname").value,
+          var cust_name = this.addCustomerForm.get('cust_name').value;
+		  var cust_name = cust_name.split(" ");
+		  var firstname=cust_name[0];
+		  var lastname=cust_name[1];
+		  if(cust_name[1]=='undefined' || cust_name[1]==undefined){
+			  lastname="";
+		  }
+          let requestObject={			
+            "firstname":firstname,
+            "lastname":lastname,
             "phone": this.addCustomerForm.get("phone").value,
             "email": this.addCustomerForm.get("email").value,
             "address": this.addCustomerForm.get("address").value,
             "tags": this.addCustomerForm.get("tags").value,
             "boxoffice_id": this.boxofficeId,
           }
+		  
           this.fnCreateCustomer(requestObject)
         }
       }
@@ -215,6 +249,8 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.reset();
       this.customerImageUrl = null;
       this.getAllCustomersDetails();
+	  //this.selectedCustomerCode =  response[0].unique_code
+	  //this.fnSelectCustomer(this.selectedCustomerCode)
       this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     }else if(response.data == false){
       this.ErrorService.errorMessage(response.response);     
@@ -259,8 +295,13 @@ export class CustomersComponent implements OnInit {
     
     if(response.data == true){
       this.selectedCustomerDetails = response.response.customer;
-      this.addCustomerForm.controls['firstname'].setValue(this.selectedCustomerDetails.firstname)
-      this.addCustomerForm.controls['lastname'].setValue(this.selectedCustomerDetails.lastname)
+      //this.addCustomerForm.controls['firstname'].setValue(this.selectedCustomerDetails.firstname)
+      //this.addCustomerForm.controls['lastname'].setValue(this.selectedCustomerDetails.lastname)
+	  if(this.selectedCustomerDetails.lastname!=''){
+	  this.addCustomerForm.controls['cust_name'].setValue(this.selectedCustomerDetails.firstname+' '+this.selectedCustomerDetails.lastname)
+	  }else{
+		this.addCustomerForm.controls['cust_name'].setValue(this.selectedCustomerDetails.firstname)
+	  }
       this.addCustomerForm.controls['email'].setValue(this.selectedCustomerDetails.email)
       this.addCustomerForm.controls['phone'].setValue(this.selectedCustomerDetails.phone)
       this.addCustomerForm.controls['tags'].setValue(this.selectedCustomerDetails.tags)
