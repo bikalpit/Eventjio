@@ -245,22 +245,22 @@ export class CustomersComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
     if(response.data == true){
-      this.ErrorService.successMessage(response.response);
+      this.ErrorService.successMessage(response.response.message);
       this.addCustomerForm.reset();
       this.customerImageUrl = null;
       this.getAllCustomersDetails();
-	  //this.selectedCustomerCode =  response[0].unique_code
-	  //this.fnSelectCustomer(this.selectedCustomerCode)
+	  this.selectedCustomerCode =  response.response.unique_code
+      this.fnSelectCustomer(this.selectedCustomerCode);
       this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     }else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);     
+      this.ErrorService.errorMessage(response.response.message);     
       }
     this.isLoaderAdmin = false;
     });
  }
 
  
- getAllCustomersDetails(){
+ getAllCustomersDetails(unique_code=""){
     
     this.isLoaderAdmin = true;
     
@@ -273,8 +273,11 @@ export class CustomersComponent implements OnInit {
     this.SuperadminService.getAllCustomersDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.customerDetails = response.response;
+		
+		if(unique_code==""){
         this.selectedCustomerCode =  this.customerDetails[0].unique_code
-        this.fnSelectCustomer(this.selectedCustomerCode)
+		}
+		this.fnSelectCustomer(this.selectedCustomerCode);
       }else if(response.data == false){
         // this.ErrorService.errorMessage(response.response);
         this.customerDetails = null;
@@ -351,16 +354,20 @@ fnUpdateCustomer(requestObject){
   this.isLoaderAdmin = true;
     this.SuperadminService.updateCustomerDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.updateResponseMsg = JSON.stringify(response.response)
+        this.updateResponseMsg = JSON.stringify(response.response.message)
         this.editCustomerForm = false;
         this.ErrorService.successMessage(this.updateResponseMsg);
         this.addCustomerForm.reset();
         this.customerImageUrl = null;
-        this.fnSelectCustomer(this.selectedCustomerCode);
+		
+		this.selectedCustomerCode =  response.response.unique_code;
+	
+		this.getAllCustomersDetails(this.selectedCustomerCode);
+        
         this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
 
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        this.ErrorService.errorMessage(response.response.message);
       }
       this.isLoaderAdmin = false;
     });
