@@ -22,6 +22,7 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewTicketType } from './events/events.component';
 // import { AddNewTicketGroup } from './events/events.component';
+import { DialogAdminProfileImageUpload } from './my-profile/my-profile.component';
 import { myCreateDiscountCodeDialog } from './coupons/coupons.component';
 import { myBatchVoucherCodeDialog } from './coupons/coupons.component';
 import { AssignToEventDialog } from './coupons/coupons.component';
@@ -39,7 +40,6 @@ import { DialogImportFileUpload } from './customers/customers.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-
 
 
 
@@ -71,7 +71,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
       DialogCustomerImageUpload,
       AssignToEventDialog,
       AssignToTicketTypeDialog,
-      DialogImportFileUpload
+      DialogImportFileUpload,
+      DialogAdminProfileImageUpload
   ],
   
   imports: [
@@ -90,7 +91,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     FormsModule,
     NgbModule,
     NgxMatSelectSearchModule,
-    AngularEditorModule
+    AngularEditorModule,
   ],
   
   entryComponents: [
@@ -111,7 +112,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     DialogCustomerImageUpload,
     cancelOrderDialog,
     EditorderDialog,
-    eventSummaryDialog
+    eventSummaryDialog,
+    DialogAdminProfileImageUpload
   ],
 })
   

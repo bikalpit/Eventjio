@@ -499,9 +499,9 @@
                         <div class=" w-100" formArrayName="customSalesTaxArr" *ngFor="let a of customSalesTaxForm.get('customSalesTaxArr')['controls']; let i = index">
                             <div *ngIf="deletedSalesTaxIndex.length == 0 || deletedSalesTaxIndex.indexOf(i,0) < 0" [formGroupName]="i" class="row m-0">
                                 <div class="tax-input">
-                                    <label for="">Sales tax amounts</label>
+                                    <label for="">Sales tax percentage</label>
                                     <div class="form-group">
-                                        <input formControlName="amount" type="text" class="form-control" placeholder="0.00%">
+                                        <input formControlName="amount" type="text" class="form-control" placeholder="0.00">
                                     </div>
                                 </div>
 

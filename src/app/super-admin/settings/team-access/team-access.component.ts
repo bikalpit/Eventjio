@@ -6,6 +6,7 @@ import { SettingService } from '../_services/setting.service';
 import { DatePipe } from '@angular/common';
 import { ErrorService } from '../../../_services/error.service';
 import { environment } from '../../../../environments/environment'
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 
 export interface DialogData {
   animal: string;
@@ -169,20 +170,28 @@ export class TeamAccessComponent implements OnInit {
   }
 
   fnDeleteInviter(inviterCode){
-    this.isLoaderAdmin = true;
-    let requestObject = {
-      'unique_code': inviterCode,
-    }
-    this.SettingService.deleteInviter(requestObject).subscribe((response: any) => {
-      if (response.data == true) {
-        this.ErrorService.successMessage(response.response);
-        this.getPENDInviter();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to delete?"
+    });
+     dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.isLoaderAdmin = true;
+        let requestObject = {
+          'unique_code': inviterCode,
+        }
+        this.SettingService.deleteInviter(requestObject).subscribe((response: any) => {
+          if (response.data == true) {
+            this.ErrorService.successMessage(response.response);
+            this.getPENDInviter();
+          }
+          else if (response.data == false) {
+            this.ErrorService.errorMessage(response.response);
+          }
+        })
+        this.isLoaderAdmin = false;
       }
-      else if (response.data == false) {
-        this.ErrorService.errorMessage(response.response);
-      }
-    })
-    this.isLoaderAdmin = false;
+    });
   }
 }
 

@@ -19,8 +19,8 @@
             <div class="row">
                 <div class="customer-list-container bg-light p-0">
                     <div class="border-bottom px-3 py-4 my-2">
-                        <mat-select (selectionChange)="fnFilterCustomer($event)" class=" form-control">
-                            <mat-option value="">All Customers</mat-option>
+                        <mat-select [(ngModel)]="selecetdFilterCustomer" (selectionChange)="fnFilterCustomer($event)" class=" form-control">
+                            <mat-option value="all">All Customers</mat-option>
                             <mat-option *ngFor="let filterEventlist of filterEventlist" value="{{filterEventlist.unique_code}}">{{filterEventlist.event_title}}</mat-option>
 
                         </mat-select>
@@ -269,11 +269,21 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12 mb-3 text-right">
+                                            <div class="footer-btn">
+
+                                                <div class="can-save">
+                                                    <button mat-raised-button class="cancel-btn" (click)="addFormButton()">Cancel</button>
+                                                    <button *ngIf="!editCustomerForm" mat-raised-button class="save-btn" (click)="submitForm()">Create</button>
+                                                    <button *ngIf="editCustomerForm" mat-raised-button class="save-btn" (click)="submitForm()">Update</button>
+                                                    <!-- <button mat-raised-button class="cancel-btn" (click)="addFormButton()">Cancel</button>
+                                                    <button mat-raised-button (click)=" fnOnSubmitMyProfile()" class="save-btn">Save</button> -->
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-12 mb-3 text-right">
                                                 <button mat-flat-button class="mr-2 px-5 cancel-btn" (click)="addFormButton()">Cancel</button>
                                                 <button *ngIf="!editCustomerForm" mat-flat-button class="ml-2 px-5 create-btn" (click)="submitForm()">Create</button>
                                                 <button *ngIf="editCustomerForm" mat-flat-button class="ml-2 px-5 create-btn" (click)="submitForm()">Update</button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </form>

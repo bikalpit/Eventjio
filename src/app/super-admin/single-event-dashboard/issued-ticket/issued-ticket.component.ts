@@ -614,6 +614,7 @@ export class IssuedTicketViewComponent {
   OrderView:any;
   eventDetail:any;
   today:any;
+  recurringEvent: any ='N';
   isLoaderAdmin=false;
 
   constructor(
@@ -648,7 +649,7 @@ export class IssuedTicketViewComponent {
     this.singleEventServiceService.getSingleEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
-
+        this.recurringEvent = this.eventDetail.event_occurrence_type
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }

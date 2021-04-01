@@ -184,7 +184,7 @@ export class AddSalesTax {
   boxOfficeCode:any;
   isLoaderAdmin:boolean=false;
   singleTaxData:any;
-  taxStatus:any = 'N';
+  taxStatus:any = 'Y';
 
   constructor(
     private _formBuilder:FormBuilder,

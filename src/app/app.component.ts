@@ -1,4 +1,4 @@
-import { Component, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { Router, RouterEvent, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
@@ -106,6 +106,23 @@ export class AppComponent {
 
   }
 
+  updateUserData(){
+    alert();
+    this.keepMe = localStorage.getItem('keepMeSignIn')
+    alert(this.keepMe)
+    if (this.keepMe == 'true') {
+      this.currentUserData = localStorage.getItem('currentUser')
+      // alert("app local").
+      this.currentUser = this.currentUserData
+    } else {
+      this.currentUserData = sessionStorage.getItem('currentUser')
+      // alert("app sessions")
+      this.currentUser = this.currentUserData
+      // this.currentUserImage = this.currentUserData.image
+    }
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    console.log(this.currentUser)
+  }
 
   dynamicSort(property: string) {
     let sortOrder = 1;
@@ -197,8 +214,23 @@ export class AppComponent {
   }
 
   openLogoutMenu() {
+    // alert('1'+this.openLogoutMenuBox)
     this.openLogoutMenuBox = !this.openLogoutMenuBox;
   }
+
+  // @HostListener('click')
+  // clickInside() {
+  //   alert('4'+this.openLogoutMenuBox)
+  // }
+
+  // @HostListener('document:click')
+  // clickout() {
+  //   alert('2'+this.openLogoutMenuBox)
+  //   if(this.openLogoutMenuBox == true){
+  //     alert('3'+this.openLogoutMenuBox)
+  //       this.openLogoutMenuBox= false;
+  //   }
+  // }
 
   // onClickedOutside(){
   //   this.openLogoutMenuBox = false;

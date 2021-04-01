@@ -371,3 +371,7 @@
         margin-left: 15px;
         font-weight: 400;
     }
+
+    .form-control[readonly]{
+        background-color: #fff !important;
+    }

@@ -34,7 +34,7 @@
 
                 <div class="row mt-3">
                     <div class="col-3">
-                        <label for="">Event</label>
+                        <label for="">Ticket</label>
                         <mat-select placeholder="Select all ticket" class="form-control" [(ngModel)]="Ticket_Type" (selectionChange)="onChange($event.value)">
                             <mat-option value="all">All</mat-option>
                             <mat-option *ngFor="let val of EventDetail.tickets; let i = index" [value]="val.unique_code">{{ val.ticket_name }}</mat-option>
@@ -47,7 +47,7 @@
                         <div class="matDate">
                             <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon">
                             </mat-datepicker-toggle>
-                            <input type="text" matInput [matDatepicker]="ticketIssuedDatePicker" (dateChange)="IssuedfromChange()" [(ngModel)]="Issued_from" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate" />
+                            <input placeholder="MM/DD/YYYY" type="text" matInput [matDatepicker]="ticketIssuedDatePicker" (dateChange)="IssuedfromChange()" [(ngModel)]="Issued_from" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate" />
                             <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                         <label for="">Issued to</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
-                            <input type="text" matInput [matDatepicker]="ticketIssuedTo" (dateChange)="IssuedtoChange()" [(ngModel)]="Issued_to" (click)="ticketIssuedTo.open()" class="form-control matInputdate" />
+                            <input placeholder="MM/DD/YYYY" type="text" matInput [matDatepicker]="ticketIssuedTo" (dateChange)="IssuedtoChange()" [(ngModel)]="Issued_to" (click)="ticketIssuedTo.open()" class="form-control matInputdate" />
                             <mat-datepicker #ticketIssuedTo></mat-datepicker>
                         </div>
                     </div>

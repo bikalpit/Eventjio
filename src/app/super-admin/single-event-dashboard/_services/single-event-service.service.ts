@@ -209,12 +209,18 @@ export class SingleEventServiceService {
               return res;
           }),catchError(this.handleError));
   }
-  getSignupWaitingList(requestObject){
-    return this.http.post(`${environment.apiUrl}/waiting-list`,requestObject,{headers:this.globalHeaders}).pipe(
+    getSignupWaitingList(requestObject){
+        return this.http.post(`${environment.apiUrl}/waiting-list`,requestObject,{headers:this.globalHeaders}).pipe(
         map ((res) => {
             return res;
         }),catchError(this.handleError));
-} 
+    } 
+    getOccurrenceSignupWaitingList(requestObject){
+        return this.http.post(`${environment.apiUrl}/occurrence-waiting-list`,requestObject,{headers:this.globalHeaders}).pipe(
+        map ((res) => {
+            return res;
+        }),catchError(this.handleError));
+    } 
     getAllCouponCodes(requestObject){
         return this.http.post(`${environment.apiUrl}/get-all-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {

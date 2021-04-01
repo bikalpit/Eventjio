@@ -154,10 +154,10 @@
                     <form *ngIf="eventForm" [formGroup]="bookTickets">
 
                         <div class="form-group">
-                            <label>{{eventForm.label  ? eventForm.label : 'Full name'}} <span class="text-danger">*</span> </label>
+                            <label>{{eventForm.label  ? eventForm.label : 'Name'}} <span class="text-danger">*</span> </label>
                             <input type="text" class="form-control" id="" placeholder="" formControlName="name">
                             <span class="error-wrap" *ngIf="bookTickets.get('name').dirty || bookTickets.get('name').touched">
-                  <small *ngIf="bookTickets.get('name').hasError('required')" class="error text-left">full Name is required.</small>
+                  <small *ngIf="bookTickets.get('name').hasError('required')" class="error text-left">Name is required.</small>
                 </span>
                         </div>
 

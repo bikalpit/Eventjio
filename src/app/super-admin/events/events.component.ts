@@ -8,11 +8,13 @@ import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
 import { take, takeUntil } from 'rxjs/operators';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 interface Status {
   value: string;
-  viewValue: string;
+  viewValue: string; 
 }
+
 export interface ListTimeZoneListArry {
   id: string;
   name: string;
@@ -101,6 +103,7 @@ export class EventsComponent implements OnInit {
   recurringEvent:any='N';
   thumbZoomLavel:any = '100'
   bannerZoomLavel:any = '100'
+  defaultValues:any;
   keepMe:any;
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
@@ -183,6 +186,7 @@ export class EventsComponent implements OnInit {
     this.getDefaultImages();
     this.getTimeSlote();
     this.getAllCurrancy();
+    this.getdefaultValues();
     
     this.isLoaderAdmin = true;
     this.SuperadminService.getIPAddress().subscribe((res:any)=>{ 
@@ -192,6 +196,36 @@ export class EventsComponent implements OnInit {
       this.fnGetPastEventList();
     });
   }
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['bold']
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+};
+
 
   
   private scrollToFirstInvalidControl() {
@@ -213,6 +247,24 @@ export class EventsComponent implements OnInit {
     this.SuperadminService.getAllCurrancy().subscribe((response:any) => {
       if(response.data == true){
         this.getCurrancy= response.response
+      }
+    });
+  }
+  getdefaultValues(){
+    let requestObject  ={
+      'unique_code': this.boxOfficeCode
+    }
+    this.SuperadminService.defaultValues(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.defaultValues= response.response
+        
+        this.addEventForm.controls['vanue_country'].setValue(this.defaultValues.country.id)
+        this.addEventForm.controls['currency'].setValue(this.defaultValues.currency.name)
+        // alert(this.addEventForm.get('vanue_country').value)
+        this.addEventForm.controls['timezone'].setValue(parseInt(this.defaultValues.timezone.id))
+        // alert(this.defaultValues.currency.name)
+        // alert(this.defaultValues.country.id)
+        // alert(this.defaultValues.timezone.id)
       }
     });
   }
@@ -1213,6 +1265,7 @@ export class AddNewTicketType {
       }else{
         
         if(this.editTicket){
+          alert(this.editTicketDetail.min_per_order)
           this.advanceSetting = this.editTicketDetail.advance_setting;
           this.soldOut = this.editTicketDetail.sold_out;
           this.showQTY = this.editTicketDetail.show_qty;
@@ -1224,9 +1277,9 @@ export class AddNewTicketType {
             qty: [this.editTicketDetail.qty,[Validators.required,Validators.pattern(this.onlynumericQTY)]],
             description: [this.editTicketDetail.description],
             fee: [this.editTicketDetail.booking_fee,[Validators.pattern(this.onlynumericAmount)]],
-            status: [this.editTicketDetail.status],
             min_order: [this.editTicketDetail.min_per_order,[Validators.pattern(this.onlynumeric)]],
             max_order: [this.editTicketDetail.max_per_order,[Validators.pattern(this.onlynumeric)]],
+            status: [this.editTicketDetail.status],
             recurring_until_date: [this.editTicketDetail.hide_until_date],
             recurring_until_time: [this.editTicketDetail.hide_until_time],
             recurring_after_date: [this.editTicketDetail.hide_after_date],

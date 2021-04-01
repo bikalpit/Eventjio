@@ -17,14 +17,14 @@
                         <div [formGroupName]="i" class="single-form-row mt-3">
                             <label>Start</label>
                             <div class="form-group">
-                                <mat-select [disabled]="!checkAllDayValue" formControlName="start_time" class="col-10 ml-2 form-control d-inline-block" (selectionChange)="onEnableEndTime($event,i)">
+                                <mat-select placeholder="HH:MM A" [disabled]="!checkAllDayValue" formControlName="start_time" class="col-10 ml-2 form-control d-inline-block" (selectionChange)="onEnableEndTime($event,i)">
                                     <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                             </div>
 
                             <label>End</label>
                             <div class="form-group">
-                                <mat-select formControlName="end_time" class="col-10 ml-2 form-control d-inline-block" [disabled]="disabledEndSlote || !checkAllDayValue">
+                                <mat-select placeholder="HH:MM A" formControlName="end_time" class="col-10 ml-2 form-control d-inline-block" [disabled]="disabledEndSlote || !checkAllDayValue">
                                     <mat-option *ngFor=" let tse of fullDayTimeSloteEnd[i]; let i=index " value="{{tse}} ">{{transformTime24To12(tse)}}</mat-option>
                                 </mat-select>
                             </div>
@@ -50,7 +50,7 @@
                         <div class="col-md-4 d-inline-block">
                             <div class="w-100">
                                 <label for="">Start Date</label>
-                                <input (click)="select_start_date_picker.open()" [min]="minSelectStartDate" [matDatepicker]="select_start_date_picker" type="text" formControlName="start_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly (dateChange)="changeEvent($event,i)">
+                                <input placeholder="MM/DD/YYYY" (click)="select_start_date_picker.open()" [min]="minSelectStartDate" [matDatepicker]="select_start_date_picker" type="text" formControlName="start_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly (dateChange)="changeEvent($event,i)">
                                 <mat-datepicker #select_start_date_picker></mat-datepicker>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                         <div *ngIf="dateSelectfield[i]" class="col-md-4 d-inline-block">
                             <div class="w-100">
                                 <label for="">End Date</label>
-                                <input (click)="select_end_date_picker.open()" [min]="minSelectEndDate[i]" [matDatepicker]="select_end_date_picker" type="text" formControlName="end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly>
+                                <input placeholder="MM/DD/YYYY" (click)="select_end_date_picker.open()" [min]="minSelectEndDate[i]" [matDatepicker]="select_end_date_picker" type="text" formControlName="end_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly>
                                 <mat-datepicker #select_end_date_picker></mat-datepicker>
                             </div>
                         </div>

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SettingService} from '../settings/_services/setting.service';
 import { ErrorService } from '../../_services/error.service';
+import { AppComponent } from '../../app.component';
 import { AuthenticationService } from '../../_services/authentication.service'
 
 @Component({
@@ -13,12 +14,13 @@ import { AuthenticationService } from '../../_services/authentication.service'
 export class MyProfileComponent implements OnInit {
   profileImageUrl:any;
   myProfileForm:FormGroup;
+  changePwd:FormGroup;
   isLoaderAdmin:any;
   onlyNumaric = "[0-9]+"
   currentUser:any;
   myProfileData:any;
   profileId:any;
-  
+  changePasswordBox:boolean=false;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^[0-9]+$/
 
@@ -28,13 +30,18 @@ export class MyProfileComponent implements OnInit {
     private SettingService : SettingService,
     private ErrorService: ErrorService,
     public dialog: MatDialog,
-    private auth : AuthenticationService
+    private auth : AuthenticationService,
+    private AppComponent : AppComponent
   ) {
     this.auth.currentUser.subscribe(x => this.currentUser = x);
     this.myProfileForm = this._formBuilder.group({
       firstname : ['',[Validators.required,Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
       phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
+    });
+    this.changePwd = this._formBuilder.group({
+      oldPassword : ['',[Validators.required]],
+      newPassword:['',[Validators.required,Validators.minLength(8)]],
     });
 
    }
@@ -102,6 +109,31 @@ export class MyProfileComponent implements OnInit {
     });
   }
 
+  fnChangePassword(){
+    if(this.changePwd.valid){
+      this.isLoaderAdmin = true;
+      let requestObject = {
+        'user_id': this.currentUser.user_id,
+        "old_password" : this.changePwd.get('oldPassword').value,
+        "new_password" : this.changePwd.get('newPassword').value,
+      }
+      this.SettingService.changePassword(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.ErrorService.successMessage(response.response);
+          this.changePwd.reset();
+        }
+        else if(response.data == false){
+          this.ErrorService.errorMessage(response.response);
+        }
+        this.isLoaderAdmin = false;
+      })
+    }
+    else{
+      this.changePwd.get("oldPassword").markAsTouched();
+      this.changePwd.get("newPassword").markAsTouched();
+    }
+  }
+
   fnOnSubmitMyProfile(){
     if(this.myProfileForm.valid){
       this.isLoaderAdmin = true;
@@ -139,7 +171,13 @@ export class MyProfileComponent implements OnInit {
   updateMyProfile(updateMyProfile){
     this.SettingService.updateMyProfile(updateMyProfile).subscribe((response:any) => {
       if(response.data == true){
-       this.ErrorService.successMessage(response.response);
+        this.ErrorService.successMessage('Profile updated successfully.');
+        if(localStorage.getItem('keepMeSignIn') == 'true')
+          localStorage.setItem('currentUser', JSON.stringify(response.response))
+        else{
+          sessionStorage.setItem('currentUser', JSON.stringify(response.response))
+        }
+        this.AppComponent.updateUserData();
        this. getMyProfileData();
       }
       else if(response.data == false){

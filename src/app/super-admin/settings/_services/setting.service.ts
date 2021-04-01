@@ -98,6 +98,13 @@ export class SettingService {
         }),catchError(this.handleError));
     }
 
+    changePassword(requestObject){
+        return this.http.post(`${environment.apiUrl}/admin-password-update`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
     getMyProfileData(requestObject){
         return this.http.post(`${environment.apiUrl}/get-profile-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {

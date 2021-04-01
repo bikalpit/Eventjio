@@ -44,7 +44,7 @@
     <div class="create-broadcast-main" *ngIf="!createBroadcast">
         <div class="container-fluid">
             <div class="top-heading-main">
-                <h4>
+                <h4 class="d-flex">
                     <mat-icon (click)="createBroadcast=!createBroadcast" class="mr-3 pointer">west</mat-icon> Create Broadcast</h4>
             </div>
             <form [formGroup]="createBroadcastForm" class="with-validation">

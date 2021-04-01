@@ -55,6 +55,13 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+    
+    defaultValues(requestObject){
+        return this.http.post(`${environment.apiUrl}/default-values`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     getAllTimeZone(){
         return this.http.post(`${environment.apiUrl}/get-timezones`,{headers:this.globalHeaders}).pipe(
         map((res) => {

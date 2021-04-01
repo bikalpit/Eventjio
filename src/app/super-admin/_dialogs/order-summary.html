@@ -52,7 +52,7 @@
                 </div>
                 <div class="row">
                     <label class="col-md-4">Payment method:</label>
-                    <p class="col-md-8">OPERATOR</p>
+                    <p class="col-md-8 text-uppercase">{{orderDetail.payment ? orderDetail.payment.payment_method : '-'}}</p>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Transaction ID:</label>
@@ -72,8 +72,8 @@
                             </div>
                             <div class="content" class="drageble-list">
                                 <div class="drageble-box" fxLayout="row">
-                                    <div class="tb-data" fxFlex="80">{{eventDate}}: {{orderDetail.events ? orderDetail.events.event_title : ''}}</div>
-                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data text-center" fxFlex="100"><span *ngIf="orderDetail.events.event_occurrence_type == 'N'">{{eventDate}}:</span> {{orderDetail.events ? orderDetail.events.event_title : ''}}</div>
+                                    <!-- <div class="tb-data" fxFlex="20"></div> -->
                                 </div>
                             </div>
                             <div class="content" class="drageble-list" *ngFor="let eventTicket of orderDetail.order_item">

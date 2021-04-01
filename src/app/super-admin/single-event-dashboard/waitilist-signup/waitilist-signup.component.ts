@@ -47,6 +47,9 @@ export class WaitilistSignupComponent implements OnInit {
     if(localStorage.getItem('selectedEventCode')){
       this.eventId = localStorage.getItem('selectedEventCode')
     }
+    if(localStorage.getItem('isRecurrenceEvent')){
+      this.recurringEvent = localStorage.getItem('isRecurrenceEvent')
+    }
 
 
     this.waitListForm =this.formBuilder.group({
@@ -98,35 +101,73 @@ export class WaitilistSignupComponent implements OnInit {
   }
 
   fnChangeOccurrence(event){
-
+    this.selectedOccurrence = event.value
+    // if(this.selectedOccurrence != 'all'){
+    //   this.path_getIssuedTicket = `${environment.apiUrl}/get-all-occurence-issue-ticket`
+    // }else{
+    //   this.path_getIssuedTicket =  `${environment.apiUrl}/get-all-issue-ticket`;
+    // }
+    localStorage.setItem('selectedOccurrence',this.selectedOccurrence);
+    this.getSignupWaitingList('NEW');
+    this.getSignupWaitingList('ALL');
+    this.getSignupWaitingList('NOTIFY');
   }
 
   getSignupWaitingList(status){
-    this.isLoaderAdmin = true;
-    let requestObject = {
-       'event_id' : this.eventId,
-      //  "boxoffice_id":"NULL",
-       'status': status,
-       'search':this.search.keyword,
-    }
-    this.SingleEventServiceService.getSignupWaitingList(requestObject).subscribe((response:any) => {
-
-      if(response.data == true && response.response){
-        if(status == 'ALL'){
-          this.getAllWaitingListData = response.response;
-        }else if(status == 'NEW'){
-          this.getNewWaitingListData = response.response;
-        }else{ 
-          this.getNotifyWaitingListData = response.response;
-        }
-        console.log(status,this.getAllWaitingListData);
-        
-      } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
-        this. getAllWaitingListData = null;
+    if(this.recurringEvent == 'Y' && this.selectedOccurrence != 'all'){
+      this.isLoaderAdmin = true;
+      let requestObject = {
+         'occurrence_id' : this.selectedOccurrence,
+        //  "boxoffice_id":"NULL",
+         'status': status,
+         'search':this.search.keyword,
       }
-    })
-      this.isLoaderAdmin = false;
+      this.SingleEventServiceService.getOccurrenceSignupWaitingList(requestObject).subscribe((response:any) => {
+  
+        if(response.data == true && response.response){
+          if(status == 'ALL'){
+            this.getAllWaitingListData = response.response;
+          }else if(status == 'NEW'){
+            this.getNewWaitingListData = response.response;
+          }else{ 
+            this.getNotifyWaitingListData = response.response;
+          }
+          console.log(status,this.getAllWaitingListData);
+          
+        } else if(response.data == false){
+          this.ErrorService.errorMessage(response.response);
+          this. getAllWaitingListData = null;
+        }
+      })
+        this.isLoaderAdmin = false;
+    }else{
+      this.isLoaderAdmin = true;
+      let requestObject = {
+         'event_id' : this.eventId,
+        //  "boxoffice_id":"NULL",
+         'status': status,
+         'search':this.search.keyword,
+      }
+      this.SingleEventServiceService.getSignupWaitingList(requestObject).subscribe((response:any) => {
+  
+        if(response.data == true && response.response){
+          if(status == 'ALL'){
+            this.getAllWaitingListData = response.response;
+          }else if(status == 'NEW'){
+            this.getNewWaitingListData = response.response;
+          }else{ 
+            this.getNotifyWaitingListData = response.response;
+          }
+          console.log(status,this.getAllWaitingListData);
+          
+        } else if(response.data == false){
+          this.ErrorService.errorMessage(response.response);
+          this. getAllWaitingListData = null;
+        }
+      })
+        this.isLoaderAdmin = false;
+    }
+    
   }
 
   getAllOccurrenceList(){

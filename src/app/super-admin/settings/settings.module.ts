@@ -27,7 +27,6 @@ import { inviteTeamMateDialog} from './team-access/team-access.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { AddSalesTax } from './sales-tax/sales-tax.component';
-import { DialogAdminProfileImageUpload } from '../my-profile/my-profile.component';
 import { DialogAdminBoxofficeImageUpload } from './box-office/box-office.component';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
 import { addBuyerQuestionDialog, addAttendeeQuestionDialog } from './checkout-form/checkout-form.component';
@@ -56,7 +55,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     SalesTaxComponent,
      OrderConfirmationComponent,
     inviteTeamMateDialog,
-    DialogAdminProfileImageUpload,
     DialogAdminBoxofficeImageUpload,
     PaymentSystemsComponent,
     PrivacyPolicyGenerateDialog,
@@ -91,7 +89,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
   ],
   entryComponents: [
     AddSalesTax,
-    DialogAdminProfileImageUpload,
     DialogAdminBoxofficeImageUpload,
     inviteTeamMateDialog,
     addBuyerQuestionDialog, 

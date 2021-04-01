@@ -19,9 +19,9 @@
                 <!-- <img *ngIf="(!profileImageUrl && myProfileData) && myProfileData.image_name != 'default_image.png'" src="{{myProfileData.image}}" alt="">
                 <img *ngIf="profileImageUrl" src="{{profileImageUrl}}" alt=""> -->
                 <div class="col-4 py-2">
-                    <button *ngIf="myProfileData && myProfileData.image_name != 'default_image.png'" mat-flat-button (click)="fnChangeImage()" class="change-photo">Change Image</button>
-                    <button *ngIf="myProfileData && myProfileData.image_name == 'default_image.png'" mat-flat-button (click)="fnChangeImage()" class="change-photo">Upload Image</button>
-                    <button *ngIf="myProfileData && myProfileData.image_name != 'default_image.png'" mat-flat-button class="remove-photo mt-2" (click)="fnRemoveImage()">Remove Image</button>
+                    <button *ngIf="myProfileData && myProfileData.image_name != 'default.png'" mat-flat-button (click)="fnChangeImage()" class="change-photo">Change Image</button>
+                    <button *ngIf="myProfileData && myProfileData.image_name == 'default.png'" mat-flat-button (click)="fnChangeImage()" class="change-photo">Upload Image</button>
+                    <button *ngIf="myProfileData && myProfileData.image_name != 'default.png'" mat-flat-button class="remove-photo mt-2" (click)="fnRemoveImage()">Remove Image</button>
                 </div>
             </div>
 
@@ -69,6 +69,37 @@
                     </div>
                 </form>
             </div>
+
+        </div>
+    </div>
+    
+    <div class="col-6">
+        <div class="change-password-container">
+               
+            <form [formGroup]="changePwd" class="with-validation">
+                <div class="row mx-0 mt-4">
+                    <div class="col-12 mb-3">
+                        <label for="old-pwd" class="">Old Password</label>
+                        <input type="password" class="form-control" formControlName="oldPassword">
+                        <span class="error-wrap" *ngIf="changePwd.get('oldPassword').touched || changePwd.get('oldPassword').dirty">
+                            <small *ngIf="changePwd.get('oldPassword').hasError('required')" class="error">Old password is required.</small>
+                        </span>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="new-pwd" class="">New Password</label>
+                        <input type="password" class="form-control" formControlName="newPassword">
+                        <span class="error-wrap" *ngIf="changePwd.get('newPassword').touched || changePwd.get('newPassword').dirty">
+                            <small *ngIf="changePwd.get('newPassword').hasError('required')" class="error">New Password is required.</small>
+                            <small *ngIf="changePwd.get('newPassword').hasError('minlength')" class="error">New Password should be minimum 8 character.</small>
+                        </span>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="ml-auto">
+                            <button mat-flat-button class=" px-3 mr-2 bg-primary text-light" (click)="fnChangePassword()">Change Password</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
         </div>
     </div>

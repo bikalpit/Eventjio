@@ -7,6 +7,7 @@ import { MatSnackBar} from '@angular/material/snack-bar';
 import { DatePipe} from '@angular/common';
  import { ErrorService } from '../../_services/error.service'
  import { SuperadminService} from '../_services/superadmin.service';
+ import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 export interface DialogData {
   animal: string;
   name: string;
@@ -133,37 +134,53 @@ export class CouponsComponent implements OnInit {
     this.isLoaderAdmin = false;
   }
   fnDeleteCoupon(couponcode_code){
-    this.isLoaderAdmin = true;
-    let requestObject = {
-      'unique_code': couponcode_code
-    }
-    this.SuperadminService.fnDeleteCoupon(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.ErrorService.successMessage(response.response);
-         this.getAllCouponCodes();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to delete?"
+    });
+     dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.isLoaderAdmin = true;
+        let requestObject = {
+          'unique_code': couponcode_code
+        }
+        this.SuperadminService.fnDeleteCoupon(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this.ErrorService.successMessage(response.response);
+            this.getAllCouponCodes();
+          }
+          else if(response.data == false){
+          this.ErrorService.errorMessage(response.response);
+          }
+        })
+        this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
-      }
-    })
-    this.isLoaderAdmin = false;
+    });
   }
 
   fnDeleteVoucher(vouchercode_code){
-    this.isLoaderAdmin = true;
-    let requestObject = {
-      'unique_code': vouchercode_code
-    }
-    this.SuperadminService.fnDeleteVoucher(requestObject).subscribe((response:any) => {
-      if(response.data == true){
-        this.ErrorService.successMessage(response.response);
-         this. getAllVoucherCodes();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to delete?"
+    });
+     dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.isLoaderAdmin = true;
+        let requestObject = {
+          'unique_code': vouchercode_code
+        }
+        this.SuperadminService.fnDeleteVoucher(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+            this.ErrorService.successMessage(response.response);
+            this. getAllVoucherCodes();
+          }
+          else if(response.data == false){
+          this.ErrorService.errorMessage(response.response);
+          }
+        })
+        this.isLoaderAdmin = false;
       }
-      else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
-      }
-    })
-    this.isLoaderAdmin = false;
+    });
   }
   
   fnEditCoupon(couponcode_code){

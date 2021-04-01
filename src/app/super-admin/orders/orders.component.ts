@@ -50,10 +50,10 @@ export class OrdersComponent implements OnInit {
 
   start_date:any;
   end_date:any;
-  order_status:any = "";
+  order_status:any = "all";
   allEventlist:any = [];
   new_date=new Date();
-  single_order_event:any;
+  single_order_event:any='all';
   currentUser:any;
   subPermission:any=[];
   orderToDate:any;
@@ -394,9 +394,9 @@ export class ExportOrderDialog {
   boxOfficeCode:any;
   selectedOrderArr:any;
   selectedOrderArryyy:any;
-  orderDetails:any = false;
-  eventDetails:any = false;
-  buyerDetails:any = false;
+  orderDetails:any = true;
+  eventDetails:any = true;
+  buyerDetails:any = true;
 
   eventName:any;
   buyerArray:any;
@@ -409,90 +409,106 @@ export class ExportOrderDialog {
   buyerFieldList:any =[];
   
   
-  LiBuyerDetail:any = false;
+  LiBuyerDetail:any = true;
   LiBuyerDetails  = [
-    { 'name' : 'buyerDetailsFirstname', 'value' : false, 'lable' : 'FirstName','variable_name' :  'firstname' },
-    { 'name' : 'buyerDetailsLastname', 'value' : false, 'lable' : 'lastName','variable_name' :  'lastname'},
-    { 'name' : 'buyerDetailsemail', 'value' : false, 'lable' : 'Email' ,'variable_name' :  'email'},
-    { 'name' : 'buyerDetailsPhone', 'value' : false, 'lable' : 'Mobile number' ,'variable_name' :  'mobile'},
-    { 'name' : 'buyerDetailsAddress1', 'value' : false, 'lable' : 'Address' ,'variable_name' :  'address1'},
-    { 'name' : 'buyerDetailsPostcode', 'value' : false, 'lable' : 'Postcode / Zip' ,'variable_name' :  'zip'},
+    { 'name' : 'buyerDetailsName', 'value' : true, 'lable' : 'Name','variable_name' :  'name' },
+    // { 'name' : 'buyerDetailsLastname', 'value' : true, 'lable' : 'lastName','variable_name' :  'lastname'},
+    { 'name' : 'buyerDetailsemail', 'value' : true, 'lable' : 'Email' ,'variable_name' :  'email'},
+    { 'name' : 'buyerDetailsPhone', 'value' : true, 'lable' : 'Mobile number' ,'variable_name' :  'mobile'},
+    { 'name' : 'buyerDetailsAddress1', 'value' : true, 'lable' : 'Address' ,'variable_name' :  'address1'},
+    { 'name' : 'buyerDetailsPostcode', 'value' : true, 'lable' : 'Postcode / Zip' ,'variable_name' :  'zip'},
   ];
 
-  LiEvent_detail:any = false;
+  LiEvent_detail:any = true;
   LiEventDetails  = [
-    { 'name' : 'eventDetailsEvent_id', 'value' : false, 'lable' : 'Event ID'  ,'variable_name' :  'event_id'},
-    { 'name' : 'eventDetailsEvent_name', 'value' : false, 'lable' : 'Event name'  ,'variable_name' :  'event_name'},
-    { 'name' : 'eventDetailsEvent_start', 'value' : false, 'lable' : 'Event start' ,'variable_name' :  'event_start' },
-    { 'name' : 'eventDetailsEvent_end', 'value' : false, 'lable' : 'Event end'  ,'variable_name' :  'event_end'},
+    { 'name' : 'eventDetailsEvent_id', 'value' : true, 'lable' : 'Event ID'  ,'variable_name' :  'event_id'},
+    { 'name' : 'eventDetailsEvent_name', 'value' : true, 'lable' : 'Event name'  ,'variable_name' :  'event_name'},
+    { 'name' : 'eventDetailsEvent_start', 'value' : true, 'lable' : 'Event start' ,'variable_name' :  'event_start' },
+    { 'name' : 'eventDetailsEvent_end', 'value' : true, 'lable' : 'Event end'  ,'variable_name' :  'event_end'},
   ];
 
-  Liorder_details:any = false;
+  Liorder_details:any = true;
   LiOrderDetails  = [
-    { 'name' : 'orderDetails_id', 'value' : false, 'lable' : 'Order ID','variable_name' :  'order_id'},
-    { 'name' : 'orderDetails_date', 'value' : false, 'lable' : 'Order date','variable_name' :  'order_date'},
-    { 'name' : 'orderDetailsTotal_paid', 'value' : false, 'lable' : 'Total paid','variable_name' :  'total_paid'},
-    { 'name' : 'orderDetailspayment_method', 'value' : false, 'lable' : 'Payment method' ,'variable_name' :  'payment_method'},
-    { 'name' : 'orderDetailstransaction_id', 'value' : false, 'lable' : 'Transaction ID' ,'variable_name' :  'transaction_id'},
-    { 'name' : 'orderDetailsReferral_tag', 'value' : false, 'lable' : 'Referral Tag' ,'variable_name' :  'refrel_tag'},
-    { 'name' : 'orderDetailsDiscount_code', 'value' : false, 'lable' : 'Discount code' ,'variable_name' :  'discount_code'},
-    { 'name' : 'orderDetails_cancel', 'value' : false, 'lable' : 'Order cancelled' ,'variable_name' :  'order_canceled'},
-    { 'name' : 'taxes ', 'value' : false, 'lable' : 'Taxes' ,'variable_name' :  'tax_amount'},
+    { 'name' : 'orderDetails_id', 'value' : true, 'lable' : 'Order ID','variable_name' :  'order_id'},
+    { 'name' : 'orderDetails_date', 'value' : true, 'lable' : 'Order date','variable_name' :  'order_date'},
+    { 'name' : 'orderDetailsTotal_paid', 'value' : true, 'lable' : 'Total paid','variable_name' :  'total_paid'},
+    { 'name' : 'orderDetailspayment_method', 'value' : true, 'lable' : 'Payment method' ,'variable_name' :  'payment_method'},
+    { 'name' : 'orderDetailstransaction_id', 'value' : true, 'lable' : 'Transaction ID' ,'variable_name' :  'transaction_id'},
+    { 'name' : 'orderDetailsReferral_tag', 'value' : true, 'lable' : 'Referral Tag' ,'variable_name' :  'refrel_tag'},
+    { 'name' : 'orderDetailsDiscount_code', 'value' : true, 'lable' : 'Discount code' ,'variable_name' :  'discount_code'},
+    { 'name' : 'orderDetails_cancel', 'value' : true, 'lable' : 'Order cancelled' ,'variable_name' :  'order_canceled'},
+    { 'name' : 'taxes ', 'value' : true, 'lable' : 'Taxes' ,'variable_name' :  'tax_amount'},
   ];
 
 
-  Liticketdetail:any = false;
+  Liticketdetail:any = true;
   ticketDetails  = [
-    { 'name' : 'tickets', 'value' : false, 'lable' : 'Tickets','variable_name' :  'tickets'},
-    { 'name' : 'voided_tickets', 'value' : false, 'lable' : 'Voided tickets' ,'variable_name' :  'voided_tickets'},
-    { 'name' : 'transaction_fee', 'value' : false, 'lable' : 'Transaction charges' ,'variable_name' :  'ticket_charges'},
-    { 'name' : 'taxes', 'value' : false, 'lable' : 'Taxes' ,'variable_name' :  'taxes'},
+    { 'name' : 'tickets', 'value' : true, 'lable' : 'Tickets','variable_name' :  'tickets'},
+    { 'name' : 'voided_tickets', 'value' : true, 'lable' : 'Voided tickets' ,'variable_name' :  'voided_tickets'},
+    { 'name' : 'transaction_fee', 'value' : true, 'lable' : 'Transaction charges' ,'variable_name' :  'ticket_charges'},
+    { 'name' : 'taxes', 'value' : true, 'lable' : 'Taxes' ,'variable_name' :  'taxes'},
   ];
   
-  lineitem_details:any = false;
+  lineitem_details:any = true;
   lineitemDetail  = [
-    { 'name' : 'line_type', 'value' : false, 'lable' : 'Type','variable_name' :  'type'},
-    { 'name' : 'line_description', 'value' : false, 'lable' : 'Description' ,'variable_name' :  'description'},
-    { 'name' : 'line_value', 'value' : false, 'lable' : 'Value' ,'variable_name' :  'value'},
-    { 'name' : 'linebooking_fee', 'value' : false, 'lable' : 'Booking fee' ,'variable_name' :  'booking_fee'},
+    { 'name' : 'line_type', 'value' : true, 'lable' : 'Type','variable_name' :  'type'},
+    { 'name' : 'line_description', 'value' : true, 'lable' : 'Description' ,'variable_name' :  'description'},
+    { 'name' : 'line_value', 'value' : true, 'lable' : 'Value' ,'variable_name' :  'value'},
+    { 'name' : 'linebooking_fee', 'value' : true, 'lable' : 'Booking fee' ,'variable_name' :  'booking_fee'},
   ];
 
   lineitemType  = [
-    { 'name' : 'lineitem_ticket', 'value' : false, 'lable' : 'Tickets','variable_name' :  'tickets'},
-    { 'name' : 'lineitem_voidticket', 'value' : false, 'lable' : 'Voided tickets' ,'variable_name' :  'voided_tickets'},
-    { 'name' : 'lineitem_transactioncharge', 'value' : false, 'lable' : 'Transaction charges' ,'variable_name' :  'transaction_fee'},
-    { 'name' : 'lineitem_taxes', 'value' : false, 'lable' : 'Taxes' ,'variable_name' :  'taxes'},
-    { 'name' : 'lineitem_giftcard', 'value' : false, 'lable' : 'Gift cards' ,'variable_name' :  'gift_cards'},
-    { 'name' : 'lineitem_donation', 'value' : false, 'lable' : 'Donations' ,'variable_name' :  'donations'},
+    { 'name' : 'lineitem_ticket', 'value' : true, 'lable' : 'Tickets','variable_name' :  'tickets'},
+    { 'name' : 'lineitem_voidticket', 'value' : true, 'lable' : 'Voided tickets' ,'variable_name' :  'voided_tickets'},
+    { 'name' : 'lineitem_transactioncharge', 'value' : true, 'lable' : 'Transaction charges' ,'variable_name' :  'transaction_fee'},
+    { 'name' : 'lineitem_taxes', 'value' : true, 'lable' : 'Taxes' ,'variable_name' :  'taxes'},
+    { 'name' : 'lineitem_giftcard', 'value' : true, 'lable' : 'Gift cards' ,'variable_name' :  'gift_cards'},
+    { 'name' : 'lineitem_donation', 'value' : true, 'lable' : 'Donations' ,'variable_name' :  'donations'},
   ];
 
 /////////////////////////////////////
 
   ExorderDetails  = [
-    { 'name' : 'orderDetails_id', 'value' : false, 'lable' : 'Order ID','variable_name' :  'order_id'},
-    { 'name' : 'orderDetailsticket_check', 'value' : false, 'lable' : 'Tickets checked in' ,'variable_name' :  'tickets_checked_in'},
-    { 'name' : 'orderDetailOrder_cancel', 'value' : false, 'lable' : 'Order cancelled' ,'variable_name' :  'order_canceled'},
-    { 'name' : 'orderDetailOrder_date', 'value' : false, 'lable' : 'Order date' ,'variable_name' :  'order_date'},
-    { 'name' : 'orderDetailTax_amount', 'value' : false, 'lable' : 'Tax amount' ,'variable_name' :  'tax_amount'},
-    { 'name' : 'orderDetailVoucher_code', 'value' : false, 'lable' : 'Voucher codes amount' ,'variable_name' :  'voucher_code_amt'},
-    { 'name' : 'orderDetailTicket_charge', 'value' : false, 'lable' : 'Ticket charges' ,'variable_name' :  'ticket_charges'},
+    { 'name' : 'orderDetails_id', 'value' : true, 'lable' : 'Order ID','variable_name' :  'order_id'},
+    { 'name' : 'orderDetailsBarcode', 'value' : true, 'lable' : 'Barcode','variable_name' :  'barcode'},
+    { 'name' : 'orderDetailsTotalPaid', 'value' : true, 'lable' : 'Total paid','variable_name' :  'total_paid'},
+    { 'name' : 'orderDetailOrder_date', 'value' : true, 'lable' : 'Order date' ,'variable_name' :  'order_date'},
+    { 'name' : 'orderDetailOrderitems', 'value' : true, 'lable' : 'Order items' ,'variable_name' :  'order_items'},
+    { 'name' : 'orderDetailtickets_purchased', 'value' : true, 'lable' : 'Tickets purchased' ,'variable_name' :  'tickets_purchased'},
+    { 'name' : 'orderDetailsticket_check', 'value' : true, 'lable' : 'Tickets checked in' ,'variable_name' :  'tickets_checked_in'},
+    { 'name' : 'orderDetailspayment_method', 'value' : true, 'lable' : 'Payment method' ,'variable_name' :  'payment_method'},
+    { 'name' : 'orderDetailstransaction_id', 'value' : true, 'lable' : 'Transaction ID' ,'variable_name' :  'transaction_id'},
+    { 'name' : 'orderDetailOrder_cancel', 'value' : true, 'lable' : 'Order cancelled' ,'variable_name' :  'order_canceled'},
+    { 'name' : 'orderDetailreferral_tag', 'value' : true, 'lable' : 'Referral Tag' ,'variable_name' :  'referral_tag'},
+    { 'name' : 'orderDetailtax_description', 'value' : true, 'lable' : 'Tax description' ,'variable_name' :  'tax_description'},
+    { 'name' : 'orderDetailTax_amount', 'value' : true, 'lable' : 'Tax amount' ,'variable_name' :  'tax_amount'},
+    { 'name' : 'orderDetaildiscount_code', 'value' : true, 'lable' : 'Discount code' ,'variable_name' :  'discount_code'},
+    { 'name' : 'orderDetailvoucher_codes', 'value' : true, 'lable' : 'Voucher codes' ,'variable_name' :  'voucher_codes'},
+    { 'name' : 'orderDetailVoucher_code', 'value' : true, 'lable' : 'Voucher codes amount' ,'variable_name' :  'voucher_code_amt'},
+    { 'name' : 'orderDetaildonation_description', 'value' : true, 'lable' : 'Donation description' ,'variable_name' :  'donation_description'},
+    { 'name' : 'orderDetaildonation_amount', 'value' : true, 'lable' : 'Donation amount' ,'variable_name' :  'donation_amount'},
+    { 'name' : 'orderDetailTicket_charge', 'value' : true, 'lable' : 'Ticket charges' ,'variable_name' :  'ticket_charges'},
   ];
 
   exEventDetails  = [
-    { 'name' : 'eventDetailsEvent_id', 'value' : false, 'lable' : 'Event ID'  ,'variable_name' :  'event_id'},
-    { 'name' : 'eventDetailsEvent_name', 'value' : false, 'lable' : 'Event name'  ,'variable_name' :  'event_name'},
-    { 'name' : 'eventDetailsEvent_start', 'value' : false, 'lable' : 'Event start' ,'variable_name' :  'event_start' },
-    { 'name' : 'eventDetailsEvent_end', 'value' : false, 'lable' : 'Event end'  ,'variable_name' :  'event_end'},
+    { 'name' : 'eventDetailsEvent_id', 'value' : true, 'lable' : 'Event ID'  ,'variable_name' :  'event_id'},
+    { 'name' : 'eventDetailsEvent_name', 'value' : true, 'lable' : 'Event name'  ,'variable_name' :  'event_name'},
+    { 'name' : 'eventDetailsEvent_start', 'value' : true, 'lable' : 'Event start' ,'variable_name' :  'event_start' },
+    { 'name' : 'eventDetailsEvent_end', 'value' : true, 'lable' : 'Event end'  ,'variable_name' :  'event_end'},
   ];
 
   
   exBuyerDetails  = [
-    { 'name' : 'buyerDetailsFirstname', 'value' : false, 'lable' : 'FirstName','variable_name' :  'firstname' },
-    { 'name' : 'buyerDetailsLastname', 'value' : false, 'lable' : 'lastName','variable_name' :  'lastname'},
-    { 'name' : 'buyerDetailsemail', 'value' : false, 'lable' : 'Email' ,'variable_name' :  'email'},
-    { 'name' : 'buyerDetailsPhone', 'value' : false, 'lable' : 'Mobile number' ,'variable_name' :  'mobile'},
-    { 'name' : 'buyerDetailsAddress1', 'value' : false, 'lable' : 'Address' ,'variable_name' :  'address1'},
-    { 'name' : 'buyerDetailsPostcode', 'value' : false, 'lable' : 'Postcode / Zip' ,'variable_name' :  'zip'},
+    { 'name' : 'buyerDetailsName', 'value' : true, 'lable' : 'Name','variable_name' :  'name' },
+    // { 'name' : 'buyerDetailsFirstname', 'value' : true, 'lable' : 'FirstName','variable_name' :  'firstname' },
+    // { 'name' : 'buyerDetailsLastname', 'value' : true, 'lable' : 'lastName','variable_name' :  'lastname'},
+    { 'name' : 'buyerDetailsemail', 'value' : true, 'lable' : 'Email' ,'variable_name' :  'email'},
+    { 'name' : 'buyerDetailsPhone', 'value' : true, 'lable' : 'Mobile number' ,'variable_name' :  'mobile'},
+    { 'name' : 'buyerDetailsAddress1', 'value' : true, 'lable' : 'Address 1' ,'variable_name' :  'address1'},
+    { 'name' : 'buyerDetailsAddress2', 'value' : true, 'lable' : 'Address 2' ,'variable_name' :  'address2'},
+    { 'name' : 'buyerDetailsAddress3', 'value' : true, 'lable' : 'Address 3' ,'variable_name' :  'address3'},
+    { 'name' : 'buyerDetailsPostcode', 'value' : true, 'lable' : 'Postcode / Zip' ,'variable_name' :  'zip'},
+    { 'name' : 'buyerDetailscustom_questions', 'value' : true, 'lable' : 'Custom questions' ,'variable_name' :  'custom_questions'},
   ];
 
   constructor(
@@ -1076,6 +1092,7 @@ export class BookTicketDialog {
     
       console.log(this.eventSettings)
       this.eventSettings = this.eventDetail.event_setting;
+      this.currencyCode = this.eventSettings.currency
       this.donation_amt = this.eventSettings.donation_amt ? parseInt(this.eventSettings.donation_amt) : 0;
       this.transaction_fee =  this.eventSettings.transaction_fee ? parseInt(this.eventSettings.transaction_fee) : 0;
       if(this.eventSettings.currency){
@@ -1157,7 +1174,9 @@ export class BookTicketDialog {
         // this.gloabelSalesTax = response.response;
 
         response.response.forEach(element => {
-          this.gloabelSalesTax = this.gloabelSalesTax +  parseInt(element.value);
+          if(element.status == 'Y'){
+            this.gloabelSalesTax = this.gloabelSalesTax +  parseInt(element.value);
+          }
         });
 
         
@@ -1526,6 +1545,7 @@ export class BookTicketDialog {
     var is_error = false;
 
     if(this.bookTickets.invalid){
+      console.log(this.bookTickets)
       this.bookTickets.get('name').markAsTouched();
       this.bookTickets.get('email').markAsTouched();
       this.bookTickets.get('phone').markAsTouched();
@@ -2253,7 +2273,7 @@ export class eventSummaryDialog {
   customerData:any = [];
   isLoaderAdmin = false;
   is_show = false;
-  // currencyCode ='USD';  
+  currencyCode ='USD';  
   attendeeData:any = [];
   customerAddress : any;
   Orderdata:any;
@@ -2375,7 +2395,7 @@ export class eventSummaryDialog {
           this.order_item_data = this.orderDetail.order_item;
           this.customerData = this.orderDetail.customer;
           this.attendeeData  = JSON.parse(response.response.attendee_info);
-
+          this.currencyCode = this.orderDetail.events.event_setting.currency;
         }else{
           this.singleorderCustomer  = [];
         }

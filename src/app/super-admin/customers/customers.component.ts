@@ -43,6 +43,7 @@ export class CustomersComponent implements OnInit {
   allEventListData:any;
   filterEventlist:any;
   filterCustomerEvent:any = '';
+  selecetdFilterCustomer:any = 'all';
   search = {
     keyword: ""
   };
@@ -83,7 +84,7 @@ export class CustomersComponent implements OnInit {
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
       // image:[''],
       address:['',Validators.required],
-      tags:['',Validators.required],
+      tags:[''],
     });  
    }
 
@@ -363,8 +364,8 @@ deleteCustomerDetails(){
       quoteStrings: '"',
       decimalSeparator: '.',
       showLabels: true, 
-      showTitle: true,
-      title: 'My Awesome CSV',
+      showTitle: false,
+      filename: 'Exported Customers',
       useTextFile: false,
       useBom: true,
       useKeysAsHeaders: true,
@@ -373,6 +374,7 @@ deleteCustomerDetails(){
     this.isLoaderAdmin = true;
     let requestObject ={
       "boxoffice_id": this.boxofficeId,
+      "event_id": this.selecetdFilterCustomer,
     };
     this.SuperadminService.fnExportCustomer(requestObject).subscribe((response:any)=>{
       if(response.data == true){
@@ -412,8 +414,14 @@ deleteCustomerDetails(){
   }
 
   fnFilterCustomer(event){
-    this.filterCustomerEvent = event.value
-    this.getAllCustomersDetails();
+    this.selecetdFilterCustomer = event.value
+    if(event.value == 'all'){
+      this.filterCustomerEvent = '';
+      this.getAllCustomersDetails();
+    }else{
+      this.filterCustomerEvent = event.value
+      this.getAllCustomersDetails();
+    }
   }
 
   fngetCustomersEventlist(){

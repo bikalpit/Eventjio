@@ -101,13 +101,13 @@
                         <div class="form-group mt-2">
                             <label>Box office Link <span> <i class="fa fa-question-circle ml-2"  matTooltip="You can share this short link with your customers so they have a convenient way to access your box office. " aria-hidden="true"></i></span></label>
                             <div class="row">
-                                <div class="col-10 d-flex align-items-center pr-1">
-                                    <label class="mb-0">{{frontUrl}}/box-office/</label>
-                                    <input [attr.disabled]="editEventLink ? null : ''" type="text" class="form-control" formControlName="box_office_link">
+                                <div class="col-10 d-flex flex-wrap align-items-center pr-1">
+                                    <label class="mb-0 w-100">{{frontUrl}}/box-office/</label>
+                                    <input [attr.disabled]="editEventLink ? null : ''" type="text" class="form-control link-sufix" formControlName="box_office_link">
+                                    <button type="" (click)="editEventLink = !editEventLink" class="btn alert-info edit-link-btn search-button"><span class="material-icons create">create </span></button>
                                 </div>
-                                <div class="col-1 pl-1">
-                                    <button type="" (click)="editEventLink = !editEventLink" class="btn alert-info search-button"><span class="material-icons create">create </span></button>
-                                </div>
+                                <!-- <div class="col-1 pl-1 ">
+                                </div> -->
                                 <span class="error-wrap" *ngIf="singleBoxOffice.get('box_office_link').dirty || singleBoxOffice.get('box_office_link').touched"><small *ngIf="singleBoxOffice.get('box_office_link').hasError('required')" class="error text-left ml-4">Box office Link required.</small></span>
                             </div>
                         </div>
