@@ -126,8 +126,11 @@
                                         </div>
                                         <div class="col-12 col-sm-4 customer-detail-bottom">
                                             <label class="w-100" for="">Tags</label>
-                                            <p class="tags" *ngIf="selectedCustomerDetails.tags != null">
+                                            <!---<p class="tags" *ngIf="selectedCustomerDetails.tags != null">
                                                 {{selectedCustomerDetails.tags}}
+                                            </p>-->
+											<p class="tags" *ngFor="let tag of selectedCustomerDetails.tags">
+                                                {{tag}}
                                             </p>
                                         </div>
                                     </div>
@@ -270,10 +273,27 @@
 
                                             <div class="col-12 ">
                                                 <label for="">Add Tags</label>
-                                                <div class="form-group">
+                                                <!--<div class="form-group">
                                                     <input type="text" class="form-control" placeholder="Press enter to add tag" formControlName="tags" />
                                                     <span class="error-wrap" *ngIf="addCustomerForm.get('tags').dirty || addCustomerForm.get('tags').touched"><small *ngIf="addCustomerForm.get('tags').hasError('required')" class="error text-left">tags is required.</small></span>
-                                                </div>
+                                                </div>--->
+												<div class="d-flex my-3">
+												<div class="tag-container">
+													<!---<div class="d-flex">
+														<h6 class="mr-2">Tags</h6>
+														<mat-icon (click)="fnAddNewTag()" class="add-tag-icon pointer">add_circle</mat-icon>
+													</div>-->
+													<mat-form-field [ngClass]="{'tag-disabled':!addNewTag}" class="w-100 tags-input bottom-border-field">
+														<mat-chip-list #chipList aria-label="Tag selection">
+															<mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">{{tag}}
+																<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+															</mat-chip>
+															<input formControlName="tags" #TagInput placeholder="New tags.." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+															<span class="error-wrap" *ngIf="addCustomerForm.get('tags').dirty || addCustomerForm.get('tags').touched"><small *ngIf="addCustomerForm.get('tags').hasError('required')" class="error text-left">tags is required.</small></span>
+														</mat-chip-list>
+													</mat-form-field>
+												</div>												
+											</div>
                                             </div>
 
                                             <div class="col-12 mb-3 text-right">
