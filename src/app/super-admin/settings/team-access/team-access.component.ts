@@ -99,6 +99,20 @@ export class TeamAccessComponent implements OnInit {
   inviteTeammate() {
     const dialogRef = this.dialog.open(inviteTeamMateDialog, {
       width: '550px',
+      data :{inviterData : null}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.animal = result;
+      this.getAPRInviter();
+      this.getPENDInviter();
+    });
+  }
+
+  fnEditRole(index) {
+    const dialogRef = this.dialog.open(inviteTeamMateDialog, {
+      width: '550px',
+      data :{inviterData : this.approvedInviterData[index]}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -148,8 +162,6 @@ export class TeamAccessComponent implements OnInit {
       subPermistion='Event manager with customer data';
     }
 
-    
-
     return subPermistion.toString();
   }
 
@@ -193,6 +205,31 @@ export class TeamAccessComponent implements OnInit {
       }
     });
   }
+
+  fnRemoveInviter(inviterCode){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to delete?"
+    });
+     dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.isLoaderAdmin = true;
+        let requestObject = {
+          'user_id': inviterCode,
+        }
+        this.SettingService.removeTeamMember(requestObject).subscribe((response: any) => {
+          if (response.data == true) {
+            this.ErrorService.successMessage(response.response);
+            this.getAPRInviter();
+          }
+          else if (response.data == false) {
+            this.ErrorService.errorMessage(response.response);
+          }
+        })
+        this.isLoaderAdmin = false;
+      }
+    });
+  }
 }
 
 @Component({
@@ -216,7 +253,7 @@ export class inviteTeamMateDialog {
   om_AUEC_permission: any;
   om_AUER_permission: any;
   sub_permission: string = '';
-
+  singleInviter:any;
   constructor(
     public dialogRef: MatDialogRef<inviteTeamMateDialog>,
     private _formBuilder: FormBuilder,
@@ -225,8 +262,40 @@ export class inviteTeamMateDialog {
     private change: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-
+    if(this.data.inviterData){
+      this.singleInviter = this.data.inviterData;
+      // console.log(this.singleInviter)
+      this.email_id = this.singleInviter.email_id;
+    }
     this.boxofficeId = localStorage.getItem('boxoffice_id');
+
+    if(this.singleInviter){
+      // this.singleInviter.permission = this.singleInviter.permission.split(',')
+      if(this.singleInviter.permission.indexOf("A")  > -1){
+        this.admin_permission = true;
+      }
+      if(this.singleInviter.permission.indexOf("EM")  > -1){
+        this.em_permission = true;
+      }
+      if(this.singleInviter.permission.indexOf("OM") > -1){
+        this.om_permission = true;
+      }
+      if(this.singleInviter.permission.indexOf("OV")  > -1){
+        this.view_permission = true;
+      }
+      this.singleInviter.sub_permission = this.singleInviter.sub_permission.split(',')
+      console.log(this.singleInviter.sub_permission)
+      if(this.singleInviter.sub_permission.indexOf("AUEC") > -1){
+        this.om_AUEC_permission = true;
+      }
+      if(this.singleInviter.sub_permission.indexOf("AUER") > -1){
+        this.om_AUER_permission = true;
+      }
+      if(this.singleInviter.sub_permission.indexOf("AACD") > -1){
+        this.em_sub_permission = true;
+      }
+      // if(this.singleInviter.sub_permission){}
+    }
 
   }
 
@@ -284,6 +353,9 @@ export class inviteTeamMateDialog {
       this.em_permission = event.checked;
       // this.em_sub_permission = event.checked;
       this.admin_permission = false;
+      if(event.checked == false){
+        this.em_sub_permission = false;
+      }
 
     } else if (permission == 'om_permission') {
 
@@ -291,6 +363,10 @@ export class inviteTeamMateDialog {
       // this.om_AUEC_permission = event.checked;
       // this.om_AUER_permission = event.checked;
       this.admin_permission = false;
+      if(event.checked == false){
+        this.om_AUEC_permission = false;
+        this.om_AUER_permission = false;
+      }
 
     } else if (permission == 'view_permission') {
 
@@ -360,27 +436,42 @@ export class inviteTeamMateDialog {
 
 
     this.isLoaderAdmin = true;
-
-    let inviteFormData = {
-      'boxoffice_id': this.boxofficeId,
-      "email_id": this.email_id,
-      "role": "A",
-      "permission": permission,
-      "sub_permission": this.sub_permission,
-      'url': environment.urlForLink+'/sign-up?email='+this.email_id+'&inviter='
-    }
-
- 
-
-    this.SettingService.inviteform(inviteFormData).subscribe((response: any) => {
-      if (response.data == true) {
-        this.ErrorService.successMessage(response.response);
-        this.dialogRef.close();
-      } else if (response.data == false) {
-        this.ErrorService.errorMessage(response.response);
+    if(!this.singleInviter){
+      let inviteFormData = {
+        'boxoffice_id': this.boxofficeId,
+        "email_id": this.email_id,
+        "role": "A",
+        "permission": permission,
+        "sub_permission": this.sub_permission,
+        'url': environment.urlForLink+'/sign-up?email='+this.email_id+'&inviter='
       }
-      this.isLoaderAdmin = false;
-    });
+      this.SettingService.inviteform(inviteFormData).subscribe((response: any) => {
+        if (response.data == true) {
+          this.ErrorService.successMessage(response.response);
+          this.dialogRef.close();
+        } else if (response.data == false) {
+          this.ErrorService.errorMessage(response.response);
+        }
+        this.isLoaderAdmin = false;
+      });
+
+    }else{
+      let inviteFormData = {
+        "user_id": this.singleInviter.unique_code,
+        "permission": permission,
+        "sub_permission": this.sub_permission,
+      }
+      this.SettingService.updateTeamRole(inviteFormData).subscribe((response: any) => {
+        if (response.data == true) {
+          this.ErrorService.successMessage(response.response);
+          this.dialogRef.close();
+        } else if (response.data == false) {
+          this.ErrorService.errorMessage(response.response);
+        }
+        this.isLoaderAdmin = false;
+      });
+    }
+    
   }
 
 

@@ -40,7 +40,7 @@ import { DialogImportFileUpload } from './customers/customers.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-
+import { MdePopoverModule } from '@material-extended/mde';
 
 
 @NgModule({
@@ -92,6 +92,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     NgbModule,
     NgxMatSelectSearchModule,
     AngularEditorModule,
+    MdePopoverModule,
   ],
   
   entryComponents: [
@@ -114,7 +115,10 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     EditorderDialog,
     eventSummaryDialog,
     DialogAdminProfileImageUpload
+    
   ],
+  bootstrap: [EventsComponent]
+
 })
   
 export class SuperAdminModule {}

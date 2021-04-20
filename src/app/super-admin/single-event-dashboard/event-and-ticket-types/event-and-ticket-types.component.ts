@@ -100,6 +100,17 @@ export class EventAndTicketTypesComponent implements OnInit {
       this.selectedEvent = localStorage.getItem('selectedEventCode')
     }
 
+    let newEventAction = window.location.search.split("?goto")
+    console.log(newEventAction)
+    if(newEventAction.length > 1){
+      // document.getElementById("ticket_module").focus();
+      // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+      //   "#ticket_module"
+      // );
+  
+      // firstInvalidControl.focus();
+    }
+
       this.editEventForm = this._formBuilder.group({
         event_name: ['',[Validators.required]],
         event_start_date: ['',Validators.required],
@@ -577,7 +588,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       this.donation = 'Y' ;
       this.editEventForm.controls["donation_title"].setValidators(Validators.required);
       this.editEventForm.controls["donation_amount"].setValidators([Validators.required,Validators.pattern(this.onlynumericAmount)]);
-      this.editEventForm.controls["donation_description"].setValidators(Validators.required);
+      // this.editEventForm.controls["donation_description"].setValidators(Validators.required);
       this.editEventForm.controls["donation_title"].updateValueAndValidity();
       this.editEventForm.controls["donation_amount"].updateValueAndValidity();
       this.editEventForm.controls["donation_description"].updateValueAndValidity();

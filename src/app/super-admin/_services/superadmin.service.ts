@@ -62,6 +62,42 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+
+    getSetupSteps(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-complete-setup-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getAnalytics(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-analytics-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getRecentPurchase(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-recent-purchase-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    getLatestSales(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-latest-sales-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    dashboarUpcomingEvents(requestObject){
+        return this.http.post(`${environment.apiUrl}/get-upcoming-events-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
     getAllTimeZone(){
         return this.http.post(`${environment.apiUrl}/get-timezones`,{headers:this.globalHeaders}).pipe(
         map((res) => {

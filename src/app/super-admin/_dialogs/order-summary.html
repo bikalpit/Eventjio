@@ -52,7 +52,7 @@
                 </div>
                 <div class="row">
                     <label class="col-md-4">Payment method:</label>
-                    <p class="col-md-8 text-uppercase">{{orderDetail.payment ? orderDetail.payment.payment_method : '-'}}</p>
+                    <p class="col-md-8 text-capitalize">{{orderDetail.payment ? orderDetail.payment.payment_method : '-'}}</p>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Transaction ID:</label>
@@ -94,6 +94,15 @@
                                     <div class="tb-data fw-600" fxFlex="20">{{orderDetail.transaction_fee}}</div>
                                 </div>
                             </div>
+                            <div class="content" class="drageble-list" *ngIf="orderDetail.voucher_amt && orderDetail.coupon_amt">
+                                <div class="drageble-box" fxLayout="row">
+                                    <div class="tb-data fw-600" fxFlex="50">Discount Amount</div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data fw-600" fxFlex="20">-{{ ( orderDetail.voucher_amt ? orderDetail.voucher_amt : orderDetail.coupon_amt )}}</div>
+                                </div>
+                            </div>
                             <div class="content" class="drageble-list">
                                 <div class="drageble-box" fxLayout="row">
                                     <div class="tb-data fw-600" fxFlex="50">Sales Tax</div>
@@ -110,15 +119,6 @@
                                     <div class="tb-data" fxFlex="20"></div>
                                     <div class="tb-data" fxFlex="30"></div>
                                     <div class="tb-data fw-600" fxFlex="20">{{orderDetail.donation}}</div>
-                                </div>
-                            </div>
-                            <div class="content" class="drageble-list" *ngIf="orderDetail.voucher_amt && orderDetail.coupon_amt">
-                                <div class="drageble-box" fxLayout="row">
-                                    <div class="tb-data fw-600" fxFlex="50">Discount Amount</div>
-                                    <div class="tb-data" fxFlex="30"></div>
-                                    <div class="tb-data" fxFlex="20"></div>
-                                    <div class="tb-data" fxFlex="30"></div>
-                                    <div class="tb-data fw-600" fxFlex="20">-{{ ( orderDetail.voucher_amt ? orderDetail.voucher_amt : orderDetail.coupon_amt )}}</div>
                                 </div>
                             </div>
 
@@ -173,7 +173,7 @@
                 <div class="row">
                     <label class="col-md-4">Ticket code:</label>
                     <a class="col-md-8" target="_blank">
-                  {{val.ticket ? val.ticket.unique_code : '-'}}
+                  {{val ? val.unique_code : '-'}}
                 </a>
                 </div>
                 <div class="row">

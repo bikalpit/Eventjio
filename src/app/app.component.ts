@@ -4,9 +4,9 @@ import { AuthenticationService } from './_services/authentication.service';
 import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User, Role } from './_models';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BnNgIdleService } from 'bn-ng-idle';
 import { first, map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @Component({
   selector: 'app-root',
@@ -107,9 +107,7 @@ export class AppComponent {
   }
 
   updateUserData(){
-    alert();
     this.keepMe = localStorage.getItem('keepMeSignIn')
-    alert(this.keepMe)
     if (this.keepMe == 'true') {
       this.currentUserData = localStorage.getItem('currentUser')
       // alert("app local").

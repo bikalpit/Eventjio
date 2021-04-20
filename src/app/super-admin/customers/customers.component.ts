@@ -7,7 +7,6 @@ import { ErrorService } from '../../_services/error.service';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { environment } from '../../../environments/environment';
 import { ExportToCsv } from 'export-to-csv';
@@ -16,6 +15,7 @@ import { DatePipe} from '@angular/common';
 import * as moment from 'moment'; 
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { Observable, throwError } from 'rxjs';
 
 export interface DialogData {
   animal: string;
@@ -109,8 +109,7 @@ export class CustomersComponent implements OnInit {
       
       // Add our fruit
       if ((value || '').trim()) {
-      
-        this.tags.push(value.trim());
+        this.tags.push(value);
       }
 
       // Reset the input value
@@ -146,7 +145,7 @@ export class CustomersComponent implements OnInit {
   }
 
   customerSearch(){
-    this. getAllCustomersDetails();
+    this.getAllCustomersDetails();
   }
   
   ngOnInit(): void {
@@ -161,10 +160,7 @@ export class CustomersComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-        // if(result != undefined){
-        //     this.subCategoryImageUrl = result;
-        //     console.log(result);
-        //    }
+       this.getAllCustomersDetails();
      });
   }
 
@@ -291,6 +287,7 @@ export class CustomersComponent implements OnInit {
     this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
     if(response.data == true){
       this.ErrorService.successMessage(response.response.message);
+      this.tags.length = 0;
       this.addCustomerForm.reset();
       this.customerImageUrl = null;
 	  this.selectedCustomerCode =  response.response.unique_code;
@@ -406,6 +403,7 @@ fnUpdateCustomer(requestObject){
         this.updateResponseMsg = JSON.stringify(response.response.message)
         this.editCustomerForm = false;
         this.ErrorService.successMessage(this.updateResponseMsg);
+        this.tags.length = 0;
         this.addCustomerForm.reset();
         this.customerImageUrl = null;
 		
@@ -548,7 +546,7 @@ export class DialogImportFileUpload {
   boxofficeId:any;
   isLoaderAdmin:boolean = false;
   importCustomer:any;
-  
+  fileDanger : boolean = false;
   currentUser:any;
  constructor(
   public dialogRef: MatDialogRef<DialogImportFileUpload>,
@@ -576,14 +574,18 @@ export class DialogImportFileUpload {
   handleFileInput(files): void {
     
     this.fileToUpload = files.item(0);
-
+    console.log(this.fileToUpload)
     if(this.fileToUpload.type != "application/vnd.ms-excel"){
+      this.fileDanger = true;
       this._snackBar.open("Please select CSV file", "X", {
         duration: 2000,
         verticalPosition:'top',
         panelClass :['red-snackbar']
       });
       return;
+    }else{
+      
+      this.fileDanger = false;
     }
 
   }
@@ -598,7 +600,6 @@ export class DialogImportFileUpload {
         panelClass :['red-snackbar']
       });
       return;
-
     }
     
     const formData =  new FormData();

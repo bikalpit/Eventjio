@@ -184,3 +184,12 @@ page-title {
 .main-work-area{
     margin-top: 60px;
 }
+.input-with-icon{
+    position: relative;
+    mat-icon{
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        z-index: 9;
+    }
+}

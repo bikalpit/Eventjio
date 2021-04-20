@@ -142,10 +142,14 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
-   
 
+    updateTeamRole(requestObject){
+        return this.http.post(`${environment.apiUrl}/change-permission`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
    
-
     removeImage(requestObject){
         return this.http.post(`${environment.apiUrl}/remove-boxoffice-image-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -238,6 +242,13 @@ export class SettingService {
 
     deleteInviter(requestObject){
         return this.http.post(`${environment.apiUrl}/delete-request-inviter-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
+    removeTeamMember(requestObject){
+        return this.http.post(`${environment.apiUrl}/remove-inviter`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

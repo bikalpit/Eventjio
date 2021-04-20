@@ -55,7 +55,7 @@ export class SingleEventDashboard implements OnInit {
           this.router.navigate(['/super-admin']);
         }else{
           if(this.currentUser.sub_permission){
-            this.subPermission = this.currentUser.sub_permission.split(',',2)
+            this.subPermission = this.currentUser.sub_permission.split(',',4)
           }
         }
       }else{

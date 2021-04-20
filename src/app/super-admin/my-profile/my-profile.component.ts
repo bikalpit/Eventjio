@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import {SettingService} from '../settings/_services/setting.service';
 import { ErrorService } from '../../_services/error.service';
 import { AppComponent } from '../../app.component';
+import { Router, RouterEvent } from '@angular/router';
 import { AuthenticationService } from '../../_services/authentication.service'
 
 @Component({
@@ -18,6 +19,8 @@ export class MyProfileComponent implements OnInit {
   isLoaderAdmin:any;
   onlyNumaric = "[0-9]+"
   currentUser:any;
+  hide1 = true;
+  hide2 = true;
   myProfileData:any;
   profileId:any;
   changePasswordBox:boolean=false;
@@ -29,6 +32,7 @@ export class MyProfileComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private SettingService : SettingService,
     private ErrorService: ErrorService,
+    private router: Router,
     public dialog: MatDialog,
     private auth : AuthenticationService,
     private AppComponent : AppComponent
@@ -42,13 +46,22 @@ export class MyProfileComponent implements OnInit {
     this.changePwd = this._formBuilder.group({
       oldPassword : ['',[Validators.required]],
       newPassword:['',[Validators.required,Validators.minLength(8)]],
-    });
+      ReNewPassword: ['', Validators.required]            
+    
+    },{validator: this.checkPasswords });
 
    }
 
   ngOnInit(): void {
     this.getMyProfileData();
     //this.updateMyProfile(this.myProfileData);
+  }
+
+  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    let pass = group.controls.newPassword.value;
+    let confirmPass = group.controls.ReNewPassword.value;
+
+    return pass === confirmPass ? null : { notSame: true }
   }
 
   fnChangeImage(){
@@ -74,14 +87,21 @@ export class MyProfileComponent implements OnInit {
     }
     this.SettingService.getMyProfileData(requestObject).subscribe((response:any) => {
       if(response.data == true){
-         this.myProfileData = response.response[0];
+         this.myProfileData = response.response;
          this.profileId = this.myProfileData.id       
         //  console.log(this.myProfileData);
-
-         this.myProfileForm.controls['firstname'].setValue(this.myProfileData.firstname)
-        //  this.myProfileForm.controls['lastname'].setValue(this.myProfileData[0].lastname)
-         this.myProfileForm.controls['email'].setValue(this.myProfileData.email)
-         this.myProfileForm.controls['phone'].setValue(this.myProfileData.phone)
+        if(this.myProfileData.status == 'APR'){
+          this.myProfileForm.controls['firstname'].setValue(this.myProfileData.name)
+          //  this.myProfileForm.controls['lastname'].setValue(this.myProfileData[0].lastname)
+           this.myProfileForm.controls['email'].setValue(this.myProfileData.email_id)
+           this.myProfileForm.controls['phone'].setValue(this.myProfileData.phone)
+        }else{
+          this.myProfileForm.controls['firstname'].setValue(this.myProfileData.firstname)
+          //  this.myProfileForm.controls['lastname'].setValue(this.myProfileData[0].lastname)
+           this.myProfileForm.controls['email'].setValue(this.myProfileData.email)
+           this.myProfileForm.controls['phone'].setValue(this.myProfileData.phone)
+        }
+        
 
       } else if(response.data == false){
 
@@ -172,10 +192,17 @@ export class MyProfileComponent implements OnInit {
     this.SettingService.updateMyProfile(updateMyProfile).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage('Profile updated successfully.');
-        if(localStorage.getItem('keepMeSignIn') == 'true')
+        if(localStorage.getItem('keepMeSignIn') == 'true'){
           localStorage.setItem('currentUser', JSON.stringify(response.response))
+          setTimeout(() => {
+            window.location.reload();
+         }, 300);
+        }
         else{
           sessionStorage.setItem('currentUser', JSON.stringify(response.response))
+          setTimeout(() => {
+            window.location.reload();
+         }, 300);
         }
         this.AppComponent.updateUserData();
        this. getMyProfileData();
@@ -188,7 +215,12 @@ export class MyProfileComponent implements OnInit {
   }
 
   onCancel(){
-    this.getMyProfileData();
+    if(localStorage.getItem('boxoffice_id')){
+      this.router.navigateByUrl('/super-admin/dashboard');
+    }else{
+      this.router.navigateByUrl('/super-admin');
+    }
+    // this.getMyProfileData();
   }
 
   }

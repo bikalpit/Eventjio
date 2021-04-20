@@ -1,3 +1,252 @@
-<p>dashboard works!</p>
-
-
+<div id="dashboard" class="bg-white sub-container">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="left-side-view">
+        <mat-card class="setup-flow">
+            <h2 class="module-title">Complete Setup</h2>
+            <ul class="steps">
+                <li [ngClass]="{'active':setupSteps.signup == 'Y'}">
+                    <div class="top-icon">
+                        <img src="../../../assets/images/admin/step-1.svg">
+                    </div>
+                    <label>Sign up</label>
+                </li>
+                <li [ngClass]="{'active':setupSteps.add_event == 'Y'}">
+                    <div class="top-icon">
+                        <img src="../../../assets/images/admin/step-2.svg">
+                    </div>
+                    <label>Add Event</label>
+                </li>
+                <li [ngClass]="{'active':setupSteps.setup_payment == 'Y'}">
+                    <div class="top-icon">
+                        <img src="../../../assets/images/admin/step-3.svg">
+                    </div>
+                    <label>Setup Payment</label>
+                </li>
+                <li [ngClass]="{'active':setupSteps.customize_event == 'Y'}">
+                    <div class="top-icon">
+                        <img src="../../../assets/images/admin/step-4.svg">
+                    </div>
+                    <label>Customize Event</label>
+                </li>
+                <li [ngClass]="{'active':setupSteps.publish == 'Y'}">
+                    <div class="top-icon">
+                        <img src="../../../assets/images/admin/step-5.svg">
+                    </div>
+                    <label>Publish</label>
+                </li>
+            </ul>
+        </mat-card>
+        <mat-card class="analytic-main">
+            <div class="section-head">
+                <h2 class="module-title">Analytics</h2>
+                <mat-select [(ngModel)]="analyticsFilter" (selectionChange)="fnChangeFilterAnalytics()" class="filter-dropdown">
+                    <mat-option value="day">Daily</mat-option>
+                    <mat-option value="week">Weekly</mat-option>
+                    <mat-option value="month">Monthly</mat-option>
+                    <mat-option value="year">Yearly</mat-option>
+                </mat-select>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="analytic-box">
+                        <label class="content">
+                            <h4>Ticket Sold</h4>
+                            <span>{{analyticsStets?analyticsStets.ticket_sold:''}}</span>
+                        </label>
+                        <img src="../../../assets/images/admin/park-tickets-couple.svg" >
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="analytic-box">
+                        <label class="content">
+                            <h4>Revenue</h4>
+                            <span>{{analyticsStets?analyticsStets.revenue:''}}</span>
+                        </label>
+                        <img src="../../../assets/images/admin/revemue.svg" >
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="analytic-box">
+                        <label class="content">
+                            <h4>Order Received</h4>
+                            <span>{{analyticsStets?analyticsStets.order_receive:''}}</span>
+                        </label>
+                        <img src="../../../assets/images/admin/order-received.svg" >
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+        <div class="row">
+            <div class="col-6">
+                <mat-card class="recent-pur">
+                    <div class="section-head">
+                        <h2 class="module-title">Recent Purchases</h2>
+                        <span class="action-icon">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </span>
+                    </div>
+                        <ul class="purchase-list">
+                            <li *ngFor="let element of recentPurchaseList; let i=index;">
+                                <div class="user-image text-uppercase">{{element.customer.customerShortName}}</div>
+                                <div class="pur-content">
+                                    <label>{{element.customer.firstname}} {{element.customer.lastname}}</label>
+                                    <span><i class="fa fa-ticket"></i> {{element.events.event_title}}</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <label>{{element.order_item_count}} Ticket</label>
+                                    <span>{{element.time_difference}} ago</span>
+                                </div>
+                            </li>
+                            <!-- <li>
+                                <div class="user-image">KB</div>
+                                <div class="pur-content">
+                                    <label>Olivia Johanson</label>
+                                    <span><i class="fa fa-ticket"></i> High Performance Concert 2020 ..</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <label>4 Ticket</label>
+                                    <span>2 min ago</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="user-image">KB</div>
+                                <div class="pur-content">
+                                    <label>Olivia Johanson</label>
+                                    <span><i class="fa fa-ticket"></i> High Performance Concert 2020 ..</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <label>4 Ticket</label>
+                                    <span>2 min ago</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="user-image">KB</div>
+                                <div class="pur-content">
+                                    <label>Olivia Johanson</label>
+                                    <span><i class="fa fa-ticket"></i> High Performance Concert 2020 ..</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <label>4 Ticket</label>
+                                    <span>2 min ago</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="user-image">KB</div>
+                                <div class="pur-content">
+                                    <label>Olivia Johanson</label>
+                                    <span><i class="fa fa-ticket"></i> High Performance Concert 2020 ..</span>
+                                </div>
+                                <div class="ticket-detail">
+                                    <label>4 Ticket</label>
+                                    <span>2 min ago</span>
+                                </div>
+                            </li> -->
+                        </ul>
+                </mat-card>
+            </div>
+            <div class="col-6">
+                <mat-card class="latest-sales">
+                    <div class="section-head">
+                        <h2 class="module-title">Latest Sales</h2>
+                        <mat-select [(ngModel)]="salesFilter" (selectionChange)="fnChangeFilterSales()" class="filter-dropdown">
+                            <mat-option value="day">Daily</mat-option>
+                            <mat-option value="week">Weekly</mat-option>
+                            <mat-option value="month">Monthly</mat-option>
+                            <mat-option value="year">Yearly</mat-option>
+                        </mat-select>
+                    </div>
+                    <div class="row ticketchart mt-4">
+                        <canvas id="ticketchart"></canvas>
+                        <ul class="chart-legends">
+                            <li>
+                                <div class="tag left"></div>
+                                <span>Ticket Left</span>
+                                <label>{{latestSalesStats.ticket_left}}</label>
+                            </li>
+                            <li>
+                                <div class="tag sold"></div>
+                                <span>Ticket Sold</span>
+                                <label>{{latestSalesStats.ticket_sold}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div class="right-side-view">
+        <mat-card class="">
+            <div class="welcome-banner">
+                <img src="../../../assets/images/admin/welcome-banner.png" />
+                <h3>Welcome to Eventjio</h3>
+                <p>Reference site about Lorem Ipsum, giving as well as a random Lipsum generator.</p>
+                <p (click)="addNewEvent()" class="maroon-btn">Add New Event</p>
+            </div>
+            <div class="upcoming-event">
+                <div class="head-line">
+                    <h3>Upcoming Events</h3><span class="side-line"></span>
+                </div>
+                <ul class="event-list">
+                    <li class="single-event" *ngFor="let element of allUpcomingEventListData; let i=index;">
+                        <div class="date-block" *ngIf="element.event_occurrence_type == 'N'">
+                            {{element.shortStartDate}} 
+                            <span>{{element.shortStartDay}}</span>
+                        </div>
+                        <div class="date-block" *ngIf="element.event_occurrence_type == 'Y'">
+                            R
+                            <!-- <span>{{element.shortStartDay}}</span> -->
+                        </div>
+                        <div class="content">
+                            <label>{{element.event_title}}</label>
+                            <div class="ticket-sales">
+                                <div class="ticker-des">
+                                    <span>Ticket Sold</span><span>{{element.ticket_sold?element.ticket_sold:0}}/{{element.total_ticket?element.total_ticket:0}}</span>
+                                </div>
+                                <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li class="single-event">
+                        <div class="date-block">
+                            3 
+                            <span>Wed</span>
+                        </div>
+                        <div class="content">
+                            <label>Live Concert Charity 2020...</label>
+                            <div class="ticket-sales">
+                                <div class="ticker-des">
+                                    <span>Ticket Sold</span><span>561/650</span>
+                                </div>
+                                <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="single-event">
+                        <div class="date-block">
+                            3 
+                            <span>Wed</span>
+                        </div>
+                        <div class="content">
+                            <label>Live Concert Charity 2020...</label>
+                            <div class="ticket-sales">
+                                <div class="ticker-des">
+                                    <span>Ticket Sold</span><span>561/650</span>
+                                </div>
+                                <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                            </div>
+                        </div>
+                    </li> -->
+                </ul>
+                <div class="bottom-event-list">
+                    <div class="text">
+                       <label *ngIf="totalUpcomingEvents > 3">{{(totalUpcomingEvents - 3)}} events more</label>
+                        <p (click)="viewAllEvent()">View More <span class="material-icons">arrow_right_alt</span></p>
+                    </div>
+                    <button (click)="addNewEvent()" mat-flat-button class="add-event-btn mt-2 px-3">
+                        Add New Event
+                    </button>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

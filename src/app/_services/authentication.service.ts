@@ -48,6 +48,9 @@ export class AuthenticationService {
                         } else {
                             sessionStorage.setItem('currentUser', JSON.stringify(user.response));
                         }
+                        var logoutTime = new Date();
+                        logoutTime.setHours( logoutTime.getHours() + 6 );
+                        localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
                     }
 
                     this.currentUserSubject.next(user.response);

@@ -3,6 +3,7 @@
     <div class="event-main">
         <div class="event-head">
             <h5 class="page-title">Edit Event and Tickets</h5>
+            <a href="#ticket_premodule">home</a>
         </div>
         <form [formGroup]="editEventForm" class="with-validation">
             <div class="add-event-info">
@@ -142,7 +143,7 @@
                         <div class="w-100 mt-3" *ngIf="olPlatForm == 'Y'">
                             <div class="row m-0">
                                 <div class="col-6 col-md-6 col-lg-4">
-                                    <label for="">Platform</label>
+                                    <label for="">Platform <span><i class="mr-1 fa fa-asterisk"></i></span> </label>
                                     <div class="form-group">
                                         <mat-select formControlName="online_platform" class="form-control" placeholder="Please select platform">
                                             <mat-option value="Z">Zoom</mat-option>
@@ -259,10 +260,12 @@
                                 </div>
                             </div>
 
+                            <div id="ticket_premodule" ></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <input type="hidden" id="ticket_module" />
             <div class="create-ticket mt-3 pb-2">
                 <div class="event-content">
                     <h6>Create ticket types</h6>

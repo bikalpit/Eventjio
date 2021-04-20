@@ -153,19 +153,27 @@
                                     <P class="fw-600 my-2">TICKET TYPES</P>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
+                            <section class="row">
+                                <mat-checkbox class="col-md-4" checked  *ngFor="let value of selectedEventTickets;let i=index" (change)="fnSelectTicket($event,value.ticket_id,i)" [(ngModel)]="value.selected">{{value.tickets.ticket_name}}</mat-checkbox>
+                                <div *ngIf="!selectedEventTickets || selectedEventTickets.length == 0" class="col-md-12 px-0 my-3">
+                                    <div class="note-theme m-0">
+                                        <div class="notification">
+                                            <mat-icon aria-hidden="false" aria-label="Example home icon" class="notif-icon">notifications</mat-icon>
+                                        </div>
+                                        <div>
+                                            <p class="note-message">Select an event in the order list to filter by ticket type </p>
+                                        </div>
+                                    </div>
+            
+                                </div>
+                                <!-- <mat-checkbox class=" col-md-4" (change)="fnLine_type($event)">Type</mat-checkbox>
+                                    <mat-checkbox class=" col-md-4" (change)="fnline_Description($event)">Description</mat-checkbox>
+                                    <mat-checkbox class=" col-md-4" (change)="fnline_Value($event)">Value</mat-checkbox>
+                                    <mat-checkbox class=" col-md-4" (change)="fnlineBooking_fee($event)">Booking fee</mat-checkbox> -->
+                            </section>
                         </mat-expansion-panel>
                     </mat-accordion>
-                    <div class="col-md-12 px-0 my-3">
-                        <div class="note-theme m-0">
-                            <div class="notification">
-                                <mat-icon aria-hidden="false" aria-label="Example home icon" class="notif-icon">notifications</mat-icon>
-                            </div>
-                            <div>
-                                <p class="note-message">Select an event in the order list to filter by ticket type </p>
-                            </div>
-                        </div>
-
-                    </div>
+                    
 
                     <div class="linereport-details-col">
                         <h5>Line item details to include in the report (columns)</h5>

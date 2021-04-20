@@ -558,6 +558,7 @@ export class addSingleOccurrence {
   currentTime:any;
   singleOccurenceData:any;
   occurance_id:any;
+  saveDisabled:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<addSingleOccurrence>,
     private _formBuilder: FormBuilder,
@@ -676,6 +677,7 @@ export class addSingleOccurrence {
     if(this.singleOccurrenceForm.valid){
       
       if(this.singleOccurenceData){
+        this.isLoaderAdmin =true;
         var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
         var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
         let requestObject = {
@@ -691,13 +693,20 @@ export class addSingleOccurrence {
         }
         this.SingleEventServiceService.singleOccurrenceUpdate(requestObject).subscribe((response:any)=>{
           if(response.data == true){
+            this.saveDisabled = true;
+              setTimeout(() => {
+                this.saveDisabled = false
+              }, 3000);
             this.ErrorService.successMessage(response.response)
             this.dialogRef.close('created');
           }else{
             this.ErrorService.errorMessage(response.response)
           }
+          
+        this.isLoaderAdmin =false;
         })
       }else{
+        this.isLoaderAdmin =true;
         var stratDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_start_date').value), 'yyyy-MM-dd')
         var endDate = this.datePipe.transform(new Date(this.singleOccurrenceForm.get('occurance_end_date').value), 'yyyy-MM-dd')
         let requestObject = {
@@ -711,12 +720,16 @@ export class addSingleOccurrence {
         
         }
         this.SingleEventServiceService.singleOccurrenceCreate(requestObject).subscribe((response:any)=>{
-          if(response.data == true){
+          if(response.data == true){ this.saveDisabled = true;
+            setTimeout(() => {
+              this.saveDisabled = false
+            }, 3000);
             this.ErrorService.successMessage(response.response)
             this.dialogRef.close('created');
           }else{
             this.ErrorService.errorMessage(response.response)
           }
+          this.isLoaderAdmin =false;
         })
       }
       
