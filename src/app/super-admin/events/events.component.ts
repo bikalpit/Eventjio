@@ -290,7 +290,7 @@ export class EventsComponent implements OnInit {
         this.addEventForm.controls['currency'].setValue(this.defaultValues.currency.name);
         // alert(this.addEventForm.get('vanue_country').value)
         this.addEventForm.controls['timezone'].setValue(parseFloat(this.defaultValues.timezone.id));
-		console.log(parseFloat(this.defaultValues.timezone.id));
+		//console.log(parseFloat(this.defaultValues.timezone.id));
         // alert(this.defaultValues.currency.name)
         // alert(this.defaultValues.country.id)
         // alert(this.defaultValues.timezone.id)
@@ -705,7 +705,6 @@ export class EventsComponent implements OnInit {
   }
  
   addNewEvent(){
-    alert()
     this.getdefaultValues();
     this.addNewEvents = false;
   }
