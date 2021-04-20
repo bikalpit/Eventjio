@@ -65,7 +65,7 @@
                                 <div class="th-data" fxFlex="30">Item</div>
                                 <div class="th-data" fxFlex="15">Price</div>
                                 <div class="th-data" fxFlex="20">Booking Fee</div>
-                                <div class="th-data" fxFlex="25">QUANTITY</div>
+                                <div class="th-data" fxFlex="20">QUANTITY</div>
                                 <div class="th-data" fxFlex="15" class="align-end">Subtotal</div>
                             </div>
                             <div class="content" class="drageble-list">
@@ -73,8 +73,8 @@
                                     <div *ngIf="eventTicket.id_added" class="tb-data order-item" fxFlex="30">{{eventTicket.ticket_name}}</div>
                                     <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="15">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
                                     <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
-                                    <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="25">{{eventTicket.qty}} </div>
-                                    <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="20">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee) | currency:currencyCode:'symbol' }}</div>
+                                    <div *ngIf="eventTicket.id_added" class="tb-data" fxFlex="20">{{eventTicket.qty}} </div>
+                                    <div *ngIf="eventTicket.id_added" class="tb-data align-end" fxFlex="15">{{ fnSum(eventTicket.qty,eventTicket.prize,eventTicket.booking_fee) | currency:currencyCode:'symbol' }}</div>
                                 </div>
                             </div>
                             <div class="content drageble-list">
@@ -104,6 +104,15 @@
                                     <div class="tb-data" fxFlex="15"></div>
                                     <div class="tb-data" fxFlex="15"></div>
                                     <div class="tb-data align-end fs-15" fxFlex="20">- {{ discount_amt | currency:currencyCode:'symbol' }}</div>
+                                </div>
+                            </div>
+                            <div class="content drageble-list" *ngIf="eventSettings.make_donation=='Y'">
+                                <div class="drageble-box fw-600" fxLayout="row">
+                                    <div class="tb-data fs-15 fw-600" fxFlex="35">{{eventSettings.donation_title}} </div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data" fxFlex="15"></div>
+                                    <div class="tb-data align-end fs-15" fxFlex="20"><input type="checkbox" (change)="fnMakeDonation($event)" [(ngModel)]="make_donation" /> {{ eventSettings.donation_amt | currency: currencyCode :'symbol':'1.2-2'}}</div>
                                 </div>
                             </div>
 

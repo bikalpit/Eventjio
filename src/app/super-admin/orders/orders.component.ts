@@ -63,6 +63,7 @@ export class OrdersComponent implements OnInit {
   selectedEvent:any;
   allOccurrenceList:any;
   keepMe:any;
+  selectedEventTickets:any;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
@@ -104,7 +105,7 @@ export class OrdersComponent implements OnInit {
         this.router.navigate(['/super-admin']);
       }else{
         if(this.currentUser.sub_permission){
-          this.subPermission = this.currentUser.sub_permission.split(',',2)
+          this.subPermission = this.currentUser.sub_permission.split(',',4)
         }
       }
     }else{
@@ -130,9 +131,34 @@ export class OrdersComponent implements OnInit {
      this.fnGetAllEventList();
   }
 
+  beforeunload = () => {
+      localStorage.setItem('world', 'yes');
+      return 'World Page: some data not complete yet, continue?'
+   
+  }
   
   fnTicketCheckout(fromType){
     this.addOrderFormType = fromType;
+  }
+
+  
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour == 12){
+      finalhrs = 12;
+      part = 'PM';
+    }
+    if(hour > 12){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
   }
 
   getAllOccurrenceList(){
@@ -216,13 +242,25 @@ export class OrdersComponent implements OnInit {
 
   }
 
+  selectedEventOrder(event){
+    console.log(event)
+    
+    // const index = this.allEventlist.indexOf(event.value);
+    const index = this.allEventlist.findIndex(x => x.unique_code === event.value);
+    console.log(index);
+    console.log(this.allEventlist[index]);
+    this.selectedEventTickets = this.allEventlist[index].event_tickets
+  }
+
   exportOredr() {
     const dialogRef = this.dialog.open(ExportOrderDialog, {
       width: '600px',
+      data : {selectedEventTickets : this.selectedEventTickets}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
+      this.selectedEventTickets = null;
     });
     
   }
@@ -407,21 +445,26 @@ export class ExportOrderDialog {
   orderFieldList:any =[];
   eventFieldList:any =[];
   buyerFieldList:any =[];
+  selectedTicketList:any =[];
   
   
   LiBuyerDetail:any = true;
+  allTicketType:any = true;
   LiBuyerDetails  = [
     { 'name' : 'buyerDetailsName', 'value' : true, 'lable' : 'Name','variable_name' :  'name' },
     // { 'name' : 'buyerDetailsLastname', 'value' : true, 'lable' : 'lastName','variable_name' :  'lastname'},
     { 'name' : 'buyerDetailsemail', 'value' : true, 'lable' : 'Email' ,'variable_name' :  'email'},
     { 'name' : 'buyerDetailsPhone', 'value' : true, 'lable' : 'Mobile number' ,'variable_name' :  'mobile'},
-    { 'name' : 'buyerDetailsAddress1', 'value' : true, 'lable' : 'Address' ,'variable_name' :  'address1'},
+    { 'name' : 'buyerDetailsAddress1', 'value' : true, 'lable' : 'Address 1' ,'variable_name' :  'address1'},
+    { 'name' : 'buyerDetailsAddress2', 'value' : true, 'lable' : 'Address 2' ,'variable_name' :  'address2'},
+    { 'name' : 'buyerDetailsAddress3', 'value' : true, 'lable' : 'Address 3' ,'variable_name' :  'address3'},
     { 'name' : 'buyerDetailsPostcode', 'value' : true, 'lable' : 'Postcode / Zip' ,'variable_name' :  'zip'},
+    { 'name' : 'custom_questions', 'value' : true, 'lable' : 'Custom questions' ,'variable_name' :  'custom_questions'},
   ];
 
   LiEvent_detail:any = true;
   LiEventDetails  = [
-    { 'name' : 'eventDetailsEvent_id', 'value' : true, 'lable' : 'Event ID'  ,'variable_name' :  'event_id'},
+    // { 'name' : 'eventDetailsEvent_id', 'value' : true, 'lable' : 'Event ID'  ,'variable_name' :  'event_id'},
     { 'name' : 'eventDetailsEvent_name', 'value' : true, 'lable' : 'Event name'  ,'variable_name' :  'event_name'},
     { 'name' : 'eventDetailsEvent_start', 'value' : true, 'lable' : 'Event start' ,'variable_name' :  'event_start' },
     { 'name' : 'eventDetailsEvent_end', 'value' : true, 'lable' : 'Event end'  ,'variable_name' :  'event_end'},
@@ -437,16 +480,17 @@ export class ExportOrderDialog {
     { 'name' : 'orderDetailsReferral_tag', 'value' : true, 'lable' : 'Referral Tag' ,'variable_name' :  'refrel_tag'},
     { 'name' : 'orderDetailsDiscount_code', 'value' : true, 'lable' : 'Discount code' ,'variable_name' :  'discount_code'},
     { 'name' : 'orderDetails_cancel', 'value' : true, 'lable' : 'Order cancelled' ,'variable_name' :  'order_canceled'},
-    { 'name' : 'taxes ', 'value' : true, 'lable' : 'Taxes' ,'variable_name' :  'tax_amount'},
+    { 'name' : 'cancellation_reason ', 'value' : true, 'lable' : 'Cancellation reason' ,'variable_name' :  'cancellation_reason'},
   ];
 
 
   Liticketdetail:any = true;
   ticketDetails  = [
-    { 'name' : 'tickets', 'value' : true, 'lable' : 'Tickets','variable_name' :  'tickets'},
-    { 'name' : 'voided_tickets', 'value' : true, 'lable' : 'Voided tickets' ,'variable_name' :  'voided_tickets'},
-    { 'name' : 'transaction_fee', 'value' : true, 'lable' : 'Transaction charges' ,'variable_name' :  'ticket_charges'},
-    { 'name' : 'taxes', 'value' : true, 'lable' : 'Taxes' ,'variable_name' :  'taxes'},
+    { 'name' : 'attendee_name', 'value' : true, 'lable' : 'Attendee name','variable_name' :  'attendee_name'},
+    { 'name' : 'ticket_code', 'value' : true, 'lable' : 'Ticket code' ,'variable_name' :  'ticket_code'},
+    { 'name' : 'checkedIn', 'value' : true, 'lable' : 'Checked in' ,'variable_name' :  'checkedIn'},
+    { 'name' : 'attened', 'value' : true, 'lable' : 'Attended' ,'variable_name' :  'attened'},
+    { 'name' : 'cu_atte_q', 'value' : true, 'lable' : 'Custom attendee questions' ,'variable_name' :  'cu_atte_q'},
   ];
   
   lineitem_details:any = true;
@@ -510,17 +554,26 @@ export class ExportOrderDialog {
     { 'name' : 'buyerDetailsPostcode', 'value' : true, 'lable' : 'Postcode / Zip' ,'variable_name' :  'zip'},
     { 'name' : 'buyerDetailscustom_questions', 'value' : true, 'lable' : 'Custom questions' ,'variable_name' :  'custom_questions'},
   ];
-
+  selectedEventTickets:any=[];
   constructor(
     public dialogRef: MatDialogRef<ExportOrderDialog>,
     private http: HttpClient,
     public superadminService : SuperadminService,
     private ErrorService: ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    
-      this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
+      this.selectedEventTickets = this.data.selectedEventTickets
+      this.boxOfficeCode = localStorage.getItem('boxoffice_id');
       this.orderuniqueCode = localStorage.getItem('selectedEventCode')
-     
+      if(this.selectedEventTickets && this.selectedEventTickets.length >0){
+      this.selectedEventTickets['selected']; 
+        this.selectedEventTickets.forEach(element => {
+          element.selected = true;
+          this.selectedTicketList.push(element.ticket_id)
+        });
+        console.log(this.selectedTicketList)
+      }
+      
+      
     }
 
   onNoClick(): void {
@@ -645,6 +698,17 @@ export class ExportOrderDialog {
   }
   
  
+  fnSelectTicket(event,ticketCode,index1){
+    if(event.checked){
+      this.selectedTicketList.push(ticketCode)
+      this.selectedEventTickets[index1].selected = true;
+    }else{
+      const index = this.selectedTicketList.indexOf(ticketCode);
+      this.selectedTicketList.splice(index, 1);
+      this.selectedEventTickets[index1].selected = false;
+    }
+
+  }
   fnTicket_details(event,checkBoxType){
     if(checkBoxType == 'main'){
 
@@ -738,8 +802,8 @@ export class ExportOrderDialog {
       quoteStrings: '"',
       decimalSeparator: '.',
       showLabels: true, 
-      showTitle: true,
-      title: 'Export Orders',
+      showTitle: false,
+      // title: 'Export Orders',
       useTextFile: false,
       useBom: true,
       useKeysAsHeaders: true,
@@ -758,7 +822,6 @@ export class ExportOrderDialog {
             "buyer_details":  this.buyerDetails ? 'Y' : "N",
             "order_details":this.orderDetails ? 'Y' : "N",
             "event_details": this.eventDetails ? 'Y' : "N",
-          
             "address2" : 'N',
             "address3" : 'N',
             "booking_fee" : "N",
@@ -820,6 +883,7 @@ export class ExportOrderDialog {
         "buyer_details":  this.LiBuyerDetail ? 'Y' : "N",
         "order_details":this.Liorder_details ? 'Y' : "N",
         "event_details": this.LiEvent_detail ? 'Y' : "N",
+        "ticket_type" : this.selectedTicketList,
         "address2" : 'N',
         "address3" : 'N',
         "tickets_checked_in" : "N",
@@ -850,6 +914,10 @@ export class ExportOrderDialog {
         requestObject[element.variable_name] = element.value ? 'Y' : 'N';
       });
      
+      this.LiBuyerDetails.forEach((element,key,obj) => {
+        requestObject[element.variable_name] = element.value ? 'Y' : 'N';
+      });
+      
 
       this.superadminService.fnExportOrders(requestObject).subscribe((response:any)=>{
         if(response.data == true && response.response!='Orders not found.'){   
@@ -1066,6 +1134,7 @@ export class BookTicketDialog {
   };
   is_address_hide = false;
   occurrenceCode:any;
+  make_donation:any;
   recurringEvent:boolean=false;
   constructor(
     public dialog: MatDialog,
@@ -1187,7 +1256,17 @@ export class BookTicketDialog {
    
   }
 
-  
+
+  fnMakeDonation(event){
+    if(this.make_donation){
+      this.grandTotal = this.grandTotal+parseInt(this.eventSettings.donation_amt);
+    }else{
+      this.grandTotal = this.grandTotal-parseInt(this.eventSettings.donation_amt);
+    }
+    // if(){
+    //   this.grandTotal = this.grandTotal+this.eventSettings.donation_amt;
+    // }
+  }
 
   getEventForm(){
     this.isLoaderAdmin = true;
@@ -1442,7 +1521,7 @@ export class BookTicketDialog {
       if(response.data == true){
 
         var Data =  response.response;
-
+        this.make_donation = false;
         if(Data.type == 'voucher'){
 
           this.voucher_code = this.promo_code;
@@ -1688,7 +1767,9 @@ export class BookTicketDialog {
       "attendee_info" : JSON.stringify(attendeeFinalArr),
       'tickets' : order_item
     }
-
+    if(this.make_donation){
+      requestObject['donation']  = this.eventSettings.donation_amt;
+    }
  
 
     this.isLoaderAdmin = true;

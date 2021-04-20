@@ -50,7 +50,7 @@
 
                         <div class="col-6">
                             <label for="email" class="mt-4">Email</label>
-                            <input type="text" class="form-control" formControlName="email">
+                            <input type="text" class="form-control" formControlName="email" disabled>
                             <span class="error-wrap" *ngIf="myProfileForm.get('email').touched || myProfileForm.get('email').dirty">
                         <small *ngIf="myProfileForm.get('email').hasError('required')" class="error">Email is required.</small>
                         <small *ngIf="myProfileForm.get('email').hasError('email') || myProfileForm.get('email').hasError('pattern')" class="error">Enter a valid email address.</small>
@@ -80,17 +80,31 @@
                 <div class="row mx-0 mt-4">
                     <div class="col-12 mb-3">
                         <label for="old-pwd" class="">Old Password</label>
-                        <input type="password" class="form-control" formControlName="oldPassword">
+                        <div class="input-with-icon">
+                            <input  [type]="hide1 ? 'text' : 'password'" class="form-control" formControlName="oldPassword">
+                            <mat-icon class="hide-show-pswd pointer" (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </div>
                         <span class="error-wrap" *ngIf="changePwd.get('oldPassword').touched || changePwd.get('oldPassword').dirty">
                             <small *ngIf="changePwd.get('oldPassword').hasError('required')" class="error">Old password is required.</small>
                         </span>
                     </div>
                     <div class="col-12 mb-3">
                         <label for="new-pwd" class="">New Password</label>
-                        <input type="password" class="form-control" formControlName="newPassword">
+                        <div class="input-with-icon">
+                            <input  [type]="hide2 ? 'text' : 'password'" class="form-control" formControlName="newPassword">
+                            <mat-icon class="hide-show-pswd pointer" (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">{{hide2 ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </div>
                         <span class="error-wrap" *ngIf="changePwd.get('newPassword').touched || changePwd.get('newPassword').dirty">
                             <small *ngIf="changePwd.get('newPassword').hasError('required')" class="error">New Password is required.</small>
                             <small *ngIf="changePwd.get('newPassword').hasError('minlength')" class="error">New Password should be minimum 8 character.</small>
+                        </span>
+                    </div>
+                    <div class="col-12 mb-3">
+                            <label for="new-pwd" class="">Confirm New Password</label>
+                            <input type="password" formControlName="ReNewPassword" placeholder="Re-Enter New Password" class="common-input form-control" />
+                        <span class="error-wrap" *ngIf="changePwd.get('ReNewPassword').dirty || changePwd.get('ReNewPassword').touched">
+                            <small *ngIf="changePwd.get('ReNewPassword').hasError('required') && changePwd.hasError('notSame')" class="error text-left">Confirm password is required.</small>
+                            <small *ngIf="!changePwd.get('ReNewPassword').hasError('required') && changePwd.hasError('notSame')" class="error text-left">Passwords do not match.</small>
                         </span>
                     </div>
                     <div class="col-12 mb-3">

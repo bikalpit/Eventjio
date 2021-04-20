@@ -104,18 +104,31 @@ export class LoginComponent implements OnInit {
 
                             if (permistion.indexOf("EM") > -1) {
                                 localStorage.setItem('permision_EM', 'TRUE');
+                                // localStorage.removeItem('permision_OM');
+                                // localStorage.removeItem('permision_OV');
+                                localStorage.removeItem('permision_ALL');
+
                             }
 
                             if (permistion.indexOf("OM") > -1) {
                                 localStorage.setItem('permision_OM', 'TRUE');
+                                // localStorage.removeItem('permision_EM');
+                                // localStorage.removeItem('permision_OV');
+                                localStorage.removeItem('permision_ALL');
                             }
 
                             if (permistion.indexOf("OV") > -1) {
                                 localStorage.setItem('permision_OV', 'TRUE');
+                                // localStorage.removeItem('permision_OM');
+                                // localStorage.removeItem('permision_EM');
+                                localStorage.removeItem('permision_ALL');
                             }
 
                         } else {
                             localStorage.setItem('permision_ALL', 'TRUE');
+                            localStorage.removeItem('permision_OM');
+                            localStorage.removeItem('permision_EM');
+                            localStorage.removeItem('permision_OV');
                         }
 
                     }

@@ -17,14 +17,14 @@
                         <div [formGroupName]="i" class="single-form-row mt-3">
                             <label>Start</label>
                             <div class="form-group">
-                                <mat-select placeholder="HH:MM A" [disabled]="!checkAllDayValue" formControlName="start_time" class="col-10 ml-2 form-control d-inline-block" (selectionChange)="onEnableEndTime($event,i)">
+                                <mat-select placeholder="HH:MM" [disabled]="!checkAllDayValue" formControlName="start_time" class="col-10 ml-2 form-control d-inline-block" (selectionChange)="onEnableEndTime($event,i)">
                                     <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                             </div>
 
                             <label>End</label>
                             <div class="form-group">
-                                <mat-select placeholder="HH:MM A" formControlName="end_time" class="col-10 ml-2 form-control d-inline-block" [disabled]="disabledEndSlote || !checkAllDayValue">
+                                <mat-select placeholder="HH:MM" formControlName="end_time" class="col-10 ml-2 form-control d-inline-block" [disabled]="disabledEndSlote || !checkAllDayValue">
                                     <mat-option *ngFor=" let tse of fullDayTimeSloteEnd[i]; let i=index " value="{{tse}} ">{{transformTime24To12(tse)}}</mat-option>
                                 </mat-select>
                             </div>

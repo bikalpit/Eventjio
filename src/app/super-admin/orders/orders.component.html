@@ -18,7 +18,7 @@
 
                         <div class="ml-auto ">
                             <button *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AUER') > -1)" mat-flat-button class=" px-3 mr-2 bg-primary text-light" (click)="exportOredr()">Export orders</button>
-                            <button mat-flat-button class=" px-3 ml-2 bg-primary text-light" (click)="addNewOredr()">Add new order</button>
+                            <button *ngIf="subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AUEC') > -1)" mat-flat-button class=" px-3 ml-2 bg-primary text-light" (click)="addNewOredr()">Add new order</button>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="" fxFlex="34" *ngIf="!selectedEvent && !selectedOccurrence">
                         <label class="mb-0">Event</label>
                         <div class="">
-                            <mat-select class="form-control" [(ngModel)]="single_order_event" (selectionChange)="fngetallOrders()">
+                            <mat-select class="form-control" [(ngModel)]="single_order_event" (selectionChange)="fngetallOrders(); selectedEventOrder($event)">
                                 <mat-option value="all">All Events</mat-option>
                                 <mat-option *ngFor="let val of allEventlist;let i = index;" value="{{val.unique_code}}">
                                     {{val.event_title}} {{val.start_date}} - {{val.start_time}}
@@ -129,27 +129,27 @@
                                     </span>
                                 </div> -->
                                 <div class="tb-data" fxFlex="16">{{element.customer.firstname + " " +element.customer.lastname}}</div>
-                                <div class="tb-data" fxFlex="24">{{element.order_date |date :'fullDate'}} / {{element.order_time}}</div>
-                                <div class="tb-data" fxFlex="27" *ngIf="element.events">{{element.events.event_title}} <span class="order-data-date"> ({{element.order_date |date :'fullDate'}}) </span></div>
+                                <div class="tb-data" fxFlex="24">{{element.order_date |date :'mediumDate'}} / {{transformTime24To12(element.order_time)}}</div>
+                                <div class="tb-data" fxFlex="27" *ngIf="element.events">{{element.events.event_title}} <span class="order-data-date"> ({{element.order_date |date :'mediumDate'}}) </span></div>
                                 <div class="tb-data" fxFlex="27" *ngIf="!element.events">-</div>
                                 <div class="tb-data" fxFlex="8">{{element.grand_total| currency:element.events?element.events.event_setting.currency:'symbol'}}</div>
                                 <div class="tb-data" fxFlex="5">
                                     <mat-icon [ngbPopover]="popContent" placement="bottom" aria-hidden="false" aria-label="Example home icon" class="action-icon">more_horiz</mat-icon>
                                     <!-- <i class="fa fa-ellipsis-h action-icon" aria-hidden="true"></i> -->
                                     <ng-template class="popover" #popContent>
-                                        <div *ngIf="element.order_status!='C'" class="px-3  border-bottom">
+                                        <div *ngIf="element.order_status!='C'" class="px-3 border-bottom py-1">
                                             <i class="fa fa-repeat mr-2 pointer"></i><span class="pointer" (click)="resendOrder(element.unique_code)">Resend</span>
                                         </div>
 
-                                        <div *ngIf="element.order_status!='C'" class="px-3  border-bottom">
+                                        <div *ngIf="(element.order_status!='C') && (subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AUEC') > -1))" class="px-3 border-bottom py-1">
                                             <i class="fa fa-pencil mr-2 pointer"></i><span (click)="editOrder(element)" class="pointer">Edit</span>
                                         </div>
 
-                                        <div class="px-3  border-bottom">
+                                        <div class="px-3 border-bottom py-1">
                                             <i class="fa fa-ticket mr-2"></i><span class="pointer" (click)="DownloadTickets(element)">Download Tickets</span>
                                         </div>
 
-                                        <div *ngIf="element.order_status!='C'" class="px-3  border-bottom">
+                                        <div *ngIf="(element.order_status!='C') && (subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AUEC') > -1))" class="px-3 py-1">
                                             <i class="fa fa-times-circle mr-2 pointer"></i><span class="pointer" (click)="cancelOrder(element)">Cancel</span>
                                         </div>
 

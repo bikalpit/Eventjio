@@ -10,7 +10,7 @@
       <div class="modal-body"> 
         <form >
           <div class="row">            
-            <div class="form-group  col-md-12">
+            <div *ngIf="!singleInviter" class="form-group  col-md-12">
                 <label for="">Email  <span><i class="fa fa-asterisk"></i></span> </label>
                 <input type="email" [(ngModel)]="email_id" name="email_id" class="form-control" id="" placeholder="">
             </div>
@@ -39,7 +39,8 @@
                 </section>
             </div>
             <div class="ml-auto mt-3">
-                <button mat-raised-button (click)="fnOnSubmit()" class="mx-3 invite-btn">Invite</button>
+                <button *ngIf="!singleInviter" mat-raised-button (click)="fnOnSubmit()" class="mx-3 invite-btn">Invite</button>
+                <button *ngIf="singleInviter" mat-raised-button (click)="fnOnSubmit()" class="mx-3 invite-btn">Save</button>
             </div>
         </div>
         </form>

@@ -1,14 +1,16 @@
-import {Component, OnInit, ViewChild,Inject,ChangeDetectorRef, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild,Inject,ChangeDetectorRef, ElementRef, ViewChildren, QueryList} from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
 import { ErrorService } from '../../_services/error.service';
-import { DatePipe} from '@angular/common';
-import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
+import { DatePipe} from '@angular/common'; 
+import { Observable, throwError, ReplaySubject, Subject, fromEvent } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
-import { take, takeUntil } from 'rxjs/operators';
+import { take, takeUntil, filter } from 'rxjs/operators';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { MdePopoverTrigger } from '@material-extended/mde';
+// import { BEFORE_UNLOAD_FN } from '../beforeunload';
 
 interface Status {
   value: string;
@@ -105,10 +107,14 @@ export class EventsComponent implements OnInit {
   bannerZoomLavel:any = '100'
   defaultValues:any;
   keepMe:any;
+  clickedIndex:any=0;
+  warn:boolean = false;
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
   protected _onDestroy = new Subject<void>();
+  @ViewChild('target', { static: false }) target: MdePopoverTrigger;
+  // @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
 
 
   constructor(
@@ -127,6 +133,12 @@ export class EventsComponent implements OnInit {
         } else {
           this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
+        let newEventAction = window.location.search.split("?event")
+        console.log(newEventAction)
+      if(newEventAction.length > 1){
+        this.addNewEvents = false;
+      }
+       
 
       // this.currentUser = JSON.parse(this.currentUserData);
 
@@ -186,8 +198,7 @@ export class EventsComponent implements OnInit {
     this.getDefaultImages();
     this.getTimeSlote();
     this.getAllCurrancy();
-    this.getdefaultValues();
-    
+    // this.subscribeToNativeNavigation();
     this.isLoaderAdmin = true;
     this.SuperadminService.getIPAddress().subscribe((res:any)=>{ 
       this.isLoaderAdmin = false 
@@ -234,7 +245,14 @@ export class EventsComponent implements OnInit {
     toolbarPosition: 'top',
 };
 
-
+  beforeunload = () => {
+    if (!this.addNewEvents) {
+      console.log(this.addEventForm)
+      localStorage.setItem('world', 'yes');
+      return 'World Page: some data not complete yet, continue?'
+    }
+    return 'World Page: some data not complete yet, continue?'
+  }
   
   private scrollToFirstInvalidControl() {
     const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
@@ -243,6 +261,8 @@ export class EventsComponent implements OnInit {
 
     firstInvalidControl.focus(); //without smooth behavior
   }
+
+  
 
   createSalesTaxItem() {
     return this._formBuilder.group({
@@ -276,6 +296,13 @@ export class EventsComponent implements OnInit {
         // alert(this.defaultValues.timezone.id)
       }
     });
+  }
+
+  showActionPopover1(event){
+    this.target.closePopover();
+    this.target._elementRef.nativeElement.style.top = event.clientY + 'px';
+    this.target._elementRef.nativeElement.style.left = event.clientX + 'px';
+    this.target.openPopover();
   }
 
   fnRecurringEvent(event){
@@ -396,10 +423,10 @@ export class EventsComponent implements OnInit {
   // List Event fns
 
   onTabChange(event){
-    let clickedIndex = event.index;
-    if(clickedIndex == 0){
+    this.clickedIndex = event.index;
+    if(this.clickedIndex == 0){
       this.fnGetUpcomingEventList();
-    }else if(clickedIndex == 1){
+    }else if(this.clickedIndex == 1){
       this.fnGetPastEventList();
     }
   }
@@ -465,7 +492,7 @@ export class EventsComponent implements OnInit {
          
         });
 
-        this.addNewEvents = true;
+        // this.addNewEvents = true;
       }else if(response.data == false){
         this.allUpcomingEventListData.length = 0;
       }
@@ -555,7 +582,7 @@ export class EventsComponent implements OnInit {
           }
         });
 
-        this.addNewEvents = true;
+        // this.addNewEvents = true;
 
       }else if(response.data == false){
         this.allPastEventListData.lenght = 0
@@ -593,6 +620,7 @@ export class EventsComponent implements OnInit {
     this.router.navigate([redirectUrl]);
   }
 
+  
   
   transformTime24To12(time: any): any {
     let hour = (time.split(':'))[0];
@@ -675,6 +703,12 @@ export class EventsComponent implements OnInit {
   fnCancelNewEvent(){
     this.addNewEvents = true;
   }
+ 
+  addNewEvent(){
+    alert()
+    this.getdefaultValues();
+    this.addNewEvents = false;
+  }
 
   fnSelectImage(imageType){
     this.eventImageType = imageType
@@ -715,7 +749,7 @@ export class EventsComponent implements OnInit {
       this.donation = 'Y' ;
       this.addEventForm.controls["donation_title"].setValidators(Validators.required);
       this.addEventForm.controls["donation_amount"].setValidators([Validators.required,Validators.pattern(this.onlynumericAmount)]);
-      this.addEventForm.controls["donation_description"].setValidators(Validators.required);
+      // this.addEventForm.controls["donation_description"].setValidators(Validators.required);
       this.addEventForm.controls["donation_title"].updateValueAndValidity();
       this.addEventForm.controls["donation_amount"].updateValueAndValidity();
       this.addEventForm.controls["donation_description"].updateValueAndValidity();
@@ -1014,7 +1048,13 @@ export class EventsComponent implements OnInit {
   
       dialogRef.afterClosed().subscribe(result => {
         if(result){
+          // const index = this.eventTicketList.indexOf(index, 0);
+          if (index > -1) {
+              this.eventTicketList.splice(index, 1);
+          }
+          console.log('before--'+this.eventTicketList)
           this.eventTicketList.push(result)
+          console.log('after---'+this.eventTicketList)
           this.eventTicketAlertMSG = false;
         }
       });
@@ -1187,8 +1227,8 @@ export class AddNewTicketType {
   eventStartTime:any;
   eventEndDate:any;
   eventEndTime:any;
-  minOrderVal:any;
-  maxOrderVal:any;
+  // minOrderVal:any;
+  // maxOrderVal:any;
   editTicketDetail:any;
   maxOrderCheck:boolean = false;
   editTicket:boolean = false
@@ -1250,6 +1290,7 @@ export class AddNewTicketType {
             after_time: [this.editTicketDetail.after_time],
             after_interval: [this.editTicketDetail.after_interval]
           });
+          this.addTicketForm.controls['min_order'].setValue(this.editTicketDetail.min_per_order);
         }else{
           this.addTicketForm = this._formBuilder.group({
             title: ['',[Validators.required]],
@@ -1274,7 +1315,6 @@ export class AddNewTicketType {
       }else{
         
         if(this.editTicket){
-          alert(this.editTicketDetail.min_per_order)
           this.advanceSetting = this.editTicketDetail.advance_setting;
           this.soldOut = this.editTicketDetail.sold_out;
           this.showQTY = this.editTicketDetail.show_qty;
@@ -1294,6 +1334,7 @@ export class AddNewTicketType {
             recurring_after_date: [this.editTicketDetail.hide_after_date],
             recurring_after_time: [this.editTicketDetail.hide_after_time],
           });
+          this.addTicketForm.controls['min_order'].setValue(this.editTicketDetail.min_per_order);
         }else{
           this.addTicketForm = this._formBuilder.group({
             title: ['',[Validators.required]],
@@ -1370,15 +1411,7 @@ export class AddNewTicketType {
     }
 
   }
-  fnMaxOrder(){
-    console.log(this.minOrderVal)
-    console.log(this.maxOrderVal)
-    // if(parseInt(this.minOrderVal) > parseInt(this.maxOrderVal)){
-    //   this.maxOrderCheck = true;
-    // }else{
-    //   this.maxOrderCheck = false;
-    // }
-  }
+
 
   // maxOrderCheck(control: FormControl) {
   //   console.log(control.value);
