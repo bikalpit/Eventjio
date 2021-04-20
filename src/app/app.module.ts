@@ -21,9 +21,7 @@ import {OnlyNumberDirective} from './only-number.directive';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider,GoogleLoginProvider } from 'angularx-social-login';
 import { ErrorInterceptor } from './_helpers';
 // import { CookieService } from "angular2-cookie/services/cookies.service";
-
-
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 const config = new AuthServiceConfig([
   {
@@ -74,6 +72,7 @@ export function provideConfig() {
     ReactiveFormsModule,
     FormsModule,
     SocialLoginModule,
+	AngularEditorModule,
   ],
   entryComponents: [
     DialogAuthentication,

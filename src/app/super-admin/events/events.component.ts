@@ -206,9 +206,13 @@ export class EventsComponent implements OnInit {
     translate: 'no',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-      ],
+	defaultFontSize: '',
+	fonts: [
+	{class: 'arial', name: 'Arial'},
+	{class: 'times-new-roman', name: 'Times New Roman'},
+	{class: 'calibri', name: 'Calibri'},
+	{class: 'comic-sans-ms', name: 'Comic Sans MS'}
+	],
     customClasses: [
       {
         name: "quote",
@@ -223,7 +227,11 @@ export class EventsComponent implements OnInit {
         class: "titleText",
         tag: "h1",
       },
-    ]
+    ],
+	 uploadUrl: 'assets/images/test',
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
 };
 
 
