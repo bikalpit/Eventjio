@@ -264,12 +264,13 @@ export class EventsComponent implements OnInit {
     }
     this.SuperadminService.defaultValues(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.defaultValues= response.response
+        this.defaultValues= response.response;
         
-        this.addEventForm.controls['vanue_country'].setValue(this.defaultValues.country.id)
-        this.addEventForm.controls['currency'].setValue(this.defaultValues.currency.name)
+        this.addEventForm.controls['vanue_country'].setValue(this.defaultValues.country.id);
+        this.addEventForm.controls['currency'].setValue(this.defaultValues.currency.name);
         // alert(this.addEventForm.get('vanue_country').value)
-        this.addEventForm.controls['timezone'].setValue(parseInt(this.defaultValues.timezone.id))
+        this.addEventForm.controls['timezone'].setValue(parseFloat(this.defaultValues.timezone.id));
+		console.log(parseFloat(this.defaultValues.timezone.id));
         // alert(this.defaultValues.currency.name)
         // alert(this.defaultValues.country.id)
         // alert(this.defaultValues.timezone.id)
