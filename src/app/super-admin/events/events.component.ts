@@ -108,6 +108,7 @@ export class EventsComponent implements OnInit {
   defaultValues:any;
   keepMe:any;
   clickedIndex:any=0;
+  subPermission:any=[];
   warn:boolean = false;
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
@@ -145,8 +146,16 @@ export class EventsComponent implements OnInit {
       if(this.currentUser.type == 'member' &&  this.currentUser.permission != 'A'){
         if(localStorage.getItem('permision_EM') != 'TRUE'){
           this.router.navigate(['/super-admin']);
+        }else{
+          if(this.currentUser.sub_permission){
+            this.subPermission = this.currentUser.sub_permission.split(',',4)
+          }
         }
+      }else{
+        this.subPermission = 'admin';
       }
+
+     
 
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');
@@ -704,7 +713,7 @@ export class EventsComponent implements OnInit {
   }
  
   addNewEvent(){
-    alert()
+    // alert()
     this.getdefaultValues();
     this.addNewEvents = false;
   }
@@ -1257,6 +1266,7 @@ export class AddNewTicketType {
         this.eventEndTime = this.data.endTime;
         this.maxAvailDate = this.eventStartDate;
         this.maxUnavailDate = this.eventEndDate;
+        console.log(this.data)
       }else{
 
         this.boxOfficeCode = this.data.boxOfficeCode;

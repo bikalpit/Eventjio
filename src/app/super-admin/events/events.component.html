@@ -97,7 +97,7 @@
                                                     <i class="fa fa-pencil mr-2"></i><span>Edit event & Tickets</span>
                                                 </div>
 
-                                                <div (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/issued-ticket')" class="px-3  border-bottom">
+                                                <div *ngIf="(subPermission == 'admin' || (subPermission != 'admin' && subPermission.indexOf('AACD') > -1))" (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/issued-ticket')" class="px-3  border-bottom">
                                                     <i class="fa fa-shopping-bag mr-2"></i><span>Orders</span>
                                                 </div>
 

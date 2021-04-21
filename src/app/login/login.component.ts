@@ -100,6 +100,10 @@ export class LoginComponent implements OnInit {
                         localStorage.setItem('boxoffice_name', currentUser.boxoffice_name);
 
                         if (currentUser.permission != 'A') {
+                            
+                            localStorage.removeItem('permision_OM');
+                            localStorage.removeItem('permision_OV');
+                            localStorage.removeItem('permision_EM');
                             var permistion = currentUser.permission.split(",");
 
                             if (permistion.indexOf("EM") > -1) {

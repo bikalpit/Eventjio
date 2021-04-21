@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
 
   currentUser:any;
   isLoaderAdmin:boolean = false;
+  eventPermission:boolean = false;
   pageSlug:any;
   keepMe:any;
   analyticsFilter:any="week";
@@ -48,6 +49,8 @@ export class DashboardComponent implements OnInit {
     }
 
 
+
+
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
     }
@@ -57,6 +60,14 @@ export class DashboardComponent implements OnInit {
       if(localStorage.getItem('permision_OV') != 'TRUE'){
         this.router.navigate(['/super-admin']);
       }
+       if (localStorage.getItem('permision_OV')) {
+        this.eventPermission = false;
+      }
+
+      if (localStorage.getItem('permision_EM')) {
+        this.eventPermission = true;
+      }
+
     }
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);

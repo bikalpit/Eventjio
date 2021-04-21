@@ -414,7 +414,7 @@ export class addRepeatOccurrence {
         });
       }
 
-
+      this.isLoaderAdmin =true;
       let requestObject = {
         "all_day" : this.allDayCheckOption,
         "event_id" : localStorage.getItem('selectedEventCode'),
@@ -428,11 +428,12 @@ export class addRepeatOccurrence {
             setTimeout(() => {
               this.saveDisabled = false
             }, 3000);
-          this.ErrorService.errorMessage(response.response); 
+          this.ErrorService.successMessage(response.response); 
           this.dialogRef.close('created')
         }else{
           this.ErrorService.errorMessage(response.response);
         }
+        this.isLoaderAdmin =false;
       })
     }
 
