@@ -2359,6 +2359,7 @@ export class eventSummaryDialog {
   customerAddress : any;
   Orderdata:any;
   subPermission:any;
+  purchasedTicket:any;
   constructor(
     public dialogRef: MatDialogRef<eventSummaryDialog>,
     private http: HttpClient,
@@ -2470,12 +2471,13 @@ export class eventSummaryDialog {
 
       this.superadminService.fnGetsingleOrder(requestObject).subscribe((response:any) => {
         if(response.data == true){
-          this.orderDetail = response.response;
+          this.orderDetail = response.response.order_info;
+          this.purchasedTicket = response.response.ticket_info;
           this.orderDate  = this.datePipe.transform(new Date(this.orderDetail.created_at),"EEE MMM d, y");
           this.eventDate  = this.datePipe.transform(new Date(this.orderDetail.events.start_date),"EEE MMM d, y");
           this.order_item_data = this.orderDetail.order_item;
           this.customerData = this.orderDetail.customer;
-          this.attendeeData  = JSON.parse(response.response.attendee_info);
+          this.attendeeData  = JSON.parse(this.orderDetail.attendee_info);
           this.currencyCode = this.orderDetail.events.event_setting.currency;
         }else{
           this.singleorderCustomer  = [];

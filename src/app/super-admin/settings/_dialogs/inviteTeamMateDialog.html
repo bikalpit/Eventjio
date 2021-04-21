@@ -20,10 +20,10 @@
               </div>
                 <section class="col-md-12 form-group">
                     <mat-checkbox  [checked]="admin_permission" name="permission"  (change)="fnOnchecked($event,'admin_permission')" class="mb-0">Admin</mat-checkbox>
-                    <p class="pl-25">Access everything (can not delete account owner)</p>
+                    <p class="pl-25">Access everything except team access (can not delete account owner)</p>
                 </section>
                 <section class="col-md-12 form-group">
-                    <mat-checkbox    [checked]="em_permission" name="permission" (change)="fnOnchecked($event,'em_permission')" class="mb-0">Even Manager</mat-checkbox>
+                    <mat-checkbox    [checked]="em_permission" name="permission" (change)="fnOnchecked($event,'em_permission')" class="mb-0">Event Manager</mat-checkbox>
                     <p class="pl-25">Create, edit and manage anything related to an event</p>
                     <mat-checkbox value="AACD" [checked]="em_sub_permission"  (change)="fnOncheckedEM($event)"  class="mb-0 pl-25">Allow access to customer data (Doorlist, Waitlists, Broadcasts)</mat-checkbox>
                 </section>

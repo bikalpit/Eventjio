@@ -88,6 +88,12 @@
     </div>
     <div class="text-right">
         <button mat-flat-button class="cancel-btn" (click)="onNoClick()">Cancel</button>
-        <button mat-flat-button (click)="onSubmit()" class="save-btn ml-3">Save</button>
+        <button mat-flat-button (click)="onSubmit()" class="save-btn ml-3" [disabled]="saveDisabled">
+            <span *ngIf="!saveDisabled">Save</span>
+            <div *ngIf="saveDisabled" class="button-spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div> 
+        </button>
     </div>
 </div>

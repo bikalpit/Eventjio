@@ -323,6 +323,7 @@ export class addRepeatOccurrence {
   selected:any = [];
   allDayCheckOption:any = 'N';
   checkAllDayValue:boolean = true;
+  saveDisabled:boolean=false;
 
   public isStartTimeChange: Boolean = true;
 
@@ -413,7 +414,7 @@ export class addRepeatOccurrence {
         });
       }
 
-
+      this.isLoaderAdmin =true;
       let requestObject = {
         "all_day" : this.allDayCheckOption,
         "event_id" : localStorage.getItem('selectedEventCode'),
@@ -423,11 +424,16 @@ export class addRepeatOccurrence {
       console.log(requestObject)
       this.SingleEventServiceService.repeatOccurrenceCreate(requestObject).subscribe((response:any) =>   {
         if(response.data == true){
-          this.ErrorService.errorMessage(response.response); 
+          this.saveDisabled = true;
+            setTimeout(() => {
+              this.saveDisabled = false
+            }, 3000);
+          this.ErrorService.successMessage(response.response); 
           this.dialogRef.close('created')
         }else{
           this.ErrorService.errorMessage(response.response);
         }
+        this.isLoaderAdmin =false;
       })
     }
 
@@ -720,7 +726,8 @@ export class addSingleOccurrence {
         
         }
         this.SingleEventServiceService.singleOccurrenceCreate(requestObject).subscribe((response:any)=>{
-          if(response.data == true){ this.saveDisabled = true;
+          if(response.data == true){ 
+            this.saveDisabled = true;
             setTimeout(() => {
               this.saveDisabled = false
             }, 3000);
