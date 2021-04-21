@@ -91,7 +91,9 @@ export class AddAppUser {
   boxOfficeCode:any;
   isLoaderAdmin:any;
   selectedEvents:any=[];
+  selectedOccurrences:any=[];
   allEventList:any;
+  allEventStatus:any='N';
   emailPattern:any=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/ 
   constructor(
     private _formBuilder:FormBuilder,
@@ -139,6 +141,11 @@ export class AddAppUser {
         }
       }else{
         this.selectedEvents = [];
+        if(event.checked == true) {  
+         this.allEventStatus = 'Y';
+         }else{ 
+          this.allEventStatus = 'N';
+         }
         this.allEventList.forEach(subelement => {
           if(event.checked == true) {  
             subelement.is_selected=true;
@@ -150,6 +157,17 @@ export class AddAppUser {
         });
       }
     }
+
+    fnAssignOccurrence(event, id){
+      if(event.checked == true){
+        this.selectedOccurrences.push(id)
+      }else{
+        const index = this.selectedOccurrences.indexOf(id, 0);
+        if (index > -1) {
+            this.selectedOccurrences.splice(index, 1);
+        }
+      }
+    }
     fnOnSubmit(){
       if(this.addAppUser.valid){
         let newUserData = {
@@ -158,6 +176,8 @@ export class AddAppUser {
           "lastname" : this.addAppUser.get('lastname').value,
           "email" : this.addAppUser.get('email').value,
           "event_ids" : this.selectedEvents,
+          "occurrence_ids" : this.selectedOccurrences,
+          "all" : this.allEventStatus,
         }
         this.isLoaderAdmin = true;
         this.SettingService.createAppUser(newUserData).subscribe((response:any) => {

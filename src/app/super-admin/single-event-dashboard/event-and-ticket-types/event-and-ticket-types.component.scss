@@ -357,3 +357,7 @@
     transform: rotate(-45deg);
     color: #FF6600;
 }
+
+::ng-deep .main-menu-tooltip {
+    background: #FF8800;
+}
