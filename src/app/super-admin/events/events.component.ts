@@ -11,6 +11,7 @@ import { take, takeUntil, filter } from 'rxjs/operators';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MdePopoverTrigger } from '@material-extended/mde';
 // import { BEFORE_UNLOAD_FN } from '../beforeunload';
+import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
 interface Status {
   value: string;
@@ -709,8 +710,20 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  fnCancelNewEvent(){
-    this.addNewEvents = true;
+  fnCancelNewEvent(){	
+	if(this.addEventForm.get('event_name').value!= ''){
+	  const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+		width: '400px',
+		data: "Are you want to exit? Your data will get lost."
+	  });
+	  dialogRef.afterClosed().subscribe(result => {
+		  if(result){
+			this.addNewEvents = true;
+		  }	
+	  });
+	}else{
+		this.addNewEvents = true;
+	}
   }
  
   addNewEvent(){

@@ -104,7 +104,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     //	console.log(newEventAction);
 	console.log('calll' + newEventAction);
     if(newEventAction.length > 1){		
-		this.fnTiket();	
+		//this.fnTiket();	
       // document.getElementById("create-ticket").focus();
       // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
       //   "#ticket_module"
@@ -150,7 +150,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.getDefaultImages();
     this.getTimeSlote();
     this.getAllCurrancy();
-
+	this.fnTiket();
   }
 
   transformTime24To12(time: any): any {
@@ -207,9 +207,29 @@ export class EventAndTicketTypesComponent implements OnInit {
     firstInvalidControl.focus(); //without smooth behavior
   }
 
+	/*ngOnInit() {
+		console.log('callll fntiket');
+		let pos = document.body.scrollHeight;
+		window.scrollTo( 0 ,0);
+		console.log(pos);
+	}*/
+	
 	fnTiket(){
-		console.log('callll');
-		 
+		console.log('scroll calll');
+		//jQuery( "#create-ticket" ).scrollTop(10);
+		//this.scrollTopPosition = event.target.scrollTop;
+		//setTimeout(this.scrollBottom(), 500)
+		/*let newEventAction = window.location.search.split("?goto")
+		//	console.log(newEventAction);
+		console.log('calll' + newEventAction);
+		if(newEventAction.length > 1){	
+			//let pos = document.body.scrollHeight;
+			window.scrollTo( 0 ,500);
+			//this.fnTiket();	
+		   //document.getElementById("create-ticket").focus();		 
+		}*/
+			
+		//document.querySelector('body').scrollTo(0,1500)		
 	}
 	
   fnCancelEvent(){
