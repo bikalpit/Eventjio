@@ -7,7 +7,7 @@
             </div>
 
             <div class="ml-auto mt-2 pr-3">
-                <button (click)="addNewEvents=!addNewEvents" mat-flat-button class="add-event-button px-5">Add New Event</button>
+                <button (click)="addNewEvents=!addNewEvents; addNewEvent();" mat-flat-button class="add-event-button px-5">Add New Event</button>
             </div>
         </div>
 
@@ -354,7 +354,7 @@
                                 </div>
 
                                 <div class="venue-info ml-2">
-                                    <label for="">Venue Country <span><i class="fa fa-asterisk"></i></span></label>
+                                    <label for=""><!---Venue Country-->Box office country<span><i class="fa fa-asterisk"></i></span></label>
                                     <div class="form-group">
                                         <mat-select formControlName="vanue_country" class="form-control">
                                             <mat-option *ngFor="let allCountry of allCountry; let i=index" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
@@ -549,7 +549,7 @@
                             <mat-option>
                                 <ngx-mat-select-search [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
                             </mat-option>
-                            <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" value="{{listTimeZone.id}}">({{listTimeZone.utc}}){{listTimeZone.name}}</mat-option>
+                            <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" [value]="listTimeZone.id">({{listTimeZone.utc}}){{listTimeZone.name}}</mat-option>
                         </mat-select>
                         <span class="error-wrap" *ngIf="addEventForm.get('timezone').touched || addEventForm.get('timezone').dirty">
                             <small *ngIf="addEventForm.get('timezone').hasError('required')" class="error">Timezone is required.</small>
