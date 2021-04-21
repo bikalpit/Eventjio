@@ -101,9 +101,11 @@ export class EventAndTicketTypesComponent implements OnInit {
     }
 
     let newEventAction = window.location.search.split("?goto")
-    console.log(newEventAction)
-    if(newEventAction.length > 1){
-      // document.getElementById("ticket_module").focus();
+    //	console.log(newEventAction);
+	console.log('calll' + newEventAction);
+    if(newEventAction.length > 1){		
+		this.fnTiket();	
+      // document.getElementById("create-ticket").focus();
       // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
       //   "#ticket_module"
       // );
@@ -205,7 +207,11 @@ export class EventAndTicketTypesComponent implements OnInit {
     firstInvalidControl.focus(); //without smooth behavior
   }
 
-
+	fnTiket(){
+		console.log('callll');
+		 
+	}
+	
   fnCancelEvent(){
     this.getSingleEvent();
 

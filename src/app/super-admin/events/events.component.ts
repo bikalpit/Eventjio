@@ -216,7 +216,7 @@ export class EventsComponent implements OnInit {
     placeholder: 'Enter text here...',
     translate: 'no',
     defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
+    defaultFontName: '',
 	defaultFontSize: '',
 	fonts: [
 	{class: 'arial', name: 'Arial'},
@@ -239,7 +239,7 @@ export class EventsComponent implements OnInit {
         tag: "h1",
       },
     ],
-	 uploadUrl: 'assets/images/test',
+	uploadUrl: 'assets/images/test',
     uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
