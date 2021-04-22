@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Router,Routes, RouterModule ,NavigationEnd } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { Role } from './_models';
 import { AuthGuard } from './_helpers/auth.guard';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 
 const routes: Routes = [
  
@@ -45,4 +46,30 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+	/*constructor(private router: Router,public dialog: MatDialog) {
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) { 
+		console.log('r call' + ev + NavigationEnd);
+		//localStorage.setItem('event_val','1');
+		let event_val = localStorage.getItem('event_val');
+		if(event_val=='1'){
+			console.log('form check');
+			const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+				width: '400px',
+				data: "Are you want to exit? Your data will get lost."
+			  });
+			  dialogRef.afterClosed().subscribe(result => {
+				  if(result){
+					console.log('yes');
+					return false;
+				  }else{
+					  console.log('no');
+					return false;
+				  }					  
+			  });
+		}		
+	  }
+    });
+  }*/
+}

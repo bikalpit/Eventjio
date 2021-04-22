@@ -216,7 +216,7 @@ export class EventAndTicketTypesComponent implements OnInit {
 	
 	fnTiket(){
 		console.log('scroll calll');
-		//jQuery( "#create-ticket" ).scrollTop(10);
+		//jQuery( "#ticket_module" ).scrollTop(10);
 		//this.scrollTopPosition = event.target.scrollTop;
 		//setTimeout(this.scrollBottom(), 500)
 		/*let newEventAction = window.location.search.split("?goto")
@@ -226,7 +226,7 @@ export class EventAndTicketTypesComponent implements OnInit {
 			//let pos = document.body.scrollHeight;
 			window.scrollTo( 0 ,500);
 			//this.fnTiket();	
-		   //document.getElementById("create-ticket").focus();		 
+		   //document.getElementById("ticket_module").focus();		 
 		}*/
 			
 		//document.querySelector('body').scrollTo(0,1500)		

@@ -252,7 +252,7 @@ export class EventsComponent implements OnInit {
 	uploadUrl: 'assets/images/test',
     uploadWithCredentials: false,
     sanitize: true,
-    toolbarPosition: 'top',
+    toolbarPosition: 'top', 
 };
 
   beforeunload = () => {
