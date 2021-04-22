@@ -718,6 +718,7 @@ export class EventsComponent implements OnInit {
 	  });
 	  dialogRef.afterClosed().subscribe(result => {
 		  if(result){
+			this.addEventForm.reset();
 			this.addNewEvents = true;
 		  }	
 	  });
