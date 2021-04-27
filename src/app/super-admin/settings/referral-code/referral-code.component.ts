@@ -171,7 +171,6 @@ export class addReferralCodeDialog {
       this.updatecode=true;
       this.singleCodeData = this.data.singleCodeData
     }
-
     this.addRefferalCodeForm = this._formBuilder.group({
       type:['',[Validators.required]],
       code:['',[Validators.required]],

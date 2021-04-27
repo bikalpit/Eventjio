@@ -1,6 +1,33 @@
     @import "variables";
     @import "my-customer.css";
     @import '~@angular/cdk/overlay-prebuilt.css';
+
+    @font-face {
+        font-family: 'Circular Std Book';
+        src: url('../assets/fonts/CircularStd-Book.eot');
+        src: url('../assets/fonts/CircularStd-Book.eot?#iefix') format('embedded-opentype'),
+            url('../assets/fonts/CircularStd-Book.woff2') format('woff2'),
+            url('../assets/fonts/CircularStd-Book.woff') format('woff'),
+            url('../assets/fonts/CircularStd-Book.ttf') format('truetype'),
+            url('../assets/fonts/CircularStd-Book.svg#CircularStd-Book') format('svg');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Circular Std';
+        src: url('../assets/fonts/CircularStd-Medium.eot');
+        src: url('../assets/fonts/CircularStd-Medium.eot?#iefix') format('embedded-opentype'),
+            url('../assets/fonts/CircularStd-Medium.woff2') format('woff2'),
+            url('../assets/fonts/CircularStd-Medium.woff') format('woff'),
+            url('../assets/fonts/CircularStd-Medium.ttf') format('truetype'),
+            url('../assets/fonts/CircularStd-Medium.svg#CircularStd-Medium') format('svg');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+
     html,
     body {
         height: 100%;

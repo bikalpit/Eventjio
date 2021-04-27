@@ -13,7 +13,7 @@
         <div class="row m-0">
             <div class="export-door-list-field">
                 <label for="">Group list by <span class="text-danger"> * </span></label>
-                <mat-select class="form-control" [(ngModel)]="exportArr.group_by">
+                <mat-select class="form-control" (selectionChange)="fnChangeGroupBy($event)" [(ngModel)]="exportArr.group_by">
                     <mat-option value="ATT">Attendee name</mat-option>
                     <mat-option value="BUY">Buyer name</mat-option>
                 </mat-select>
@@ -72,7 +72,10 @@
                     <div *ngIf="((!buyerQtion.addressForamteStyle) && buyerQtion.controlName != 'name') && ((!buyerQtion.addressForamteStyle) && buyerQtion.controlName != 'email') && ((!buyerQtion.addressForamteStyle) && buyerQtion.controlName != 'phone')">
                         <mat-checkbox (change)="fnAddBuyerQtion($event,buyerQtion.label)">{{buyerQtion.label}}</mat-checkbox>
                     </div>
-                    <div *ngIf="buyerQtion.controlName == 'name' || buyerQtion.controlName== 'email' || buyerQtion.controlName == 'phone'">
+                    <div *ngIf="buyerQtion.controlName== 'email' || buyerQtion.controlName == 'phone'">
+                        <mat-checkbox (change)="fnAddCustomerFields($event,buyerQtion.controlName)">{{buyerQtion.label}}</mat-checkbox>
+                    </div>
+                    <div *ngIf="exportArr.group_by == 'ATT' && buyerQtion.controlName == 'name'">
                         <mat-checkbox (change)="fnAddCustomerFields($event,buyerQtion.controlName)">{{buyerQtion.label}}</mat-checkbox>
                     </div>
 
@@ -81,7 +84,8 @@
             <div class="question-list pl-2">
                 <label for="">Attendee questions</label>
                 <div *ngFor="let attendeeQtion of attendeeQtionList; let i=index" class="ques-checkbox w-100">
-                    <mat-checkbox (change)="fnAddAttendeeQtion($event,attendeeQtion.label)">{{attendeeQtion.label}}</mat-checkbox>
+                    <mat-checkbox *ngIf="exportArr.group_by == 'BUY' && attendeeQtion.default == true" (change)="fnAddAttendeeQtion($event,attendeeQtion.label)">{{attendeeQtion.label}}</mat-checkbox>
+                    <mat-checkbox *ngIf="attendeeQtion.default != true" (change)="fnAddAttendeeQtion($event,attendeeQtion.label)">{{attendeeQtion.label}}</mat-checkbox>
                 </div>
             </div>
         </div>

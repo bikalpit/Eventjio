@@ -334,10 +334,10 @@ export class IssuedTicketComponent implements OnInit {
 export class ExportDoorListComponent {
 
   exportArr = {
-    'group_by' : '',
-    'sort_by': '',
-    'format_by':'',
-    'size_by' : '',      
+    'group_by' : 'ATT',
+    'sort_by': 'firstname',
+    'format_by':'csv',
+    'size_by' : '30',      
     'buyer_questions' : '',      
     'attendee_questions' : '',      
   }
@@ -409,6 +409,9 @@ export class ExportDoorListComponent {
     });
   }
 
+  fnChangeGroupBy(event){
+
+  }
 
   getCheckoutForm(requestObject){
 

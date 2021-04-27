@@ -82,10 +82,8 @@ export class OrdersComponent implements OnInit {
     } else {
       this.currentUser =  JSON.parse(sessionStorage.getItem('currentUser'))
     }
-    console.log(window.location.search)
     var queryString = window.location.search
     var queryStringCount = queryString.includes("event",1)
-    console.log(queryStringCount)
     if(queryStringCount){
       this.urlString = window.location.search.split("?event="); 
       this.urlString2= this.urlString[1].split('&occurrence=')
@@ -94,6 +92,12 @@ export class OrdersComponent implements OnInit {
       console.log('url ---------------'+this.urlString);
       console.log('Occurrence ---------------'+this.selectedOccurrence);
       console.log('Event  ---------------'+this.selectedEvent);
+    }
+
+    
+    let newOrderAction = window.location.search.split("?order")
+    if(newOrderAction.length > 1){
+      this.addNewOredr();
     }
 
    
@@ -131,11 +135,11 @@ export class OrdersComponent implements OnInit {
      this.fnGetAllEventList();
   }
 
-  beforeunload = () => {
-      localStorage.setItem('world', 'yes');
-      return 'World Page: some data not complete yet, continue?'
+  // beforeunload = () => {
+  //     localStorage.setItem('world', 'yes');
+  //     return 'World Page: some data not complete yet, continue?'
    
-  }
+  // }
   
   fnTicketCheckout(fromType){
     this.addOrderFormType = fromType;
@@ -501,6 +505,7 @@ export class ExportOrderDialog {
     { 'name' : 'linebooking_fee', 'value' : true, 'lable' : 'Booking fee' ,'variable_name' :  'booking_fee'},
   ];
 
+  lineitem_type:any = true;
   lineitemType  = [
     { 'name' : 'lineitem_ticket', 'value' : true, 'lable' : 'Tickets','variable_name' :  'tickets'},
     { 'name' : 'lineitem_voidticket', 'value' : true, 'lable' : 'Voided tickets' ,'variable_name' :  'voided_tickets'},
@@ -691,6 +696,29 @@ export class ExportOrderDialog {
           i++
         }
         i == 4 ? this.lineitem_details = true : this.lineitem_details = false ;
+      });
+
+    }
+
+  }
+
+  fnLineitem_type(event,checkBoxType){
+
+    if(checkBoxType == 'main'){
+
+      event.checked == true ? this.lineitem_type = true  : this.lineitem_type = false;
+      this.lineitemType.forEach(element => {
+        element.value = event.checked;
+      });
+
+    }else{
+
+      var i = 0;
+      this.lineitemType.forEach(element => {
+        if(element.value){
+          i++
+        }
+        i == 6 ? this.lineitem_type = true : this.lineitem_type = false ;
       });
 
     }
@@ -1754,6 +1782,7 @@ export class BookTicketDialog {
       "payment_method" : "cash",
       "transaction_id" : this.makeid(16),
       "payment_status" : 'paid',
+      "occurrence_id":this.occurrenceCode?this.occurrenceCode:null,
       "customer_firstname": name[0] ? name[0] : '',
       "customer_lastname": name[1] ? name[1]: '',
       "email":this.bookTickets.get("email").value,

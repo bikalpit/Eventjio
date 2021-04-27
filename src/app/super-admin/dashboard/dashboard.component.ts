@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   boxOfficeCode:any;
   setupSteps:any;
   analyticsStets:any;
-  recentPurchaseList:any
+  recentPurchaseList:any=[];
   latestSalesStats:any;
   initials:any;
   customerShortName:any;
@@ -179,7 +179,9 @@ export class DashboardComponent implements OnInit {
     this.SuperadminService.getLatestSales(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.latestSalesStats= response.response
-        this.fnSoldTicketChart();
+        if(this.latestSalesStats.ticket_left != 0 && this.latestSalesStats.ticket_sold != 0){
+          this.fnSoldTicketChart();
+        }
       }
     });
   }

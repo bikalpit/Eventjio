@@ -73,6 +73,7 @@
                         color: #000000;
                         font-size: 18px;
                         width: 100%;
+                        font-family: "Circular Std Book";
                         text-align: center;
                         padding: 10px 0;
                         margin-bottom: 0;
@@ -117,12 +118,12 @@
                 color: #973C56;
                 text-align: left;
                 font-size: 20px;
-                font-family: "Circular Std Medium";
+                font-family: "Circular Std";
             }
             span{
                 color: #000000;
                 font-size: 40px;
-                font-family: "Circular Std Book";
+                font-family: "Circular Std";
             }
             img{
                 width: 70px;
@@ -160,7 +161,7 @@
                         label{
                             color: #171717;
                             font-size: 22px;
-                            font-family: "Circular Std Medium";
+                            font-family: "Circular Std";
                             width: 100%;
 
                         }
@@ -268,7 +269,7 @@
                         label{
                             color: #171717;
                             font-size: 18px;
-                            font-family: "Circular Std Medium";
+                            font-family: "Circular Std";
                             text-align: left;
                             width: 100%;
                             white-space: nowrap;
@@ -311,14 +312,14 @@
                     align-items: center;
                     label{
                         font-size: 18px;
-                        font-family: "Circular Std Medium";
+                        font-family: "Circular Std";
                         letter-spacing: 0.18px;
                         color: #6D6D6D;
                         margin-bottom: 0;
                     }
                     p{
                         font-size: 18px;
-                        font-family: "Circular Std Medium";
+                        font-family: "Circular Std";
                         letter-spacing: 0.18px;
                         cursor: pointer;
                         color: #973C56;
@@ -336,11 +337,15 @@
     list-style: none;
     padding-left: 0;
     margin-top: 40px;
+    width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    margin-left: 20px;
+    justify-content: space-between;
+    margin-right: 20px;
     li{
         display: flex;
         flex-wrap: wrap;
+        width: 80px;
         .tag{
             width: 50px;
             height: 20px;
@@ -359,7 +364,7 @@
         span{
             color: #707070;
             font-size: 14px;
-            font-family: "Circular Std Medium";
+            font-family: "Circular Std";
             display: block;
             text-align: left;
             padding-bottom: 5px;
@@ -368,7 +373,7 @@
         label{
             color: #000000;
             font-size: 24px;
-            font-family: "Circular Std Medium";
+            font-family: "Circular Std";
             display: block;
             width: 100%;
             text-align: left;

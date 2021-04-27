@@ -2,46 +2,85 @@
     <mat-drawer mode="side" opened class="left-side-container left-side-main-menu" *ngIf="isAdminUser() && (!isBoxoffice() && !boxofficeComponent)">
         <mat-toolbar class="app-title">
             <div class="text-light text-center company-logo">
-                <img src="/assets/images/logo/eventjio-icon.png" class="company-img" alt="">
+                <img src="/assets/images/logo/eventmatic-logo-icon.png" class="company-img" alt="">
             </div>
         </mat-toolbar>
 
         <div class="main-menu">
             <div class="col-12 px-3 pt-4 pb-3 mt-3 text-center" *ngIf="currentUser && currentUser.type == 'admin'">
-                <div class="circle-icon text-center">
-                    <div class="plus-sign">
-                        +
-                    </div>
+                <div class="circle-icon text-center" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click">
+                    
+                        <img src="/assets/images/admin/add.png">
                 </div>
+                <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
+                    <mat-card class=" p-0" style="max-width: 300px" (click)="closePopover()">
+                        <mat-card-content class="add-content">
+                            <p class="mb-0 add-new">Add New</p>
+                            <div class="bottom-border"></div>
+                            <ul class="admin-add-menu pl-0">
+                                <mat-list-item role="listitem" (click)="addNewEventNav()">
+                                    <div class="add-common-menu">
+                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-event.png" /> Event
+                                    </div>
+                                </mat-list-item>
+                                <mat-list-item role="listitem" (click)="addNewOrderNav()">
+                                    <div class="add-common-menu">
+                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-order.png" /> Order
+                                    </div>
+                                </mat-list-item>
+                                <mat-list-item role="listitem" (click)="addNewCustomerNav()">
+                                    <div class="add-common-menu">
+                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-customer.png" /> Customer
+                                    </div>
+                                </mat-list-item>
+                                <mat-list-item role="listitem" (click)="addNewCouponNav()">
+                                    <div class="add-common-menu">
+                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-coupon.png" /> Coupon
+                                    </div>
+                                </mat-list-item>
+                                <mat-list-item role="listitem" (click)="addNewVoucherNav()">
+                                    <div class="add-common-menu">
+                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-coupon.png" /> Voucher
+                                    </div>
+                                </mat-list-item>
+                            </ul>
+                        </mat-card-content>
+                    </mat-card>
+                </mde-popover>
             </div>
 
             <div *ngIf="isPermisionPage('Dashboard')" routerLink="/super-admin/dashboard" (click)="fnPostUrl('Dashboard')" [ngClass]="{'active-icon': pageName == 'Dashboard'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
                 <div matTooltip="Dashboard" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/dashboard.png" class="w-100" alt="">
+                    <img src="/assets/images/admin/dashboard.png" class="w-100 no-active-img" alt="">
+                    <img src="/assets/images/admin/dashboard-active.png" class="w-100 active-img" alt="">
                 </div>
             </div>
 
             <div *ngIf="isPermisionPage('Events')" routerLink="/super-admin/events" (click)="fnPostUrl('Events')" [ngClass]="{'active-icon': pageName == 'Events'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
                 <div matTooltip="Events" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/star.png" class="w-100" alt="">
+                    <img src="/assets/images/admin/star.png" class="w-100 no-active-img" alt="">
+                    <img src="/assets/images/admin/event-active.png" class="w-100 active-img" alt="">
                 </div>
             </div>
 
             <div *ngIf="isPermisionPage('Orders')" routerLink="/super-admin/orders" (click)="fnPostUrl('Orders')" [ngClass]="{'active-icon': pageName == 'Orders'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
                 <div matTooltip="Orders" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/order.png" class="w-100" alt="">
+                    <img src="/assets/images/admin/order.png" class="w-100 no-active-img" alt="">
+                    <img src="/assets/images/admin/order-active.png" class="w-100 active-img" alt="">
                 </div>
             </div>
 
             <div *ngIf="isPermisionPage('Customers')" routerLink="/super-admin/customers" (click)="fnPostUrl('Customers')" [ngClass]="{'active-icon': pageName == 'Customers'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
                 <div matTooltip="Customers" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/user-sidemenu.png" class="w-100" alt="">
+                    <img src="/assets/images/admin/user-sidemenu.png" class="w-100 no-active-img" alt="">
+                    <img src="/assets/images/admin/customer-active.png" class="w-100 active-img" alt="">
                 </div>
             </div>
 
             <div *ngIf="isPermisionPage('Coupon')" (click)="fnPostUrl('Coupon')" [ngClass]="{'active-icon': pageName == 'Coupon'}" routerLink="/super-admin/coupons" class="col-12 p-3 mt-4 text-center text-white common-icon">
                 <div matTooltip="Coupon" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/gift.png" class="w-100" alt="">
+                    <img src="/assets/images/admin/gift.png" class="w-100 no-active-img" alt="">
+                    <img src="/assets/images/admin/coupon-active.png" class="w-100 active-img" alt="">
                 </div>
             </div>
         </div>
@@ -49,11 +88,13 @@
         <div class="bottom_admin_menu" *ngIf="isPermisionPage('settings')">
             <div routerLink="/super-admin/settings" (click)="fnPostUrl('Settings')" [ngClass]="{'active-icon': pageName == 'Settings'}" class="col-12 p-3 text-center setting-btn text-white common-icon">
                 <div class="icon text-center" matTooltip="Settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after">
-                    <img src="/assets/images/admin/settings.png" class="w-100" alt="">
+                    <img src="/assets/images/admin/settings.png" class="w-100 no-active-img" alt="">
+                    <img src="/assets/images/admin/settings-active.png" class="w-100 active-img" alt="">
                 </div>
             </div>
         </div>
     </mat-drawer>
+    
     <mat-drawer-content class="bg-white h-100vh">
         <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser(), 'business_toolbar': (isAdminUser() && isBoxoffice()) }" *ngIf="isLogin() && currentUser && (pageSlug && pageSlug[1] !== 'event')" class="py-3 right-toolbar toolbar menu-comman">
             <div>
@@ -61,8 +102,8 @@
             </div>
             <span class="example-fill-remaining-space">
                 <div class="selected-boxoffice-btn-main">
-                  <button mat-button color="primary" class="text-capitalize" *ngIf="isBoxOfficeSelected() && !isBoxoffice()">Box Office : {{selectedBoxOfficeName}}</button>
-                  <button mat-button *ngIf="!isBoxoffice() &&  currentUser.type != 'member' "  class="ml-2 primary-btn" (click)="fnPostUrl('Box-Office')"  routerLink="/super-admin">My Box Offices</button>
+                  <span class="text-capitalize selected-boxoffice" *ngIf="isBoxOfficeSelected() && !isBoxoffice()">Box Office : {{selectedBoxOfficeName}}</span>
+                  <button mat-button *ngIf="!isBoxoffice() &&  currentUser.type != 'member' "  class="ml-2 new-primary-btn" (click)="fnPostUrl('Box-Office')"  routerLink="/super-admin">My Box Offices</button>
                 </div>
               </span>
             <div class="ml-auto pr-3">

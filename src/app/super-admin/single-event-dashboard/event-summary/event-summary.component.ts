@@ -65,7 +65,7 @@ export class EventSummaryComponent implements OnInit {
   }
   private scrollToFirstInvalidControl() {
     const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-      "#referral_sales_summary"
+      "#chart_view_section"
     );
 
     firstInvalidControl.focus(); //without smooth behavior

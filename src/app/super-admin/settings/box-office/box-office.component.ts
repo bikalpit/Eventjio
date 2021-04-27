@@ -37,7 +37,7 @@ export class BoxOfficeComponent implements OnInit {
   emailOrderNotification:any = "N";
   hideLogo:any ="N";
   boxOfficeId:any;
-  
+  allCurency:any;
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
@@ -60,6 +60,7 @@ export class BoxOfficeComponent implements OnInit {
       add_email:['',Validators.pattern(emailPattern)],
       box_office_link:['',[Validators.required]],
       account_owner:[''],
+      currency:['',[Validators.required]],
 
     }); 
   }
@@ -67,9 +68,22 @@ export class BoxOfficeComponent implements OnInit {
   ngOnInit(): void {
     this.getAllLanguages();
     this.getAllTimezone();
+    this.getAllCurrancy();
     this.getSingleBoxofficeDetails();
   }
   
+
+  getAllCurrancy(){
+
+    this.settingService.getAllCurrancy().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCurency = response.response
+      }else if(response.data == false){
+        // this.ErrorService.errorMessage(response.response)
+      }
+    });
+
+  }
   
   fnAccountOwner(event){
     if(event.checked == true){
@@ -154,6 +168,7 @@ export class BoxOfficeComponent implements OnInit {
         this.singleBoxOffice.controls['language'].setValue(JSON.stringify(this.singleBoxofficeDetails.language.id))
         this.singleBoxOffice.controls['timezone'].setValue(JSON.stringify(this.singleBoxofficeDetails.timezone.id))
         this.singleBoxOffice.controls['add_email'].setValue(this.singleBoxofficeDetails.add_email)
+        this.singleBoxOffice.controls['currency'].setValue(JSON.stringify(this.singleBoxofficeDetails.currency.id))
 
 
       }else if(response.data == false){

@@ -173,7 +173,7 @@ table {
 }
 
 .add-customer-form {
-    height: calc(100% - 90px);
+    height: calc(100% - 10px);
     overflow-y: scroll;
     .sub-heading {
         color: #9e9e9e;
@@ -282,4 +282,8 @@ table {
     .mat-form-field-underline{
         margin-bottom: -30px;
     }
+}
+
+::ng-deep .main-menu-tooltip {
+    background: #FF8800;
 }

@@ -20,6 +20,7 @@ import { ConfirmationDialogComponent } from './_components/confirmation-dialog/c
 import {OnlyNumberDirective} from './only-number.directive';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider,GoogleLoginProvider } from 'angularx-social-login';
 import { ErrorInterceptor } from './_helpers';
+import { MdePopoverModule } from '@material-extended/mde';
 // import { CookieService } from "angular2-cookie/services/cookies.service";
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
@@ -71,6 +72,7 @@ export function provideConfig() {
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MdePopoverModule,
     SocialLoginModule,
 	AngularEditorModule,
   ],

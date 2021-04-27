@@ -143,8 +143,11 @@
                             </span>
                             </div>
                             <div class="d-flex flex-wrap w-50">
-                                <mat-select placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="until_time" class="w-100 ml-2 form-control d-inline-block">
-                                    <mat-option [disabled]="eventStartTime > i-1" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                <mat-select *ngIf="untilDate == eventStartDate" placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="until_time" class="w-100 ml-2 form-control d-inline-block">
+                                    <mat-option [disabled]="eventStartTime < i+1" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                </mat-select>
+                                <mat-select *ngIf="untilDate != eventStartDate" placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="until_time" class="w-100 ml-2 form-control d-inline-block">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                                 <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('until_time').touched || addTicketForm.get('until_time').dirty">
                                 <small *ngIf="addTicketForm.get('until_time').hasError('required')" class="error">Hide until Time is required.</small>
@@ -201,10 +204,22 @@
 
                             <div class="d-flex flex-wrap w-50">
                                 <!-- <input type="date" class="form-control col-6 mr-1 d-inline-block"> -->
-                                <mat-select placeholder="HH:MM" *ngIf="availUnavailDateSame" formControlName="after_time" class="ml-2 form-control d-inline-block same_1">
+                                <!-- <mat-select placeholder="HH:MM" *ngIf="availUnavailDateSame" formControlName="after_time" class="ml-2 form-control d-inline-block same_1">
                                     <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="addTicketForm.get('until_time').value > fullDayTimeSlote" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                                 <mat-select placeholder="HH:MM" *ngIf="!availUnavailDateSame" formControlName="after_time" class="ml-2 form-control d-inline-block same_2">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                </mat-select> -->
+                                <mat-select placeholder="HH:MM" *ngIf="availUnavailDateSame && (afterDate != eventEndDate)" formControlName="after_time" class="ml-2 form-control d-inline-block same_1">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="addTicketForm.get('until_time').value > fullDayTimeSlote" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                </mat-select>
+                                <mat-select placeholder="HH:MM" *ngIf="availUnavailDateSame && (afterDate == eventEndDate)" formControlName="after_time" class="ml-2 form-control d-inline-block same_1">
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="addTicketForm.get('until_time').value > fullDayTimeSlote || eventEndTime < i+1" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                </mat-select>
+                                <mat-select placeholder="HH:MM" *ngIf="!availUnavailDateSame && (afterDate == eventEndDate)" formControlName="after_time" class="ml-2 form-control d-inline-block same_2">
+                                    <mat-option [disabled]="eventEndTime < i+1" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                </mat-select>
+                                <mat-select placeholder="HH:MM" *ngIf="!availUnavailDateSame && (afterDate != eventEndDate)" formControlName="after_time" class="ml-2 form-control d-inline-block same_2">
                                     <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                                 <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('after_time').touched || addTicketForm.get('after_time').dirty">

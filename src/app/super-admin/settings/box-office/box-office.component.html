@@ -42,6 +42,13 @@
                                     <mat-option *ngFor="let allLanguage of allLanguage;" value="{{allLanguage.id}}">{{allLanguage.name}}</mat-option>
                                 </mat-select>
                             </div>
+                            <div class="form-group col-12 mt-3">
+                                <label for="" class="">Billing currency</label>
+                                <mat-select name=" " id="" class="form-control col-12" formControlName="currency">
+                                    <mat-option *ngFor="let allCurency of allCurency;" value="{{allCurency.id}}">{{allCurency.CurrencyName}}</mat-option>
+                                </mat-select>
+                                <span class="error-wrap" *ngIf="singleBoxOffice.get('currency').dirty || singleBoxOffice.get('currency').touched"><small *ngIf="singleBoxOffice.get('currency').hasError('required')" class="error text-left ml-4">Billing currency required.</small></span>
+                            </div>
 
                             <div class="form-group col-12 mt-3">
                                 <label for="" class="required">Timezone</label>

@@ -4,31 +4,31 @@
         <mat-card class="setup-flow">
             <h2 class="module-title">Complete Setup</h2>
             <ul class="steps">
-                <li [ngClass]="{'active':setupSteps.signup == 'Y'}">
+                <li *ngIf="setupSteps.signup" [ngClass]="{'active':setupSteps.signup == 'Y'}">
                     <div class="top-icon">
                         <img src="../../../assets/images/admin/step-1.svg">
                     </div>
                     <label>Sign up</label>
                 </li>
-                <li [ngClass]="{'active':setupSteps.add_event == 'Y'}">
+                <li *ngIf="setupSteps.add_event" [ngClass]="{'active':setupSteps.add_event == 'Y'}">
                     <div class="top-icon">
                         <img src="../../../assets/images/admin/step-2.svg">
                     </div>
                     <label>Add Event</label>
                 </li>
-                <li [ngClass]="{'active':setupSteps.setup_payment == 'Y'}">
+                <li *ngIf="setupSteps.setup_payment" [ngClass]="{'active':setupSteps.setup_payment == 'Y'}">
                     <div class="top-icon">
                         <img src="../../../assets/images/admin/step-3.svg">
                     </div>
                     <label>Setup Payment</label>
                 </li>
-                <li [ngClass]="{'active':setupSteps.customize_event == 'Y'}">
+                <li *ngIf="setupSteps.customize_event" [ngClass]="{'active':setupSteps.customize_event == 'Y'}">
                     <div class="top-icon">
                         <img src="../../../assets/images/admin/step-4.svg">
                     </div>
                     <label>Customize Event</label>
                 </li>
-                <li [ngClass]="{'active':setupSteps.publish == 'Y'}">
+                <li *ngIf="setupSteps.publish" [ngClass]="{'active':setupSteps.publish == 'Y'}">
                     <div class="top-icon">
                         <img src="../../../assets/images/admin/step-5.svg">
                     </div>
@@ -81,11 +81,11 @@
                 <mat-card class="recent-pur">
                     <div class="section-head">
                         <h2 class="module-title">Recent Purchases</h2>
-                        <span class="action-icon">
+                        <!-- <span class="action-icon">
                             <i class="fa fa-ellipsis-v"></i>
-                        </span>
+                        </span> -->
                     </div>
-                        <ul class="purchase-list">
+                        <ul class="purchase-list" *ngIf="recentPurchaseList.length > 0">
                             <li *ngFor="let element of recentPurchaseList; let i=index;">
                                 <div class="user-image text-uppercase">{{element.customer.customerShortName}}</div>
                                 <div class="pur-content">
@@ -97,51 +97,8 @@
                                     <span>{{element.time_difference}} ago</span>
                                 </div>
                             </li>
-                            <!-- <li>
-                                <div class="user-image">KB</div>
-                                <div class="pur-content">
-                                    <label>Olivia Johanson</label>
-                                    <span><i class="fa fa-ticket"></i> High Performance Concert 2020 ..</span>
-                                </div>
-                                <div class="ticket-detail">
-                                    <label>4 Ticket</label>
-                                    <span>2 min ago</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="user-image">KB</div>
-                                <div class="pur-content">
-                                    <label>Olivia Johanson</label>
-                                    <span><i class="fa fa-ticket"></i> High Performance Concert 2020 ..</span>
-                                </div>
-                                <div class="ticket-detail">
-                                    <label>4 Ticket</label>
-                                    <span>2 min ago</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="user-image">KB</div>
-                                <div class="pur-content">
-                                    <label>Olivia Johanson</label>
-                                    <span><i class="fa fa-ticket"></i> High Performance Concert 2020 ..</span>
-                                </div>
-                                <div class="ticket-detail">
-                                    <label>4 Ticket</label>
-                                    <span>2 min ago</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="user-image">KB</div>
-                                <div class="pur-content">
-                                    <label>Olivia Johanson</label>
-                                    <span><i class="fa fa-ticket"></i> High Performance Concert 2020 ..</span>
-                                </div>
-                                <div class="ticket-detail">
-                                    <label>4 Ticket</label>
-                                    <span>2 min ago</span>
-                                </div>
-                            </li> -->
                         </ul>
+                        <p class="no-data-label text-center" *ngIf="recentPurchaseList.length == 0">No data avaliable.</p>
                 </mat-card>
             </div>
             <div class="col-6">
@@ -155,21 +112,22 @@
                             <mat-option value="year">Yearly</mat-option>
                         </mat-select>
                     </div>
-                    <div class="row ticketchart mt-4">
+                    <div *ngIf="latestSalesStats.ticket_left != 0 && latestSalesStats.ticket_sold != 0" class="row ticketchart mt-4">
                         <canvas id="ticketchart"></canvas>
                         <ul class="chart-legends">
                             <li>
                                 <div class="tag left"></div>
-                                <span>Ticket Left</span>
-                                <label>{{latestSalesStats.ticket_left}}</label>
+                                <span>Ticket Remaining</span>
+                                <label>{{latestSalesStats.ticket_left?latestSalesStats.ticket_left:'-'}}</label>
                             </li>
                             <li>
                                 <div class="tag sold"></div>
                                 <span>Ticket Sold</span>
-                                <label>{{latestSalesStats.ticket_sold}}</label>
+                                <label>{{latestSalesStats.ticket_sold?latestSalesStats.ticket_sold:'-'}}</label>
                             </li>
                         </ul>
                     </div>
+                    <p class="no-data-label text-center"  *ngIf="latestSalesStats.ticket_left == 0 && latestSalesStats.ticket_sold == 0">No data avaliable.</p>
                 </mat-card>
             </div>
         </div>
@@ -186,7 +144,7 @@
                 <div class="head-line">
                     <h3>Upcoming Events</h3><span class="side-line"></span>
                 </div>
-                <ul class="event-list">
+                <ul class="event-list" *ngIf="allUpcomingEventListData.length > 0">
                     <li class="single-event" *ngFor="let element of allUpcomingEventListData; let i=index;">
                         <div class="date-block" *ngIf="element.event_occurrence_type == 'N'">
                             {{element.shortStartDate}} 
@@ -206,41 +164,12 @@
                             </div>
                         </div>
                     </li>
-                    <!-- <li class="single-event">
-                        <div class="date-block">
-                            3 
-                            <span>Wed</span>
-                        </div>
-                        <div class="content">
-                            <label>Live Concert Charity 2020...</label>
-                            <div class="ticket-sales">
-                                <div class="ticker-des">
-                                    <span>Ticket Sold</span><span>561/650</span>
-                                </div>
-                                <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="single-event">
-                        <div class="date-block">
-                            3 
-                            <span>Wed</span>
-                        </div>
-                        <div class="content">
-                            <label>Live Concert Charity 2020...</label>
-                            <div class="ticket-sales">
-                                <div class="ticker-des">
-                                    <span>Ticket Sold</span><span>561/650</span>
-                                </div>
-                                <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                            </div>
-                        </div>
-                    </li> -->
                 </ul>
+                <p class="no-data-label text-center" *ngIf="allUpcomingEventListData.length == 0">No data avaliable.</p>
                 <div class="bottom-event-list">
                     <div class="text">
                        <label *ngIf="totalUpcomingEvents > 3">{{(totalUpcomingEvents - 3)}} events more</label>
-                        <p (click)="viewAllEvent()">View More <span class="material-icons">arrow_right_alt</span></p>
+                        <p *ngIf="totalUpcomingEvents > 3" (click)="viewAllEvent()">View More <span class="material-icons">arrow_right_alt</span></p>
                     </div>
                     <button (click)="addNewEvent()" mat-flat-button class="add-event-btn mt-2 px-3">
                         Add New Event

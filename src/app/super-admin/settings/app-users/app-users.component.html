@@ -46,6 +46,7 @@
                     <!-- <div class="tab-title pt-2" fxFlex="25">Event Access</div> -->
                     <div class="tab-title pt-2" fxFlex="30">Email Address</div>
                     <div class="tab-title pt-2" fxFlex="30">Date Created</div>
+                    <div class="tab-title pt-2" fxFlex="30">Action</div>
                 </div>
             </div>
 
@@ -54,7 +55,41 @@
                     <div class="user-name" fxFlex="40" (click)="fnUserDetail(i)">{{user.firstname ? user.firstname : '-'}} {{user.lastname ? user.lastname : '-'}}</div>
                     <!-- <div class="" fxFlex="25">All Event</div> -->
                     <div class="" fxFlex="30">{{user.email ? user.email : '-'}}</div>
-                    <div class="" fxFlex="30">{{user.created_at}}</div>
+                    <div class="" fxFlex="20">{{user.created_at}}</div>
+                    <div class="" fxFlex="10">
+                        <mat-icon [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" aria-hidden="false" aria-label="Example home icon" class="action-icon pointer">more_horiz</mat-icon>
+                        <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
+                            <mat-card class=" p-0" style="max-width: 300px">
+                                <mat-card-content class="add-content">
+                                    <ul class="admin-add-menu pl-0">
+                                        <mat-list-item role="listitem" (click)="userEdit(i)">
+                                            <div class="add-common-menu">
+                                                <i class="fa fa-pencil mr-2"></i><span>Edit</span>
+                                            </div>
+                                        </mat-list-item>
+                                        <mat-list-item role="listitem" (click)="userRemove(user.unique_code)">
+                                            <div class="add-common-menu">
+                                                <i class="fa fa-trash mr-2"></i><span>Remove</span>
+                                            </div>
+                                        </mat-list-item>
+                                       
+                                    </ul>
+                                </mat-card-content>
+                            </mat-card>
+                        </mde-popover>
+                        <!-- <ng-template class="popover custom-popover" #popContent1>
+
+                            <div (click)="editUser(i)" class="px-3  border-bottom">
+                                <i class="fa fa-pencil mr-2"></i><span>Edit</span>
+                            </div>
+
+
+                            <div (click)="removeUSer(user.unique_code)" class="px-3  border-bottom">
+                                <i class="fa fa-trash mr-2"></i><span>Remove</span>
+                            </div> 
+
+                        </ng-template> -->
+                    </div>
                 </div>
             </div>
             <div *ngIf="allAppUsersList == null" class="border-bottom px-4 py-3">

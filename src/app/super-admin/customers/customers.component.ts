@@ -75,12 +75,17 @@ export class CustomersComponent implements OnInit {
     private datePipe: DatePipe,
   ) {
     this.keepMe = localStorage.getItem('keepMeSignIn')
-        if (this.keepMe == 'true') {
-          this.currentUser =  JSON.parse(localStorage.getItem('currentUser'))
-        } else {
-          this.currentUser =  JSON.parse(sessionStorage.getItem('currentUser'))
-        }
+    if (this.keepMe == 'true') {
+      this.currentUser =  JSON.parse(localStorage.getItem('currentUser'))
+    } else {
+      this.currentUser =  JSON.parse(sessionStorage.getItem('currentUser'))
+    }
     // this.currentUser = JSON.parse(this.currentUser);
+
+    let newCustomerAction = window.location.search.split("?customer")
+    if(newCustomerAction.length > 1){
+        this.addFormButtonDiv=false;
+    }
 
     if(this.currentUser.type == 'member' && this.currentUser.permission != 'A'){
       this.router.navigate(['/super-admin']);
@@ -207,7 +212,7 @@ export class CustomersComponent implements OnInit {
             "image": this.customerImageUrl,
             "address":this.addCustomerForm.get('address').value,
             "unique_code": this.selectedCustomerCode,
-			"tags": JSON.stringify(this.tags),           
+			      "tags": JSON.stringify(this.tags),           
             "boxoffice_id": this.boxofficeId,
           }; //"tags": this.addCustomerForm.get("tags").value,
 		  
@@ -287,7 +292,9 @@ export class CustomersComponent implements OnInit {
     this.SuperadminService.createCustomersForm(requestObject).subscribe((response:any) => {
     if(response.data == true){
       this.ErrorService.successMessage(response.response.message);
-      this.tags.length = 0;
+      if(this.tags.length && this.tags.length > 0){
+        this.tags.length = 0;
+      }
       this.addCustomerForm.reset();
       this.customerImageUrl = null;
 	  this.selectedCustomerCode =  response.response.unique_code;
@@ -317,10 +324,15 @@ export class CustomersComponent implements OnInit {
       if(response.data == true){
         this.customerDetails = response.response;
 		
-		if(unique_code==""){
-        this.selectedCustomerCode =  this.customerDetails[0].unique_code
-		}
-		this.fnSelectCustomer(this.selectedCustomerCode);
+        if(unique_code==""){
+            this.selectedCustomerCode =  this.customerDetails[0].unique_code
+        }
+        let newCustomerAction = window.location.search.split("?customer")
+        if(newCustomerAction.length > 1){
+            this.addFormButtonDiv=false;
+        }else{
+          this.fnSelectCustomer(this.selectedCustomerCode);
+        }
       }else if(response.data == false){
         // this.ErrorService.errorMessage(response.response);
         this.customerDetails = null;
@@ -351,7 +363,9 @@ export class CustomersComponent implements OnInit {
       this.addCustomerForm.controls['email'].setValue(this.selectedCustomerDetails.email)
       this.addCustomerForm.controls['phone'].setValue(this.selectedCustomerDetails.phone)
       //this.addCustomerForm.controls['tags'].setValue(JSON.parse(this.selectedCustomerDetails.tags))
-	  this.tags = JSON.parse(this.selectedCustomerDetails.tags);
+      if(this.selectedCustomerDetails.tags && (this.selectedCustomerDetails.tags != '' || this.selectedCustomerDetails.tags != null)){
+	      this.tags = JSON.parse(this.selectedCustomerDetails.tags);
+      }
       this.addCustomerForm.controls['address'].setValue(this.selectedCustomerDetails.address)
       // this.customerImageUrl.setValue(this.selectedCustomerDetails.image)
 
@@ -379,8 +393,10 @@ fnSelectCustomer(selectedCustomerCode){
     if(response.data == true){
       this.selectedCustomerDetails = response.response.customer;
       this.allEventListData = response.response;
-	  console.log(this.selectedCustomerDetails.tags);
-	  this.selectedCustomerDetails.tags = JSON.parse(this.selectedCustomerDetails.tags);
+      if(this.selectedCustomerDetails.tags && (this.selectedCustomerDetails.tags != '' || this.selectedCustomerDetails.tags != null)){
+        console.log(this.selectedCustomerDetails.tags);
+        this.selectedCustomerDetails.tags = JSON.parse(this.selectedCustomerDetails.tags);
+      }
       if(this.allEventListData.lastOrder){
 
       this.lastEventDateTime = moment(this.allEventListData.lastOrder.start_date +' '+this.allEventListData.lastOrder.start_time).format('d MMM y, hh:mm a');
@@ -400,19 +416,15 @@ fnUpdateCustomer(requestObject){
   this.isLoaderAdmin = true;
     this.SuperadminService.updateCustomerDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.updateResponseMsg = JSON.stringify(response.response.message)
+        this.updateResponseMsg = response.response.message;
         this.editCustomerForm = false;
         this.ErrorService.successMessage(this.updateResponseMsg);
         this.tags.length = 0;
         this.addCustomerForm.reset();
         this.customerImageUrl = null;
-		
-		this.selectedCustomerCode =  response.response.unique_code;
-	
-		this.getAllCustomersDetails(this.selectedCustomerCode);
-        
+        this.selectedCustomerCode =  response.response.unique_code;
+        this.getAllCustomersDetails(this.selectedCustomerCode);
         this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
-
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response.message);
       }

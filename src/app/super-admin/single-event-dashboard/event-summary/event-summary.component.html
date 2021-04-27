@@ -288,7 +288,6 @@
         <div class="title">
             Referral sales summary
         </div>
-        <input type="hidden" id="referral_sales_summary">
         <!-- <div class="mt-2" (click)="is_show_referral_data=!is_show_referral_data">
             <a>Load referral stats</a>
         </div> -->
@@ -315,6 +314,7 @@
             <div class="title">
                 Event View
             </div>
+            <input type="text" id="chart_view_section">
             <div class="ml-auto">
                 <mat-select class="event-view-dropdown form-control" (selectionChange)="fnGetEventViews($event)" value="day">
                     <mat-option value="day">Last 7 Day</mat-option>

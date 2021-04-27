@@ -38,7 +38,7 @@
                                             <p class="wd-70"></p>
                                             <p class="wd-90"></p>
                                         </div>
-                                        <p>Line item Report</p>
+                                        <p>Line Item Report</p>
                                     </div>
                                 </mat-radio-button>
                             </div>
@@ -131,11 +131,11 @@
                         <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    <P class="fw-600 my-2">LINE ITEM TYPES</P>
+                                    <mat-checkbox class="fw-600" (change)="fnLineitem_type($event,'main')" [(ngModel)]="lineitem_type">LINE ITEM TYPES</mat-checkbox>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <section class=" row">
-                                <mat-checkbox class="col-md-4" *ngFor="let value of lineitemType;let i=index" [(ngModel)]="value.value">{{value.lable}}</mat-checkbox>
+                                <mat-checkbox class="col-md-4" (change)="fnLineitem_type($event,'single')" *ngFor="let value of lineitemType;let i=index" [(ngModel)]="value.value">{{value.lable}}</mat-checkbox>
                                 <!-- 
                 <mat-checkbox class=" col-md-4" (change)="fnLineitem_ticket($event)">Tickets</mat-checkbox>
                 <mat-checkbox class=" col-md-4" (change)="fnLineitem_Voidticket($event)">Voided tickets</mat-checkbox>

@@ -69,7 +69,8 @@ export class OccurrencesComponent implements OnInit {
     if(hour > 12){
       finalhrs  = hour - 12
       part = 'PM' 
-    } `${finalhrs}:${min} ${part}`
+    } 
+    return `${finalhrs}:${min} ${part}`
   }
 
   getTimeSlote(){
@@ -111,7 +112,7 @@ export class OccurrencesComponent implements OnInit {
           // element.occurance_start_time = moment(element.occurance_start_time).format('hh:mm a');
           // element.occurance_end_time = moment(element.occurance_end_time).format('hh:mm a');
         });
-
+        console.log(this.allOccurrenceList)
       }else if(response.data == false){
         this.allOccurrenceList.length = 0;
         // this.ErrorService.errorMessage(response.response)

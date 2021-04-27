@@ -5,22 +5,28 @@
     height: 100vh;
     font-family: Poppins, Regular;
 }
-
+.main-menu::-webkit-scrollbar-thumb {
+    background-color: #77273E;
+}
 // mat-icon{
 //     font-size: 30px;
 // } 
-.circle-icon {
-    width: 25px;
-    height: 25px;
-    color: white;
-    background-color: #007BFF;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    border-radius: 30px;
+.left-side-container{
+    .circle-icon {
+        background-color: #e9684a;
+        border-radius: 100%;
+        height: 40px;
+        text-align: center;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin: 0 auto;
+        img {
+            width: 15px !important;
+        }
+    }
 }
 
 .plus-sign {
@@ -33,8 +39,8 @@
 }
 
 .left-side-container .icon {
-    width: 25px;
-    height: 25px;
+    width: 50px;
+    height: 50px;
     color: white;
     position: absolute;
     top: 0;
@@ -43,11 +49,18 @@
     bottom: 0;
     margin: auto;
     cursor: pointer;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .active-icon {
-    border-right: 3px solid skyblue;
-    opacity: 1 !important;
+    // border-right: 3px solid skyblue;
+    // opacity: 1 !important;
+    .icon{
+        background-color: #F9EDDF;
+    }
 }
 
 .company-logo {
@@ -58,7 +71,7 @@
     padding: 8px 0px;
     // padding: 15px 0px;
     .company-img {
-        width: 45px;
+        width: 45px !important;
     }
     opacity: 1 !important;
 }
@@ -70,7 +83,7 @@
 .app-title {
     font-size: 18px;
     font-family: Poppins, Regular;
-    background-color: #00176b;
+    background-color: #77273E;
     padding: 0px 5px;
     height: 60px;
 }
@@ -86,11 +99,11 @@
 
 .left-side-container {
     width: 80px;
-    background-color: #00176b
+    background-color: #973C56
 }
 
 .left-side-container img {
-    width: 35%
+    width: 25px !important;
 }
 
 // .add-btn{
@@ -102,7 +115,7 @@
     position: absolute;
     bottom: 0px;
     left: 0%;
-    background-color: #00176b;
+    background-color: #973C56;
     padding-bottom: 40px !important;
 }
 
@@ -112,9 +125,26 @@
 }
 
 .common-icon {
-    opacity: 0.5;
     display: inline-grid;
     cursor: pointer;
+    img{
+       opacity: 0.5;
+    }
+    .no-active-img{
+        display: block;
+    }
+    .active-img{
+        display: none;
+    }
+    &.active-icon{
+        .no-active-img{
+            display: none;
+        }
+        .active-img{
+            display: block;
+            opacity: 1;
+        }
+    }
 }
 
 .right-toolbar {
@@ -145,6 +175,9 @@
 .selected-boxoffice-btn-main {
     display: table;
     margin: 0 auto;
+    .selected-boxoffice{
+        color: #77273E;
+    }
 }
 
 .modal-content .modal-header {
@@ -179,7 +212,7 @@
     width: 100%;
     height: 55px;
     bottom: 0;
-    background-color: #00176b;
+    background-color: #973C56;
 }
 
 //Import Files
@@ -394,4 +427,42 @@
     .angular-editor-textarea {
         height: 150px !important;
     }
+}
+
+::ng-deep .mat-drawer-content{
+    overflow-x: hidden !important;
+}
+
+.add-content {
+    .bottom-border {
+        border-bottom: 1px solid black;
+    }
+    .add-new {
+        padding: 7px 11px;
+    }
+}
+
+.admin-add-menu {
+    mat-list-item {
+        padding: 7px 20px;
+        cursor: pointer;
+        display: flex;
+        &:hover {
+            background-color: #417bff47;
+            color: #417bff;
+        }
+        .add-new-img{
+            width: 25px;
+        }
+    }
+}
+.new-primary-btn{
+    background: #77273E;
+    border-radius: 5px;
+    opacity: 1;
+    color: #FFFFFF;
+    text-align: center;
+    width: auto;
+    margin-left: 15px;
+    font-weight: 400;
 }

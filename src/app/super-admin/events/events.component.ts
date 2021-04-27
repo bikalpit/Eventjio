@@ -3,13 +3,15 @@ import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angu
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
 import { ErrorService } from '../../_services/error.service';
-import { DatePipe} from '@angular/common'; 
+import { DatePipe, DOCUMENT} from '@angular/common'; 
 import { Observable, throwError, ReplaySubject, Subject, fromEvent } from 'rxjs';
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take, takeUntil, filter } from 'rxjs/operators';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MdePopoverTrigger } from '@material-extended/mde';
+import { DirtyComponent } from '../../_models/dirty-component';
+
 // import { BEFORE_UNLOAD_FN } from '../beforeunload';
 
 interface Status {
@@ -28,7 +30,7 @@ export interface ListTimeZoneListArry {
   styleUrls: ['./events.component.scss'],
   providers: [DatePipe]
 })
-export class EventsComponent implements OnInit {
+export class EventsComponent implements OnInit, DirtyComponent {
  
   isLoaderAdmin:boolean = false;
   apiUrl = environment.apiFolderUrl; 
@@ -110,6 +112,7 @@ export class EventsComponent implements OnInit {
   clickedIndex:any=0;
   subPermission:any=[];
   warn:boolean = false;
+  isDirty = false;
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
@@ -135,10 +138,11 @@ export class EventsComponent implements OnInit {
           this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
         let newEventAction = window.location.search.split("?event")
-        console.log(newEventAction)
-      if(newEventAction.length > 1){
-        this.addNewEvents = false;
-      }
+        if(newEventAction.length > 1){
+          this.addNewEvents = false; 
+          window.scroll(0,0)
+        
+        }
        
 
       // this.currentUser = JSON.parse(this.currentUserData);
@@ -187,12 +191,17 @@ export class EventsComponent implements OnInit {
         redirect_url: [''],
         access_code: [''],
       });
+      this.addEventForm.valueChanges.subscribe( e => this.isDirty = true );
 
 
       this.customSalesTaxForm = this._formBuilder.group({
         customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
       });
 
+    }
+    
+    canDeactivate() {
+      return this.isDirty;
     }
 
     ngAfterViewInit() {
@@ -254,14 +263,14 @@ export class EventsComponent implements OnInit {
     toolbarPosition: 'top',
 };
 
-  beforeunload = () => {
-    if (!this.addNewEvents) {
-      console.log(this.addEventForm)
-      localStorage.setItem('world', 'yes');
-      return 'World Page: some data not complete yet, continue?'
-    }
-    return 'World Page: some data not complete yet, continue?'
-  }
+  // beforeunload = () => {
+  //   if (!this.addNewEvents) {
+  //     console.log(this.addEventForm)
+  //     localStorage.setItem('world', 'yes');
+  //     return 'World Page: some data not complete yet, continue?'
+  //   }
+  //   return 'World Page: some data not complete yet, continue?'
+  // }
   
   private scrollToFirstInvalidControl() {
     const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
@@ -1238,6 +1247,8 @@ export class AddNewTicketType {
   // minOrderVal:any;
   // maxOrderVal:any;
   editTicketDetail:any;
+  untilDate:any;
+  afterDate:any;
   maxOrderCheck:boolean = false;
   editTicket:boolean = false
   availUnavailDateSame:boolean=false;
@@ -1441,6 +1452,7 @@ export class AddNewTicketType {
 
   fnAvailDateChange(event){
     this.minUnavailDate = event.value
+    this.untilDate = this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd");
     this.addTicketForm.controls['until_time'].setValue('');
     this.addTicketForm.controls['after_date'].setValue(null);
     this.addTicketForm.controls['after_time'].setValue('');
@@ -1452,6 +1464,8 @@ export class AddNewTicketType {
     
   }
   fnUnavailDateChange(event){
+    
+    this.afterDate = this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd");
     this.addTicketForm.controls['after_time'].setValue('');
     if(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd") == this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd")){
       this.availUnavailDateSame = true;

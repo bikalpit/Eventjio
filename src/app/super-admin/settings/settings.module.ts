@@ -34,6 +34,7 @@ import { ReferralCodeComponent, addReferralCodeDialog } from './referral-code/re
 import { AppUsersComponent, AddAppUser, appUserDetail } from './app-users/app-users.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { MdePopoverModule } from '@material-extended/mde';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HttpClientModule,
     NgbModule,
     NgxMatSelectSearchModule,
-    AngularEditorModule
+    AngularEditorModule,
+    MdePopoverModule
     
   ],
   entryComponents: [

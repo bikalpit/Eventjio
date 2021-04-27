@@ -44,6 +44,14 @@ export class CouponsComponent implements OnInit {
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
     }
+    let newCouponrAction = window.location.search.split("?coupon")
+    if(newCouponrAction.length > 1){
+        this.creatDiscountCode();
+    }
+    let newVoucherAction = window.location.search.split("?voucher")
+    if(newVoucherAction.length > 1){
+        this.creatVoucherCode();
+    }
   }
 
 

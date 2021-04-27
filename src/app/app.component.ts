@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { first, map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { MdePopoverTrigger } from '@material-extended/mde';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +36,7 @@ export class AppComponent {
 
   @ViewChild('toggleButton') toggleButton: ElementRef;
   @ViewChild('logoutMenu') logoutMenu: ElementRef;
+  @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
   constructor(
     private route: ActivatedRoute,
@@ -437,6 +439,26 @@ export class AppComponent {
         // this.error = "Database Connection Error"; 
         // this.dataLoaded = true;  
       });
+  }
+
+  closePopover() {
+    this.trigger.togglePopover();
+  }
+
+  addNewEventNav() {
+    this.router.navigate(['/super-admin/events'], { queryParams: { event: 'new' } }); 
+  }
+  addNewOrderNav() {
+    this.router.navigate(['/super-admin/orders'], { queryParams: { order: 'new' } }); 
+  }
+  addNewCustomerNav() {
+    this.router.navigate(['/super-admin/customers'], { queryParams: { customer: 'new' } }); 
+  }
+  addNewCouponNav() {
+    this.router.navigate(['/super-admin/coupons'], { queryParams: { coupon: 'new' } }); 
+  }
+  addNewVoucherNav() {
+    this.router.navigate(['/super-admin/coupons'], { queryParams: { voucher: 'new' } }); 
   }
 
 

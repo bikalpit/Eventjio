@@ -9,7 +9,7 @@ import { CouponsComponent } from './coupons/coupons.component';
 
 import { CustomersComponent } from './customers/customers.component';
 import { MyBoxofficeComponent } from './my-boxoffice/my-boxoffice.component';
-import { LeaveGuard } from './beforeunload/leave.guard';
+// import { LeaveGuard } from './beforeunload/leave.guard';
 
 
 const routes: Routes = [
@@ -20,7 +20,7 @@ const routes: Routes = [
   { 
     path: 'events', 
     component: EventsComponent,
-    canDeactivate: [LeaveGuard]
+    // canDeactivate: [LeaveGuard]
   },
   { 
     path: 'orders', 

@@ -188,6 +188,10 @@
                     <p [ngStyle]="{'color': val.order_status=='P' ? '#2BB800' : val.order_status=='C' ? '#FF0000' :  val.order_status=='CO' ? '#2BB800' : '#FF0000'}" class="col-md-8">{{ val.order_status== 'P' ? 'Pending' : val.order_status== 'CO' ? 'complete' : val.order_status== 'C' ? 'Cancel' : 'Void'}}</p>
                 </div>
                 <div class="row">
+                    <label class="col-md-4">Ticket Checked In:</label>
+                    <p class="col-md-8">{{ val.ticket_checked_in== 'Y' ? 'Yes' : 'No'}}</p>
+                </div>
+                <div class="row">
                     <label class="col-md-4">Ticket type:</label>
                     <p class="col-md-8">
                         {{val.ticket ? val.ticket.ticket_name : '-'}}

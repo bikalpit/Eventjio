@@ -157,6 +157,13 @@ export class SettingService {
         }),catchError(this.handleError));
     }
     
+    getAllCurrancy(){
+        return this.http.post(`${environment.apiUrl}/get-currancy-api`,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+
     removeProfileImage(requestObject){
         return this.http.post(`${environment.apiUrl}/remove-user-image`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
@@ -260,8 +267,26 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+    updateAppUser(requestObject){
+        return this.http.post(`${environment.apiUrl}/app-user-update`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     getAllAppUsers(requestObject){
         return this.http.post(`${environment.apiUrl}/app-user-list`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    userRemove(requestObject){
+        return this.http.post(`${environment.apiUrl}/app-user-delete`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    userEdit(requestObject){
+        return this.http.post(`${environment.apiUrl}/app-user-update`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

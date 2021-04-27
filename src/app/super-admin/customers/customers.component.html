@@ -25,8 +25,9 @@
 
                         </mat-select>
 
-                        <div class="mt-3 p-2 bg-white border search-btn">
-                            <i class="fa fa-search border-right px-2"></i><input type="text" class="px-2" [(ngModel)]="search.keyword" (keyup)="customerSearch()" placeholder="Search by name, phone and email address">
+                        <div class="mt-3 p-2 bg-white border search-btn" matTooltipClass="main-menu-tooltip" matTooltipPosition="above" matTooltip="Search by name, phone, tag and email address" >
+                            <i class="fa fa-search border-right px-2"></i>
+                            <input type="text" class="px-2" [(ngModel)]="search.keyword" (keyup)="customerSearch()" placeholder="Search by name, phone, tag and email address">
                         </div>
                     </div>
 
@@ -118,7 +119,7 @@
                                                 {{allEventListData.lastOrder?allEventListData.lastOrder.event_title:'-'}}<br/> {{allEventListData.lastOrder.event_occurrence_type == 'N'?lastEventDateTime:''}}
                                             </p>
                                         </div>
-                                        <div *ngIf="!allEventListData.lastOrder" class="col-12 col-sm-4 customer-detail-bottom">
+                                        <div *ngIf="!allEventListData.lastOrder || allEventListData.lastOrder == null" class="col-12 col-sm-4 customer-detail-bottom">
                                             <label for="">Last Events</label>
                                             <p>
                                                 -

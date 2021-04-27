@@ -1116,6 +1116,8 @@ export class AddNewTicketType {
   eventEndTime:any;
   onlynumericAmount = /^(\d*\.)?\d+$/
   availUnavailDateSame:boolean=false;
+  untilDate:any;
+  afterDate:any;
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
@@ -1303,6 +1305,9 @@ export class AddNewTicketType {
     // this.minAvailDate = new Date();
     // }
     if(this.recurringEvent == 'N'){
+      this.untilDate = this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd");
+      console.log(this.untilDate)
+      console.log(this.eventStartDate)
       this.addTicketForm.controls['until_time'].setValue(null);
       this.addTicketForm.controls['after_date'].setValue(null);
       this.addTicketForm.controls['after_time'].setValue(null);
@@ -1317,6 +1322,7 @@ export class AddNewTicketType {
   }
   fnUnavailDateChange(event){
     if(this.recurringEvent == 'N'){
+      this.afterDate = this.datePipe.transform(new Date(this.addTicketForm.get('after_date').value),"yyyy-MM-dd");
       this.addTicketForm.controls['after_time'].setValue(null);
       if(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd") == this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd")){
         this.availUnavailDateSame = true;
