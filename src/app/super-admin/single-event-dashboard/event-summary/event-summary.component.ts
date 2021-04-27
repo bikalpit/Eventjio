@@ -130,7 +130,7 @@ export class EventSummaryComponent implements OnInit {
     // this.router.navigate(['issued-ticket']);
   }
 
-  fnNavigateToTickets(){
+  fnNavigateToTickets(){	  
     this.router.navigate(['/super-admin/single-event-dashboard/event-and-ticket-types'], { queryParams: { goto: 'ticket_premodule' } });  
     // this.router.navigateByUrl('/super-admin/single-event-dashboard/event-and-ticket-types');
     // this.router.navigate(['issued-ticket']);

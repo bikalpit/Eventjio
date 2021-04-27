@@ -233,7 +233,8 @@
 
     <div *ngIf="!addNewEvents" class="add-new-event p-3 bg-white">
         <div class="col-12 py-3 page-title">
-            <mat-icon (click)="addNewEvents=!addNewEvents;" class="mr-3 pointer">west</mat-icon><span>Add New Event</span>
+            <!---<mat-icon (click)="addNewEvents=!addNewEvents;" class="mr-3 pointer">west</mat-icon><span>Add New Event</span>-->
+			<mat-icon (click)="fnCancelNewEvent();" class="mr-3 pointer">west</mat-icon><span>Add New Event</span>
         </div>
 
         <div class="add-new-event-form">

@@ -13,6 +13,7 @@ import { MdePopoverTrigger } from '@material-extended/mde';
 import { DirtyComponent } from '../../_models/dirty-component';
 
 // import { BEFORE_UNLOAD_FN } from '../beforeunload';
+import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
 interface Status {
   value: string;
@@ -260,7 +261,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
 	uploadUrl: 'assets/images/test',
     uploadWithCredentials: false,
     sanitize: true,
-    toolbarPosition: 'top',
+    toolbarPosition: 'top', 
 };
 
   // beforeunload = () => {
@@ -718,8 +719,21 @@ export class EventsComponent implements OnInit, DirtyComponent {
     });
   }
 
-  fnCancelNewEvent(){
-    this.addNewEvents = true;
+  fnCancelNewEvent(){	
+	if(this.addEventForm.get('event_name').value!= ''){
+	  const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+		width: '400px',
+		data: "Are you want to exit? Your data will get lost."
+	  });
+	  dialogRef.afterClosed().subscribe(result => {
+		  if(result){
+			this.addEventForm.reset();
+			this.addNewEvents = true;
+		  }	
+	  });
+	}else{
+		this.addNewEvents = true;
+	}
   }
  
   addNewEvent(){
