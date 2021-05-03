@@ -1,12 +1,9 @@
 import { Component, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { Router, RouterEvent, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
-import { WarningService } from './_services/warning.service';
-import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 import { SocialAuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User, Role } from './_models';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
 import { first, map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BnNgIdleService } from 'bn-ng-idle';
@@ -49,8 +46,6 @@ export class AppComponent {
     private _snackBar: MatSnackBar,
     private authService: SocialAuthService,
     private authenticationService: AuthenticationService,
-    private warningService: WarningService,
-    public dialog: MatDialog,
   ) {
     // this.renderer.listen('window', 'click',(e:Event)=>{
     //   if(e.target !== this.toggleButton.nativeElement && e.target!==this.logoutMenu.nativeElement){
@@ -306,33 +301,17 @@ export class AppComponent {
     }
 
     if (loginUser.type == 'member' && loginUser.permission != "A") {
-      // add a parent if else to check for the value in the form
-      // if it gives an error or there's no value in the form then TRUE
-      // else FALSE
-      if (this.warningService.getEvents() == '') {
-        if (pageName == 'Dashboard' && localStorage.getItem('permision_OV')) {
-          return true;
-        }
 
-        if (pageName == 'Events' && localStorage.getItem('permision_EM')) {
-          return true;
-        }
-
-        if (pageName == 'Orders' && localStorage.getItem('permision_OM')) {
-          return true;
-        }
+      if (pageName == 'Dashboard' && localStorage.getItem('permision_OV')) {
+        return true;
       }
-      else {
-        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        width: '400px',
-        data: "Are you want to exit? Your data will get lost."
-        });
-        /*dialogRef.afterClosed().subscribe(result => {
-          if(result){
-          this.addEventForm.reset();
-          this.addNewEvents = true;
-          } 
-        });*/
+
+      if (pageName == 'Events' && localStorage.getItem('permision_EM')) {
+        return true;
+      }
+
+      if (pageName == 'Orders' && localStorage.getItem('permision_OM')) {
+        return true;
       }
 
     } else if (loginUser.type == 'member' && loginUser.permission == "A") {

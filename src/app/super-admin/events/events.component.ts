@@ -201,9 +201,6 @@ export class EventsComponent implements OnInit, DirtyComponent {
 
     }
     
-    getEvents() {
-      return this.addEventForm.get('event_name').value;
-    }
     canDeactivate() {
       return this.isDirty;
     }
