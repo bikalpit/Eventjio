@@ -18,28 +18,33 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { DialogAuthentication } from './_services/auth.component';
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 import {OnlyNumberDirective} from './only-number.directive';
-import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider,GoogleLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider,GoogleLoginProvider } from 'angularx-social-login';
 import { ErrorInterceptor } from './_helpers';
 import { MdePopoverModule } from '@material-extended/mde';
 // import { CookieService } from "angular2-cookie/services/cookies.service";
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
-const config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("458577402908-0dgkkip4akvlppbb6lkr35l5rv4c5rdi.apps.googleusercontent.com")
-    // client secret : hkt7YbBErtkhOwUMOHWF7FYz
-    // provider: new GoogleLoginProvider("51939399095-dc6gpul854b6gba2712cdq1tjram4047.apps.googleusercontent.com")
 
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('2885117205032998')
-    // provider: new FacebookLoginProvider('742513126584702')
-    //provider: new FacebookLoginProvider('2273509446292254')
-    // Facebook url : https://developers.facebook.com/apps
-  }
-]);
+const config = [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '458577402908-0dgkkip4akvlppbb6lkr35l5rv4c5rdi.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('2885117205032998')
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
+]
 
 export function provideConfig() {
   return config;
@@ -80,10 +85,25 @@ export function provideConfig() {
     DialogAuthentication,
     ConfirmationDialogComponent
   ],
-  providers: [   
-    // CookieService,   
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: AuthServiceConfig, useFactory: provideConfig },
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '458577402908-0dgkkip4akvlppbb6lkr35l5rv4c5rdi.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('2885117205032998')
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent],
 
