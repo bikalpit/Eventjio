@@ -139,15 +139,15 @@ export class EventsComponent implements OnInit, DirtyComponent {
           this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
         let newEventAction = window.location.search.split("?event")
-        if(newEventAction.length > 1){
-          this.addNewEvents = false; 
-          const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-            "#new_event_start"
-          );
+        // if(newEventAction.length > 1){
+        //   this.addNewEvents = false; 
+        //   const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        //     "#new_event_start"
+        //   );
       
-          firstInvalidControl.focus();
+        //   firstInvalidControl.focus();
         
-        }
+        // }
        
 
       // this.currentUser = JSON.parse(this.currentUserData);
