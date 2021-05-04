@@ -135,7 +135,7 @@
                                     <label for="" style="margin: 0;">EVENT</label>
                                     <p class="m-0 font-weight-bold">{{eventDetail?.event_title}}</p>
                                     <p class="m-0 date" *ngIf="recurringEvent == 'N'">{{dateFormate(eventDetail?.start_date)}}</p>
-                                    <p class="m-0 date" *ngIf="recurringEvent == 'Y'">Recurring Event</p>
+                                    <p class="m-0 date" *ngIf="recurringEvent == 'Y'">{{occurreceStartDate}}</p>
                                 </div>
                             </div>
                         </div>

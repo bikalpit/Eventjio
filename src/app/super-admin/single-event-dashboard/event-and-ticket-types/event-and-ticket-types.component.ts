@@ -99,11 +99,18 @@ export class EventAndTicketTypesComponent implements OnInit {
     if(localStorage.getItem('selectedEventCode')){
       this.selectedEvent = localStorage.getItem('selectedEventCode')
     }
+    console.log(window.location.search)
 
     let newEventAction = window.location.search.split("?goto")
     //	console.log(newEventAction);
-	console.log('calll' + newEventAction);
     if(newEventAction.length > 1){		
+      // alert()
+      // console.log(newEventAction)
+      // const ticketSectionFocus: HTMLElement = this.el.nativeElement.querySelector(
+      //   "#ticket_module"
+      // );
+  
+      // ticketSectionFocus.focus();
 		//this.fnTiket();	
       // document.getElementById("create-ticket").focus();
       // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(

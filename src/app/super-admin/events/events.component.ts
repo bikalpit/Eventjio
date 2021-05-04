@@ -141,7 +141,11 @@ export class EventsComponent implements OnInit, DirtyComponent {
         let newEventAction = window.location.search.split("?event")
         if(newEventAction.length > 1){
           this.addNewEvents = false; 
-          window.scroll(0,0)
+          const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+            "#new_event_start"
+          );
+      
+          firstInvalidControl.focus();
         
         }
        

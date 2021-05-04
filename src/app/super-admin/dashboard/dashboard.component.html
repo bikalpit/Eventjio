@@ -3,7 +3,7 @@
     <div class="left-side-view">
         <mat-card class="setup-flow">
             <h2 class="module-title">Complete Setup</h2>
-            <ul class="steps">
+            <ul class="steps" *ngIf="setupSteps">
                 <li *ngIf="setupSteps.signup" [ngClass]="{'active':setupSteps.signup == 'Y'}">
                     <div class="top-icon">
                         <img src="../../../assets/images/admin/step-1.svg">
@@ -112,22 +112,22 @@
                             <mat-option value="year">Yearly</mat-option>
                         </mat-select>
                     </div>
-                    <div *ngIf="latestSalesStats.ticket_left != 0 && latestSalesStats.ticket_sold != 0" class="row ticketchart mt-4">
+                    <div *ngIf="latestSalesStats && latestSalesStats.ticket_left != 0 && latestSalesStats && latestSalesStats.ticket_sold != 0" class="row ticketchart mt-4">
                         <canvas id="ticketchart"></canvas>
                         <ul class="chart-legends">
                             <li>
                                 <div class="tag left"></div>
                                 <span>Ticket Remaining</span>
-                                <label>{{latestSalesStats.ticket_left?latestSalesStats.ticket_left:'-'}}</label>
+                                <label>{{latestSalesStats?latestSalesStats.ticket_left:'-'}}</label>
                             </li>
                             <li>
                                 <div class="tag sold"></div>
                                 <span>Ticket Sold</span>
-                                <label>{{latestSalesStats.ticket_sold?latestSalesStats.ticket_sold:'-'}}</label>
+                                <label>{{latestSalesStats?latestSalesStats.ticket_sold:'-'}}</label>
                             </li>
                         </ul>
                     </div>
-                    <p class="no-data-label text-center"  *ngIf="latestSalesStats.ticket_left == 0 && latestSalesStats.ticket_sold == 0">No data avaliable.</p>
+                    <p class="no-data-label text-center"  *ngIf="latestSalesStats && latestSalesStats.ticket_left == 0 && latestSalesStats && latestSalesStats.ticket_sold == 0">No data avaliable.</p>
                 </mat-card>
             </div>
         </div>
