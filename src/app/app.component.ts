@@ -8,6 +8,8 @@ import { first, map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { MdePopoverTrigger } from '@material-extended/mde';
+import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +48,7 @@ export class AppComponent {
     private _snackBar: MatSnackBar,
     private authService: SocialAuthService,
     private authenticationService: AuthenticationService,
+    private dialog: MatDialog
   ) {
     // this.renderer.listen('window', 'click',(e:Event)=>{
     //   if(e.target !== this.toggleButton.nativeElement && e.target!==this.logoutMenu.nativeElement){
@@ -266,6 +269,36 @@ export class AppComponent {
 
   fnPostUrl(postUrl) {
     this.pageName = postUrl;
+    let url = postUrl.toLowerCase();
+
+
+    if (this.router.url === '/super-admin/events?event=new' ) {
+      localStorage.setItem('event_val', '1');
+    } else {
+      localStorage.setItem('event_val', '0');
+    }
+
+    let nav_bool = false;
+
+    if (localStorage.getItem('event_val') == '1') {
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '400px',
+        data: "If you have entered any data it might get lost. Do you want to proceed?"
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          nav_bool = true;
+        }
+        else {
+          nav_bool = false;
+        }
+      });
+    }
+
+    if (nav_bool) {
+      this.router.navigate([`/super-admin/${url}`]);
+    }
   }
 
   isBoxOfficeSelected() {
@@ -295,6 +328,8 @@ export class AppComponent {
   isPermisionPage(pageName) {
 
     var loginUser = this.currentUser;
+
+    
 
     if (!loginUser) {
       return false;
