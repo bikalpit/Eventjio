@@ -47,29 +47,30 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { 
-	/*constructor(private router: Router,public dialog: MatDialog) {
-    this.router.events.subscribe((ev) => {
-      if (ev instanceof NavigationEnd) { 
-		console.log('r call' + ev + NavigationEnd);
-		//localStorage.setItem('event_val','1');
-		let event_val = localStorage.getItem('event_val');
-		if(event_val=='1'){
-			console.log('form check');
-			const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-				width: '400px',
-				data: "Are you want to exit? Your data will get lost."
-			  });
-			  dialogRef.afterClosed().subscribe(result => {
-				  if(result){
-					console.log('yes');
-					return false;
-				  }else{
-					  console.log('no');
-					return false;
-				  }					  
-			  });
-		}		
-	  }
-    });
-  }*/
+	// constructor(private router: Router,public dialog: MatDialog) {
+ //    this.router.events.subscribe((ev) => {
+ //      if (ev instanceof NavigationEnd) { 
+	// 	console.log('r call' + ev + NavigationEnd);
+
+		
+	// 	let event_val = localStorage.getItem('event_val');
+	// 	if(event_val=='1'){
+	// 		console.log(this.router.url);
+	// 		const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+	// 			width: '400px',
+	// 			data: "Are you want to exit? Your data will get lost."
+	// 		  });
+	// 		  dialogRef.afterClosed().subscribe(result => {
+	// 			  if(result){
+	// 				console.log('yes');
+	// 				return false;
+	// 			  }else{
+	// 				  console.log('no');
+	// 				return true;
+	// 			  }					  
+	// 		  });
+	// 	}		
+	//   }
+ //    });
+ //  }
 }

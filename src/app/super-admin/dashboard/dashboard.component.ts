@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { Chart } from 'chart.js';
-import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
+import { Router, RouterEvent, RouterOutlet,ActivatedRoute, NavigationExtras } from '@angular/router';
 import { SuperadminService } from '../_services/superadmin.service';
 import { ErrorService } from '../../_services/error.service';
 import { DatePipe} from '@angular/common';
@@ -188,7 +188,11 @@ export class DashboardComponent implements OnInit {
   
   addNewEvent(){
     // this.EventsComponent.addNewEvent();
-    this.router.navigate(['/super-admin/events'], { queryParams: { event: 'new' } });  
+    let navigationExtras: NavigationExtras = {
+      queryParams: { 'event': 'new' },
+      //fragment: 'jump'
+    };
+    this.router.navigate(['/super-admin/events'], navigationExtras);  
     // this.router.navigate(['/super-admin/events?event=new']);
   }
 
