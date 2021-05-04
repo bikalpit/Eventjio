@@ -263,7 +263,6 @@ export class EventsComponent implements OnInit, DirtyComponent {
       },
     ],
 	uploadUrl: 'assets/images/test',
-    uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top', 
 };

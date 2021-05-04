@@ -1,7 +1,7 @@
 import { Component, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { Router, RouterEvent, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
-import { AuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { SocialAuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User, Role } from './_models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first, map } from 'rxjs/operators';
@@ -44,7 +44,7 @@ export class AppComponent {
     private bnIdle: BnNgIdleService,
     private renderer: Renderer2,
     private _snackBar: MatSnackBar,
-    private authService: AuthService,
+    private authService: SocialAuthService,
     private authenticationService: AuthenticationService,
   ) {
     // this.renderer.listen('window', 'click',(e:Event)=>{
