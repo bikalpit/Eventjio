@@ -278,8 +278,6 @@ export class AppComponent {
       localStorage.setItem('event_val', '0');
     }
 
-    let nav_bool = false;
-
     if (localStorage.getItem('event_val') == '1') {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '400px',
@@ -288,16 +286,12 @@ export class AppComponent {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          nav_bool = true;
+          this.router.navigate([`/super-admin/${url}`]);
         }
-        else {
-          nav_bool = false;
-        }
+        // else {
+        //   nav_bool = false;
+        // }
       });
-    }
-
-    if (nav_bool) {
-      this.router.navigate([`/super-admin/${url}`]);
     }
   }
 
