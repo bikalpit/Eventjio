@@ -25,7 +25,7 @@ import { MdePopoverModule } from '@material-extended/mde';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
-const config = [
+const config = [ 
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
