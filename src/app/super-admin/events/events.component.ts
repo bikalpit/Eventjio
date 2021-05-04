@@ -192,7 +192,11 @@ export class EventsComponent implements OnInit, DirtyComponent {
         redirect_url: [''],
         access_code: [''],
       });
-      this.addEventForm.valueChanges.subscribe( e => this.isDirty = true );
+      this.addEventForm.valueChanges.subscribe(value => {
+        console.log(value);
+        localStorage.setItem('eventDetails', JSON.stringify(value));
+        this.isDirty = true;
+      });
 
 
       this.customSalesTaxForm = this._formBuilder.group({
@@ -732,12 +736,14 @@ export class EventsComponent implements OnInit, DirtyComponent {
 	  });
 	}else{
 		this.addNewEvents = true;
+    this.router.navigate(['/super-admin/events']);
 	}
   }
  
   addNewEvent(){
-    this.getdefaultValues();
+    //this.getdefaultValues();
     this.addNewEvents = false;
+    this.router.navigate(['/super-admin/events'], { queryParams: { event: 'new' }});
   }
 
   fnSelectImage(imageType){

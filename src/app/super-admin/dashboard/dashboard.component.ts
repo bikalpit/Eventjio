@@ -219,7 +219,7 @@ export class DashboardComponent implements OnInit {
           if(i < 4){
             this.allUpcomingEventListData.push(element)
           }
-          console.log(i)
+          //console.log(i)
         });
         console.log(this.allUpcomingEventListData)
 

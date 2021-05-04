@@ -43,10 +43,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes ,
+    {
+        anchorScrolling: "enabled",
+        onSameUrlNavigation: "reload",
+        scrollPositionRestoration: "enabled"
+      })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { 
+
 	// constructor(private router: Router,public dialog: MatDialog) {
  //    this.router.events.subscribe((ev) => {
  //      if (ev instanceof NavigationEnd) { 

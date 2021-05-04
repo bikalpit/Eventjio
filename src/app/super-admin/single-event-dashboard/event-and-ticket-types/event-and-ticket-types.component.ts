@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject,ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject,ChangeDetectorRef, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { SingleEventServiceService } from '../_services/single-event-service.service';
 import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
@@ -24,7 +24,8 @@ export interface ListTimeZoneListArry {
   styleUrls: ['./event-and-ticket-types.component.scss'],
   providers: [DatePipe]
 })
-export class EventAndTicketTypesComponent implements OnInit {
+export class EventAndTicketTypesComponent implements OnInit, AfterViewInit {
+  @ViewChild('ticket_premodule') jump: ElementRef;
   value = 50;
   apiUrl = environment.apiFolderUrl; 
   bufferValue = 75;
@@ -81,37 +82,38 @@ export class EventAndTicketTypesComponent implements OnInit {
   SingleEventStartTime:any;
   currentTimeToday:any;
   eventStarted:any;
+  goto: any;
+  scrollContainer: any;
+
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,
-    private el: ElementRef,
     private datePipe: DatePipe,
     private SingleEventDashboard: SingleEventDashboard,
     private router: Router,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private change: ChangeDetectorRef
+    private change: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) { 
-   
-    if(localStorage.getItem('boxoffice_id')){
-      this.boxOfficeCode = localStorage.getItem('boxoffice_id');
-    }
-    if(localStorage.getItem('selectedEventCode')){
-      this.selectedEvent = localStorage.getItem('selectedEventCode')
-    }
 
-    let newEventAction = window.location.search.split("?goto")
-    //	console.log(newEventAction);
-	console.log('calll' + newEventAction);
-    if(newEventAction.length > 1){		
-		//this.fnTiket();	
-      // document.getElementById("create-ticket").focus();
-      // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-      //   "#ticket_module"
-      // );
-  
-      // firstInvalidControl.focus();
-    }
+      if(localStorage.getItem('boxoffice_id')){
+        this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+      }
+      if(localStorage.getItem('selectedEventCode')){
+        this.selectedEvent = localStorage.getItem('selectedEventCode')
+      }
+
+      //  let newEventAction = window.location.search.split("?goto")
+      //	console.log(newEventAction);
+  	  //  console.log('calll' + newEventAction);
+      // if(newEventAction.length > 1){		
+      //   const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+      //     "#ticket_module"
+      //   );
+    
+      //   firstInvalidControl.scrollTop = 0;
+      // }
 
       this.editEventForm = this._formBuilder.group({
         event_name: ['',[Validators.required]],
@@ -140,7 +142,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       this.customSalesTaxForm = this._formBuilder.group({
         customSalesTaxArr: this._formBuilder.array([this.createSalesTaxItem()])
       });
-  }
+    }
 
 
 
@@ -150,9 +152,21 @@ export class EventAndTicketTypesComponent implements OnInit {
     this.getDefaultImages();
     this.getTimeSlote();
     this.getAllCurrancy();
-	this.fnTiket();
+	  //this.fnTiket();
   }
 
+  ngAfterViewInit() {
+      console.log(this.jump);
+      this.scrollContainer = this.jump.nativeElement;
+
+      // check if the query is present
+      this.route.queryParams.subscribe((params)=> {
+          if (params['goto']) {
+            // scroll the div
+            this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+      });
+  }
   transformTime24To12(time: any): any {
     let hour = (time.split(':'))[0];
     let min = (time.split(':'))[1];
@@ -199,13 +213,13 @@ export class EventAndTicketTypesComponent implements OnInit {
   // }
 
   
-  private scrollToFirstInvalidControl() {
-    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-      "form .ng-invalid"
-    );
+  // private scrollToFirstInvalidControl() {
+  //   const firstInvalidControl: HTMLElement = this.jump.nativeElement.querySelector(
+  //     "form .ng-invalid"
+  //   );
 
-    firstInvalidControl.focus(); //without smooth behavior
-  }
+  //   firstInvalidControl.focus(); //without smooth behavior
+  // }
 
 	/*ngOnInit() {
 		console.log('callll fntiket');
@@ -214,23 +228,23 @@ export class EventAndTicketTypesComponent implements OnInit {
 		console.log(pos);
 	}*/
 	
-	fnTiket(){
-		console.log('scroll calll');
-		//jQuery( "#ticket_module" ).scrollTop(10);
-		//this.scrollTopPosition = event.target.scrollTop;
-		//setTimeout(this.scrollBottom(), 500)
-		/*let newEventAction = window.location.search.split("?goto")
-		//	console.log(newEventAction);
-		console.log('calll' + newEventAction);
-		if(newEventAction.length > 1){	
-			//let pos = document.body.scrollHeight;
-			window.scrollTo( 0 ,500);
-			//this.fnTiket();	
-		   //document.getElementById("ticket_module").focus();		 
-		}*/
+	// fnTiket(){
+	// 	console.log('scroll calll');
+	// 	//jQuery( "#ticket_module" ).scrollTop(10);
+	// 	//this.scrollTopPosition = event.target.scrollTop;
+	// 	//setTimeout(this.scrollBottom(), 500)
+	// 	let newEventAction = window.location.search.split("?goto")
+	// 	//	console.log(newEventAction);
+	// 	console.log('calll' + newEventAction);
+	// 	if(newEventAction.length > 1){	
+	// 		//let pos = document.body.scrollHeight;
+	// 		window.scrollTo( 0 ,500);
+	// 		//this.fnTiket();	
+	// 	   //document.getElementById("ticket_module").focus();		 
+	// 	}
 			
 		//document.querySelector('body').scrollTo(0,1500)		
-	}
+	//}
 	
   fnCancelEvent(){
     this.getSingleEvent();
@@ -364,7 +378,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       if(response.data == true){
         this.singleEventDetail= response.response.event[0];
         this.eventStarted = response.response.event_started;
-        console.log(this.eventStarted);
+        //console.log(this.eventStarted);
         if(this.singleEventDetail.images.length !== 0){
           if(this.singleEventDetail.images[0].type == 'default'){
             this.eventImageType = this.singleEventDetail.images[0].image_name
@@ -603,7 +617,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   
 
   fnOnChangeTime(i){
-    console.log(i)
+    //console.log(i)
     this.editEventForm.get('event_end_time').setValue('');
   }
 
@@ -741,7 +755,7 @@ export class EventAndTicketTypesComponent implements OnInit {
   }
 
   fnSaveEvent(){
-    console.log('1')
+    //console.log('1')
     this.customSalesTaxArr = this.customSalesTaxForm.get('customSalesTaxArr') as FormArray;
     this.salesTax = this.customSalesTaxForm.value.customSalesTaxArr;
     if(this.customSalesTax == 'Y'){
@@ -755,11 +769,11 @@ export class EventAndTicketTypesComponent implements OnInit {
         return false;
       }
     }
-    console.log(this.editEventForm)
+    //console.log(this.editEventForm)
     
     
     if(this.editEventForm.invalid){
-      console.log('invalid')
+      //console.log('invalid')
       if(this.recurringEvent == 'N'){
         this.editEventForm.get('event_name').markAsTouched();
         this.editEventForm.get('event_start_date').markAsTouched();
@@ -780,7 +794,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.editEventForm.get('vanue_zip').markAsTouched();
         this.editEventForm.get('vanue_country').markAsTouched();
         
-        this.scrollToFirstInvalidControl();
+        //this.scrollToFirstInvalidControl();
         return false;
       }else{
         this.editEventForm.get('event_name').markAsTouched();
@@ -796,7 +810,7 @@ export class EventAndTicketTypesComponent implements OnInit {
         this.editEventForm.get('vanue_zip').markAsTouched();
         this.editEventForm.get('vanue_country').markAsTouched();
         
-        this.scrollToFirstInvalidControl();
+        //this.scrollToFirstInvalidControl();
         return false;
       }
       
@@ -806,7 +820,7 @@ export class EventAndTicketTypesComponent implements OnInit {
     //   return false;
     // }
     if(this.recurringEvent == 'N'){
-      console.log(this.datePipe.transform(new Date(this.editEventForm.get('event_end_date').value),"yyyy-MM-dd"))
+      //console.log(this.datePipe.transform(new Date(this.editEventForm.get('event_end_date').value),"yyyy-MM-dd"))
     let requestObject = {
       'unique_code' : this.singleEventDetail.unique_code,
       'boxoffice_id':this.boxOfficeCode,
@@ -845,7 +859,7 @@ export class EventAndTicketTypesComponent implements OnInit {
       'event_occurrence_type':this.recurringEvent,
       'default_img' : this.selecetdDefaultImage,
       };
-      console.log(requestObject)
+      //console.log(requestObject)
       this.updateEvent(requestObject);
     }else{
       let requestObject = {
@@ -1163,9 +1177,9 @@ export class AddNewTicketType {
         this.recurringEvent = this.data.recurringEvent;
         this.selectedTicketDetail = this.data.selectedTicketDetail
         this.selectedEventId = this.data.selectedEventId
-        console.log(this.selectedTicketDetail)
+        //console.log(this.selectedTicketDetail)
       }
-      console.log(this.selectedTicketDetail)
+      //console.log(this.selectedTicketDetail)
       if(this.recurringEvent == 'N'){
         if(this.selectedTicketDetail){
           if(this.selectedTicketDetail.discount.length !== 0){
@@ -1326,8 +1340,8 @@ export class AddNewTicketType {
     // }
     if(this.recurringEvent == 'N'){
       this.untilDate = this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd");
-      console.log(this.untilDate)
-      console.log(this.eventStartDate)
+      //console.log(this.untilDate)
+      //console.log(this.eventStartDate)
       this.addTicketForm.controls['until_time'].setValue(null);
       this.addTicketForm.controls['after_date'].setValue(null);
       this.addTicketForm.controls['after_time'].setValue(null);
@@ -1535,7 +1549,7 @@ export class AddNewTicketType {
   
 
   fnSubmitAddTicketForm(){
-    console.log(this.addTicketForm)
+    //console.log(this.addTicketForm)
     if(this.addTicketForm.invalid){
       if(this.recurringEvent == 'N'){
         this.addTicketForm.get('title').markAsTouched();
