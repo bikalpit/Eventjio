@@ -293,6 +293,9 @@ export class AppComponent {
         // }
       });
     }
+    else {
+      this.router.navigate([`/super-admin/${url}`]);
+    }
   }
 
   isBoxOfficeSelected() {
