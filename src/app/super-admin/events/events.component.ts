@@ -726,22 +726,58 @@ export class EventsComponent implements OnInit, DirtyComponent {
     });
   }
 
+  isEmpty(data) {
+    for (let key in data) {
+        let value = data[key];
+        if (value != "") {
+          return false;
+        }
+    }
+    return true;
+  }
+
   fnCancelNewEvent(){	
-	if(this.addEventForm.get('event_name').value!= ''){
-	  const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-		width: '400px',
-		data: "Are you want to exit? Your data will get lost."
-	  });
-	  dialogRef.afterClosed().subscribe(result => {
-		  if(result){
-			this.addEventForm.reset();
+
+    let data = JSON.parse(localStorage.getItem('eventDetails'));
+    if (this.isEmpty(data)) {
+      // if the form is empty
 			this.addNewEvents = true;
-		  }	
-	  });
-	}else{
-		this.addNewEvents = true;
-    this.router.navigate(['/super-admin/events']);
-	}
+    }
+    else {
+      // if the form is not empty
+      // open the dialog
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '400px',
+        data: "If you have entered any data it might get lost. Do you want to proceed?"
+      });
+
+      // look for the user's decision
+      dialogRef.afterClosed().subscribe(result => {
+        // if user wants to still redirect
+        // and is willing to lose the data
+        if (result) {
+          localStorage.removeItem('eventDetails');
+          this.addNewEvents = true;
+        }
+      })
+
+    }
+
+	// if(this.addEventForm.get('event_name').value!= ''){
+	//   const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+	// 	width: '400px',
+	// 	data: "Are you want to exit? Your data will get lost."
+	//   });
+	//   dialogRef.afterClosed().subscribe(result => {
+	// 	  if(result){
+	// 		this.addEventForm.reset();
+	// 		this.addNewEvents = true;
+	// 	  }	
+	//   });
+	// }else{
+	// 	this.addNewEvents = true;
+  //   this.router.navigate(['/super-admin/events']);
+	// }
   }
  
   addNewEvent(){

@@ -131,7 +131,6 @@ export class EventSummaryComponent implements OnInit {
   }
 
   fnNavigateToTickets(){	  
-    alert('1')
     this.router.navigate(['/super-admin/single-event-dashboard/event-and-ticket-types'], { queryParams: { goto: 'manage_ticket' } });  
     // this.router.navigateByUrl('/super-admin/single-event-dashboard/event-and-ticket-types');
     // this.router.navigate(['issued-ticket']);
