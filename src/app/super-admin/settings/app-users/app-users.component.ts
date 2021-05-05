@@ -190,22 +190,25 @@ export class AddAppUser {
         this.allEventList = response.response
             this.allEventList.forEach(element => {
               if(element.event_occurrence_type == 'Y'){
+                let i = 0;
                 element.occurrence.forEach(element2 => {
+                  i++;
                   element2.occurrencestartdate = "";
                   element2.occurrenceenddate = "";
-                  if(element2.occurance_start_time && element2.occurance_end_time){
+                  if(element2.occurance_start_time && element2.occurance_start_time != null && element2.occurance_end_time && element2.occurance_end_time != null){
                     console.log('111')
-                    element2.occurrencefulldate = this.datePipe.transform(element2.occurance_start_date+' '+element2.occurance_start_time,"'d MMM y, hh:mm a'");
-                    element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date +' '+element2.occurance_end_time,"'d MMM y, hh:mm a'");
-                    // element2.occurrencefulldate = moment(element2.occurance_start_date+' '+element2.occurance_start_time).format('d MMM y, hh:mm a');
-                    // element2.occurrenceenddate = moment(element2.occurance_end_date +' '+element2.occurance_end_time).format('d MMM y, hh:mm a');
+                    // element2.occurrencefulldate = this.datePipe.transform(element2.occurance_start_date+' '+element2.occurance_start_time,"'d MMM y, hh:mm a'");
+                    // element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date +' '+element2.occurance_end_time,"'d MMM y, hh:mm a'");
+                    element2.occurrencefulldate = moment(element2.occurance_start_date+' '+element2.occurance_start_time).format('d MMM y, hh:mm a');
+                    element2.occurrenceenddate = moment(element2.occurance_end_date +' '+element2.occurance_end_time).format('d MMM y, hh:mm a');
+                  console.log('first---- '+i)
                   }else{
                     element2.occurrencefulldate = this.datePipe.transform(element2.occurance_start_date,"d MMM y");
-                    element2.occurrencefulldate = this.datePipe.transform(element2.occurance_end_date,"d MMM y");
+                    element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date,"d MMM y");
                     // element2.occurrencefulldate = moment(element2.occurance_start_date).format('d MMM y');
                     // element2.occurrenceenddate = moment(element2.occurance_end_date).format('d MMM y');
+                  console.log('second---- '+i)
                   }
-                  
                 });
               }
             });

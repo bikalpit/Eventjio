@@ -619,6 +619,7 @@ export class IssuedTicketViewComponent {
   today:any;
   recurringEvent: any ='N';
   isLoaderAdmin=false;
+  occurreceStartDate:any;
 
   constructor(
     public dialog: MatDialog,
@@ -653,6 +654,13 @@ export class IssuedTicketViewComponent {
       if(response.data == true){
         this.eventDetail = response.response.event[0];
         this.recurringEvent = this.eventDetail.event_occurrence_type
+        if(this.recurringEvent == 'Y'){
+          if(this.value.occurrence.occurance_start_time){
+            this.occurreceStartDate  = this.datePipe.transform(new Date(this.value.occurrence.occurance_start_date +' '+this.value.occurrence.occurance_start_time ),"EEE MMM d, y h:mm a")
+          }else{
+            this.occurreceStartDate  = this.datePipe.transform(new Date(this.value.occurrence.occurance_start_date),"EEE MMM d, y")
+          }
+        }
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }

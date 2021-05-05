@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fnSoldTicketChart();
+    // this.fnSoldTicketChart();
 
   }
 
@@ -232,27 +232,33 @@ export class DashboardComponent implements OnInit {
   }
 
   fnSoldTicketChart(){
-  let chart  = new Chart(document.getElementById('ticketchart') as HTMLElement, {
-    type: 'doughnut',
-    data: {
-      labels: ['Ticket Left','Ticket Sold'],
-      datasets: [
-        { 
-          data: [this.latestSalesStats.ticket_left,this.latestSalesStats.ticket_sold],
-          backgroundColor: ['rgb(238, 181, 48)','rgb(112, 192, 193)'],
-          fill: true
+    if(this.latestSalesStats.ticket_left && this.latestSalesStats.ticket_sold){
+      const colors = ["#ff0000", "#ffff00", "#ffa500", "#008000", "#800080", "#ff00ff", "#0000ff", "#9acd32", "#00ff00", "#00ced1", "#d2691e"];
+     
+      let chartColors = colors.slice(0, this.latestSalesStats.length);
+      let chart  = new Chart(document.getElementById('ticketchart') as HTMLElement, {
+        type: 'doughnut',
+        data: {
+          labels: ['Ticket Left','Ticket Sold'],
+          datasets: [
+            { 
+              data: [this.latestSalesStats.ticket_left,this.latestSalesStats.ticket_sold],
+              backgroundColor: ['rgb(238, 181, 48)','rgb(112, 192, 193)'],
+              fill: true
+            },
+          ]
         },
-      ]
-    },
-    options: {
-      legend: {
-        display: false,
-      },
-      tooltips:{
-        enabled:true
-      }
+        options: {
+          legend: {
+            display: false,
+          },
+          tooltips:{
+            enabled:true
+          }
+        }
+      });
     }
-  });
-}
+    }
+  
 
 }
