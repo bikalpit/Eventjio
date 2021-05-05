@@ -99,7 +99,7 @@ export class AppComponent {
 
   ngOnInit() {
 
-
+    localStorage.removeItem('eventDetails');
     var is_logout = this.authenticationService.logoutTime();
 
     if (is_logout == true) {
@@ -267,34 +267,44 @@ export class AppComponent {
     }
   }
 
+  isEmpty(data) {
+    for (let key in data) {
+        let value = data[key];
+        if (value != "") {
+          return false;
+        }
+    }
+    return true;
+  }
   fnPostUrl(postUrl) {
     this.pageName = postUrl;
     let url = postUrl.toLowerCase();
 
 
-    if (this.router.url === '/super-admin/events?event=new' ) {
-      localStorage.setItem('event_val', '1');
-    } else {
-      localStorage.setItem('event_val', '0');
+    
+    let data = JSON.parse(localStorage.getItem('eventDetails'));
+    if (this.isEmpty(data)) {
+      // if the form is empty
+      this.router.navigate([`/super-admin/${url}`]);
     }
-
-    if (localStorage.getItem('event_val') == '1') {
+    else {
+      // if the form is not empty
+      // open the dialog
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '400px',
         data: "If you have entered any data it might get lost. Do you want to proceed?"
       });
 
+      // look for the user's decision
       dialogRef.afterClosed().subscribe(result => {
+        // if user wants to still redirect
+        // and is willing to lose the data
         if (result) {
+          localStorage.removeItem('eventDetails');
           this.router.navigate([`/super-admin/${url}`]);
         }
-        // else {
-        //   nav_bool = false;
-        // }
-      });
-    }
-    else {
-      this.router.navigate([`/super-admin/${url}`]);
+      })
+
     }
   }
 
@@ -478,7 +488,13 @@ export class AppComponent {
   }
 
   addNewEventNav() {
-    this.router.navigate(['/super-admin/events'], { queryParams: { event: 'new' } }); 
+    this.router.navigate(['/super-admin/events'], { queryParams: { event: 'new' } });
+    // error when navigating from /events to /events?event=name
+    
+    // let currentUrl = '/super-admin/events?event=new';
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //     this.router.navigate([currentUrl]);
+    // });
   }
   addNewOrderNav() {
     this.router.navigate(['/super-admin/orders'], { queryParams: { order: 'new' } }); 
