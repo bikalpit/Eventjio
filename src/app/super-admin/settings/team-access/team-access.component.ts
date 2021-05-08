@@ -435,6 +435,14 @@ export class inviteTeamMateDialog {
     }
 
 
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.email_id)){
+      
+    }else{
+      this.ErrorService.errorMessage('Please enter valid Email');
+      return (false)
+    }
+ 
+
     this.isLoaderAdmin = true;
     if(!this.singleInviter){
       let inviteFormData = {

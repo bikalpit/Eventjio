@@ -33,6 +33,7 @@ export interface ListTimeZoneListArry {
 })
 export class EventsComponent implements OnInit, DirtyComponent {
  
+  @ViewChild('new_event_start') jump: ElementRef;
   isLoaderAdmin:boolean = false;
   apiUrl = environment.apiFolderUrl; 
  redirectURL:any = 'N';
@@ -114,6 +115,8 @@ export class EventsComponent implements OnInit, DirtyComponent {
   subPermission:any=[];
   warn:boolean = false;
   isDirty = false;
+  goto: any;
+  scrollContainer: any;
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
@@ -130,7 +133,8 @@ export class EventsComponent implements OnInit, DirtyComponent {
     private router: Router,
     private el: ElementRef,
     private SuperadminService: SuperadminService,
-    private change:ChangeDetectorRef
+    private change:ChangeDetectorRef,
+    private route: ActivatedRoute
     ) {
       this.keepMe = localStorage.getItem('keepMeSignIn')
         if (this.keepMe == 'true') {
@@ -138,16 +142,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
         } else {
           this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
-        let newEventAction = window.location.search.split("?event")
-        // if(newEventAction.length > 1){
-        //   this.addNewEvents = false; 
-        //   const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-        //     "#new_event_start"
-        //   );
-      
-        //   firstInvalidControl.focus();
-        
-        // }
+     
        
 
       // this.currentUser = JSON.parse(this.currentUserData);
@@ -214,6 +209,22 @@ export class EventsComponent implements OnInit, DirtyComponent {
     }
 
     ngAfterViewInit() {
+        this.scrollContainer = this.jump.nativeElement;
+
+        // check if the query is present
+        this.route.queryParams.subscribe((params)=> {
+            if (params['goto']) {
+              this.addNewEvents = false; 
+              // scroll the div
+              this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+        // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        //   "#new_event_start"
+        // );
+    
+        // firstInvalidControl.focus();
+      
       this.setInitialValue();
     }
     
@@ -756,6 +767,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
         // if user wants to still redirect
         // and is willing to lose the data
         if (result) {
+          this.addEventForm.reset();
           localStorage.removeItem('eventDetails');
           this.addNewEvents = true;
         }

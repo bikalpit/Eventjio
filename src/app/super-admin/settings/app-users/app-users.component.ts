@@ -7,8 +7,9 @@ import { ErrorService } from '../../../_services/error.service'
 import { SettingService } from '../_services/setting.service';
 import * as moment from 'moment'; 
 import { MdePopoverTrigger } from '@material-extended/mde';
-import html2canvas from 'html2canvas';
-import { jsPDF } from "jspdf";
+// import html2canvas from 'html2canvas';
+// import { jsPDF } from "jspdf";
+import * as domtoimage from 'dom-to-image';
 
 
 @Component({
@@ -458,22 +459,34 @@ export class appUserDetail {
       });
     }
 
-     public fnPrint()  
-  {  
-    var data = document.getElementById('app_user_detail');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
+     public fnPrint()  {  
+    // var data = document.getElementById('app_user_detail');  
+    // html2canvas(data).then(canvas => {  
+    //   // Few necessary setting options  
+    //   var imgWidth = 208;   
+    //   var pageHeight = 295;    
+    //   var imgHeight = canvas.height * imgWidth / canvas.width;  
+    //   var heightLeft = imgHeight;  
   
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('MYPdf.pdf'); // Generated PDF   
-    });  
+    //   const contentDataURL = canvas.toDataURL('image/png')  
+    //   let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+    //   var position = 0;  
+    //   pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+    //   pdf.save('MYPdf.pdf'); // Generated PDF   
+    // });  
+    let that = this;
+    domtoimage.toPng(document.getElementById('app_user_detail'))
+      .then(function (blob) {
+        const printContent = document.getElementById("app_user_detail");
+        const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+        WindowPrt.document.write('<img src='+blob+'>');         
+        WindowPrt.focus();
+        setTimeout(() => {
+          WindowPrt.document.close();
+          WindowPrt.print();  
+          WindowPrt.close();
+        }, 200);                                                  
+      });
   }
 
   onNoClick(): void {

@@ -88,6 +88,9 @@ export class MyBoxofficeComponent implements OnInit {
         if(response.data == true){
           this.allBoxoffice = response.response
         }else if(response.data == false){
+          if(response.response == "Box Office not found."){
+            this.fnCreateBoxOffice();
+          }
           // this.ErrorService.errorMessage(response.response)
         }
       });

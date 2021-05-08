@@ -85,7 +85,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // this.fnSoldTicketChart();
-
+    this.salesFilter= 'week';
+    this.fnChangeFilterSales();
   }
 
   // page url conditions
@@ -179,7 +180,8 @@ export class DashboardComponent implements OnInit {
     this.SuperadminService.getLatestSales(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.latestSalesStats= response.response
-        if(this.latestSalesStats.ticket_left != 0 && this.latestSalesStats.ticket_sold != 0){
+        if(this.latestSalesStats.ticket_left == 0 && this.latestSalesStats.ticket_sold == 0){
+        }else{
           this.fnSoldTicketChart();
         }
       }
@@ -188,11 +190,8 @@ export class DashboardComponent implements OnInit {
   
   addNewEvent(){
     // this.EventsComponent.addNewEvent();
-    let navigationExtras: NavigationExtras = {
-      queryParams: { 'event': 'new' },
-      //fragment: 'jump'
-    };
-    this.router.navigate(['/super-admin/events'], navigationExtras);  
+    
+    this.router.navigate(['/super-admin/events'], { queryParams: { goto: 'new_event' } });
     // this.router.navigate(['/super-admin/events?event=new']);
   }
 
