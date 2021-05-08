@@ -212,24 +212,19 @@ export class EventsComponent implements OnInit, DirtyComponent {
     }
 
     ngAfterViewInit() {
-      let newEventAction1 = window.location.search.split("?goto")
-          if(newEventAction1.length > 1){
-          this.scrollContainer = this.jump.nativeElement;
+      // let newEventAction1 = window.location.search.split("?goto")
+      //     if(newEventAction1.length > 1){
+      //     this.scrollContainer = this.jump.nativeElement;
 
-        // check if the query is present
-        this.route.queryParams.subscribe((params)=> {
-            if (params['goto']) {
-              this.addNewEvents = false; 
-              // scroll the div
-              this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-        });
-      }
-        // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-        //   "#new_event_start"
-        // );
-    
-        // firstInvalidControl.focus();
+      //   // check if the query is present
+      //   this.route.queryParams.subscribe((params)=> {
+      //       if (params['goto']) {
+      //         this.addNewEvents = false; 
+      //         // scroll the div
+      //         this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+      //       }
+      //   });
+      // }
       
       this.setInitialValue();
     }
@@ -288,22 +283,13 @@ export class EventsComponent implements OnInit, DirtyComponent {
     toolbarPosition: 'top', 
 };
 
-  // beforeunload = () => {
-  //   if (!this.addNewEvents) {
-  //     console.log(this.addEventForm)
-  //     localStorage.setItem('world', 'yes');
-  //     return 'World Page: some data not complete yet, continue?'
-  //   }
-  //   return 'World Page: some data not complete yet, continue?'
-  // }
-  
-  private scrollToFirstInvalidControl() {
-    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-      "form .ng-invalid"
-    );
+  // private scrollToFirstInvalidControl() {
+  //   const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+  //     "form .ng-invalid"
+  //   );
 
-    firstInvalidControl.focus(); //without smooth behavior
-  }
+  //   firstInvalidControl.focus(); //without smooth behavior
+  // }
 
   
 
@@ -970,7 +956,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
       this.addEventForm.get('vanue_zip').markAsTouched();
       this.addEventForm.get('vanue_country').markAsTouched();
       
-      this.scrollToFirstInvalidControl();
+      // this.scrollToFirstInvalidControl();
       return false;
      }
 
