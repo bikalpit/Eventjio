@@ -225,6 +225,11 @@ export class EventsComponent implements OnInit, DirtyComponent {
       //       }
       //   });
       // }
+        // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        //   "#new_event_start"
+        // );
+    
+        // firstInvalidControl.focus();
       
       this.setInitialValue();
     }
@@ -283,13 +288,13 @@ export class EventsComponent implements OnInit, DirtyComponent {
     toolbarPosition: 'top', 
 };
 
-  // private scrollToFirstInvalidControl() {
-  //   const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-  //     "form .ng-invalid"
-  //   );
+  private scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+      "form .ng-invalid"
+    );
 
-  //   firstInvalidControl.focus(); //without smooth behavior
-  // }
+    firstInvalidControl.focus(); //without smooth behavior
+  }
 
   
 
@@ -956,7 +961,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
       this.addEventForm.get('vanue_zip').markAsTouched();
       this.addEventForm.get('vanue_country').markAsTouched();
       
-      // this.scrollToFirstInvalidControl();
+      this.scrollToFirstInvalidControl();
       return false;
      }
 
