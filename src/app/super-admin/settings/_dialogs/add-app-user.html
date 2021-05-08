@@ -34,21 +34,21 @@
                             <small *ngIf="addAppUser.get('email').hasError('pattern')" class="error">Email address is invalid.</small>
                         </span>
                     </div>
-                    <div class=" mt-4">
+                    <div class="w-100 mt-4">
                         <label class="mb-2">Event Access</label>
                         <div class="event-list-main">
-                            <div class="w-100 d-inline-block pl-3">
+                            <div class="w-100 pl-3">
                                 <mat-checkbox [checked]="alleventchecked" (change)="fnAssignEvent($event, 'all')" class="">All Events</mat-checkbox>
                             </div>
-                            <div class="w-100 d-inline-block pl-3" *ngFor="let event of allEventList">
+                            <div class="w-100 pl-3" *ngFor="let event of allEventList">
                                 <div *ngIf="event.event_occurrence_type == 'N'">
                                     <mat-checkbox [checked]="selectedEvents.indexOf(event.id) > -1 || event.is_selected" (change)="fnAssignEvent($event, event.id)" class="">{{event.event_title}}</mat-checkbox>
                                 </div>
-                                <span *ngIf="event.event_occurrence_type == 'Y'">
+                                <div *ngIf="event.event_occurrence_type == 'Y'">
                                     <div class="" *ngFor="let occurrence of event.occurrence">
-                                        <mat-checkbox [checked]="selectedOccurrences.indexOf(occurrence.id) > -1 || occurrence.is_selected" (change)="fnAssignOccurrence($event, occurrence.id)" class="">{{occurrence.occurrencefulldate}}-{{occurrence.occurrenceenddate}} {{event.event_title}}</mat-checkbox>
+                                        <mat-checkbox [checked]="selectedOccurrences.indexOf(occurrence.id) > -1 || occurrence.is_selected" (change)="fnAssignOccurrence($event, occurrence.id)" class="">{{occurrence.occurrencefulldate}} - {{occurrence.occurrenceenddate}} {{event.event_title}}</mat-checkbox>
                                     </div>
-                                </span>
+                                </div>
                             </div>
                         </div>
                         

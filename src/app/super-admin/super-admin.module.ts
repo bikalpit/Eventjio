@@ -18,7 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { CKEditorModule } from 'ngx-ckeditor';
+// import { CKEditorModule } from 'ngx-ckeditor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewTicketType } from './events/events.component';
 // import { AddNewTicketGroup } from './events/events.component';
@@ -87,7 +87,7 @@ import { MdePopoverModule } from '@material-extended/mde';
     HttpClientModule,
     MatCardModule,
     MatExpansionModule,
-    CKEditorModule,
+    // CKEditorModule,
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
