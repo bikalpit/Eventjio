@@ -302,6 +302,8 @@ export class AppComponent {
         if (result) {
           localStorage.removeItem('eventDetails');
           this.router.navigate([`/super-admin/${url}`]);
+        }else{
+          this.pageName = 'Events';
         }
       })
 

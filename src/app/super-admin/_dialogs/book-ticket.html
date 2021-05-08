@@ -29,8 +29,8 @@
                                         <div class="tb-data" fxFlex="40">{{eventTicket.ticket_name}} </div>
                                         <div class="tb-data" fxFlex="20"><input type="hidden" class="form-control">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
                                         <div class="th-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
-                                        <div *ngIf="eventTicket.ticket_status != 'booking_close'" class="tb-data" fxFlex="20">
-                                            <input *ngIf="eventTicket.remaining[0].remaining > 0" type="number" onlyNumber [(ngModel)]="eventTicket.qty" class="form-control" value="{{eventTicket.qty}}" (change)="fnAddQty(i,$event.target.value);">
+                                        <div *ngIf="eventTicket.ticket_status != 'booking_close'" class="tb-data ticket-qty" fxFlex="20">
+                                            <input *ngIf="eventTicket.remaining[0].remaining > 0" type="number" onlyNumber [(ngModel)]="eventTicket.qty" class="form-control" value="{{eventTicket.qty}}" (keyup)="fnPreAddQty(i,$event.target.value);">
                                             <button mat-flat-button *ngIf="eventTicket.remaining[0].remaining == 0" class="px-3 mr-2 text-light soldout-btn"> Sold Out</button>
                                         </div>
                                         <div *ngIf="eventTicket.ticket_status == 'booking_close'" class="tb-data" fxFlex="20">

@@ -1058,3 +1058,14 @@
     background-color: #c51b13;
     pointer-events: none;
 }
+
+::ng-deep .new-order-table .ticket-qty input::-webkit-outer-spin-button,
+::ng-deep .new-order-table .ticket-qty input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+::ng-deep .new-order-table .ticket-qty input[type=number] {
+  -moz-appearance: textfield;
+}

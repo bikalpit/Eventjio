@@ -112,7 +112,7 @@
                             <mat-option value="year">Yearly</mat-option>
                         </mat-select>
                     </div>
-                    <div *ngIf="latestSalesStats && latestSalesStats.ticket_left != 0 && latestSalesStats && latestSalesStats.ticket_sold != 0" class="row ticketchart mt-4">
+                    <div *ngIf="latestSalesStats && latestSalesStats && (latestSalesStats.ticket_sold != 0 || latestSalesStats.ticket_left != 0)" class="row ticketchart mt-4">
                         <canvas id="ticketchart"></canvas>
                         <ul class="chart-legends">
                             <li>

@@ -33,6 +33,7 @@ export interface ListTimeZoneListArry {
 })
 export class EventsComponent implements OnInit, DirtyComponent {
  
+  @ViewChild('new_event_start') jump: ElementRef;
   isLoaderAdmin:boolean = false;
   apiUrl = environment.apiFolderUrl; 
  redirectURL:any = 'N';
@@ -114,6 +115,8 @@ export class EventsComponent implements OnInit, DirtyComponent {
   subPermission:any=[];
   warn:boolean = false;
   isDirty = false;
+  goto: any;
+  scrollContainer: any;
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
@@ -130,7 +133,8 @@ export class EventsComponent implements OnInit, DirtyComponent {
     private router: Router,
     private el: ElementRef,
     private SuperadminService: SuperadminService,
-    private change:ChangeDetectorRef
+    private change:ChangeDetectorRef,
+    private route: ActivatedRoute
     ) {
       this.keepMe = localStorage.getItem('keepMeSignIn')
         if (this.keepMe == 'true') {
@@ -138,16 +142,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
         } else {
           this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
-        let newEventAction = window.location.search.split("?event")
-        // if(newEventAction.length > 1){
-        //   this.addNewEvents = false; 
-        //   const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-        //     "#new_event_start"
-        //   );
-      
-        //   firstInvalidControl.focus();
-        
-        // }
+     
        
 
       // this.currentUser = JSON.parse(this.currentUserData);
@@ -214,6 +209,22 @@ export class EventsComponent implements OnInit, DirtyComponent {
     }
 
     ngAfterViewInit() {
+        this.scrollContainer = this.jump.nativeElement;
+
+        // check if the query is present
+        this.route.queryParams.subscribe((params)=> {
+            if (params['goto']) {
+              this.addNewEvents = false; 
+              // scroll the div
+              this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+        // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        //   "#new_event_start"
+        // );
+    
+        // firstInvalidControl.focus();
+      
       this.setInitialValue();
     }
     
@@ -726,22 +737,59 @@ export class EventsComponent implements OnInit, DirtyComponent {
     });
   }
 
+  isEmpty(data) {
+    for (let key in data) {
+        let value = data[key];
+        if (value != "") {
+          return false;
+        }
+    }
+    return true;
+  }
+
   fnCancelNewEvent(){	
-	if(this.addEventForm.get('event_name').value!= ''){
-	  const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-		width: '400px',
-		data: "Are you want to exit? Your data will get lost."
-	  });
-	  dialogRef.afterClosed().subscribe(result => {
-		  if(result){
-			this.addEventForm.reset();
+
+    let data = JSON.parse(localStorage.getItem('eventDetails'));
+    if (this.isEmpty(data)) {
+      // if the form is empty
 			this.addNewEvents = true;
-		  }	
-	  });
-	}else{
-		this.addNewEvents = true;
-    this.router.navigate(['/super-admin/events']);
-	}
+    }
+    else {
+      // if the form is not empty
+      // open the dialog
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '400px',
+        data: "If you have entered any data it might get lost. Do you want to proceed?"
+      });
+
+      // look for the user's decision
+      dialogRef.afterClosed().subscribe(result => {
+        // if user wants to still redirect
+        // and is willing to lose the data
+        if (result) {
+          this.addEventForm.reset();
+          localStorage.removeItem('eventDetails');
+          this.addNewEvents = true;
+        }
+      })
+
+    }
+
+	// if(this.addEventForm.get('event_name').value!= ''){
+	//   const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+	// 	width: '400px',
+	// 	data: "Are you want to exit? Your data will get lost."
+	//   });
+	//   dialogRef.afterClosed().subscribe(result => {
+	// 	  if(result){
+	// 		this.addEventForm.reset();
+	// 		this.addNewEvents = true;
+	// 	  }	
+	//   });
+	// }else{
+	// 	this.addNewEvents = true;
+  //   this.router.navigate(['/super-admin/events']);
+	// }
   }
  
   addNewEvent(){

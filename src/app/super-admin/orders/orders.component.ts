@@ -1482,7 +1482,11 @@ export class BookTicketDialog {
     this.isLoaderAdmin = false;
     });
   }
-   
+  async fnPreAddQty(index,value){
+    setTimeout(() => {
+      this.fnAddQty(index,value);
+    }, 400);
+  }
 
   fnAddQty(index,value){
     if(value < 0){

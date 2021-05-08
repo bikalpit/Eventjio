@@ -42,19 +42,19 @@
 
             <div class="border-bottom px-4 pb-3">
                 <div class="mt-3" fxLayout="row">
-                    <div class="tab-title pt-2" fxFlex="40">Name</div>
+                    <div class="tab-title pt-2" fxFlex="30">Name</div>
                     <!-- <div class="tab-title pt-2" fxFlex="25">Event Access</div> -->
-                    <div class="tab-title pt-2" fxFlex="30">Email Address</div>
-                    <div class="tab-title pt-2" fxFlex="30">Date Created</div>
-                    <div class="tab-title pt-2" fxFlex="30">Action</div>
+                    <div class="tab-title pt-2" fxFlex="40">Email Address</div>
+                    <div class="tab-title pt-2" fxFlex="20">Date Created</div>
+                    <div class="tab-title pt-2" fxFlex="10">Action</div>
                 </div>
             </div>
 
             <div *ngIf="allAppUsersList != null" class="border-bottom px-4 py-3">
                 <div class="mt-3" fxLayout="row" *ngFor="let user of allAppUsersList; let i=index">
-                    <div class="user-name" fxFlex="40" (click)="fnUserDetail(i)">{{user.firstname ? user.firstname : '-'}} {{user.lastname ? user.lastname : '-'}}</div>
+                    <div class="user-name" fxFlex="30" (click)="fnUserDetail(i)">{{user.firstname ? user.firstname : '-'}} {{user.lastname ? user.lastname : '-'}}</div>
                     <!-- <div class="" fxFlex="25">All Event</div> -->
-                    <div class="" fxFlex="30">{{user.email ? user.email : '-'}}</div>
+                    <div class="" fxFlex="40">{{user.email ? user.email : '-'}}</div>
                     <div class="" fxFlex="20">{{user.created_at}}</div>
                     <div class="" fxFlex="10">
                         <mat-icon [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" aria-hidden="false" aria-label="Example home icon" class="action-icon pointer">more_horiz</mat-icon>

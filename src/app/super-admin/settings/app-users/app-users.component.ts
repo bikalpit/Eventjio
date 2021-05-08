@@ -7,6 +7,9 @@ import { ErrorService } from '../../../_services/error.service'
 import { SettingService } from '../_services/setting.service';
 import * as moment from 'moment'; 
 import { MdePopoverTrigger } from '@material-extended/mde';
+// import html2canvas from 'html2canvas';
+// import { jsPDF } from "jspdf";
+import * as domtoimage from 'dom-to-image';
 
 
 @Component({
@@ -77,6 +80,7 @@ export class AppUsersComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.getAllAppUsers();
     });
   }
 
@@ -196,18 +200,18 @@ export class AddAppUser {
                   element2.occurrencestartdate = "";
                   element2.occurrenceenddate = "";
                   if(element2.occurance_start_time && element2.occurance_start_time != null && element2.occurance_end_time && element2.occurance_end_time != null){
-                    console.log('111')
+                   
                     // element2.occurrencefulldate = this.datePipe.transform(element2.occurance_start_date+' '+element2.occurance_start_time,"'d MMM y, hh:mm a'");
                     // element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date +' '+element2.occurance_end_time,"'d MMM y, hh:mm a'");
                     element2.occurrencefulldate = moment(element2.occurance_start_date+' '+element2.occurance_start_time).format('d MMM y, hh:mm a');
                     element2.occurrenceenddate = moment(element2.occurance_end_date +' '+element2.occurance_end_time).format('d MMM y, hh:mm a');
-                  console.log('first---- '+i)
+                
                   }else{
                     element2.occurrencefulldate = this.datePipe.transform(element2.occurance_start_date,"d MMM y");
                     element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date,"d MMM y");
                     // element2.occurrencefulldate = moment(element2.occurance_start_date).format('d MMM y');
                     // element2.occurrenceenddate = moment(element2.occurance_end_date).format('d MMM y');
-                  console.log('second---- '+i)
+                  
                   }
                 });
               }
@@ -356,6 +360,7 @@ export class AddAppUser {
 export class appUserDetail {
   singleUserData:any;
   boxOfficeCode:any;
+  isLoaderAdmin:boolean=false;
   passwordView:boolean=false;
   allEventList:any;
   selectedEventList:any=[];
@@ -364,11 +369,16 @@ export class appUserDetail {
     public dialogRef: MatDialogRef<appUserDetail>,
     private SettingService : SettingService,
     private datePipe: DatePipe,
+    public dialog: MatDialog,
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.singleUserData = this.data.singleUserData;
+      console.log(this.singleUserData)
       this.boxOfficeCode = this.data.boxOfficeCode;
-      this.selectedEventListCode = this.singleUserData.events_ids.split(',')
+      // this.selectedEventListCode = this.singleUserData.events_ids.split(',')
+      this.selectedEventListCode=this.singleUserData.events_ids.split(',').map(function(item) {
+        return parseInt(item);
+      });
       this.singleUserData.created_at = this.datePipe.transform(this.singleUserData.created_at,"EEE MMM d, y")
       if(this.selectedEventListCode.length > 0){
         this.getAllEvent()
@@ -384,10 +394,32 @@ export class appUserDetail {
         if(response.data == true){
         this.allEventList = response.response
         this.allEventList.forEach(element => {
-          const index = this.selectedEventListCode.indexOf(element.unique_code, 0);
+          const index = this.selectedEventListCode.indexOf(element.id, 0);
           if (index > -1) {
               this.selectedEventList.push(element.event_title);
           }
+          
+          if(element.event_occurrence_type == 'Y'){
+            element.occurrence.forEach(element2 => {
+              element2.occurrencestartdate = "";
+              element2.occurrenceenddate = "";
+              if(element2.occurance_start_time && element2.occurance_start_time != null && element2.occurance_end_time && element2.occurance_end_time != null){
+               
+                // element2.occurrencefulldate = this.datePipe.transform(element2.occurance_start_date+' '+element2.occurance_start_time,"'d MMM y, hh:mm a'");
+                // element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date +' '+element2.occurance_end_time,"'d MMM y, hh:mm a'");
+                element2.occurrencefulldate = moment(element2.occurance_start_date+' '+element2.occurance_start_time).format('d MMM y, hh:mm a');
+                element2.occurrenceenddate = moment(element2.occurance_end_date +' '+element2.occurance_end_time).format('d MMM y, hh:mm a');
+            
+              }else{
+                element2.occurrencefulldate = this.datePipe.transform(element2.occurance_start_date,"d MMM y");
+                element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date,"d MMM y");
+                // element2.occurrencefulldate = moment(element2.occurance_start_date).format('d MMM y');
+                // element2.occurrenceenddate = moment(element2.occurance_end_date).format('d MMM y');
+              
+              }
+            });
+          }
+
         });
         // this.selectedEventList = JSON.stringify(this.selectedEventList)
         }
@@ -397,7 +429,65 @@ export class appUserDetail {
         }
       })
     }
+    fnDelete(){
+      this.isLoaderAdmin = true;
+      let requestObject = {
+        'unique_code' : this.singleUserData.unique_code
+      }
+      this.SettingService.userRemove(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this.ErrorService.successMessage(response.response);
+          this.dialogRef.close();
+        }
+        else if(response.data == false){
+          this.ErrorService.errorMessage(response.response);
+        }
+        this.isLoaderAdmin = false;
+      })
+    }
 
+    fnEdit(){
+      const dialogRef = this.dialog.open(AddAppUser,{
+        width: '700px',
+        data:{
+          boxOfficeCode:this.boxOfficeCode,
+          userDetail:this.singleUserData,
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.dialogRef.close();
+      });
+    }
+
+     public fnPrint()  {  
+    // var data = document.getElementById('app_user_detail');  
+    // html2canvas(data).then(canvas => {  
+    //   // Few necessary setting options  
+    //   var imgWidth = 208;   
+    //   var pageHeight = 295;    
+    //   var imgHeight = canvas.height * imgWidth / canvas.width;  
+    //   var heightLeft = imgHeight;  
+  
+    //   const contentDataURL = canvas.toDataURL('image/png')  
+    //   let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+    //   var position = 0;  
+    //   pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+    //   pdf.save('MYPdf.pdf'); // Generated PDF   
+    // });  
+    let that = this;
+    domtoimage.toPng(document.getElementById('app_user_detail'))
+      .then(function (blob) {
+        const printContent = document.getElementById("app_user_detail");
+        const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+        WindowPrt.document.write('<img src='+blob+'>');         
+        WindowPrt.focus();
+        setTimeout(() => {
+          WindowPrt.document.close();
+          WindowPrt.print();  
+          WindowPrt.close();
+        }, 200);                                                  
+      });
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

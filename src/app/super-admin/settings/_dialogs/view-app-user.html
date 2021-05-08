@@ -1,3 +1,4 @@
+<div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
 <div class="app-user-view">
     <div class="modal-header pl-3 py-0 border-0">
         <p class="">Check-in app user {{singleUserData.firstname}} {{singleUserData.lastname}}</p>
@@ -8,6 +9,12 @@
     </div>
 
     <div class="modal-body p-0">
+        <div class="button-header add-app-user my-3 d-flex">
+            <button mat-flat-button class="create-btn mr-3" (click)="fnEdit()">Edit</button>
+            <button mat-flat-button class="cancel-btn" (click)="fnDelete()">Delete</button>
+            <button mat-flat-button class="cancel-btn mat-flat-button ml-auto" (click)="fnPrint()">Print</button>
+        </div>
+        <div  id="app_user_detail">
         <div class="user-detail">
             <div class="header-title">
                 <label>User details</label>
@@ -19,8 +26,8 @@
                     <span *ngIf="!passwordView">**************  <span (click)="passwordView=!passwordView" class="material-icons pointer">visibility</span></span>
                     <span *ngIf="passwordView">{{singleUserData.app_user_pwd}} <span (click)="passwordView=!passwordView" class="material-icons pointer">visibility_off</span></span>
                 </p>
-                <p *ngIf="selectedEventListCode.length != allEventList.length">Event access : <span *ngFor="let event of selectedEventList">{{event}}, </span></p>
-                <p *ngIf="selectedEventListCode.length == allEventList.length">Event access : <span>All Events </span></p>
+                <p *ngIf="singleUserData.all_status == 'N'">Event access : <span *ngFor="let event of selectedEventList">{{event}}, </span></p>
+                <p *ngIf="singleUserData.all_status == 'Y'">Event access : <span>All Events </span></p>
                 <p>Date created : <span>{{singleUserData.created_at}}</span></p>
             </div>
         </div>
@@ -46,6 +53,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 
