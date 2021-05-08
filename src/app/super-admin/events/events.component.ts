@@ -143,7 +143,10 @@ export class EventsComponent implements OnInit, DirtyComponent {
           this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
      
-       
+        let newEventAction = window.location.search.split("?event")
+          if(newEventAction.length > 1){
+            this.addNewEvents = false; 
+          }
 
       // this.currentUser = JSON.parse(this.currentUserData);
 
@@ -209,7 +212,9 @@ export class EventsComponent implements OnInit, DirtyComponent {
     }
 
     ngAfterViewInit() {
-        this.scrollContainer = this.jump.nativeElement;
+      let newEventAction1 = window.location.search.split("?goto")
+          if(newEventAction1.length > 1){
+          this.scrollContainer = this.jump.nativeElement;
 
         // check if the query is present
         this.route.queryParams.subscribe((params)=> {
@@ -219,6 +224,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
               this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
             }
         });
+      }
         // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
         //   "#new_event_start"
         // );

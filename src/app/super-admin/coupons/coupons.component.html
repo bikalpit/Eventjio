@@ -72,8 +72,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div *ngIf="allCouponCodeList === null || allCouponCodeList === ''" class="content" class="drageble-list">
+                                <div *ngIf="allCouponCodeList.length === 0" class="content" class="drageble-list">
                                     <p class="text-center my-3" style="font-size: 16px;">No record found.</p>
                                 </div>
                             </div>
@@ -119,7 +118,7 @@
                                 </div>
 
                                 <div *ngIf="allVoucherCodeList.length === 0" class="content" class="drageble-list">
-                                    <p class="text-center my-3" style="font-size: 16px;">Record not found.</p>
+                                    <p class="text-center my-3" style="font-size: 16px;">No record found.</p>
                                 </div>
                             </div>
 
