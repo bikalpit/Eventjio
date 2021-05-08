@@ -262,7 +262,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
         tag: "h1",
       },
     ],
-	uploadUrl: 'assets/images/test',
+	uploadUrl: 'https://api.eventjio.com/api/event-image-upload',
     sanitize: true,
     toolbarPosition: 'top', 
 };
