@@ -961,7 +961,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
       this.addEventForm.get('vanue_zip').markAsTouched();
       this.addEventForm.get('vanue_country').markAsTouched();
       
-      this.scrollToFirstInvalidControl();
+      //this.scrollToFirstInvalidControl();
       return false;
      }
 
