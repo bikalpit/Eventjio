@@ -378,12 +378,16 @@
                 <img src="../../../../assets/images/settings/themes/layout_6.png" />
                 <h3>Theme 6</h3>
             </div>
-            <div class="">
+            <div (click)="fnThemeDirection('themeCustomization')" class="theme-box">
+                <img src="../../../../assets/images/settings/themes/theme-custom.png" />
+                <h3>Custom</h3>
+            </div>
+            <!-- <div class="">
                 <div (click)="fnThemeDirection('themeCustomization')" class="custom-theme-box">
                     <img src="../../../../assets/images/admin/custom-theme.png" />
                 </div>
                 <h3>Custom</h3>
-            </div>
+            </div> -->
         </div>
         <div *ngIf="themeSelectionOption == 'themeCustomization'" class="theme-customization">
             <div class="">
