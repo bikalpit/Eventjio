@@ -257,9 +257,9 @@ export class EventsComponent implements OnInit, DirtyComponent {
     spellcheck: true,
     height: '15rem',
     minHeight: '5rem',
-    placeholder: 'Enter text here...',
+    placeholder: '',
     translate: 'no',
-    defaultParagraphSeparator: 'p',
+    defaultParagraphSeparator: '',
     defaultFontName: '',
 	defaultFontSize: '',
 	fonts: [
@@ -284,8 +284,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
       },
     ],
 	uploadUrl: 'https://api.eventjio.com/api/event-image-upload',
-    sanitize: true,
-    toolbarPosition: 'top', 
+    sanitize: true
 };
 
   private scrollToFirstInvalidControl() {
@@ -961,7 +960,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
       this.addEventForm.get('vanue_zip').markAsTouched();
       this.addEventForm.get('vanue_country').markAsTouched();
       
-      this.scrollToFirstInvalidControl();
+      //this.scrollToFirstInvalidControl();
       return false;
      }
 

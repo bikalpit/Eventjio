@@ -70,8 +70,6 @@ export function provideConfig() {
     MatCheckboxModule,
     MaterialModule,
     NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
     FlexLayoutModule,
     FontAwesomeModule,
     HttpClientModule,
