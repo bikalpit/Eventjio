@@ -15,7 +15,7 @@ export class PrivacyPolicyComponent implements OnInit {
  privacyPolicesForm:FormGroup;
  isLoaderAdmin:any;
 
-  constructor(
+  constructor( 
     public dialog: MatDialog,
     private _formBuilder:FormBuilder,
     private SettingService : SettingService,

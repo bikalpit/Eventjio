@@ -28,7 +28,7 @@ export class EventPageDesignComponent implements OnInit {
   eventEndTime:any;
   eventDetail:any;
   eventDiscriptionHtml:any;
-  customizerThemePanel:boolean=false;
+  customizerThemePanel:boolean=true;
   themeAppearanceColor:any;
   selectedTheme:any= 'theme1';
   headerColor = '#A207A8';
