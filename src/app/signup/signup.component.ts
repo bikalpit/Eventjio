@@ -134,11 +134,6 @@ export class SignupComponent implements OnInit {
 				this.router.navigate(["/login"]);
 			}else{
 				this.ErrorService.errorMessage(response.response);
-				this._snackBar.open(response.response, "X", {
-					duration: 2000,
-					verticalPosition: 'top',
-					panelClass : ['red-snackbar']
-				});
 				this.isLoaderAdmin = false;
 			}
 			

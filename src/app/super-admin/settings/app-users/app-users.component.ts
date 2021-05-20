@@ -376,9 +376,11 @@ export class appUserDetail {
       console.log(this.singleUserData)
       this.boxOfficeCode = this.data.boxOfficeCode;
       // this.selectedEventListCode = this.singleUserData.events_ids.split(',')
-      this.selectedEventListCode=this.singleUserData.events_ids.split(',').map(function(item) {
-        return parseInt(item);
-      });
+      if(this.singleUserData.role == 'AU'){
+        this.selectedEventListCode=this.singleUserData.events_ids.split(',').map(function(item) {
+          return parseInt(item);
+        });
+      }
       this.singleUserData.created_at = this.datePipe.transform(this.singleUserData.created_at,"EEE MMM d, y")
       if(this.selectedEventListCode.length > 0){
         this.getAllEvent()

@@ -10,9 +10,9 @@
 
     <div class="modal-body p-0">
         <div class="button-header add-app-user my-3 d-flex">
-            <button mat-flat-button class="create-btn mr-3" (click)="fnEdit()">Edit</button>
-            <button mat-flat-button class="cancel-btn" (click)="fnDelete()">Delete</button>
-            <button mat-flat-button class="cancel-btn mat-flat-button ml-auto" (click)="fnPrint()">Print</button>
+            <button *ngIf="singleUserData.role == 'AU'" mat-flat-button class="create-btn mr-3" (click)="fnEdit()">Edit</button>
+            <button *ngIf="singleUserData.role == 'AU'" mat-flat-button class="cancel-btn" (click)="fnDelete()">Delete</button>
+            <button [ngClass]="{'ml-auto':singleUserData.role == 'AU'}" mat-flat-button class="cancel-btn mat-flat-button" (click)="fnPrint()">Print</button>
         </div>
         <div  id="app_user_detail">
         <div class="user-detail">
@@ -26,8 +26,8 @@
                     <span *ngIf="!passwordView">**************  <span (click)="passwordView=!passwordView" class="material-icons pointer">visibility</span></span>
                     <span *ngIf="passwordView">{{singleUserData.app_user_pwd}} <span (click)="passwordView=!passwordView" class="material-icons pointer">visibility_off</span></span>
                 </p>
-                <p *ngIf="singleUserData.all_status == 'N'">Event access : <span *ngFor="let event of selectedEventList">{{event}}, </span></p>
-                <p *ngIf="singleUserData.all_status == 'Y'">Event access : <span>All Events </span></p>
+                <p *ngIf="singleUserData.all_status == 'N' && singleUserData.role == 'AU'">Event access : <span *ngFor="let event of selectedEventList">{{event}}, </span></p>
+                <p *ngIf="singleUserData.all_status == 'Y' || singleUserData.role == 'A'">Event access : <span>All Events </span></p>
                 <p>Date created : <span>{{singleUserData.created_at}}</span></p>
             </div>
         </div>

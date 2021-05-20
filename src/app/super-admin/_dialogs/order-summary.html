@@ -97,13 +97,14 @@
                                     <div class="tb-data fw-600" fxFlex="20">{{orderDetail.transaction_fee| currency:currencyCode:'symbol'}}</div>
                                 </div>
                             </div>
-                            <div class="content" class="drageble-list" *ngIf="orderDetail.voucher_amt && orderDetail.voucher_amt != '0' && orderDetail.coupon_amt && orderDetail.coupon_amt != '0'">
+                            <div class="content" class="drageble-list" *ngIf="(orderDetail.voucher_amt && orderDetail.voucher_amt != '0') || (orderDetail.coupon_amt && orderDetail.coupon_amt != '0')">
                                 <div class="drageble-box" fxLayout="row">
                                     <div class="tb-data fw-600" fxFlex="50">Discount Amount</div>
                                     <div class="tb-data" fxFlex="30"></div>
                                     <div class="tb-data" fxFlex="20"></div>
                                     <div class="tb-data" fxFlex="30"></div>
-                                    <div class="tb-data fw-600" fxFlex="20">-{{ ( orderDetail.voucher_amt ? orderDetail.voucher_amt : orderDetail.coupon_amt| currency:currencyCode:'symbol')}}</div>
+                                    <div class="tb-data fw-600" fxFlex="20" *ngIf="orderDetail.voucher_amt != '0'">-{{ (orderDetail.voucher_amt| currency:currencyCode:'symbol')}}</div>
+                                    <div class="tb-data fw-600" fxFlex="20" *ngIf="orderDetail.coupon_amt != '0'">-{{ ( orderDetail.coupon_amt| currency:currencyCode:'symbol')}}</div>
                                 </div>
                             </div>
                             <div class="content" class="drageble-list" *ngIf="orderDetail.tax && orderDetail.tax > 0">
