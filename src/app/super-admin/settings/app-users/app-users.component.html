@@ -54,7 +54,7 @@
                 <div class="mt-3" fxLayout="row" *ngFor="let user of allAppUsersList; let i=index">
                     <div class="user-name" fxFlex="30" *ngIf="user.role == 'A'" (click)="fnUserDetail(i)">{{user.firstname ? user.firstname : '-'}}</div>
                     <div class="user-name" fxFlex="30" *ngIf="user.role == 'AU'" (click)="fnUserDetail(i)">{{user.firstname ? user.firstname : '-'}} {{user.lastname ? user.lastname : '-'}}</div>
-                    <!-- <div class="" fxFlex="25">All Event</div> -->
+                    <!-- <div class="" fxFlex="25">All Event</div> --> 
                     <div class="" fxFlex="40">{{user.email ? user.email : '-'}}</div>
                     <div class="" fxFlex="20">{{user.created_at}}</div>
                     <div class="" fxFlex="10" >
