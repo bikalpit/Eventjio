@@ -564,6 +564,7 @@ export class addSingleOccurrence {
   startEndDateSame:boolean=false;
   currentTime:any;
   singleOccurenceData:any;
+  alldayOccurrence:boolean=true;
   occurance_id:any;
   saveDisabled:boolean=false;
   constructor(
@@ -574,6 +575,7 @@ export class addSingleOccurrence {
     private SingleEventServiceService: SingleEventServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.singleOccurenceData = this.data.singleOccurenceData;
+      console.log(this.singleOccurenceData)
       this.fullDayTimeSlote = this.data.fullDayTimeSlote;
       
       this.singleOccurrenceForm =  this._formBuilder.group({
@@ -595,17 +597,28 @@ export class addSingleOccurrence {
 
     fnEditSingleOccurence(){
       if(this.fullDayTimeSlote){
-        var start_time = this.singleOccurenceData.occurance_start_time.split(":")
-        var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
-        
-        var end_time = this.singleOccurenceData.occurance_end_time.split(":")
-        var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+        if(this.singleOccurenceData.occurance_start_time && this.singleOccurenceData.occurance_end_time){
+          this.alldayOccurrence =true;
+          var start_time = this.singleOccurenceData.occurance_start_time.split(":")
+          var start_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == start_time[0]+":"+start_time[1]);
+          
+          var end_time = this.singleOccurenceData.occurance_end_time.split(":")
+          var end_time_key =  Object.keys(this.fullDayTimeSlote).find(key => this.fullDayTimeSlote[key] == end_time[0]+":"+end_time[1]);
+          this.singleOccurrenceForm.controls['occurance_start_time'].setValue(start_time_key)
+          this.singleOccurrenceForm.controls['occurance_end_time'].setValue(end_time_key)
+        }else{
+          this.alldayOccurrence = false;
+          this.singleOccurrenceForm.controls["occurance_start_time"].setValidators(null);
+          this.singleOccurrenceForm.controls["occurance_end_time"].setValidators(null);
+          this.singleOccurrenceForm.controls["occurance_start_time"].updateValueAndValidity();
+          this.singleOccurrenceForm.controls["occurance_end_time"].updateValueAndValidity();
+          this.singleOccurrenceForm.updateValueAndValidity();
+        }
+       
       }
       this.occurance_id = this.singleOccurenceData.unique_code
       this.singleOccurrenceForm.controls['occurance_start_date'].setValue(this.singleOccurenceData.occurance_start_date)
       this.singleOccurrenceForm.controls['occurance_end_date'].setValue(this.singleOccurenceData.occurance_end_date)
-      this.singleOccurrenceForm.controls['occurance_start_time'].setValue(start_time_key)
-      this.singleOccurrenceForm.controls['occurance_end_time'].setValue(end_time_key)
       
     }
      

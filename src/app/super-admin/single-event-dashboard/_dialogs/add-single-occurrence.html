@@ -23,7 +23,7 @@
                         </span>
                     </div>
 
-                    <div class="form-group col-6">
+                    <div class="form-group col-6" *ngIf="alldayOccurrence">
                         <!-- <mat-select formControlName="occurance_start_time" class="col-10 form-control d-inline-block">
                             <mat-option (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                         </mat-select> -->
@@ -56,7 +56,7 @@
                     </div>
 
 
-                    <div class="form-group col-6">
+                    <div class="form-group col-6" *ngIf="alldayOccurrence">
                         <!-- <mat-select formControlName="occurrenceEndTime" class="col-10 form-control d-inline-block">
                             <mat-option [disabled]="startEndTime >= fullDayTimeSlote" (onSelectionChange)="fnChangeEndTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{fullDayTimeSlote}}</mat-option>
                         </mat-select> -->

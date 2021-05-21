@@ -17,7 +17,7 @@ export class EventPageDesignComponent implements OnInit {
   eventPageType:any='listing';
   eventPageView:any = 'desktop';
   selectedFont:any ='Roboto, sans-serif';
-  allEventList: any;
+  allEventList: any=[];
   boxOfficeId: any;
   boxOfficeName: any;
   eventImage:any;
@@ -65,9 +65,12 @@ export class EventPageDesignComponent implements OnInit {
 
   fnEventPageType(event){
     this.eventPageType = event.value;
-    if(event.value == 'single' && this.allEventList){
+    if(event.value == 'single' && this.allEventList.length>0){
 
       this.getEvent(this.allEventList[0].unique_code);
+    }else if(event.value == 'single' && this.allEventList.length==0){
+      alert('Please create an event.')
+      this.eventPageType = 'listing';
     }
   }
 
@@ -98,8 +101,8 @@ export class EventPageDesignComponent implements OnInit {
             element.images = undefined
           });
       }else if(response.data == false){
-        this.allEventList = undefined;
-        this.ErrorService.errorMessage(response.response);
+        this.allEventList.length = 0;
+        // this.ErrorService.errorMessage(response.response);
       }
     });
     this.isLoaderAdmin = false;
