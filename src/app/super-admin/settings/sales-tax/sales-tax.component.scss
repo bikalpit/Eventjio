@@ -12,7 +12,7 @@
         }
         .add-tax-btn {
             border-radius: 20px;
-            background-color: #1172F4;
+            background-color: #973c56;
             color: #ffffff;
         }
         .tab-title {
@@ -55,10 +55,10 @@
         }
     }
     .cancel-btn {
-        background-color: #DDDDDD;
+        background-color: #FFE6C8;
     }
     .create-btn {
-        background-color: #1172F4;
+        background-color: #973c56;
         color: #ffffff;
     }
 }
@@ -68,10 +68,10 @@ button:focus {
 }
 
 ::ng-deep .close-btn {
-    background: #B4D4FF !important;
+    background: #FFE6C8 !important;
     opacity: 1;
     border-radius: 50%;
     border: unset;
     font-size: 14px;
-    color: #1172F4;
+    color: #973c56;
 }

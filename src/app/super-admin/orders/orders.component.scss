@@ -5,6 +5,8 @@
 
 .page-item.active .page-link {
     color: #f7eeee !important;
+    background-color: #973c56 !important;
+    border-color: #973c56 !important;
 }
 
 // modal css
@@ -121,25 +123,25 @@
 
 // end css
  ::ng-deep .cancel-btn {
-    background: #DDDDDD;
+    background: #FFE6C8;
     font-size: 14px;
     color: #181818;
 }
 
  ::ng-deep .close-btn {
-    background: #B4D4FF !important;
+    background: #FFE6C8 !important;
     opacity: 1;
     border-radius: 50%;
     padding: 4px 6px !important;
     font-size: 14px;
-    color: #1172F4;
+    color: #973c56;
     font-size: 21px;
     margin-top: -10px !important;
     margin-right: -5px !important;
 }
 
  ::ng-deep .comm-btn {
-    background: #1172F4;
+    background: #973c56;
     font-size: 15px;
     color: #FFFFFF;
     border-radius: 5px;
@@ -151,7 +153,7 @@
 }
 
  ::ng-deep .apply-btn {
-    background: #1172F4;
+    background: #973c56;
     font-size: 15px;
     color: #FFFFFF;
     border-radius: 5px;
@@ -201,7 +203,7 @@
     }
     // radio button default css change
     .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-        border-color: #007BFF;
+        border-color: #973c56;
         background-color: white;
     }
     .mat-radio-outer-circle {
@@ -211,13 +213,13 @@
     .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
     .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
     .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
-        background-color: #007BFF;
+        background-color: #973c56;
     }
     // end radio button default css 
     //  checkbox default css chnage
     .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
     .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-        background-color: #007BFF;
+        background-color: #973c56;
     }
     // end checkbox default css 
     .overview-report {
@@ -327,7 +329,7 @@
     }
     .linereport-details {
         .note-theme {
-            background: #DDEAFD;
+            background: #FFE6C8;
             border-radius: 5px;
             padding: 16px 15px;
             display: flex;
@@ -375,7 +377,7 @@
         }
         .cancel-warn {
             .note-theme {
-                background: #DDEAFD;
+                background: #FFE6C8;
                 border-radius: 5px;
                 padding: 16px 15px;
                 display: flex;
@@ -467,7 +469,7 @@
 }
 
  ::ng-deep .code-tab .mat-ink-bar {
-    background: #1172F4;
+    background: #973c56;
     height: 3px;
     border-radius: 10px;
 }
@@ -477,7 +479,7 @@
 }
 
  ::ng-deep .mat-tab-label-active {
-    color: #007BFF;
+    color: #973c56;
 }
 
 .events {
@@ -522,7 +524,7 @@
             color: #181818;
         }
         .cpn-code {
-            color: #1172F4;
+            color: #973c56;
         }
         .cpn-bor {
             color: #ffffff;
@@ -530,10 +532,10 @@
             border-radius: 10px;
         }
         .action-icon {
-            color: #007BFF;
+            color: #e9684a;
             border-radius: 50%;
             padding: 16px 16px;
-            background: #ABE6FD;
+            background: #FFE6C8;
             width: 32px;
             height: 32px;
             align-items: center;
@@ -585,18 +587,18 @@
         color: #181818;
     }
     .cpn-code {
-        color: #1172F4;
+        color: #973c56;
     }
     .cpn-bor {
-        border: 1px dashed #1172F4;
+        border: 1px dashed #973c56;
         padding: 6px 12px;
         border-radius: 5px;
     }
     .action-icon {
-        color: #007BFF;
+        color: #e9684a;
         border-radius: 50%;
         padding: 16px 16px;
-        background: #ABE6FD;
+        background: #FFE6C8;
         width: 32px;
         height: 32px;
         align-items: center;
@@ -668,18 +670,18 @@
                 color: #181818;
             }
             .cpn-code {
-                color: #1172F4;
+                color: #973c56;
             }
             .cpn-bor {
-                border: 1px dashed #1172F4;
+                border: 1px dashed #973c56;
                 padding: 6px 12px;
                 border-radius: 5px;
             }
             .action-icon {
-                color: #007BFF;
+                color: #e9684a;
                 border-radius: 50%;
                 padding: 16px 16px;
-                background: #ABE6FD;
+                background: #FFE6C8;
                 width: 32px;
                 height: 32px;
                 align-items: center;
@@ -690,7 +692,7 @@
         }
     }
     .link {
-        color: #007BFF;
+        color: #973c56;
     }
     .mt-16 {
         margin-top: 16px;
@@ -721,7 +723,7 @@
             display: flex;
             align-items: center;
             .link {
-                color: #007BFF;
+                color: #973c56;
             }
         }
     }
@@ -799,18 +801,18 @@
                 color: #181818;
             }
             .cpn-code {
-                color: #1172F4;
+                color: #973c56;
             }
             .cpn-bor {
-                border: 1px dashed #1172F4;
+                border: 1px dashed #973c56;
                 padding: 6px 12px;
                 border-radius: 5px;
             }
             .action-icon {
-                color: #007BFF;
+                color: #e9684a;
                 border-radius: 50%;
                 padding: 16px 16px;
-                background: #ABE6FD;
+                background: #FFE6C8;
                 width: 32px;
                 height: 32px;
                 align-items: center;

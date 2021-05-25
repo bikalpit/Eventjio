@@ -1,5 +1,5 @@
 .mat-blue {
-    background-color: #1172F4;
+    background-color: #973c56;
     color: #ffffff;
 }
 
@@ -13,6 +13,8 @@
 
 .page-item.active .page-link {
     color: #fff !important;
+    background-color: #973c56 !important;
+    border-color: #973c56 !important;
 }
 
 .tickes-heading {
@@ -89,7 +91,7 @@
             color: #181818;
         }
         .cpn-code {
-            color: #1172F4;
+            color: #973c56;
         }
         .cpn-bor {
             color: #ffffff;
@@ -106,10 +108,10 @@
             box-shadow: none;
         }
         .action-icon {
-            color: #007BFF;
+            color: #e9684a;
             border-radius: 50%;
             padding: 16px 16px;
-            background: #ABE6FD;
+            background: #FFE6C8;
             width: 32px;
             height: 32px;
             align-items: center;
@@ -130,11 +132,11 @@
 }
 
 ::ng-deep .cancel-btn {
-    background-color: #DDDDDD;
+    background-color: #FFE6C8;
 }
 
 ::ng-deep .export-btn {
-    background-color: #1172F4;
+    background-color: #973c56;
     color: #ffffff;
 }
 
@@ -142,15 +144,15 @@
     outline: none;
     border: unset;
     border-radius: 20px;
-    background-color: #B4D4FF;
-    color: #1172F4;
+    background-color: #FFE6C8;
+    color: #973c56;
 }
 
 // --------------------------------- Issued ticket View CSS -----------------------------------------
 ::ng-deep .issued-ticket-view-container {
     max-height: 90vh;
     .void-ticket-btn {
-        background-color: #1172F4;
+        background-color: #973c56;
         color: #ffffff;
     }
     .print-ticket-btn {
@@ -228,7 +230,7 @@
         }
     }
     .void-ticket {
-        background-color: #007BFF;
+        background-color: #973c56;
         color: #ffffff;
     }
     .invalidate-ticket {
@@ -287,18 +289,18 @@
         color: #181818;
     }
     .cpn-code {
-        color: #1172F4;
+        color: #973c56;
     }
     .cpn-bor {
-        border: 1px dashed #1172F4;
+        border: 1px dashed #973c56;
         padding: 6px 12px;
         border-radius: 5px;
     }
     .action-icon {
-        color: #007BFF;
+        color: #e9684a;
         border-radius: 50%;
         padding: 16px 16px;
-        background: #ABE6FD;
+        background: #FFE6C8;
         width: 32px;
         height: 32px;
         align-items: center;
@@ -370,18 +372,18 @@
                 color: #181818;
             }
             .cpn-code {
-                color: #1172F4;
+                color: #973c56;
             }
             .cpn-bor {
-                border: 1px dashed #1172F4;
+                border: 1px dashed #973c56;
                 padding: 6px 12px;
                 border-radius: 5px;
             }
             .action-icon {
-                color: #007BFF;
+                color: #e9684a;
                 border-radius: 50%;
                 padding: 16px 16px;
-                background: #ABE6FD;
+                background: #FFE6C8;
                 width: 32px;
                 height: 32px;
                 align-items: center;
@@ -392,7 +394,7 @@
         }
     }
     .link {
-        color: #007BFF;
+        color: #973c56;
     }
     .mt-16 {
         margin-top: 16px;
@@ -423,7 +425,7 @@
             display: flex;
             align-items: center;
             .link {
-                color: #007BFF;
+                color: #973c56;
             }
         }
     }
@@ -506,18 +508,18 @@
                 color: #181818;
             }
             .cpn-code {
-                color: #1172F4;
+                color: #973c56;
             }
             .cpn-bor {
-                border: 1px dashed #1172F4;
+                border: 1px dashed #973c56;
                 padding: 6px 12px;
                 border-radius: 5px;
             }
             .action-icon {
-                color: #007BFF;
+                color: #e9684a;
                 border-radius: 50%;
                 padding: 16px 16px;
-                background: #ABE6FD;
+                background: #FFE6C8;
                 width: 32px;
                 height: 32px;
                 align-items: center;
@@ -645,7 +647,7 @@
 }
 
  ::ng-deep .comm-btn {
-    background: #1172F4;
+    background: #973c56;
     font-size: 14px;
     color: #FFFFFF;
     border-radius: 5px;
@@ -813,18 +815,18 @@
                 color: #181818;
             }
             .cpn-code {
-                color: #1172F4;
+                color: #973c56;
             }
             .cpn-bor {
-                border: 1px dashed #1172F4;
+                border: 1px dashed #973c56;
                 padding: 6px 12px;
                 border-radius: 5px;
             }
             .action-icon {
-                color: #007BFF;
+                color: #e9684a;
                 border-radius: 50%;
                 padding: 16px 16px;
-                background: #ABE6FD;
+                background: #FFE6C8;
                 width: 32px;
                 height: 32px;
                 align-items: center;

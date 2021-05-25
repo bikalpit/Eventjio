@@ -4,15 +4,16 @@
 }
 
 .add-event-button {
-    background-color: #1172F4;
+    background-color: #973c56;
     color: #fff;
     border-radius: 30px;
 }
 
 .event-title {
-    color: #007BFF;
+    color: #000000 !important;
     font-size: 16px;
     text-decoration: underline;
+    font-weight: 500;
     cursor: pointer;
     &.past-event {
         text-decoration: none;
@@ -24,6 +25,8 @@
     display: inline-block;
     .page-item.active .page-link {
         color: #fff !important;
+        background-color: #973c56 !important;
+        border-color: #973c56 !important;
     }
 }
 
@@ -131,7 +134,7 @@
 }
 
  ::ng-deep .code-tab .mat-ink-bar {
-    background: #1172F4;
+    background: #973c56;
     height: 3px;
     border-radius: 10px;
 }
@@ -141,7 +144,7 @@
 }
 
  ::ng-deep .mat-tab-label-active {
-    color: #007BFF;
+    color: #973c56;
 }
 
 .events.service-listing {
@@ -181,7 +184,7 @@
         color: #181818;
     }
     .cpn-code {
-        color: #1172F4;
+        color: #973c56;
     }
     .cpn-bor {
         // color: #ffffff;
@@ -189,10 +192,10 @@
         border-radius: 10px;
     }
     .action-icon {
-        color: #007BFF;
+        color: #e9684a;
         border-radius: 50%;
         padding: 16px 16px;
-        background: #ABE6FD;
+        background: #FFE6C8;
         width: 32px;
         height: 32px;
         align-items: center;
@@ -211,7 +214,7 @@
 }
 
 .tax-add-btn {
-    color: #1172F4;
+    color: #973c56;
 }
 
 ::ng-deep .popover-body {
@@ -244,10 +247,10 @@
 }
 
 .after-save-general-admission {
-    background-color: #CEE6FF;
+    background-color: #FFE6C8;
     font-weight: bold;
     .ticket-status {
-        color: #007BFF;
+        color: #973c56;
     }
     .tickets-main-wrap {
         display: flex;
@@ -266,14 +269,14 @@
 .event-images {
     width: 100px;
     height: 70px;
-    background-color: #CEE6FF;
+    background-color: #FFE6C8;
     display: inline-block;
     border-radius: 5px;
     p {
         color: #2C2C2C;
     }
     .fa-cloud-upload {
-        color: #007BFF;
+        color: #973c56;
     }
     .fa-ban {
         color: #2C2C2C;
@@ -285,7 +288,7 @@
 
 .create-ticket-types {
     button {
-        background-color: #1172F4;
+        background-color: #973c56;
         color: #ffffff;
     }
     .delete-btn {
@@ -295,7 +298,7 @@
 }
 
 .add-ticket-notification {
-    background-color: #CEE6FF;
+    background-color: #FFE6C8;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -308,21 +311,21 @@
 
 .event-setting-btn {
     .cancel-btn {
-        background-color: #E1E1E1;
+        background-color: #FFE6C8;
     }
     .save-btn {
-        background-color: #1172F4;
+        background-color: #973c56;
         color: #ffffff;
     }
 }
 
 ::ng-deep .cancel-btn {
-    background-color: #E1E1E1;
+    background-color: #FFE6C8;
     outline: none;
 }
 
  ::ng-deep .save-btn {
-    background-color: #1172F4;
+    background-color: #973c56;
     color: #ffffff;
 }
 
@@ -347,7 +350,7 @@
     .popover-body {
         padding: 0px !important;
         color: #595959;
-        box-shadow: 0px 0px 12px #007bff26;
+        box-shadow: 0px 0px 12px #973c5626;
         border-radius: 6px;
         .border-bottom {
             border-bottom: 1px solid #7070701a !important;
@@ -357,9 +360,9 @@
     }
 }
 ::ng-deep .mde-popover-content{
-    box-shadow: 0px 9px 11px #007bff26;
+    box-shadow: 0px 9px 11px #973c5626;
     .spe-box-shadow{
-        box-shadow: 0px -6px 14px #007bff14;
+        box-shadow: 0px -6px 14px #973c5614;
         border-radius: 5px 5px 0 0;
     }
     .border-bottom {

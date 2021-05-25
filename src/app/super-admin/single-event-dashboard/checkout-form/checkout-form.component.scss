@@ -5,7 +5,7 @@ main {
 
 ::ng-deep .checkout-form {
     .comm-btn {
-        background: #1172F4;
+        background: #973c56;
         font-size: 14px;
         color: #FFFFFF;
         border-radius: 5px;
@@ -135,7 +135,7 @@ main {
                     .byr-qn-btn {
                         // width: 300px;
                         // height: 50px;
-                        background: #1172F4;
+                        background: #973c56;
                         border-radius: 5px;
                         opacity: 1;
                         margin-left: auto;
@@ -198,7 +198,7 @@ main {
                         font-weight: 400;
                     }
                     .byr-qn-btn {
-                        background: #1172F4;
+                        background: #973c56;
                         border-radius: 5px;
                         opacity: 1;
                         margin-left: auto;
@@ -278,12 +278,12 @@ main {
 }
 
 ::ng-deep .close-btn {
-    background: #B4D4FF !important;
+    background: #FFE6C8 !important;
     opacity: 1;
     border-radius: 50%;
     padding: 4px 6px !important;
     font-size: 14px;
-    color: #1172F4;
+    color: #973c56;
     margin-top: -4px !important;
 }
 
@@ -319,7 +319,7 @@ main {
         opacity: 0.47;
     }
     .cancel-btn {
-        background: #DDDDDD;
+        background: #FFE6C8;
         font-size: 14px;
         color: #181818;
     }
@@ -328,7 +328,7 @@ main {
         bottom: 2px;
     }
     .save-btn {
-        background: #1172F4;
+        background: #973c56;
         font-size: 16px;
         color: #FFFFFF;
     }
@@ -338,12 +338,12 @@ main {
 // --------- edit-buyer-name dialog css----------
 ::ng-deep .edit-buyer-qn {
     .cancel-btn {
-        background: #DDDDDD;
+        background: #FFE6C8;
         font-size: 14px;
         color: #181818;
     }
     .save-btn {
-        background: #1172F4;
+        background: #973c56;
         font-size: 16px;
         color: #FFFFFF;
     }
@@ -353,11 +353,11 @@ main {
 // --------- edit-attendee-name dialog css----------
 ::ng-deep .edit-attendee-qn {
     .cancel-btn {
-        background: #DDDDDD;
+        background: #FFE6C8;
         font-size: 14px;
     }
     .save-btn {
-        background: #1172F4;
+        background: #973c56;
         font-size: 16px;
         color: #FFFFFF;
     }
@@ -430,7 +430,7 @@ main {
     width: calc(100% - 380px);
     z-index: 59;
     height: 75px;
-    border-top: 1px solid #DDEAFD;
+    border-top: 1px solid #FFE6C8;
     margin: 16px 0px 0px 0px;
     left: 380px;
 }

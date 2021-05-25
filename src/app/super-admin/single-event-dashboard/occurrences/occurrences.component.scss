@@ -28,7 +28,7 @@
         margin-top: 10px;
         .occurrence-notification {
             padding: 14px;
-            background-color: #007bff1c;
+            background-color: #973c561c;
             border-radius: 4px;
             display: flex;
             i {
@@ -91,7 +91,7 @@
                 display: flex;
                 padding: 10px 20px;
                 a {
-                    color: #007BFF;
+                    color: #973c56;
                     cursor: pointer;
                 }
             }
@@ -103,10 +103,10 @@
                 color: #181818;
             }
             .cpn-code {
-                color: #1172F4;
+                color: #973c56;
             }
             .cpn-bor {
-                border: 1px dashed #1172F4;
+                border: 1px dashed #973c56;
                 padding: 6px 12px;
                 border-radius: 5px;
             }
@@ -116,27 +116,27 @@
 
 // end css
  ::ng-deep .cancel-btn {
-    background: #DDDDDD;
+    background: #FFE6C8;
     font-size: 14px;
     color: #181818;
 }
 
  ::ng-deep .save-btn {
-    background-color: #007BFF;
+    background-color: #973c56;
     color: #fff;
 }
 
  ::ng-deep .close-btn {
-    background: #B4D4FF !important;
+    background: #FFE6C8 !important;
     opacity: 1;
     border-radius: 50%;
     padding: 4px 6px !important;
     font-size: 14px;
-    color: #1172F4;
+    color: #973c56;
 }
 
  ::ng-deep .comm-btn {
-    background: #1172F4;
+    background: #973c56;
     font-size: 14px;
     color: #FFFFFF;
     border-radius: 5px;
@@ -161,10 +161,10 @@
 }
 
 .action-icon {
-    color: #007BFF;
+    color: #e9684a;
     border-radius: 50%;
     padding: 16px 16px;
-    background: #ABE6FD;
+    background: #FFE6C8;
     width: 32px;
     height: 32px;
     align-items: center;
@@ -195,7 +195,7 @@
         }
     }
     .date-time-add-btn {
-        background-color: #007BFF;
+        background-color: #973c56;
         color: #fff;
     }
     .fa-asterisk {
@@ -218,7 +218,7 @@
     .popover-body {
         padding: 0px !important;
         color: #595959;
-        box-shadow: 0px 0px 12px #007bff26;
+        box-shadow: 0px 0px 12px #973c5626;
         border-radius: 6px;
         .border-bottom {
             border-bottom: 1px solid #7070701a !important;

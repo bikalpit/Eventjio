@@ -37,7 +37,7 @@ main {
                 opacity: 0.47;
             }
             .note-theme {
-                background: #DDEAFD;
+                background: #FFE6C8;
                 border-radius: 5px;
                 padding: 16px 15px;
                 display: flex;
@@ -62,7 +62,7 @@ main {
         }
     }
     .vertical-line {
-        border-top: 1px solid #DDEAFD;
+        border-top: 1px solid #FFE6C8;
         margin: 16px 0px 0px 0px;
         position: absolute;
         width: calc(100% - 361px);
@@ -71,7 +71,7 @@ main {
             display: flex;
             padding: 22px 40px;
             .cancel-btn {
-                background: #E1E1E1;
+                background: #FFE6C8;
                 border-radius: 5px;
                 opacity: 1;
                 color: #2C2C2C;
@@ -80,7 +80,7 @@ main {
                 margin-left: auto;
             }
             .save-btn {
-                background: #1172F4;
+                background: #973c56;
                 border-radius: 5px;
                 opacity: 1;
                 color: #FFFFFF;

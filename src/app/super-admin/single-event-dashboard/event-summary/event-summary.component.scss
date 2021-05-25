@@ -90,15 +90,15 @@
         float: right;
     }
     .save-btn {
-        background-color: #007BFF;
+        background-color: #973c56;
         color: #ffffff;
     }
     .close-btn {
         outline: none;
         border: unset;
         border-radius: 20px;
-        background-color: #B4D4FF;
-        color: #1172F4;
+        background-color: #FFE6C8;
+        color: #973c56;
     }
 }
 
@@ -154,7 +154,7 @@
         display: flex;
         padding: 10px 20px;
         a {
-            color: #007BFF;
+            color: #973c56;
             cursor: pointer;
         }
     }
@@ -166,20 +166,20 @@
         color: #181818;
     }
     .cpn-code {
-        color: #1172F4;
+        color: #973c56;
     }
     .cpn-bor {
-        border: 1px dashed #1172F4;
+        border: 1px dashed #973c56;
         padding: 6px 12px;
         border-radius: 5px;
     }
 }
 
 .action-icon {
-    color: #007BFF;
+    color: #e9684a;
     border-radius: 50%;
     padding: 16px 16px;
-    background: #ABE6FD;
+    background: #FFE6C8;
     width: 32px;
     height: 32px;
     align-items: center;
@@ -199,7 +199,7 @@
     .popover-body {
         padding: 0px !important;
         color: #595959;
-        box-shadow: 0px 0px 12px #007bff26;
+        box-shadow: 0px 0px 12px #973c5626;
         border-radius: 6px;
         .border-bottom {
             border-bottom: 1px solid #7070701a !important;

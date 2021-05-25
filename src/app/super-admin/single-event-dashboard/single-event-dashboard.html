@@ -11,7 +11,7 @@
         </p>
     </div>
     <div class="event-status" [ngClass]="{'published':eventStatus == 'publish', 'draft':eventStatus == 'draft'}">
-        <mat-select [ngStyle]="{'backgroundColor':eventStatus === 'draft' ? '#595959' : '#52C03B'}" [(ngModel)]="eventStatus" name='eventStatus' (selectionChange)="fnChangeEventStatus($event.value)" class="custome-mat-set mt-2">
+        <mat-select [ngStyle]="{'backgroundColor':eventStatus === 'draft' ? '#595959' : '#FE6A4D'}" [(ngModel)]="eventStatus" name='eventStatus' (selectionChange)="fnChangeEventStatus($event.value)" class="custome-mat-set mt-2">
             <mat-option value="draft">Draft</mat-option>
             <mat-option value="publish">Published</mat-option>
         </mat-select>

@@ -80,24 +80,24 @@ button:focus {
 }
 
 ::ng-deep .cupon-btn {
-    background: #1172F4;
+    background: #973c56;
     font-size: 16px;
     color: #FFFFFF;
 }
 
 ::ng-deep .cancel-btn {
-    background: #DDDDDD;
+    background: #FFE6C8;
     font-size: 14px;
     color: #181818;
 }
 
 ::ng-deep .close-btn {
-    background: #B4D4FF !important;
+    background: #FFE6C8 !important;
     opacity: 1;
     border-radius: 50%;
     padding: 4px 6px !important;
     font-size: 14px;
-    color: #1172F4;
+    color: #973c56;
 }
 
 ::ng-deep .voucher-code {
@@ -130,7 +130,7 @@ button:focus {
         color: #808080;
     }
     .cd-code-btn {
-        background: #007BFF 0% 0% no-repeat padding-box;
+        background: #973c56 0% 0% no-repeat padding-box;
         color: white;
         border-radius: 25px;
     }
@@ -140,7 +140,7 @@ button:focus {
             border: none;
         }
         .mat-ink-bar {
-            background: #1172F4;
+            background: #973c56;
             height: 3px;
             border-radius: 10px;
         }
@@ -149,7 +149,7 @@ button:focus {
             font-weight: 500;
         }
         .mat-tab-label-active {
-            color: #1172F4;
+            color: #973c56;
         }
     }
     .members-listing {
@@ -188,10 +188,10 @@ button:focus {
             }
         }
         .action-icon {
-            color: #007BFF;
+            color: #e9684a;
             border-radius: 50%;
             padding: 16px 16px;
-            background: #ABE6FD;
+            background: #FFE6C8;
             width: 32px;
             height: 32px;
             align-items: center;
@@ -234,12 +234,12 @@ button:focus {
 }
 
 ::ng-deep .close-btn {
-    background: #B4D4FF !important;
+    background: #FFE6C8 !important;
     opacity: 1;
     border-radius: 50%;
     padding: 4px 6px !important;
     font-size: 14px;
-    color: #1172F4;
+    color: #973c56;
     margin-top: -4px !important;
 }
 
@@ -291,7 +291,7 @@ button:focus {
         bottom: 2px;
     }
     .invite-btn {
-        background: #1172F4;
+        background: #973c56;
         font-size: 16px;
         color: #FFFFFF;
         padding: 0px 45px;

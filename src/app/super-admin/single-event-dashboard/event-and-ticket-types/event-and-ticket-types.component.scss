@@ -46,8 +46,8 @@
                     .upload-link {
                         margin-right: 15px;
                         .upload {
-                            background: #CEE6FF;
-                            border: 1px dashed #007BFF;
+                            background: #FFE6C8;
+                            border: 1px dashed #973c56;
                             border-radius: 4px;
                             align-items: center;
                             display: flex;
@@ -55,7 +55,7 @@
                             width: 80px;
                             height: 80px;
                             .upload-icon {
-                                color: #007BFF;
+                                color: #973c56;
                             }
                             p {
                                 color: #2C2C2C;
@@ -122,11 +122,11 @@
                 }
                 .event-info {
                     .ticket-type-btn {
-                        background: #1172F4;
+                        background: #973c56;
                         color: #FFFFFF;
                     }
                     .ticket-grp-btn {
-                        background: #1172F4;
+                        background: #973c56;
                         color: #FFFFFF;
                     }
                 }
@@ -136,20 +136,20 @@
                     border-radius: 4px;
                     margin: 15px 0px;
                     .sold-ticket {
-                        color: #1172F4;
+                        color: #973c56;
                         text-align: end;
                     }
                     .remaining-ticket {
-                        color: #1172F4
+                        color: #973c56
                     }
                 }
             }
             button {
-                background-color: #1172F4;
+                background-color: #973c56;
                 color: #ffffff;
             }
             .add-ticket-notification {
-                background-color: #CEE6FF;
+                background-color: #FFE6C8;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -216,7 +216,7 @@
                 margin-left: auto;
             }
             .save-btn {
-                background: #1172F4;
+                background: #973c56;
                 border-radius: 5px;
                 opacity: 1;
                 color: #FFFFFF;
@@ -233,10 +233,10 @@
 } 
 
 .after-save-general-admission {
-    background-color: #CEE6FF;
+    background-color: #FFE6C8;
     font-weight: bold;
     .ticket-status {
-        color: #007BFF;
+        color: #973c56;
     }
     .tickets-main-wrap {
         display: flex;
@@ -246,12 +246,12 @@
 }
 
 ::ng-deep .cancel-btn {
-    background-color: #E1E1E1;
+    background-color: #FFE6C8;
     outline: none;
 }
 
  ::ng-deep .save-btn {
-    background-color: #1172F4;
+    background-color: #973c56;
     color: #ffffff;
 }
 
@@ -264,14 +264,14 @@
 .event-images {
     width: 100px;
     height: 70px;
-    background-color: #CEE6FF;
+    background-color: #FFE6C8;
     display: inline-block;
     border-radius: 5px;
     p {
         color: #2C2C2C;
     }
     .fa-cloud-upload {
-        color: #007BFF;
+        color: #973c56;
     }
     .fa-ban {
         color: #2C2C2C;
@@ -283,11 +283,11 @@
 
 .create-ticket-types {
     button {
-        background-color: #1172F4;
+        background-color: #973c56;
         color: #ffffff;
     }
     .add-ticket-notification {
-        background-color: #CEE6FF;
+        background-color: #FFE6C8;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -347,7 +347,7 @@
 }
 
 .add-ticket-notification {
-    background-color: #CEE6FF;
+    background-color: #FFE6C8;
     display: flex;
     justify-content: space-between;
     align-items: center;

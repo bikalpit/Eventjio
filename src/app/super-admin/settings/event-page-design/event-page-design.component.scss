@@ -307,7 +307,7 @@
                 cursor: pointer;
                 float: left;
                 &.active {
-                    border-color: #007bff;
+                    border-color: #973c56;
                 }
             }
             .customization-box {
@@ -373,7 +373,7 @@
                 transition: all 0.3s;
                 &.active {
                     img {
-                        border: 5px solid #007bff;
+                        border: 5px solid #973c56;
                     }
                 }
                 img {
@@ -398,7 +398,7 @@
                 float: left;
                 margin: 5px 10px;
                 &.active {
-                    border: 5px solid #007bff;
+                    border: 5px solid #973c56;
                 }
             }
             h3{
@@ -492,7 +492,7 @@
                     padding: 12px;
                     .btn {
                         background-color: #CFE7FF !important;
-                        color: #007BFF;
+                        color: #973c56;
                     }
                 }
             }

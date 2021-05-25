@@ -34,7 +34,7 @@
                                             <span *ngIf="element.event_occurrence_type == 'N'">{{element.start_date}}</span>
                                         </div>
                                         <div class="tb-data mat-common-radius" fxFlex="20">
-                                            <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#52C03B'}">
+                                            <mat-select (selectionChange)="fnChangeEventStatus(element.unique_code, $event.value)" [(value)]="element.event_status" class="form-control event-status-select status-select" [ngStyle]="{'backgroundColor':element.event_status === 'draft' ? '#85938D' : '#FE6A4D'}">
                                                 <mat-option value="draft">Draft</mat-option>
                                                 <mat-option value="publish">Published</mat-option>
                                             </mat-select>
