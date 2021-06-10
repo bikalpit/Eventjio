@@ -270,7 +270,7 @@ export class AppComponent {
   isEmpty(data) {
     for (let key in data) {
         let value = data[key];
-        if (value != "") {
+        if (value != "" && value != null) {
           return false;
         }
     }
@@ -308,6 +308,12 @@ export class AppComponent {
       })
 
     }
+  }
+
+  goToMyBoxOffice(){
+    localStorage.removeItem('boxoffice_id');
+    localStorage.removeItem('boxoffice_name');
+    localStorage.removeItem('boxoffice_link');
   }
 
   isBoxOfficeSelected() {

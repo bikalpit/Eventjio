@@ -1054,6 +1054,7 @@ export class EventsComponent implements OnInit, DirtyComponent {
     this.SuperadminService.createNewEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage('Event created successfully.');
+        this.eventTicketList=[];
         this.saveDisabled = true;
         setTimeout(() => {
           this.saveDisabled = false

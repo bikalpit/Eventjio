@@ -150,7 +150,7 @@
                                             <tr *ngFor="let element of allEventListData.all">
                                                 <td>{{element.event_title}} </td>
                                                 <td>{{element.start_date}}</td>
-                                                <td><span class="px-3 py-1 text-white bg-success">{{element.status_flage}}</span></td>
+                                                <td><span class="px-3 py-1 text-white">{{element.status_flage}}</span></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -159,7 +159,7 @@
                                             <tr *ngFor="let element of allEventListData.complete">
                                                 <td>{{element.event_title}} </td>
                                                 <td>{{element.start_date}}</td>
-                                                <td><span class="px-3 py-1 text-white bg-success">Completed</span></td>
+                                                <td><span class="px-3 py-1 text-white">Completed</span></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -168,7 +168,7 @@
                                             <tr *ngFor="let element of allEventListData.upcoming">
                                                 <td>{{element.event_title}} </td>
                                                 <td>{{element.start_date | date}}</td>
-                                                <td><span class="px-3 py-1 text-white bg-success">Upcoming</span></td>
+                                                <td><span class="px-3 py-1 text-white">Upcoming</span></td>
                                             </tr>
                                         </table>
                                     </div>

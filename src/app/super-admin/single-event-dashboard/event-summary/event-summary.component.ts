@@ -34,8 +34,8 @@ export class EventSummaryComponent implements OnInit {
   pageURL:any;
   is_show_referral_data = false;
   allOccurrenceList:any;
-  upcomingOccurrenceList:any;
-  pastOccurrenceList:any;
+  upcomingOccurrenceList:any=[];
+  pastOccurrenceList:any=[];
   selectedOccurrence:any='all';
   constructor(
     private _formBuilder: FormBuilder,
@@ -297,7 +297,12 @@ export class EventSummaryComponent implements OnInit {
         console.log(this.allOccurrenceList)
 
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response)
+        if(filter == 'upcoming'){
+          this.upcomingOccurrenceList.length = 0;
+        }else if(filter == 'past'){
+          this.pastOccurrenceList.length = 0;
+        }
+        // this.ErrorService.errorMessage(response.response)
       }
     });
     this.isLoaderAdmin=false;

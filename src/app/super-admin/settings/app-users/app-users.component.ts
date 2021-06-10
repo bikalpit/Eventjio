@@ -193,11 +193,12 @@ export class AddAppUser {
         if(response.data == true){
         this.allEventList = response.response
             this.allEventList.forEach(element => {
+              console.log(element.event_title + '-----------'+element.event_occurrence_type)
               if(element.event_occurrence_type == 'Y'){
                 let i = 0;
                 element.occurrence.forEach(element2 => {
                   i++;
-                  element2.occurrencestartdate = "";
+                  element2.occurrencefulldate = "";
                   element2.occurrenceenddate = "";
                   if(element2.occurance_start_time && element2.occurance_start_time != null && element2.occurance_end_time && element2.occurance_end_time != null){
                    
@@ -205,6 +206,8 @@ export class AddAppUser {
                     // element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date +' '+element2.occurance_end_time,"'d MMM y, hh:mm a'");
                     element2.occurrencefulldate = moment(element2.occurance_start_date+' '+element2.occurance_start_time).format('d MMM y, hh:mm a');
                     element2.occurrenceenddate = moment(element2.occurance_end_date +' '+element2.occurance_end_time).format('d MMM y, hh:mm a');
+                    console.log(element2.occurrencefulldate)
+                    console.log(element2.occurrenceenddate)
                 
                   }else{
                     element2.occurrencefulldate = this.datePipe.transform(element2.occurance_start_date,"d MMM y");
@@ -363,8 +366,11 @@ export class appUserDetail {
   isLoaderAdmin:boolean=false;
   passwordView:boolean=false;
   allEventList:any;
+  pwdHiddenIcon:boolean=false;
   selectedEventList:any=[];
   selectedEventListCode:any=[];
+  selectedOccurrenceList:any=[];
+  selectedOccurrenceListCode:any=[];
   constructor(
     public dialogRef: MatDialogRef<appUserDetail>,
     private SettingService : SettingService,
@@ -380,6 +386,9 @@ export class appUserDetail {
         this.selectedEventListCode=this.singleUserData.events_ids.split(',').map(function(item) {
           return parseInt(item);
         });
+        this.selectedOccurrenceListCode=this.singleUserData.occurrence_ids.split(',').map(function(item) {
+          return parseInt(item);
+        });
       }
       this.singleUserData.created_at = this.datePipe.transform(this.singleUserData.created_at,"EEE MMM d, y")
       if(this.selectedEventListCode.length > 0){
@@ -388,6 +397,7 @@ export class appUserDetail {
     }
 
     getAllEvent(){
+        this.isLoaderAdmin = true; 
       let requestObject = {
         'events_id' : 'all',
         'boxoffice_id' : this.boxOfficeCode
@@ -400,9 +410,9 @@ export class appUserDetail {
           if (index > -1) {
               this.selectedEventList.push(element.event_title);
           }
-          
           if(element.event_occurrence_type == 'Y'){
             element.occurrence.forEach(element2 => {
+              
               element2.occurrencestartdate = "";
               element2.occurrenceenddate = "";
               if(element2.occurance_start_time && element2.occurance_start_time != null && element2.occurance_end_time && element2.occurance_end_time != null){
@@ -411,7 +421,8 @@ export class appUserDetail {
                 // element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date +' '+element2.occurance_end_time,"'d MMM y, hh:mm a'");
                 element2.occurrencefulldate = moment(element2.occurance_start_date+' '+element2.occurance_start_time).format('d MMM y, hh:mm a');
                 element2.occurrenceenddate = moment(element2.occurance_end_date +' '+element2.occurance_end_time).format('d MMM y, hh:mm a');
-            
+
+               
               }else{
                 element2.occurrencefulldate = this.datePipe.transform(element2.occurance_start_date,"d MMM y");
                 element2.occurrenceenddate = this.datePipe.transform(element2.occurance_end_date,"d MMM y");
@@ -419,16 +430,24 @@ export class appUserDetail {
                 // element2.occurrenceenddate = moment(element2.occurance_end_date).format('d MMM y');
               
               }
+              const index = this.selectedOccurrenceListCode.indexOf(element2.id, 0);
+              if (index > -1) {
+                  this.selectedOccurrenceList.push(element2.occurrencefulldate +'-'+element2.occurrenceenddate  +' '+ element.event_title);
+                  console.log(this.selectedOccurrenceList)
+              }
+              
             });
           }
 
         });
         // this.selectedEventList = JSON.stringify(this.selectedEventList)
+        console.log(this.selectedOccurrenceList)
         }
         else if(response.data == false){
           this.ErrorService.errorMessage(response.response);
           this.allEventList = null;
         }
+            this.isLoaderAdmin = false; 
       })
     }
     fnDelete(){
@@ -461,7 +480,10 @@ export class appUserDetail {
       });
     }
 
-     public fnPrint()  {  
+     public fnPrint()  { 
+      this.isLoaderAdmin = true; 
+      // this.passwordView = true;
+      // this.pwdHiddenIcon = false;
     // var data = document.getElementById('app_user_detail');  
     // html2canvas(data).then(canvas => {  
     //   // Few necessary setting options  
@@ -489,6 +511,7 @@ export class appUserDetail {
           WindowPrt.close();
         }, 200);                                                  
       });
+      this.isLoaderAdmin = false;
   }
 
   onNoClick(): void {

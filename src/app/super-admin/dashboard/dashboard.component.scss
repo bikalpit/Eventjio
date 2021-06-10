@@ -158,6 +158,8 @@
                     .pur-content{
                         width: calc(100% - 150px);
                         padding-right: 15px;
+                        display: flex;
+                        flex-wrap: wrap;
                         label{
                             color: #171717;
                             font-size: 22px;

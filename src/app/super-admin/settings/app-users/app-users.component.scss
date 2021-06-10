@@ -197,3 +197,11 @@
         }
     }
 }
+::ng-deep .view-modal-body{
+    position: relative;
+}
+::ng-deep #app_user_detail{
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}

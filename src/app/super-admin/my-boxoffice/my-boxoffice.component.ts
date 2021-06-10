@@ -18,22 +18,29 @@ export interface DialogData {
   styleUrls: ['./my-boxoffice.component.scss']
 })
 export class MyBoxofficeComponent implements OnInit {
-
+  createBoxoffice :FormGroup;
+  isLoaderAdmin : boolean = false;
+  onlynumeric = /^-?(0|[1-9]\d*)?$/
+  allCurency: any;
+  allCountry: any;
+  admin_id :any;
   allBoxoffice: any;
   adminSettings : boolean = false;
-  isLoaderAdmin : boolean = false;
   currentUser:any;
   adminId:any;
   token:any;
   getIpAddress : any;
   pageSlug:any;
+  firstCreateBoxOffice : boolean = false;
   keepMe:any;
+  noBoxOffice:boolean= true
   constructor(
 
     public dialog: MatDialog,
     public router: Router,
     public superadminService : SuperadminService,
     private authenticationService : AuthenticationService,
+    private _formBuilder: FormBuilder,
     private ErrorService : ErrorService,
     public AppComponent: AppComponent
     ) {
@@ -43,6 +50,17 @@ export class MyBoxofficeComponent implements OnInit {
         if (event instanceof RouterEvent) this.handleRoute(event);
           const url = this.getUrl(event);
       });
+
+      this.createBoxoffice = this._formBuilder.group({
+        boxoffice_name : ['', [Validators.required]],
+        boxoffice_type : ['', [Validators.required]],
+        boxoffice_country : ['', Validators.required],
+        boxoffice_billing_currency : ['', Validators.required],
+        boxoffice_genre : ['', Validators.required],
+        boxoffice_genre_type : ['', Validators.required],
+      });
+      this.getAllCountry();
+      this.getAllCurrancy();
      }
 
     ngOnInit(): void {
@@ -87,14 +105,20 @@ export class MyBoxofficeComponent implements OnInit {
       this.superadminService.getAllBoxoffice(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.allBoxoffice = response.response
+          console.log(this.allBoxoffice)
+          if(this.firstCreateBoxOffice){
+            this.fnSelectBoxoffice(this.allBoxoffice[0].unique_code,this.allBoxoffice[0].box_office_name, this.allBoxoffice[0].box_office_link);
+          }
+          this.noBoxOffice = false;
         }else if(response.data == false){
           if(response.response == "Box Office not found."){
-            this.fnCreateBoxOffice();
+            this.noBoxOffice = true;
+            this.firstCreateBoxOffice = true;
           }
           // this.ErrorService.errorMessage(response.response)
         }
+        this.isLoaderAdmin = false;
       });
-      this.isLoaderAdmin = false;
 
     }
 
@@ -157,6 +181,71 @@ export class MyBoxofficeComponent implements OnInit {
       localStorage.setItem('isBoxoffice','false');
     }
   }
+
+  getAllCountry(){
+    this.superadminService.getAllCountry().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCountry = response.response
+      }
+    });
+  }
+  
+  getAllCurrancy(){
+
+    this.superadminService.getAllCurrancy().subscribe((response:any) => {
+      if(response.data == true){
+        this.allCurency = response.response
+      }else if(response.data == false){
+        // this.ErrorService.errorMessage(response.response)
+      }
+    });
+
+  }
+
+
+  fnCreateBoxOfficeSubmit(){
+    if(this.createBoxoffice.invalid){
+      this.createBoxoffice.get('boxoffice_name').markAsTouched();
+      this.createBoxoffice.get('boxoffice_type').markAsTouched();
+      this.createBoxoffice.get('boxoffice_billing_currency').markAsTouched();
+      this.createBoxoffice.get('boxoffice_country').markAsTouched();
+      this.createBoxoffice.get('boxoffice_genre').markAsTouched();
+      this.createBoxoffice.get('boxoffice_genre_type').markAsTouched();
+      return false;
+    }else if(this.createBoxoffice.valid){
+
+      var insertArr = {
+        "admin_id": this.currentUser.user_id,
+        "box_office_name" : this.createBoxoffice.get('boxoffice_name').value,
+        "type" : this.createBoxoffice.get('boxoffice_type').value,
+        "currency" : this.createBoxoffice.get('boxoffice_billing_currency').value,
+        "country" : this.createBoxoffice.get('boxoffice_country').value,
+        "genre" : this.createBoxoffice.get('boxoffice_genre').value,
+        "genre_type" : this.createBoxoffice.get('boxoffice_genre_type').value,
+      }
+
+      this.createNewBoxOffice(insertArr);
+
+    }
+    
+  }
+
+  createNewBoxOffice(insertArr){
+
+    this.isLoaderAdmin = true;
+    this.superadminService.createNewBusiness(insertArr).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response);
+        this.getAllBoxoffice();
+        this.createBoxoffice.reset();
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
+
+  }
+  
 }
 
 
@@ -263,9 +352,9 @@ export class myCreateNewBoxofficeDialog {
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    });
 
-    this.isLoaderAdmin = false;
+      this.isLoaderAdmin = false;
+    });
   }
   
 }

@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="ml-4" fxFlex="20">
-                        <label class="mb-0">Order date form</label>
+                        <label class="mb-0">Order date from</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matPrefix [for]="ticketIssuedDatePicker" class="dateIcon"> </mat-datepicker-toggle>
                             <input placeholder="MM/DD/YYYY" type="text" (dateChange)="fngetallOrders()" [(ngModel)]="start_date" [matDatepicker]="ticketIssuedDatePicker" (click)="ticketIssuedDatePicker.open()" class="form-control matInputdate">
@@ -130,7 +130,8 @@
                                 </div> -->
                                 <div class="tb-data" fxFlex="16">{{element.customer.firstname + " " +element.customer.lastname}}</div>
                                 <div class="tb-data" fxFlex="24">{{element.order_date |date :'mediumDate'}} / {{transformTime24To12(element.order_time)}}</div>
-                                <div class="tb-data" fxFlex="27" *ngIf="element.events">{{element.events.event_title}} <span class="order-data-date"> ({{element.order_date |date :'mediumDate'}}) </span></div>
+                                <div class="tb-data" fxFlex="27" *ngIf="element.events && element.events.event_occurrence_type == 'N'">{{element.events.event_title}} <span class="order-data-date"> ({{element.events.start_date |date :'mediumDate'}}) </span></div>
+                                <div class="tb-data" fxFlex="27" *ngIf="element.events && element.events.event_occurrence_type == 'Y'">{{element.events.event_title}} <span class="order-data-date">{{element.occurrence.start_label}} - {{element.occurrence.end_label}} </span></div>
                                 <div class="tb-data" fxFlex="27" *ngIf="!element.events">-</div>
                                 <div class="tb-data" fxFlex="8">{{element.grand_total| currency:element.events?element.events.event_setting.currency:'symbol'}}</div>
                                 <div class="tb-data" fxFlex="5">

@@ -31,9 +31,9 @@
                         <div class="tb-data heading-table clr-black" fxFlex="10"> Original </div>
                         <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.event_title:''}} </div>
                         <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.start_date:'' | date}}</div>
-                        <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.start_time:''}}</div>
+                        <div class="tb-data heading-table" fxFlex="15">{{eventName?transformTime24To12(eventName.start_time):''}}</div>
                         <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.end_date:'' | date}}</div>
-                        <div class="tb-data heading-table" fxFlex="15">{{eventName?eventName.end_time:''}}</div>
+                        <div class="tb-data heading-table" fxFlex="15">{{eventName?transformTime24To12(eventName.end_time):''}}</div>
                         <div class="tb-data heading-table text-capitalize" fxFlex="15">{{eventName?eventName.event_status:''}}</div>
                     </div>
                 </div>

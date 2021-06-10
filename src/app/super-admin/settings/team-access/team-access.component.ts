@@ -433,13 +433,14 @@ export class inviteTeamMateDialog {
       this.ErrorService.errorMessage('Plese select any Role');
       return;
     }
+	
 
 
-    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.email_id)){
+    if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.email_id)){
       
     }else{
       this.ErrorService.errorMessage('Please enter valid Email');
-      return (false)
+      return false;
     }
  
 

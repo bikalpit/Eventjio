@@ -7,7 +7,7 @@
     <div class="modal-content p-3" *ngIf="is_show">
 
         <div class="modal-header modal-bcolor-primary px-0 pt-0">
-            <p class="heading lead  work-content"> Order Detail</p>
+            <p class="heading lead  work-content"> Order Details</p>
             <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
              <span aria-hidden="true" class="white-text">&times;</span>
            </button>
@@ -97,17 +97,66 @@
                                     <div class="tb-data fw-600" fxFlex="20">{{orderDetail.transaction_fee| currency:currencyCode:'symbol'}}</div>
                                 </div>
                             </div>
-                            <div class="content" class="drageble-list" *ngIf="(orderDetail.voucher_amt && orderDetail.voucher_amt != '0') || (orderDetail.coupon_amt && orderDetail.coupon_amt != '0')">
+                            <div class="content" class="drageble-list" *ngIf="orderDetail.voucher_amt && orderDetail.voucher_amt != '0'">
+                                <div class="drageble-box" fxLayout="row">
+                                    <div class="tb-data fw-600" fxFlex="50">Voucher Code</div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data fw-600" fxFlex="20" > {{orderDetail.voucher_code}}</div>
+                                </div>
+                            </div>
+                            <div class="content" class="drageble-list" *ngIf="orderDetail.voucher_amt && orderDetail.voucher_amt != '0'">
+                                <div class="drageble-box" fxLayout="row">
+                                    <div class="tb-data fw-600" fxFlex="50">Voucher Amount</div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data fw-600" fxFlex="20" *ngIf="orderDetail.voucher_amt != '0'">-{{ (orderDetail.voucher_amt| currency:currencyCode:'symbol')}}</div>
+                                </div>
+                            </div>
+                            <div class="content" class="drageble-list" *ngIf="orderDetail.coupon_amt && orderDetail.coupon_amt != '0'">
+                                <div class="drageble-box" fxLayout="row">
+                                    <div class="tb-data fw-600" fxFlex="50">Discount Code</div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data" fxFlex="20"></div>
+                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data fw-600" fxFlex="20" > {{orderDetail.coupon_code}}</div>
+                                </div>
+                            </div>
+                            <div class="content" class="drageble-list" *ngIf="orderDetail.coupon_amt && orderDetail.coupon_amt != '0'">
                                 <div class="drageble-box" fxLayout="row">
                                     <div class="tb-data fw-600" fxFlex="50">Discount Amount</div>
                                     <div class="tb-data" fxFlex="30"></div>
                                     <div class="tb-data" fxFlex="20"></div>
                                     <div class="tb-data" fxFlex="30"></div>
-                                    <div class="tb-data fw-600" fxFlex="20" *ngIf="orderDetail.voucher_amt != '0'">-{{ (orderDetail.voucher_amt| currency:currencyCode:'symbol')}}</div>
                                     <div class="tb-data fw-600" fxFlex="20" *ngIf="orderDetail.coupon_amt != '0'">-{{ ( orderDetail.coupon_amt| currency:currencyCode:'symbol')}}</div>
                                 </div>
                             </div>
-                            <div class="content" class="drageble-list" *ngIf="orderDetail.tax && orderDetail.tax > 0">
+                            <div *ngIf="taxArray.length>0 && orderDetail.events.event_setting.custom_sales_tax == 'N'">
+                                <div class="content" class="drageble-list" *ngFor="let tax of taxArray; let i=index;">
+                                    <div class="drageble-box" fxLayout="row">
+                                        <div class="tb-data fw-600" fxFlex="50">{{tax.name}}</div>
+                                        <div class="tb-data" fxFlex="30"></div>
+                                        <div class="tb-data" fxFlex="20"></div>
+                                        <div class="tb-data" fxFlex="30"></div>
+                                        <div class="tb-data fw-600" fxFlex="20">{{tax.finalAmount | currency:currencyCode:'symbol'}}({{tax.value}}%)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="taxArray.length>0 && orderDetail.events.event_setting.custom_sales_tax == 'Y'">
+                                <div class="content" class="drageble-list" *ngFor="let tax of taxArray; let i=index;">
+                                    <div class="drageble-box" fxLayout="row">
+                                        <div class="tb-data fw-600" fxFlex="50">{{tax.label}}</div>
+                                        <div class="tb-data" fxFlex="30"></div>
+                                        <div class="tb-data" fxFlex="20"></div>
+                                        <div class="tb-data" fxFlex="30"></div>
+                                        <div class="tb-data fw-600" fxFlex="20">{{tax.finalAmount | currency:currencyCode:'symbol'}}({{tax.amount}}%)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="content" class="drageble-list" *ngIf="orderDetail.tax && orderDetail.tax > 0">
                                 <div class="drageble-box" fxLayout="row">
                                     <div class="tb-data fw-600" fxFlex="50">Sales Tax</div>
                                     <div class="tb-data" fxFlex="30"></div>
@@ -115,7 +164,7 @@
                                     <div class="tb-data" fxFlex="30"></div>
                                     <div class="tb-data fw-600" fxFlex="20">{{orderDetail.tax| currency:currencyCode:'symbol'}}</div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="content" *ngIf="orderDetail.donation != null" class="drageble-list">
                                 <div class="drageble-box" fxLayout="row">
                                     <div class="tb-data fw-600" fxFlex="50">Donation</div>

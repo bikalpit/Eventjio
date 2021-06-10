@@ -30,11 +30,11 @@
             </div>
             <div  class="row">
                 <label class="col-md-2"> Name:</label>
-                <p class="col-md-10"> {{singleorderCustomer.customer.name}}</p>
+                <p class="col-md-10"> {{singleorderCustomer.customer?singleorderCustomer.customer.name:""}}</p>
             </div>
             <div  class="row">
                 <label class="col-md-2"> Email:</label>
-                <p class="col-md-10">  {{singleorderCustomer.customer.email}}</p>
+                <p class="col-md-10">  {{singleorderCustomer.customer?singleorderCustomer.customer.email:""}}</p>
             </div>
             </div>
             

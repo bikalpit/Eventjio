@@ -317,7 +317,7 @@
                             <label for="">Timezone<span><i class="fa fa-asterisk asterisk"></i></span> </label>
                             <div class="form-group ">
                                 <mat-select formControlName="timezone" class="form-control col-8 d-block" #singleSelect>
-                                    <ngx-mat-select-search [formControl]="timeZoneFilterCtrl">
+                                    <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="timeZoneFilterCtrl">
                                     </ngx-mat-select-search>
                                     <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" value="{{listTimeZone.id}}">({{listTimeZone.utc}}){{listTimeZone.name}}
                                     </mat-option>

@@ -303,7 +303,7 @@ export class CustomersComponent implements OnInit {
       //this.fnSelectCustomer(this.selectedCustomerCode);
       this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     }else if(response.data == false){
-      this.ErrorService.errorMessage(response.response.message);     
+      this.ErrorService.errorMessage(response.response);     
       }
     this.isLoaderAdmin = false;
     });

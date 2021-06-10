@@ -336,10 +336,22 @@ export class OrdersComponent implements OnInit {
       if(response.data == true){
 
         this.allorderlist =  response.response.data;
-        // this.allorderlist.forEach(element => {
-        //   element.order_date = this.datePipe.transform(new Date(element.order_date), 'MMM d, y');
-        //   element.order_time = this.datePipe.transform(new Date(element.order_time), 'h:mm a');
-        // });
+        this.allorderlist.forEach(element => {
+          if(element.occurrence){
+            element.occurrence.start_label = "";
+            element.occurrence.end_label = "";
+            if(element.occurrence.occurance_start_time){
+              element.occurrence.start_label =  this.datePipe.transform(element.occurrence.occurance_start_date +' '+element.occurrence.occurance_start_time, 'MMM d, y, h:mm a')
+            }else{
+               element.occurrence.start_label =  this.datePipe.transform(element.occurrence.occurance_start_date, 'MMM d, y')
+            }
+            if(element.occurrence.occurance_end_time){
+              element.occurrence.end_label =  this.datePipe.transform(element.occurrence.occurance_end_date +' '+element.occurrence.occurance_end_time, 'MMM d, y, h:mm a')
+            }else{
+               element.occurrence.end_label =  this.datePipe.transform(element.occurrence.occurance_end_date, 'MMM d, y')
+            }
+          }
+        });
         this.current_page_orders = response.response.current_page;
         this.first_page_url_orders = response.response.first_page_url;
         this.last_page_orders = response.response.last_page;
@@ -1094,6 +1106,9 @@ export class AddNewOrderDialog {
   
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
+      if(this.animal){
+        this.dialogRef.close();
+      }
      });
   }
 }
@@ -1136,6 +1151,7 @@ export class BookTicketDialog {
   transaction_fee = 0;
   currencySymbol = "USD";
   total_sales_tax = 0;
+  sales_tax_array :any;
   event_tickets:any = [];
   voucher_code:any = '';
   voucher_amt = 0;
@@ -1148,6 +1164,7 @@ export class BookTicketDialog {
   coupon_code = '';
   coupon_amt = 0;
   gloabelSalesTax = 0;
+  gloabelSalesTaxArray :any=[];
   discount_amt = 0;
   attendeeForm:any = [];
   formArr:any = [];
@@ -1162,6 +1179,7 @@ export class BookTicketDialog {
   };
   is_address_hide = false;
   occurrenceCode:any;
+  totalGlobelSalesTax =0;
   make_donation:any;
   recurringEvent:boolean=false;
   constructor(
@@ -1196,10 +1214,12 @@ export class BookTicketDialog {
         this.currencySymbol = this.eventSettings.currency;
       }
 
-      let sales_tax = JSON.parse(this.eventSettings.sales_tax);
+      this.sales_tax_array = JSON.parse(this.eventSettings.sales_tax);
 
-      sales_tax.forEach(element => {
+      this.sales_tax_array.forEach(element => {
         if(parseInt(element.amount) > 0){
+          element.finalAmount = 0
+          element.finalAmount = element.amount*this.subTotalWithTransactionFee/100
           this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
         }
       });
@@ -1246,7 +1266,7 @@ export class BookTicketDialog {
     }
     this.superadminService.getSettings(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.boxOfficeSalesTaxStatus = JSON.parse(response.response)
+        this.boxOfficeSalesTaxStatus = response.response
         if(this.boxOfficeSalesTaxStatus == 'Y'){
           this.fnGetSalesTax();
         }
@@ -1268,7 +1288,7 @@ export class BookTicketDialog {
 
     this.superadminService.getAllAddTax(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        // this.gloabelSalesTax = response.response;
+        this.gloabelSalesTaxArray = response.response;
 
         response.response.forEach(element => {
           if(element.status == 'Y'){
@@ -1528,9 +1548,35 @@ export class BookTicketDialog {
     }
     
     if(this.eventSettings.custom_sales_tax == 'Y'){
+      // this.total_sales_tax_amount = this.subTotalWithTransactionFee*this.total_sales_tax/100;
+      this.total_sales_tax = 0;
+      this.sales_tax_array = JSON.parse(this.eventSettings.sales_tax);
+      this.sales_tax_array.forEach(element => {
+        element.finalAmount = 0
+        if(parseInt(element.amount) > 0){
+          element.finalAmount = element.amount*this.subTotalWithTransactionFee/100
+          this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
+        }
+      });
       this.total_sales_tax_amount = this.subTotalWithTransactionFee*this.total_sales_tax/100;
+      // this.grandTotal = this.subTotal+this.total_sales_tax_amount+this.transaction_fee;
+      this.grandTotal = this.subTotalWithTransactionFee+this.total_sales_tax_amount;
     }else if(this.eventSettings.custom_sales_tax == 'N' && this.boxOfficeSalesTaxStatus == 'Y'){
-      this.total_sales_tax_amount = this.subTotalWithTransactionFee*this.gloabelSalesTax/100;
+      // this.total_sales_tax_amount = this.subTotalWithTransactionFee*this.gloabelSalesTax/100;
+      this.totalGlobelSalesTax = 0;
+      if(this.subTotalWithTransactionFee != 0){
+        this.gloabelSalesTaxArray.forEach(element => {
+          element.finalAmount = 0;
+          if(element.status == 'Y'){
+            element.finalAmount =  element.value*this.subTotalWithTransactionFee / 100;
+            this.totalGlobelSalesTax = this.totalGlobelSalesTax + parseInt(element.value);
+          }
+        });
+      }
+        // this.total_sales_tax_amount = this.total_sales_tax_amount +  this.totalGlobelSalesTax;
+        this.total_sales_tax_amount = this.subTotalWithTransactionFee*this.totalGlobelSalesTax/100;
+        // this.grandTotal = this.subTotal+this.total_sales_tax_amount+this.transaction_fee;
+        this.grandTotal = this.subTotalWithTransactionFee+this.total_sales_tax_amount;
     }
 
     this.grandTotal = this.subTotalWithTransactionFee+this.total_sales_tax_amount;
@@ -1594,13 +1640,25 @@ export class BookTicketDialog {
           //   }
           // });
           // if(this.total_sales_tax  > 0){
-            this.total_sales_tax_amount = this.subTotalWithDiscount*this.total_sales_tax/100;
+            // this.total_sales_tax_amount = this.subTotalWithDiscount*this.total_sales_tax/100;
           // }else if(this.gloabelSalesTax > 0){
           //   this.total_sales_tax_amount = this.subTotalWithDiscount*this.gloabelSalesTax/100;
           // }
           // this.total_sales_tax_amount = this.subTotalWithDiscount*this.total_sales_tax/100;
           // this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount+this.transaction_fee;
-          this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
+          // this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
+
+          this.total_sales_tax = 0;
+            this.sales_tax_array.forEach(element => {
+              element.finalAmount = 0
+              if(parseInt(element.amount) > 0){
+                element.finalAmount = element.amount*this.subTotalWithDiscount/100
+                this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
+              }
+            });
+            this.total_sales_tax_amount = this.subTotalWithDiscount*this.total_sales_tax/100;
+            // this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount+this.transaction_fee;
+            this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
         }else if(this.eventSettings.custom_sales_tax == 'N' && this.boxOfficeSalesTaxStatus == 'Y'){
           // this.gloabelSalesTax = 0;
           // if(this.subTotalWithDiscount != 0){
@@ -1611,8 +1669,23 @@ export class BookTicketDialog {
             // });
           // this.total_sales_tax_amount = this.total_sales_tax_amount +  this.totalGlobelSalesTax;
           // this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount+this.transaction_fee;
-          this.total_sales_tax_amount = this.subTotalWithDiscount*this.gloabelSalesTax/100;
-          this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
+          // this.total_sales_tax_amount = this.subTotalWithDiscount*this.gloabelSalesTax/100;
+          // this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
+          this.totalGlobelSalesTax = 0;
+            if(this.subTotalWithDiscount != 0){
+              this.gloabelSalesTaxArray.forEach(element => {
+                element.finalAmount = 0;
+                if(element.status == 'Y'){
+                   element.finalAmount =  element.value*this.subTotalWithDiscount / 100;
+                  this.totalGlobelSalesTax = this.totalGlobelSalesTax + parseInt(element.value);
+                }
+               
+              });
+            }
+            // this.total_sales_tax_amount = this.total_sales_tax_amount +  this.totalGlobelSalesTax;
+            this.total_sales_tax_amount = this.subTotalWithDiscount*this.totalGlobelSalesTax/100;
+            // this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount+this.transaction_fee;
+            this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
           }else{
             this.grandTotal = this.subTotalWithDiscount
           }
@@ -1775,6 +1848,7 @@ export class BookTicketDialog {
       "qty" : this.total_qty,
       "sub_total" : this.subTotal,
       "tax" : this.total_sales_tax_amount,
+      "tax_info" : this.eventSettings.custom_sales_tax == 'Y'?JSON.stringify(this.sales_tax_array):JSON.stringify(this.gloabelSalesTaxArray),
       "transaction_fee" : this.transaction_fee,
 
       "voucher_code" : this.voucher_code,
@@ -1817,15 +1891,15 @@ export class BookTicketDialog {
         this.bookTickets.reset();
         this.eventSpecificForm = null;
         this.attendeeForm = null;
-        this.dialogRef.close();
+        this.dialogRef.close('success');
         
         this.change.detectChanges();
 
       }else{
         return  this.ErrorService.errorMessage(response.response);
       }
-    });
       this.isLoaderAdmin = false;
+    });
     
     
   }
@@ -2117,8 +2191,10 @@ export class EditorderDialog {
       this.superadminService. fnGetsingleOrder(requestObject).subscribe((response:any) => {
         if(response.data == true){
 
-          this.singleorderCustomer = response.response;
-          this.eventSpecificForm =  JSON.parse(this.singleorderCustomer.customer_info);
+          this.singleorderCustomer = response.response.order_info;
+          if(this.singleorderCustomer.customer_info){
+            this.eventSpecificForm =  JSON.parse(this.singleorderCustomer.customer_info);
+          }
         
           this.attendeeForm = JSON.parse(this.singleorderCustomer.attendee_info);
 
@@ -2393,6 +2469,7 @@ export class eventSummaryDialog {
   Orderdata:any;
   subPermission:any;
   purchasedTicket:any;
+  taxArray:any;
   constructor(
     public dialogRef: MatDialogRef<eventSummaryDialog>,
     private http: HttpClient,
@@ -2512,6 +2589,8 @@ export class eventSummaryDialog {
           this.customerData = this.orderDetail.customer;
           this.attendeeData  = JSON.parse(this.orderDetail.attendee_info);
           this.currencyCode = this.orderDetail.events.event_setting.currency;
+          this.taxArray = this.orderDetail.tax_info!= null?JSON.parse(this.orderDetail.tax_info):'';
+          console.log(this.taxArray)
         }else{
           this.singleorderCustomer  = [];
         }

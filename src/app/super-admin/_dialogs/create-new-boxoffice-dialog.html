@@ -1,19 +1,23 @@
 <div class="container position-relative" id="admin-boxoffice">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/step-loader.gif" /></div>
-    <button type="button" class="close close-btn m-3" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
-        <span aria-hidden="true">&times;</span>
-    </button>
     <div class="row">
-        <div class="col-12 ">
-            <div class="text-center ">
-                <h2>Create Box Office</h2>
-                <h4>Please tell us about your organisation and types of event that you run</h4>
+        <div class="col-6 d-flex align-items-center">
+            <div class="text-left popup-title ">
+                <h2 class="text-left">Create Box Office</h2>
             </div>
+        </div>
+        <div class="col-6">
+            <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="col-12 ">
+            
             <div class="pt-4">
                 <form [formGroup]="createBoxoffice" class="with-validation">
                     <div class="col-12 p-0">
                         <h3 class="text-left">
-                            <strong>About your organisation:</strong>
+                           About your organisation:
                         </h3>
                     </div>
                     <div class="form-row mt-3">
@@ -61,7 +65,7 @@
 
                     <div class="form-row mt-3">
                         <h3 class="text-left">
-                            <strong>What kind of event(s) do you typically run ?</strong>
+                            What kind of event(s) do you typically run ?
                         </h3>
                     </div>
                     <div class="form-row">

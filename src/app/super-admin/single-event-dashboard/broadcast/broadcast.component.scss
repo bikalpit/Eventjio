@@ -277,3 +277,16 @@
         color: #000000;
     }
 }
+
+::ng-deep .form-control::placeholder {
+    color: #9a9a9a;
+    opacity: 1; /* Firefox */
+}
+
+::ng-deep .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #9a9a9a;
+}
+
+::ng-deep .form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: #9a9a9a;
+}
