@@ -29,8 +29,8 @@
 }
 
 .active {
-    color: #973c56;
-    background-color: #FFE6C8;
+    color: #fff;
+    background-color: #70C0C1;
 }
 
 .event-menu {
@@ -64,7 +64,7 @@
 
 .event-title-bar {
     width: calc(100% - 80px);
-    background-color: #FFE2B7;
+    background-color: #FFD8AA;
     display: flex;
     position: fixed;
     z-index: 99;
@@ -116,7 +116,7 @@
 ::ng-deep .event-status {
     .custome-mat-set {
         background-color: #595959;
-        padding: 8px !important;
+        // padding: 8px !important;
         border-radius: 30px;
         .mat-select-trigger {
             .mat-select-value {
@@ -132,5 +132,5 @@
 }
 
 .active {
-    color: #973c56;
+    color: #fff;
 }

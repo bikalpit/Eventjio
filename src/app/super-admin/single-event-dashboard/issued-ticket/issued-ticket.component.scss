@@ -118,6 +118,10 @@
             justify-content: center;
             display: flex;
             font-size: 30px;
+            &[aria-describedby]{
+                background:#70C0C1;
+                color:#fff;
+            }
         }
     }
 }
@@ -307,6 +311,10 @@
         justify-content: center;
         display: flex;
         font-size: 30px;
+        &[aria-describedby]{
+            background:#70C0C1;
+            color:#fff;
+        }
     }
 }
 
@@ -390,6 +398,10 @@
                 justify-content: center;
                 display: flex;
                 font-size: 30px;
+                &[aria-describedby]{
+                    background:#70C0C1;
+                    color:#fff;
+                }
             }
         }
     }
@@ -526,6 +538,10 @@
                 justify-content: center;
                 display: flex;
                 font-size: 30px;
+                &[aria-describedby]{
+                    background:#70C0C1;
+                    color:#fff;
+                }
             }
         }
     }
@@ -833,6 +849,10 @@
                 justify-content: center;
                 display: flex;
                 font-size: 30px;
+                &[aria-describedby]{
+                    background:#70C0C1;
+                    color:#fff;
+                }
             }
         }
     }

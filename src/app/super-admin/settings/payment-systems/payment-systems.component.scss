@@ -58,6 +58,9 @@
         }
         .mat-expansion-panel-header-title {
             margin-right: 0 !important;
+            .payment-image{
+                width: 150px;
+            }
         }
         .payment-toggle-btn {
             margin-left: auto;

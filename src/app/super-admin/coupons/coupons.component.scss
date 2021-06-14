@@ -126,7 +126,7 @@ button:focus {
     .cd-code-btn {
         background: #973c56 0% 0% no-repeat padding-box;
         color: white;
-        border-radius: 25px;
+        border-radius: 5px;
         font-size: 15px;
         font-weight: 400;
     }
@@ -231,6 +231,10 @@ button:focus {
             justify-content: center;
             display: flex;
             font-size: 30px;
+            &[aria-describedby]{
+                background:#70C0C1;
+                color:#fff;
+            }
         }
     }
 }
@@ -285,4 +289,7 @@ button:focus {
     display: flex;
     align-items: center;
     font-weight: 500;
+}
+.title-des{
+    padding-left: 25px;
 }

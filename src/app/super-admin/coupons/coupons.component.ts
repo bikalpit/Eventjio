@@ -472,8 +472,8 @@ export class myCreateDiscountCodeDialog {
       else if(response.data == false){
        this.ErrorService.errorMessage(response.response);
       }
-    })
       this.isLoaderAdmin = false;
+    })
   }
   updateCouponCode(updateCouponCode){
     this.isLoaderAdmin = true;
@@ -487,8 +487,8 @@ export class myCreateDiscountCodeDialog {
       else if(response.data == false){
        this.ErrorService.errorMessage(response.response);
       }
-    })
       this.isLoaderAdmin = false;
+    })
   }
   fnCancelCreateCoupon(){
     this.createCouponForm.reset();
@@ -628,8 +628,8 @@ export class myBatchVoucherCodeDialog {
          this.ErrorService.errorMessage(response.response);
         }
         this.createVoucherForm.reset();
-      })
         this.isLoaderAdmin = false;
+      })
     }
 
     updateVoucherCode(updateVoucherCode){
@@ -645,8 +645,8 @@ export class myBatchVoucherCodeDialog {
         else if(response.data == false){
          this.ErrorService.errorMessage(response.response);
         }
-      })
         this.isLoaderAdmin = false;
+      })
     }
 
   onNoClick(): void {

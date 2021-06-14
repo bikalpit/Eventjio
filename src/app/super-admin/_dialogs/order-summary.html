@@ -97,7 +97,7 @@
                                     <div class="tb-data fw-600" fxFlex="20">{{orderDetail.transaction_fee| currency:currencyCode:'symbol'}}</div>
                                 </div>
                             </div>
-                            <div class="content" class="drageble-list" *ngIf="orderDetail.voucher_amt && orderDetail.voucher_amt != '0'">
+                            <!-- <div class="content" class="drageble-list" *ngIf="orderDetail.voucher_amt && orderDetail.voucher_amt != '0'">
                                 <div class="drageble-box" fxLayout="row">
                                     <div class="tb-data fw-600" fxFlex="50">Voucher Code</div>
                                     <div class="tb-data" fxFlex="30"></div>
@@ -105,17 +105,17 @@
                                     <div class="tb-data" fxFlex="30"></div>
                                     <div class="tb-data fw-600" fxFlex="20" > {{orderDetail.voucher_code}}</div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="content" class="drageble-list" *ngIf="orderDetail.voucher_amt && orderDetail.voucher_amt != '0'">
                                 <div class="drageble-box" fxLayout="row">
-                                    <div class="tb-data fw-600" fxFlex="50">Voucher Amount</div>
-                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data fw-600" fxFlex="80">{{orderDetail.voucher_code}} (Voucher Code)</div>
+                                    <!-- <div class="tb-data" fxFlex="30"></div>
                                     <div class="tb-data" fxFlex="20"></div>
-                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data" fxFlex="30"></div> -->
                                     <div class="tb-data fw-600" fxFlex="20" *ngIf="orderDetail.voucher_amt != '0'">-{{ (orderDetail.voucher_amt| currency:currencyCode:'symbol')}}</div>
                                 </div>
                             </div>
-                            <div class="content" class="drageble-list" *ngIf="orderDetail.coupon_amt && orderDetail.coupon_amt != '0'">
+                            <!-- <div class="content" class="drageble-list" *ngIf="orderDetail.coupon_amt && orderDetail.coupon_amt != '0'">
                                 <div class="drageble-box" fxLayout="row">
                                     <div class="tb-data fw-600" fxFlex="50">Discount Code</div>
                                     <div class="tb-data" fxFlex="30"></div>
@@ -123,13 +123,13 @@
                                     <div class="tb-data" fxFlex="30"></div>
                                     <div class="tb-data fw-600" fxFlex="20" > {{orderDetail.coupon_code}}</div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="content" class="drageble-list" *ngIf="orderDetail.coupon_amt && orderDetail.coupon_amt != '0'">
                                 <div class="drageble-box" fxLayout="row">
-                                    <div class="tb-data fw-600" fxFlex="50">Discount Amount</div>
-                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data fw-600" fxFlex="80">{{orderDetail.coupon_code}} (Discount Code)</div>
+                                    <!-- <div class="tb-data" fxFlex="30"></div>
                                     <div class="tb-data" fxFlex="20"></div>
-                                    <div class="tb-data" fxFlex="30"></div>
+                                    <div class="tb-data" fxFlex="30"></div> -->
                                     <div class="tb-data fw-600" fxFlex="20" *ngIf="orderDetail.coupon_amt != '0'">-{{ ( orderDetail.coupon_amt| currency:currencyCode:'symbol')}}</div>
                                 </div>
                             </div>

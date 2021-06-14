@@ -2186,7 +2186,7 @@ th.mat-header-cell {
 }
 
 .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
-    background: rgba(0, 0, 0, .12)
+    background: #FFE2B7
 }
 
 .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
@@ -2782,4 +2782,7 @@ th.mat-header-cell {
 }
 .error {
     color: #de0e0e;
+}
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button{
+    border-radius: 5px !important;
 }

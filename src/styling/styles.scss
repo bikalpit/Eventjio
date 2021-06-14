@@ -424,3 +424,25 @@
     .form-control:focus{
         border-color:#973c56 !important
     }
+
+    .action-icon {
+        &[aria-describedby]{
+            background:#70C0C1;
+            color:#fff;
+        }
+    }
+
+    ::ng-deep .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple){
+        background-color: #FFE2B7 !important;
+    }
+
+    :ng-deep .confirmation-dialog{
+        .mat-dialog-container{
+            padding: 0;
+        }
+    }
+    .btn-primary:hover{
+        color: #fff;
+        background-color: #973c56 !important;
+        border-color: #973c56 !important;
+    }

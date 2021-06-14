@@ -6,7 +6,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { SuperadminService } from '../_services/superadmin.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ErrorService } from '../../_services/error.service';
-import { AppComponent } from '../../app.component'
+import { AppComponent } from '../../app.component';
+import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 export interface DialogData {
   animal: string;
   name: string;
@@ -104,12 +105,15 @@ export class MyBoxofficeComponent implements OnInit {
       };
       this.superadminService.getAllBoxoffice(requestObject).subscribe((response:any) => {
         if(response.data == true){
-          this.allBoxoffice = response.response
-          console.log(this.allBoxoffice)
           if(this.firstCreateBoxOffice){
-            this.fnSelectBoxoffice(this.allBoxoffice[0].unique_code,this.allBoxoffice[0].box_office_name, this.allBoxoffice[0].box_office_link);
+            this.fnSelectBoxoffice(response.response[0].unique_code,response.response[0].box_office_name, response.response[0].box_office_link);
+            
+          }else{
+            this.allBoxoffice = response.response
+            console.log(this.allBoxoffice)
+            this.noBoxOffice = false;
           }
-          this.noBoxOffice = false;
+          
         }else if(response.data == false){
           if(response.response == "Box Office not found."){
             this.noBoxOffice = true;
@@ -235,8 +239,9 @@ export class MyBoxofficeComponent implements OnInit {
     this.isLoaderAdmin = true;
     this.superadminService.createNewBusiness(insertArr).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response);
-        this.getAllBoxoffice();
+        this.ErrorService.successMessage(response.response.message);
+        this.fnSelectBoxoffice(response.response.boxoffice.unique_code,response.response.boxoffice.box_office_name, response.response.boxoffice.box_office_link);
+        // this.getAllBoxoffice();
         this.createBoxoffice.reset();
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -245,6 +250,41 @@ export class MyBoxofficeComponent implements OnInit {
     });
 
   }
+
+  
+
+deleteBoxOffice(boxOfficeCode){
+  const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+    width: '400px',
+    panelClass: 'confirmation-dialog',
+    data: "Are you sure?"
+  });
+  dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.fnDeleteBoxOffice(boxOfficeCode);
+      }
+  });
+}
+
+
+  fnDeleteBoxOffice(boxOfficeCode){
+    this.isLoaderAdmin = true;
+    let requestObject={
+      "unique_code": boxOfficeCode,
+    }
+    this.superadminService.deleteBoxOffice(requestObject).subscribe((response:any)=>{
+      if(response.data == true){
+        // this.deleteCustomer = response.response
+        this.ErrorService.successMessage(response.response);
+        this.getAllBoxoffice();
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response);
+
+      }
+      this.isLoaderAdmin = false;
+    });
+  }
+
   
 }
 

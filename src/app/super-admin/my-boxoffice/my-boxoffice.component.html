@@ -31,6 +31,9 @@
                         <div class="pt-3">
                             <button mat-button class="businness-btn" (click)="fnSelectBoxoffice(allBoxoffice.unique_code, allBoxoffice.box_office_name, allBoxoffice.box_office_link)">Select Box Office</button>
                         </div>
+                        <div class="delete-btn" (click)="deleteBoxOffice(allBoxoffice.unique_code)">
+                            <i class="fa fa-trash"></i>
+                        </div>
                     </mat-card>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 mb-3">

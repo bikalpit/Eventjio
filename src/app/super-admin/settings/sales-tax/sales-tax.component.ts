@@ -185,6 +185,7 @@ export class AddSalesTax {
   isLoaderAdmin:boolean=false;
   singleTaxData:any;
   taxStatus:any = 'Y';
+  saveDisabled:boolean=false;
 
   constructor(
     private _formBuilder:FormBuilder,
@@ -236,6 +237,10 @@ export class AddSalesTax {
           this.SettingService.updateTax(singleTaxData).subscribe((response:any) => {
             if(response.data == true){
              this.ErrorService.successMessage(response.response);
+             this.saveDisabled = true;
+             setTimeout(() => {
+               this.saveDisabled = false
+             }, 4000);
               this.addTaxForm.reset();
               this.dialogRef.close();
             }

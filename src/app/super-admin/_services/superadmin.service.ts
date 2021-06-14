@@ -131,6 +131,13 @@ export class SuperadminService {
             return res;
         }),catchError(this.handleError));
     }
+
+    deleteBoxOffice(requestObject){
+        return this.http.post(`${environment.apiUrl}/delete-boxoffice-api`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
     createNewCouponCode(requestObject){
         return this.http.post(`${environment.apiUrl}/create-coupon-api`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {

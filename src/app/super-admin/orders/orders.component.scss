@@ -32,7 +32,7 @@
     padding: 30px 35px;
     .page-title {
         font-size: 20px;
-        padding-left: 25px;
+        // padding-left: 25px;
         display: flex;
         align-items: center;
         font-weight: 500;
@@ -542,6 +542,10 @@
             justify-content: center;
             display: flex;
             font-size: 30px;
+            &[aria-describedby]{
+                background:#70C0C1;
+                color:#fff;
+            }
         }
     }
 }
@@ -605,6 +609,10 @@
         justify-content: center;
         display: flex;
         font-size: 30px;
+        &[aria-describedby]{
+            background:#70C0C1;
+            color:#fff;
+        }
     }
 }
 
@@ -688,6 +696,10 @@
                 justify-content: center;
                 display: flex;
                 font-size: 30px;
+                &[aria-describedby]{
+                    background:#70C0C1;
+                    color:#fff;
+                }
             }
         }
     }
@@ -819,6 +831,10 @@
                 justify-content: center;
                 display: flex;
                 font-size: 30px;
+                &[aria-describedby]{
+                    background:#70C0C1;
+                    color:#fff;
+                }
             }
         }
     }
@@ -1070,4 +1086,8 @@
 /* Firefox */
 ::ng-deep .new-order-table .ticket-qty input[type=number] {
   -moz-appearance: textfield;
+}
+
+::ng-deep .form-control[readonly]{
+    background-color: #e9ecef !important;
 }

@@ -128,7 +128,7 @@ export class PaymentSystemsComponent implements OnInit {
           }
 
         } else if(response.data == false){
-          this.ErrorService.errorMessage(response.response);
+          // this.ErrorService.errorMessage(response.response);
         }
     });
 

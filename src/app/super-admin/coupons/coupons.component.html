@@ -1,16 +1,16 @@
 <div id="my-coupons" class="sub-container">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="coupons comm-back">
-        <div class="page-title">
-            <h6>Promo codes</h6>
+        <div class=" page-head d-flex align-items-center">
+        <div class="title-left-side">
+            <h3  class="page-title mb-0">Promo codes</h3>
+            <p class="title-des">There are two types of promo codes:discount codes and voucher codes.</p>
         </div>
-        <div class="page-descp">
-            <div class="row">
-                <p class="col-sm-12 col-12 col-lg-9 col-md-9 col-xl-9 float-left">There are two types of promo codes:discount codes and voucher codes.</p>
-                <div class="col-sm-12 col-12 col-lg-3 col-md-3 col-xl-3 float-left d-flex">
-                    <button *ngIf="clickedIndex == 'coupon'" mat-raised-button color="primary" (click)="creatDiscountCode()" class="cd-code-btn ml-auto">Create discount code</button>
-                    <button *ngIf="clickedIndex == 'voucher'" mat-raised-button color="primary" (click)="creatVoucherCode()" class="cd-code-btn ml-auto">Create a batch of voucher code</button>
-                </div>
+        
+       
+            <div class="page-right-btn ml-auto">
+                <button *ngIf="clickedIndex == 'coupon'" mat-raised-button color="primary" (click)="creatDiscountCode()" class="cd-code-btn ml-auto">Create discount code</button>
+                <button *ngIf="clickedIndex == 'voucher'" mat-raised-button color="primary" (click)="creatVoucherCode()" class="cd-code-btn ml-auto">Create a batch of voucher code</button>
             </div>
         </div>
         <div class="row">

@@ -132,7 +132,7 @@ button:focus {
     .cd-code-btn {
         background: #973c56 0% 0% no-repeat padding-box;
         color: white;
-        border-radius: 25px;
+        border-radius: 5px;
     }
     .code-tab {
         .mat-tab-header {
@@ -198,6 +198,10 @@ button:focus {
             justify-content: center;
             display: flex;
             font-size: 30px;
+            &[aria-describedby]{
+                background:#70C0C1;
+                color:#fff;
+            }
         }
         .status {
             color: #FF7700;
@@ -295,5 +299,6 @@ button:focus {
         font-size: 16px;
         color: #FFFFFF;
         padding: 0px 45px;
+        border-radius: 5px;
     }
 }

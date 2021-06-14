@@ -10,7 +10,7 @@
         width: 100%;
         border-radius: 5px;
         margin-top: 15px;
-        background-color: #abe6fd2e;
+        background-color: rgba(255, 216, 170,0.25);
         .fa-bell {
             color: #FF6600;
             transform: rotate(-45deg);
@@ -186,6 +186,10 @@
     justify-content: center;
     display: flex;
     font-size: 30px;
+    &[aria-describedby]{
+        background:#70C0C1;
+        color:#fff;
+    }
 }
 
 ::ng-deep .occurrence-tabs {

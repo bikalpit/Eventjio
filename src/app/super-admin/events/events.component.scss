@@ -161,15 +161,15 @@
         overflow-y: scroll;
     }
     .main-heading-content {
-        border-top: solid 1px #DDDDDD;
-        padding: 8px 3rem;
+        border-top: solid 1px #00000029;
+        padding: 0 3rem;
         align-items: center;
         font-size: 14px;
         color: #595959;
-        div {
-            font-weight: 500;
-            font-size: 16px;
-        }
+        // div {
+        //     font-weight: 500;
+        //     font-size: 16px;
+        // }
     }
     .drageble-box {
         align-items: center;
@@ -202,6 +202,10 @@
         justify-content: center;
         display: flex;
         font-size: 30px;
+        &[aria-describedby]{
+            background:#70C0C1;
+            color:#fff;
+        }
     }
 }
 
@@ -331,7 +335,7 @@
 
 .add-new-event {
     .add-new-event-form {
-        margin: 0 6rem;
+        margin: 0 4rem;
         width: calc(100% - 12rem);
         label {
             font-size: 15px;

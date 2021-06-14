@@ -253,7 +253,8 @@ export class DashboardComponent implements OnInit {
           },
           tooltips:{
             enabled:true
-          }
+          },
+          cutoutPercentage: 60
         }
       });
     }

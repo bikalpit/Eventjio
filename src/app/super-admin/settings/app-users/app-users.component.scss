@@ -40,8 +40,11 @@
                 font-weight: 500;
             }
             .store-icons {
+                display: flex;
+                justify-content: center;
                 img {
                     margin: 15px;
+                    width: 35%;
                 }
             }
         }
@@ -178,6 +181,10 @@
     justify-content: center;
     display: flex;
     font-size: 30px;
+    &[aria-describedby]{
+        background:#70C0C1;
+        color:#fff;
+    }
 }
 
 .admin-add-menu {

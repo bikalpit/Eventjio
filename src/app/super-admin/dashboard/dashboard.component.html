@@ -115,7 +115,7 @@
                     <div *ngIf="latestSalesStats && latestSalesStats && (latestSalesStats.ticket_sold != 0 || latestSalesStats.ticket_left != 0)" class="row ticketchart mt-4">
                         <canvas id="ticketchart"></canvas>
                         <ul class="chart-legends">
-                            <li>
+                            <li class="mr-5">
                                 <div class="tag left"></div>
                                 <span>Ticket Remaining</span>
                                 <label>{{latestSalesStats?latestSalesStats.ticket_left:'-'}}</label>
@@ -136,7 +136,7 @@
         <mat-card class="">
             <div class="welcome-banner">
                 <img src="../../../assets/images/admin/welcome-banner.png" />
-                <h3>Welcome to Eventjio</h3>
+                <h3 class="text-left">Welcome to Eventmatic</h3>
                 <p>Reference site about Lorem Ipsum, giving as well as a random Lipsum generator.</p>
                 <p (click)="addNewEvent()" class="maroon-btn">Add New Event</p>
             </div>
@@ -147,7 +147,7 @@
                 <ul class="event-list" *ngIf="allUpcomingEventListData.length > 0">
                     <li class="single-event" *ngFor="let element of allUpcomingEventListData; let i=index;">
                         <div class="date-block" *ngIf="element.event_occurrence_type == 'N'">
-                            {{element.shortStartDate}} 
+                            <small>{{element.shortStartDate}} </small>
                             <span>{{element.shortStartDay}}</span>
                         </div>
                         <div class="date-block" *ngIf="element.event_occurrence_type == 'Y'">
