@@ -12,14 +12,15 @@
         }
         .module-title{
             color: #171717;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             text-align: left;
+            margin-bottom: 0px;
         }
         .section-head{
             display: flex;
-            display: flex;
             margin-bottom: 15px;
+            align-items: center;
             ::ng-deep .filter-dropdown{
                 width: 120px;
                 margin-left: auto;
@@ -69,12 +70,12 @@
                         background-color: #fff;
                         z-index: 9;
                         img{
-                            width: 32px;
+                            width: 26px;
                         }
                     }
                     label{
                         color: #000000;
-                        font-size: 18px;
+                        font-size: 16px;
                         width: 100%;
                         font-family: "Circular Std Book";
                         text-align: center;
@@ -120,16 +121,16 @@
             h4{
                 color: #973C56;
                 text-align: left;
-                font-size: 18px;
+                font-size: 16px;
                 font-family: "Circular Std";
             }
             span{
                 color: #000000;
-                font-size: 32px;
+                font-size: 30px;
                 font-family: "Circular Std";
             }
             img{
-                width: 50px;
+                width: 45px;
                 margin-left: auto;
                 margin-top: 50px;
             }
@@ -166,7 +167,7 @@
                         flex-wrap: wrap;
                         label{
                             color: #171717;
-                            font-size: 22px;
+                            font-size: 20px;
                             font-family: "Circular Std";
                             width: 100%;
 
@@ -230,7 +231,7 @@
                 margin-bottom: 15px;
                 h3{
                     color: #171717;
-                    font-size: 20px;
+                    font-size: 18px;
                     margin-bottom: 0;
                     width: 100%;
                 }
@@ -396,13 +397,16 @@
     }
 }
 .add-event-btn{
-    font-size: 20px;
+    font-size: 18px;
     font-family: "Circular Std Book";
     color: #FFFFFF;
     background-color: #973C56;
     border-radius: 10px;
     width: 100%;
     padding: 5px 10px;
+}
+.mt-14{
+    margin-top: 14px;
 }
 .maroon-btn{
     background-image: url(../../../assets/images/admin/maroon-btn.svg);

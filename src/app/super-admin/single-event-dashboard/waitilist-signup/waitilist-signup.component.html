@@ -1,6 +1,6 @@
 <div id="waitilist-signup" class="main">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
-    <div class="container-fluid">
+    <div class="">
         <div class="top-heading-main">
             <h4 class="page-title d-flex"> Waitlist
                 <mat-select (selectionChange)="fnChangeOccurrence($event)" [(ngModel)]="selectedOccurrence" *ngIf="recurringEvent == 'Y'" class="form-control col-4 ml-auto">
