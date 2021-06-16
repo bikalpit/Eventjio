@@ -1,7 +1,7 @@
 <div class="bg-white">
     <form [formGroup]="privacyPolicesForm" class="with-validation">
         <div class="main main-work-area">
-            <div class="rowmx-auto">
+            <div class="row mx-auto">
                 <div class="col-12 mt-2">
                     <div class="page-title">
                         <div class="form-group">
@@ -17,7 +17,7 @@
                 <div class="col-12 pb-2 ">Update privacy policy
                     <i class="fa fa-question-circle ml-2" matTooltip="Info about the action" aria-hidden="true"></i>
                 </div>
-                <div class="col-10 mb-5 ckeditor">
+                <div class="col-10 mb-5 ckeditor privacy-ckeditor">
                     <angular-editor class="description_field" formControlName="updatePolicy" class="form-group">
                     </angular-editor>
                     <span class="error-wrap" *ngIf="privacyPolicesForm.get('updatePolicy').touched || privacyPolicesForm.get('updatePolicy').dirty">

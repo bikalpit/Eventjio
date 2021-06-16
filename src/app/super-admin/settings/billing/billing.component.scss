@@ -24,6 +24,16 @@
 }
 
 .mat-dull {
-    background-color: #C0C0C0;
+    background-color: #ffe6c8;
     color: #000000;
+}
+.biiling-link{
+    color: #FE6A4D !important;
+}
+.billing-box{
+    background-color: #E2F3F3;
+    color: #000;
+    .btn-head {
+        font-weight: 500;
+    }
 }
