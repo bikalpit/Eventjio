@@ -81,8 +81,8 @@ export class EventSummaryComponent implements OnInit {
           {
             "label":"TIcket Sales",
             "data": data,
-            "backgroundColor": "#D9EBFF",
-            "borderColor": "rgb(40,100,200)",
+            "backgroundColor": "#FFD8AA",
+            "borderColor": "rgb(151, 60, 86)",
             "fill": true,
             "lineTension": 0,
             "radius": 5
@@ -143,8 +143,8 @@ export class EventSummaryComponent implements OnInit {
                 {
                   "label":"Event Views",
                   "data": data,
-                  "backgroundColor": "#D9EBFF",
-                  "borderColor": "rgb(40,100,200)",
+                  "backgroundColor": "#FFD8AA",
+                  "borderColor": "rgb(151, 60, 86)",
                   "fill": true,
                   "lineTension": 0,
                   "radius": 5

@@ -8,39 +8,39 @@
 
         <div class="main-menu">
             <div class="col-12 px-3 pt-4 pb-3 mt-3 text-center" *ngIf="currentUser && currentUser.type == 'admin'">
-                <div class="circle-icon text-center" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click">
+                <div class="circle-icon text-center" placement="right" mdbWavesEffect [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click">
                     
                         <img src="/assets/images/admin/add.png">
                 </div>
                 <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
                     <mat-card class=" p-0" style="max-width: 300px" (click)="closePopover()">
                         <mat-card-content class="add-content">
-                            <p class="mb-0 add-new">Add New</p>
-                            <div class="bottom-border"></div>
+                            <!-- <p class="mb-0 add-new">Add New</p> -->
+                            <!-- <div class="bottom-border"></div> -->
                             <ul class="admin-add-menu pl-0">
                                 <mat-list-item role="listitem" (click)="addNewEventNav()">
                                     <div class="add-common-menu">
-                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-event.png" /> Event
+                                        <img class="add-new-img" src="../../../../assets/images/admin/add-event.svg" /> Event
                                     </div>
                                 </mat-list-item>
                                 <mat-list-item role="listitem" (click)="addNewOrderNav()">
                                     <div class="add-common-menu">
-                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-order.png" /> Order
+                                        <img class="add-new-img" src="../../../../assets/images/admin/add-order.svg" /> Order
                                     </div>
                                 </mat-list-item>
                                 <mat-list-item role="listitem" (click)="addNewCustomerNav()">
                                     <div class="add-common-menu">
-                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-customer.png" /> Customer
+                                        <img class="add-new-img" src="../../../../assets/images/admin/add-customer.svg" /> Customer
                                     </div>
                                 </mat-list-item>
                                 <mat-list-item role="listitem" (click)="addNewCouponNav()">
                                     <div class="add-common-menu">
-                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-coupon.png" /> Coupon
+                                        <img class="add-new-img" src="../../../../assets/images/admin/add-coupon.svg" /> Coupon
                                     </div>
                                 </mat-list-item>
                                 <mat-list-item role="listitem" (click)="addNewVoucherNav()">
                                     <div class="add-common-menu">
-                                        <img class="add-new-img pr-2" src="../../../../assets/images/admin/add-coupon.png" /> Voucher
+                                        <img class="add-new-img" src="../../../../assets/images/admin/add-voucher.svg" /> Voucher
                                     </div>
                                 </mat-list-item>
                             </ul>
@@ -50,46 +50,46 @@
             </div>
 
             <div *ngIf="isPermisionPage('Dashboard')" (click)="fnPostUrl('Dashboard')" [ngClass]="{'active-icon': pageName == 'Dashboard'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
-                <div matTooltip="Dashboard" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/dashboard.svg" class="w-100 no-active-img" alt="">
-                    <img src="/assets/images/admin/dashboard-active.svg" class="w-100 active-img" alt="">
+                <div class="icon text-center">
+                    <img matTooltip="Dashboard" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/dashboard.svg" class="w-100 no-active-img" alt="">
+                    <img matTooltip="Dashboard" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/dashboard-active.svg" class="w-100 active-img" alt="">
                 </div>
             </div>
 
             <div *ngIf="isPermisionPage('Events')" (click)="fnPostUrl('Events')" [ngClass]="{'active-icon': pageName == 'Events'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
-                <div matTooltip="Events" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/event.svg" class="w-100 no-active-img" alt="">
-                    <img src="/assets/images/admin/event-active.svg" class="w-100 active-img" alt="">
+                <div class="icon text-center">
+                    <img matTooltip="Events" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/event.svg" class="w-100 no-active-img" alt="">
+                    <img matTooltip="Events" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/event-active.svg" class="w-100 active-img" alt="">
                 </div>
             </div>
 
             <div *ngIf="isPermisionPage('Orders')" (click)="fnPostUrl('Orders')" [ngClass]="{'active-icon': pageName == 'Orders'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
-                <div matTooltip="Orders" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/order.svg" class="w-100 no-active-img" alt="">
-                    <img src="/assets/images/admin/order-active.svg" class="w-100 active-img" alt="">
+                <div class="icon text-center">
+                    <img matTooltip="Orders" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/order.svg" class="w-100 no-active-img" alt="">
+                    <img matTooltip="Orders" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/order-active.svg" class="w-100 active-img" alt="">
                 </div>
             </div>
 
             <div *ngIf="isPermisionPage('Customers')" (click)="fnPostUrl('Customers')" [ngClass]="{'active-icon': pageName == 'Customers'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
-                <div matTooltip="Customers" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/customer.svg" class="w-100 no-active-img" alt="">
-                    <img src="/assets/images/admin/customer-active.svg" class="w-100 active-img" alt="">
+                <div class="icon text-center">
+                    <img matTooltip="Customers" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/customer.svg" class="w-100 no-active-img" alt="">
+                    <img matTooltip="Customers" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/customer-active.svg" class="w-100 active-img" alt="">
                 </div>
             </div>
 
             <div *ngIf="isPermisionPage('Coupon')" (click)="fnPostUrl('Coupons')" [ngClass]="{'active-icon': pageName == 'Coupon'}" class="col-12 p-3 mt-4 text-center text-white common-icon">
-                <div matTooltip="Coupon" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" class="icon text-center">
-                    <img src="/assets/images/admin/coupon.svg" class="w-100 no-active-img" alt="">
-                    <img src="/assets/images/admin/coupon-active.svg" class="w-100 active-img" alt="">
+                <div class="icon text-center">
+                    <img matTooltip="Coupon" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/coupon.svg" class="w-100 no-active-img" alt="">
+                    <img matTooltip="Coupon" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/coupon-active.svg" class="w-100 active-img" alt="">
                 </div>
             </div>
         </div>
 
         <div class="bottom_admin_menu" *ngIf="isPermisionPage('settings')">
             <div (click)="fnPostUrl('Settings')" [ngClass]="{'active-icon': pageName == 'Settings'}" class="col-12 p-3 text-center setting-btn text-white common-icon">
-                <div class="icon text-center" matTooltip="Settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after">
-                    <img src="/assets/images/admin/settings.svg" class="w-100 no-active-img" alt="">
-                    <img src="/assets/images/admin/settings-active.svg" class="w-100 active-img" alt="">
+                <div class="icon text-center">
+                    <img matTooltip="Settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/settings.svg" class="w-100 no-active-img" alt="">
+                    <img matTooltip="Settings" matTooltipClass="main-menu-tooltip" matTooltipPosition="after" src="/assets/images/admin/settings-active.svg" class="w-100 active-img" alt="">
                 </div>
             </div>
         </div>
