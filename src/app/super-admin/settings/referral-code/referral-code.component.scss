@@ -42,22 +42,26 @@
         }
     }
     .popup-cancel-btn {
-        width: 100px;
-        height: 40px;
+        min-width: 64px;
+        height: auto;
         background: #DDDDDD 0% 0% no-repeat padding-box;
         border-radius: 5px;
         text-align: center;
         color: #181818;
-        font-size: 16px
+        font-size: 14px;
+        line-height: 36px;
+        padding: 0px 16px;
     }
     .popup-save-btn {
-        width: 100px;
-        height: 40px;
+        min-width: 64px;
+        height: auto;
         color: #fff;
         background: #973c56 0% 0% no-repeat padding-box;
         border-radius: 5px;
         text-align: center;
-        font-size: 16px;
+        font-size: 14px;
+        line-height: 36px;
+        padding: 0px 16px;
     }
     .popup-cros-btn {
         width: 25px;

@@ -18,10 +18,13 @@
         <div class="container-fluid">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-12 font-weight-bold">
+                    <div class="col-12 font-weight-bold align-items-center d-flex justify-content-between">
                         Manage
-                        <button mat-flat-button class="mat-blue float-right" (click)="fnExportDoorList()"> Export doorlist   </button>
-                        <a class="mt-1 float-right mr-3"><u> Get the check-in app </u></a>
+                        <div class="d-flex align-items-center">
+                            <a class="mt-1 mr-3"><u> Get the check-in app </u></a>
+                            <button mat-flat-button class="mat-blue" (click)="fnExportDoorList()"> Export doorlist   </button>
+                         </div>
+                        
                     </div>
                 </div>
 

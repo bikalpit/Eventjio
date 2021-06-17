@@ -31,7 +31,14 @@
     max-width: 1185px;
     height: 330px;
 }
-
+::ng-deep .main-work-area{
+    .privacy-ckeditor{
+        height: auto;
+        .angular-editor-textarea{
+            min-height: 300px !important;
+        }
+    }
+}
 .main-privacy-text {
     display: flex;
     padding: 16px 10px;

@@ -74,16 +74,16 @@
                                 <div class="">
                                     <div class="heads main-heading-content drageble" fxLayout="row">
                                         <div class="" fxFlex="25">Email Address</div>
-                                        <div class="" fxFlex="20">Roles</div>
+                                        <div class="" fxFlex="30">Roles</div>
                                         <div class="" fxFlex="25">Last Seen</div>
-                                        <div class="" fxFlex="20">Status</div>
+                                        <div class="" fxFlex="10">Status</div>
                                         <div class="" fxFlex="10"></div>
                                     </div>
                                     <div *ngFor="let val of pendingInviterData">
                                         <div class="content" class="drageble-list">
                                             <div class="drageble-box" fxLayout="row">
                                                 <div class="tb-data cpn-title" fxFlex="25">{{val.email_id}}</div>
-                                                <div class="tb-data cpn-code" fxFlex="20">
+                                                <div class="tb-data cpn-code" fxFlex="30">
                                                     <!-- <p *ngIf="pendingInviterData.role === 'A'">Admin</p>
                                                     <p *ngIf="pendingInviterData.role === 'EO'">Event organisers </p>
                                                     <p *ngIf="pendingInviterData.role === 'OM'">Event manager</p>
@@ -94,7 +94,7 @@
 
                                                 </div>
                                                 <div class="tb-data" fxFlex="25">{{val.updated_at}}</div>
-                                                <div class="tb-data status" fxFlex="20">
+                                                <div class="tb-data status" fxFlex="10">
                                                     <p *ngIf="val.status === 'APR'" [ngStyle]="{'color':val.status === 'APR' ? '#2BB800':'' }">Approved</p>
                                                     <p *ngIf="val.status === 'R'" [ngStyle]="{'color':val.status === 'R' ? '#FF0000':'' }">Rejected</p>
                                                     <p *ngIf="val.status === 'P'" [ngStyle]="{'color':val.status === 'P' ? '#FF7700':'' }">Pending</p>

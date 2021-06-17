@@ -702,11 +702,11 @@ textarea.cdk-textarea-autosize-measuring {
 
 .mat-option:focus:not(.mat-option-disabled),
 .mat-option:hover:not(.mat-option-disabled) {
-    background: rgba(0, 0, 0, .04)
+    background: #FFE2B7;
 }
 
 .mat-option.mat-selected:not(.mat-option-multiple):not(.mat-option-disabled) {
-    background: rgba(0, 0, 0, .04)
+    background: #FFE2B7;
 }
 
 .mat-select-panel {
