@@ -19,6 +19,7 @@ export class ResetPasswordComponent implements OnInit {
   accesToken : any;
   newPassword: any;
   hide= true;
+  hide1= true;
   saveDisabled:boolean=false;
 
   constructor(

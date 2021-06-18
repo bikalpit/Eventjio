@@ -97,6 +97,13 @@
     z-index: 1;
     color: rgba(0,0,0,0.45);
     font-size: 17px;
+    &.password-show{
+      .passVicon{
+        &::before{
+          display: none;
+        }
+      }
+    }
   }
   .user-data-form .input-group-meta .valid-sign img {opacity: 0; transition: all 0.2s ease-in-out;}
   .user-data-form .input-group-meta input:valid + .valid-sign img {opacity: 1;}

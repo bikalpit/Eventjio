@@ -1,4 +1,5 @@
 <div class="main-page-wrapper">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <!-- ===================================================
         Loading Transition
     ==================================================== -->
@@ -59,24 +60,31 @@
                     <div class="col-12">
                         <div class="input-group-meta mb-40">
                             <label>Password</label>
-                            <input type="password" placeholder="Enter Password" formControlName="password" class="pass_log_id">
-                            <span class="placeholder_icon"><span class="passVicon"><img src="../../assets/images/login/view.svg" alt=""></span></span>
+                            <input  [type]="hide?'password':'text'" placeholder="Enter Password" formControlName="password" class="pass_log_id">
+                            <span class="placeholder_icon" [ngClass]="{'password-show':hide}" (click)="hide = !hide"><span class="passVicon"><img src="../../assets/images/login/view.svg" alt=""></span></span>
                             <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="input-group-meta mb-15">
                             <label>Confirm Password</label>
-                            <input type="password" placeholder="Confirm Password" formControlName="password" class="pass_log_id">
-                            <span class="placeholder_icon"><span class="passVicon"><img src="../../assets/images/login/view.svg" alt=""></span></span>
-                            <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span>
+                            <input [type]="hide1?'password':'text'" placeholder="Confirm Password" formControlName="ReNewPassword" class="pass_log_id">
+                            <span class="placeholder_icon" [ngClass]="{'password-show':hide1}" (click)="hide1 = !hide1"><span class="passVicon"><img src="../../assets/images/login/view.svg" alt=""></span></span>
+                            <!-- <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error text-left ml-4">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span> -->
+                            <span class="error-wrap" *ngIf="signUpForm.get('ReNewPassword').dirty || signUpForm.get('ReNewPassword').touched">
+                                <small *ngIf="signUpForm.get('ReNewPassword').hasError('required') && signUpForm.hasError('notSame')" class="error text-left ml-4">Confirm password is required.</small>
+                                <small *ngIf="!signUpForm.get('ReNewPassword').hasError('required') && signUpForm.hasError('notSame')" class="error text-left ml-4">Passwords do not match.</small>
+                            </span>
                         </div>
                     </div>
                     <div class="col-12 mt-20">
                         <div class="agreement-checkbox d-flex justify-content-between align-items-center">
                             <div>
-                                <input type="checkbox" id="remember">
-                                <label for="remember">By clicking "SIGN UP" I agree to the <a href="terms-and-conditions.html">Terms and Conditions</a> and <a href="privacy-policy.html">Privacy Policy</a>.</label>
+                                <mat-checkbox class="" (change)="fnChangeTermsPrivacyCheck($event.checked)">By clicking "SIGN UP" I agree to the <a target="_blank" href="terms-and-conditions.html">Terms and Conditions</a> and <a href="privacy-policy.html">Privacy Policy</a>.</mat-checkbox>
+                                <span class="error-wrap" *ngIf="!termsCheckbox">
+                                <small *ngIf="!termsCheckbox" class="error"> Check the Privacy Policy & Terms and Conditions.</small></span>
+                                <!-- <input type="checkbox" id="remember">
+                                <label for="remember"></label> -->
                                
                             </div>
                         </div> <!-- /.agreement-checkbox -->

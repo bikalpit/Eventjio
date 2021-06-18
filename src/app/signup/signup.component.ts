@@ -17,7 +17,6 @@ import { AppComponent } from '../app.component';
 })
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
-  hide = true;
   adminSignUpData:any;
   termsCheckbox:boolean = true;
   termsCheckboxChecked:boolean = false;
@@ -26,6 +25,8 @@ export class SignupComponent implements OnInit {
   inviterEmail:any;
   inviterCode:any;
   requestObject:any;
+  hide= true;
+  hide1 = true;
 
   constructor( private formBuilder: FormBuilder,
   private http: HttpClient,
@@ -50,17 +51,16 @@ export class SignupComponent implements OnInit {
 			firstname: ['', Validators.required],      
 			email:     [this.inviterEmail,[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
 			password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
-			description:[''],
-		});
+			ReNewPassword: ['',Validators.required]
+		},{validator: this.checkPasswords });
 		this.signUpForm.controls['email'].disable();
 	}else{
 		this.signUpForm = this.formBuilder.group({
 			firstname: ['', Validators.required],    
 			email:     ['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
 			password: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
-			description:[''],
-	
-		});
+			ReNewPassword: ['',Validators.required]
+		},{validator: this.checkPasswords });
 	} 
 	
    }
@@ -71,6 +71,14 @@ export class SignupComponent implements OnInit {
 		return throwError('Error! something went wrong.');
 	}
 
+	checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+		let pass = group.controls.password.value;
+		let confirmPass = group.controls.ReNewPassword.value;
+		
+		return pass === confirmPass ? null : { notSame: true }
+		}
+
+		
 	fnChangeTermsPrivacyCheck(check){
 		this.termsCheckboxChecked = check;
 		this.termsCheckbox = check;
@@ -85,7 +93,7 @@ export class SignupComponent implements OnInit {
 		this.signUpForm.get('firstname').markAsTouched();
 		this.signUpForm.get('email').markAsTouched();
 		this.signUpForm.get('password').markAsTouched();
-		this.signUpForm.get('description').markAsTouched();
+		this.signUpForm.get('ReNewPassword').markAsTouched();
 		return false;
 		}
 		if(!this.termsCheckboxChecked){
@@ -99,7 +107,7 @@ export class SignupComponent implements OnInit {
 			this.requestObject = {
 				"firstname":this.signUpForm.get("firstname").value,
 				"email":this.signUpForm.get("email").value,
-				"password":this.signUpForm.get("password").value,
+				"password":this.signUpForm.get("ReNewPassword").value,
 				"description":this.signUpForm.get("description").value,
 				"inviter_id": this.inviterCode,
 			};
@@ -108,8 +116,7 @@ export class SignupComponent implements OnInit {
 		this.requestObject = {
 			"firstname":this.signUpForm.get("firstname").value,
 			"email":this.signUpForm.get("email").value,
-			"password":this.signUpForm.get("password").value,
-			"description":this.signUpForm.get("description").value,
+			"password":this.signUpForm.get("ReNewPassword").value,
 		};
 		}
 		let headers = new HttpHeaders({
