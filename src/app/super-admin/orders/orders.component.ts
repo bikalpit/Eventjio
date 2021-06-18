@@ -1235,7 +1235,7 @@ export class BookTicketDialog {
         address:["", Validators.required],
         address1:["", Validators.required],
         address2:["", Validators.required],
-        zipcode:["", [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
+        zipcode:["", [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
         phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       });
 
@@ -2072,7 +2072,7 @@ export class EditorderDialog {
         address:["", Validators.required],
         address1:["", Validators.required],
         address2:["", Validators.required],
-        zipcode:["", [Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(5),Validators.maxLength(6)]],
+        zipcode:["", [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
         phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       });
 

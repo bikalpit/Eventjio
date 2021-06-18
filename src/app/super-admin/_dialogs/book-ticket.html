@@ -229,8 +229,7 @@
                             <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
                             <span class="error-wrap" *ngIf="bookTickets.get('zipcode').dirty || bookTickets.get('zipcode').touched">
                     <small *ngIf="bookTickets.get('zipcode').hasError('required')" class="error text-left">{{addressArr.zipcode}} is required.</small>
-                    <small *ngIf=" bookTickets.get('zipcode').hasError('pattern') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}} Should in numbers</small>
-                    <small *ngIf="!bookTickets.get('zipcode').hasError('pattern') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}}  Should Minimum 5 and Maximum 6 digits.</small>
+                    <small *ngIf="!bookTickets.get('zipcode').hasError('required') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}}  Should Minimum 5 and Maximum 6 digits.</small>
                 </span>
                         </div>
 
