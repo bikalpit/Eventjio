@@ -11,7 +11,7 @@
 
     <div class="row mx-0 main-content">
         <div class="col-6">
-            <div class="row mx-0 mt-2">
+            <div class="row mx-0 mt-2 align-items-center">
 
                 <!-- <img  src="{{myProfileData && myProfileData.image ? myProfileData.image : profileImageUrl}}" alt=""> -->
                 <div *ngIf="(!profileImageUrl && myProfileData) && myProfileData.image_name != 'default_image.png'" class="my-profile-img" [ngStyle]="{'backgroundImage': 'url(' + myProfileData.image + ')'}"></div>

@@ -452,3 +452,20 @@
             margin-bottom: 0px;
         }
     }
+
+    .popover .popover-body .border-bottom {
+        transition: all 0.3s;
+        &:hover{
+            background-color: #FFE2B7;
+            border-color: #FFE2B7 !important;
+        }
+    }
+    body{
+        .page-title{
+            font-size: 18px;
+            font-weight: 500 ;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+    }
+    

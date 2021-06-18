@@ -73,8 +73,17 @@
         font-size: 16px;
         color: #2C2C2C;
     }
-    span {
-        background-color: #973c56;
+    // span {
+    //     background-color: #973c56;
+    // }
+    .complete-status{
+        color: rgb(43, 184, 0);
+        font-weight: 500;
+    }
+    .upcoming-status{
+        color: #FE6A4D;
+        font-weight: 500;
+
     }
      ::ng-deep mat-tab-body {
         margin-top: 20px;

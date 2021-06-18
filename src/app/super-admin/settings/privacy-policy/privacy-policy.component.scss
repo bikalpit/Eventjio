@@ -3,11 +3,6 @@
     font-family: Poppins, Regular;
 }
 
-.page-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
 
 .bottom {
     margin-top: 10vh;
@@ -35,7 +30,7 @@
     .privacy-ckeditor{
         height: auto;
         .angular-editor-textarea{
-            min-height: 300px !important;
+            min-height: 150px !important;
         }
     }
 }
