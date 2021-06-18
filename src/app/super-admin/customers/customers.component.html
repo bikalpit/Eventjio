@@ -150,7 +150,7 @@
                                             <tr *ngFor="let element of allEventListData.all">
                                                 <td>{{element.event_title}} </td>
                                                 <td>{{element.start_date}}</td>
-                                                <td><span class="px-3 py-1">{{element.status_flage}}</span></td>
+                                                <td><span class="px-3 py-1" [ngClass]="{'upcoming-status':element.status_flage == 'Upcoming', 'complete-status':element.status_flage == 'Completed'}">{{element.status_flage}}</span></td>
                                             </tr>
                                         </table>
                                     </div>

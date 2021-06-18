@@ -21,6 +21,7 @@ export class ResetPasswordComponent implements OnInit {
   hide= true;
   hide1= true;
   saveDisabled:boolean=false;
+  isLoaderAdmin:boolean=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -64,6 +65,7 @@ get f() { return this.resetPasswordForm.controls; }
         this.saveDisabled = false
       }, 3000);
       this.newPassword = this.resetPasswordForm.get('ReNewPassword').value
+      this.isLoaderAdmin = true;
       let requestObject = {
         "password":this.newPassword,
         "token" : this.accesToken
@@ -92,6 +94,7 @@ get f() { return this.resetPasswordForm.controls; }
             panelClass :['red-snackbar']
           });
         }
+        this.isLoaderAdmin = false;
       }, (err) =>{
         console.log(err)
       })

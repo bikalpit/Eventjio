@@ -69,7 +69,7 @@ main {
                     i {
                         font-size: 20px;
                         padding: 0px 10px;
-                        color: #2c2c2c;
+                        // color: #2c2c2c;
                     }
                     .pencil-icone {
                         color: #2c2c2cd9;
@@ -132,7 +132,7 @@ main {
                     i {
                         font-size: 20px;
                         padding: 0px 10px;
-                        color: #2c2c2c;
+                        // color: #2c2c2c;
                     }
                     .pencil-icone {
                         color: #2c2c2cd9;
@@ -302,4 +302,10 @@ main {
         color: #2c2c2c;
         font-weight: 500;
     }
+}
+
+.btn-disabled{
+    background-color: rgba(0, 0, 0, .12);
+    color: rgba(0, 0, 0, .26);
+    cursor: default;
 }

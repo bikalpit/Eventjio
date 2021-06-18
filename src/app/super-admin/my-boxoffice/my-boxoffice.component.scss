@@ -257,25 +257,39 @@ mat-drawer.left-side-container.left-side-main-menu.mat-drawer.ng-tns-c2-0.ng-tri
     }
     .delete-btn{
         position: absolute;
-        right: -40px;
-        top: -11px;
-        width: 95px;
-        height: 45px;
-        background-color: #ff4a4a;
-        transform: rotate(45deg);
-        color: #fff;
+        right: 0px;
+        top: 0px;
+        width: 40px;
+        height: 40px;
+        // background-color: #ff4a4a;
+        // transform: rotate(45deg);
+        color: #888;
         font-size: 14px;
         display: flex;
         align-items: flex-end;
         justify-content: center;
         padding: 8px;
         cursor: pointer;
+        // i{
+        //     transform: rotate(-45deg);
+        // }
+    }
+}
+::ng-deep .popover {
+    .popover-body{
+        padding: 0;
         i{
-            transform: rotate(-45deg);
+            font-size: 20px;
+        }
+    }
+    .pop-menu-item{
+        transition: all 0.3s;
+        padding: 6px 10px;
+        &:hover{
+            background: #FFE2B7;
         }
     }
 }
-
 ::ng-deep .admin-business-Submitbutton {
     color: #FFFFFF;
     background: #973c56;
