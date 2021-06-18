@@ -4,11 +4,7 @@ main {
 }
 
 ::ng-deep .checkout-form {
-    .page-title {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 20px;
-    }
+    
     .main-head {
         text-align: left;
         font-size: 16px;
@@ -22,7 +18,7 @@ main {
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 6px 16px;
+            padding: 6px 0px;
         }
         h5 {
             font-size: 16px;
@@ -88,7 +84,7 @@ main {
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 6px 16px;
+            padding: 6px 0px;
         }
         h5 {
             font-size: 16px;

@@ -6,6 +6,7 @@
     .left-side-view{
         width: calc(100% - 400px);
         padding: 20px;
+        padding-top: 30px;
         mat-card{
             box-shadow: 0px 3px 30px #11C0D133;
             padding: 25px 35px;
@@ -47,7 +48,7 @@
             }
         }
         .setup-flow{
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             .steps{
                 padding-left: 0;
                 list-style: none;
@@ -112,7 +113,7 @@
             }
         }
         .analytic-main{
-            margin-bottom: 15px;
+            margin-bottom: 30px;
         }
         .analytic-box{
             background: #F5F5F5 0% 0% no-repeat padding-box;
@@ -143,7 +144,7 @@
                 list-style: none;
                 height: 400px;
                 overflow-y: scroll;
-                padding-right: 10px;
+                padding-right: 22px;
                 li{
                     display: flex;
                     padding-bottom: 10px;

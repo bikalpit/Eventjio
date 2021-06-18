@@ -2,15 +2,15 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <form [formGroup]="contactPreferenceFrom" class="with-validation">
         <div class="contact-prefrences main-work-area main">
-            <h6 class="page-title col-md-12">Customer Contact Preferences</h6>
+            <div class="page-title col-md-12 p-0">Customer Contact Preferences</div>
             <div class="account-info">
-                <div class="col-md-12">
+                <div class="col-md-12 p-0">
                     <p class="sub-head">Where should contact form submissions and replies to ticket emails go?
                         <span class="info" matTooltip="When your customers have a question they can either contact you via a contact form that forwards on to you, or you can specify your own contact instructions."><i class="fa fa-question" aria-hidden="true"></i></span>
                     </p>
                 </div>
 
-                <div class="form-group col-md-8">
+                <div class="form-group col-md-8 p-0">
                     <mat-select formControlName="contact_pre_option" class="form-control" (selectionChange)="fnSelectionChange($event)" id="">
                         <mat-option value="my_account">To my account email address</mat-option>
                         <mat-option value="diffrent_email">To a diffrent email address</mat-option>
@@ -18,7 +18,7 @@
                     </mat-select>
                 </div>
 
-                <div class="form-group mt-3 col-md-8" *ngIf="contactPreferenceOption === 'diffrent_email'">
+                <div class="form-group mt-3 col-md-8 p-0" *ngIf="contactPreferenceOption === 'diffrent_email'">
                     <label class="sub-head">Please enter the email address for customer contact enquires</label>
                     <input type="email" formControlName="email_id" class="form-control" placeholder="Enter email address">
                     <span class="error-wrap" *ngIf="contactPreferenceFrom.get('email_id').touched || contactPreferenceFrom.get('email_id').dirty">
@@ -36,7 +36,7 @@
                     <p>Some basic HTML is allowed so you can add links and headings</p>
                 </div> -->
 
-                <div class="col-md-8 mt-4" *ngIf="contactPreferenceOption === 'my_account' || contactPreferenceOption === 'diffrent_email'">
+                <div class="col-md-8 mt-4 p-0" *ngIf="contactPreferenceOption === 'my_account' || contactPreferenceOption === 'diffrent_email'">
                     <div class="note-theme m-0">
                         <div class="notification">
                             <mat-icon aria-hidden="false" aria-label="Example home icon" class="notif-icon">notifications</mat-icon>

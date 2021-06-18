@@ -1,17 +1,17 @@
 <div id="checkout_form" class="main-section">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
     <div class="checkout-form main-work-area main">
-        <h6 class="page-title col-md-12">Global checkout form</h6>
-        <p class="col-md-12 instruction-text">Customise the questions that your customers get asked when making an order. You can also override this message for particular events if you wish by going to <span class="speacil-black-text"> Events -> Your Event -> Edit checkout form editing </span>            the checkout form from there. </p>
+        <div class="page-title">Global checkout form</div>
+        <p class="col-md-12 instruction-text p-0">Customise the questions that your customers get asked when making an order. You can also override this message for particular events if you wish by going to <span class="speacil-black-text"> Events -> Your Event -> Edit checkout form editing </span>            the checkout form from there. </p>
         <div class="buyer-que">
             <div class="byr-qn">
                 <h5>Buyer only questions</h5>
                 <button mat-raised-button class="byr-qn-btn" (click)="fnAddBuyerQuestion()">Add a buyer only question</button>
             </div>
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12 mt-3 p-0">
                 <p>Buyer questions are asked once per order.</p>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 p-0">
                 <div class="">
                     <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="buyerQuestionDrop($event)">
                         <div class="" *ngFor="let element of buyerQuestionList; let i=index" cdkDrag>
@@ -30,7 +30,7 @@
                                                     <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
                                                 </button>
                                                 <!-- [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted"  -->
-                                                <button *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)" mat-raised-button matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                <button *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)" mat-raised-button mat-raised-button matTooltip="This question can't deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                                 </button>
 
@@ -59,10 +59,10 @@
                 <h5>Attended questions</h5>
                 <button mat-raised-button class="byr-qn-btn" (click)="fnAddAttendeeQuestion()">Add a attendee question</button>
             </div>
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12 mt-3 p-0">
                 <p>Attendee questions are asked for every ticket purchased.</p>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 p-0">
                 <div class="">
                     <div flexLayout="row" cdkDropList class="buyerqn-list" (cdkDropListDropped)="attendeeQuestionDrop($event)">
                         <div class="" *ngFor="let element of attendeeQuestionList; let i=index" cdkDrag>
