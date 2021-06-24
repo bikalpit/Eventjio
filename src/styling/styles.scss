@@ -469,3 +469,26 @@
         }
     }
     
+
+    
+@-webkit-keyframes jump15p {
+  0%   {-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);}
+  40%  {-webkit-transform: translate3d(0,15px,0);transform: translate3d(0,15px,0);}
+  100% {-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);}
+}
+@keyframes jump15p {
+  0%   {-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);}
+  40%  {-webkit-transform: translate3d(0,15px,0);transform: translate3d(0,15px,0);}
+  100% {-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);}
+}
+
+@-webkit-keyframes jump15pRsv {
+  0%   {-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);}
+  40%  {-webkit-transform: translate3d(0,-15px,0);transform: translate3d(0,-15px,0);}
+  100% {-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);}
+}
+@keyframes jump15pRsv {
+  0%   {-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);}
+  40%  {-webkit-transform: translate3d(0,-15px,0);transform: translate3d(0,-15px,0);}
+  100% {-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);}
+}

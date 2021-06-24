@@ -1,5 +1,5 @@
 <div class="add-occurrence-form">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="modal-header pl-3 py-0 border-0">
         <p class="font-weight-bold">Add repeating occurrences</p>
         <button class="close-btn" type="button" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
@@ -50,7 +50,8 @@
                         <div class="col-md-4 d-inline-block">
                             <div class="w-100">
                                 <label for="">Start Date</label>
-                                <input placeholder="MM/DD/YYYY" (click)="select_start_date_picker.open()" [min]="minSelectStartDate" [matDatepicker]="select_start_date_picker" type="text" formControlName="start_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY" readonly (dateChange)="changeEvent($event,i)">
+                                <input placeholder="MM/DD/YYYY" (click)="select_start_date_picker.open()" [min]="minSelectStartDate" [matDatepicker]="select_start_date_picker" type="text" formControlName="start_date" class=" col-12 form-control d-inline-block" placeholder="DD/MM/YY"
+                                    readonly (dateChange)="changeEvent($event,i)">
                                 <mat-datepicker #select_start_date_picker></mat-datepicker>
                             </div>
                         </div>

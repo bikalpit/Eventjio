@@ -1,5 +1,5 @@
 <div id="dashboard" class="bg-white sub-container">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="left-side-view">
         <mat-card class="setup-flow">
             <h2 class="module-title">Complete Setup</h2>
@@ -53,7 +53,7 @@
                             <h4>Ticket Sold</h4>
                             <span>{{analyticsStets?analyticsStets.ticket_sold:''}}</span>
                         </label>
-                        <img src="../../../assets/images/admin/park-tickets-couple.svg" >
+                        <img src="../../../assets/images/admin/park-tickets-couple.svg">
                     </div>
                 </div>
                 <div class="col-4">
@@ -62,7 +62,7 @@
                             <h4>Revenue</h4>
                             <span>{{analyticsStets?analyticsStets.revenue:''}}</span>
                         </label>
-                        <img src="../../../assets/images/admin/revemue.svg" >
+                        <img src="../../../assets/images/admin/revemue.svg">
                     </div>
                 </div>
                 <div class="col-4">
@@ -71,7 +71,7 @@
                             <h4>Order Received</h4>
                             <span>{{analyticsStets?analyticsStets.order_receive:''}}</span>
                         </label>
-                        <img src="../../../assets/images/admin/order-received.svg" >
+                        <img src="../../../assets/images/admin/order-received.svg">
                     </div>
                 </div>
             </div>
@@ -85,20 +85,20 @@
                             <i class="fa fa-ellipsis-v"></i>
                         </span> -->
                     </div>
-                        <ul class="purchase-list" *ngIf="recentPurchaseList.length > 0">
-                            <li *ngFor="let element of recentPurchaseList; let i=index;">
-                                <div class="user-image text-uppercase">{{element.customer.customerShortName}}</div>
-                                <div class="pur-content">
-                                    <label>{{element.customer.firstname}} {{element.customer.lastname}}</label>
-                                    <span><i class="fa fa-ticket"></i> {{element.events.event_title}}</span>
-                                </div>
-                                <div class="ticket-detail">
-                                    <label>{{element.order_item_count}} Ticket</label>
-                                    <span>{{element.time_difference}} ago</span>
-                                </div>
-                            </li>
-                        </ul>
-                        <p class="no-data-label text-center" *ngIf="recentPurchaseList.length == 0">No data avaliable.</p>
+                    <ul class="purchase-list" *ngIf="recentPurchaseList.length > 0">
+                        <li *ngFor="let element of recentPurchaseList; let i=index;">
+                            <div class="user-image text-uppercase">{{element.customer.customerShortName}}</div>
+                            <div class="pur-content">
+                                <label>{{element.customer.firstname}} {{element.customer.lastname}}</label>
+                                <span><i class="fa fa-ticket"></i> {{element.events.event_title}}</span>
+                            </div>
+                            <div class="ticket-detail">
+                                <label>{{element.order_item_count}} Ticket</label>
+                                <span>{{element.time_difference}} ago</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <p class="no-data-label text-center" *ngIf="recentPurchaseList.length == 0">No data avaliable.</p>
                 </mat-card>
             </div>
             <div class="col-6">
@@ -112,7 +112,7 @@
                             <mat-option value="year">Yearly</mat-option>
                         </mat-select>
                     </div>
-                    <div  style="width:500px;" *ngIf="latestSalesStats && latestSalesStats && (latestSalesStats.ticket_sold != 0 || latestSalesStats.ticket_left != 0)" class="row ticketchart mt-4">
+                    <div style="width:500px;" *ngIf="latestSalesStats && latestSalesStats && (latestSalesStats.ticket_sold != 0 || latestSalesStats.ticket_left != 0)" class="row ticketchart mt-4">
                         <canvas id="ticketchart"></canvas>
                         <ul class="chart-legends">
                             <li class="mr-5">
@@ -127,7 +127,7 @@
                             </li>
                         </ul>
                     </div>
-                    <p class="no-data-label text-center"  *ngIf="latestSalesStats && latestSalesStats.ticket_left == 0 && latestSalesStats && latestSalesStats.ticket_sold == 0">No data avaliable.</p>
+                    <p class="no-data-label text-center" *ngIf="latestSalesStats && latestSalesStats.ticket_left == 0 && latestSalesStats && latestSalesStats.ticket_sold == 0">No data avaliable.</p>
                 </mat-card>
             </div>
         </div>
@@ -168,7 +168,7 @@
                 <p class="no-data-label text-center" *ngIf="allUpcomingEventListData.length == 0">No data avaliable.</p>
                 <div class="bottom-event-list">
                     <div class="text">
-                       <label *ngIf="totalUpcomingEvents > 3">{{(totalUpcomingEvents - 3)}} events more</label>
+                        <label *ngIf="totalUpcomingEvents > 3">{{(totalUpcomingEvents - 3)}} events more</label>
                         <p *ngIf="totalUpcomingEvents > 3" (click)="viewAllEvent()">View More <span class="material-icons">arrow_right_alt</span></p>
                     </div>
                     <button (click)="addNewEvent()" mat-flat-button class="add-event-btn mt-2 px-3">

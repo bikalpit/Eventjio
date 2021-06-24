@@ -1,13 +1,13 @@
 <div id="my-coupons" class="sub-container">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="coupons comm-back">
         <div class=" page-head d-flex align-items-center">
-        <div class="title-left-side">
-            <h3  class="page-title mb-0">Promo codes</h3>
-            <p class="title-des">There are two types of promo codes:discount codes and voucher codes.</p>
-        </div>
-        
-       
+            <div class="title-left-side">
+                <h3 class="page-title mb-0">Promo codes</h3>
+                <p class="title-des">There are two types of promo codes:discount codes and voucher codes.</p>
+            </div>
+
+
             <div class="page-right-btn ml-auto">
                 <button *ngIf="clickedIndex == 'coupon'" mat-raised-button color="primary" (click)="creatDiscountCode()" class="cd-code-btn ml-auto">Create discount code</button>
                 <button *ngIf="clickedIndex == 'voucher'" mat-raised-button color="primary" (click)="creatVoucherCode()" class="cd-code-btn ml-auto">Create a batch of voucher code</button>

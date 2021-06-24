@@ -1,5 +1,5 @@
 <div id="events" class="bg-white sub-container">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div *ngIf="addNewEvents" class="bg-white events">
         <div class="row mx-0 p-3">
             <div class="page-title">
@@ -107,7 +107,7 @@
 
                                                 <div (click)="singleEventShorcut(element.unique_code,'/super-admin/single-event-dashboard/delete')" class="px-3  border-bottom">
                                                     <i class="fa fa-trash mr-2"></i><span>Delete</span>
-                                                </div> 
+                                                </div>
 
                                             </ng-template>
 
@@ -234,7 +234,7 @@
     <div *ngIf="!addNewEvents" class="add-new-event p-3 bg-white">
         <div class="col-12 py-3 page-title">
             <!---<mat-icon (click)="addNewEvents=!addNewEvents;" class="mr-3 pointer">west</mat-icon><span>Add New Event</span>-->
-			<mat-icon (click)="fnCancelNewEvent();" class="mr-3 pointer">west</mat-icon><span>Add New Event</span>
+            <mat-icon (click)="fnCancelNewEvent();" class="mr-3 pointer">west</mat-icon><span>Add New Event</span>
         </div>
 
         <div #new_event_start></div>
@@ -514,7 +514,7 @@
                                 </div>
                                 <button mat-flat-button class="mr-1 edit-btn" (click)="fnEditTicket(i)"><i
                                     class="fa fa-pencil pr-2"></i>Edit</button>
-                            <button mat-flat-button class="ml-1 delete-btn" (click)="fnDeleteTicket(i)"><i
+                                <button mat-flat-button class="ml-1 delete-btn" (click)="fnDeleteTicket(i)"><i
                                     class="fa fa-trash pr-2"></i>Delete</button>
                             </div>
                         </div>

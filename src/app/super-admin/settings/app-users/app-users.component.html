@@ -1,4 +1,4 @@
-<div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+<div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
 <div id="app_users" class="main bg-white">
     <div class="top-description">
         <div class="page-title">Eventjio Check-in App</div>
@@ -57,7 +57,7 @@
                     <!-- <div class="" fxFlex="25">All Event</div> -->
                     <div class="" fxFlex="40">{{user.email ? user.email : '-'}}</div>
                     <div class="" fxFlex="20">{{user.created_at}}</div>
-                    <div class="" fxFlex="10" >
+                    <div class="" fxFlex="10">
                         <mat-icon *ngIf="user.role == 'AU'" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click" aria-hidden="false" aria-label="Example home icon" class="action-icon pointer">more_horiz</mat-icon>
                         <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
                             <mat-card class=" p-0" style="max-width: 300px">
@@ -73,7 +73,7 @@
                                                 <i class="fa fa-trash mr-2"></i><span>Remove</span>
                                             </div>
                                         </mat-list-item>
-                                       
+
                                     </ul>
                                 </mat-card-content>
                             </mat-card>

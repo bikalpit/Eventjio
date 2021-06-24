@@ -1,5 +1,5 @@
 <div class="main">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="modal-header pl-3 py-0 border-0">
         <p class="font-weight-bold">Add New Ticket Type</p>
         <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
@@ -194,8 +194,8 @@
                         <div *ngIf="ticketUnavalStatus == 'SDT'" class="form-group d-flex align-items-start">
                             <div class="matDate w-50 d-inline-block">
                                 <!-- <input formControlName="after_date" type="text" [matDatepicker]="ticketIssuedDatePicker" [min]="minDate" id="after_date" (click)="ticketIssuedDatePicker.open()" class="form-control "> -->
-                                <input formControlName="after_date" type="text" [matDatepicker]="ticketIssuedDatePicker" [max]="maxUnavailDate" [min]="minUnavailDate" id="after_date" (click)="ticketIssuedDatePicker.open()" (dateChange)="fnUnavailDateChange($event)" class="form-control " placeholder="MM/DD/YYYY"
-                                    readonly>
+                                <input formControlName="after_date" type="text" [matDatepicker]="ticketIssuedDatePicker" [max]="maxUnavailDate" [min]="minUnavailDate" id="after_date" (click)="ticketIssuedDatePicker.open()" (dateChange)="fnUnavailDateChange($event)" class="form-control "
+                                    placeholder="MM/DD/YYYY" readonly>
                                 <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
                                 <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('after_date').touched || addTicketForm.get('after_date').dirty">
                                 <small *ngIf="addTicketForm.get('after_date').hasError('required')" class="error">Hide after Date is required.</small>

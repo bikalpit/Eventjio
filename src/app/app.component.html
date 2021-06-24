@@ -9,8 +9,8 @@
         <div class="main-menu">
             <div class="col-12 px-3 pt-4 pb-3 mt-3 text-center" *ngIf="currentUser && currentUser.type == 'admin'">
                 <div class="circle-icon text-center" placement="right" mdbWavesEffect [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click">
-                    
-                        <img src="/assets/images/admin/add.png">
+
+                    <img src="/assets/images/admin/add.png">
                 </div>
                 <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
                     <mat-card class=" p-0" style="max-width: 300px" (click)="closePopover()">
@@ -94,7 +94,7 @@
             </div>
         </div>
     </mat-drawer>
-    
+
     <mat-drawer-content class="bg-white h-100vh">
         <mat-toolbar [ngClass]="{'admin_top_bar': isAdminUser(), 'business_toolbar': (isAdminUser() && isBoxoffice()) }" *ngIf="isLogin() && currentUser && (pageSlug && pageSlug[1] !== 'event')" class="py-3 right-toolbar toolbar menu-comman">
             <div *ngIf="pageName == 'Box-Office' || pageName == 'BoxOffice'">
@@ -106,13 +106,13 @@
             <span class="example-fill-remaining-space">
                 <div class="selected-boxoffice-btn-main">
                   <span class="text-capitalize selected-boxoffice" *ngIf="isBoxOfficeSelected() && !isBoxoffice()">Box Office : {{selectedBoxOfficeName}}</span>
-                  <button mat-button *ngIf="!isBoxoffice() &&  currentUser.type != 'member' "  class="ml-2 new-primary-btn" (click)="fnPostUrl('BoxOffice'); goToMyBoxOffice()"  routerLink="/super-admin">My Box Offices</button>
-                </div>
-              </span>
+            <button mat-button *ngIf="!isBoxoffice() &&  currentUser.type != 'member' " class="ml-2 new-primary-btn" (click)="fnPostUrl('BoxOffice'); goToMyBoxOffice()" routerLink="/super-admin">My Box Offices</button>
+            </div>
+            </span>
             <div class="ml-auto pr-3">
                 <!-- <span class="d-inline-block"> <i class="fa fa-bell-o fa-lg pr-3"></i> </span> -->
                 <div class="user-image-icon p-1 d-inline-block" *ngIf="currentUser.image" [ngStyle]="{'background-image': 'url(' + currentUser.image + ')'}">
-                <!-- <div class="user-image-icon p-1 d-inline-block"> -->
+                    <!-- <div class="user-image-icon p-1 d-inline-block"> -->
                     <!-- <img *ngIf="currentUser.image !== ''" src="{{currentUser.image}}" class="w-100" alt=""> -->
                     <!-- <img src="{{currentUser.image}}" class="w-100" alt=""> -->
                 </div>

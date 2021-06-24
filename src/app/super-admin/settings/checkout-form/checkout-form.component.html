@@ -1,5 +1,5 @@
 <div id="checkout_form" class="main-section">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="checkout-form main-work-area main">
         <div class="page-title">Global checkout form</div>
         <p class="col-md-12 instruction-text p-0">Customise the questions that your customers get asked when making an order. You can also override this message for particular events if you wish by going to <span class="speacil-black-text"> Events -> Your Event -> Edit checkout form editing </span>            the checkout form from there. </p>
@@ -30,7 +30,8 @@
                                                     <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
                                                 </button>
                                                 <!-- [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted"  -->
-                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)" mat-raised-button mat-raised-button matTooltip="This question can't deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)" mat-raised-button mat-raised-button matTooltip="This question can't deleted" matTooltipPosition="above"
+                                                    class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                                 </button>
 
@@ -38,7 +39,8 @@
                                                     <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span> 
                                                 </button>
 
-                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved."
+                                                    matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
                                                 </button>
 
@@ -78,10 +80,12 @@
                                                 <button (click)="fnEditAttendeeQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
                                                     <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
                                                   </button>
-                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" (click)="fnDeleteAttendeeQuestion(element, i)" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" (click)="fnDeleteAttendeeQuestion(element, i)" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted"
+                                                    matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                       <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                                     </button>
-                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved."
+                                                    matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                       <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
                                                     </button>
                                             </div>

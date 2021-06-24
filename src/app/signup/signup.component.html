@@ -44,7 +44,7 @@
                     <div class="col-12">
                         <div class="input-group-meta mb-40">
                             <label>Full Name</label>
-                            <input type="text" placeholder="Douglas Webster" formControlName="firstname">
+                            <input type="text" placeholder="Enter your full name" formControlName="firstname">
                             <span class="placeholder_icon valid-sign"><img src="../../assets/images/login/check.svg" alt=""></span>
                             <span class="error-wrap" *ngIf="signUpForm.get('firstname').dirty || signUpForm.get('firstname').touched"><small *ngIf="signUpForm.get('firstname').hasError('required')" class="error text-left ml-4">Name is required.</small></span>
                         </div>
@@ -52,7 +52,7 @@
                     <div class="col-12">
                         <div class="input-group-meta mb-40">
                             <label>Email</label>
-                            <input type="email" placeholder="vomul@apjemib.edu" formControlName="email">
+                            <input type="email" placeholder="Enter your email address" formControlName="email">
                             <span class="placeholder_icon valid-sign"><img src="../../assets/images/login/check.svg" alt=""></span>
                             <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched"><small *ngIf="signUpForm.get('email').hasError('required')" class="error text-left ml-4">Email is required.</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter valid email.</small><small *ngIf="signUpForm.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small></span>
                         </div>
@@ -80,7 +80,7 @@
                     <div class="col-12 mt-20">
                         <div class="agreement-checkbox d-flex justify-content-between align-items-center">
                             <div>
-                                <mat-checkbox class="" (change)="fnChangeTermsPrivacyCheck($event.checked)">By clicking "SIGN UP" I agree to the <a target="_blank" href="terms-and-conditions.html">Terms and Conditions</a> and <a href="privacy-policy.html">Privacy Policy</a>.</mat-checkbox>
+                                <mat-checkbox class="" (change)="fnChangeTermsPrivacyCheck($event.checked)">By checking you agree to the <a target="_blank" href="https://eventjio.com/terms-and-conditions.html">Terms and Conditions</a> and <a target="_blank" href="https://eventjio.com/privacy-policy.html">Privacy Policy</a>.</mat-checkbox>
                                 <span class="error-wrap" *ngIf="!termsCheckbox">
                                 <small *ngIf="!termsCheckbox" class="error"> Check the Privacy Policy & Terms and Conditions.</small></span>
                                 <!-- <input type="checkbox" id="remember">

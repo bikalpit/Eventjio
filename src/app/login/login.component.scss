@@ -174,7 +174,7 @@
   .user-data-form .agreement-checkbox a {
     position: relative;
     font-size: 15px;
-    color: rgba(30,30,30,0.55) !important;
+    // color: rgba(30,30,30,0.55) !important;
   }
   .user-data-form .agreement-checkbox a:hover {text-decoration: underline; color:#973c56;}
   .user-data-form .button-solid-one {
@@ -240,7 +240,7 @@ img {
 .user-data-form .agreement-checkbox a {
     position: relative;
     font-size: 15px;
-    color: rgba(30,30,30,0.55);
+    // color: rgba(30,30,30,0.55);
 }
 
 
@@ -348,4 +348,9 @@ img {
 
 @media (max-width: 500px) {
   .block-style-one {padding: 50px 40px 55px;}
+}
+
+.common-link{
+  color: #973c56 !important;
+  text-decoration: underline;
 }

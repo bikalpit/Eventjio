@@ -1,5 +1,5 @@
 <div class="">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="modal-header pl-3 py-0 border-0">
         <p class="dialog-title">Add New Ticket Type</p>
         <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
@@ -248,7 +248,8 @@
                     <mat-checkbox *ngIf="recurringEvent == 'Y'" class="w-100 d-block mt-2" (change)="fnChangeRecurringUntil($event)">Hide until a set date and time</mat-checkbox>
                     <div *ngIf="recurringUntil == 'Y'" class="form-group d-flex">
                         <div class="matDate w-50 d-inline-block">
-                            <input formControlName="recurring_until_date" type="text" [matDatepicker]="hideDatePicker" [max]="maxAvailDate" [min]="minAvailDate" id="recurring_until_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailDateChange($event)" class="form-control" placeholder="MM/DD/YYYY">
+                            <input formControlName="recurring_until_date" type="text" [matDatepicker]="hideDatePicker" [max]="maxAvailDate" [min]="minAvailDate" id="recurring_until_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailDateChange($event)" class="form-control"
+                                placeholder="MM/DD/YYYY">
                             <mat-datepicker #hideDatePicker></mat-datepicker>
                             <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('recurring_until_date').touched || addTicketForm.get('recurring_until_date').dirty">
                             <small *ngIf="addTicketForm.get('recurring_until_date').hasError('required')" class="error">Hide until Date is required.</small>

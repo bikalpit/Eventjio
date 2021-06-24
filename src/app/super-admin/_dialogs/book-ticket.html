@@ -1,5 +1,5 @@
 <div class="modal-dialog modal-notify modal-info export-order modal-lg" role="document">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
 
     <div class="modal-content ">
         <div class="modal-header modal-bcolor-primary px-0 pt-0">
@@ -97,26 +97,26 @@
                                 </div>
                             </div> -->
                             <div *ngIf="eventSettings.custom_sales_tax == 'Y'">
-                              <div class="content drageble-list" *ngFor="let tax of sales_tax_array; let i=index">
-                                  <div class="drageble-box fw-600" fxLayout="row">
-                                      <div class="tb-data fs-15 fw-600" fxFlex="35">{{tax.label}}</div>
-                                      <div class="tb-data" fxFlex="20"></div>
-                                      <div class="tb-data" fxFlex="15"></div>
-                                      <div class="tb-data" fxFlex="15"></div>
-                                      <div class="tb-data align-end fs-15" fxFlex="20">{{ tax.finalAmount | currency:currencyCode:'symbol' }}</div>
-                                  </div>
-                              </div>
+                                <div class="content drageble-list" *ngFor="let tax of sales_tax_array; let i=index">
+                                    <div class="drageble-box fw-600" fxLayout="row">
+                                        <div class="tb-data fs-15 fw-600" fxFlex="35">{{tax.label}}</div>
+                                        <div class="tb-data" fxFlex="20"></div>
+                                        <div class="tb-data" fxFlex="15"></div>
+                                        <div class="tb-data" fxFlex="15"></div>
+                                        <div class="tb-data align-end fs-15" fxFlex="20">{{ tax.finalAmount | currency:currencyCode:'symbol' }}</div>
+                                    </div>
+                                </div>
                             </div>
                             <div *ngIf="eventSettings.custom_sales_tax == 'N' && boxOfficeSalesTaxStatus == 'Y'">
-                              <div class="content drageble-list" *ngFor="let tax of gloabelSalesTaxArray; let i=index">
-                                  <div class="drageble-box fw-600" fxLayout="row">
-                                      <div class="tb-data fs-15 fw-600" fxFlex="35">{{tax.name}}</div>
-                                      <div class="tb-data" fxFlex="20"></div>
-                                      <div class="tb-data" fxFlex="15"></div>
-                                      <div class="tb-data" fxFlex="15"></div>
-                                      <div class="tb-data align-end fs-15" fxFlex="20">{{ tax.finalAmount | currency:currencyCode:'symbol' }}</div>
-                                  </div>
-                              </div>
+                                <div class="content drageble-list" *ngFor="let tax of gloabelSalesTaxArray; let i=index">
+                                    <div class="drageble-box fw-600" fxLayout="row">
+                                        <div class="tb-data fs-15 fw-600" fxFlex="35">{{tax.name}}</div>
+                                        <div class="tb-data" fxFlex="20"></div>
+                                        <div class="tb-data" fxFlex="15"></div>
+                                        <div class="tb-data" fxFlex="15"></div>
+                                        <div class="tb-data align-end fs-15" fxFlex="20">{{ tax.finalAmount | currency:currencyCode:'symbol' }}</div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="content drageble-list" *ngIf="discount_amt">
                                 <div class="drageble-box fw-600" fxLayout="row">

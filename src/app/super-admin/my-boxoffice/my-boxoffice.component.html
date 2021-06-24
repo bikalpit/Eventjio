@@ -1,6 +1,6 @@
 <div class="container-fluid sub-container p-0" id="my_boxoffice">
     <div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="isLoaderAdmin" fxLayoutAlign="center center" class="full-height">
-        <img src="../../assets/loading-spinner.gif" />
+        <img src="../../assets/event-spinner.svg" />
     </div>
     <div id="my-boxoffice-top">
         <div class="col-12 d-flex inner">
@@ -37,7 +37,7 @@
                                 <div class="align-items-center pop-menu-item d-flex" (click)="deleteBoxOffice(allBoxoffice.unique_code)">
                                     <i class="fa fa-trash mr-2"></i><span>Delete</span>
                                 </div>
-            
+
                             </ng-template>
                         </div>
                     </mat-card>
@@ -63,7 +63,7 @@
     </div>
     <div *ngIf="noBoxOffice" class="first-new-boxoffice">
         <div class="new-box-office-box">
-            
+
             <div class="pt-4">
                 <form [formGroup]="createBoxoffice" class="with-validation">
                     <div class="col-12 p-0">

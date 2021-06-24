@@ -1,5 +1,5 @@
 <div class="main">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/loading-spinner.gif" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="page-title d-flex">
         Event Summary
         <mat-select (selectionChange)="fnChangeOccurrence($event.value)" [(ngModel)]="selectedOccurrence" *ngIf="recurringEvent == 'Y'" class="form-control col-4 ml-auto">
@@ -36,7 +36,7 @@
                 Gives your customers the option to pay via PayPal or card. A convenient option if you already have a PayPal account set up.
             </div>
             <div class="mt-3">
-                <button mat-flat-button color="primary" class="mr-3">Set up Paypal to take payments</button>  <a class="setup-link"> Learn more about PayPal</a>
+                <button mat-flat-button color="primary" class="mr-3">Set up Paypal to take payments</button> <a class="setup-link"> Learn more about PayPal</a>
             </div>
         </div>
 
@@ -47,7 +47,7 @@
             Allow your customers to pay by bank transfer, cheque or by any other means that isn't online.
         </div>
         <div class="mt-3">
-            <button mat-flat-button color="primary" class="mr-3" [routerLink]="['/super-admin/settings/payment-systems']">Set up offline payments</button>  <a class="setup-link"> Learn more about offline payments</a>
+            <button mat-flat-button color="primary" class="mr-3" [routerLink]="['/super-admin/settings/payment-systems']">Set up offline payments</button> <a class="setup-link"> Learn more about offline payments</a>
         </div>
 
         <div class="mt-3">
