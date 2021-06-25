@@ -436,7 +436,7 @@ fnUpdateCustomer(requestObject){
 deleteCustomerDetails(){
   const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
     width: '400px',
-    data: "Are you sure?"
+    data: "Are you sure you want to delete Customer?"
   });
   dialogRef.afterClosed().subscribe(result => {
       if(result){

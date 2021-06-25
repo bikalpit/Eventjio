@@ -22,10 +22,29 @@ export class PrivacyPolicyComponent implements OnInit {
     private ErrorService : ErrorService
   ) {
     this.privacyPolicesForm = this._formBuilder.group({
-      updatePolicy:['',Validators.required],
-    })
+      updatePolicy:['',[Validators.required]],
+    });
+    this.getPrivacyPloicy();
    }
 
+
+   getPrivacyPloicy(){
+    this.isLoaderAdmin = true;
+ 
+    let requestObject1 = {
+      "boxoffice_id"  : localStorage.getItem('boxoffice_id'),
+      "option_key"    :  "privacyPolices",
+      "event_id" :  'NULL',
+    }
+    this.SettingService.getSettingsValue(requestObject1).subscribe((response:any) => {
+      if(response.data == true){
+        console.log(JSON.parse(response.response))
+        this.privacyPolicesForm.controls['updatePolicy'].setValue(JSON.parse(response.response).updatePolicy);
+      }else if(response.data == false){
+      }
+      this.isLoaderAdmin = false;
+    });
+  }
 
    fnPrivacyPolices(){
 
@@ -137,6 +156,7 @@ export class PrivacyPolicyGenerateDialog implements OnInit {
   }
 
   copyText(val:any){
+    console.log(val)
     let selBox = document.createElement('textarea');
       selBox.style.position = 'fixed';
       selBox.style.left = '0';
@@ -148,6 +168,7 @@ export class PrivacyPolicyGenerateDialog implements OnInit {
       selBox.select();
       document.execCommand('copy');
       document.body.removeChild(selBox);
+      console.log(selBox)
     }
 
   ngOnInit(): void {

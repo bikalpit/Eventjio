@@ -131,7 +131,7 @@
                                 <div class="tb-data" fxFlex="16">{{element.customer.firstname + " " +element.customer.lastname}}</div>
                                 <div class="tb-data" fxFlex="24">{{element.order_date |date :'mediumDate'}} / {{transformTime24To12(element.order_time)}}</div>
                                 <div class="tb-data" fxFlex="27" *ngIf="element.events && element.events.event_occurrence_type == 'N'">{{element.events.event_title}} <span class="order-data-date"> ({{element.events.start_date |date :'mediumDate'}}) </span></div>
-                                <div class="tb-data" fxFlex="27" *ngIf="element.events && element.events.event_occurrence_type == 'Y'">{{element.events.event_title}} <span class="order-data-date">{{element.occurrence.start_label}} - {{element.occurrence.end_label}} </span></div>
+                                <div class="tb-data" fxFlex="27" *ngIf="element.events && element.events.event_occurrence_type == 'Y'">{{element.events.event_title}} <span class="order-data-date">({{element.occurrence.start_label}} - {{element.occurrence.end_label}}) </span></div>
                                 <div class="tb-data" fxFlex="27" *ngIf="!element.events">-</div>
                                 <div class="tb-data" fxFlex="8">{{element.grand_total| currency:element.events?element.events.event_setting.currency:'symbol'}}</div>
                                 <div class="tb-data" fxFlex="5">

@@ -321,7 +321,7 @@ export class myCreateDiscountCodeDialog {
   isLoaderAdmin:boolean = false;
   onlynumeric = /^-?(0|[1-9]\d*)?$/
   createCouponForm: FormGroup;
-  minDate = new Date();
+  minDate:any = new Date();
   minTillDate : any = new Date();
   diccount_error:boolean=false;
   boxOfficeCode:any;
@@ -349,6 +349,9 @@ export class myCreateDiscountCodeDialog {
       });
 
       if(this.signleCouponDetail){
+        
+        this.minDate = Date();
+        this.minTillDate=Date();
         this.createCouponForm.controls['title'].setValue(this.signleCouponDetail.coupon_title)
         this.createCouponForm.controls['max_redemption'].setValue(this.signleCouponDetail.max_redemption)
         this.createCouponForm.controls['code'].setValue(this.signleCouponDetail.coupon_code)
@@ -510,7 +513,7 @@ export class myBatchVoucherCodeDialog {
   signleVoucherDetail:any;
   createVoucherForm: FormGroup;
   getAllEventList:any;
-  minExpiryDate = new Date("yyyy-MM-dd");
+  minExpiryDate :any = new Date();
   assignedEvent=[];
   constructor(
     private _formBuilder: FormBuilder,
@@ -522,12 +525,12 @@ export class myBatchVoucherCodeDialog {
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
-      // this.minExpiryDate=this.datePipe.transform(new Date(this.minExpiryDate),"yyyy-MM-dd")
       if(this.data.signleVoucherDetail){
         this.signleVoucherDetail = this.data.signleVoucherDetail
-        if(this.signleVoucherDetail.expiry_date < this.minExpiryDate){
-          this.signleVoucherDetail.expiry_date = this.minExpiryDate
-        }
+        this.minExpiryDate = Date();
+        // if(this.signleVoucherDetail.expiry_date < this.minExpiryDate){
+        //   this.signleVoucherDetail.expiry_date = this.minExpiryDate
+        // }
       }
       if(this.signleVoucherDetail && this.signleVoucherDetail.event_id !== null){
         this.assignedEvent = this.signleVoucherDetail.event_id.split(',')
@@ -554,7 +557,7 @@ export class myBatchVoucherCodeDialog {
         'filter' : 'upcoming',
         'boxoffice_id' : this.boxOfficeCode
       }
-      this.SuperadminService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+      this.SuperadminService.fnAllEventList(requestObject).subscribe((response:any) => {
         if(response.data == true){
         this.getAllEventList = response.response
         }

@@ -217,28 +217,8 @@ export class AppComponent {
   }
 
   openLogoutMenu() {
-    // alert('1'+this.openLogoutMenuBox)
     this.openLogoutMenuBox = !this.openLogoutMenuBox;
   }
-
-  // @HostListener('click')
-  // clickInside() {
-  //   alert('4'+this.openLogoutMenuBox)
-  // }
-
-  // @HostListener('document:click')
-  // clickout() {
-  //   alert('2'+this.openLogoutMenuBox)
-  //   if(this.openLogoutMenuBox == true){
-  //     alert('3'+this.openLogoutMenuBox)
-  //       this.openLogoutMenuBox= false;
-  //   }
-  // }
-
-  // onClickedOutside(){
-  //   this.openLogoutMenuBox = false;
-  // }
-
 
   initiateTimeout() {
     let that = this
@@ -497,24 +477,23 @@ export class AppComponent {
 
   addNewEventNav() {
     this.router.navigate(['/super-admin/events'], { queryParams: { event: 'new' } });
-    // error when navigating from /events to /events?event=name
-    
-    // let currentUrl = '/super-admin/events?event=new';
-    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    //     this.router.navigate([currentUrl]);
-    // });
+    this.pageName = 'Events';
   }
   addNewOrderNav() {
     this.router.navigate(['/super-admin/orders'], { queryParams: { order: 'new' } }); 
+    this.pageName = 'Orders';
   }
   addNewCustomerNav() {
     this.router.navigate(['/super-admin/customers'], { queryParams: { customer: 'new' } }); 
+    this.pageName = 'Customers';
   }
   addNewCouponNav() {
     this.router.navigate(['/super-admin/coupons'], { queryParams: { coupon: 'new' } }); 
+    this.pageName = 'Coupon';
   }
   addNewVoucherNav() {
     this.router.navigate(['/super-admin/coupons'], { queryParams: { voucher: 'new' } }); 
+    this.pageName = 'Coupon';
   }
 
 

@@ -1,220 +1,214 @@
-<div class="modal-dialog modal-notify modal-info export-order modal-lg"  role="document" >
-  <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
+<div class="modal-dialog modal-notify modal-info export-order modal-lg" role="document">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="modal-content">
-      <div class="modal-header modal-bcolor-primary px-0 pt-0">
-        <p class="heading lead  work-content">Edit order</p>
-        <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <div class="modal-header modal-bcolor-primary px-0 pt-0">
+            <p class="heading lead  work-content">Edit order</p>
+            <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
-      </div>
-
-       <form [formGroup]="editTicket" *ngIf="eventForm">
-        <div class="form-group">
-          <label>{{eventForm[0] ? eventForm[0].label : 'Name'}} <span class="text-danger">*</span> </label>
-          <input type="text" class="form-control" id="" placeholder="" formControlName="name">
-          <span class="error-wrap" *ngIf="editTicket.get('name').dirty || editTicket.get('name').touched">
-            <small *ngIf="editTicket.get('name').hasError('required')" class="error text-left">full Name is required.</small>
-          </span>
         </div>
 
-        <div class="form-group">
-          <label>{{eventForm[1] ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" class="form-control" formControlName="email"  placeholder="" readonly>
-          <span class="error-wrap" *ngIf="editTicket.get('email').dirty || editTicket.get('email').touched">
+        <form [formGroup]="editTicket" *ngIf="eventForm">
+            <div class="form-group">
+                <label>{{eventForm[0] ? eventForm[0].label : 'Name'}} <span class="text-danger">*</span> </label>
+                <input type="text" class="form-control" id="" placeholder="" formControlName="name">
+                <span class="error-wrap" *ngIf="editTicket.get('name').dirty || editTicket.get('name').touched">
+            <small *ngIf="editTicket.get('name').hasError('required')" class="error text-left">full Name is required.</small>
+          </span>
+            </div>
+
+            <div class="form-group">
+                <label>{{eventForm[1] ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
+                <input matInput type="text" class="form-control" formControlName="email" placeholder="" readonly>
+                <span class="error-wrap" *ngIf="editTicket.get('email').dirty || editTicket.get('email').touched">
             <small *ngIf="editTicket.get('email').hasError('required')" class="error text-left">Email is required.</small>
             <small *ngIf="editTicket.get('email').hasError('pattern')" class="error">Enter valid email.</small>
             <small *ngIf="editTicket.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small>
           </span>
-        </div>
+            </div>
 
-        <div class="form-group">
-          <label> {{addressArr.address}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" class="form-control" formControlName="address" placeholder="">
-          <span class="error-wrap" *ngIf="editTicket.get('address').dirty || editTicket.get('address').touched">
+            <div class="form-group">
+                <label> {{addressArr.address}} <span class="text-danger">*</span> </label>
+                <input matInput type="text" class="form-control" formControlName="address" placeholder="">
+                <span class="error-wrap" *ngIf="editTicket.get('address').dirty || editTicket.get('address').touched">
               <small *ngIf="editTicket.get('address').hasError('required')" class="error text-left">{{addressArr.address}} is required.</small>
           </span>
-        </div>
+            </div>
 
-        <div class="form-group">
-          <label> {{addressArr.address1}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" class="form-control" formControlName="address1" placeholder="">
-          <span class="error-wrap" *ngIf="editTicket.get('address1').dirty || editTicket.get('address1').touched">
+            <div class="form-group">
+                <label> {{addressArr.address1}} <span class="text-danger">*</span> </label>
+                <input matInput type="text" class="form-control" formControlName="address1" placeholder="">
+                <span class="error-wrap" *ngIf="editTicket.get('address1').dirty || editTicket.get('address1').touched">
               <small *ngIf="editTicket.get('address1').hasError('required')" class="error text-left">{{addressArr.address1}} is required.</small>
           </span>
-        </div>
+            </div>
 
-        <div class="form-group">
-          <label> {{addressArr.address2}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" class="form-control" formControlName="address2" placeholder="">
-          <span class="error-wrap" *ngIf="editTicket.get('address2').dirty || editTicket.get('address2').touched">
+            <div class="form-group">
+                <label> {{addressArr.address2}} <span class="text-danger">*</span> </label>
+                <input matInput type="text" class="form-control" formControlName="address2" placeholder="">
+                <span class="error-wrap" *ngIf="editTicket.get('address2').dirty || editTicket.get('address2').touched">
               <small *ngIf="editTicket.get('address2').hasError('required')" class="error text-left">{{addressArr.address2}} is required.</small>
           </span>
-        </div>
+            </div>
 
-        <div class="form-group">
-          <label> {{addressArr.zipcode}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
-          <span class="error-wrap" *ngIf="editTicket.get('zipcode').dirty || editTicket.get('zipcode').touched">
+            <div class="form-group">
+                <label> {{addressArr.zipcode}} <span class="text-danger">*</span> </label>
+                <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
+                <span class="error-wrap" *ngIf="editTicket.get('zipcode').dirty || editTicket.get('zipcode').touched">
               <small *ngIf="editTicket.get('zipcode').hasError('required')" class="error text-left">{{addressArr.zipcode}} is required.</small>
               <small *ngIf="editTicket.get('zipcode').hasError('pattern') || editTicket.get('zipcode').hasError('pattern') && (editTicket.get('zipcode').hasError('maxlength') || editTicket.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}} Should in numbers</small>
               <small *ngIf="editTicket.get('zipcode').hasError('maxlength') || editTicket.get('zipcode').hasError('minlength')" class="error">{{addressArr.zipcode}}  Should Minimum 5 and Maximum 6 digits.</small>
           </span>
-        </div>
-        
+            </div>
 
-       
 
-        <div class="form-group">
-          <label>{{eventForm[3] ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
-          <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
-          <span class="error-wrap" *ngIf="editTicket.get('phone').dirty || editTicket.get('phone').touched">
+
+
+            <div class="form-group">
+                <label>{{eventForm[3] ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
+                <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
+                <span class="error-wrap" *ngIf="editTicket.get('phone').dirty || editTicket.get('phone').touched">
             <small *ngIf="editTicket.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
             <small *ngIf="editTicket.get('phone').hasError('pattern') || editTicket.get('phone').hasError('pattern') && (editTicket.get('phone').hasError('maxlength') || editTicket.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
             <small *ngIf="editTicket.get('phone').hasError('maxlength') || editTicket.get('phone').hasError('minlength')" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small>
           </span>
-        </div>
-      </form>
+            </div>
+        </form>
 
 
-      <div *ngFor="let val of eventSpecificForm;let i=index" class="form-group">
+        <div *ngFor="let val of eventSpecificForm;let i=index" class="form-group">
 
-        <div class="" *ngIf="val.type=='text'">
-            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-            <input matInput type="text" class="form-control"  [(ngModel)]="val.value" placeholder="">
-            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+            <div class="" *ngIf="val.type=='text'">
+                <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                <input matInput type="text" class="form-control" [(ngModel)]="val.value" placeholder="">
+                <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                 {{val.label}} is required.
             </span>
-        </div>
+            </div>
 
-        <div class="" *ngIf="val.type=='dropdown'">
-            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-            <select [(ngModel)]="val.value" class="form-control">
+            <div class="" *ngIf="val.type=='dropdown'">
+                <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                <select [(ngModel)]="val.value" class="form-control">
                 <option *ngFor="let dropVal of optionsArr(val.options);let optionI=index">{{dropVal}}</option>
             </select>
-            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                 <small> {{val.label}} is required.</small>
             </span>
-        </div>
-
-        <div class="" *ngIf="val.type=='radio'">
-            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-            <div *ngFor="let radioVal of optionsArr(val.options);let optionCheck=index">
-                <input  type="radio"   value="{{radioVal}}" [(ngModel)]="val.value" > 
-                {{radioVal}}
             </div>
-            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+
+            <div class="" *ngIf="val.type=='radio'">
+                <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                <div *ngFor="let radioVal of optionsArr(val.options);let optionCheck=index">
+                    <input type="radio" value="{{radioVal}}" [(ngModel)]="val.value"> {{radioVal}}
+                </div>
+                <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
               <small> {{val.label}} is required.</small>
             </span>
-        </div>
-
-        <div class="" *ngIf="val.type=='checkbox'">
-            <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-            <div *ngFor="let checkboxVal of val.selector;let optionCheck=index">
-                <input  type="checkbox"    value="{{checkboxVal.value}}" [(ngModel)]="checkboxVal.is_check" > 
-                {{checkboxVal.value}}
             </div>
-            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+
+            <div class="" *ngIf="val.type=='checkbox'">
+                <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                <div *ngFor="let checkboxVal of val.selector;let optionCheck=index">
+                    <input type="checkbox" value="{{checkboxVal.value}}" [(ngModel)]="checkboxVal.is_check"> {{checkboxVal.value}}
+                </div>
+                <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
               <small> {{val.label}} is required.</small>
             </span>
-        </div>
-
-        <div class="" *ngIf="val.type=='marketing'">
-          <label> {{val.label}} <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
-          <div>
-              <input  type="checkbox" class=""  [(ngModel)]="val.value" >
-          </div>
-            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
-              <small> {{val.label}} is required.</small>
-            </span>
-        </div>
-
-        <div class="" *ngIf="val.type=='terms'">
-            <label> Terms & Conditions  <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
-            <div>
-                <input  type="checkbox" class=""  [(ngModel)]="val.value" >
-                {{val.label}}
             </div>
-            <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+
+            <div class="" *ngIf="val.type=='marketing'">
+                <label> {{val.label}} <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                <div>
+                    <input type="checkbox" class="" [(ngModel)]="val.value">
+                </div>
+                <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
               <small> {{val.label}} is required.</small>
             </span>
+            </div>
+
+            <div class="" *ngIf="val.type=='terms'">
+                <label> Terms & Conditions  <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                <div>
+                    <input type="checkbox" class="" [(ngModel)]="val.value"> {{val.label}}
+                </div>
+                <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+              <small> {{val.label}} is required.</small>
+            </span>
+            </div>
         </div>
-      </div> 
-      
-     
-        
-      <div class="" *ngFor="let value of attendeeForm;let i=index">
 
-        <div class="tickes-heading mt-4">
-          <h3 class="text-center"> Attendee {{i+1}} </h3>
-        </div>
 
-        <div *ngFor="let val of value;let j=index" class="form-group">
 
-          <div class="" *ngIf="val.type=='text'">
-              <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-              <input matInput type="text" class="form-control"  [(ngModel)]="val.value" placeholder="">
-              <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+        <div class="" *ngFor="let value of attendeeForm;let i=index">
+
+            <div class="tickes-heading mt-4">
+                <h3 class="text-center"> Attendee {{i+1}} </h3>
+            </div>
+
+            <div *ngFor="let val of value;let j=index" class="form-group">
+
+                <div class="" *ngIf="val.type=='text'">
+                    <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                    <input matInput type="text" class="form-control" [(ngModel)]="val.value" placeholder="">
+                    <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                   {{val.label}} is required.
               </span>
-          </div>
-  
-          <div class="" *ngIf="val.type=='dropdown'">
-              <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-              <select [(ngModel)]="val.value" class="form-control">
+                </div>
+
+                <div class="" *ngIf="val.type=='dropdown'">
+                    <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                    <select [(ngModel)]="val.value" class="form-control">
                   <option *ngFor="let dropVal of optionsArr(val.options);let optionI=index">{{dropVal}}</option>
               </select>
-              <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                    <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                   <small> {{val.label}} is required.</small>
               </span>
-          </div>
-  
-          <div class="" *ngIf="val.type=='radio'">
-              <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-              <div *ngFor="let radioVal of optionsArr(val.options);let optionCheck=index">
-                  <input  type="radio"   value="{{radioVal}}" [(ngModel)]="val.value" > 
-                  {{radioVal}}
-              </div>
-              <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
-                <small> {{val.label}} is required.</small>
-              </span>
-          </div>
-  
-          <div class="" *ngIf="val.type=='checkbox'">
-              <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-              <div *ngFor="let checkboxVal of val.selector;let optionCheck=index">
-                  <input  type="checkbox"    value="{{checkboxVal.value}}" [(ngModel)]="checkboxVal.is_check" > 
-                  {{checkboxVal.value}}
-              </div>
-              <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
-                <small> {{val.label}} is required.</small>
-              </span>
-          </div>
-  
-          <div class="" *ngIf="val.type=='marketing'">
-            <label> {{val.label}} <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
-            <div>
-                <input  type="checkbox" class=""  [(ngModel)]="val.value" >
-            </div>
-              <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
-                <small> {{val.label}} is required.</small>
-              </span>
-          </div>
-  
-          <div class="" *ngIf="val.type=='terms'">
-              <label> Terms & Conditions  <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
-              <div>
-                  <input  type="checkbox" class=""  [(ngModel)]="val.value" >
-                  {{val.label}}
-              </div>
-              <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
-                <small> {{val.label}} is required.</small>
-              </span>
-          </div>
-        </div> 
-      </div>
-     
+                </div>
 
-      <!-- <form [formGroup]="editTicket" class="with-validation ">
+                <div class="" *ngIf="val.type=='radio'">
+                    <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                    <div *ngFor="let radioVal of optionsArr(val.options);let optionCheck=index">
+                        <input type="radio" value="{{radioVal}}" [(ngModel)]="val.value"> {{radioVal}}
+                    </div>
+                    <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                <small> {{val.label}} is required.</small>
+              </span>
+                </div>
+
+                <div class="" *ngIf="val.type=='checkbox'">
+                    <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
+                    <div *ngFor="let checkboxVal of val.selector;let optionCheck=index">
+                        <input type="checkbox" value="{{checkboxVal.value}}" [(ngModel)]="checkboxVal.is_check"> {{checkboxVal.value}}
+                    </div>
+                    <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                <small> {{val.label}} is required.</small>
+              </span>
+                </div>
+
+                <div class="" *ngIf="val.type=='marketing'">
+                    <label> {{val.label}} <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                    <div>
+                        <input type="checkbox" class="" [(ngModel)]="val.value">
+                    </div>
+                    <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                <small> {{val.label}} is required.</small>
+              </span>
+                </div>
+
+                <div class="" *ngIf="val.type=='terms'">
+                    <label> Terms & Conditions  <span class="text-danger"> {{ val.required ? ' * ' : ''}} </span> </label> &nbsp;&nbsp;&nbsp;
+                    <div>
+                        <input type="checkbox" class="" [(ngModel)]="val.value"> {{val.label}}
+                    </div>
+                    <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
+                <small> {{val.label}} is required.</small>
+              </span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- <form [formGroup]="editTicket" class="with-validation ">
         <div class="edit-order">      
           <div class="form-group">
             <label for="">First Name <span><i class="fa fa-asterisk text-danger "></i></span> </label>
@@ -269,6 +263,6 @@
      </div>
         <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="updateOrder()">Save</button>
       </form> -->
-      <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="updateOrder()">UPDATE</button>
- </div>
+        <button mat-raised-button class="comm-btn d-flex ml-auto" (click)="updateOrder()">UPDATE</button>
+    </div>
 </div>

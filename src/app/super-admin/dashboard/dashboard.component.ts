@@ -162,8 +162,6 @@ export class DashboardComponent implements OnInit {
           element.customer.customerShortName = ''
           element.customer.customerShortName = element.customer.firstname.charAt(0)+ element.customer.lastname.charAt(0)
         });
-        console.log(this.recentPurchaseList)
-        
       }
     });
   }
@@ -189,10 +187,7 @@ export class DashboardComponent implements OnInit {
   }
   
   addNewEvent(){
-    // this.EventsComponent.addNewEvent();
-    
-    this.router.navigate(['/super-admin/events'], { queryParams: { goto: 'new_event' } });
-    // this.router.navigate(['/super-admin/events?event=new']);
+    this.router.navigate(['/super-admin/events'], { queryParams: { event: 'new' } });
   }
 
   viewAllEvent(){
@@ -206,8 +201,6 @@ export class DashboardComponent implements OnInit {
     }
     this.SuperadminService.dashboarUpcomingEvents(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        
-        // this.allUpcomingEventListData = response.response.data;
         this.totalUpcomingEvents = response.response.length;
         let i =0;
         response.response.forEach(element => {
@@ -218,11 +211,7 @@ export class DashboardComponent implements OnInit {
           if(i < 4){
             this.allUpcomingEventListData.push(element)
           }
-          //console.log(i)
         });
-        console.log(this.allUpcomingEventListData)
-
-        // this.addNewEvents = true;
       }else if(response.data == false){
         this.allUpcomingEventListData.length = 0;
       }
