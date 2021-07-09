@@ -68,10 +68,6 @@ import { MdePopoverModule } from '@material-extended/mde';
     appUserDetail,
   ],
 
-
-
- 
- 
   imports: [
     CommonModule,
     SettingsRoutingModule,
@@ -86,7 +82,7 @@ import { MdePopoverModule } from '@material-extended/mde';
     NgbModule,
     NgxMatSelectSearchModule,
     AngularEditorModule,
-    MdePopoverModule
+    MdePopoverModule,
     
   ],
   entryComponents: [

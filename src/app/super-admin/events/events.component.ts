@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild,Inject,ChangeDetectorRef, ElementRef, ViewChildren, QueryList} from '@angular/core';
+import {Component, OnInit, ViewChild,Inject,ChangeDetectorRef, ElementRef, AfterViewInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
@@ -31,7 +31,7 @@ export interface ListTimeZoneListArry {
   styleUrls: ['./events.component.scss'],
   providers: [DatePipe]
 })
-export class EventsComponent implements OnInit, DirtyComponent {
+export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
  
   @ViewChild('new_event_start') jump: ElementRef;
   isLoaderAdmin:boolean = false;
@@ -122,7 +122,6 @@ export class EventsComponent implements OnInit, DirtyComponent {
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
   protected _onDestroy = new Subject<void>();
   @ViewChild('target', { static: false }) target: MdePopoverTrigger;
-  // @ViewChildren(MdePopoverTrigger) trigger: QueryList<MdePopoverTrigger>;
 
 
   constructor(
@@ -133,7 +132,6 @@ export class EventsComponent implements OnInit, DirtyComponent {
     private router: Router,
     private el: ElementRef,
     private SuperadminService: SuperadminService,
-    private change:ChangeDetectorRef,
     private route: ActivatedRoute
     ) {
       this.keepMe = localStorage.getItem('keepMeSignIn')
@@ -143,10 +141,10 @@ export class EventsComponent implements OnInit, DirtyComponent {
           this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
      
-        let newEventAction = window.location.search.split("?event")
-          if(newEventAction.length > 1){
-            this.addNewEvents = false; 
-          }
+        // let newEventAction = window.location.search.split("?event")
+        //   if(newEventAction.length > 1){
+        //     this.addNewEvents = false; 
+        //   }
 
       // this.currentUser = JSON.parse(this.currentUserData);
 
@@ -212,24 +210,20 @@ export class EventsComponent implements OnInit, DirtyComponent {
     }
 
     ngAfterViewInit() {
-      // let newEventAction1 = window.location.search.split("?goto")
-      //     if(newEventAction1.length > 1){
-      //     this.scrollContainer = this.jump.nativeElement;
+      let newEventAction1 = window.location.search.split("?event")
+      console.log(this.jump)
+          if(newEventAction1.length > 1 && this.jump){
+            this.scrollContainer = this.jump.nativeElement;
 
-      //   // check if the query is present
-      //   this.route.queryParams.subscribe((params)=> {
-      //       if (params['goto']) {
-      //         this.addNewEvents = false; 
-      //         // scroll the div
-      //         this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-      //       }
-      //   });
-      // }
-        // const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
-        //   "#new_event_start"
-        // );
-    
-        // firstInvalidControl.focus();
+            // check if the query is present
+            this.route.queryParams.subscribe((params)=> {
+                if (params['event']) {
+                  this.addNewEvents = false; 
+                  // scroll the div
+                  this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            });
+          }
       
       this.setInitialValue();
     }
@@ -1062,11 +1056,12 @@ export class EventsComponent implements OnInit, DirtyComponent {
         if(requestObject['event_occurrence_type'] == 'Y'){
           localStorage.setItem('selectedEventCode', response.response);
           this.router.navigate(["super-admin/single-event-dashboard/manage-occurrences"]);     
+        }else{
+          this.fnGetUpcomingEventList()
+          this.fnGetPastEventList()
+          this.addEventForm.reset();
+          this.addNewEvents = true;
         }
-        this.fnGetUpcomingEventList()
-        this.fnGetPastEventList()
-        this.addEventForm.reset();
-        this.addNewEvents = true;
       }else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }

@@ -176,16 +176,16 @@ export class AppComponent {
     if (url === '/super-admin/dashboard') {
       this.pageName = 'Dashboard';
     }
-    else if (url === '/super-admin/events') {
+    else if (url === '/super-admin/events' || url === '/super-admin/events?event=new') {
       this.pageName = 'Events'
     }
-    else if (url === '/super-admin/orders') {
+    else if (url === '/super-admin/orders' || url === '/super-admin/orders?order=new') {
       this.pageName = 'Orders'
     }
-    else if (url === '/super-admin/customers') {
+    else if (url === '/super-admin/customers' || url === '/super-admin/customers?customer=new') {
       this.pageName = 'Customers'
     }
-    else if (url === '/super-admin/coupons') {
+    else if (url === '/super-admin/coupons' || url === '/super-admin/coupons?coupon=new' || url === '/super-admin/coupons?voucher=new') {
       this.pageName = 'Coupon'
     } else if (url === '/super-admin/settings') {
       this.pageName = 'Settings'

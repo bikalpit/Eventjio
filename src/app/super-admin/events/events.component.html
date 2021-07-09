@@ -1,4 +1,7 @@
+<div #new_event_start>
+</div>
 <div id="events" class="bg-white sub-container">
+
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div *ngIf="addNewEvents" class="bg-white events">
         <div class="row mx-0 p-3">
@@ -190,13 +193,11 @@
 
     <!-- ----------------------------------Add new events form------------------------------------------ -->
 
-
     <div *ngIf="!addNewEvents" class="add-new-event p-3 bg-white">
         <div class="col-12 py-3 page-title">
             <mat-icon (click)="fnCancelNewEvent();" class="mr-3 pointer">west</mat-icon><span>Add New Event</span>
         </div>
 
-        <div #new_event_start></div>
         <div class="add-new-event-form">
 
             <form [formGroup]="addEventForm" class="with-validation">
@@ -472,7 +473,7 @@
                             <mat-option>
                                 <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
                             </mat-option>
-                            <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" [value]="listTimeZone.id">({{listTimeZone.utc}}){{listTimeZone.name}}</mat-option>
+                            <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" [value]="listTimeZone.id">({{listTimeZone?.utc}}){{listTimeZone.name}}</mat-option>
                         </mat-select>
                         <span class="error-wrap" *ngIf="addEventForm.get('timezone').touched || addEventForm.get('timezone').dirty">
                             <small *ngIf="addEventForm.get('timezone').hasError('required')" class="error">Timezone is required.</small>

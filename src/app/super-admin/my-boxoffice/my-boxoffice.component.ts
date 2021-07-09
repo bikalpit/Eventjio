@@ -257,7 +257,7 @@ deleteBoxOffice(boxOfficeCode){
   const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
     width: '400px',
     panelClass: 'confirmation-dialog',
-    data: "Are you sure?"
+    data: "Are you sure you want to delete Boxoffice?"
   });
   dialogRef.afterClosed().subscribe(result => {
       if(result){
@@ -386,7 +386,7 @@ export class myCreateNewBoxofficeDialog {
     this.isLoaderAdmin = true;
     this.superadminService.createNewBusiness(insertArr).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response);
+        this.ErrorService.successMessage(response.response.message);
         this.createBoxoffice.reset();
         this.dialogRef.close();
       }else if(response.data == false){

@@ -10,6 +10,7 @@
     position: fixed;
     z-index: 9;
     top: 60px;
+    height: 66px;
     .add-customer {
         background-color: #973c56;
         border-radius: 30px;
@@ -76,14 +77,13 @@
     // span {
     //     background-color: #973c56;
     // }
-    .complete-status{
+    .complete-status {
         color: rgb(43, 184, 0);
         font-weight: 500;
     }
-    .upcoming-status{
+    .upcoming-status {
         color: #FE6A4D;
         font-weight: 500;
-
     }
      ::ng-deep mat-tab-body {
         margin-top: 20px;
@@ -251,7 +251,6 @@ table {
     }
 }
 
-
 .footer-btn {
     background-color: white;
     position: fixed;
@@ -286,9 +285,10 @@ table {
         }
     }
 }
-::ng-deep .tag-container{
+
+::ng-deep .tag-container {
     width: 100%;
-    .mat-form-field-underline{
+    .mat-form-field-underline {
         margin-bottom: -30px;
     }
 }

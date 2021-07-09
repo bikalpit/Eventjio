@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from './../../_services/authentication.service';
 import { Chart } from 'chart.js';
-import { Router, RouterEvent, RouterOutlet,ActivatedRoute, NavigationExtras } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
 import { SuperadminService } from '../_services/superadmin.service';
-import { ErrorService } from '../../_services/error.service';
 import { DatePipe} from '@angular/common';
 import { environment } from '../../../environments/environment';
+import { AppComponent } from '../../app.component'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -33,11 +32,9 @@ export class DashboardComponent implements OnInit {
   allUpcomingEventListData:any=[];
   totalUpcomingEvents:any;
   constructor(
-    private authenticationService: AuthenticationService,
-    private route: ActivatedRoute,
     private router: Router,
-    private ErrorService: ErrorService,
     private datePipe: DatePipe,
+    private appComponent:AppComponent,
     private SuperadminService: SuperadminService,
 
   ) { 
@@ -187,7 +184,9 @@ export class DashboardComponent implements OnInit {
   }
   
   addNewEvent(){
-    this.router.navigate(['/super-admin/events'], { queryParams: { event: 'new' } });
+    window.scrollTo(0,0);
+    this.appComponent.addNewEventNav();
+    // this.router.navigate(['/super-admin/events'], { queryParams: { event: 'new' } });
   }
 
   viewAllEvent(){

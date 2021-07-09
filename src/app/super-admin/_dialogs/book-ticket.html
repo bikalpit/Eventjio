@@ -65,7 +65,7 @@
                                 <div class="th-data" fxFlex="30">Item</div>
                                 <div class="th-data" fxFlex="15">Price</div>
                                 <div class="th-data" fxFlex="20">Booking Fee</div>
-                                <div class="th-data" fxFlex="20">QUANTITY</div>
+                                <div class="th-data" fxFlex="20">Quantity</div>
                                 <div class="th-data" fxFlex="15" class="align-end">Subtotal</div>
                             </div>
                             <div class="content" class="drageble-list">
@@ -193,7 +193,7 @@
 
                         <div class="form-group">
                             <label>{{eventForm.label ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
-                            <input matInput type="text" class="form-control" formControlName="email" placeholder="">
+                            <input type="text" class="form-control" formControlName="email" placeholder="">
                             <span class="error-wrap" *ngIf="bookTickets.get('email').dirty || bookTickets.get('email').touched">
                   <small *ngIf="bookTickets.get('email').hasError('required')" class="error text-left">Email is required.</small>
                   <small *ngIf="bookTickets.get('email').hasError('pattern')" class="error">Enter valid email.</small>
@@ -203,7 +203,7 @@
 
                         <div class="form-group" *ngIf="!is_address_hide">
                             <label> {{addressArr.address}} <span class="text-danger">*</span> </label>
-                            <input matInput type="text" class="form-control" formControlName="address" placeholder="">
+                            <input type="text" class="form-control" formControlName="address" placeholder="">
                             <span class="error-wrap" *ngIf="bookTickets.get('address').dirty || bookTickets.get('address').touched">
                     <small *ngIf="bookTickets.get('address').hasError('required')" class="error text-left">{{addressArr.address}} is required.</small>
                 </span>
@@ -211,7 +211,7 @@
 
                         <div class="form-group" *ngIf="!is_address_hide">
                             <label> {{addressArr.address1}} <span class="text-danger">*</span> </label>
-                            <input matInput type="text" class="form-control" formControlName="address1" placeholder="">
+                            <input type="text" class="form-control" formControlName="address1" placeholder="">
                             <span class="error-wrap" *ngIf="bookTickets.get('address1').dirty || bookTickets.get('address1').touched">
                     <small *ngIf="bookTickets.get('address1').hasError('required')" class="error text-left">{{addressArr.address1}} is required.</small>
                 </span>
@@ -219,14 +219,14 @@
 
                         <div class="form-group" *ngIf="!is_address_hide">
                             <label> {{addressArr.address2}} <span class="text-danger">*</span> </label>
-                            <input matInput type="text" class="form-control" formControlName="address2" placeholder="">
+                            <input type="text" class="form-control" formControlName="address2" placeholder="">
                             <span class="error-wrap" *ngIf="bookTickets.get('address2').dirty || bookTickets.get('address2').touched">
                     <small *ngIf="bookTickets.get('address2').hasError('required')" class="error text-left">{{addressArr.address2}} is required.</small>
                 </span>
                         </div>
                         <div class="form-group" *ngIf="!is_address_hide">
                             <label> {{addressArr.zipcode}} <span class="text-danger">*</span> </label>
-                            <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
+                            <input type="text" class="form-control" formControlName="zipcode" placeholder="">
                             <span class="error-wrap" *ngIf="bookTickets.get('zipcode').dirty || bookTickets.get('zipcode').touched">
                     <small *ngIf="bookTickets.get('zipcode').hasError('required')" class="error text-left">{{addressArr.zipcode}} is required.</small>
                     <small *ngIf="!bookTickets.get('zipcode').hasError('required') && (bookTickets.get('zipcode').hasError('maxlength') || bookTickets.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}}  Should Minimum 5 and Maximum 6 digits.</small>
@@ -235,7 +235,7 @@
 
                         <div class="form-group">
                             <label>{{ eventForm.label ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
-                            <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
+                            <input type="text" formControlName="phone" class="form-control" placeholder="">
                             <span class="error-wrap" *ngIf="bookTickets.get('phone').dirty || bookTickets.get('phone').touched">
                   <small *ngIf="bookTickets.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
                   <small *ngIf="bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
@@ -248,7 +248,7 @@
 
                         <div class="" *ngIf="val.type=='text'">
                             <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-                            <input matInput type="text" class="form-control" [(ngModel)]="val.value" placeholder="">
+                            <input type="text" class="form-control" [(ngModel)]="val.value" placeholder="">
                             <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                       {{val.label}} is required.
                   </span>
@@ -317,7 +317,7 @@
                                     <div class="" *ngIf="attendeeFormval.type=='text'">
                                         <div class="form-group common-checkout-filed">
                                             <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
-                                            <input matInput [formControlName]="attendeeFormval.controlname" class="form-control" placeholder="">
+                                            <input [formControlName]="attendeeFormval.controlname" class="form-control" placeholder="">
                                         </div>
 
                                     </div>

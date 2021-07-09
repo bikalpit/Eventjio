@@ -79,7 +79,9 @@
 
     <div class="modal-body" *ngIf="preview">
         <h2 class="text-left">Your Policy is ready...</h2>
-        <div #msgText contenteditable="true" class="previewContent border rounded p-3">
+        <angular-editor [(ngModel)]="htmlContent" class="description_field" class="form-group">
+        </angular-editor>
+        <!-- <div #msgText contenteditable="true" class="previewContent border rounded p-3">
             <h3 class="text-left">Introduction</h3>
             <p>This policy sets out how we collect, process and hold your personal data if you visit our event ticket shop or otherwise provide personal data to us. We are {{privacyPolicyData.orgName}} of {{privacyPolicyData.orgAddress}}. We are the data
                 controller of your personal data.</p>
@@ -158,9 +160,9 @@
             <p>This policy shall be governed by and construed in accordance with the law of England and Wales, and you agree to submit to the exclusive jurisdiction of the English Courts.</p>
             <p>We may change the terms of this policy from time to time. You are responsible for regularly reviewing this policy so that you are aware of any changes to it. If you continue to use our event ticket shop after the time we state the changes
                 will take effect, you will have accepted the changes.</p>
-        </div>
+        </div> -->
         <div class="mt-2">
-            <button mat-flat-button (click)="copyText(msgText)" class="bg-primary text-white">Copy Policy</button>
+            <button mat-flat-button (click)="savePolicy()" class="bg-primary text-white">Save Policy</button>
         </div>
     </div>
 

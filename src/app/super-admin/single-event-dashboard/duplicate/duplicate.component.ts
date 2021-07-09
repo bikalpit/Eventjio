@@ -28,6 +28,7 @@ export class DuplicateComponent implements OnInit {
   endTime:any;
   errorMessage:any;
   startEndSameDate:any;
+  recurringEvent:any='N';
   // duplicateForm:boolean=false;
   finalArr = [];
   constructor(
@@ -41,6 +42,7 @@ export class DuplicateComponent implements OnInit {
     if (localStorage.getItem('selectedEventCode')) {
       this.duplicateId = localStorage.getItem('selectedEventCode')
     }
+    this.fnGetEventDetail();
 
     this.duplicateForm = this.formBuilder.group({
       items: this.formBuilder.array([ this.createItem() ])
@@ -49,19 +51,26 @@ export class DuplicateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fnGetEventDetail();
     this.getTimeSlote()
   }
 
   createItem(): FormGroup {
+    if(this.recurringEvent == 'N'){
+      return this.formBuilder.group({
+        event_title: ['',Validators.required],
+        start_date:  ['',Validators.required],
+        start_time:  ['',Validators.required],
+        end_date:  ['',Validators.required],
+        end_time:  ['',Validators.required],
+        event_status:  ['',Validators.required]
+      });
+    }else{
+      
     return this.formBuilder.group({
       event_title: ['',Validators.required],
-      start_date:  ['',Validators.required],
-      start_time:  ['',Validators.required],
-      end_date:  ['',Validators.required],
-      end_time:  ['',Validators.required],
       event_status:  ['',Validators.required]
     });
+    }
   }
 
   
@@ -160,7 +169,8 @@ export class DuplicateComponent implements OnInit {
     this.SingleEventServiceService.getSingleEvent(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.eventName = response.response.event[0];
-        this.isPastEvent = response.response.past
+        this.isPastEvent = response.response.past;
+        this.recurringEvent= response.response.event[0].event_occurrence_type;
       } else if (response.data == false) {
         this.ErrorService.errorMessage(response.response);
       }
@@ -174,14 +184,24 @@ export class DuplicateComponent implements OnInit {
     }
     this.items = this.duplicateForm.get('items') as FormArray;
     this.finalArr = this.duplicateForm.value.items;
-    this.finalArr.forEach(element => {
-      element.end_time = this.fullDayTimeSlote[element.end_time]
-      element.start_time = this.fullDayTimeSlote[element.start_time]   
-      element.start_date = this.datePipe.transform(new Date(element.start_date), "yyyy-MM-dd")
-      element.end_date = this.datePipe.transform(new Date(element.end_date), "yyyy-MM-dd")
-      // alert(element.start_date)
-    });
-
+    if(this.recurringEvent == 'N'){
+      this.finalArr.forEach(element => {
+        element.end_time = this.fullDayTimeSlote[element.end_time]
+        element.start_time = this.fullDayTimeSlote[element.start_time]   
+        element.start_date = this.datePipe.transform(new Date(element.start_date), "yyyy-MM-dd")
+        element.end_date = this.datePipe.transform(new Date(element.end_date), "yyyy-MM-dd")
+        // alert(element.start_date)
+      });
+    }else if(this.recurringEvent == 'Y'){
+      this.finalArr.forEach(element => {
+        element.end_time = null
+        element.start_time = null
+        element.start_date = null
+        element.end_date = null
+        // alert(element.start_date)
+      });
+    }
+  if(this.recurringEvent == 'N'){
     if(this.finalArr[this.finalArr.length - 1].event_title == "" && this.finalArr[this.finalArr.length - 1].start_date == "" &&
     this.finalArr[this.finalArr.length - 1].start_time == "" && this.finalArr[this.finalArr.length - 1].end_date == "" &&
     this.finalArr[this.finalArr.length - 1].end_time == "" && this.finalArr[this.finalArr.length - 1].event_status == ""){
@@ -192,26 +212,43 @@ export class DuplicateComponent implements OnInit {
        this.errorMessage = 'Please fill up the required fields'
        return false
      }else{
-
-      let requestObject = {
-        "unique_code": this.duplicateId,
-        "eventArry" : this.finalArr
-      }
-      console.log(requestObject)
-      
-      this.SingleEventServiceService.duplicateForm(requestObject).subscribe((response: any) => {
-        if (response.data == true) {
-          this.ErrorService.successMessage(response.response);
-          this.duplicateForm.reset();
-          this.router.navigate(["/super-admin/events"]);
-        } else if (response.data == false) {
-          this.ErrorService.errorMessage(response.response);
-        }
-        this.isLoaderAdmin = false;
-      });
-
+      this.createDuplicateEvent();
      }
+  }else if(this.recurringEvent == 'Y'){
+    if(this.finalArr[this.finalArr.length - 1].event_title == "" && this.finalArr[this.finalArr.length - 1].event_status == ""){
+      this.finalArr.splice(this.finalArr.length-1, 1);
+     }else if(this.finalArr[this.finalArr.length - 1].event_title == "" || this.finalArr[this.finalArr.length - 1].event_status == ""){
+       this.errorMessage = 'Please fill up the required fields'
+       return false
+     }else{
+      this.createDuplicateEvent();
+     }
+  }
+   
 
 
+  }
+
+  createDuplicateEvent(){
+    
+    let requestObject = {
+      "unique_code": this.duplicateId,
+      "eventArry" : this.finalArr
+    }
+    console.log(requestObject)
+    this.SingleEventServiceService.duplicateForm(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+        if(this.recurringEvent == 'Y'){
+          this.ErrorService.successMessage('Your event created successfully! You can go to occurrence manu and create occurrence for event.');
+        }else{
+        this.ErrorService.successMessage('Your event created successfully!');
+        }
+        this.duplicateForm.reset();
+        this.router.navigate(["/super-admin/events"]);
+      } else if (response.data == false) {
+        this.ErrorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
   }
 }
