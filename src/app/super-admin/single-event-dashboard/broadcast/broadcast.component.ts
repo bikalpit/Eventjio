@@ -31,7 +31,7 @@ export class BroadcastComponent implements OnInit {
   BoxofficeId:any;
   sendOptions:any;
   startDate:any = new Date();
-  getAllBroadcastData:any;
+  getAllBroadcastData:any=[];
   scheduledDate:any;
   unique_id:any;
   messageContent:any;
@@ -228,7 +228,7 @@ export class BroadcastComponent implements OnInit {
           });
 
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response)
+        // this.ErrorService.errorMessage(response.response)
       }
     });
     this.isLoaderAdmin=false;
@@ -283,8 +283,8 @@ export class BroadcastComponent implements OnInit {
          });
         //  console.log(this.getAllBroadcastData);
       } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
-        this. getAllBroadcastData = null;
+        // this.ErrorService.errorMessage(response.response);
+        this. getAllBroadcastData.length = 0;
       }
       this.isLoaderAdmin = false;
     })

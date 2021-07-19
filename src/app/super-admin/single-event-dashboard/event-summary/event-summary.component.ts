@@ -291,6 +291,14 @@ export class EventSummaryComponent implements OnInit {
           });
         }else if(filter = 'all'){
           this.allOccurrenceList= response.response;
+           this.allOccurrenceList.forEach(element => {
+            if(element.occurance_start_time){
+              element.occurance_start_time = this.transformTime24To12(element.occurance_start_time);
+            }
+            if(element.occurance_end_time){
+              element.occurance_end_time = this.transformTime24To12(element.occurance_end_time);
+            }
+          });
          
         }
        

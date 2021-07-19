@@ -27,13 +27,18 @@
                                 <div class="heading-table" fxFlex="25">Status</div>
                                 <div class="heading-table" fxFlex="25">Date</div>
                             </div>
-                            <div class="content" class="drageble-list" *ngFor="let getAllBroadcastData of getAllBroadcastData; let i=index">
-                                <div class="drageble-box" fxLayout="row">
-                                    <div class="tb-data heading-table" (click)="previewBroadcast(i)" fxFlex="25"> <a> {{getAllBroadcastData.subject}} </a> </div>
-                                    <div class="tb-data heading-table" fxFlex="25"> {{getAllBroadcastData.recipients}} </div>
-                                    <div class="tb-data heading-table text-green text-capitalize" fxFlex="25">{{getAllBroadcastData.status}}</div>
-                                    <div class="tb-data heading-table" fxFlex="25">{{getAllBroadcastData.created_at}}</div>
+                            <div *ngIf="getAllBroadcastData.length > 0">
+                                <div class="content" class="drageble-list" *ngFor="let getAllBroadcastData of getAllBroadcastData; let i=index">
+                                    <div class="drageble-box" fxLayout="row">
+                                        <div class="tb-data heading-table" (click)="previewBroadcast(i)" fxFlex="25"> <a> {{getAllBroadcastData.subject}} </a> </div>
+                                        <div class="tb-data heading-table" fxFlex="25"> {{getAllBroadcastData.recipients}} </div>
+                                        <div class="tb-data heading-table text-green text-capitalize" fxFlex="25">{{getAllBroadcastData.status}}</div>
+                                        <div class="tb-data heading-table" fxFlex="25">{{getAllBroadcastData.created_at}}</div>
+                                    </div>
                                 </div>
+                            </div>
+                            <div *ngIf="getAllBroadcastData.length == 0">
+                                <p class="my-2 text-center">No record found.</p>
                             </div>
                         </div>
                     </div>

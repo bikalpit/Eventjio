@@ -992,7 +992,7 @@ export class AddNewOrderDialog {
   selectedEvent :any;
   openPage:any='eventlist';
   isLoaderAdmin:boolean=false;
-  allOccurrenceList:any;
+  allOccurrenceList:any=[];
   recurringEvent :any ='N';
   singleEventData:any;
   constructor(
@@ -1014,6 +1014,30 @@ export class AddNewOrderDialog {
   }
   
   ngOnInit() {
+  }
+  
+  
+  transformTime24To12(time: any): any {
+    if(time != null){
+      let hour = (time.split(':'))[0];
+      let min = (time.split(':'))[1];
+      let part = 'AM';
+      let finalhrs = hour
+      if(hour == 0){
+        finalhrs = 12
+      }
+      if(hour == 12){
+        finalhrs = 12;
+        part = 'PM';
+      }
+      if(hour > 12){
+        finalhrs  = hour - 12
+        part = 'PM' 
+      }
+      return `${finalhrs}:${min} ${part}`
+    }else{
+      return ` `
+    }
   }
 
   fnBookTicketType(selecetedEvent,singleEventData){
@@ -1151,7 +1175,7 @@ export class BookTicketDialog {
   transaction_fee = 0;
   currencySymbol = "USD";
   total_sales_tax = 0;
-  sales_tax_array :any;
+  sales_tax_array :any=[];
   event_tickets:any = [];
   voucher_code:any = '';
   voucher_amt = 0;
@@ -1205,7 +1229,6 @@ export class BookTicketDialog {
       console.log(this.selectedEventCode)
       console.log(this.eventDetail)
     
-      console.log(this.eventSettings)
       this.eventSettings = this.eventDetail.event_setting;
       this.currencyCode = this.eventSettings.currency
       this.donation_amt = this.eventSettings.donation_amt ? parseInt(this.eventSettings.donation_amt) : 0;
@@ -1213,16 +1236,18 @@ export class BookTicketDialog {
       if(this.eventSettings.currency){
         this.currencySymbol = this.eventSettings.currency;
       }
+      console.log(this.eventSettings)
 
       this.sales_tax_array = JSON.parse(this.eventSettings.sales_tax);
-
-      this.sales_tax_array.forEach(element => {
-        if(parseInt(element.amount) > 0){
-          element.finalAmount = 0
-          element.finalAmount = element.amount*this.subTotalWithTransactionFee/100
-          this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
-        }
-      });
+      if(this.sales_tax_array.length >0){
+        this.sales_tax_array.forEach(element => {
+          if(parseInt(element.amount) > 0){
+            element.finalAmount = 0
+            element.finalAmount = element.amount*this.subTotalWithTransactionFee/100
+            this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
+          }
+        });
+      }
 
 
       if(localStorage.getItem('boxoffice_id')){
@@ -2391,6 +2416,7 @@ export class cancelOrderDialog {
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.singleorderCustomer = this.data;
+      console.log(this.singleorderCustomer)
       this.eventData = this.data.events ? this.data.events : [];
     }
 

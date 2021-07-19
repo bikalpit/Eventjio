@@ -4,6 +4,9 @@ import { SingleEventServiceService } from '../_services/single-event-service.ser
 import { ErrorService } from '../../../_services/error.service';
 import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
 @Component({
@@ -36,6 +39,8 @@ export class DuplicateComponent implements OnInit {
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,
     private datePipe: DatePipe,
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
     private router: Router,
   ) {
     this.duplicateArray.length = 1;
@@ -101,10 +106,16 @@ export class DuplicateComponent implements OnInit {
   }
 
   fnRemoveDuplicate(index) {
-    var x = confirm('Are you sure you want to delete?')
-    if(x){
-      (this.duplicateForm.get('items') as FormArray).removeAt(index);
-    }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure want to delete event?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          (this.duplicateForm.get('items') as FormArray).removeAt(index);
+        }
+    });
+    
   }
   fnChangeEventStartDate(event){
     this.minTillDate = event.value;
@@ -230,7 +241,7 @@ export class DuplicateComponent implements OnInit {
   }
 
   createDuplicateEvent(){
-    
+    this.isLoaderAdmin = true;
     let requestObject = {
       "unique_code": this.duplicateId,
       "eventArry" : this.finalArr
@@ -239,7 +250,11 @@ export class DuplicateComponent implements OnInit {
     this.SingleEventServiceService.duplicateForm(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         if(this.recurringEvent == 'Y'){
-          this.ErrorService.successMessage('Your event created successfully! You can go to occurrence manu and create occurrence for event.');
+          this._snackBar.open('Your event created successfully! You can go to occurrence menu and create occurrence for event.', "X", {
+            duration: 4000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
         }else{
         this.ErrorService.successMessage('Your event created successfully!');
         }

@@ -5,6 +5,7 @@ import { SettingService } from '../_services/setting.service';
 import { ErrorService } from '../../../_services/error.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-checkout-form',
@@ -123,8 +124,16 @@ export class CheckoutFormComponent implements OnInit {
       return 
     }
 
-    const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
-    this.allQuestionlist[0].buyer_questions.splice(index, 1);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure want to delete question?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
+          this.allQuestionlist[0].buyer_questions.splice(index, 1);
+        }
+    });
   }
   
   fnUndoBuyerQuestion(selectedQuestion, i){
@@ -154,9 +163,17 @@ export class CheckoutFormComponent implements OnInit {
   }
 
   fnDeleteAttendeeQuestion(selectedQuestion, i){
-    const index: number = this.allQuestionlist[0].attendee_questions.indexOf(selectedQuestion);
-    this.allQuestionlist[0].attendee_questions.splice(index, 1);
-    console.log(this.allQuestionlist)
+    
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure want to delete question?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          const index: number = this.allQuestionlist[0].attendee_questions.indexOf(selectedQuestion);
+          this.allQuestionlist[0].attendee_questions.splice(index, 1);
+        }
+    });
   }
 
   fnEditAttendeeQuestion(question, index){

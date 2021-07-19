@@ -19,22 +19,23 @@
                 </div>
             </div>
             <div class="cancel-order-detail">
-                <div class="order-det">
+                <div class="order-det" *ngIf="singleorderCustomer">
                     <div class="row">
                         <label class="col-md-2">Order Id:</label>
-                        <p class="col-md-10">{{singleorderCustomer.order_id}}</p>
+                        <p class="col-md-10">{{singleorderCustomer.unique_code}}</p>
                     </div>
                     <div class="row">
                         <label class="col-md-2"> Event: </label>
-                        <p class="col-md-10"> {{eventData.event_title}} ({{singleorderCustomer.order_date |date :'fullDate'}})</p>
+                        <!-- <p class="col-md-10"> {{eventData.event_title}} ({{singleorderCustomer.order_date |date :'fullDate'}})</p> -->
+                        <p class="col-md-10"> {{eventData.event_title}}</p>
                     </div>
                     <div class="row">
                         <label class="col-md-2"> Name:</label>
-                        <p class="col-md-10"> {{singleorderCustomer.customer?singleorderCustomer.customer.name:""}}</p>
+                        <p class="col-md-10" *ngIf="singleorderCustomer.customer.name"> {{singleorderCustomer.customer.name}}</p>
                     </div>
                     <div class="row">
                         <label class="col-md-2"> Email:</label>
-                        <p class="col-md-10"> {{singleorderCustomer.customer?singleorderCustomer.customer.email:""}}</p>
+                        <p class="col-md-10" *ngIf="singleorderCustomer.customer.email"> {{singleorderCustomer.customer.email}}</p>
                     </div>
                 </div>
 

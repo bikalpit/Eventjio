@@ -16,7 +16,8 @@
         <div class="row">
             <div class="form-group has-search col-sm-12 col-12 col-lg-4 col-md-4 col-xl-4 mb-0 float-left ml-auto search-input">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input [(ngModel)]="search.keyword" (keyup)="couponSearch()" type="text" class="form-control round-search" placeholder="Search by name,phone and email id">
+                <input *ngIf="clickedIndex == 'coupon'" [(ngModel)]="search.keyword" (keyup)="couponSearch()" type="text" class="form-control round-search" placeholder="Search by title and code">
+                <input *ngIf="clickedIndex == 'voucher'" [(ngModel)]="search.keyword" (keyup)="couponSearch()" type="text" class="form-control round-search" placeholder="Search by name and code">
             </div>
         </div>
 
@@ -27,32 +28,27 @@
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
                                 <div class="heads main-heading-content drageble" fxLayout="row">
-                                    <div class="" fxFlex="20">Coupon Title</div>
-                                    <div class="" fxFlex="15">Coupon Code</div>
+                                    <div class="" fxFlex="25">Coupon Title</div>
+                                    <div class="" fxFlex="20">Coupon Code</div>
                                     <div class="" fxFlex="13">Type</div>
                                     <div class="" fxFlex="10">Maximum Redemption</div>
                                     <div class="" fxFlex="8">Used</div>
                                     <div class="" fxFlex="8">Discount</div>
                                     <div class="" fxFlex="10">Status</div>
-                                    <div class="" fxFlex="10">Status Action</div>
                                     <div class="" fxFlex="6">Action</div>
                                 </div>
                                 <div *ngIf="allCouponCodeList.length != 0" class="content" class="drageble-list">
                                     <div *ngFor="let allCouponCodeList of allCouponCodeList; let i=index;" class="drageble-box" fxLayout="row">
-                                        <div class="tb-data cpn-title" fxFlex="20">{{allCouponCodeList.coupon_title}}</div>
-                                        <div class="tb-data cpn-code" fxFlex="15"><span class="cpn-bor">{{allCouponCodeList.coupon_code}}</span></div>
+                                        <div class="tb-data cpn-title" fxFlex="25">{{allCouponCodeList.coupon_title}}</div>
+                                        <div class="tb-data cpn-code" fxFlex="20"><span class="cpn-bor">{{allCouponCodeList.coupon_code}}</span></div>
                                         <div class="tb-data" fxFlex="13">{{allCouponCodeList.discount_type == 'P'? 'Percentage' : 'Fixed Amount'}}</div>
                                         <div class="tb-data" fxFlex="10">{{allCouponCodeList.max_redemption}}</div>
                                         <div class="tb-data" fxFlex="8">{{allCouponCodeList.used}}</div>
                                         <div class="tb-data" fxFlex="8">{{allCouponCodeList.discount}}</div>
-                                        <div *ngIf="allCouponCodeList.status == 'A'" class="tb-data" fxFlex="10">Active</div>
-                                        <div *ngIf="allCouponCodeList.status == 'IA'" class="tb-data" fxFlex="10">InActive</div>
+                                        <div class="tb-data" fxFlex="10" *ngIf="allCouponCodeList.status == 'A' || allCouponCodeList.status == 'IA'">
+                                            <mat-slide-toggle (change)="changeCouponStaus($event,allCouponCodeList.unique_code)" [checked]="allCouponCodeList.status == 'A'"></mat-slide-toggle>
                                         <div *ngIf="allCouponCodeList.status == 'S'" class="tb-data" fxFlex="10">Scheduled</div>
                                         <div *ngIf="allCouponCodeList.status == 'E'" class="tb-data" fxFlex="10">Expired</div>
-                                        <div class="tb-data" fxFlex="10">
-                                            <div *ngIf="allCouponCodeList.status == 'A' || allCouponCodeList.status == 'IA'">
-                                                <mat-slide-toggle (change)="changeCouponStaus($event,allCouponCodeList.unique_code)" [checked]="allCouponCodeList.status == 'A'"></mat-slide-toggle>
-                                            </div>
                                         </div>
                                         <div class="tb-data" fxFlex="6">
 

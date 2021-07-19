@@ -8,6 +8,7 @@ import { DatePipe} from '@angular/common';
  import { ErrorService } from '../../_services/error.service'
  import { SuperadminService} from '../_services/superadmin.service';
  import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
+ import { Router, ActivatedRoute } from '@angular/router';
 export interface DialogData {
   animal: string;
   name: string;
@@ -38,12 +39,16 @@ export class CouponsComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     private datePipe: DatePipe,
-    private ErrorService: ErrorService,
+    private router: Router,
+    private errorService: ErrorService,
     private SuperadminService : SuperadminService,
  ) {
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
-    }
+    }else{
+        this.errorService.errorMessage('Select Box-office first.');
+        this.router.navigate(["/super-admin/boxoffice"]);
+      }
     let newCouponrAction = window.location.search.split("?coupon")
     if(newCouponrAction.length > 1){
         this.creatDiscountCode();
@@ -91,7 +96,7 @@ export class CouponsComponent implements OnInit {
         this.allCouponCodeList = response.response
       }
       else if(response.data == false){
-        // this.ErrorService.errorMessage(response.response);
+        // this.errorService.errorMessage(response.response);
         this.allCouponCodeList.length = 0
       // this.allCouponCodeList = null;
       }
@@ -110,7 +115,7 @@ export class CouponsComponent implements OnInit {
         this.allVoucherCodeList = response.response
       }
       else if(response.data == false){
-      // this.ErrorService.errorMessage(response.response);
+      // this.errorService.errorMessage(response.response);
       this.allVoucherCodeList.length = 0
       // this. allVoucherCodeList = null;
       }
@@ -132,11 +137,11 @@ export class CouponsComponent implements OnInit {
     }
     this.SuperadminService.changeCouponStaus(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response);
+        this.errorService.successMessage(response.response);
          this.getAllCouponCodes();
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
+      this.errorService.errorMessage(response.response);
       }
     })
     this.isLoaderAdmin = false;
@@ -154,11 +159,11 @@ export class CouponsComponent implements OnInit {
         }
         this.SuperadminService.fnDeleteCoupon(requestObject).subscribe((response:any) => {
           if(response.data == true){
-            this.ErrorService.successMessage(response.response);
+            this.errorService.successMessage(response.response);
             this.getAllCouponCodes();
           }
           else if(response.data == false){
-          this.ErrorService.errorMessage(response.response);
+          this.errorService.errorMessage(response.response);
           }
         })
         this.isLoaderAdmin = false;
@@ -179,11 +184,11 @@ export class CouponsComponent implements OnInit {
         }
         this.SuperadminService.fnDeleteVoucher(requestObject).subscribe((response:any) => {
           if(response.data == true){
-            this.ErrorService.successMessage(response.response);
+            this.errorService.successMessage(response.response);
             this. getAllVoucherCodes();
           }
           else if(response.data == false){
-          this.ErrorService.errorMessage(response.response);
+          this.errorService.errorMessage(response.response);
           }
         })
         this.isLoaderAdmin = false;
@@ -202,7 +207,7 @@ export class CouponsComponent implements OnInit {
         this.creatDiscountCode();
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
+      this.errorService.errorMessage(response.response);
       }
     })
     this.isLoaderAdmin = false;
@@ -231,7 +236,7 @@ export class CouponsComponent implements OnInit {
          });
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
+      this.errorService.errorMessage(response.response);
       }
     })
     this.isLoaderAdmin = false;
@@ -333,7 +338,7 @@ export class myCreateDiscountCodeDialog {
     private _snackBar: MatSnackBar,
     private datePipe: DatePipe,
     private SuperadminService : SuperadminService,
-    private ErrorService: ErrorService,
+    private errorService: ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.boxOfficeCode = this.data.boxOfficeCode
       this.signleCouponDetail = this.data.signleCouponDetail;
@@ -467,13 +472,13 @@ export class myCreateDiscountCodeDialog {
     this.isLoaderAdmin = true;
     this.SuperadminService.createNewCouponCode(createdCouponCodeData).subscribe((response:any) => {
       if(response.data == true){
-       this.ErrorService.successMessage(response.response);
+       this.errorService.successMessage(response.response);
         this.createCouponForm.reset();
         this.signleCouponDetail=null;
         this.dialogRef.close();
       }
       else if(response.data == false){
-       this.ErrorService.errorMessage(response.response);
+       this.errorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
     })
@@ -482,13 +487,13 @@ export class myCreateDiscountCodeDialog {
     this.isLoaderAdmin = true;
     this.SuperadminService.updateCouponCode(updateCouponCode).subscribe((response:any) => {
       if(response.data == true){
-       this.ErrorService.successMessage(response.response);
+       this.errorService.successMessage(response.response);
         this.createCouponForm.reset();
         this.signleCouponDetail=null;
         this.dialogRef.close();
       }
       else if(response.data == false){
-       this.ErrorService.errorMessage(response.response);
+       this.errorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
     })
@@ -520,7 +525,7 @@ export class myBatchVoucherCodeDialog {
     // private _snackBar: MatSnackBar,
     private datePipe: DatePipe,
     private SuperadminService : SuperadminService,
-    private ErrorService: ErrorService,
+    private errorService: ErrorService,
     public dialogRef: MatDialogRef<myBatchVoucherCodeDialog>,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -562,7 +567,7 @@ export class myBatchVoucherCodeDialog {
         this.getAllEventList = response.response
         }
         else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        this.errorService.errorMessage(response.response);
         this.getAllEventList = null;
         }
       })
@@ -621,14 +626,14 @@ export class myBatchVoucherCodeDialog {
       this.isLoaderAdmin = true;
       this.SuperadminService.createVoucherCode(createdVoucherCodeData).subscribe((response:any) => {
         if(response.data == true){
-         this.ErrorService.successMessage(response.response);
+         this.errorService.successMessage(response.response);
           this.createVoucherForm.reset();
           this.assignedEvent = null;
           this.signleVoucherDetail = null;
           this.dialogRef.close();
         }
         else if(response.data == false){
-         this.ErrorService.errorMessage(response.response);
+         this.errorService.errorMessage(response.response);
         }
         this.createVoucherForm.reset();
         this.isLoaderAdmin = false;
@@ -639,14 +644,14 @@ export class myBatchVoucherCodeDialog {
       this.isLoaderAdmin = true;
       this.SuperadminService.updateVoucherCode(updateVoucherCode).subscribe((response:any) => {
         if(response.data == true){
-         this.ErrorService.successMessage(response.response);
+         this.errorService.successMessage(response.response);
           this.createVoucherForm.reset();
           this.assignedEvent = null;
           this.signleVoucherDetail = null;
           this.dialogRef.close();
         }
         else if(response.data == false){
-         this.ErrorService.errorMessage(response.response);
+         this.errorService.errorMessage(response.response);
         }
         this.isLoaderAdmin = false;
       })
@@ -680,7 +685,7 @@ export class AssignToEventDialog {
   constructor(
     public dialogRef: MatDialogRef<AssignToEventDialog>,
     private SuperadminService : SuperadminService,
-    private ErrorService:ErrorService,
+    private errorService:ErrorService,
      @Inject(MAT_DIALOG_DATA) public data: any
   ){
     if(this.data.assignedEvent.length !== 0){
@@ -703,7 +708,7 @@ export class AssignToEventDialog {
       this. getAllEventList = response.response
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
+      this.errorService.errorMessage(response.response);
       this. getAllEventList = null;
       }
     })
@@ -718,13 +723,13 @@ export class AssignToEventDialog {
     }
     this.SuperadminService.fnAssignEventToVoucher(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response); 
+        this.errorService.successMessage(response.response); 
         this.assignedEvent= null;
         this.selectedVoucher=null;
         this.dialogRef.close();
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response); 
+      this.errorService.errorMessage(response.response); 
       }
     })
       this.isLoaderAdmin = false;
@@ -770,7 +775,7 @@ export class AssignToTicketTypeDialog {
    constructor(
     public dialogRef: MatDialogRef<AssignToTicketTypeDialog>,
     private SuperadminService:SuperadminService,
-    private ErrorService:ErrorService,
+    private errorService:ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ){
     if(this.data.assignedTicket.length !== 0){
@@ -792,7 +797,7 @@ export class AssignToTicketTypeDialog {
       this. allticketType = response.response
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response); 
+      this.errorService.errorMessage(response.response); 
       this. allticketType = null;
       }
     })
@@ -807,13 +812,13 @@ export class AssignToTicketTypeDialog {
     }
     this.SuperadminService.fnAssignTicketToCoupon(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response); 
+        this.errorService.successMessage(response.response); 
         this.assignedTicket=null;
         this.selectedCoupon=null;
         this.dialogRef.close();
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response); 
+      this.errorService.errorMessage(response.response); 
       }
     })
       this.isLoaderAdmin = false;

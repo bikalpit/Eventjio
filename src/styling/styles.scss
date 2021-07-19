@@ -468,7 +468,11 @@
             margin-top: 10px;
         }
     }
-    
+    ::ng-deep .warning-dialog{
+        .mat-dialog-container{
+            padding: 0 !important;
+        }
+    }
 
     
 @-webkit-keyframes jump15p {

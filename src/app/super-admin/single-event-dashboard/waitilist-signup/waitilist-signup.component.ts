@@ -135,7 +135,7 @@ export class WaitilistSignupComponent implements OnInit {
           console.log(status,this.getAllWaitingListData);
           
         } else if(response.data == false){
-          this.ErrorService.errorMessage(response.response);
+          // this.ErrorService.errorMessage(response.response);
           this. getAllWaitingListData = null;
         }
       })
@@ -170,6 +170,26 @@ export class WaitilistSignupComponent implements OnInit {
     
   }
 
+
+  transformTime24To12(time: any): any {
+    let hour = (time.split(':'))[0];
+    let min = (time.split(':'))[1];
+    let part = 'AM';
+    let finalhrs = hour
+    if(hour == 0){
+      finalhrs = 12
+    }
+    if(hour == 12){
+      finalhrs = 12;
+      part = 'PM';
+    }
+    if(hour > 12){
+      finalhrs  = hour - 12
+      part = 'PM' 
+    }
+    return `${finalhrs}:${min} ${part}`
+  }
+
   getAllOccurrenceList(){
     this.isLoaderAdmin=true;
     let requestObject = {
@@ -179,11 +199,17 @@ export class WaitilistSignupComponent implements OnInit {
     this.SingleEventServiceService.getAllOccurrenceList(requestObject).subscribe((response:any) => {
       if(response.data == true){
           this.allOccurrenceList= response.response;
-         
-        console.log(this.allOccurrenceList)
+           this.allOccurrenceList.forEach(element => {
+            if(element.occurance_start_time){
+              element.occurance_start_time = this.transformTime24To12(element.occurance_start_time);
+            }
+            if(element.occurance_end_time){
+              element.occurance_end_time = this.transformTime24To12(element.occurance_end_time);
+            }
+          });
 
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response)
+        // this.ErrorService.errorMessage(response.response)
       }
     });
     this.isLoaderAdmin=false;
@@ -270,7 +296,7 @@ this.isLoaderAdmin=false;
               this.activeWaitlist = false;
           }
       } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        // this.ErrorService.errorMessage(response.response);
         }
     });
     this.isLoaderAdmin=false;

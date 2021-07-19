@@ -189,10 +189,10 @@
                                                             <button (click)="fnEditAttendeeQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
                                                                 <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
                                                             </button>
-                                                            <button disabled *ngIf="element.default == true" (click)="fnDeleteAttendeeQuestion(element, i)" mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                            <button disabled *ngIf="element.default == true" (click)="fnDeleteAttendeeQuestion(element, i)" mat-raised-button  class="tooltip-btn pointer mx-1">
                                                                 <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                                             </button>
-                                                            <button *ngIf="element.default != true" (click)="fnDeleteAttendeeQuestion(element, i)" mat-raised-button matTooltip="This question can't be deleted" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                            <button *ngIf="element.default != true" (click)="fnDeleteAttendeeQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
                                                                 <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                                             </button>
                                                             <button disabled *ngIf="element.default == true" cdkDragHandle mat-raised-button matTooltip="Sorry, this question is fixed and can't be moved." matTooltipPosition="above" class="tooltip-btn pointer mx-1">

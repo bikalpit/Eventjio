@@ -23,20 +23,25 @@
                     </div>
                 </div>
                 <div class="booking" *ngIf="openPage == 'occurrenceList'">
-                    <div class="row ticket ticket-book-popup-border" *ngFor="let element of allOccurrenceList; let i of index;">
-                        <div class="col-md-8 ticket-details d-flex align-items-center">
-                            <!-- <p style="margin-bottom: 5px;">{{event.event_title}} </p> -->
-                            <label><span *ngIf="element.occurance_start_date!=element.occurance_end_date">
-                                {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} To {{element.occurance_end_date |date :'mediumDate':''}} {{element.occurance_end_time}}
-                            </span>
-                                <span *ngIf="element.occurance_start_date==element.occurance_end_date">
-                                {{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} {{element.occurance_start_time?'-':''}} {{element.occurance_end_time}}
-                            </span></label>
+                    <div *ngIf="allOccurrenceList.length>0">
+                        <div class="row ticket ticket-book-popup-border" *ngFor="let element of allOccurrenceList; let i of index;">
+                            <div class="col-md-8 ticket-details d-flex align-items-center">
+                                <!-- <p style="margin-bottom: 5px;">{{event.event_title}} </p> -->
+                                <label><span *ngIf="element.occurance_start_date!=element.occurance_end_date">
+                                    {{element.occurance_start_date |date :'mediumDate'}} {{transformTime24To12(element.occurance_start_time)}} To {{element.occurance_end_date |date :'mediumDate':''}} {{transformTime24To12(element.occurance_end_time)}}
+                                </span>
+                                    <span *ngIf="element.occurance_start_date==element.occurance_end_date">
+                                    {{element.occurance_start_date |date :'mediumDate'}} {{transformTime24To12(element.occurance_start_time)}} {{element.occurance_start_time?'-':''}} {{transformTime24To12(element.occurance_end_time)}}
+                                </span></label>
+                            </div>
+                            <div class="col-md-4 mt-2 mb-2">
+                                <button mat-raised-button class="ml-auto d-flex comm-btn" (click)="fnBookOccurrence(element.unique_code)"><span class="material-icons">arrow_right_alt</span></button>
+                            </div>
+                            <div class="line"></div>
                         </div>
-                        <div class="col-md-4 mt-2 mb-2">
-                            <button mat-raised-button class="ml-auto d-flex comm-btn" (click)="fnBookOccurrence(element.unique_code)"><span class="material-icons">arrow_right_alt</span></button>
-                        </div>
-                        <div class="line"></div>
+                    </div>
+                    <div *ngIf="allOccurrenceList.length==0">
+                        <p class="my-2 text-center">No record found.</p>
                     </div>
 
 

@@ -319,8 +319,9 @@ mat-drawer.left-side-container.left-side-main-menu.mat-drawer.ng-tns-c2-0.ng-tri
 
 
 
-:ng-deep .confirmation-dialog{
+::ng-deep .confirmation-dialog{
     .mat-dialog-container{
-        padding: 0;
+        padding: 0 !important;
     }
 }
+

@@ -127,7 +127,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
   constructor(
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private ErrorService: ErrorService,
+    private errorService: ErrorService,
     private datePipe: DatePipe,
     private router: Router,
     private el: ElementRef,
@@ -164,6 +164,9 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
 
       if(localStorage.getItem('boxoffice_id')){
         this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+      }else{
+        this.errorService.errorMessage('Select Box-office first.');
+        this.router.navigate(["/super-admin/boxoffice"]);
       }
 
       this.salesTax.length = 1;
@@ -719,9 +722,9 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
     }
     this.SuperadminService.fnChangeEventStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage(response.response);
+        this.errorService.successMessage(response.response);
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        this.errorService.errorMessage(response.response);
       }
     this.isLoaderAdmin = false;
     });
@@ -927,10 +930,10 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
       if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label == ''){
         this.salesTax.splice(this.salesTax.length-1, 1);
       }else if(this.salesTax[this.salesTax.length-1].amount == '' && this.salesTax[this.salesTax.length-1].label != ''){
-        this.ErrorService.errorMessage('Sales tax amount is blank.');
+        this.errorService.errorMessage('Sales tax amount is blank.');
         return false;
       }else if(this.salesTax[this.salesTax.length-1].amount != '' && this.salesTax[this.salesTax.length-1].label == ''){
-        this.ErrorService.errorMessage('Sales tax lable is blank.');
+        this.errorService.errorMessage('Sales tax lable is blank.');
         return false;
       }
     }
@@ -1047,7 +1050,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
     this.isLoaderAdmin = true;
     this.SuperadminService.createNewEvent(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.ErrorService.successMessage('Event created successfully.');
+        this.errorService.successMessage('Event created successfully.');
         this.eventTicketList=[];
         this.saveDisabled = true;
         setTimeout(() => {
@@ -1060,10 +1063,19 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
           this.fnGetUpcomingEventList()
           this.fnGetPastEventList()
           this.addEventForm.reset();
+          this.salesTax = [];
+          this.redirectURL = 'N';
+          this.hideEventSearch = 'N';
+          this.customSalesTax = 'N';
+          this.accessCode = 'N';
+          this.donation = 'N';
+          this.shareButtonStatus = 'N';
+          this.olPlatForm = 'N';
+          this.customSalesTaxForm.reset();
           this.addNewEvents = true;
         }
       }else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        this.errorService.errorMessage(response.response);
       }
     this.isLoaderAdmin = false;
     });
@@ -1086,7 +1098,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
         this.addEventForm.get('event_end_time').value == ''
         ){
       
-          this.ErrorService.errorMessage('Please fill above details first');
+          this.errorService.errorMessage('Please fill above details first');
           return false;
         }
         const dialogRef = this.dialog.open(AddNewTicketType,{
@@ -1151,7 +1163,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
         this.addEventForm.get('event_end_time').value == ''
         ){
       
-          this.ErrorService.errorMessage('Please fill above details first');
+          this.errorService.errorMessage('Please fill above details first');
           return false;
         }
         const dialogRef = this.dialog.open(AddNewTicketType,{
@@ -1233,7 +1245,7 @@ export class DialogEventImageUpload {
 constructor(
   public dialogRef: MatDialogRef<DialogEventImageUpload>,
   private _formBuilder:FormBuilder,
-  private ErrorService : ErrorService,
+  private errorService : ErrorService,
   @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
@@ -1251,7 +1263,7 @@ constructor(
 onFileChange(event) {
   var file_type = event.target.files[0].type;
   if(file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
-    this.ErrorService.errorMessage("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+    this.errorService.errorMessage("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
       return;
   }
   const reader = new FileReader();
@@ -1321,7 +1333,7 @@ export class AddNewTicketType {
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
-    private ErrorService: ErrorService,
+    private errorService: ErrorService,
     private datePipe: DatePipe,
     private SuperadminService: SuperadminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -1478,7 +1490,7 @@ export class AddNewTicketType {
   
   fnChangeMinOr(event){
     if(parseInt(this.addTicketForm.get('min_order').value) > parseInt(this.addTicketForm.get('qty').value)){
-      this.ErrorService.errorMessage('Minimum order should not greater then quntity.');
+      this.errorService.errorMessage('Minimum order should not greater then quntity.');
       this.addTicketForm.controls['min_order'].setValue('');
     }
     this.addTicketForm.controls['max_order'].setValue('');
@@ -1486,10 +1498,10 @@ export class AddNewTicketType {
   
   fnChangeMaxOr(event){
     if(parseInt(this.addTicketForm.get('max_order').value) > parseInt(this.addTicketForm.get('qty').value)){
-      this.ErrorService.errorMessage('Maximum order should not greater then quntity.');
+      this.errorService.errorMessage('Maximum order should not greater then quntity.');
       this.addTicketForm.controls['max_order'].setValue('');
     }else if(parseInt(this.addTicketForm.get('max_order').value) < parseInt(this.addTicketForm.get('min_order').value)){
-      this.ErrorService.errorMessage('Maximum order should not less then min order.');
+      this.errorService.errorMessage('Maximum order should not less then min order.');
       this.addTicketForm.controls['max_order'].setValue('');
     }
 
@@ -1549,7 +1561,7 @@ export class AddNewTicketType {
       this.allCouponCodeList = response.response
       }
       else if(response.data == false){
-      // this.ErrorService.errorMessage(response.response);
+      // this.errorService.errorMessage(response.response);
       this.allCouponCodeList = null;
       }
       this.isLoaderAdmin = false;

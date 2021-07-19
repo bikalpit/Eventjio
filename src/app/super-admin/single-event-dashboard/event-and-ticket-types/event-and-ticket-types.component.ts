@@ -10,6 +10,7 @@ import { SingleEventDashboard } from '../single-event-dashboard'
 import { environment } from '../../../../environments/environment';
 import { take, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment'; 
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
 
 export interface ListTimeZoneListArry {
@@ -470,8 +471,8 @@ export class EventAndTicketTypesComponent implements OnInit, AfterViewInit {
         }
        
 
-        this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom;
-        this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom;
+        this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom?this.singleEventSetting.event_banner_zoom:'0';
+        this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom?this.singleEventSetting.event_thumb_zoom:'0';
        
         
         this.olPlatForm = this.singleEventDetail.online_event;
@@ -722,17 +723,27 @@ export class EventAndTicketTypesComponent implements OnInit, AfterViewInit {
     }
     this.editEventForm.updateValueAndValidity();
   }
+
   
   fnDeleteTicket(ticketCode, index){
+  const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+    width: '400px',
+    data: "Are you sure want to delete ticket?",
+    panelClass: 'confirmation-dialog'
+  });
+  dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.deleteTicket(ticketCode, index);
+      }
+  });
+}
+  
+  deleteTicket(ticketCode, index){
 
     if(ticketCode=='' || ticketCode==null){
       return false;
     }
     
-    if(!confirm('Are you sure?')){
-      return false;
-    }
-
     this.isLoaderAdmin = true;
     
     let requestObject = {
@@ -1731,8 +1742,8 @@ export class AddNewTicketType {
       else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    })
     this.isLoaderAdmin = false;
+    })
   }
 
   createTicket(requestObject){
@@ -1747,8 +1758,8 @@ export class AddNewTicketType {
       else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    })
     this.isLoaderAdmin = false;
+    })
   }
   
  

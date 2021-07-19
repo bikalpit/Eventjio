@@ -4,6 +4,7 @@ import { FormControl,FormArray,FormGroup, FormBuilder, Validators, ValidatorFn} 
 import { SingleEventServiceService } from '../_services/single-event-service.service';
 import { ErrorService } from '../../../_services/error.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import {HttpClient} from '@angular/common/http';
 
 export interface DialogData {
@@ -182,7 +183,7 @@ export class CheckoutFormComponent implements OnInit {
   fnDeleteBuyerQuestion(selectedQuestion, i){
   
     if(i==0 || i==1 || i==3){
-      this.ErrorService.errorMessage("This question can't be deleted");
+      this.ErrorService.errorMessage("This question can't be delete.");
       return false;
     }
 
@@ -191,9 +192,17 @@ export class CheckoutFormComponent implements OnInit {
       console.log(this.allQuestionlist[0].buyer_questions)
       return 
     }
-
-    const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
-    this.allQuestionlist[0].buyer_questions.splice(index, 1);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure want to delete question?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          const index: number = this.allQuestionlist[0].buyer_questions.indexOf(selectedQuestion);
+          this.allQuestionlist[0].buyer_questions.splice(index, 1);
+        }
+    });
+    
   }
   
   fnUndoBuyerQuestion(selectedQuestion, i){
@@ -222,9 +231,16 @@ export class CheckoutFormComponent implements OnInit {
   }
 
   fnDeleteAttendeeQuestion(selectedQuestion, i){
-    const index: number = this.allQuestionlist[0].attendee_questions.indexOf(selectedQuestion);
-    this.allQuestionlist[0].attendee_questions.splice(index, 1);
-    console.log(this.allQuestionlist)
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure want to delete question?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          const index: number = this.allQuestionlist[0].attendee_questions.indexOf(selectedQuestion);
+          this.allQuestionlist[0].attendee_questions.splice(index, 1);
+        }
+    });
   }
 
   fnEditAttendeeQuestion(question, index){

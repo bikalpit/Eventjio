@@ -485,7 +485,7 @@
     }
 }
 
-:ng-deep .confirmation-dialog{
+::ng-deep .confirmation-dialog{
     .mat-dialog-container{
         padding: 0;
     }

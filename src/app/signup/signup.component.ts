@@ -108,7 +108,7 @@ export class SignupComponent implements OnInit {
 				"firstname":this.signUpForm.get("firstname").value,
 				"email":this.signUpForm.get("email").value,
 				"password":this.signUpForm.get("ReNewPassword").value,
-				"description":this.signUpForm.get("description").value,
+				// "description":this.signUpForm.get("description").value,
 				"inviter_id": this.inviterCode,
 			};
 		}else{
