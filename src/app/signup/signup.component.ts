@@ -10,7 +10,6 @@ import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ErrorService } from '../_services/error.service'
 import { AppComponent } from '../app.component';
-import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-signup',
@@ -229,7 +228,6 @@ export class SignupComponent implements OnInit {
 					panelClass: ['red-snackbar']
 				});
 				this.error = data.response;
-				this.dataLoaded = true;
 
 			} else {
 				this.error = "Database Connection Error.";
@@ -237,7 +235,6 @@ export class SignupComponent implements OnInit {
 			this.isLoaderAdmin = false;
 		}, error => {
 			this.error = "Database Connection Error.";
-			this.dataLoaded = true;
 		});
 
 }
