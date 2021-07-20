@@ -29,7 +29,7 @@ const routes: Routes = [{
                   },
                   {
                     path:'event-page-design',
-                    component:ButttonAndLinksComponent
+                    component:EventPageDesignComponent
                   },
 
                   {

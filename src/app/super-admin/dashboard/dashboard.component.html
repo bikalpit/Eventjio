@@ -10,19 +10,19 @@
                     </div>
                     <label>Sign up</label>
                 </li>
-                <li *ngIf="setupSteps.add_event" [ngClass]="{'active':setupSteps.add_event == 'Y'}">
+                <li (click)="addNewEvent()" class="pointer" *ngIf="setupSteps.add_event" [ngClass]="{'active':setupSteps.add_event == 'Y'}">
                     <div class="top-icon">
                         <img src="../../../assets/images/admin/step-2.svg">
                     </div>
                     <label>Add Event</label>
                 </li>
-                <li *ngIf="setupSteps.setup_payment" [ngClass]="{'active':setupSteps.setup_payment == 'Y'}">
+                <li (click)="goToSetupPayment()" class="pointer" *ngIf="setupSteps.setup_payment" [ngClass]="{'active':setupSteps.setup_payment == 'Y'}">
                     <div class="top-icon">
                         <img src="../../../assets/images/admin/step-3.svg">
                     </div>
                     <label>Setup Payment</label>
                 </li>
-                <li *ngIf="setupSteps.customize_event" [ngClass]="{'active':setupSteps.customize_event == 'Y'}">
+                <li (click)="goToCustomizeEvent()" class="pointer" *ngIf="setupSteps.customize_event" [ngClass]="{'active':setupSteps.customize_event == 'Y'}">
                     <div class="top-icon">
                         <img src="../../../assets/images/admin/step-4.svg">
                     </div>
