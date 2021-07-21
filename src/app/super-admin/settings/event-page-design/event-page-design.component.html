@@ -1,5 +1,8 @@
 <div id="event_page_design" class="" [ngStyle]="{'font-family': selectedFont}">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
+    <div routerLink="/super-admin/settings" class="exit-btn pointer">
+        <mat-icon>close</mat-icon>
+    </div>
     <div *ngIf="themeSelectionOption == 'themeCustomization'" class="preview-page-main">
         <div class="px-5 py-4">
             <div class="top-event-page">

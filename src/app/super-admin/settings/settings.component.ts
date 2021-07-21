@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   keepMe:any;
   teamAccessAllowed:boolean = true;
   currentUserData:any;
+  sidebar:boolean=true;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -67,7 +68,10 @@ export class SettingsComponent implements OnInit {
     const url = this.getUrl(event);
     this.currentUrl = url;
     if(url === '/super-admin/settings/' ){
-      this.pageName = '';
+      this.pageName = 'websites-embed-codes';
+    }
+    else if(url === '/super-admin/settings/event-page-design'){
+      this.pageName= 'event-page-design';
     }
     else if(url === '/super-admin/settings/buttons-and-links'){
       this.pageName= 'buttons-and-links'
@@ -110,6 +114,13 @@ export class SettingsComponent implements OnInit {
     }
     else if(url === '/super-admin/settings/privacy-policy'){
       this.pageName= 'privacy-policy'
+    }
+    if(url === '/super-admin/settings/event-page-design'){
+      this.sidebar = false;
+      localStorage.setItem('mainSidebar', 'false');
+    }else{
+      this.sidebar = true;
+      localStorage.setItem('mainSidebar', 'true');
     }
   }
 

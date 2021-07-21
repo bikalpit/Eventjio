@@ -20,6 +20,10 @@
     width: calc(100% - 300px);
     margin-left: 300px;
     overflow: auto;
+    &.no-sidebar{
+        width: 100%;
+        margin-left: 0;
+    }
 }
 
 .setting-menu-icon {

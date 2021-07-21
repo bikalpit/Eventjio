@@ -303,7 +303,7 @@
                 cursor: pointer;
                 float: left;
                 &.active {
-                    border-color: #973c56;
+                    border-color: #70C0C1;
                 }
             }
             .customization-box {
@@ -358,6 +358,7 @@
             display: flex;
             padding: 0 18px;
             align-items: stretch;
+            justify-content: center;
             .theme-box {
                 padding: 5px 10px;
                 width: 190px;
@@ -369,7 +370,7 @@
                 transition: all 0.3s;
                 &.active {
                     img {
-                        border: 5px solid #973c56;
+                        border: 5px solid #70C0C1;
                     }
                 }
                 img {
@@ -394,7 +395,7 @@
                 float: left;
                 margin: 5px 10px;
                 &.active {
-                    border: 5px solid #973c56;
+                    border: 5px solid #70C0C1;
                 }
             }
             h3{
@@ -697,4 +698,25 @@
             }
         }
     }
+}
+::ng-deep .no-sidebar{
+    .customize-area{
+        width: 100% !important;
+    }
+}
+
+.exit-btn{
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    box-shadow: 4px 4px 12px #00000042;
+    position: absolute;
+    right: 7px;
+    border-radius: 100px;
+    top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -193,6 +193,14 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/super-admin/events']); 
   }
 
+  goToSetupPayment(){
+    this.router.navigate(['/super-admin/settings/payment-systems']); 
+  }
+
+  goToCustomizeEvent(){
+    this.router.navigate(['/super-admin/settings']); 
+  }
+
   fnGetUpcomingEventList(){
     this.isLoaderAdmin = true;
     let requestObject = {

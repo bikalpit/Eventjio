@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row sub-container">
-        <div class="py-3 bg-light setting-left-menu">
+        <div class="py-3 bg-light setting-left-menu" *ngIf="sidebar">
             <div class="settins-title py-2">
                 <span>Resource Management</span>
             </div>
@@ -11,15 +11,10 @@
                 </div> <span>Event Page Appearance</span><i class="fa fa-angle-down ml-auto"></i>
             </div>
             <div [hidden]="isShowDiv">
-                <div (click)="fnPostUrl('')" [ngClass]="{'active': pageName == ''}" routerLink="/super-admin/settings" class="py-2 common-sub-menu">
+                <div (click)="fnPostUrl('event-page-design')" [ngClass]="{'active': pageName == 'event-page-design'}" routerLink="/super-admin/settings/event-page-design" class="py-2 common-sub-menu">
                     <span class="pl-4">Event Page Design</span>
                 </div>
-
-                <!-- <div (click)="fnPostUrl('buttons-and-links')" [ngClass]="{'active': pageName == 'buttons-and-links'}" routerLink="/super-admin/settings/buttons-and-links" class="py-2 common-sub-menu">
-                    <span class="pl-4">Buttons and Links</span>
-                </div> -->
-
-                <div (click)="fnPostUrl('websites-embed-codes')" [ngClass]="{'active': pageName == 'websites-embed-codes'}" routerLink="/super-admin/settings/websites-embed-codes" class="py-2 common-sub-menu">
+                <div (click)="fnPostUrl('')" [ngClass]="{'active': pageName == ''}" routerLink="/super-admin/settings" class="py-2 common-sub-menu">
                     <span class="pl-4">Website Embed Codes</span>
                 </div>
 
@@ -58,18 +53,6 @@
                     </div> <span>Team access</span>
 
                 </div>
-
-                <!-- <div class="settins-title py-2">
-                    <span>Manage</span>
-                </div> -->
-
-                <!-- <div (click)="fnPostUrl('seating-charts')" [ngClass]="{'active': pageName == 'seating-charts'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/seating-charts">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img [ngStyle]="{'display':pageName === 'seating-charts' ? 'none' : 'block'}" src="../../../assets/images/settings/menu-icons/seating-chart.svg" class="w-100" alt="">
-                        <img [ngStyle]="{'display':pageName === 'seating-charts' ? 'block' : 'none'}" src="../../../assets/images/settings/menu-icons/seating-chart_active.svg" class="w-100" alt="">
-                    </div> <span>Seating Chart</span>
-                </div> -->
-
                 <div class="settins-title py-2">
                     <span>Account</span>
                 </div>
@@ -110,14 +93,6 @@
                 <div class="settins-title py-2">
                     <span>General Setting</span>
                 </div>
-                <!-- 
-                <div (click)="fnPostUrl('connect-app')" [ngClass]="{'active': pageName == 'connect-app'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/connect-app">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img [ngStyle]="{'display':pageName === 'connect-app' ? 'none' : 'block'}" src="../../../assets/images/settings/menu-icons/connect-app.svg" class="w-100" alt="">
-                        <img [ngStyle]="{'display':pageName === 'connect-app' ? 'block' : 'none'}" src="../../../assets/images/settings/menu-icons/connect-app_active.svg" class="w-100" alt="">
-                    </div> <span>Connect apps</span>
-                </div> -->
-
                 <div (click)="fnPostUrl('app-users')" [ngClass]="{'active': pageName == 'app-users'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/app-users">
                     <div class="setting-menu-icon d-inline-block mr-2 ">
                         <img [ngStyle]="{'display':pageName === 'app-users' ? 'none' : 'block'}" src="../../../assets/images/settings/menu-icons/app-user.svg" class="w-100" alt="">
@@ -131,17 +106,10 @@
                         <img [ngStyle]="{'display':pageName === 'privacy-policy' ? 'block' : 'none'}" src="../../../assets/images/settings/menu-icons/privacy-policy_active.svg" class="w-100" alt="">
                     </div> <span>Privacy Policy</span>
                 </div>
-
-                <!-- <div class="py-2 common-setting-menu">
-                    <div class="setting-menu-icon d-inline-block mr-2 ">
-                        <img src="../../../assets/images/settings/coding/api.svg" class="w-100" alt="">
-                        <img  src="../../../assets/images/settings/coding/api_active.svg" class="w-100" alt=""> 
-                    </div> <span>API</span>
-                </div> -->
             </div>
         </div>
 
-        <div class="setting-right-container p-0 bg-white">
+        <div [ngClass]="{'no-sidebar' : !sidebar}" class="setting-right-container p-0 bg-white">
             <router-outlet></router-outlet>
         </div>
 

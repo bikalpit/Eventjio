@@ -304,6 +304,13 @@ export class AppComponent {
       return false;
     }
   }
+  isSideBar() {
+    if (localStorage.getItem('mainSidebar') && localStorage.getItem('mainSidebar') == "true") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 
   isAdminUser() {
