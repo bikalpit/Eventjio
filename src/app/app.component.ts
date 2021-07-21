@@ -50,11 +50,7 @@ export class AppComponent {
     private authenticationService: AuthenticationService,
     private dialog: MatDialog
   ) {
-    // this.renderer.listen('window', 'click',(e:Event)=>{
-    //   if(e.target !== this.toggleButton.nativeElement && e.target!==this.logoutMenu.nativeElement){
-    //       this.openLogoutMenuBox=false;
-    //   }
-    // }); 
+    localStorage.setItem('mainSidebar', 'true');
     this.keepMe = localStorage.getItem('keepMeSignIn')
     if (this.keepMe == 'true') {
       this.currentUserData = localStorage.getItem('currentUser')
@@ -74,6 +70,7 @@ export class AppComponent {
       this.currentUrl = url;
       if (this.currentUserData && this.currentUrl == '') {
         if (this.currentUser.user_type == 'A') {
+          alert('1')
           this.router.navigate(['/super-admin/']);
         }
 
