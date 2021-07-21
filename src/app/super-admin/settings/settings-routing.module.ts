@@ -25,7 +25,7 @@ const routes: Routes = [{
               component: SettingsComponent, 
               children:[{
                     path:'',
-                    component:EventPageDesignComponent
+                    component:WebsitesEmbedCodesComponent
                   },
                   {
                     path:'event-page-design',

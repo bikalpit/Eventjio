@@ -490,3 +490,8 @@
         padding: 0;
     }
 }
+::ng-deep .no-main-sidebar{
+    .right-toolbar{
+        width: 100% !important;
+    }
+}
