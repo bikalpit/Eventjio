@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   upcommintEventApiUrl:any =  `${environment.apiUrl}/get-allboxoffice-event-api`;
   allUpcomingEventListData:any=[];
   totalUpcomingEvents:any;
+  progressValue:number=0;
   constructor(
     private router: Router,
     private datePipe: DatePipe,
@@ -127,7 +128,26 @@ export class DashboardComponent implements OnInit {
     }
     this.SuperadminService.getSetupSteps(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.setupSteps= response.response
+        this.setupSteps= response.response;
+        if(this.setupSteps.signup == 'Y'){
+          this.progressValue  = this.progressValue+16.67
+        }
+        if(this.setupSteps.add_event == 'Y'){
+          this.progressValue  = this.progressValue+16.67
+        }
+        if(this.setupSteps.customize_event == 'Y'){
+          this.progressValue  = this.progressValue+16.67
+        }
+        if(this.setupSteps.select_plan == 'Y'){
+          this.progressValue  = this.progressValue+16.67
+        }
+        if(this.setupSteps.setup_payment == 'Y'){
+          this.progressValue  = this.progressValue+16.67
+        }
+        if(this.setupSteps.publish == 'Y'){
+          this.progressValue  = this.progressValue+16.67
+        }
+
       }
     });
   }

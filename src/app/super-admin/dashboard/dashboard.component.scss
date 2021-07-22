@@ -74,6 +74,9 @@
                         img{
                             width: 26px;
                         }
+                        mat-icon{
+                            display: none;
+                        }
                     }
                     label{
                         color: #000000;
@@ -102,10 +105,28 @@
                         .top-icon{
                             background-color: #FFD8AA;
                             border:0;
+                            position: relative;
+                            mat-icon{
+                                color: #fff;
+                                background-color: #fe6a4d;
+                                border-radius: 100%;
+                                position: absolute;
+                                left: -5px;
+                                top: 0px;
+                                font-size: 14px;
+                                text-align: center;
+                                align-items: center;
+                                display: flex;
+                                justify-content: center;
+                                width: 20px;
+                                height: 20px;
+                            }
                         }
                         &:after{
                             border-bottom: 2px solid #973C56;
                         }
+                                        
+                    
                     }
                    
                 }
@@ -443,5 +464,29 @@
             width: 100%;
             margin: 15px 0;
         }
+    }
+}
+::ng-deep .top-progess{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    mat-progress-bar{
+        width: calc(100% - 270px);
+        margin: 0 20px;
+        border-radius: 10px;
+        height: 5px;
+        .mat-progress-bar-fill::after{
+            background-color: #fe6a4d;
+        }
+        .mat-progress-bar-buffer{
+            background-color: #ffd7cf;
+        }
+    }
+    span{
+        border-radius: 15px;
+        background-color: #77273E;
+        color: #fff;
+        padding: 5px 10px;
     }
 }
