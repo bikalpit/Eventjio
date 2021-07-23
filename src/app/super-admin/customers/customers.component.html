@@ -55,8 +55,11 @@
                         </div>
                     </div>
 
-                    <div class="customres-list" *ngIf="customerDetails == null">
-                        <p class="my-2 text-center">No customer found.</p>
+                    <div class="customres-list no-data-label" *ngIf="customerDetails == null">
+                        <div class="no-data-view">
+                            <img src="../../../assets/images/no-data-found.svg" />
+                            <label> No data avaliable.</label>
+                        </div>
                     </div>
 
                 </div>

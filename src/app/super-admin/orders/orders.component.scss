@@ -1089,3 +1089,6 @@
 ::ng-deep .form-control[readonly]{
     background-color: #e9ecef !important;
 }
+.no-data-label{
+    height: calc(100vh - 480px) !important;
+}

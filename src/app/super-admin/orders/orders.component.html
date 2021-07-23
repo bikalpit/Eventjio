@@ -118,16 +118,6 @@
                                         {{element.order_status=='P' ? 'Pending' : element.order_status=='C' ? 'Cancel' :  element.order_status=='CO' ? 'Completed' : 'Void'}}
                                     </span>
                                 </div>
-                                <!-- <div class="tb-data" fxFlex="7">
-                                    <span class="text-capitalize" [ngStyle]="{'color': element.payment.payment_status=='paid' ? '#2BB800' : element.payment.payment_status=='unpaid' ? '#FF0000' :  '#000'}">
-                                       {{element.payment?element.payment.payment_status:''}}
-                                    </span>
-                                </div>
-                                <div class="tb-data" fxFlex="7">
-                                    <span class=" text-capitalize">
-                                        {{element.payment?element.payment.payment_method:''}}
-                                    </span>
-                                </div> -->
                                 <div class="tb-data" fxFlex="16">{{element.customer.firstname + " " +element.customer.lastname}}</div>
                                 <div class="tb-data" fxFlex="24">{{element.order_date |date :'mediumDate'}} / {{transformTime24To12(element.order_time)}}</div>
                                 <div class="tb-data" fxFlex="27" *ngIf="element.events && element.events.event_occurrence_type == 'N'">{{element.events.event_title}} <span class="order-data-date"> ({{element.events.start_date |date :'mediumDate'}} {{transformTime24To12(element.events.start_time)}} to {{element.events.end_date |date :'mediumDate'}} {{transformTime24To12(element.events.end_time)}}) </span></div>
@@ -158,8 +148,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="drageble-list" *ngIf="allorderlist && allorderlist.length == 0">
-                            <p class="no-data-text">No Data Found.</p>
+                        <div class="no-data-label" *ngIf="allorderlist && allorderlist.length == 0">
+                            <div class="no-data-view">
+                                <img src="../../../assets/images/no-data-found.svg" />
+                                <label> No data avaliable.</label>
+                            </div>
                         </div>
                     </div>
 

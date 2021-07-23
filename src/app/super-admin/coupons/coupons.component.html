@@ -68,8 +68,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="allCouponCodeList.length == 0" class="content" class="drageble-list">
-                                    <p class="text-center my-3" style="font-size: 16px;">No record found.</p>
+                                <div *ngIf="allCouponCodeList.length == 0" class="content no-data-label">
+                                    <div class="no-data-view">
+                                        <img src="../../../assets/images/no-data-found.svg" />
+                                        <label> No data avaliable.</label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -113,8 +116,11 @@
                                     </div>
                                 </div>
 
-                                <div *ngIf="allVoucherCodeList.length === 0" class="content" class="drageble-list">
-                                    <p class="text-center my-3" style="font-size: 16px;">No record found.</p>
+                                <div *ngIf="allVoucherCodeList.length === 0" class="content no-data-label">
+                                    <div class="no-data-view">
+                                        <img src="../../../assets/images/no-data-found.svg" />
+                                        <label> No data avaliable.</label>
+                                    </div>
                                 </div>
                             </div>
 

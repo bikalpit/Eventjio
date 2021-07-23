@@ -32,7 +32,7 @@ export class OrdersComponent implements OnInit {
   allBusiness: any;
   boxOfficeCode:any;
   addOrderFormType:any;
-  allorderlist:any;
+  allorderlist:any=[];
   eventCode:any;
   displayedColumns: string[] = ['orderid','status','name','datetime','event','value','action'];
   search="";
