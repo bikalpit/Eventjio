@@ -233,14 +233,14 @@
                 </span>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="!is_phone_hide">
                             <label>{{ eventForm.label ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
                             <input type="text" formControlName="phone" class="form-control" placeholder="">
                             <span class="error-wrap" *ngIf="bookTickets.get('phone').dirty || bookTickets.get('phone').touched">
-                              <small *ngIf="bookTickets.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
-                              <small *ngIf="bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
-                              <small *ngIf="bookTickets.get('phone').hasError('pattern') && !(bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
-                              <small *ngIf="!bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">Phone Number Should Minimum 6 and Maximum 15 digits.</small>
+                              <small *ngIf="bookTickets.get('phone').hasError('required')" class="error text-left">{{ eventForm.label ? eventForm[3].label : 'Phone'}} is required.</small>
+                              <small *ngIf="bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">{{ eventForm.label ? eventForm[3].label : 'Phone'}} Should in numbers</small>
+                              <small *ngIf="bookTickets.get('phone').hasError('pattern') && !(bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">{{ eventForm.label ? eventForm[3].label : 'Phone'}} Should in numbers</small>
+                              <small *ngIf="!bookTickets.get('phone').hasError('pattern') && (bookTickets.get('phone').hasError('maxlength') || bookTickets.get('phone').hasError('minlength'))" class="error">{{ eventForm.label ? eventForm[3].label : 'Phone'}} Should Minimum 6 and Maximum 15 digits.</small>
                             </span>
                         </div>
                     </form>
@@ -307,15 +307,15 @@
 
                     </div>
 
-                    <div class="tickes-heading mt-4 mb-4">
+                    <div *ngIf="!(attendeeForm.length == 1 && attendeeForm[0].hide == 'true')" class="tickes-heading mt-4 mb-4">
                         <h3 class="text-center"> Attendee Information </h3>
                     </div>
 
                     <form [formGroup]="dynamicForm" class="row">
-                        <div class="col-12 col-xl-12 col-md-12 col-sm-12 vip-tickets" *ngFor="let ticket of t.controls; let i = index">
-                            <div [formGroup]="ticket">
-                                <div class="single-ticket-attendee-form" *ngFor="let attendeeFormval of attendeeForm; let i=index;">
-                                    <div class="" *ngIf="attendeeFormval.type=='text'">
+                        <div class="col-12 col-xl-12 col-md-12 col-sm-12 vip-tickets" [ngClass]="{'hide-first-field': attendeeForm[0].hide == 'true'}" *ngFor="let ticket of t.controls; let i = index">
+                            <div [formGroup]="ticket" class="single-ticket-attendee-form">
+                                <div *ngFor="let attendeeFormval of attendeeForm; let i=index;">
+                                    <div class="" *ngIf="attendeeFormval.type=='text' && !( i == 0 && attendeeFormval.hide == 'true')">
                                         <div class="form-group common-checkout-filed">
                                             <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
                                             <input [formControlName]="attendeeFormval.controlname" class="form-control" placeholder="">

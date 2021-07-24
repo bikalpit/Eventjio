@@ -1202,6 +1202,8 @@ export class BookTicketDialog {
     'zipcode': 'Zip Code',
   };
   is_address_hide = false;
+  is_phone_hide :boolean = false;
+  is_attende_name_hide :boolean = false;
   occurrenceCode:any;
   totalGlobelSalesTax =0;
   make_donation:any;
@@ -1396,7 +1398,7 @@ export class BookTicketDialog {
         this.attendeeFormLength = this.attendeeForm.length;
 
         
-        if(this.eventForm[2] && this.eventForm[2].is_deleted == true){
+        if(this.eventForm[2] && this.eventForm[2].is_deleted == true || this.eventForm[2].hide == 'true'){
           this.is_address_hide = true;
         
           this.bookTickets.controls["address"].setValidators(null);
@@ -1430,6 +1432,14 @@ export class BookTicketDialog {
           };
 
         }
+        if((this.eventForm[3].is_deleted && this.eventForm[3].is_deleted == true) || this.eventForm[3].hide == 'true'){
+          this.is_phone_hide = true;
+          this.bookTickets.controls["phone"].setValidators(null);
+        }
+        if((this.attendeeForm[0].is_deleted && this.attendeeForm[0].is_deleted == true) || this.attendeeForm[0].hide == 'true'){
+          this.is_attende_name_hide = true;
+          // this.bookTicketsForm.controls["phone"].setValidators(null);
+        }
 
         var i = 0; 
         this.eventForm.forEach(element => {
@@ -1449,11 +1459,20 @@ export class BookTicketDialog {
             element.selector = this.CheckBoxArr(element.options);
           }
 
-          var required = element.required ? Validators.required : null;
+          if(element.hide == 'true'){
+            console.log('2')
+
+            this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',null];
+            element.controlname = element.label.replace(/[^a-zA-Z]/g, '');
+            element.value = '';
+          }else{
+            console.log('1')
+            var required = element.required ? Validators.required : null;
           
-          this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',required];
-          element.controlname = element.label.replace(/[^a-zA-Z]/g, '');
-          element.value = '';
+            this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',required];
+            element.controlname = element.label.replace(/[^a-zA-Z]/g, '');
+            element.value = '';
+          }
         });
 
         
