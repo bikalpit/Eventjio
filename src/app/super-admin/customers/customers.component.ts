@@ -353,13 +353,11 @@ export class CustomersComponent implements OnInit {
     
     if(response.data == true){
       this.selectedCustomerDetails = response.response.customer;
-      //this.addCustomerForm.controls['firstname'].setValue(this.selectedCustomerDetails.firstname)
-      //this.addCustomerForm.controls['lastname'].setValue(this.selectedCustomerDetails.lastname)
-	  if(this.selectedCustomerDetails.lastname!=''){
-	  this.addCustomerForm.controls['cust_name'].setValue(this.selectedCustomerDetails.firstname+' '+this.selectedCustomerDetails.lastname)
-	  }else{
-		this.addCustomerForm.controls['cust_name'].setValue(this.selectedCustomerDetails.firstname)
-	  }
+      if(this.selectedCustomerDetails.lastname!=''){
+        this.addCustomerForm.controls['cust_name'].setValue(this.selectedCustomerDetails.firstname+' '+this.selectedCustomerDetails.lastname)
+      }else{
+        this.addCustomerForm.controls['cust_name'].setValue(this.selectedCustomerDetails.firstname)
+      }
       this.addCustomerForm.controls['email'].setValue(this.selectedCustomerDetails.email)
       this.addCustomerForm.controls['phone'].setValue(this.selectedCustomerDetails.phone)
       //this.addCustomerForm.controls['tags'].setValue(JSON.parse(this.selectedCustomerDetails.tags))
@@ -368,7 +366,7 @@ export class CustomersComponent implements OnInit {
       }
       this.addCustomerForm.controls['address'].setValue(this.selectedCustomerDetails.address)
       // this.customerImageUrl.setValue(this.selectedCustomerDetails.image)
-
+      
     }  else if(response.data == false){
       this.selectedCustomerDetails = null;
       this.ErrorService.errorMessage(response.response);
@@ -400,6 +398,19 @@ fnSelectCustomer(selectedCustomerCode){
       if(this.allEventListData.lastOrder){
 
       this.lastEventDateTime = moment(this.allEventListData.lastOrder.start_date +' '+this.allEventListData.lastOrder.start_time).format('d MMM y, hh:mm a');
+      }
+      if(this.selectedCustomerDetails.uk_address){
+        this.selectedCustomerDetails.uk_address = JSON.parse(this.selectedCustomerDetails.uk_address)
+        console.log(this.selectedCustomerDetails.uk_address)
+      }
+      if(this.selectedCustomerDetails.ca_address){
+        this.selectedCustomerDetails.ca_address = JSON.parse(this.selectedCustomerDetails.ca_address)
+        console.log(this.selectedCustomerDetails.ca_address)
+      }
+      console.log(this.selectedCustomerDetails.usa_address)
+      if(this.selectedCustomerDetails.usa_address){
+        this.selectedCustomerDetails.usa_address = JSON.parse(this.selectedCustomerDetails.usa_address)
+        console.log(this.selectedCustomerDetails.usa_address)
       }
       // this.lastEventDateTime = this.datePipe.transform(new Date(this.allEventListData.lastOrder.start_date), 'MMM d, y')+', '+this.datePipe.transform(new Date(this.allEventListData.lastOrder.start_time), 'h:mm:ss a')
       this.addFormButtonDiv = true;

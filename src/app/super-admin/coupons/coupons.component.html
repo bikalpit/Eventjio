@@ -2,9 +2,10 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="coupons comm-back">
         <div class=" page-head d-flex align-items-center">
-            <div class="title-left-side">
-                <h3 class="page-title mb-0">Promo codes</h3>
-                <p class="title-des">There are two types of promo codes:discount codes and voucher codes.</p>
+            <div class="title-left-side has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input *ngIf="clickedIndex == 'coupon'" [(ngModel)]="search.keyword" (keyup)="couponSearch()" type="text" class="form-control round-search" placeholder="Search by title and code">
+                <input *ngIf="clickedIndex == 'voucher'" [(ngModel)]="search.keyword" (keyup)="couponSearch()" type="text" class="form-control round-search" placeholder="Search by name and code">
             </div>
 
 
@@ -13,13 +14,13 @@
                 <button *ngIf="clickedIndex == 'voucher'" mat-raised-button color="primary" (click)="creatVoucherCode()" class="cd-code-btn ml-auto">Create a batch of voucher code</button>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="form-group has-search col-sm-12 col-12 col-lg-4 col-md-4 col-xl-4 mb-0 float-left ml-auto search-input">
                 <span class="fa fa-search form-control-feedback"></span>
                 <input *ngIf="clickedIndex == 'coupon'" [(ngModel)]="search.keyword" (keyup)="couponSearch()" type="text" class="form-control round-search" placeholder="Search by title and code">
                 <input *ngIf="clickedIndex == 'voucher'" [(ngModel)]="search.keyword" (keyup)="couponSearch()" type="text" class="form-control round-search" placeholder="Search by name and code">
             </div>
-        </div>
+        </div> -->
 
         <div class="row code-tab">
             <mat-tab-group (selectedTabChange)="onTabChanged($event)" class="col-sm-12 col-12 col-lg-12 col-md-12 col-xl-12 float-left p-0 coupon-code-tabs">
