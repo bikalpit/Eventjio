@@ -30,6 +30,7 @@ export class EventPageDesignComponent implements OnInit {
   eventDiscriptionHtml:any;
   customizerThemePanel:boolean=true;
   themeAppearanceColor:any;
+  displayCol:any= '2';
   selectedTheme:any= 'theme1';
   headerColor = '#A207A8';
   headerTextColor = '#F3F3F3';  
@@ -132,6 +133,10 @@ export class EventPageDesignComponent implements OnInit {
     this.selectedFont = event.value
   }
 
+  onChangeColumn(event){
+    this.displayCol = event.value
+  }
+
   getThemeAppearanceColor(){
     let requestObject ={
       'boxoffice_id' : this.boxOfficeId,
@@ -147,6 +152,7 @@ export class EventPageDesignComponent implements OnInit {
         this.pageColor = this.themeAppearanceColor.pageColor;
         this.pageTextColor = this.themeAppearanceColor.pageTextColor;
         this.headerColor = this.themeAppearanceColor.headerColor;
+        this.displayCol = this.themeAppearanceColor.displayCol?this.themeAppearanceColor.displayCol:'2';
         this.headerTextColor = this.themeAppearanceColor.headerTextColor;
         this.btnColor = this.themeAppearanceColor.btnColor;
         this.btnTextColor = this.themeAppearanceColor.btnTextColor;
@@ -171,6 +177,7 @@ export class EventPageDesignComponent implements OnInit {
         "headerTextColor":this.headerTextColor,
         "btnColor":this.btnColor,
         "btnTextColor":this.btnTextColor,
+        "displayCol":this.displayCol,
         'theme': this.selectedTheme
       }
       let requestObject = {

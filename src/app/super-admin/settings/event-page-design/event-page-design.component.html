@@ -1763,6 +1763,22 @@
                         </label>
                     </div>
                 </div>
+                <div class="third-column">
+                    <div class="row mx-0">
+                        
+                        <label class="col-8">Event column in row on List</label>
+                        <label class="col-4">
+                            <div class=" color-code d-block font-selection-main">
+                                <mat-select (selectionChange)="onChangeColumn($event)" [(ngModel)]="displayCol"
+                                    class="font-selection p-2">
+                                    <mat-option value="2">2</mat-option>
+                                    <mat-option value="4">4</mat-option>
+                                    <mat-option value="horizontal">Horizontal View</mat-option>
+                                </mat-select>
+                            </div>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -319,12 +319,13 @@
         }
       }
       .customization-box {
-        width: calc(100% - 300px);
+        width: calc(100% - 100px);
         float: left;
         padding-left: 20px;
         .first-column,
-        .second-column {
-          width: 50%;
+        .second-column,
+        .third-column {
+          width: 33%;
           float: left;
         }
         .color-code {

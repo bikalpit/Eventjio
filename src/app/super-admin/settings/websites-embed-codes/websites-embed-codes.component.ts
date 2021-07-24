@@ -161,7 +161,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
           this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/event/"+this.embedCodeOption.eventTitle+"' frameborder='0'></iframe>";
           this.embededCodePreview = this.transform(this.embededCode);
         }
-     
+        console.log(this.embededCodePreview)
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
