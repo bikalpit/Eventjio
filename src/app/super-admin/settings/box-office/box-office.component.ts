@@ -36,6 +36,8 @@ export class BoxOfficeComponent implements OnInit {
   accountOwner:any = 'N';
   emailOrderNotification:any = "N";
   hideLogo:any ="N";
+  hideName:any ="N";
+
   boxOfficeId:any;
   allCurency:any;
   protected listTimeZoneListArry: ListTimeZoneListArry[];
@@ -101,6 +103,13 @@ export class BoxOfficeComponent implements OnInit {
     }
   }
 
+  fnHideNameLogo(event){
+    if(event.checked == true){
+      this.hideName = 'Y' 
+    }else{
+      this.hideName = 'N' 
+    }
+  }
   fnEmailOrderNotification(event){
     if(event.checked == true){
       this.emailOrderNotification = 'Y' 
@@ -163,6 +172,8 @@ export class BoxOfficeComponent implements OnInit {
         this.accountOwner = this.singleBoxofficeDetails.account_owner
         this.emailOrderNotification = this.singleBoxofficeDetails.email_order_notification
         this.hideLogo = this.singleBoxofficeDetails.hide_tailor_logo
+        this.hideName = this.singleBoxofficeDetails.hide_boxoffice_name
+
         localStorage.setItem('boxoffice_name',this.singleBoxofficeDetails.box_office_name)
         this.singleBoxOffice.controls['boxoffice_name'].setValue(this.singleBoxofficeDetails.box_office_name)
         this.singleBoxOffice.controls['box_office_link'].setValue(this.singleBoxofficeDetails.box_office_link)
@@ -265,6 +276,7 @@ fnSubmitBoxOffice(){
       "account_owner":this.accountOwner,
       "email_order_notification":this.emailOrderNotification,
       "hide_tailor_logo": this.hideLogo,
+      "hide_boxoffice_name":this.hideName,
       "box_office_name" : this.singleBoxOffice.get('boxoffice_name').value,
       "language":this.singleBoxOffice.get('language').value,
       "timezone":this.singleBoxOffice.get('timezone').value,
@@ -285,6 +297,7 @@ fnSubmitBoxOffice(){
       "account_owner":this.accountOwner,
       "email_order_notification":this.emailOrderNotification,
       "hide_tailor_logo": this.hideLogo,
+      "hide_boxoffice_name":this.hideName,
       "box_office_name" : this.singleBoxOffice.get('boxoffice_name').value,
       "language":this.singleBoxOffice.get('language').value,
       "timezone":this.singleBoxOffice.get('timezone').value,
