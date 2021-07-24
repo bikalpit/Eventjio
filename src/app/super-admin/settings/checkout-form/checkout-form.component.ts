@@ -126,6 +126,7 @@ export class CheckoutFormComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
+      panelClass: 'confirmation-dialog',
       data: "Are you sure want to delete question?"
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -136,8 +137,42 @@ export class CheckoutFormComponent implements OnInit {
     });
   }
   
-  fnUndoBuyerQuestion(selectedQuestion, i){
-    this.allQuestionlist[0].buyer_questions[i].is_deleted = false;
+  fnUndoBuyerQuestion(i, type){
+    if(type){
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '400px',
+        data: "Are you sure want to hide question?"
+      });
+      dialogRef.afterClosed().subscribe(result => {
+          if(result){
+            this.buyerQuestionList[i].hide = 'true';
+          }
+      });
+    }else{
+      this.buyerQuestionList[i].hide = 'false';
+    }
+    this.allQuestionlist[0].buyer_questions = this.buyerQuestionList
+    console.log(this.allQuestionlist)
+
+  }
+  
+  fnUndoAtteQuestion(i, type){
+    if(type){
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '400px',
+        data: "Are you sure want to hide question?"
+      });
+      dialogRef.afterClosed().subscribe(result => {
+          if(result){
+            this.attendeeQuestionList[i].hide = 'true';
+          }
+      });
+    }else{
+      this.attendeeQuestionList[i].hide = 'false';
+    }
+    this.allQuestionlist[0].attendee_questions = this.attendeeQuestionList
+    console.log(this.allQuestionlist)
+
   }
 
 

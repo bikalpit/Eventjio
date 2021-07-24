@@ -30,11 +30,14 @@
                                                     <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
                                                 </button>
                                                 <!-- [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button matTooltip="This question can't be deleted"  -->
-                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" *ngIf="!element.is_deleted" (click)="fnDeleteBuyerQuestion(element, i)" mat-raised-button mat-raised-button class="tooltip-btn pointer mx-1">
+                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" *ngIf="!element.is_deleted && !element.hide" (click)="fnDeleteBuyerQuestion(element, i)" mat-raised-button mat-raised-button class="tooltip-btn pointer mx-1">
                                                   <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                                 </button>
 
-                                                <button *ngIf="element.is_deleted" (click)="fnUndoBuyerQuestion(element, i)" mat-raised-button matTooltip="Show in checkout form" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                <button *ngIf="element.hide == 'false'" (click)="fnUndoBuyerQuestion(i, true)" mat-raised-button matTooltip="Hide this field" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                    <span class="info"><i class="fa fa-eye-slash" aria-hidden="true"></i></span> 
+                                                </button>
+                                                <button *ngIf="element.hide == 'true'" (click)="fnUndoBuyerQuestion(i, false)" mat-raised-button matTooltip="Unhide this field" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
                                                     <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span> 
                                                 </button>
 
@@ -78,8 +81,14 @@
                                                 <button (click)="fnEditAttendeeQuestion(element, i)" mat-raised-button class="tooltip-btn pointer mx-1">
                                                     <span class="info"><i class="fa fa-pencil pencil-icone pointer" aria-hidden="true"></i></span>
                                                   </button>
-                                                <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" (click)="fnDeleteAttendeeQuestion(element, i)" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button class="tooltip-btn pointer mx-1">
+                                                <button [ngClass]="{'btn-disabled' : element.default == true}" *ngIf="!element.hide" [disabled]="element.default == true" (click)="fnDeleteAttendeeQuestion(element, i)" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" mat-raised-button class="tooltip-btn pointer mx-1">
                                                       <span class="info"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                                    </button>
+                                                    <button *ngIf="element.hide == 'false'" (click)="fnUndoAtteQuestion(i, true)" mat-raised-button matTooltip="Hide this field" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                        <span class="info"><i class="fa fa-eye-slash" aria-hidden="true"></i></span> 
+                                                    </button>
+                                                    <button *ngIf="element.hide == 'true'" (click)="fnUndoAtteQuestion(i, false)" mat-raised-button matTooltip="Unhide this field" matTooltipPosition="above" class="tooltip-btn pointer mx-1">
+                                                        <span class="info"><i class="fa fa-eye" aria-hidden="true"></i></span> 
                                                     </button>
                                                 <button [ngClass]="{'btn-disabled' : element.default == true}" [disabled]="element.default == true" [ngStyle]="{'pointer-events':element.default == true ? 'none' : ''}" cdkDragHandle mat-raised-button class="tooltip-btn pointer mx-1">
                                                       <span class="info"><i class="fa fa-arrows" aria-hidden="true"></i></span>
