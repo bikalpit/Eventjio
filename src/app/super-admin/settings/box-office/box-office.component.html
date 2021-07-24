@@ -146,9 +146,11 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <mat-checkbox [checked]="singleBoxofficeDetails && singleBoxofficeDetails.hide_tailor_logo == 'Y'" class="" (change)="fnHideLogo($event)">Hide Eventsmatic logo <span class="ml-2"><i class="fa fa-question-circle ml-2"  matTooltip="Hide the Event Jio logo from your box office pages. This feature is only available on certain plans." aria-hidden="true"></i></span></mat-checkbox>
+                            <mat-checkbox [checked]="hideLogo == 'Y'" class="" (change)="fnHideLogo($event)">Hide Eventsmatic logo <span class="ml-2"><i class="fa fa-question-circle ml-2"  matTooltip="Hide the Event Jio logo from your box office pages. This feature is only available on certain plans." aria-hidden="true"></i></span></mat-checkbox>
                         </div>
-
+                        <div class="mt-4">
+                            <mat-checkbox [checked]="hideName == 'Y'" class="" (change)="fnHideNameLogo($event)">Hide Box Office name from preview </mat-checkbox>
+                        </div>
                     </div>
                 </div>
             </form>
