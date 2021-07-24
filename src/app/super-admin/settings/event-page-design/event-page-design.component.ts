@@ -4,7 +4,7 @@ import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import * as moment from 'moment'; 
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer,SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-event-page-design',
@@ -38,9 +38,19 @@ export class EventPageDesignComponent implements OnInit {
   btnColor = '#49DD54';
   btnTextColor = '#FFFFFF';
   bgColor = '#FFFFFF';
+  eventLocationSrc:SafeResourceUrl;
   singleEventOnline:boolean= false;
   themeSelectionOption:any = 'themeSelection';
   boxOfficeUrl:any;
+  eventSettings:any;
+  recurringEvent:any='N';
+  box_office_name:any;
+  boxOfficeDetail:any;
+  currencySymbol:any;
+  thumbZoomLavel:any;
+  bannerZoomLavel:any;
+  waitingListSettings:any;
+  joinWaitingList:boolean= false;
   constructor(
     private SettingService:SettingService,
     private ErrorService:ErrorService,
@@ -56,6 +66,7 @@ export class EventPageDesignComponent implements OnInit {
     }
     this.fnGetUpcomingEventList();
     this.getThemeAppearanceColor();
+    this.fnGetBoxOfficeDetail();
     this.boxOfficeUrl= environment.bookingPageUrl+'/box-office/'+this.boxOfficeId
   }
 
@@ -142,7 +153,6 @@ export class EventPageDesignComponent implements OnInit {
         this.selectedTheme = this.themeAppearanceColor.theme;
         localStorage.companycolours=JSON.stringify(this.themeAppearanceColor);
           this.update_SCSS_var();
-     
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -221,7 +231,9 @@ export class EventPageDesignComponent implements OnInit {
         this.eventStartTime = moment(this.eventDetail.start_date + ' '+ this.eventDetail.start_time).format('MMMM Do YYYY, h:mm a');
         this.eventEndTime = moment(this.eventDetail.end_date +' '+this.eventDetail.end_time).format('MMMM Do YYYY, h:mm a');
         this.eventDiscriptionHtml = this.sanitizer.bypassSecurityTrustHtml(this.eventDetail.description);
-
+        this.eventSettings = this.eventDetail.event_setting;
+        this.recurringEvent = this.eventDetail.event_occurrence_type
+        this.getWaitingListSetting();
         this.eventDetail.description = this.eventDetail.description.replace(/< \/?[^>]+>/gi, '');
         console.log(this.eventDetail.description.replace(/< \/?[^>]+>/gi, ''));
         if(this.eventDetail.online_event == 'Y'){
@@ -235,6 +247,12 @@ export class EventPageDesignComponent implements OnInit {
         }else{
           this.eventImage = '/assets/images/Event-preview/preview-main.png';
         }
+        if(this.eventSettings.event_thumb_zoom){
+          this.thumbZoomLavel = this.eventSettings.event_thumb_zoom
+        }
+        if(this.eventSettings.event_banner_zoom){
+          this.bannerZoomLavel = this.eventSettings.event_banner_zoom
+        }
         this.change.detectChanges();
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
@@ -243,6 +261,65 @@ export class EventPageDesignComponent implements OnInit {
 
     });
 
+  }
+  fnGoogleMap(address){
+    this.SettingService.googleMap(address).subscribe((response:any) => {
+      if(response.status =='OK'){
+        var results = response.results[0].geometry.location;
+         this.eventLocationSrc =  this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q='+results.lat+','+results.lng+'&z=15&output=embed');
+      }
+    });
+  }
+
+  fnGetBoxOfficeDetail(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'boxoffice_id' : this.boxOfficeId,
+    }
+    
+    this.SettingService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.boxOfficeDetail = response.response;
+        if(!this.currencySymbol){
+          this.currencySymbol =this.boxOfficeDetail.currency.CurrencyCode
+        }
+      } else if(response.data == false){
+      }
+    });
+    this.isLoaderAdmin = false;
+
+  }
+
+  getWaitingListSetting(){
+    let requestObject = {
+      'event_id' : this.eventId,
+      'option_key' : 'waitListForm',
+      'boxoffice_id' : 'NULL'
+    }
+
+    this.SettingService.getSettingsValue(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.waitingListSettings =  JSON.parse(response.response); 
+        if(this.waitingListSettings.show_when_ticket_available == 'Y'){
+          if(this.eventDetail && this.waitingListSettings.active_watlist == 'Y' && this.eventDetail.soldout_status){
+            this.joinWaitingList= true;
+          }else{
+            this.joinWaitingList= false;
+          }
+        }else{
+          if(this.waitingListSettings.active_watlist == 'Y'){
+            this.joinWaitingList= true;
+          }else{
+            this.joinWaitingList= false;
+          }
+        }
+        //console.log(this.waitingListSettings)
+      } else if(response.data == false){
+        this.waitingListSettings = undefined;
+       // this.errorService.errorMessage(response.response);
+      }
+      this.isLoaderAdmin = false;
+    });
   }
 
 }
