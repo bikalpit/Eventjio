@@ -3,7 +3,8 @@
     <div routerLink="/super-admin/settings" class="exit-btn pointer">
         <mat-icon>close</mat-icon>
     </div>
-    <div *ngIf="themeSelectionOption == 'themeCustomization' || themeSelectionOption == 'themeSelection'" class="preview-page-main">
+    <div *ngIf="themeSelectionOption == 'themeCustomization' || themeSelectionOption == 'themeSelection'"
+        class="preview-page-main">
         <div class="px-5 py-4">
             <div class="top-event-page">
                 <div class="page-title">
@@ -11,26 +12,30 @@
                 </div>
                 <div class="col-md-6 text-right ml-auto">
                     <div class="d-inline-block select-option mr-3">
-                        <mat-select [(ngModel)]="eventPageType" (selectionChange)="fnEventPageType($event)" class="form-control text-left mr-1">
+                        <mat-select [(ngModel)]="eventPageType" (selectionChange)="fnEventPageType($event)"
+                            class="form-control text-left mr-1">
                             <mat-option value="listing">Listing Page</mat-option>
                             <mat-option value="single">Event Page</mat-option>
                         </mat-select>
                     </div>
 
                     <div class="d-inline-block select-option">
-                        <mat-select [(ngModel)]="eventPageView" (selectionChange)="fnEventPageView($event)" class="form-control text-left ml-1">
+                        <mat-select [(ngModel)]="eventPageView" (selectionChange)="fnEventPageView($event)"
+                            class="form-control text-left ml-1">
                             <mat-option value="desktop">Desktop View</mat-option>
                             <mat-option value="mobile">Mobile View</mat-option>
                         </mat-select>
                     </div>
                     <div class="d-inline-block">
-                        <button (click)="fnUpadateThemeAppearanceColor()" mat-flat-button color="primary" class="theme-save-btn">Save</button>
+                        <button (click)="fnUpadateThemeAppearanceColor()" mat-flat-button color="primary"
+                            class="theme-save-btn">Save</button>
                     </div>
 
                 </div>
             </div>
         </div>
-        <div *ngIf="eventPageType == 'listing'" class="preview-area" [ngClass]="{'mobile-view': eventPageView == 'mobile'}">
+        <div *ngIf="eventPageType == 'listing'" class="preview-area"
+            [ngClass]="{'mobile-view': eventPageView == 'mobile'}">
             <div *ngIf="eventPageView == 'mobile'" class="mobile-preview-device marvel-device s5 white">
                 <div class="top-bar"></div>
                 <div class="sleep"></div>
@@ -39,14 +44,17 @@
                 <div class="speaker"></div>
                 <div class="screen" [style.background]="bgColor">
                     <!-- Content goes here -->
-                    <div class="text-center w-100 py-3 box-office-title header-bg" [style.background]="headerColor" [style.color]="headerTextColor">
+                    <div class="text-center w-100 py-3 box-office-title header-bg" [style.background]="headerColor"
+                        [style.color]="headerTextColor">
                         {{boxOfficeName}}
                     </div>
                     <div *ngIf="allEventList.length > 0">
                         <div class="signle-event" *ngFor="let allEventList of allEventList; let i=index">
                             <div class="rounded">
                                 <div [style.background]="pageColor" [style.color]="pageTextColor" class="row mx-0 br-6">
-                                    <div *ngIf="allEventList.images !== undefined" [ngStyle]="{'backgroundImage': 'url(' + allEventList.images[0].image + ')'}" class="p-0 Sparking_Events-img event-image">
+                                    <div *ngIf="allEventList.images !== undefined"
+                                        [ngStyle]="{'backgroundImage': 'url(' + allEventList.images[0].image + ')'}"
+                                        class="p-0 Sparking_Events-img event-image">
                                         <!-- <img src="../../../../assets/images/admin/Image 54.png" class="w-100" alt=""> -->
                                     </div>
 
@@ -54,9 +62,14 @@
                                         <div class="row">
                                             <div class="px-4 py-2">
                                                 <p class="event-title">{{allEventList.event_title}}</p>
-                                                <p><i class="fa fa-calendar-check-o pr-2 "></i>{{allEventList.start_date}} </p>
-                                                <p *ngIf="allEventList.online_event == 'N'"><i class="fa fa-map-marker pr-2 "></i>{{allEventList.venue_name}} - {{allEventList.postal_code}}</p>
-                                                <p *ngIf="allEventList.online_event == 'Y'"><i class="fa fa-map-marker pr-2 "></i> Online -
+                                                <p><i
+                                                        class="fa fa-calendar-check-o pr-2 "></i>{{allEventList.start_date}}
+                                                </p>
+                                                <p *ngIf="allEventList.online_event == 'N'"><i
+                                                        class="fa fa-map-marker pr-2 "></i>{{allEventList.venue_name}} -
+                                                    {{allEventList.postal_code}}</p>
+                                                <p *ngIf="allEventList.online_event == 'Y'"><i
+                                                        class="fa fa-map-marker pr-2 "></i> Online -
                                                     <span *ngIf="allEventList.platform == 'Z'">Zoom</span>
                                                     <span *ngIf="allEventList.platform == 'GH'">Google Hangout</span>
                                                     <span *ngIf="allEventList.platform == 'YU'">Youtube</span>
@@ -67,7 +80,8 @@
                                                 </p>
                                             </div>
                                             <div class="ml-auto px-4 py-2">
-                                                <button [style.background]="btnColor" [style.color]="btnTextColor" mat-flat-button> Book Ticket</button>
+                                                <button [style.background]="btnColor" [style.color]="btnTextColor"
+                                                    mat-flat-button> Book Ticket</button>
                                             </div>
                                         </div>
                                     </div>
@@ -82,14 +96,17 @@
                 <div class="home"></div>
             </div>
             <div [style.background]="bgColor" *ngIf="eventPageView == 'desktop'" class="list-events">
-                <div [style.background]="headerColor" [style.color]="headerTextColor" class="text-center w-100 mt-2 py-3 box-office-title">
+                <div [style.background]="headerColor" [style.color]="headerTextColor"
+                    class="text-center w-100 mt-2 py-3 box-office-title">
                     {{boxOfficeName}}
                 </div>
                 <div *ngIf="allEventList.length > 0">
                     <div class="signle-event" *ngFor="let allEventList of allEventList; let i=index">
                         <div class="rounded">
                             <div [style.background]="pageColor" [style.color]="pageTextColor" class="row mx-0 br-6">
-                                <div *ngIf="allEventList.images !== undefined && allEventList.images !== null" [ngStyle]="{'backgroundImage': 'url(' + allEventList.images[0].image + ')'}" class="col-3 p-0 Sparking_Events-img">
+                                <div *ngIf="allEventList.images !== undefined && allEventList.images !== null"
+                                    [ngStyle]="{'backgroundImage': 'url(' + allEventList.images[0].image + ')'}"
+                                    class="col-3 p-0 Sparking_Events-img">
                                     <!-- <img src="../../../../assets/images/admin/Image 54.png" class="w-100" alt=""> -->
                                 </div>
 
@@ -97,9 +114,13 @@
                                     <div class="row">
                                         <div class="px-4 py-2">
                                             <p class="">{{allEventList.event_title}}</p>
-                                            <p><i class="fa fa-calendar-check-o pr-2"></i>{{allEventList.start_date}}</p>
-                                            <p *ngIf="allEventList.online_event == 'N'"><i class="fa fa-map-marker pr-2 "></i>{{allEventList.venue_name}} - {{allEventList.postal_code}}</p>
-                                            <p *ngIf="allEventList.online_event == 'Y'"><i class="fa fa-map-marker pr-2 "></i> Online -
+                                            <p><i class="fa fa-calendar-check-o pr-2"></i>{{allEventList.start_date}}
+                                            </p>
+                                            <p *ngIf="allEventList.online_event == 'N'"><i
+                                                    class="fa fa-map-marker pr-2 "></i>{{allEventList.venue_name}} -
+                                                {{allEventList.postal_code}}</p>
+                                            <p *ngIf="allEventList.online_event == 'Y'"><i
+                                                    class="fa fa-map-marker pr-2 "></i> Online -
                                                 <span *ngIf="allEventList.platform == 'Z'">Zoom</span>
                                                 <span *ngIf="allEventList.platform == 'GH'">Google Hangout</span>
                                                 <span *ngIf="allEventList.platform == 'YU'">Youtube</span>
@@ -110,7 +131,8 @@
                                             </p>
                                         </div>
                                         <div class="ml-auto px-4 py-2">
-                                            <button [style.background]="btnColor" [style.color]="btnTextColor" mat-flat-button> Book Ticket</button>
+                                            <button [style.background]="btnColor" [style.color]="btnTextColor"
+                                                mat-flat-button> Book Ticket</button>
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +146,8 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="eventPageType == 'single'" class="preview-area" [ngClass]="{'mobile-view': eventPageView == 'mobile'}">
+        <div *ngIf="eventPageType == 'single'" class="preview-area"
+            [ngClass]="{'mobile-view': eventPageView == 'mobile'}">
             <div *ngIf="eventPageView == 'mobile'" class="mobile-preview-device marvel-device s5 white">
                 <div class="top-bar"></div>
                 <div class="sleep"></div>
@@ -138,29 +161,41 @@
                         <div class="preview-bg">
                             <div class="main-preview-section">
                                 <div *ngIf="selectedTheme == 'theme3'" class="heading-preview-name">
-                                    <h3 class="header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                    <h3 class="header-color header-bgcolor mb-0" [style.background]="headerColor"
+                                        [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-'
+                                        }}
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                            ({{boxOfficeName}})</h4>
                                     </h3>
                                 </div>
                                 <div *ngIf="selectedTheme == 'theme4'" class="heading-preview-name">
-                                    <h3 class="header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                    <h3 class="header-color header-bgcolor mb-0" [style.background]="headerColor"
+                                        [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-'
+                                        }}
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                            ({{boxOfficeName}})</h4>
                                     </h3>
                                 </div>
-                                <div class="top-preview-image" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + eventImage + ')'}">
+                                <div class="top-preview-image"
+                                    [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + eventImage + ')'}">
                                     <!-- <div class="top-preview-image" style="background-size:cover; background:url('{{this.eventImage}}'); "> -->
-                                    <i *ngIf="eventpageStatus !== 'eventDetail'" class="fa fa-arrow-left back-button" aria-hidden="true"></i>
+                                    <i class="fa fa-arrow-left back-button" aria-hidden="true"></i>
                                 </div>
-                                <div id="theme_1" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme1'">
+                                <div id="theme_1" class="main-preview-wrap Event-page page-color page-bgcolor"
+                                    [style.background]="bgColor" [style.color]="pageTextColor"
+                                    *ngIf="selectedTheme == 'theme1'">
                                     <div class="bottom-deatils">
                                         <div class="heading-preview-name">
-                                            <h3 class="header-color header-bgcolor py-2" [style.background]="headerColor" [style.color]="headerTextColor">{{ eventDetail ? eventDetail.event_title : '-' }}
-                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                            <h3 class="header-color header-bgcolor py-2"
+                                                [style.background]="headerColor" [style.color]="headerTextColor">{{
+                                                eventDetail ? eventDetail.event_title : '-' }}
+                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                                    ({{boxOfficeName}})</h4>
                                             </h3>
-                
+
                                         </div>
                                         <div class="bottom-booking-deatils">
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left res-mobile-col">
                                                 <div class="side-form-deatils">
                                                     <div class="preview-datetime preview-common-deatils">
                                                         <span class="material-icons">
@@ -173,33 +208,50 @@
                                                             Multiple dates and times
                                                         </p>
                                                     </div>
-                                                    <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                    <div *ngIf="eventDetail.online_event == 'N'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                                     </div>
-                                                    <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                    <div *ngIf="eventDetail.online_event == 'Y'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">
+                                                            Zoom</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">
+                                                            Google Hangout</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">
+                                                            Youtube</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">
+                                                            Hopin</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">
+                                                            Vimeo</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">
+                                                            Skype</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">
+                                                            Other</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left res-mobile-col">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                            Ticket'}}
                                                         </button>
-                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{waitingListSettings ? waitingListSettings.event_page_text
+                                                            : 'Join Waiting List'}}
                                                         </button>
                                                     </div>
-                                                    <div class="share-link-main" >
+                                                    <div class="share-link-main">
                                                         <p> Share this event </p>
                                                         <div class="event-icone-link">
                                                             <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -210,38 +262,60 @@
                                                 </div>
                                             </div>
                                         </div>
-                
+
                                         <div class="deatils-preview-events">
                                             <div class="commmon-top-main">
                                                 <h3> DESCRIPTION </h3>
                                                 <p [innerHtml]="eventDiscriptionHtml"></p>
                                             </div>
-                                            <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
+                                            <div *ngIf="eventDetail.online_event == 'N'"
+                                                class="commmon-top-main map-location">
                                                 <h3> Location </h3>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                    eventDetail.country && eventDetail.country[0] ?
+                                                    eventDetail.country[0].name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                                 <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
                                                     <!-- {{eventLocationSrc}} -->
-                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc"
+                                                        width="100%" height="300" frameborder="0" style="border:0"
+                                                        allowfullscreen></iframe>
                                                     <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="bottom-help-tickets">
-                                        <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <div>
+                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                                    Policy </a></h3>
+                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                                Event Organizer </a>
+                                        </div>
+                                        <div class="right-logo-section">
+                                            <p> distributed by </p>
+                                            <img src="../../assets/images/logo/logo-black.png" />
+                                        </div>
+
                                     </div>
                                 </div>
-                                <div id="theme_2" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme2'">
+                                <div id="theme_2" class="main-preview-wrap Event-page page-color page-bgcolor"
+                                    [style.background]="bgColor" [style.color]="pageTextColor"
+                                    *ngIf="selectedTheme == 'theme2'">
                                     <div class="bottom-deatils">
                                         <div class="heading-preview-name">
-                                            <h3 class="header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                            <h3 class="header-color header-bgcolor" [style.background]="headerColor"
+                                                [style.color]="headerTextColor"> {{ eventDetail ?
+                                                eventDetail.event_title : '-' }}
+                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                                    ({{boxOfficeName}})</h4>
                                             </h3>
-                
+
                                         </div>
                                         <div class="bottom-booking-deatils row mx-0">
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 event-date-time border-bottom">
+                                            <div
+                                                class="col-12 col-xl-6 col-md-6 col-sm-6 event-date-time border-bottom res-mobile-col">
                                                 <div class="side-form-deatils">
                                                     <div class="preview-datetime preview-common-deatils">
                                                         <span class="material-icons">
@@ -254,38 +328,56 @@
                                                             Multiple dates and times
                                                         </p>
                                                     </div>
-                
+
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 border-bottom">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 border-bottom res-mobile-col">
                                                 <div class="side-form-deatils">
-                                                    <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                    <div *ngIf="eventDetail.online_event == 'N'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                                     </div>
-                                                    <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                    <div *ngIf="eventDetail.online_event == 'Y'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">
+                                                            Zoom</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">
+                                                            Google Hangout</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">
+                                                            Youtube</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">
+                                                            Hopin</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">
+                                                            Vimeo</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">
+                                                            Skype</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">
+                                                            Other</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                            Ticket'}}
                                                         </button>
-                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{waitingListSettings ? waitingListSettings.event_page_text
+                                                            : 'Join Waiting List'}}
                                                         </button>
                                                     </div>
-                                                    <div class="share-link-main d-flex justify-content-center align-items-center" >
+                                                    <div
+                                                        class="share-link-main d-flex justify-content-center align-items-center">
                                                         <p> Share this event </p>
                                                         <div class="event-icone-link">
                                                             <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -301,26 +393,44 @@
                                                 <h3> DESCRIPTION </h3>
                                                 <p [innerHtml]="eventDiscriptionHtml"></p>
                                             </div>
-                                            <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
+                                            <div *ngIf="eventDetail.online_event == 'N'"
+                                                class="commmon-top-main map-location">
                                                 <h3> Location </h3>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                    eventDetail.country && eventDetail.country[0] ?
+                                                    eventDetail.country[0].name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                                 <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc"
+                                                        width="100%" height="300" frameborder="0" style="border:0"
+                                                        allowfullscreen></iframe>
                                                     <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="bottom-help-tickets">
-                                        <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <div>
+                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                                    Policy </a></h3>
+                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                                Event Organizer </a>
+                                        </div>
+                                        <div class="right-logo-section">
+                                            <p> distributed by </p>
+                                            <img src="../../assets/images/logo/logo-black.png" />
+                                        </div>
+
                                     </div>
                                 </div>
-                
-                                <div id="theme_3" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme3'">
+
+                                <div id="theme_3" class="main-preview-wrap Event-page page-color page-bgcolor"
+                                    [style.background]="bgColor" [style.color]="pageTextColor"
+                                    *ngIf="selectedTheme == 'theme3'">
                                     <div class="bottom-deatils">
                                         <div class="bottom-booking-deatils">
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left res-mobile-col">
                                                 <div class="side-form-deatils">
                                                     <div class="preview-datetime preview-common-deatils">
                                                         <span class="material-icons">
@@ -333,36 +443,53 @@
                                                             Multiple dates and times
                                                         </p>
                                                     </div>
-                                                    <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                    <div *ngIf="eventDetail.online_event == 'N'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                                     </div>
-                                                    <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                    <div *ngIf="eventDetail.online_event == 'Y'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">
+                                                            Zoom</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">
+                                                            Google Hangout</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">
+                                                            Youtube</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">
+                                                            Hopin</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">
+                                                            Vimeo</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">
+                                                            Skype</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">
+                                                            Other</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left res-mobile-col">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                        <button mat-flat-button class="mb-0 btn-color btn-bgcolor btn"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                            Ticket'}}
                                                         </button>
                                                         <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                             Join Waiting List
                                                         </button> -->
-                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{waitingListSettings ? waitingListSettings.event_page_text
+                                                            : 'Join Waiting List'}}
                                                         </button>
                                                     </div>
-                                                    <div class="share-link-main" >
+                                                    <div class="share-link-main">
                                                         <p> Share this event </p>
                                                         <div class="event-icone-link">
                                                             <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -378,26 +505,45 @@
                                                 <h3> DESCRIPTION </h3>
                                                 <p [innerHtml]="eventDiscriptionHtml"></p>
                                             </div>
-                                            <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
+                                            <div *ngIf="eventDetail.online_event == 'N'"
+                                                class="commmon-top-main map-location">
                                                 <h3> Location </h3>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                    eventDetail.country && eventDetail.country[0] ?
+                                                    eventDetail.country[0].name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                                 <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc"
+                                                        width="100%" height="300" frameborder="0" style="border:0"
+                                                        allowfullscreen></iframe>
                                                     <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="bottom-help-tickets">
-                                        <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <div>
+                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                                    Policy </a></h3>
+                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                                Event Organizer </a>
+                                        </div>
+                                        <div class="right-logo-section">
+                                            <p> distributed by </p>
+                                            <img src="../../assets/images/logo/logo-black.png" />
+                                        </div>
+
                                     </div>
                                 </div>
-                
-                                <div id="theme_4" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme4'">
+
+                                <div id="theme_4" class="main-preview-wrap Event-page page-color page-bgcolor"
+                                    [style.background]="bgColor" [style.color]="pageTextColor"
+                                    *ngIf="selectedTheme == 'theme4'">
                                     <div class="bottom-deatils">
                                         <div class="bottom-booking-deatils row mx-0">
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 event-date-time border-bottom">
+                                            <div
+                                                class="col-12 col-xl-6 col-md-6 col-sm-6 event-date-time border-bottom res-mobile-col">
                                                 <div class="side-form-deatils">
                                                     <div class="preview-datetime preview-common-deatils">
                                                         <span class="material-icons">
@@ -410,41 +556,59 @@
                                                             Multiple dates and times
                                                         </p>
                                                     </div>
-                
+
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 border-bottom">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 border-bottom res-mobile-col">
                                                 <div class="side-form-deatils">
-                                                    <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                    <div *ngIf="eventDetail.online_event == 'N'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                                     </div>
-                                                    <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                    <div *ngIf="eventDetail.online_event == 'Y'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">
+                                                            Zoom</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">
+                                                            Google Hangout</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">
+                                                            Youtube</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">
+                                                            Hopin</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">
+                                                            Vimeo</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">
+                                                            Skype</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">
+                                                            Other</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                            Ticket'}}
                                                         </button>
                                                         <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                             Join Waiting List
                                                         </button> -->
-                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{waitingListSettings ? waitingListSettings.event_page_text
+                                                            : 'Join Waiting List'}}
                                                         </button>
                                                     </div>
-                                                    <div class="share-link-main d-flex justify-content-center align-items-center" >
+                                                    <div
+                                                        class="share-link-main d-flex justify-content-center align-items-center">
                                                         <p> Share this event </p>
                                                         <div class="event-icone-link">
                                                             <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -460,31 +624,51 @@
                                                 <h3> DESCRIPTION </h3>
                                                 <p [innerHtml]="eventDiscriptionHtml"></p>
                                             </div>
-                                            <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
+                                            <div *ngIf="eventDetail.online_event == 'N'"
+                                                class="commmon-top-main map-location">
                                                 <h3> Location </h3>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                    eventDetail.country && eventDetail.country[0] ?
+                                                    eventDetail.country[0].name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                                 <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc"
+                                                        width="100%" height="300" frameborder="0" style="border:0"
+                                                        allowfullscreen></iframe>
                                                     <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="bottom-help-tickets">
-                                        <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <div>
+                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                                    Policy </a></h3>
+                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                                Event Organizer </a>
+                                        </div>
+                                        <div class="right-logo-section">
+                                            <p> distributed by </p>
+                                            <img src="../../assets/images/logo/logo-black.png" />
+                                        </div>
+
                                     </div>
                                 </div>
-                
-                                <div id="theme_5" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme5'">
+
+                                <div id="theme_5" class="main-preview-wrap Event-page page-color page-bgcolor"
+                                    [style.background]="bgColor" [style.color]="pageTextColor"
+                                    *ngIf="selectedTheme == 'theme5'">
                                     <div class="bottom-deatils">
                                         <div class="heading-preview-name">
-                                            <h3 [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                            <h3> {{
+                                                eventDetail ? eventDetail.event_title : '-' }}
+                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                                    ({{boxOfficeName}})</h4>
                                             </h3>
                                         </div>
                                         <div class="bottom-booking-deatils row mx-0">
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 res-mobile-col">
                                                 <div class="side-form-deatils">
                                                     <div class="preview-datetime preview-common-deatils">
                                                         <span class="material-icons">
@@ -497,41 +681,59 @@
                                                             Multiple dates and times
                                                         </p>
                                                     </div>
-                
+
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 res-mobile-col">
                                                 <div class="side-form-deatils">
-                                                    <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                    <div *ngIf="eventDetail.online_event == 'N'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                                     </div>
-                                                    <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                    <div *ngIf="eventDetail.online_event == 'Y'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">
+                                                            Zoom</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">
+                                                            Google Hangout</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">
+                                                            Youtube</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">
+                                                            Hopin</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">
+                                                            Vimeo</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">
+                                                            Skype</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">
+                                                            Other</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 border-bottom">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                            Ticket'}}
                                                         </button>
                                                         <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                             Join Waiting List
                                                         </button> -->
-                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{waitingListSettings ? waitingListSettings.event_page_text
+                                                            : 'Join Waiting List'}}
                                                         </button>
                                                     </div>
-                                                    <div class="share-link-main d-flex justify-content-center align-items-center my-3" >
+                                                    <div
+                                                        class="share-link-main d-flex justify-content-center align-items-center my-3">
                                                         <p> Share this event </p>
                                                         <div class="event-icone-link">
                                                             <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -547,31 +749,52 @@
                                                 <h3> DESCRIPTION </h3>
                                                 <p [innerHtml]="eventDiscriptionHtml"></p>
                                             </div>
-                                            <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
+                                            <div *ngIf="eventDetail.online_event == 'N'"
+                                                class="commmon-top-main map-location">
                                                 <h3> Location </h3>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                    eventDetail.country && eventDetail.country[0] ?
+                                                    eventDetail.country[0].name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                                 <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc"
+                                                        width="100%" height="300" frameborder="0" style="border:0"
+                                                        allowfullscreen></iframe>
                                                     <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="bottom-help-tickets">
-                                        <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <div>
+                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                                    Policy </a></h3>
+                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                                Event Organizer </a>
+                                        </div>
+                                        <div class="right-logo-section">
+                                            <p> distributed by </p>
+                                            <img src="../../assets/images/logo/logo-black.png" />
+                                        </div>
+
                                     </div>
                                 </div>
-                
-                                <div id="theme_6" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme6'">
+
+                                <div id="theme_6" class="main-preview-wrap Event-page page-color page-bgcolor"
+                                    [style.background]="bgColor" [style.color]="pageTextColor"
+                                    *ngIf="selectedTheme == 'theme6'">
                                     <div class="bottom-deatils">
                                         <div class="heading-preview-name">
-                                            <h3 class="header-color header-bgcolor"  [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                            <h3 class="header-color header-bgcolor" [style.background]="headerColor"
+                                                [style.color]="headerTextColor"> {{ eventDetail ?
+                                                eventDetail.event_title : '-' }}
+                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                                    ({{boxOfficeName}})</h4>
                                             </h3>
                                         </div>
                                         <div class="bottom-booking-deatils row mx-0">
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 res-mobile-col">
                                                 <div class="side-form-deatils">
                                                     <div class="preview-datetime preview-common-deatils">
                                                         <span class="material-icons">
@@ -584,41 +807,59 @@
                                                             Multiple dates and times
                                                         </p>
                                                     </div>
-                
+
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6">
+                                            <div class="col-12 col-xl-6 col-md-6 col-sm-6 res-mobile-col">
                                                 <div class="side-form-deatils">
-                                                    <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                    <div *ngIf="eventDetail.online_event == 'N'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                                     </div>
-                                                    <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                        <span class="material-icons"> location_on  </span>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                    <div *ngIf="eventDetail.online_event == 'Y'"
+                                                        class="preview-common-deatils">
+                                                        <span class="material-icons"> location_on </span>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">
+                                                            Zoom</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">
+                                                            Google Hangout</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">
+                                                            Youtube</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">
+                                                            Hopin</p>
+                                                        <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">
+                                                            Vimeo</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">
+                                                            Skype</p>
+                                                        <p
+                                                            *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">
+                                                            Other</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 border-bottom">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                            Ticket'}}
                                                         </button>
                                                         <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                             Join Waiting List
                                                         </button> -->
-                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                            {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                        <button *ngIf="joinWaitingList && recurringEvent == 'N'"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
+                                                            [style.background]="btnColor" [style.color]="btnTextColor">
+                                                            {{waitingListSettings ? waitingListSettings.event_page_text
+                                                            : 'Join Waiting List'}}
                                                         </button>
                                                     </div>
-                                                    <div class="share-link-main d-flex justify-content-center align-items-center" >
+                                                    <div
+                                                        class="share-link-main pb-14 d-flex justify-content-center align-items-center">
                                                         <p> Share this event </p>
                                                         <div class="event-icone-link">
                                                             <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -634,26 +875,42 @@
                                                 <h3> DESCRIPTION </h3>
                                                 <p [innerHtml]="eventDiscriptionHtml"></p>
                                             </div>
-                                            <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
+                                            <div *ngIf="eventDetail.online_event == 'N'"
+                                                class="commmon-top-main map-location">
                                                 <h3> Location </h3>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{
+                                                    eventDetail.country && eventDetail.country[0] ?
+                                                    eventDetail.country[0].name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                                 <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                                    <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc"
+                                                        width="100%" height="300" frameborder="0" style="border:0"
+                                                        allowfullscreen></iframe>
                                                     <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="bottom-help-tickets">
-                                        <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <div>
+                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                                    Policy </a></h3>
+                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                                Event Organizer </a>
+                                        </div>
+                                        <div class="right-logo-section">
+                                            <p> distributed by </p>
+                                            <img src="../../assets/images/logo/logo-black.png" />
+                                        </div>
+
                                     </div>
                                 </div>
-                
+
                             </div>
                         </div>
                     </div>
-        
+
                 </div>
                 <div class="home"></div>
             </div>
@@ -661,26 +918,36 @@
                 <div class="preview-bg">
                     <div class="main-preview-section">
                         <div *ngIf="selectedTheme == 'theme3'" class="heading-preview-name">
-                            <h3 class="header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                            <h3 class="header-color header-bgcolor mb-0" [style.background]="headerColor"
+                                [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
+                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{boxOfficeName}})
+                                </h4>
                             </h3>
                         </div>
                         <div *ngIf="selectedTheme == 'theme4'" class="heading-preview-name">
-                            <h3 class="header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                            <h3 class="header-color header-bgcolor mb-0" [style.background]="headerColor"
+                                [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
+                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{boxOfficeName}})
+                                </h4>
                             </h3>
                         </div>
-                        <div class="top-preview-image" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + eventImage + ')'}">
+                        <div class="top-preview-image"
+                            [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + eventImage + ')'}">
                             <!-- <div class="top-preview-image" style="background-size:cover; background:url('{{this.eventImage}}'); "> -->
-                            <i *ngIf="eventpageStatus !== 'eventDetail'" class="fa fa-arrow-left back-button" aria-hidden="true"></i>
+                            <i class="fa fa-arrow-left back-button" aria-hidden="true"></i>
                         </div>
-                        <div id="theme_1" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme1'">
+                        <div id="theme_1" class="main-preview-wrap Event-page page-color page-bgcolor"
+                            [style.background]="bgColor" [style.color]="pageTextColor"
+                            *ngIf="selectedTheme == 'theme1'">
                             <div class="bottom-deatils">
                                 <div class="heading-preview-name">
-                                    <h3 class="header-color header-bgcolor py-2" [style.background]="headerColor" [style.color]="headerTextColor">{{ eventDetail ? eventDetail.event_title : '-' }}
-                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                    <h3 class="header-color header-bgcolor py-2" [style.background]="headerColor"
+                                        [style.color]="headerTextColor">{{ eventDetail ? eventDetail.event_title : '-'
+                                        }}
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                            ({{boxOfficeName}})</h4>
                                     </h3>
-        
+
                                 </div>
                                 <div class="bottom-booking-deatils">
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
@@ -697,32 +964,44 @@
                                                 </p>
                                             </div>
                                             <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <span class="material-icons"> location_on </span>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                             </div>
                                             <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
+                                                <span class="material-icons"> location_on </span>
                                                 <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google
+                                                    Hangout</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                    [style.background]="btnColor" [style.color]="btnTextColor">
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                    Ticket'}}
                                                 </button>
-                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
+                                                    [style.color]="btnTextColor">
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
+                                                    Waiting List'}}
                                                 </button>
                                             </div>
-                                            <div class="share-link-main" >
+                                            <div class="share-link-main">
                                                 <p> Share this event </p>
                                                 <div class="event-icone-link">
                                                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -733,7 +1012,7 @@
                                         </div>
                                     </div>
                                 </div>
-        
+
                                 <div class="deatils-preview-events">
                                     <div class="commmon-top-main">
                                         <h3> DESCRIPTION </h3>
@@ -741,27 +1020,45 @@
                                     </div>
                                     <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
                                         <h3> Location </h3>
-                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country &&
+                                            eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{
+                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                         <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
                                             <!-- {{eventLocationSrc}} -->
-                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%"
+                                                height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                                             <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="bottom-help-tickets">
-                                <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <div>
+                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                            Policy </a></h3>
+                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                        Event Organizer </a>
+                                </div>
+                                <div class="right-logo-section">
+                                    <p> distributed by </p>
+                                    <img src="../../assets/images/logo/logo-black.png" />
+                                </div>
+
                             </div>
                         </div>
-                        <div id="theme_2" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme2'">
+                        <div id="theme_2" class="main-preview-wrap Event-page page-color page-bgcolor"
+                            [style.background]="bgColor" [style.color]="pageTextColor"
+                            *ngIf="selectedTheme == 'theme2'">
                             <div class="bottom-deatils">
                                 <div class="heading-preview-name">
-                                    <h3 class="header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                    <h3 class="header-color header-bgcolor" [style.background]="headerColor"
+                                        [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-'
+                                        }}
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                            ({{boxOfficeName}})</h4>
                                     </h3>
-        
+
                                 </div>
                                 <div class="bottom-booking-deatils row mx-0">
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-6 event-date-time border-bottom">
@@ -777,38 +1074,51 @@
                                                     Multiple dates and times
                                                 </p>
                                             </div>
-        
+
                                         </div>
                                     </div>
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-6 border-bottom">
                                         <div class="side-form-deatils">
                                             <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <span class="material-icons"> location_on </span>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                             </div>
                                             <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
+                                                <span class="material-icons"> location_on </span>
                                                 <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google
+                                                    Hangout</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                    [style.background]="btnColor" [style.color]="btnTextColor">
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                    Ticket'}}
                                                 </button>
-                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
+                                                    [style.color]="btnTextColor">
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
+                                                    Waiting List'}}
                                                 </button>
                                             </div>
-                                            <div class="share-link-main d-flex justify-content-center align-items-center" >
+                                            <div
+                                                class="share-link-main d-flex justify-content-center align-items-center">
                                                 <p> Share this event </p>
                                                 <div class="event-icone-link">
                                                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -826,21 +1136,36 @@
                                     </div>
                                     <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
                                         <h3> Location </h3>
-                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country &&
+                                            eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{
+                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                         <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%"
+                                                height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                                             <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="bottom-help-tickets">
-                                <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <div>
+                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                            Policy </a></h3>
+                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                        Event Organizer </a>
+                                </div>
+                                <div class="right-logo-section">
+                                    <p> distributed by </p>
+                                    <img src="../../assets/images/logo/logo-black.png" />
+                                </div>
+
                             </div>
                         </div>
-        
-                        <div id="theme_3" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme3'">
+
+                        <div id="theme_3" class="main-preview-wrap Event-page page-color page-bgcolor"
+                            [style.background]="bgColor" [style.color]="pageTextColor"
+                            *ngIf="selectedTheme == 'theme3'">
                             <div class="bottom-deatils">
                                 <div class="bottom-booking-deatils">
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
@@ -857,35 +1182,47 @@
                                                 </p>
                                             </div>
                                             <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <span class="material-icons"> location_on </span>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                             </div>
                                             <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
+                                                <span class="material-icons"> location_on </span>
                                                 <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google
+                                                    Hangout</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                    [style.background]="btnColor" [style.color]="btnTextColor">
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                    Ticket'}}
                                                 </button>
                                                 <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                     Join Waiting List
                                                 </button> -->
-                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
+                                                    [style.color]="btnTextColor">
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
+                                                    Waiting List'}}
                                                 </button>
                                             </div>
-                                            <div class="share-link-main" >
+                                            <div class="share-link-main">
                                                 <p> Share this event </p>
                                                 <div class="event-icone-link">
                                                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -903,21 +1240,36 @@
                                     </div>
                                     <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
                                         <h3> Location </h3>
-                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country &&
+                                            eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{
+                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                         <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%"
+                                                height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                                             <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="bottom-help-tickets">
-                                <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <div>
+                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                            Policy </a></h3>
+                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                        Event Organizer </a>
+                                </div>
+                                <div class="right-logo-section">
+                                    <p> distributed by </p>
+                                    <img src="../../assets/images/logo/logo-black.png" />
+                                </div>
+
                             </div>
                         </div>
-        
-                        <div id="theme_4" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme4'">
+
+                        <div id="theme_4" class="main-preview-wrap Event-page page-color page-bgcolor"
+                            [style.background]="bgColor" [style.color]="pageTextColor"
+                            *ngIf="selectedTheme == 'theme4'">
                             <div class="bottom-deatils">
                                 <div class="bottom-booking-deatils row mx-0">
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-6 event-date-time border-bottom">
@@ -933,41 +1285,54 @@
                                                     Multiple dates and times
                                                 </p>
                                             </div>
-        
+
                                         </div>
                                     </div>
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-6 border-bottom">
                                         <div class="side-form-deatils">
                                             <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <span class="material-icons"> location_on </span>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                             </div>
                                             <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
+                                                <span class="material-icons"> location_on </span>
                                                 <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google
+                                                    Hangout</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                    [style.background]="btnColor" [style.color]="btnTextColor">
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                    Ticket'}}
                                                 </button>
                                                 <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                     Join Waiting List
                                                 </button> -->
-                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
+                                                    [style.color]="btnTextColor">
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
+                                                    Waiting List'}}
                                                 </button>
                                             </div>
-                                            <div class="share-link-main d-flex justify-content-center align-items-center" >
+                                            <div
+                                                class="share-link-main d-flex justify-content-center align-items-center">
                                                 <p> Share this event </p>
                                                 <div class="event-icone-link">
                                                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -985,25 +1350,42 @@
                                     </div>
                                     <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
                                         <h3> Location </h3>
-                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country &&
+                                            eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{
+                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                         <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%"
+                                                height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                                             <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="bottom-help-tickets">
-                                <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <div>
+                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                            Policy </a></h3>
+                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                        Event Organizer </a>
+                                </div>
+                                <div class="right-logo-section">
+                                    <p> distributed by </p>
+                                    <img src="../../assets/images/logo/logo-black.png" />
+                                </div>
+
                             </div>
                         </div>
-        
-                        <div id="theme_5" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme5'">
+
+                        <div id="theme_5" class="main-preview-wrap Event-page page-color page-bgcolor"
+                            [style.background]="bgColor" [style.color]="pageTextColor"
+                            *ngIf="selectedTheme == 'theme5'">
                             <div class="bottom-deatils">
                                 <div class="heading-preview-name">
-                                    <h3 [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                    <h3> {{ eventDetail
+                                        ? eventDetail.event_title : '-' }}
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                            ({{boxOfficeName}})</h4>
                                     </h3>
                                 </div>
                                 <div class="bottom-booking-deatils row mx-0">
@@ -1020,41 +1402,54 @@
                                                     Multiple dates and times
                                                 </p>
                                             </div>
-        
+
                                         </div>
                                     </div>
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-6">
                                         <div class="side-form-deatils">
                                             <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <span class="material-icons"> location_on </span>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                             </div>
                                             <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
+                                                <span class="material-icons"> location_on </span>
                                                 <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google
+                                                    Hangout</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 border-bottom">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                    [style.background]="btnColor" [style.color]="btnTextColor">
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                    Ticket'}}
                                                 </button>
                                                 <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                     Join Waiting List
                                                 </button> -->
-                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
+                                                    [style.color]="btnTextColor">
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
+                                                    Waiting List'}}
                                                 </button>
                                             </div>
-                                            <div class="share-link-main d-flex justify-content-center align-items-center my-3" >
+                                            <div
+                                                class="share-link-main d-flex justify-content-center align-items-center my-3">
                                                 <p> Share this event </p>
                                                 <div class="event-icone-link">
                                                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -1072,25 +1467,43 @@
                                     </div>
                                     <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
                                         <h3> Location </h3>
-                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country &&
+                                            eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{
+                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                         <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%"
+                                                height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                                             <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="bottom-help-tickets">
-                                <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <div>
+                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                            Policy </a></h3>
+                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                        Event Organizer </a>
+                                </div>
+                                <div class="right-logo-section">
+                                    <p> distributed by </p>
+                                    <img src="../../assets/images/logo/logo-black.png" />
+                                </div>
+
                             </div>
                         </div>
-        
-                        <div id="theme_6" class="main-preview-wrap Event-page page-color page-bgcolor" [style.background]="bgColor" [style.color]="pageTextColor" *ngIf="selectedTheme == 'theme6'">
+
+                        <div id="theme_6" class="main-preview-wrap Event-page page-color page-bgcolor"
+                            [style.background]="bgColor" [style.color]="pageTextColor"
+                            *ngIf="selectedTheme == 'theme6'">
                             <div class="bottom-deatils">
                                 <div class="heading-preview-name">
-                                    <h3 class="header-color header-bgcolor"  [style.background]="headerColor" [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
-                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{box_office_name}})</h4>
+                                    <h3 class="header-color header-bgcolor" [style.background]="headerColor"
+                                        [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-'
+                                        }}
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
+                                            ({{boxOfficeName}})</h4>
                                     </h3>
                                 </div>
                                 <div class="bottom-booking-deatils row mx-0">
@@ -1107,41 +1520,54 @@
                                                     Multiple dates and times
                                                 </p>
                                             </div>
-        
+
                                         </div>
                                     </div>
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-6">
                                         <div class="side-form-deatils">
                                             <div *ngIf="eventDetail.online_event == 'N'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
-                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                                <span class="material-icons"> location_on </span>
+                                                <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail ?
+                                                    eventDetail.postal_code : '-' }} </p>
                                             </div>
                                             <div *ngIf="eventDetail.online_event == 'Y'" class="preview-common-deatils">
-                                                <span class="material-icons"> location_on  </span>
+                                                <span class="material-icons"> location_on </span>
                                                 <p *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</p>
-                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google
+                                                    Hangout</p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype
+                                                </p>
+                                                <p *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 border-bottom">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn-color btn-bgcolor btn" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
+                                                    [style.background]="btnColor" [style.color]="btnTextColor">
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
+                                                    Ticket'}}
                                                 </button>
                                                 <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                     Join Waiting List
                                                 </button> -->
-                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor" [style.color]="btnTextColor"> 
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
+                                                <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
+                                                    [style.color]="btnTextColor">
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
+                                                    Waiting List'}}
                                                 </button>
                                             </div>
-                                            <div class="share-link-main d-flex justify-content-center align-items-center" >
+                                            <div
+                                                class="share-link-main d-flex justify-content-center align-items-center">
                                                 <p> Share this event </p>
                                                 <div class="event-icone-link">
                                                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -1159,20 +1585,33 @@
                                     </div>
                                     <div *ngIf="eventDetail.online_event == 'N'" class="commmon-top-main map-location">
                                         <h3> Location </h3>
-                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country && eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{ eventDetail ? eventDetail.postal_code : '-' }} </p>
+                                        <p> {{ eventDetail ? eventDetail.venue_name : '-' }}, {{ eventDetail.country &&
+                                            eventDetail.country[0] ? eventDetail.country[0].name : '-' }}, {{
+                                            eventDetail ? eventDetail.postal_code : '-' }} </p>
                                         <div class="" [ngClass]="{'map-main-div' : eventLocationSrc}">
-                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                            <iframe *ngIf="eventLocationSrc" [src]="eventLocationSrc" width="100%"
+                                                height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                                             <p *ngIf="!eventLocationSrc"> Location not found.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="bottom-help-tickets">
-                                <h3> NEED HELP OR LOST YOUR TICKET? </h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}" target="_blank" mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <div>
+                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
+                                            Policy </a></h3>
+                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
+                                        Event Organizer </a>
+                                </div>
+                                <div class="right-logo-section">
+                                    <p> distributed by </p>
+                                    <img src="../../assets/images/logo/logo-black.png" />
+                                </div>
+
                             </div>
                         </div>
-        
+
                     </div>
                 </div>
             </div>
@@ -1187,11 +1626,14 @@
         </div>
     </div> -->
     <div class="customize-area" [ngClass]="{'opened':customizerThemePanel}">
-        <div class="handler" (click)="customizerThemePanel=!customizerThemePanel">Theme <span class="material-icons">expand_less</span></div>
-        <div *ngIf="themeSelectionOption == 'themeCustomization'" (click)="fnThemeDirection('themeSelection')" class="got-to-themeselection side-arrow">
+        <div class="handler" (click)="customizerThemePanel=!customizerThemePanel">Theme <span
+                class="material-icons">expand_less</span></div>
+        <div *ngIf="themeSelectionOption == 'themeCustomization'" (click)="fnThemeDirection('themeSelection')"
+            class="got-to-themeselection side-arrow">
             <span class="material-icons">arrow_back_ios</span>
         </div>
-        <div *ngIf="themeSelectionOption == 'themeSelection'" (click)="fnThemeDirection('themeCustomization')" class="got-to-themecustomization side-arrow">
+        <div *ngIf="themeSelectionOption == 'themeSelection'" (click)="fnThemeDirection('themeCustomization')"
+            class="got-to-themecustomization side-arrow">
             <span class="material-icons">arrow_forward_ios</span>
         </div>
         <div *ngIf="themeSelectionOption == 'themeSelection'" class="theme-selection">
@@ -1244,28 +1686,32 @@
                         <label class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{headerColor}}</div>
-                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="headerColor" [style.background]="headerColor" (value)="headerColor" />
+                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="headerColor"
+                                    [style.background]="headerColor" (value)="headerColor" />
                             </div>
                         </label>
                         <label class="col-6">Page Color</label>
                         <label class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{pageColor}}</div>
-                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="pageColor" [style.background]="pageColor" (value)="pageColor" />
+                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="pageColor"
+                                    [style.background]="pageColor" (value)="pageColor" />
                             </div>
                         </label>
                         <label class="col-6">Button Color</label>
                         <label class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{btnColor}}</div>
-                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="btnColor" [style.background]="btnColor" (value)="btnColor" />
+                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="btnColor"
+                                    [style.background]="btnColor" (value)="btnColor" />
                             </div>
                         </label>
                         <label class="col-6">Background Color</label>
                         <label class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{bgColor}}</div>
-                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="bgColor" [style.background]="bgColor" (value)="bgColor" />
+                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="bgColor"
+                                    [style.background]="bgColor" (value)="bgColor" />
                             </div>
                         </label>
                     </div>
@@ -1276,27 +1722,31 @@
                         <label class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{headerTextColor}}</div>
-                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="headerTextColor" [style.background]="headerTextColor" (value)="headerTextColor" />
+                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="headerTextColor"
+                                    [style.background]="headerTextColor" (value)="headerTextColor" />
                             </div>
                         </label>
                         <label class="col-6">Page Text Color</label>
                         <label class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{pageTextColor}}</div>
-                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="pageTextColor" [style.background]="pageTextColor" (value)="pageTextColor" />
+                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="pageTextColor"
+                                    [style.background]="pageTextColor" (value)="pageTextColor" />
                             </div>
                         </label>
                         <label class="col-6">Button Text Color</label>
                         <label class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{btnTextColor}}</div>
-                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="btnTextColor" [style.background]="btnTextColor" (value)="btnTextColor" />
+                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="btnTextColor"
+                                    [style.background]="btnTextColor" (value)="btnTextColor" />
                             </div>
                         </label>
                         <label class="col-6">Font</label>
                         <label class="col-6">
                             <div class=" color-code d-block font-selection-main">
-                                <mat-select (selectionChange)="fnChangeFont($event)" [(ngModel)]="selectedFont" class="font-selection p-2">
+                                <mat-select (selectionChange)="fnChangeFont($event)" [(ngModel)]="selectedFont"
+                                    class="font-selection p-2">
                                     <mat-option value="Poppins, sans-serif">Poppins</mat-option>
                                     <mat-option value="Roboto, sans-serif">Roboto</mat-option>
                                     <mat-option value="'Cairo', sans-serif">Cairo</mat-option>

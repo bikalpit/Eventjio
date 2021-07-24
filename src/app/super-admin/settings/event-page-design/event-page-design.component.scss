@@ -19,6 +19,9 @@
   .br-6 {
     border-radius: 6px;
   }
+  .mb-0{
+    margin-bottom: 0px;
+  }
   .top-event-page {
     display: flex;
     align-items: center;
@@ -467,7 +470,7 @@
 #preview-event {
   background-color: #eeeeee;
   height: 100vh;
-  overflow: auto;
+  // overflow: auto;
   width: 100%;
   .preview-bg {
     background: url(/assets/images/Event-preview/preview-main.png);
@@ -621,19 +624,31 @@
         }
       }
       .bottom-help-tickets {
-        background-color: #ffe6c8;
+        background-color: #FFE6C8;
         padding: 34px 26px;
-        display: flow-root;
         text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         h3 {
-          font-weight: 500;
-          color: #2c2c2c;
+            font-weight: 500;
+            color: #2C2C2C;
+        }
+        .privacy-policy{
+            text-decoration: underline;
         }
         .btn {
-          padding: 4px 60px;
-          color: #fff !important;
+            padding: 4px 20px;
+            color: #fff !important;
+            display: inline-block;
         }
-      }
+        .right-logo-section{
+            p{
+                margin-bottom: 0px;
+                text-align: end;
+            }
+        }
+    }
     }
   }
 }
@@ -701,6 +716,7 @@
                             .share-link-main {
                                 margin-top: 18px;
                                 text-align: center;
+                                flex-direction: column;
                                 p {
                                     margin: 0px;
                                     font-size: 18px;
@@ -723,11 +739,20 @@
             }
             .bottom-help-tickets {
                 padding: 10px 15px;
+                flex-direction: column;
                 .btn {
                     padding: 4px 10px;
                 }
+                .right-logo-section{
+                  margin-top: 14px;
+                }
             }
         }
+    }
+    .res-mobile-col{
+      width: 100%;
+      max-width: 100%;
+      flex: auto;
     }
     // #preview-event.theme2 {
     //     .preview-bg {
@@ -738,6 +763,9 @@
     //         }
     //     }
     // }
+    .pb-14{
+      padding-bottom: 14px;
+    }
     #preview-event {
         &.theme2,
         &.theme3,
