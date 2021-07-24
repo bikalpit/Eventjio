@@ -277,7 +277,7 @@ fnSubmitBoxOffice(){
    }else{
     let requestObject = { 
       "country":this.singleBoxofficeDetails.country,
-      "currency":this.singleBoxofficeDetails.currency,
+      "currency":this.singleBoxOffice.get('currency').value,
       "genre":this.singleBoxofficeDetails.genre,
       "genre_type":this.singleBoxofficeDetails.genre_type,
       "type":this.singleBoxofficeDetails.type,

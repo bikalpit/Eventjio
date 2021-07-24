@@ -104,8 +104,17 @@
                                     <hr class="m-0">
                                     <div class="py-2">
                                         <label for="">Address</label>
-                                        <p>
+                                        <p *ngIf="selectedCustomerDetails.address">
                                             {{selectedCustomerDetails.address}}
+                                        </p>
+                                        <p *ngIf="selectedCustomerDetails.uk_address !== null">
+                                            {{selectedCustomerDetails.uk_address.address1}}, {{selectedCustomerDetails.uk_address.address2}}, {{selectedCustomerDetails.uk_address.address3}}, {{selectedCustomerDetails.uk_address.zipcode}} 
+                                        </p>
+                                        <p *ngIf="selectedCustomerDetails.ca_address !== null">
+                                            {{selectedCustomerDetails.ca_address.address1}}, {{selectedCustomerDetails.ca_address.city}}, {{selectedCustomerDetails.ca_address.province}}, {{selectedCustomerDetails.ca_address.postalcode}} 
+                                        </p>
+                                        <p *ngIf="selectedCustomerDetails.usa_address !== null">
+                                            {{selectedCustomerDetails.usa_address.address1}}, {{selectedCustomerDetails.usa_address.city}}, {{selectedCustomerDetails.usa_address.state}}, {{selectedCustomerDetails.usa_address.zipcode}} 
                                         </p>
                                     </div>
                                     <hr class="m-0">
@@ -191,10 +200,12 @@
                                     <div class="col-12 px-3 pt-3 add-customer-div-title" *ngIf="editCustomerForm">
                                         Edit Customer
                                     </div>
-                                    <div class="col-12 px-3 sub-heading">
-                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
+                                    <div class="col-12 px-3 sub-heading" *ngIf="!editCustomerForm">
+                                        Here you can add your customers’ detail for your reference.
                                     </div>
-
+                                    <div class="col-12 px-3 sub-heading" *ngIf="editCustomerForm">
+                                        Here you can edit your customers’ detail for your reference.
+                                    </div>
                                     <div class="col-12 px-3 mt-3">
                                         <div>
                                             <label>Add Image</label>
@@ -210,7 +221,7 @@
                                                 <img class="w-100 h-100" src="{{selectedCustomerDetails.image}}">
                                             </div>
                                             <div class="px-3 py-42 add-customer-file" *ngIf="!customerImageUrl">
-                                                <span>No file Choosen</span>
+                                                <span>No file chosen</span>
                                                 <p class="mt-2">
                                                     Upload image (in .jpg, .jpeg or .png format), <br /> and the image size should not exceed 200x200.
                                                 </p>

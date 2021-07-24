@@ -217,6 +217,10 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/super-admin/settings/payment-systems']); 
   }
 
+  goToPlans(){
+    this.router.navigate(['/super-admin/settings/billing']); 
+  }
+
   goToCustomizeEvent(){
     this.router.navigate(['/super-admin/settings']); 
   }

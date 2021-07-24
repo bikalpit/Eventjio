@@ -14,7 +14,7 @@
                 <div (click)="fnPostUrl('event-page-design')" [ngClass]="{'active': pageName == 'event-page-design'}" routerLink="/super-admin/settings/event-page-design" class="py-2 common-sub-menu">
                     <span class="pl-4">Event Page Design</span>
                 </div>
-                <div (click)="fnPostUrl('')" [ngClass]="{'active': pageName == ''}" routerLink="/super-admin/settings" class="py-2 common-sub-menu">
+                <div (click)="fnPostUrl('')" [ngClass]="{'active': pageName == '' || pageName == 'websites-embed-codes'}" routerLink="/super-admin/settings" class="py-2 common-sub-menu">
                     <span class="pl-4">Website Embed Codes</span>
                 </div>
 

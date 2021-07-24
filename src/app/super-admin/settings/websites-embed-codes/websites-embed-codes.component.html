@@ -4,7 +4,7 @@
         <div class="page-title">
             Websites Embed Codes
         </div>
-        <p class="py-1 Customise-widgets-title">Embed a booking widget in to your website so that your customer can book tickets directly.</p>
+        <p class="py-1 Customise-widgets-title">Embed a booking widget into your website so that your customer can book tickets directly.</p>
 
         <div class="p-3 border rounded main-booking-widget">
             <div class="row">
@@ -59,7 +59,8 @@
                         Preview
                     </div>
                     <div class="card border-0">
-                        <div class="card-header py-4">
+                        <p [innerHtml]="embededCodePreview"></p>
+                        <!-- <div class="card-header py-4">
                             Sparkling Events
                         </div>
                         <div class="card-body pb-5">
@@ -75,7 +76,7 @@
                                     <p class="web-title">Eventsmatic</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-6">
@@ -92,7 +93,7 @@
                     </div> -->
 
                     <div class="py-2 mt-2">
-                        Copy and paste HTML code bellow in to your website and the booking widget will show on your website.
+                        Copy and paste the HTML code below into your website and the booking widget will show on your website.
                     </div>
 
                     <div class="html-code-div mt-2 border rounded p-2">
@@ -103,11 +104,11 @@
                         <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
                     </div>
                     <div class="py-3">
-                        The widget is responsive so it will feel the width of whatever space you put it in to.
+                        The widget is responsive so it will feel the width of whatever space you put it into.
                     </div>
 
                     <div class="py-3">
-                        If you don't know what to do with this code please send it to your web designer or website manager.
+                        If you don't know what to do with this code please send it to your web designer or the website manager.
                     </div>
 
                 </div>
