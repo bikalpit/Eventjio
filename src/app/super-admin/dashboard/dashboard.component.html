@@ -32,7 +32,7 @@
                     </div>
                     <label>Customize Event</label>
                 </li>
-                <li class="pointer" *ngIf="setupSteps.select_plan"
+                <li (click)="goToPlans()" class="pointer" *ngIf="setupSteps.select_plan"
                     [ngClass]="{'active':setupSteps.select_plan == 'Y'}">
                     <div class="top-icon">
                         <mat-icon>done</mat-icon>

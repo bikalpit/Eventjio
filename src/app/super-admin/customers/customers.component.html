@@ -104,8 +104,17 @@
                                     <hr class="m-0">
                                     <div class="py-2">
                                         <label for="">Address</label>
-                                        <p>
+                                        <p *ngIf="selectedCustomerDetails.address">
                                             {{selectedCustomerDetails.address}}
+                                        </p>
+                                        <p *ngIf="selectedCustomerDetails.uk_address !== null">
+                                            {{selectedCustomerDetails.uk_address.address1}}, {{selectedCustomerDetails.uk_address.address2}}, {{selectedCustomerDetails.uk_address.address3}}, {{selectedCustomerDetails.uk_address.zipcode}} 
+                                        </p>
+                                        <p *ngIf="selectedCustomerDetails.ca_address !== null">
+                                            {{selectedCustomerDetails.ca_address.address1}}, {{selectedCustomerDetails.ca_address.city}}, {{selectedCustomerDetails.ca_address.province}}, {{selectedCustomerDetails.ca_address.postalcode}} 
+                                        </p>
+                                        <p *ngIf="selectedCustomerDetails.usa_address !== null">
+                                            {{selectedCustomerDetails.usa_address.address1}}, {{selectedCustomerDetails.usa_address.city}}, {{selectedCustomerDetails.usa_address.state}}, {{selectedCustomerDetails.usa_address.zipcode}} 
                                         </p>
                                     </div>
                                     <hr class="m-0">

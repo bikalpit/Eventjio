@@ -23,6 +23,7 @@ import { ErrorInterceptor } from './_helpers';
 import { MdePopoverModule } from '@material-extended/mde';
 // import { CookieService } from "angular2-cookie/services/cookies.service";
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ResponsePageComponent } from './response-page/response-page.component';
 
 
 const config = [ 
@@ -59,8 +60,8 @@ export function provideConfig() {
     ResetPasswordComponent,
     DialogAuthentication,
     ConfirmationDialogComponent,
-    OnlyNumberDirective
-
+    OnlyNumberDirective,
+    ResponsePageComponent
   ],
   imports: [
     BrowserModule,

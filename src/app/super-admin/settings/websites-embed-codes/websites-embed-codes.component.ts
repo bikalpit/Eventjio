@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ErrorService } from '../../../_services/error.service'
 import { SettingService } from '../_services/setting.service';
+import {DomSanitizer} from "@angular/platform-browser";
 @Component({
   selector: 'app-websites-embed-codes',
   templateUrl: './websites-embed-codes.component.html',
@@ -18,6 +19,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
   btnColor = '#49DD54';
   btnTextColor = '#FFFFFF';
   embededCode:any;
+  embededCodePreview:any;
   boxOfficeId:any;
   isLoaderAdmin:any;
   allEvents:any;
@@ -28,6 +30,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
     private _formBuilder:FormBuilder,
     private SettingService : SettingService,
     private ErrorService : ErrorService,
+    private sanitizer:DomSanitizer
   ) { 
     if (localStorage.getItem('boxoffice_id')) {
       this.boxOfficeId = localStorage.getItem('boxoffice_id');
@@ -73,6 +76,10 @@ export class WebsitesEmbedCodesComponent implements OnInit {
       this.editWidgetsoptionForm.get('optionalWidget').markAllAsTouched();
       this.editWidgetsoptionForm.get('eventTitle').markAllAsTouched();
     }
+  }
+
+  transform(embededCode) {
+    return  this.sanitizer.bypassSecurityTrustHtml(embededCode);
   }
 
   copyEmbedCode(val: string){
@@ -148,9 +155,11 @@ export class WebsitesEmbedCodesComponent implements OnInit {
         this.editWidgetsoptionForm.controls['eventTitle'].setValue(this.embedCodeOption.eventTitle)
 
         if(this.embedCodeOption.eventTitle == 'all'){
-          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/box-office/"+this.boxOfficeId+"'></iframe>";
+          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/box-office/"+this.boxOfficeId+"' frameborder='0'></iframe>";
+          this.embededCodePreview = this.transform(this.embededCode);
         }else{
-          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/event/"+this.embedCodeOption.eventTitle+"'></iframe>";
+          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/event/"+this.embedCodeOption.eventTitle+"' frameborder='0'></iframe>";
+          this.embededCodePreview = this.transform(this.embededCode);
         }
      
       } else if(response.data == false){

@@ -8,6 +8,7 @@ import { Role } from './_models';
 import { AuthGuard } from './_helpers/auth.guard';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
+import { ResponsePageComponent } from './response-page/response-page.component';
 
 const routes: Routes = [
  
@@ -39,6 +40,10 @@ const routes: Routes = [
   {
     path: 'reset-password', 
     component: ResetPasswordComponent 
+  },
+  {
+    path: 'thank-you', 
+    component: ResponsePageComponent 
   },
 ];
 

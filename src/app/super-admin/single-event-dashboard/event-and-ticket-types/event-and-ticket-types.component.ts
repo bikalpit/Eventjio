@@ -471,8 +471,8 @@ export class EventAndTicketTypesComponent implements OnInit, AfterViewInit {
         }
        
 
-        this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom?this.singleEventSetting.event_banner_zoom:'0';
-        this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom?this.singleEventSetting.event_thumb_zoom:'0';
+        this.bannerZoomLavel = this.singleEventSetting.event_banner_zoom?this.singleEventSetting.event_banner_zoom:'100';
+        this.thumbZoomLavel = this.singleEventSetting.event_thumb_zoom?this.singleEventSetting.event_thumb_zoom:'100';
        
         
         this.olPlatForm = this.singleEventDetail.online_event;

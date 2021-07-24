@@ -12,9 +12,13 @@
     .select-option {
         width: 30%;
     }
-    .Sparking_Events-img img {
-        border-bottom-left-radius: 6px;
-        border-top-left-radius: 6px;
+    .Sparking_Events-img {
+        background-size: cover;
+        background-repeat: no-repeat;
+        img {
+            border-bottom-left-radius: 6px;
+            border-top-left-radius: 6px;
+        }
     }
     .br-6 {
         border-radius: 6px;
