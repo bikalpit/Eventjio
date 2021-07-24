@@ -4,7 +4,7 @@ import { ErrorService } from '../../../_services/error.service';
 import { DatePipe} from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import * as moment from 'moment'; 
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer,SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-event-page-design',
@@ -38,9 +38,12 @@ export class EventPageDesignComponent implements OnInit {
   btnColor = '#49DD54';
   btnTextColor = '#FFFFFF';
   bgColor = '#FFFFFF';
+  eventLocationSrc:SafeResourceUrl;
   singleEventOnline:boolean= false;
   themeSelectionOption:any = 'themeSelection';
   boxOfficeUrl:any;
+  eventSettings:any;
+  recurringEvent:any='N';
   constructor(
     private SettingService:SettingService,
     private ErrorService:ErrorService,
@@ -140,9 +143,9 @@ export class EventPageDesignComponent implements OnInit {
         this.btnColor = this.themeAppearanceColor.btnColor;
         this.btnTextColor = this.themeAppearanceColor.btnTextColor;
         this.selectedTheme = this.themeAppearanceColor.theme;
+        alert(this.selectedTheme)
         localStorage.companycolours=JSON.stringify(this.themeAppearanceColor);
           this.update_SCSS_var();
-     
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
@@ -221,6 +224,8 @@ export class EventPageDesignComponent implements OnInit {
         this.eventStartTime = moment(this.eventDetail.start_date + ' '+ this.eventDetail.start_time).format('MMMM Do YYYY, h:mm a');
         this.eventEndTime = moment(this.eventDetail.end_date +' '+this.eventDetail.end_time).format('MMMM Do YYYY, h:mm a');
         this.eventDiscriptionHtml = this.sanitizer.bypassSecurityTrustHtml(this.eventDetail.description);
+        this.eventSettings = this.eventDetail.event_setting;
+        this.recurringEvent = this.eventDetail.event_occurrence_type
 
         this.eventDetail.description = this.eventDetail.description.replace(/< \/?[^>]+>/gi, '');
         console.log(this.eventDetail.description.replace(/< \/?[^>]+>/gi, ''));
@@ -243,6 +248,14 @@ export class EventPageDesignComponent implements OnInit {
 
     });
 
+  }
+  fnGoogleMap(address){
+    this.SettingService.googleMap(address).subscribe((response:any) => {
+      if(response.status =='OK'){
+        var results = response.results[0].geometry.location;
+         this.eventLocationSrc =  this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q='+results.lat+','+results.lng+'&z=15&output=embed');
+      }
+    });
   }
 
 }

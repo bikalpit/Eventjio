@@ -292,4 +292,11 @@ export class SettingService {
         }),catchError(this.handleError));
     }
 
+      googleMap(address) {
+        return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyA8RwRCpG7ajbR-pl0D58oUGzi83c6RCYk`).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+
 }
