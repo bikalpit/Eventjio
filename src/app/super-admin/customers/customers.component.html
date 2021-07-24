@@ -191,10 +191,12 @@
                                     <div class="col-12 px-3 pt-3 add-customer-div-title" *ngIf="editCustomerForm">
                                         Edit Customer
                                     </div>
-                                    <div class="col-12 px-3 sub-heading">
-                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate perferendis ipsum.
+                                    <div class="col-12 px-3 sub-heading" *ngIf="!editCustomerForm">
+                                        Here you can add your customers’ detail for your reference.
                                     </div>
-
+                                    <div class="col-12 px-3 sub-heading" *ngIf="editCustomerForm">
+                                        Here you can edit your customers’ detail for your reference.
+                                    </div>
                                     <div class="col-12 px-3 mt-3">
                                         <div>
                                             <label>Add Image</label>
@@ -210,7 +212,7 @@
                                                 <img class="w-100 h-100" src="{{selectedCustomerDetails.image}}">
                                             </div>
                                             <div class="px-3 py-42 add-customer-file" *ngIf="!customerImageUrl">
-                                                <span>No file Choosen</span>
+                                                <span>No file chosen</span>
                                                 <p class="mt-2">
                                                     Upload image (in .jpg, .jpeg or .png format), <br /> and the image size should not exceed 200x200.
                                                 </p>
