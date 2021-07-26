@@ -100,108 +100,116 @@
                     class="text-center w-100 mt-2 py-3 box-office-title">
                     {{boxOfficeName}}
                 </div>
-                <div *ngIf="allEventList.length > 0 && displayCol != 'horizontal'" class="row my-3">
-                    <div class="col-md-6 col-12 col-sm-6 mb-3 "
-                    [ngClass]="{'col-lg-6 col-xl-6' : displayCol == '2', 'col-lg-3 col-xl-3' : displayCol == '4'}"
-                    *ngFor="let boxOfficeEventList of allEventList; let i=index">
-                    <div class="common-events-listing page-color page-bgcolor">
-                        <div class="top-event-img">
+                <div *ngIf="allEventList.length > 0 && displayCol != 'horizontal'" class="row my-3 verticle-view">
+                    <div class="col-md-6 col-12 col-sm-6 mb-3 " 
+                        [ngClass]="{'col-lg-6 col-xl-6' : displayCol == '2', 'col-lg-3 col-xl-3' : displayCol == '4'}"
+                        *ngFor="let boxOfficeEventList of allEventList; let i=index">
+                        <div class="common-events-listing page-color page-bgcolor" [style.background]="pageColor" [style.color]="pageTextColor">
+                            <!-- <div class="top-event-img">
                             <img *ngIf="boxOfficeEventList.images == undefined" src="../assets/images/Events.png"
                                 class="w-100" style="max-height: 130px;" alt="">
                             <img *ngIf="boxOfficeEventList.images !== undefined"
                                 src="{{boxOfficeEventList.images[0].image}}" style="max-height: 130px;" class="w-100"
                                 alt="">
-                        </div>
-                        <div class="events-title">
-                            <h3>{{boxOfficeEventList.event_title}}</h3>
-                            <p [innerHTML]="boxOfficeEventList.description" class="boxoffice-desc"></p>
-                        </div>
-                        <div class="events-venue-date">
-                            <div class="common-datevenue">
-                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                                <p> {{boxOfficeEventList.start_date}} {{boxOfficeEventList.start_time}} </p>
+                        </div> -->
+                            <div *ngIf="boxOfficeEventList.images == undefined" class="top-event-img"
+                                style="background-image: url(../assets/images/Events.png);">
                             </div>
-                            <div class="common-datevenue">
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                <p
-                                    *ngIf="boxOfficeEventList.online_event == 'N' && boxOfficeEventList.country !== undefined ">
-                                    {{boxOfficeEventList.venue_name}},{{boxOfficeEventList.postal_code}}</p>
-                                <p *ngIf="boxOfficeEventList.online_event == 'Y'">Online Event</p>
-                            </div>
-                        </div>
-                        <div class="Event-price-view">
-                            <div class="common-priceview">
-                                <p> From </p>
-                                <p
-                                    *ngIf="boxOfficeEventList.min_event_cost || boxOfficeEventList.min_event_cost !== undefined">
-                                    {{ boxOfficeEventList.min_event_cost[0].Amt | currency:
-                                    boxOfficeEventList.event_setting.currency :'symbol':'1.2-2'}}</p>
-                                <!-- {{currencySymbol}}{{boxOfficeEventList.min_event_cost[0].Amt}} -->
-                                <!-- {{ 0 | currency: currencySymbol :'symbol':'1.2-2'}} -->
-                                <!-- {{currency:"USD":"symbol"}} -->
-                            </div>
-                            <div class="common-priceview">
-                                <button mat-raised-button                                    class="viewevents-btn btn-color btn-bgcolor">View Events</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-                <div *ngIf="allEventList.length > 0 && displayCol == 'horizontal'">
-                    <div class="col-md-6 col-12 col-sm-6 mb-3 col-lg-12 col-xl-12"
-                    *ngFor="let boxOfficeEventList of allEventList; let i=index">
-                    <div class="common-events-listing page-color page-bgcolor">
-                        <div *ngIf="boxOfficeEventList.images == undefined" class="top-event-img"
-                            style="background-image: url(../assets/images/Events.png);">
-                        </div>
-                        <div *ngIf="boxOfficeEventList.images !== undefined" class="top-event-img"
-                            [ngStyle]="{'backgroundImage': 'url(' + boxOfficeEventList.images[0].image + ')'}">
-                            <!-- <img *ngIf="boxOfficeEventList.images == undefined" src="../assets/images/Events.png" class="w-100" style="max-height: 130px;" alt="">
+                            <div *ngIf="boxOfficeEventList.images !== undefined" class="top-event-img"
+                                [ngStyle]="{'backgroundImage': 'url(' + boxOfficeEventList.images[0].image + ')'}">
+                                <!-- <img *ngIf="boxOfficeEventList.images == undefined" src="../assets/images/Events.png" class="w-100" style="max-height: 130px;" alt="">
                             <img *ngIf="boxOfficeEventList.images !== undefined" src="{{boxOfficeEventList.images[0].image}}" style="max-height: 130px;" class="w-100" alt=""> -->
-                        </div>
-                        <div class="event-details">
+                            </div>
                             <div class="events-title">
                                 <h3>{{boxOfficeEventList.event_title}}</h3>
                                 <p [innerHTML]="boxOfficeEventList.description" class="boxoffice-desc"></p>
                             </div>
-                            <div class="bottom-card">
-
-
-                                <div class="events-venue-date">
-                                    <div class="common-datevenue">
-                                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                                        <p> {{boxOfficeEventList.start_date}} {{boxOfficeEventList.start_time}} </p>
-                                    </div>
-                                    <div class="common-datevenue">
-                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                        <p
-                                            *ngIf="boxOfficeEventList.online_event == 'N' && boxOfficeEventList.country !== undefined ">
-                                            {{boxOfficeEventList.venue_name}},{{boxOfficeEventList.postal_code}}</p>
-                                        <p *ngIf="boxOfficeEventList.online_event == 'Y'">Online Event</p>
-                                    </div>
+                            <div class="events-venue-date">
+                                <div class="common-datevenue">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                    <p> {{boxOfficeEventList.start_date}} {{boxOfficeEventList.start_time}} </p>
                                 </div>
-                                <div class="Event-price-view">
-                                    <div class="common-priceview">
-                                        <p> From </p>
-                                        <p
-                                            *ngIf="boxOfficeEventList.min_event_cost || boxOfficeEventList.min_event_cost !== undefined">
-                                            {{ boxOfficeEventList.min_event_cost[0].Amt | currency:
-                                            boxOfficeEventList.event_setting.currency :'symbol':'1.2-2'}}</p>
-                                        <!-- {{currencySymbol}}{{boxOfficeEventList.min_event_cost[0].Amt}} -->
-                                        <!-- {{ 0 | currency: currencySymbol :'symbol':'1.2-2'}} -->
-                                        <!-- {{currency:"USD":"symbol"}} -->
+                                <div class="common-datevenue">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <p
+                                        *ngIf="boxOfficeEventList.online_event == 'N' && boxOfficeEventList.country !== undefined ">
+                                        {{boxOfficeEventList.venue_name}},{{boxOfficeEventList.postal_code}}</p>
+                                    <p *ngIf="boxOfficeEventList.online_event == 'Y'">Online Event</p>
+                                </div>
+                            </div>
+                            <div class="Event-price-view">
+                                <div class="common-priceview">
+                                    <p> From </p>
+                                    <p
+                                        *ngIf="boxOfficeEventList.min_event_cost || boxOfficeEventList.min_event_cost !== undefined">
+                                        {{ boxOfficeEventList.min_event_cost[0].Amt | currency:
+                                        boxOfficeEventList.event_setting.currency :'symbol':'1.2-2'}}</p>
+                                    <!-- {{currencySymbol}}{{boxOfficeEventList.min_event_cost[0].Amt}} -->
+                                    <!-- {{ 0 | currency: currencySymbol :'symbol':'1.2-2'}} -->
+                                    <!-- {{currency:"USD":"symbol"}} -->
+                                </div>
+                                <div class="common-priceview">
+                                    <button mat-raised-button [style.background]="btnColor" [style.color]="btnTextColor" class="viewevents-btn btn-color btn-bgcolor">View
+                                        Events</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mx-1 horizontal-view" *ngIf="allEventList.length > 0 && displayCol == 'horizontal'">
+                    <div class="col-md-12 col-12 col-sm-12 mb-3 col-lg-12 col-xl-12"
+                        *ngFor="let boxOfficeEventList of allEventList; let i=index">
+                        <div class="common-events-listing page-color page-bgcolor" [style.background]="pageColor" [style.color]="pageTextColor">
+                            <div *ngIf="boxOfficeEventList.images == undefined" class="top-event-img"
+                                style="background-image: url(../assets/images/Events.png);">
+                            </div>
+                            <div *ngIf="boxOfficeEventList.images !== undefined" class="top-event-img"
+                                [ngStyle]="{'backgroundImage': 'url(' + boxOfficeEventList.images[0].image + ')'}">
+                                <!-- <img *ngIf="boxOfficeEventList.images == undefined" src="../assets/images/Events.png" class="w-100" style="max-height: 130px;" alt="">
+                            <img *ngIf="boxOfficeEventList.images !== undefined" src="{{boxOfficeEventList.images[0].image}}" style="max-height: 130px;" class="w-100" alt=""> -->
+                            </div>
+                            <div class="event-details">
+                                <div class="events-title">
+                                    <h3>{{boxOfficeEventList.event_title}}</h3>
+                                    <p [innerHTML]="boxOfficeEventList.description" class="boxoffice-desc"></p>
+                                </div>
+                                <div class="bottom-card">
+
+
+                                    <div class="events-venue-date">
+                                        <div class="common-datevenue">
+                                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                            <p> {{boxOfficeEventList.start_date}} {{boxOfficeEventList.start_time}} </p>
+                                        </div>
+                                        <div class="common-datevenue">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            <p
+                                                *ngIf="boxOfficeEventList.online_event == 'N' && boxOfficeEventList.country !== undefined ">
+                                                {{boxOfficeEventList.venue_name}},{{boxOfficeEventList.postal_code}}</p>
+                                            <p *ngIf="boxOfficeEventList.online_event == 'Y'">Online Event</p>
+                                        </div>
                                     </div>
-                                    <div class="common-priceview">
-                                        <button mat-raised-button
-                                            
-                                            class="viewevents-btn btn-color btn-bgcolor">View Events</button>
+                                    <div class="Event-price-view">
+                                        <div class="common-priceview">
+                                            <p> From </p>
+                                            <p
+                                                *ngIf="boxOfficeEventList.min_event_cost || boxOfficeEventList.min_event_cost !== undefined">
+                                                {{ boxOfficeEventList.min_event_cost[0].Amt | currency:
+                                                boxOfficeEventList.event_setting.currency :'symbol':'1.2-2'}}</p>
+                                            <!-- {{currencySymbol}}{{boxOfficeEventList.min_event_cost[0].Amt}} -->
+                                            <!-- {{ 0 | currency: currencySymbol :'symbol':'1.2-2'}} -->
+                                            <!-- {{currency:"USD":"symbol"}} -->
+                                        </div>
+                                        <div class="common-priceview">
+                                            <button [style.background]="btnColor" [style.color]="btnTextColor" mat-raised-button class="viewevents-btn btn-color btn-bgcolor">View
+                                                Events</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                     <!-- <div class="signle-event" *ngFor="let allEventList of allEventList; let i=index">
                         <div class="rounded">
                             <div [style.background]="pageColor" [style.color]="pageTextColor" class="row mx-0 br-6">
@@ -1865,7 +1873,7 @@
                 </div>
                 <div class="third-column">
                     <div class="row mx-0">
-                        
+
                         <label class="col-8">Event column in row on List</label>
                         <label class="col-4">
                             <div class=" color-code d-block font-selection-main">

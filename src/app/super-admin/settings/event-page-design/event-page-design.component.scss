@@ -995,3 +995,113 @@
     }
   }
 }
+
+
+.horizontal-view {
+  .common-events-listing {
+      display: flex;
+      .top-event-img {
+          background-position: center;
+          width: 250px;
+          background-size: cover;
+          background-repeat: no-repeat;
+      }
+      .event-details {
+          width: calc(100% - 250px);
+      }
+      .bottom-card {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+          border-bottom: none;
+          .events-venue-date {
+              border-bottom: none !important;
+          }
+          .Event-price-view {
+              flex-direction: column;
+          }
+          .common-priceview {
+              width: 100%;
+              margin-bottom: 6px;
+              display: flex;
+              justify-content: space-between;
+          }
+      }
+  }
+}
+
+.list-events {
+  .verticle-view{
+    .top-event-img {
+        background-position: center;
+        height: 200px;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+  }
+  .top-heading-event {
+      h3 {
+          font-size: 20px;
+          text-align: justify;
+          margin: 24px 0px;
+          padding: 10px;
+      }
+  }
+  .common-events-listing {
+      box-shadow: 0 1px 14px 0px #005eff26;
+      border-radius: 6px;
+      overflow: hidden;
+      .events-title {
+          // background-color: #EFF5FF;
+          padding: 14px;
+          h3 {
+              font-size: 16px;
+              margin: 0px;
+              font-weight: 500;
+              text-align: justify;
+          }
+          p {
+              font-size: 12px;
+              margin: 0px;
+              ::ng-deep p {
+                  margin-bottom: 0 !important;
+              }
+          }
+      }
+      .events-venue-date {
+          padding: 10px 16px;
+          border-bottom: 1px solid #ccc;
+          .common-datevenue {
+              display: flex;
+              align-items: center;
+              margin-bottom: 10px;
+              p {
+                  margin: 0px;
+                  margin-left: 12px;
+              }
+          }
+      }
+      .Event-price-view {
+          padding: 10px 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .common-priceview {
+              p {
+                  font-size: 12px;
+                  margin: 0px;
+              }
+              h3 {
+                  font-weight: 600;
+                  text-align: initial;
+                  font-size: 20px;
+                  margin: 0px;
+              }
+              .viewevents-btn {
+                  background-color: #0d66ff;
+                  color: #fff;
+              }
+          }
+      }
+  }
+}
