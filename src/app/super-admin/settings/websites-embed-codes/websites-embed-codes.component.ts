@@ -155,10 +155,10 @@ export class WebsitesEmbedCodesComponent implements OnInit {
         this.editWidgetsoptionForm.controls['eventTitle'].setValue(this.embedCodeOption.eventTitle)
 
         if(this.embedCodeOption.eventTitle == 'all'){
-          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/box-office/"+this.boxOfficeId+"' frameborder='0'></iframe>";
+          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/box-office/"+this.boxOfficeId+"?iframe=true' frameborder='0'></iframe>";
           this.embededCodePreview = this.transform(this.embededCode);
         }else{
-          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/event/"+this.embedCodeOption.eventTitle+"' frameborder='0'></iframe>";
+          this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookingPageUrl+"/event/"+this.embedCodeOption.eventTitle+"?iframe=true' frameborder='0'></iframe>";
           this.embededCodePreview = this.transform(this.embededCode);
         }
         console.log(this.embededCodePreview)
