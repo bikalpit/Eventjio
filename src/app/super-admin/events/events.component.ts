@@ -726,6 +726,11 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
       }else if(response.data == false){
         this.errorService.errorMessage(response.response);
       }
+      if(this.clickedIndex == 0){
+        this.fnGetUpcomingEventList();
+      }else if(this.clickedIndex == 1){
+        this.fnGetPastEventList();
+      }
     this.isLoaderAdmin = false;
     });
   }

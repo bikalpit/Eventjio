@@ -222,7 +222,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToCustomizeEvent(){
-    this.router.navigate(['/super-admin/settings']); 
+    this.router.navigate(['/super-admin/settings/event-page-design']); 
   }
 
   fnGetUpcomingEventList(){

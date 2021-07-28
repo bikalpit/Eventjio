@@ -91,3 +91,35 @@ sans-serif;
 
 $bg-darkblue:#eef5ff;
 $bg-header:#cfe3fc;
+
+.header-color {
+    color: $headerTextColor !important;
+}
+
+.header-bgcolor {
+    background-color: $headerColor !important;
+}
+
+.page-color {
+    color: $pageTextColor !important;
+}
+
+.page-bgcolor {
+    background-color: $pageColor !important;
+}
+
+.btn-color {
+    color: $btnTextColor !important;
+}
+
+.btn-bgcolor {
+    background-color: $btnColor !important;
+}
+
+.bg-color {
+    background-color: $bgColor !important;
+}
+
+.SelectedFont {
+    font-family: $fontFamily !important;
+}

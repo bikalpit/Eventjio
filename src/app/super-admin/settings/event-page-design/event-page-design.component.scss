@@ -625,7 +625,7 @@
         }
       }
       .bottom-help-tickets {
-        background-color: #FFE6C8;
+        // background-color: #FFE6C8;
         padding: 34px 26px;
         text-align: center;
         display: flex;
@@ -633,14 +633,14 @@
         align-items: center;
         h3 {
             font-weight: 500;
-            color: #2C2C2C;
+            // color: #2C2C2C;
         }
         .privacy-policy{
             text-decoration: underline;
         }
         .btn {
             padding: 4px 20px;
-            color: #fff !important;
+            // color: #fff !important;
             display: inline-block;
         }
         .right-logo-section{
@@ -1104,4 +1104,31 @@
           }
       }
   }
+  .bottom-help-tickets {
+    width: 100%;
+    // background-color: #FFE6C8;
+    padding: 34px 26px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h3 {
+        font-weight: 500;
+        // color: #2C2C2C;
+    }
+    .privacy-policy{
+        text-decoration: underline;
+    }
+    .btn {
+        padding: 4px 20px;
+        // color: #fff !important;
+        display: inline-block;
+    }
+    .right-logo-section{
+        p{
+            margin-bottom: 0px;
+            text-align: end;
+        }
+    }
+}
 }

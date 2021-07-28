@@ -92,12 +92,25 @@
                     <div *ngIf="allEventList.length == 0">
                         <h3> No Events.</h3>
                     </div>
+                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                        <div> 
+                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                        </div>
+                            <div>
+                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                    <p class="header-color"> Powered by </p>
+                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                </a>
+                            </div>
+                    </div>
                 </div>
                 <div class="home"></div>
             </div>
             <div [style.background]="bgColor" *ngIf="eventPageView == 'desktop'" class="list-events">
                 <div [style.background]="headerColor" [style.color]="headerTextColor"
-                    class="text-center w-100 mt-2 py-3 box-office-title">
+                    class="text-center w-100 my-2 py-3 box-office-title">
                     {{boxOfficeName}}
                 </div>
                 <div *ngIf="allEventList.length > 0 && displayCol != 'horizontal'" class="row my-3 verticle-view w-100">
@@ -210,47 +223,22 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="signle-event" *ngFor="let allEventList of allEventList; let i=index">
-                        <div class="rounded">
-                            <div [style.background]="pageColor" [style.color]="pageTextColor" class="row mx-0 br-6">
-                                <div *ngIf="allEventList.images !== undefined && allEventList.images !== null"
-                                    [ngStyle]="{'backgroundImage': 'url(' + allEventList.images[0].image + ')'}"
-                                    class="col-3 p-0 Sparking_Events-img">
-                                </div>
-
-                                <div class="col-9 p-2">
-                                    <div class="row">
-                                        <div class="px-4 py-2">
-                                            <p class="">{{allEventList.event_title}}</p>
-                                            <p><i class="fa fa-calendar-check-o pr-2"></i>{{allEventList.start_date}}
-                                            </p>
-                                            <p *ngIf="allEventList.online_event == 'N'"><i
-                                                    class="fa fa-map-marker pr-2 "></i>{{allEventList.venue_name}} -
-                                                {{allEventList.postal_code}}</p>
-                                            <p *ngIf="allEventList.online_event == 'Y'"><i
-                                                    class="fa fa-map-marker pr-2 "></i> Online -
-                                                <span *ngIf="allEventList.platform == 'Z'">Zoom</span>
-                                                <span *ngIf="allEventList.platform == 'GH'">Google Hangout</span>
-                                                <span *ngIf="allEventList.platform == 'YU'">Youtube</span>
-                                                <span *ngIf="allEventList.platform == 'HP'">Hopin</span>
-                                                <span *ngIf="allEventList.platform == 'VM'">Vimeo</span>
-                                                <span *ngIf="allEventList.platform == 'SKY'">Skype</span>
-                                                <span *ngIf="allEventList.platform == 'OTH'">Other</span>
-                                            </p>
-                                        </div>
-                                        <div class="ml-auto px-4 py-2">
-                                            <button [style.background]="btnColor" [style.color]="btnTextColor"
-                                                mat-flat-button> Book Ticket</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
                 </div>
                 <div *ngIf="allEventList.length == 0">
                     <h3> No Events.</h3>
+                </div>
+                <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                    <div> 
+                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                        mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                    </div>
+                        <div>
+                            <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                <p class="header-color"> Powered by </p>
+                                <img src="../../assets/images/logo/footer-logo.png"/>
+                            </a>
+                        </div>
                 </div>
             </div>
         </div>
@@ -393,19 +381,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets">
-                                        <div>
-                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                                    Policy </a></h3>
-                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                                Event Organizer </a>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
-                                        <div class="right-logo-section">
-                                            <p> distributed by </p>
-                                            <img src="../../assets/images/logo/logo-black.png" />
-                                        </div>
-
+                                            <div>
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class="header-color"> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
                                     </div>
                                 </div>
                                 <div id="theme_2" class="main-preview-wrap Event-page page-color page-bgcolor"
@@ -517,19 +504,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets">
-                                        <div>
-                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                                    Policy </a></h3>
-                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                                Event Organizer </a>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
-                                        <div class="right-logo-section">
-                                            <p> distributed by </p>
-                                            <img src="../../assets/images/logo/logo-black.png" />
-                                        </div>
-
+                                            <div>
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class="header-color"> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
                                     </div>
                                 </div>
 
@@ -629,19 +615,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets">
-                                        <div>
-                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                                    Policy </a></h3>
-                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                                Event Organizer </a>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
-                                        <div class="right-logo-section">
-                                            <p> distributed by </p>
-                                            <img src="../../assets/images/logo/logo-black.png" />
-                                        </div>
-
+                                            <div>
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class="header-color"> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
                                     </div>
                                 </div>
 
@@ -748,19 +733,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets">
-                                        <div>
-                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                                    Policy </a></h3>
-                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                                Event Organizer </a>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
-                                        <div class="right-logo-section">
-                                            <p> distributed by </p>
-                                            <img src="../../assets/images/logo/logo-black.png" />
-                                        </div>
-
+                                            <div>
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class="header-color"> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
                                     </div>
                                 </div>
 
@@ -873,19 +857,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets">
-                                        <div>
-                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                                    Policy </a></h3>
-                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                                Event Organizer </a>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
-                                        <div class="right-logo-section">
-                                            <p> distributed by </p>
-                                            <img src="../../assets/images/logo/logo-black.png" />
-                                        </div>
-
+                                            <div>
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class="header-color"> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
                                     </div>
                                 </div>
 
@@ -999,19 +982,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets">
-                                        <div>
-                                            <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                                    Policy </a></h3>
-                                            <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                                target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                                Event Organizer </a>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
-                                        <div class="right-logo-section">
-                                            <p> distributed by </p>
-                                            <img src="../../assets/images/logo/logo-black.png" />
-                                        </div>
-
+                                            <div>
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class="header-color"> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
                                     </div>
                                 </div>
 
@@ -1140,19 +1122,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets">
-                                <div>
-                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                            Policy </a></h3>
-                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                        Event Organizer </a>
+                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
-                                <div class="right-logo-section">
-                                    <p> distributed by </p>
-                                    <img src="../../assets/images/logo/logo-black.png" />
-                                </div>
-
+                                    <div>
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class="header-color"> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
                             </div>
                         </div>
                         <div id="theme_2" class="main-preview-wrap Event-page page-color page-bgcolor"
@@ -1255,19 +1236,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets">
-                                <div>
-                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                            Policy </a></h3>
-                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                        Event Organizer </a>
+                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
-                                <div class="right-logo-section">
-                                    <p> distributed by </p>
-                                    <img src="../../assets/images/logo/logo-black.png" />
-                                </div>
-
+                                    <div>
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class="header-color"> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
                             </div>
                         </div>
 
@@ -1359,19 +1339,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets">
-                                <div>
-                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                            Policy </a></h3>
-                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                        Event Organizer </a>
+                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
-                                <div class="right-logo-section">
-                                    <p> distributed by </p>
-                                    <img src="../../assets/images/logo/logo-black.png" />
-                                </div>
-
+                                    <div>
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class="header-color"> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
                             </div>
                         </div>
 
@@ -1469,19 +1448,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets">
-                                <div>
-                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                            Policy </a></h3>
-                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                        Event Organizer </a>
+                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
-                                <div class="right-logo-section">
-                                    <p> distributed by </p>
-                                    <img src="../../assets/images/logo/logo-black.png" />
-                                </div>
-
+                                    <div>
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class="header-color"> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
                             </div>
                         </div>
 
@@ -1586,19 +1564,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets">
-                                <div>
-                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                            Policy </a></h3>
-                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                        Event Organizer </a>
+                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
-                                <div class="right-logo-section">
-                                    <p> distributed by </p>
-                                    <img src="../../assets/images/logo/logo-black.png" />
-                                </div>
-
+                                    <div>
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class="header-color"> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
                             </div>
                         </div>
 
@@ -1704,19 +1681,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets">
-                                <div>
-                                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy
-                                            Policy </a></h3>
-                                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
-                                        target="_blank" mat-flat-button class="bg-primary btn"> Contact the
-                                        Event Organizer </a>
+                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
-                                <div class="right-logo-section">
-                                    <p> distributed by </p>
-                                    <img src="../../assets/images/logo/logo-black.png" />
-                                </div>
-
+                                    <div>
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class="header-color"> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
                             </div>
                         </div>
 

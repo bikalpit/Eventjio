@@ -418,6 +418,10 @@ export class addBuyerQuestionDialog {
 
       if(this.singleQuestion && this.singleQuestion.default){
         newQuestion['default']  = true;
+        newQuestion['controlName']  = this.singleQuestion.controlName;
+      }
+      if(this.singleQuestion && this.singleQuestion.hide){
+        newQuestion['hide']  = this.singleQuestion.hide;
       }
 
       if(this.singleQuestion.index == 3){
@@ -572,6 +576,10 @@ export class addAttendeeQuestionDialog {
       
       if(this.singleQuestion && this.singleQuestion.default){
         newQuestion['default']  = true;
+        newQuestion['controlName']  = this.singleQuestion.controlName;
+      }
+      if(this.singleQuestion && this.singleQuestion.hide){
+        newQuestion['hide']  = this.singleQuestion.hide;
       }
 
       if(this.singleQuestion.index == 3){

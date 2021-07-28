@@ -492,6 +492,10 @@ export class addBuyeronlyQuestionDialog {
         newQuestion['default']  = true;
         newQuestion['controlName']  = this.singleQuestion.controlName;
       }
+      
+      if(this.singleQuestion && this.singleQuestion.hide){
+        newQuestion['hide']  = this.singleQuestion.hide;
+      }
 
       if(this.singleQuestion.index == 3){
         newQuestion['addressForamteStyle'] = this.addressForamteStyle;
@@ -628,6 +632,14 @@ export class addAttendeeonlyQuestionDialog {
         'options' : this.newAttendeeQForm.get('options').value,
         'terms' : this.newAttendeeQForm.get('terms').value,
         'index' : this.singleQuestion.index,
+      }
+
+      if(this.singleQuestion && this.singleQuestion.hide){
+        newQuestion['hide']  = this.singleQuestion.hide;
+      }
+      if(this.singleQuestion && this.singleQuestion.default){
+        newQuestion['default']  = true;
+        newQuestion['controlName']  = this.singleQuestion.controlName;
       }
       const index: number = this.allQuestionlist[0].attendee_questions.indexOf(this.singleQuestion);
       this.allQuestionlist[0].attendee_questions.splice(index, 1);
