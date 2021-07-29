@@ -1038,7 +1038,48 @@
   }
 }
 
-
+.verticle-view {
+  .events-venue-date {
+      display: flex;
+      margin: 0px 20px;
+      border-bottom: 1px solid #ccc;
+      padding: 6px 0px !important;
+      .common-datevenue {
+          display: flex;
+          align-items: center;
+          margin-right: 30px;
+          &:last-child {
+              margin-right: 0px;
+          }
+          p {
+              margin-bottom: 0px;
+              margin-left: 10px;
+          }
+      }
+  }
+  .display-col-2 {
+      .common-priceview {
+          button {
+              width: 300px;
+          }
+      }
+      .top-event-img{
+          height: 240px !important;
+      }
+      .events-title{
+          padding: 14px 14px !important;
+      }
+  }
+  .display-col-4{
+    .events-title{
+      padding: 18px 14px !important; 
+    }  
+    .events-venue-date{
+      padding: 10px 6px !important;
+      margin: 0px 6px;
+    }
+  }
+}
 .horizontal-view {
   .common-events-listing {
       display: flex;
@@ -1052,24 +1093,75 @@
           width: calc(100% - 250px);
       }
       .bottom-card {
-          display: flex;
-          width: 100%;
-          justify-content: space-between;
-          border-bottom: none;
-          .events-venue-date {
-              border-bottom: none !important;
-          }
-          .Event-price-view {
-              flex-direction: column;
-          }
-          .common-priceview {
-              width: 100%;
-              margin-bottom: 6px;
-              display: flex;
-              justify-content: space-between;
-          }
-      }
+        border-bottom: none;
+        .events-venue-date {
+            border-bottom: none !important;
+            display: flex;
+            padding: 6px 16px;
+            .common-datevenue {
+                margin-right: 30px;
+                display: flex;
+        align-items: center;
+                &:last-child {
+                    margin-right: 0px;
+                }
+                p {
+                    margin-bottom: 0px;
+                    margin-left: 10px;
+                }
+            }
+        }
+        // .Event-price-view {
+        //     flex-direction: column;
+        // }
+        .common-priceview {
+            margin-bottom: 6px;
+        }
+    }
   }
+  .display-col-1 {
+    .top-event-img {
+        width: 400px;
+    }
+    .event-details{
+        padding: 10px 0px;
+        .events-title{
+            padding: 14px 14px;
+        }
+    }
+}
+.display-col-2 {
+    .top-event-img {
+        width: 180px;
+    }
+    .event-details {
+        width: calc(100% - 180px);
+        .bottom-card {
+            padding: 0px 20px;
+            .events-venue-date {
+                border-bottom: 1px solid #ccc !important;
+                padding: 10px 0px !important;
+                .common-datevenue {
+                    margin-right: 10px;
+                    display: flex;
+                    align-items: center;
+                    p {
+                        margin-bottom: 0px;
+                        margin-left: 10px;
+                    }
+                }
+            }
+            .Event-price-view {
+                padding: 10px 0px !important;
+                .common-priceview {
+                    button {
+                        width: 200px;
+                    }
+                }
+            }
+        }
+    }
+}
 }
 
 .list-events {
