@@ -62,9 +62,8 @@
                                         <div class="row">
                                             <div class="px-4 py-2">
                                                 <p class="event-title">{{allEventList.event_title}}</p>
-                                                <p><i
-                                                        class="fa fa-calendar-check-o pr-2 "></i>{{allEventList.start_date}}
-                                                </p>
+                                                <p *ngIf="allEventList.event_occurrence_type == 'N'"><i class="fa fa-calendar-check-o pr-2 "></i>{{allEventList.start_date}} {{allEventList.start_time}} </p>
+                                                <p *ngIf="allEventList.event_occurrence_type == 'Y'"><i class="fa fa-calendar-check-o pr-2 "></i>{{allEventList.start_date}} {{allEventList.start_time}} </p>
                                                 <p *ngIf="allEventList.online_event == 'N'"><i
                                                         class="fa fa-map-marker pr-2 "></i>{{allEventList.venue_name}} -
                                                     {{allEventList.postal_code}}</p>
@@ -92,10 +91,23 @@
                     <div *ngIf="allEventList.length == 0">
                         <h3> No Events.</h3>
                     </div>
-                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                    <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                        <div> 
+                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                        <a 
+                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                        </div>
+                            <div *ngIf="hide_tailor_logo== 'N'">
+                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                    <p class=""> Powered by </p>
+                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                </a>
+                            </div>
+                    </div>
+                    <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                         <div> 
                         <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                        <a 
                             mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                         </div>
                             <div>
@@ -118,29 +130,24 @@
                         [ngClass]="{'col-lg-6 col-xl-6' : displayCol == '2', 'col-lg-3 col-xl-3' : displayCol == '4'}"
                         *ngFor="let boxOfficeEventList of allEventList; let i=index">
                         <div class="common-events-listing page-color page-bgcolor" [style.background]="pageColor" [style.color]="pageTextColor">
-                            <!-- <div class="top-event-img">
-                            <img *ngIf="boxOfficeEventList.images == undefined" src="../assets/images/Events.png"
-                                class="w-100" style="max-height: 130px;" alt="">
-                            <img *ngIf="boxOfficeEventList.images !== undefined"
-                                src="{{boxOfficeEventList.images[0].image}}" style="max-height: 130px;" class="w-100"
-                                alt="">
-                        </div> -->
                             <div *ngIf="boxOfficeEventList.images == undefined" class="top-event-img"
                                 style="background-image: url(../assets/images/Events.png);">
                             </div>
                             <div *ngIf="boxOfficeEventList.images !== undefined" class="top-event-img"
                                 [ngStyle]="{'backgroundImage': 'url(' + boxOfficeEventList.images[0].image + ')'}">
-                                <!-- <img *ngIf="boxOfficeEventList.images == undefined" src="../assets/images/Events.png" class="w-100" style="max-height: 130px;" alt="">
-                            <img *ngIf="boxOfficeEventList.images !== undefined" src="{{boxOfficeEventList.images[0].image}}" style="max-height: 130px;" class="w-100" alt=""> -->
                             </div>
                             <div class="events-title">
                                 <h3>{{boxOfficeEventList.event_title}}</h3>
                                 <p [innerHTML]="boxOfficeEventList.description" class="boxoffice-desc"></p>
                             </div>
                             <div class="events-venue-date">
-                                <div class="common-datevenue">
+                                <div *ngIf="boxOfficeEventList.event_occurrence_type == 'N'" class="common-datevenue">
                                     <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                                     <p> {{boxOfficeEventList.start_date}} {{boxOfficeEventList.start_time}} </p>
+                                </div>
+                                <div *ngIf="boxOfficeEventList.event_occurrence_type == 'Y'" class="common-datevenue">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                    <p> Multiple dates and times</p>
                                 </div>
                                 <div class="common-datevenue">
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -151,15 +158,19 @@
                                 </div>
                             </div>
                             <div class="Event-price-view">
-                                <div class="common-priceview">
+                                <div *ngIf="boxOfficeEventList.event_occurrence_type == 'N'" class="common-priceview">
                                     <p> From </p>
                                     <p
                                         *ngIf="boxOfficeEventList.min_event_cost || boxOfficeEventList.min_event_cost !== undefined">
                                         {{ boxOfficeEventList.min_event_cost[0].Amt | currency:
                                         boxOfficeEventList.event_setting.currency :'symbol':'1.2-2'}}</p>
-                                    <!-- {{currencySymbol}}{{boxOfficeEventList.min_event_cost[0].Amt}} -->
-                                    <!-- {{ 0 | currency: currencySymbol :'symbol':'1.2-2'}} -->
-                                    <!-- {{currency:"USD":"symbol"}} -->
+                                </div>
+                                <div *ngIf="boxOfficeEventList.event_occurrence_type == 'Y'" class="common-priceview">
+                                    <p> From </p>
+                                    <p
+                                        *ngIf="boxOfficeEventList.occurrence[0].min_event_cost || boxOfficeEventList.occurrence[0].min_event_cost !== undefined">
+                                        {{ boxOfficeEventList.occurrence[0].min_event_cost[0].Amt | currency:
+                                        boxOfficeEventList.event_setting.currency :'symbol':'1.2-2'}}</p>
                                 </div>
                                 <div class="common-priceview">
                                     <button mat-raised-button [style.background]="btnColor" [style.color]="btnTextColor" class="viewevents-btn btn-color btn-bgcolor">View
@@ -191,9 +202,13 @@
 
 
                                     <div class="events-venue-date">
-                                        <div class="common-datevenue">
+                                        <div *ngIf="boxOfficeEventList.event_occurrence_type == 'N'" class="common-datevenue">
                                             <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                                             <p> {{boxOfficeEventList.start_date}} {{boxOfficeEventList.start_time}} </p>
+                                        </div>
+                                        <div *ngIf="boxOfficeEventList.event_occurrence_type == 'Y'" class="common-datevenue">
+                                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                            <p> Multiple dates and times</p>
                                         </div>
                                         <div class="common-datevenue">
                                             <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -204,11 +219,21 @@
                                         </div>
                                     </div>
                                     <div class="Event-price-view">
-                                        <div class="common-priceview">
+                                        <div *ngIf="boxOfficeEventList.event_occurrence_type == 'N'" class="common-priceview">
                                             <p> From </p>
                                             <p
                                                 *ngIf="boxOfficeEventList.min_event_cost || boxOfficeEventList.min_event_cost !== undefined">
                                                 {{ boxOfficeEventList.min_event_cost[0].Amt | currency:
+                                                boxOfficeEventList.event_setting.currency :'symbol':'1.2-2'}}</p>
+                                            <!-- {{currencySymbol}}{{boxOfficeEventList.min_event_cost[0].Amt}} -->
+                                            <!-- {{ 0 | currency: currencySymbol :'symbol':'1.2-2'}} -->
+                                            <!-- {{currency:"USD":"symbol"}} -->
+                                        </div>
+                                        <div *ngIf="boxOfficeEventList.event_occurrence_type == 'Y'" class="common-priceview">
+                                            <p> From </p>
+                                            <p
+                                                *ngIf="boxOfficeEventList.occurrence[0].min_event_cost || boxOfficeEventList.occurrence[0].min_event_cost !== undefined">
+                                                {{ boxOfficeEventList.occurrence[0].min_event_cost[0].Amt | currency:
                                                 boxOfficeEventList.event_setting.currency :'symbol':'1.2-2'}}</p>
                                             <!-- {{currencySymbol}}{{boxOfficeEventList.min_event_cost[0].Amt}} -->
                                             <!-- {{ 0 | currency: currencySymbol :'symbol':'1.2-2'}} -->
@@ -227,10 +252,23 @@
                 <div *ngIf="allEventList.length == 0">
                     <h3> No Events.</h3>
                 </div>
-                <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                    <div> 
+                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                    <a 
+                        mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                    </div>
+                        <div *ngIf="hide_tailor_logo== 'N'">
+                            <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                <p class=""> Powered by </p>
+                                <img src="../../assets/images/logo/footer-logo.png"/>
+                            </a>
+                        </div>
+                </div>
+                <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                     <div> 
                     <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                    <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                    <a 
                         mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                     </div>
                         <div>
@@ -275,7 +313,7 @@
                                 <div class="top-preview-image"
                                     [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + eventImage + ')'}">
                                     <!-- <div class="top-preview-image" style="background-size:cover; background:url('{{this.eventImage}}'); "> -->
-                                    <i class="fa fa-arrow-left back-button" aria-hidden="true"></i>
+                                    <!-- <i class="fa fa-arrow-left back-button" aria-hidden="true"></i> -->
                                 </div>
                                 <div id="theme_1" class="main-preview-wrap Event-page page-color page-bgcolor"
                                     [style.background]="bgColor" [style.color]="pageTextColor"
@@ -381,10 +419,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                    <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                        <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        </div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class=""> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
+                                    </div>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
                                         <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        <a 
                                             mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
                                             <div>
@@ -504,10 +555,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                    <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                        <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        </div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class=""> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
+                                    </div>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
                                         <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        <a 
                                             mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
                                             <div>
@@ -615,10 +679,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                    <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                        <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        </div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class=""> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
+                                    </div>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
                                         <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        <a 
                                             mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
                                             <div>
@@ -733,10 +810,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                    <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                        <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        </div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class=""> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
+                                    </div>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
                                         <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        <a 
                                             mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
                                             <div>
@@ -857,10 +947,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                    <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                        <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        </div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class=""> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
+                                    </div>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
                                         <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        <a 
                                             mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
                                             <div>
@@ -982,10 +1085,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                                    <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                        <div> 
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                        <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        </div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
+                                                <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                                    <p class=""> Powered by </p>
+                                                    <img src="../../assets/images/logo/footer-logo.png"/>
+                                                </a>
+                                            </div>
+                                    </div>
+                                    <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
                                         <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                        <a 
                                             mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
                                             <div>
@@ -1024,7 +1140,7 @@
                         <div class="top-preview-image"
                             [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + eventImage + ')'}">
                             <!-- <div class="top-preview-image" style="background-size:cover; background:url('{{this.eventImage}}'); "> -->
-                            <i class="fa fa-arrow-left back-button" aria-hidden="true"></i>
+                            <!-- <i class="fa fa-arrow-left back-button" aria-hidden="true"></i> -->
                         </div>
                         <div id="theme_1" class="main-preview-wrap Event-page page-color page-bgcolor"
                             [style.background]="bgColor" [style.color]="pageTextColor"
@@ -1122,10 +1238,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                </div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class=""> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
+                            </div>
+                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                <a 
                                     mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
                                     <div>
@@ -1236,10 +1365,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                </div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class=""> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
+                            </div>
+                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                <a 
                                     mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
                                     <div>
@@ -1339,10 +1481,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                </div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class=""> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
+                            </div>
+                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                <a 
                                     mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
                                     <div>
@@ -1448,10 +1603,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                </div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class=""> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
+                            </div>
+                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                <a 
                                     mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
                                     <div>
@@ -1564,10 +1732,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                </div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class=""> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
+                            </div>
+                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                <a 
                                     mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
                                     <div>
@@ -1681,10 +1862,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                                <div> 
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
+                                <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                </div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
+                                        <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
+                                            <p class=""> Powered by </p>
+                                            <img src="../../assets/images/logo/footer-logo.png"/>
+                                        </a>
+                                    </div>
+                            </div>
+                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a href="mailto:{{boxOfficeDetail ? boxOfficeDetail.admin_details.email:''}}"
+                                <a 
                                     mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
                                     <div>
@@ -1850,14 +2044,23 @@
                 <div class="third-column">
                     <div class="row mx-0">
 
-                        <label class="col-8">Event column in row on List</label>
+                        <label class="col-8">Event List View</label>
+                        <label class="col-4">
+                            <div class=" color-code d-block font-selection-main">
+                                <mat-select (selectionChange)="onChangeView($event)" [(ngModel)]="displayView"
+                                    class="font-selection p-2">
+                                    <mat-option value="verticle">Verticle</mat-option>
+                                    <mat-option value="horizontal">Horizontal</mat-option>
+                                </mat-select>
+                            </div>
+                        </label>
+                        <label class="col-8">Column in row</label>
                         <label class="col-4">
                             <div class=" color-code d-block font-selection-main">
                                 <mat-select (selectionChange)="onChangeColumn($event)" [(ngModel)]="displayCol"
                                     class="font-selection p-2">
                                     <mat-option value="2">2</mat-option>
                                     <mat-option value="4">4</mat-option>
-                                    <mat-option value="horizontal">Horizontal View</mat-option>
                                 </mat-select>
                             </div>
                         </label>

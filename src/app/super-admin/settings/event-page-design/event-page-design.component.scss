@@ -649,6 +649,16 @@
                 text-align: end;
             }
         }
+        &.default-footer{
+          background-color: #FFE6C8;
+          h3 {
+            color: #2C2C2C;
+          }
+          .btn {
+            background-color: #973c56;
+            color: #fff !important;
+          }
+        }
     }
     }
   }
@@ -747,8 +757,19 @@
                 .right-logo-section{
                   margin-top: 14px;
                 }
+                &.default-footer{
+                  background-color: #FFE6C8;
+                  h3 {
+                    color: #2C2C2C;
+                  }
+                  .btn {
+                    background-color: #973c56;
+                    color: #fff !important;
+                  }
+                }
             }
         }
+     
     }
     .res-mobile-col{
       width: 100%;
@@ -798,6 +819,27 @@
             }
         }
     }
+    .bottom-help-tickets {
+      padding: 10px 15px;
+      flex-direction: column;
+      .btn {
+          padding: 4px 10px;
+      }
+      .right-logo-section{
+        margin-top: 14px;
+        display: block;
+      }
+      &.default-footer{
+        background-color: #FFE6C8;
+        h3 {
+          color: #2C2C2C;
+        }
+        .btn {
+          background-color: #973c56;
+          color: #fff !important;
+        }
+      }
+  }
 }
 ::ng-deep .no-sidebar {
   .customize-area {
@@ -1067,6 +1109,14 @@
                   margin-bottom: 0 !important;
               }
           }
+          .boxoffice-desc{
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 100px;
+          }
       }
       .events-venue-date {
           padding: 10px 16px;
@@ -1129,6 +1179,16 @@
             margin-bottom: 0px;
             text-align: end;
         }
+    }
+    &.default-footer{
+      background-color: #FFE6C8;
+      h3 {
+        color: #2C2C2C;
+      }
+      .btn {
+        background-color: #973c56;
+        color: #fff !important;
+      }
     }
 }
 }

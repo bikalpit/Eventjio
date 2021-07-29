@@ -31,6 +31,7 @@ export class EventPageDesignComponent implements OnInit {
   customizerThemePanel:boolean=true;
   themeAppearanceColor:any;
   displayCol:any= '2';
+  displayView:any= 'verticle';
   selectedTheme:any= 'theme1';
   headerColor = '#A207A8';
   headerTextColor = '#F3F3F3';  
@@ -52,6 +53,8 @@ export class EventPageDesignComponent implements OnInit {
   bannerZoomLavel:any;
   waitingListSettings:any;
   joinWaitingList:boolean= false;
+  updated:boolean=true;
+  hide_tailor_logo:any='N';
   constructor(
     private SettingService:SettingService,
     private ErrorService:ErrorService,
@@ -137,6 +140,10 @@ export class EventPageDesignComponent implements OnInit {
     this.displayCol = event.value
   }
 
+  onChangeView(event){
+    this.displayView = event.value
+  }
+
   getThemeAppearanceColor(){
     let requestObject ={
       'boxoffice_id' : this.boxOfficeId,
@@ -153,10 +160,12 @@ export class EventPageDesignComponent implements OnInit {
         this.pageTextColor = this.themeAppearanceColor.pageTextColor;
         this.headerColor = this.themeAppearanceColor.headerColor;
         this.displayCol = this.themeAppearanceColor.displayCol?this.themeAppearanceColor.displayCol:'2';
+        this.displayView = this.themeAppearanceColor.displayView?this.themeAppearanceColor.displayView:'verticle';
         this.headerTextColor = this.themeAppearanceColor.headerTextColor;
         this.btnColor = this.themeAppearanceColor.btnColor;
         this.btnTextColor = this.themeAppearanceColor.btnTextColor;
         this.selectedTheme = this.themeAppearanceColor.theme;
+        this.updated = this.themeAppearanceColor.updated?this.themeAppearanceColor.updated:false;
         localStorage.companycolours=JSON.stringify(this.themeAppearanceColor);
           this.update_SCSS_var();
       } else if(response.data == false){
@@ -178,7 +187,9 @@ export class EventPageDesignComponent implements OnInit {
         "btnColor":this.btnColor,
         "btnTextColor":this.btnTextColor,
         "displayCol":this.displayCol,
-        'theme': this.selectedTheme
+        "displayView":this.displayView,
+        'theme': this.selectedTheme,
+        'updated': true
       }
       let requestObject = {
         "boxoffice_id"  : this.boxOfficeId,
@@ -277,11 +288,11 @@ export class EventPageDesignComponent implements OnInit {
       }
     });
   }
-
+ 
   fnGetBoxOfficeDetail(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      'boxoffice_id' : this.boxOfficeId,
+      'unique_code' : this.boxOfficeId,
     }
     
     this.SettingService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
@@ -289,6 +300,7 @@ export class EventPageDesignComponent implements OnInit {
         this.boxOfficeDetail = response.response;
         if(!this.currencySymbol){
           this.currencySymbol =this.boxOfficeDetail.currency.CurrencyCode
+          this.hide_tailor_logo = this.boxOfficeDetail.hide_tailor_logo
         }
       } else if(response.data == false){
       }
