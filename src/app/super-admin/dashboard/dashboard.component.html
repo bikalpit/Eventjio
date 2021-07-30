@@ -198,7 +198,7 @@
                                     <span>Ticket
                                         Sold</span><span>{{element.ticket_sold?element.ticket_sold:0}}/{{element.total_ticket?element.total_ticket:0}}</span>
                                 </div>
-                                <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                                <mat-progress-bar mode="determinate" [value]="element.soldPer"></mat-progress-bar>
                             </div>
                         </div>
                     </li>

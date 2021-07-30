@@ -89,9 +89,6 @@ export class OrdersComponent implements OnInit {
       this.urlString2= this.urlString[1].split('&occurrence=')
       this.selectedEvent = this.urlString2[0];
       this.selectedOccurrence = this.urlString2[1];
-      console.log('url ---------------'+this.urlString);
-      console.log('Occurrence ---------------'+this.selectedOccurrence);
-      console.log('Event  ---------------'+this.selectedEvent);
     }
 
     
@@ -117,7 +114,10 @@ export class OrdersComponent implements OnInit {
     }
 
     if(localStorage.getItem('boxoffice_id')){
-      this.boxOfficeCode = localStorage.getItem('boxoffice_id');   
+      this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+    }else{
+      this.ErrorService.errorMessage('Select Box-office first.');
+      this.router.navigate(["/super-admin/boxoffice"]);
     }
 
     if(localStorage.getItem('selectedEventCode')){

@@ -4,7 +4,8 @@ import { Router, RouterEvent } from '@angular/router';
 import { SuperadminService } from '../_services/superadmin.service';
 import { DatePipe} from '@angular/common';
 import { environment } from '../../../environments/environment';
-import { AppComponent } from '../../app.component'
+import { AppComponent } from '../../app.component';
+import { ErrorService } from '../../_services/error.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -37,7 +38,7 @@ export class DashboardComponent implements OnInit {
     private datePipe: DatePipe,
     private appComponent:AppComponent,
     private SuperadminService: SuperadminService,
-
+    private errorService:ErrorService
   ) { 
     this.keepMe = localStorage.getItem('keepMeSignIn')
     if (this.keepMe == 'true') {
@@ -51,6 +52,9 @@ export class DashboardComponent implements OnInit {
 
     if(localStorage.getItem('boxoffice_id')){
       this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+    }else{
+      this.errorService.errorMessage('Select Box-office first.');
+      this.router.navigate(["/super-admin/boxoffice"]);
     }
     // this.currentUser = JSON.parse(this.currentUser);
 
@@ -238,6 +242,10 @@ export class DashboardComponent implements OnInit {
           element.shortStartDate = '';
           element.shortStartDate = this.datePipe.transform(new Date(element.start_date),"d");
           element.shortStartDay = this.datePipe.transform(new Date(element.start_date),"EE");
+          element.soldPer = 0
+          if(element.ticket_sold > 0){
+            element.soldPer = 100*element.ticket_sold/element.total_ticket
+          }
           i++
           if(i < 4){
             this.allUpcomingEventListData.push(element)
@@ -251,7 +259,7 @@ export class DashboardComponent implements OnInit {
   }
 
   fnSoldTicketChart(){
-    if(this.latestSalesStats.ticket_left && this.latestSalesStats.ticket_sold){
+    if(this.latestSalesStats.ticket_left != null && this.latestSalesStats.ticket_sold != null){
       const colors = ["#ff0000", "#ffff00", "#ffa500", "#008000", "#800080", "#ff00ff", "#0000ff", "#9acd32", "#00ff00", "#00ced1", "#d2691e"];
      
       let chartColors = colors.slice(0, this.latestSalesStats.length);

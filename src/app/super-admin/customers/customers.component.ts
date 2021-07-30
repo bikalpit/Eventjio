@@ -92,7 +92,10 @@ export class CustomersComponent implements OnInit {
     }
 
     if(localStorage.getItem('boxoffice_id')){
-      this.boxofficeId = localStorage.getItem('boxoffice_id');   
+      this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+    }else{
+      this.ErrorService.errorMessage('Select Box-office first.');
+      this.router.navigate(["/super-admin/boxoffice"]);
     }
     
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/ 
