@@ -92,7 +92,7 @@ export class CustomersComponent implements OnInit {
     }
 
     if(localStorage.getItem('boxoffice_id')){
-      this.boxOfficeCode = localStorage.getItem('boxoffice_id');
+      this.boxofficeId = localStorage.getItem('boxoffice_id');
     }else{
       this.ErrorService.errorMessage('Select Box-office first.');
       this.router.navigate(["/super-admin/boxoffice"]);
