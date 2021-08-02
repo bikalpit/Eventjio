@@ -125,7 +125,7 @@ export class EventPageDesignComponent implements OnInit {
 
   fnChangeTheme(theme){
     this.selectedTheme = theme;
-    this.fnUpadateThemeAppearanceColor();
+    this.fnSetDefaultColorSetting();
   }
 
   fnThemeDirection(direction){
@@ -297,7 +297,7 @@ export class EventPageDesignComponent implements OnInit {
     
     this.SettingService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.boxOfficeDetail = response.response;
+        this.boxOfficeDetail = response.response[0];
         if(!this.currencySymbol){
           this.currencySymbol =this.boxOfficeDetail.currency.CurrencyCode
           this.hide_tailor_logo = this.boxOfficeDetail.hide_tailor_logo
@@ -339,6 +339,55 @@ export class EventPageDesignComponent implements OnInit {
       }
       this.isLoaderAdmin = false;
     });
+  }
+
+  public fnSetDefaultSettings(){
+    let themeAppearance = {
+      "font":"Poppins, sans-serif",
+      "bgColor":"#e4e4e4",
+      "pageColor":"#ffffff",
+      "pageTextColor":"#000000",
+      "headerColor":"#973c56",
+      "headerTextColor":"#ffffff",
+      "btnColor":"#973c56",
+      "btnTextColor":"#FFFFFF",
+      "displayCol":"2",
+      "displayView":"verticle",
+      'theme': "theme1",
+      'updated': false
+    }
+    let requestObject = {
+      "boxoffice_id"  : this.boxOfficeId,
+      "option_key"    :  "themeColorAppearance",
+      "option_value" : themeAppearance,
+      "event_id" :  null,
+      'json_type' : 'Y'
+    }
+    this.updateThemeAppearance(requestObject);
+  }
+  public fnSetDefaultColorSetting(){
+    let themeAppearance = {
+      "font":"Poppins, sans-serif",
+      "bgColor":"#e4e4e4",
+      "pageColor":"#ffffff",
+      "pageTextColor":"#000000",
+      "headerColor":"#973c56",
+      "headerTextColor":"#ffffff",
+      "btnColor":"#973c56",
+      "btnTextColor":"#FFFFFF",
+      "displayCol":"2",
+      "displayView":"verticle",
+      'theme': this.selectedTheme,
+      'updated': false
+    }
+    let requestObject = {
+      "boxoffice_id"  : this.boxOfficeId,
+      "option_key"    :  "themeColorAppearance",
+      "option_value" : themeAppearance,
+      "event_id" :  null,
+      'json_type' : 'Y'
+    }
+    this.updateThemeAppearance(requestObject);
   }
 
 }
