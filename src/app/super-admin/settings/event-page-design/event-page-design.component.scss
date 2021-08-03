@@ -645,8 +645,12 @@
         }
         .right-logo-section{
             p{
-                margin-bottom: 0px;
-                text-align: end;
+              margin-bottom: 0px;
+              text-align: end;
+              font-size: 10px;
+            }
+            img{
+              width: 120px;
             }
         }
         &.default-footer{
@@ -657,6 +661,9 @@
           .btn {
             background-color: #973c56;
             color: #fff !important;
+          }
+          a{
+            color: #973c56 !important;
           }
         }
     }
@@ -766,6 +773,9 @@
                     background-color: #973c56;
                     color: #fff !important;
                   }
+                  a{
+                    color: #973c56 !important;
+                  }
                 }
             }
         }
@@ -837,6 +847,9 @@
         .btn {
           background-color: #973c56;
           color: #fff !important;
+        }
+        a{
+          color: #973c56 !important;
         }
       }
   }
@@ -1270,6 +1283,10 @@
         p{
             margin-bottom: 0px;
             text-align: end;
+            font-size: 10px;
+        }
+        img{
+          width: 120px;
         }
     }
     &.default-footer{
@@ -1280,6 +1297,9 @@
       .btn {
         background-color: #973c56;
         color: #fff !important;
+      }
+      a{
+        color: #973c56 !important;
       }
     }
 }
