@@ -9,7 +9,7 @@
             <div class="top-event-page">
                 <div class="page-title">
                     Event Page Design
-                </div>  
+                </div>
                 <div class="col-md-6 text-right ml-auto">
                     <div class="d-inline-block select-option mr-3">
                         <mat-select [(ngModel)]="eventPageType" (selectionChange)="fnEventPageType($event)"
@@ -44,7 +44,7 @@
                 <div class="speaker"></div>
                 <div class="screen" [style.background]="bgColor">
                     <!-- Content goes here -->
-                    <div class="text-center w-100 py-3 box-office-title" [style.background]="headerColor"
+                    <div class="text-center w-100 py-3 box-office-title header-bg" [style.background]="headerColor"
                         [style.color]="headerTextColor">
                         {{boxOfficeName}}
                     </div>
@@ -93,9 +93,9 @@
                     </div>
                     <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                         <div> 
-                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                        <a 
-                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                        <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                       
                         </div>
                             <div *ngIf="hide_tailor_logo== 'N'">
                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -106,9 +106,9 @@
                     </div> 
                     <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                         <div> 
-                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                        <a 
-                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                        <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                       
                         </div>
                             <div>
                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -129,7 +129,7 @@
                     <div class="col-md-6 col-12 col-sm-6 mb-3 " 
                         [ngClass]="{'col-lg-6 col-xl-6 display-col-2' : displayCol == '2', 'col-lg-3 col-xl-3 display-col-4' : displayCol == '4'}"
                         *ngFor="let boxOfficeEventList of allEventList; let i=index">
-                        <div class="common-events-listing" [style.background]="pageColor" [style.color]="pageTextColor">
+                        <div class="common-events-listing page-color page-bgcolor" [style.background]="pageColor" [style.color]="pageTextColor">
                             <div *ngIf="boxOfficeEventList.images == undefined" class="top-event-img"
                                 style="background-image: url(../assets/images/Events.png);">
                             </div>
@@ -173,7 +173,7 @@
                                         boxOfficeEventList.event_setting.currency :'symbol':'1.2-2'}}</p>
                                 </div>
                                 <div class="common-priceview">
-                                    <button mat-raised-button [style.background]="btnColor" [style.color]="btnTextColor" class="viewevents-btn">View
+                                    <button mat-raised-button [style.background]="btnColor" [style.color]="btnTextColor" class="viewevents-btn btn-color btn-bgcolor">View
                                         Events</button>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                 </div>
                 <div class="row mx-1 horizontal-view" *ngIf="allEventList.length > 0 && displayView == 'horizontal'">
                     <div class="col-md-12 col-12 col-sm-12 mb-3"  [ngClass]="{'col-lg-12 col-xl-12 display-col-1' : displayCol == '2', 'col-lg-6 col-xl-6 display-col-2' : displayCol == '4'}" *ngFor="let boxOfficeEventList of allEventList; let i=index">
-                        <div class="common-events-listing" [style.background]="pageColor" [style.color]="pageTextColor">
+                        <div class="common-events-listing page-color page-bgcolor" [style.background]="pageColor" [style.color]="pageTextColor">
                             <div *ngIf="boxOfficeEventList.images == undefined" class="top-event-img"
                                 style="background-image: url(../assets/images/Events.png);">
                             </div>
@@ -239,7 +239,7 @@
                                             <!-- {{currency:"USD":"symbol"}} -->
                                         </div>
                                         <div class="common-priceview">
-                                            <button [style.background]="btnColor" [style.color]="btnTextColor" mat-raised-button class="viewevents-btn">View
+                                            <button [style.background]="btnColor" [style.color]="btnTextColor" mat-raised-button class="viewevents-btn btn-color btn-bgcolor">View
                                                 Events</button>
                                         </div>
                                     </div>
@@ -253,9 +253,9 @@
                 </div>
                 <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                     <div> 
-                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                    <a 
-                        mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                    <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                        mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                   
                     </div>
                         <div *ngIf="hide_tailor_logo== 'N'">
                             <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -266,9 +266,9 @@
                 </div>
                 <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                     <div> 
-                    <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                    <a 
-                        mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                    <h3> NEED HELP OR LOST YOUR TICKET? <a 
+                        mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                   
                     </div>
                         <div>
                             <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -294,18 +294,18 @@
                         <div class="preview-bg">
                             <div class="main-preview-section">
                                 <div *ngIf="selectedTheme == 'theme3'" class="heading-preview-name">
-                                    <h3 class="mb-0" [style.background]="headerColor"
+                                    <h3 class="header-color header-bgcolor mb-0" [style.background]="headerColor"
                                         [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-'
                                         }}
-                                        <h4 class="mt-2 mb-0" [style.color]="headerTextColor">
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
                                             ({{boxOfficeName}})</h4>
                                     </h3>
                                 </div>
                                 <div *ngIf="selectedTheme == 'theme4'" class="heading-preview-name">
-                                    <h3 class="mb-0" [style.background]="headerColor"
+                                    <h3 class="header-color header-bgcolor mb-0" [style.background]="headerColor"
                                         [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-'
                                         }}
-                                        <h4 class="mt-2 mb-0" [style.color]="headerTextColor">
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
                                             ({{boxOfficeName}})</h4>
                                     </h3>
                                 </div>
@@ -319,7 +319,7 @@
                                     *ngIf="selectedTheme == 'theme1'">
                                     <div class="bottom-deatils">
                                         <div class="heading-preview-name">
-                                            <h3 class="py-2"
+                                            <h3 class="header-color header-bgcolor py-2"
                                                 [style.background]="headerColor" [style.color]="headerTextColor">{{
                                                 eventDetail ? eventDetail.event_title : '-' }}
                                                 <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
@@ -372,13 +372,13 @@
                                             <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left res-mobile-col">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn"
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                             Ticket'}}
                                                         </button>
                                                         <button *ngIf="joinWaitingList && recurringEvent == 'N'"
-                                                            mat-flat-button class="btn mt-3"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{waitingListSettings ? waitingListSettings.event_page_text
                                                             : 'Join Waiting List'}}
@@ -420,9 +420,9 @@
                                     </div>
                                     <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET?<a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                                        
                                         </div>
                                             <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -433,9 +433,9 @@
                                     </div>
                                     <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                       
                                         </div>
                                             <div>
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -450,7 +450,7 @@
                                     *ngIf="selectedTheme == 'theme2'">
                                     <div class="bottom-deatils">
                                         <div class="heading-preview-name">
-                                            <h3 class="" [style.background]="headerColor"
+                                            <h3 class="header-color header-bgcolor" [style.background]="headerColor"
                                                 [style.color]="headerTextColor"> {{ eventDetail ?
                                                 eventDetail.event_title : '-' }}
                                                 <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
@@ -509,13 +509,13 @@
                                             <div class="col-12">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class=" btn"
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                             Ticket'}}
                                                         </button>
                                                         <button *ngIf="joinWaitingList && recurringEvent == 'N'"
-                                                            mat-flat-button class=" btn mt-3"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{waitingListSettings ? waitingListSettings.event_page_text
                                                             : 'Join Waiting List'}}
@@ -556,9 +556,9 @@
                                     </div>
                                     <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                                       
                                         </div>
                                             <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -569,9 +569,9 @@
                                     </div>
                                     <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a 
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                        
                                         </div>
                                             <div>
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -631,7 +631,7 @@
                                             <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left res-mobile-col">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="mb-0 btn"
+                                                        <button mat-flat-button class="mb-0 btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                             Ticket'}}
@@ -640,7 +640,7 @@
                                                             Join Waiting List
                                                         </button> -->
                                                         <button *ngIf="joinWaitingList && recurringEvent == 'N'"
-                                                            mat-flat-button class="btn mt-3"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{waitingListSettings ? waitingListSettings.event_page_text
                                                             : 'Join Waiting List'}}
@@ -680,9 +680,9 @@
                                     </div>
                                     <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a><a class="privacy-policy"> Privacy Policy </a></h3>
+                                       
                                         </div>
                                             <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -693,9 +693,9 @@
                                     </div>
                                     <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                      
                                         </div>
                                             <div>
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -761,7 +761,7 @@
                                             <div class="col-12">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn"
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                             Ticket'}}
@@ -770,7 +770,7 @@
                                                             Join Waiting List
                                                         </button> -->
                                                         <button *ngIf="joinWaitingList && recurringEvent == 'N'"
-                                                            mat-flat-button class="btn mt-3"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{waitingListSettings ? waitingListSettings.event_page_text
                                                             : 'Join Waiting List'}}
@@ -811,9 +811,9 @@
                                     </div>
                                     <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                                       
                                         </div>
                                             <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -824,9 +824,9 @@
                                     </div>
                                     <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a 
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>  <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                       
                                         </div>
                                             <div>
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -844,7 +844,7 @@
                                         <div class="heading-preview-name">
                                             <h3> {{
                                                 eventDetail ? eventDetail.event_title : '-' }}
-                                                <h4 class="mt-2 mb-0" [style.color]="headerTextColor">
+                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
                                                     ({{boxOfficeName}})</h4>
                                             </h3>
                                         </div>
@@ -898,7 +898,7 @@
                                             <div class="col-12 border-bottom">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn"
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                             Ticket'}}
@@ -907,7 +907,7 @@
                                                             Join Waiting List
                                                         </button> -->
                                                         <button *ngIf="joinWaitingList && recurringEvent == 'N'"
-                                                            mat-flat-button class="btn mt-3"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{waitingListSettings ? waitingListSettings.event_page_text
                                                             : 'Join Waiting List'}}
@@ -948,9 +948,9 @@
                                     </div>
                                     <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET? <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                                       
                                         </div>
                                             <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -961,9 +961,9 @@
                                     </div>
                                     <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                            mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a><a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                       
                                         </div>
                                             <div>
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -979,10 +979,10 @@
                                     *ngIf="selectedTheme == 'theme6'">
                                     <div class="bottom-deatils">
                                         <div class="heading-preview-name">
-                                            <h3 class="" [style.background]="headerColor"
+                                            <h3 class="header-color header-bgcolor" [style.background]="headerColor"
                                                 [style.color]="headerTextColor"> {{ eventDetail ?
                                                 eventDetail.event_title : '-' }}
-                                                <h4 class="mt-2 mb-0" [style.color]="headerTextColor">
+                                                <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
                                                     ({{boxOfficeName}})</h4>
                                             </h3>
                                         </div>
@@ -1036,7 +1036,7 @@
                                             <div class="col-12 border-bottom">
                                                 <div class="book-ticket-side">
                                                     <div class="book-tickets-btn">
-                                                        <button mat-flat-button class="btn"
+                                                        <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                             Ticket'}}
@@ -1045,7 +1045,7 @@
                                                             Join Waiting List
                                                         </button> -->
                                                         <button *ngIf="joinWaitingList && recurringEvent == 'N'"
-                                                            mat-flat-button class="btn mt-3"
+                                                            mat-flat-button class="btn-color btn-bgcolor btn mt-3"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
                                                             {{waitingListSettings ? waitingListSettings.event_page_text
                                                             : 'Join Waiting List'}}
@@ -1086,9 +1086,9 @@
                                     </div>
                                     <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                         <div> 
-                                        <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                        <a 
-                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                        <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                            mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                                      
                                         </div>
                                             <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1123,14 +1123,14 @@
                 <div class="preview-bg">
                     <div class="main-preview-section">
                         <div *ngIf="selectedTheme == 'theme3'" class="heading-preview-name">
-                            <h3 class="mb-0" [style.background]="headerColor"
+                            <h3 class="header-color header-bgcolor mb-0" [style.background]="headerColor"
                                 [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
                                 <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{boxOfficeName}})
                                 </h4>
                             </h3>
                         </div>
                         <div *ngIf="selectedTheme == 'theme4'" class="heading-preview-name">
-                            <h3 class="mb-0" [style.background]="headerColor"
+                            <h3 class="header-color header-bgcolor mb-0" [style.background]="headerColor"
                                 [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-' }}
                                 <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">({{boxOfficeName}})
                                 </h4>
@@ -1146,7 +1146,7 @@
                             *ngIf="selectedTheme == 'theme1'">
                             <div class="bottom-deatils">
                                 <div class="heading-preview-name">
-                                    <h3 class="py-2" [style.background]="headerColor"
+                                    <h3 class="header-color header-bgcolor py-2" [style.background]="headerColor"
                                         [style.color]="headerTextColor">{{ eventDetail ? eventDetail.event_title : '-'
                                         }}
                                         <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
@@ -1194,13 +1194,13 @@
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn"
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
                                                     {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                     Ticket'}}
                                                 </button>
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
-                                                    class="btn mt-3" [style.background]="btnColor"
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
                                                     {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
                                                     Waiting List'}}
@@ -1239,9 +1239,9 @@
                             </div>
                             <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                                
                                 </div>
                                     <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1252,9 +1252,9 @@
                             </div>
                             <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a><a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                               
                                 </div>
                                     <div>
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1269,10 +1269,10 @@
                             *ngIf="selectedTheme == 'theme2'">
                             <div class="bottom-deatils">
                                 <div class="heading-preview-name">
-                                    <h3 class="" [style.background]="headerColor"
+                                    <h3 class="header-color header-bgcolor" [style.background]="headerColor"
                                         [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-'
                                         }}
-                                        <h4 class="mt-2 mb-0 " [style.color]="headerTextColor">
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
                                             ({{boxOfficeName}})</h4>
                                     </h3>
 
@@ -1322,13 +1322,13 @@
                                     <div class="col-12">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn"
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
                                                     {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                     Ticket'}}
                                                 </button>
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
-                                                    class="btn mt-3" [style.background]="btnColor"
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
                                                     {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
                                                     Waiting List'}}
@@ -1366,9 +1366,9 @@
                             </div>
                             <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                               
                                 </div>
                                     <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1379,9 +1379,9 @@
                             </div>
                             <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a><a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                               
                                 </div>
                                     <div>
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1436,7 +1436,7 @@
                                     <div class="col-12 col-xl-6 col-md-6 col-sm-12 float-left">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn"
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
                                                     {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                     Ticket'}}
@@ -1445,7 +1445,7 @@
                                                     Join Waiting List
                                                 </button> -->
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
-                                                    class="btn mt-3" [style.background]="btnColor"
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
                                                     {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
                                                     Waiting List'}}
@@ -1483,8 +1483,7 @@
                             <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                               
                                 </div>
                                     <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1495,7 +1494,8 @@
                             </div>
                             <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                                 <a 
                                     mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                 </div>
@@ -1557,7 +1557,7 @@
                                     <div class="col-12">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn"
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
                                                     {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                     Ticket'}}
@@ -1566,7 +1566,7 @@
                                                     Join Waiting List
                                                 </button> -->
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
-                                                    class="btn mt-3" [style.background]="btnColor"
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
                                                     {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
                                                     Waiting List'}}
@@ -1604,9 +1604,9 @@
                             </div>
                             <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET?   <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                              
                                 </div>
                                     <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1617,9 +1617,9 @@
                             </div>
                             <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET?   <a 
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                              
                                 </div>
                                     <div>
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1686,7 +1686,7 @@
                                     <div class="col-12 border-bottom">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn"
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
                                                     {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                     Ticket'}}
@@ -1695,7 +1695,7 @@
                                                     Join Waiting List
                                                 </button> -->
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
-                                                    class="btn mt-3" [style.background]="btnColor"
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
                                                     {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
                                                     Waiting List'}}
@@ -1733,9 +1733,9 @@
                             </div>
                             <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                               
                                 </div>
                                     <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1746,9 +1746,9 @@
                             </div>
                             <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a><a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                               
                                 </div>
                                     <div>
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1764,10 +1764,10 @@
                             *ngIf="selectedTheme == 'theme6'">
                             <div class="bottom-deatils">
                                 <div class="heading-preview-name">
-                                    <h3 class="" [style.background]="headerColor"
+                                    <h3 class="header-color header-bgcolor" [style.background]="headerColor"
                                         [style.color]="headerTextColor"> {{ eventDetail ? eventDetail.event_title : '-'
                                         }}
-                                        <h4 class="mt-2 mb-0 " [style.color]="headerTextColor">
+                                        <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
                                             ({{boxOfficeName}})</h4>
                                     </h3>
                                 </div>
@@ -1816,7 +1816,7 @@
                                     <div class="col-12 border-bottom">
                                         <div class="book-ticket-side">
                                             <div class="book-tickets-btn">
-                                                <button mat-flat-button class="btn"
+                                                <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
                                                     {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
                                                     Ticket'}}
@@ -1825,7 +1825,7 @@
                                                     Join Waiting List
                                                 </button> -->
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
-                                                    class="btn mt-3" [style.background]="btnColor"
+                                                    class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
                                                     {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
                                                     Waiting List'}}
@@ -1863,9 +1863,9 @@
                             </div>
                             <div class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET? <a 
+                                    mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
+                               
                                 </div>
                                     <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -1876,9 +1876,9 @@
                             </div>
                             <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
-                                <h3> NEED HELP OR LOST YOUR TICKET? <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
-                                <a 
-                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
+                                <h3> NEED HELP OR LOST YOUR TICKET?  <a 
+                                    mat-flat-button class="bg-primary btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
+                              
                                 </div>
                                     <div>
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
@@ -2063,9 +2063,6 @@
                                 </mat-select>
                             </div>
                         </label>
-                        <div class="col-12">
-                            <button mat-button class="default-setting-btn" (click)="fnSetDefaultSettings()">Reset to Default</button>
-                        </div>
                     </div>
                 </div>
             </div>
