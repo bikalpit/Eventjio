@@ -142,6 +142,7 @@ export class SignupComponent implements OnInit {
 					panelClass : ['green-snackbar']
 				});
 				this.isLoaderAdmin = false;
+				localStorage.setItem('keepMeSignIn', this.keepMe)
 				this.onLogin();
 				// this.router.navigate(["/login"]);
 			}else{

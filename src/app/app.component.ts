@@ -53,24 +53,23 @@ export class AppComponent {
     localStorage.setItem('mainSidebar', 'true');
     this.keepMe = localStorage.getItem('keepMeSignIn')
     if (this.keepMe == 'true') {
-      this.currentUserData = localStorage.getItem('currentUser')
+      this.currentUserData = JSON.parse(localStorage.getItem('currentUser'))
       // alert("app local").
       this.currentUser = this.currentUserData
     } else {
-      this.currentUserData = sessionStorage.getItem('currentUser')
+      this.currentUserData = JSON.parse(sessionStorage.getItem('currentUser'))
       // alert("app sessions")
       this.currentUser = this.currentUserData
       // this.currentUserImage = this.currentUserData.image
     }
-     this.currentUser = this.currentUserData
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
       const url = this.getUrl(event);
       this.currentUrl = url;
-      if (this.currentUserData && this.currentUrl == '') {
+      console.log(this.currentUrl)
+      if ((this.currentUserData && this.currentUrl == '') || (this.currentUserData && this.currentUrl == undefined) || (this.currentUserData && this.currentUrl == '/login') || (this.currentUserData && this.currentUrl == '/sign-up')) {
         if (this.currentUser.user_type == 'A') {
-          alert('1')
           this.router.navigate(['/super-admin/']);
         }
 

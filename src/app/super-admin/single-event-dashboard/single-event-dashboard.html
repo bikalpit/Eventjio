@@ -2,12 +2,35 @@
     <div *ngIf="eventDetail && eventDetail.images !== undefined" class="event-image ">
         <img src="{{eventDetail.images[0].image}}" class="w-100" alt="">
     </div>
-    <div class="event-title">
+    <div *ngIf="eventDetail" class="event-title">
         <p class="event-name mb-0 mt-2">
             {{eventDetail?eventDetail.event_title:''}}
         </p>
-        <p class="event-date-time-palce">
-            {{eventDetail?eventDetail.start_date:''}} {{eventDetail?eventDetail.start_time:''}} at {{eventDetail?eventDetail.venue_name:''}}
+        <p class="event-date-time-palce" *ngIf="eventDetail.event_occurrence_type == 'N'">
+            {{eventDetail?eventDetail.start_date:''}} {{eventDetail?transformTime24To12(eventDetail.start_time):''}} at 
+            <span *ngIf="eventDetail.online_event == 'N'">{{eventDetail?eventDetail.venue_name:''}}</span>
+            <span *ngIf="eventDetail.online_event == 'Y'">
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</span>
+            </span>
+        </p>
+        <p class="event-date-time-palce" *ngIf="eventDetail.event_occurrence_type == 'Y'">
+            Recurring Event at 
+            <span *ngIf="eventDetail.online_event == 'N'">{{eventDetail?eventDetail.venue_name:''}}</span>
+            <span *ngIf="eventDetail.online_event == 'Y'">
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'Z'">Zoom</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'GH'">Google Hangout</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'YU'">Youtube</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'HP'">Hopin</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'VM'">Vimeo</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'SKY'">Skype</span>
+                <span *ngIf="eventDetail.platform && eventDetail.platform == 'OTH'">Other</span>
+            </span>
         </p>
     </div>
     <div class="event-status" [ngClass]="{'published':eventStatus == 'publish', 'draft':eventStatus == 'draft'}">

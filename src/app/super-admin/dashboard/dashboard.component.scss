@@ -71,11 +71,17 @@
                         border-radius: 100%;
                         background-color: #fff;
                         z-index: 9;
+                        transition: all 0.3s;
                         img{
                             width: 26px;
                         }
                         mat-icon{
                             display: none;
+                        }
+                        &:hover{
+                            background-color: #ffd8aa;
+                            border: 0;
+                            position: relative;
                         }
                     }
                     label{
@@ -453,18 +459,6 @@
     height: 500px;
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 ::ng-deep .top-progess{
     display: flex;

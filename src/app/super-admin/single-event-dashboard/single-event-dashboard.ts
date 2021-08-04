@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angu
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SuperadminService } from '../_services/superadmin.service';
 import { ErrorService } from '../../_services/error.service';
-//import { DatePipe} from '@angular/common';
+import { DatePipe} from '@angular/common';
 import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 import { SingleEventServiceService } from './_services/single-event-service.service';
@@ -11,7 +11,8 @@ import { SingleEventServiceService } from './_services/single-event-service.serv
 @Component({
   selector: 'single-event-dashboard',
   templateUrl: './single-event-dashboard.html',
-  styleUrls: ['./single-event-dashboard.scss']
+  styleUrls: ['./single-event-dashboard.scss'],
+  providers: [DatePipe]
 })
 export class SingleEventDashboard implements OnInit {
   pageName :any = '';
@@ -35,6 +36,7 @@ export class SingleEventDashboard implements OnInit {
     public dialog: MatDialog,
     private ErrorService: ErrorService,
     private router: Router,
+    private DatePipe:DatePipe,
     private SuperadminService: SuperadminService,
     private SingleEventServiceService: SingleEventServiceService,
 
@@ -106,6 +108,29 @@ export class SingleEventDashboard implements OnInit {
     });    
   }
 
+  transformTime24To12(time: any): any {
+    if(time != null){
+      let hour = (time.split(':'))[0];
+      let min = (time.split(':'))[1];
+      let part = 'AM';
+      let finalhrs = hour
+      if(hour == 0){
+        finalhrs = 12
+      }
+      if(hour == 12){
+        finalhrs = 12;
+        part = 'PM';
+      }
+      if(hour > 12){
+        finalhrs  = hour - 12
+        part = 'PM' 
+      }
+      return `${finalhrs}:${min} ${part}`
+    }else{
+      return "";
+    }
+  }
+
   fnGetEventDetail(){
 
     let requestObject = {
@@ -120,6 +145,7 @@ export class SingleEventDashboard implements OnInit {
         this.recurringEvent = this.eventDetail.event_occurrence_type;
         if(this.eventDetail.event_occurrence_type == 'N'){
           this.isPastEvent = response.response.past;
+          this.eventDetail.start_date = this.DatePipe.transform(new Date(this.eventDetail.start_date),"EEE MMM d, y")
         }
         if(this.eventDetail.images.length === 0){
           this.eventDetail.images = undefined

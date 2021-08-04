@@ -1419,7 +1419,7 @@ export class BookTicketDialog {
             'address': 'Address Line 1',
             'address1': 'Address Line 2',
             'address2': 'Address Line 3',
-            'zipcode': 'Zip Code',
+            'zipcode': 'PostCode',
           };
 
         }else if(this.eventForm[2].addressForamteStyle == 'Cadadian'){
