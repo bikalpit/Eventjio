@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild,Inject,ChangeDetectorRef } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ErrorService } from '../../_services/error.service'
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -10,7 +9,6 @@ import { SuperadminService } from '../_services/superadmin.service';
 import { DatePipe, JsonPipe} from '@angular/common';
 import { ExportToCsv } from 'export-to-csv';
 import { Router, RouterOutlet ,ActivatedRoute} from '@angular/router';
-import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 import {  environment } from '../../../environments/environment'
 import { ServiceService } from 'src/app/_services/service.service';
 import { AnyMxRecord } from 'dns';
@@ -1549,20 +1547,28 @@ export class BookTicketDialog {
   async fnPreAddQty(index,value){
     setTimeout(() => {
       this.fnAddQty(index,value);
-    }, 400);
+    }, 300);
   }
 
   fnAddQty(index,value){
-    if(value < 0){
-    this.eventTicket[index].qty = 0;
+    if(parseInt(value) > parseInt(this.eventTicket[index].remaining[0].remaining)){
+      this.ErrorService.errorMessage('Only '+this.eventTicket[index].remaining[0].remaining+' Tickets are available.');
+      this.eventTicket[index].qty = null;
     }else{
       this.eventTicket[index].qty = value;
+    }
+    // if(parseInt(value) > parseInt(this.eventTicket[index].remaining[0].remaining)){
+    //   this.ErrorService.errorMessage('Only '+this.eventTicket[index].remaining[0].remaining+' Tickets are available.');
+    //   this.eventTicket[index].qty = 0;
+    // }else if(value < 0){
+    // this.eventTicket[index].qty = 0;
+    // }
       var single_event = this.eventTicket[index];
       var is_update  = true;
       this.eventTicket[index].id_added = true ;
       this.is_added_at_least_item = true;
   
-    }
+    
 
     if( single_event.min_per_order  == null && single_event.max_per_order ==  '' ){
       this.eventTicket[index].is_added = true;
