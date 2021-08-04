@@ -506,7 +506,7 @@
       padding: 0px 28px;
       .top-preview-image {
         background: url(/assets/images/Event-preview/preview-main.png);
-        height: 270px;
+        height: 240px;
         display: flex;
         align-items: flex-end;
         background-position: center;
@@ -567,11 +567,12 @@
             padding: 18px 32px;
             .book-tickets-btn {
               text-align: center;
+              margin-top: 14px;
               .btn {
                 background-color: #004fa1;
                 color: #fff;
                 padding: 6px 14px;
-                border-radius: 30px !important;
+                border-radius: 30px;
                 width: 250px;
               }
             }
@@ -922,7 +923,7 @@
       }
     }
     .border-bottom {
-      border-bottom: 2px dashed #ccc !important;
+      border-bottom: 2px dashed #000 !important;
     }
   }
   .deatils-preview-events {
@@ -938,22 +939,40 @@
         border-bottom: 0px !important;
         .side-form-deatils {
           border-right: 0px !important;
+          padding: 0px !important;
         }
         .border-bottom {
-          border-bottom: 2px dashed #ccc !important;
+          border-bottom: none !important;
         }
-        .book-ticket-side {
-          .book-tickets-btn {
+        .pl-30{
+          padding-left: 30px !important;
+      }
+      .pr-30{
+          padding-right: 30px !important;
+      }
+      .book-ticket-side {
+        padding: 0px !important;
+        .book-tickets-btn {
+            padding: 0px 30px;
+            margin-top: 24px !important;
             button {
-              width: 100% !important;
-              border-radius: 5px !important;
+                width: 100% !important;
+                border-radius: 5px !important;
             }
-          }
         }
+        .share-link-main{
+            border-bottom: 2px dashed #000 !important;
+            border-top: 2px dashed #000 !important;
+            padding: 26px 0px;
+        }
+    }
       }
       .deatils-preview-events {
         padding: 15px 25px;
       }
+      .preview-common-deatils{
+        margin-bottom: 0px !important;
+    }
     }
   }
 }
@@ -971,16 +990,24 @@
                 }
             }
             .bottom-booking-deatils {
+              margin-top: 38px !important;
                 display: flex !important;
                 border-bottom: 0px !important;
                 .side-form-deatils {
                 border-right: 0px !important;
+                padding: 0px !important;
                 .preview-datetime {
                     margin-bottom: 10px !important;
                 }
                 }
+                .pl-30{
+                  padding-left: 30px !important;
+              }
+              .pr-30{
+                  padding-right: 30px !important;
+              }
                 .border-bottom {
-                border-bottom: 2px dashed #ccc !important;
+                border-bottom: 2px dashed #000 !important;
                 }
                 .book-ticket-side {
                 .book-tickets-btn {
@@ -1007,8 +1034,10 @@
                 border-bottom: 0px !important;
                 .side-form-deatils {
                     border-right: 0px !important;
+                    padding: 0px 32px !important;
                     .preview-common-deatils {
                         background-color: transparent !important;
+                        padding: 4px 36px !important;
                     }
                 }
                 .book-ticket-side {
@@ -1020,7 +1049,7 @@
                     }
                 }
                 .border-bottom {
-                border-bottom: 2px dashed #ccc !important;
+                border-bottom: 2px dashed #000 !important;
                 }
             }
             .deatils-preview-events {
@@ -1312,4 +1341,25 @@
   color: #000;
   margin-left: auto;
   display: flex;
+}
+#theme_6,
+#theme_2,
+#theme_5,
+#theme_4{
+    .share-link-main{
+        margin-top: 40px !important;
+        p{
+            margin-right: 30px !important;
+            margin-bottom: 0px !important;
+        }
+    }
+}
+#theme_6{
+  .share-link-main{
+      margin-top: 34px !important;
+      margin-bottom: 8px !important;
+      p{
+          margin-right: 30px;
+      }
+  }
 }

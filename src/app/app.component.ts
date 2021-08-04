@@ -68,9 +68,9 @@ export class AppComponent {
       const url = this.getUrl(event);
       this.currentUrl = url;
       console.log(this.currentUrl)
-      console.log('currentUserData--'+this.currentUserData)
-      console.log('currentUser--'+this.currentUser)
-      if ((this.currentUser && this.currentUrl == '') || (this.currentUser && this.currentUrl == undefined) || (this.currentUser && this.currentUrl == '/login') || (this.currentUser && this.currentUrl == '/sign-up')) {
+      console.log('currentUserData--',this.currentUserData)
+      console.log('currentUser--',this.currentUser)
+      if ((this.currentUser && this.currentUrl == '')) {
         console.log('1')
         if (this.currentUser.user_type == 'A') {
         console.log('2')
