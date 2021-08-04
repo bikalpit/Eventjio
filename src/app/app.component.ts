@@ -68,8 +68,12 @@ export class AppComponent {
       const url = this.getUrl(event);
       this.currentUrl = url;
       console.log(this.currentUrl)
-      if ((this.currentUserData && this.currentUrl == '') || (this.currentUserData && this.currentUrl == undefined) || (this.currentUserData && this.currentUrl == '/login') || (this.currentUserData && this.currentUrl == '/sign-up')) {
+      console.log('currentUserData--'+this.currentUserData)
+      console.log('currentUser--'+this.currentUser)
+      if ((this.currentUser && this.currentUrl == '') || (this.currentUser && this.currentUrl == undefined) || (this.currentUser && this.currentUrl == '/login') || (this.currentUser && this.currentUrl == '/sign-up')) {
+        console.log('1')
         if (this.currentUser.user_type == 'A') {
+        console.log('2')
           this.router.navigate(['/super-admin/']);
         }
 
@@ -120,7 +124,6 @@ export class AppComponent {
       // this.currentUserImage = this.currentUserData.image
     }
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    console.log(this.currentUser)
   }
 
   dynamicSort(property: string) {
