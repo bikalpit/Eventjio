@@ -902,7 +902,124 @@
       }
     }
   }
-  
+  .verticle-view{
+    margin-top: 15px;
+    .display-col-2{
+      width: 100%;
+      flex: 100%;
+      max-width: 100%;
+      .Event-price-view{
+        padding: 16px 10px!important;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .common-priceview{
+          p{
+            font-size: 12px;
+            margin: 0;
+          }
+        }
+      }
+      .top-event-img{
+        background-size: cover;
+      }
+    }
+    .display-col-4{
+      width: 100%;
+      flex: 100%;
+      max-width: 100%;
+      .Event-price-view{
+        padding: 16px 10px!important;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .common-priceview{
+          p{
+            font-size: 12px;
+            margin: 0;
+          }
+        }
+      }
+      .top-event-img{
+        background-position: center;
+        height: 240px;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    }
+    .Event-price-view {
+      .common-priceview {
+          button {
+              width: auto;
+          }
+      }
+    }
+  }
+  .horizontal-view {
+    margin-top: 15px;
+    .display-col-4{
+      width: 100%;
+      flex: 100%;
+      max-width: 100%;
+    }
+    .display-col-2{
+      width: 100%;
+      flex: 100%;
+      max-width: 100%;
+    }
+    .Event-price-view {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+        .common-priceview {
+            p{
+              font-size: 12px;
+              margin: 0;
+            }
+            button {
+                width: auto !important;
+            }
+        }
+    }
+    .common-events-listing {
+      display: flex;
+      flex-wrap: wrap;
+      h3 {
+          display: flex;
+          flex-direction: column;
+          .btn {
+              margin: 12px 12px;
+          }
+      }
+      .top-event-img {
+          background-position: center;
+          width: 100%;
+          background-size: cover;
+          height: 200px;
+          background-repeat: no-repeat;
+      }
+      .event-details {
+          width: 100%;
+          margin-left: 0px;
+      }
+      .bottom-card {
+          .events-venue-date {
+              border-bottom: none !important;
+              width: 100%;
+          }
+      }
+    }
+  }
+  .bottom-help-tickets .right-logo-section {
+      text-decoration: none !important;
+  }
+  .bottom-help-tickets .privacy-policy{
+    text-decoration: underline;
+  }
+  .horizontal-view .display-col-4 .common-events-listing .event-details .boxoffice-desc{
+    padding: 14px;
+  }
 }
 ::ng-deep .no-sidebar {
   .customize-area {
@@ -1130,6 +1247,8 @@
 }
 
 .verticle-view {
+  
+  justify-content: center;
   .events-venue-date {
     display: flex;
     margin: 0px 20px;
@@ -1169,9 +1288,24 @@
       padding: 10px 6px !important;
       margin: 0px 6px;
     }
+    .events-venue-date{
+      .common-datevenue{
+          // align-items: start;
+          p{
+              display: -webkit-box;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              height: fit-content;
+              min-height: 60px;
+          }
+      }
+  }
   }
 }
 .horizontal-view {
+  justify-content: center;
   .common-events-listing {
     display: flex;
     .top-event-img {
