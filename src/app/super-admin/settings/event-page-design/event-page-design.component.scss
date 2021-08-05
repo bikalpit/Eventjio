@@ -19,7 +19,7 @@
   .br-6 {
     border-radius: 6px;
   }
-  .mb-0{
+  .mb-0 {
     margin-bottom: 0px;
   }
   .top-event-page {
@@ -146,12 +146,12 @@
       }
     }
     .Sparking_Events-img {
-        background-size: cover;
-        background-repeat: no-repeat;
-        img {
-            border-bottom-left-radius: 6px;
-            border-top-left-radius: 6px;
-        }
+      background-size: cover;
+      background-repeat: no-repeat;
+      img {
+        border-bottom-left-radius: 6px;
+        border-top-left-radius: 6px;
+      }
     }
     .sensor {
       display: block;
@@ -633,227 +633,276 @@
         justify-content: space-between;
         align-items: center;
         h3 {
-            font-weight: 500;
-            // color: #2C2C2C;
+          font-weight: 500;
+          // color: #2C2C2C;
         }
-        .privacy-policy{
-            text-decoration: underline;
+        .privacy-policy {
+          text-decoration: underline;
         }
         .btn {
-            padding: 4px 20px;
-            // color: #fff !important;
-            display: inline-block;
+          padding: 4px 20px;
+          // color: #fff !important;
+          display: inline-block;
         }
-        .right-logo-section{
-            p{
-              margin-bottom: 0px;
-              text-align: end;
-              font-size: 10px;
-            }
-            img{
-              width: 120px;
-            }
+        .right-logo-section {
+          text-decoration: none;
+          p {
+            margin-bottom: 0px;
+            text-align: end;
+            font-size: 10px;
+          }
+          img {
+            width: 120px;
+          }
         }
-        &.default-footer{
-          background-color: #FFE6C8;
+        &.default-footer {
+          background-color: #ffe6c8;
           h3 {
-            color: #2C2C2C;
+            color: #2c2c2c;
           }
           .btn {
             background-color: #973c56;
             color: #fff !important;
           }
-          a{
+          a {
             color: #973c56 !important;
+            text-decoration: none;
           }
         }
-    }
+      }
     }
   }
 }
 .mobile-preview-device {
-    #preview-event {
-        .preview-bg {
-            .container {
-                padding: 0;
-            }
-            .main-preview-section {
-                padding: 0;
-                .top-preview-image {
-                    height: 130px;
-                    width: auto;
-                    background-position: center;
-                }
-                .bottom-deatils {
-                    background-color: #fff;
-                    padding: 34px 5px;
-                    display: flow-root;
-                    .heading-preview-name {
-                        h3 {
-                            font-size: 28px;
-                            color: #000;
-                            margin: 0px;
-                        }
-                    }
-                    .bottom-booking-deatils {
-                        margin-top: 1rem;
-                        border-bottom: 0.5px solid #7070703d;
-                        display: flow-root;
-                        padding-bottom: 20px;
-                        .side-form-deatils {
-                            border-right: 0px;
-                            padding: 0;
-                            .preview-datetime {
-                                margin-bottom: 32px;
-                            }
-                            .preview-common-deatils {
-                                background-color: transparent;
-                                display: flex;
-                                align-items: center;
-                                padding: 0;
-                                border-radius: 0;
-                                p {
-                                    margin: 0px;
-                                    margin-left: 12px;
-                                    font-weight: 600;
-                                }
-                            }
-                        }
-                        .book-ticket-side {
-                            padding: 0px;
-                            .book-tickets-btn {
-                                text-align: center;
-                                margin: 20px auto;
-                                .btn {
-                                    background-color: #004FA1;
-                                    color: #fff;
-                                    padding: 6px 14px;
-                                    border-radius: 30px;
-                                    width: 250px;
-                                }
-                            }
-                            .share-link-main {
-                                margin-top: 18px;
-                                text-align: center;
-                                flex-direction: column;
-                                p {
-                                    margin: 0px;
-                                    font-size: 18px;
-                                    margin-bottom: 8px;
-                                }
-                                .event-icone-link {
-                                    i {
-                                        font-size: 32px;
-                                        margin: 0 8px;
-                                        cursor: pointer;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                .deatils-preview-events {
-                    padding: 10px;
-                }
-            }
-            .bottom-help-tickets {
-                padding: 10px 15px;
-                flex-direction: column;
-                .btn {
-                    padding: 4px 10px;
-                }
-                .right-logo-section{
-                  margin-top: 14px;
-                }
-                &.default-footer{
-                  background-color: #FFE6C8;
-                  h3 {
-                    color: #2C2C2C;
-                  }
-                  .btn {
-                    background-color: #973c56;
-                    color: #fff !important;
-                  }
-                  a{
-                    color: #973c56 !important;
-                  }
-                }
-            }
+  #preview-event {
+    .preview-bg {
+      .container {
+        padding: 0;
+      }
+      .main-preview-section {
+        padding: 0;
+        .top-preview-image {
+          height: 130px;
+          width: auto;
+          background-position: center;
         }
-     
-    }
-    .res-mobile-col{
-      width: 100%;
-      max-width: 100%;
-      flex: auto;
-    }
-    // #preview-event.theme2 {
-    //     .preview-bg {
-    //         .main-preview-section {
-    //             .top-preview-image {
-    //                 height: 300px;
-    //             }
-    //         }
-    //     }
-    // }
-    .pb-14{
-      padding-bottom: 14px;
-    }
-    #preview-event {
-        &.theme2,
-        &.theme3,
-        &.theme4,
-        &.theme6 {
-            .preview-bg {
-                .main-preview-section {
-                    .top-preview-image {
-                        height: 300px;
-                    }
-                }
+        .bottom-deatils {
+          background-color: #fff;
+          padding: 34px 5px;
+          display: flow-root;
+          .heading-preview-name {
+            h3 {
+              font-size: 28px;
+              color: #000;
+              margin: 0px;
             }
-        }
-    }
-    #preview-event.theme5 {
-        .bottom-booking-deatils {
+          }
+          .bottom-booking-deatils {
+            margin-top: 1rem;
+            border-bottom: 0.5px solid #7070703d;
+            display: flow-root;
+            padding-bottom: 20px;
+            .side-form-deatils {
+              border-right: 0px;
+              padding: 0;
+              .preview-datetime {
+                margin-bottom: 32px;
+              }
+              .preview-common-deatils {
+                background-color: transparent;
+                display: flex;
+                align-items: center;
+                padding: 0;
+                border-radius: 0;
+                p {
+                  margin: 0px;
+                  margin-left: 12px;
+                  font-weight: 600;
+                }
+              }
+            }
             .book-ticket-side {
-                .share-link-main {
-                    margin-bottom: 15px;
+              padding: 0px;
+              .book-tickets-btn {
+                text-align: center;
+                margin: 20px auto;
+                .btn {
+                  background-color: #004fa1;
+                  color: #fff;
+                  padding: 6px 14px;
+                  border-radius: 30px;
+                  width: 250px;
                 }
+              }
+              .share-link-main {
+                margin-top: 18px;
+                text-align: center;
+                flex-direction: column;
+                p {
+                  margin: 0px;
+                  font-size: 18px;
+                  margin-bottom: 12px !important;
+                  margin-right: 0px !important;
+                }
+                .event-icone-link {
+                  i {
+                    font-size: 32px;
+                    margin: 0 8px;
+                    cursor: pointer;
+                  }
+                }
+              }
             }
+          }
         }
-    }
-    #preview-event.theme6 {
-        #theme_6 {
-            .heading-preview-name {
-                margin-left: 0 !important;
-                margin-right: 0 !important;
-            }
+        .deatils-preview-events {
+          padding: 10px;
         }
-    }
-    .bottom-help-tickets {
-      padding: 10px 15px;
-      flex-direction: column;
-      .btn {
-          padding: 4px 10px;
       }
-      .right-logo-section{
-        margin-top: 14px;
-        display: block;
-      }
-      &.default-footer{
-        background-color: #FFE6C8;
-        h3 {
-          color: #2C2C2C;
-        }
+      .bottom-help-tickets {
+        padding: 10px 15px;
+        flex-direction: column;
         .btn {
-          background-color: #973c56;
-          color: #fff !important;
+          padding: 4px 10px;
         }
-        a{
-          color: #973c56 !important;
+        .right-logo-section {
+          p {
+            margin-bottom: 0px;
+            text-align: end;
+            font-size: 10px;
+          }
+          img {
+            width: 120px;
+          }
+        }
+        &.default-footer {
+          background-color: #ffe6c8;
+          h3 {
+            color: #2c2c2c;
+          }
+          .btn {
+            background-color: #973c56;
+            color: #fff !important;
+          }
+          a {
+            color: #973c56 !important;
+          }
         }
       }
+    }
   }
+  .res-mobile-col {
+    width: 100%;
+    max-width: 100%;
+    flex: auto;
+  }
+  // #preview-event.theme2 {
+  //     .preview-bg {
+  //         .main-preview-section {
+  //             .top-preview-image {
+  //                 height: 300px;
+  //             }
+  //         }
+  //     }
+  // }
+  .pb-14 {
+    padding-bottom: 14px;
+  }
+  #preview-event {
+    &.theme2,
+    &.theme3,
+    &.theme4,
+    &.theme6 {
+      .preview-bg {
+        .main-preview-section {
+          .top-preview-image {
+            height: 300px;
+          }
+        }
+      }
+    }
+  }
+  #preview-event.theme5 {
+    .bottom-booking-deatils {
+      .book-ticket-side {
+        .share-link-main {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+  #preview-event.theme6 {
+    #theme_6 {
+      .heading-preview-name {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+    }
+  }
+  #preview-event {
+    #theme_4,
+    #theme_2 {
+      .bottom-booking-deatils {
+        .event-date-time.border-bottom {
+          border-bottom: 0px !important;
+        }
+        .side-form-deatils {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+  .bottom-help-tickets {
+    padding: 10px 15px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    .btn {
+      padding: 4px 10px;
+      margin: 10px 12px;
+    }
+    .right-logo-section {
+      p {
+        margin-bottom: 0px;
+        text-align: end;
+        font-size: 10px;
+      }
+      img {
+        width: 120px;
+      }
+    }
+    &.default-footer {
+      background-color: #ffe6c8;
+      h3 {
+        color: #2c2c2c;
+      }
+      .btn {
+        background-color: #973c56;
+        color: #fff !important;
+      }
+      a {
+        color: #973c56 !important;
+        text-decoration: none;
+      }
+    }
+  }
+  #preview-event {
+    .preview-bg {
+      #theme_4 {
+        .bottom-booking-deatils {
+          .side-form-deatils {
+            padding: 0px 0px !important;
+            .preview-common-deatils {
+              padding: 4px 0px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  
 }
 ::ng-deep .no-sidebar {
   .customize-area {
@@ -944,119 +993,119 @@
         .border-bottom {
           border-bottom: none !important;
         }
-        .pl-30{
+        .pl-30 {
           padding-left: 30px !important;
-      }
-      .pr-30{
+        }
+        .pr-30 {
           padding-right: 30px !important;
-      }
-      .book-ticket-side {
-        padding: 0px !important;
-        .book-tickets-btn {
+        }
+        .book-ticket-side {
+          padding: 0px !important;
+          .book-tickets-btn {
             padding: 0px 30px;
             margin-top: 24px !important;
             button {
-                width: 100% !important;
-                border-radius: 5px !important;
+              width: 100% !important;
+              border-radius: 5px !important;
             }
-        }
-        .share-link-main{
+          }
+          .share-link-main {
             border-bottom: 2px dashed #000 !important;
             border-top: 2px dashed #000 !important;
             padding: 26px 0px;
+          }
         }
-    }
       }
       .deatils-preview-events {
         padding: 15px 25px;
       }
-      .preview-common-deatils{
+      .preview-common-deatils {
         margin-bottom: 0px !important;
-    }
+      }
     }
   }
 }
 
 #preview-event {
-    .preview-bg {
-        #theme_6 {
-            .heading-preview-name {
-                margin-left: -26px;
-                margin-right: -26px;
-                h3 {
-                padding: 20px 40px;
-                margin-top: -35px !important;
-                width: 100%;
-                }
-            }
-            .bottom-booking-deatils {
-              margin-top: 38px !important;
-                display: flex !important;
-                border-bottom: 0px !important;
-                .side-form-deatils {
-                border-right: 0px !important;
-                padding: 0px !important;
-                .preview-datetime {
-                    margin-bottom: 10px !important;
-                }
-                }
-                .pl-30{
-                  padding-left: 30px !important;
-              }
-              .pr-30{
-                  padding-right: 30px !important;
-              }
-                .border-bottom {
-                border-bottom: 2px dashed #000 !important;
-                }
-                .book-ticket-side {
-                .book-tickets-btn {
-                    button {
-                    width: 100% !important;
-                    border-radius: 5px !important;
-                    }
-                }
-                }
-            }
-            .deatils-preview-events {
-                padding: 15px 25px;
-            }
+  .preview-bg {
+    #theme_6 {
+      .heading-preview-name {
+        margin-left: -26px;
+        margin-right: -26px;
+        h3 {
+          padding: 20px 40px;
+          margin-top: -35px !important;
+          width: 100%;
         }
+      }
+      .bottom-booking-deatils {
+        margin-top: 38px !important;
+        display: flex !important;
+        border-bottom: 0px !important;
+        .side-form-deatils {
+          border-right: 0px !important;
+          padding: 0px !important;
+          .preview-datetime {
+            margin-bottom: 10px !important;
+          }
+        }
+        .pl-30 {
+          padding-left: 30px !important;
+        }
+        .pr-30 {
+          padding-right: 30px !important;
+        }
+        .border-bottom {
+          border-bottom: 2px dashed #000 !important;
+        }
+        .book-ticket-side {
+          .book-tickets-btn {
+            button {
+              width: 100% !important;
+              border-radius: 5px !important;
+            }
+          }
+        }
+      }
+      .deatils-preview-events {
+        padding: 15px 25px;
+      }
     }
+  }
 }
 
 #preview-event {
-    .preview-bg {
-        #theme_4 {
-            .bottom-booking-deatils {
-                margin-top: 0rem !important;
-                display: flex !important;
-                border-bottom: 0px !important;
-                .side-form-deatils {
-                    border-right: 0px !important;
-                    padding: 0px 32px !important;
-                    .preview-common-deatils {
-                        background-color: transparent !important;
-                        padding: 4px 36px !important;
-                    }
-                }
-                .book-ticket-side {
-                    .book-tickets-btn {
-                        button {
-                        width: 100% !important;
-                        border-radius: 5px !important;
-                        }
-                    }
-                }
-                .border-bottom {
-                border-bottom: 2px dashed #000 !important;
-                }
-            }
-            .deatils-preview-events {
-                padding: 15px 25px;
-            }
+  .preview-bg {
+    #theme_4 {
+      .bottom-booking-deatils {
+        margin-top: 0rem !important;
+        display: flex !important;
+        border-bottom: 0px !important;
+        .side-form-deatils {
+          border-right: 0px !important;
+          padding: 0px 32px !important;
+          .preview-common-deatils {
+            background-color: transparent !important;
+            padding: 4px 36px !important;
+          }
         }
+        .book-ticket-side {
+          .book-tickets-btn {
+            button {
+              width: 100% !important;
+              border-radius: 5px !important;
+            }
+          }
+        }
+        .border-bottom {
+          border-bottom: 2px dashed #000 !important;
+        }
+      }
+      .deatils-preview-events {
+        padding: 15px 25px;
+      }
     }
+  }
 }
 
 #preview-event {
@@ -1082,41 +1131,41 @@
 
 .verticle-view {
   .events-venue-date {
+    display: flex;
+    margin: 0px 20px;
+    border-bottom: 1px solid #ccc;
+    padding: 6px 0px !important;
+    .common-datevenue {
       display: flex;
-      margin: 0px 20px;
-      border-bottom: 1px solid #ccc;
-      padding: 6px 0px !important;
-      .common-datevenue {
-          display: flex;
-          align-items: center;
-          margin-right: 30px;
-          &:last-child {
-              margin-right: 0px;
-          }
-          p {
-              margin-bottom: 0px;
-              margin-left: 10px;
-          }
+      align-items: center;
+      margin-right: 30px;
+      &:last-child {
+        margin-right: 0px;
       }
+      p {
+        margin-bottom: 0px;
+        margin-left: 10px;
+      }
+    }
   }
   .display-col-2 {
-      .common-priceview {
-          button {
-              width: 300px;
-          }
+    .common-priceview {
+      button {
+        width: 300px;
       }
-      .top-event-img{
-          height: 240px !important;
-      }
-      .events-title{
-          padding: 14px 14px !important;
-      }
+    }
+    .top-event-img {
+      height: 240px !important;
+    }
+    .events-title {
+      padding: 14px 14px !important;
+    }
   }
-  .display-col-4{
-    .events-title{
-      padding: 18px 14px !important; 
-    }  
-    .events-venue-date{
+  .display-col-4 {
+    .events-title {
+      padding: 18px 14px !important;
+    }
+    .events-venue-date {
       padding: 10px 6px !important;
       margin: 0px 6px;
     }
@@ -1124,169 +1173,169 @@
 }
 .horizontal-view {
   .common-events-listing {
-      display: flex;
-      .top-event-img {
-          background-position: center;
-          width: 250px;
-          background-size: cover;
-          background-repeat: no-repeat;
-      }
-      .event-details {
-          width: calc(100% - 250px);
-      }
-      .bottom-card {
-        border-bottom: none;
-        .events-venue-date {
-            border-bottom: none !important;
-            display: flex;
-            padding: 6px 16px;
-            .common-datevenue {
-                margin-right: 30px;
-                display: flex;
-        align-items: center;
-                &:last-child {
-                    margin-right: 0px;
-                }
-                p {
-                    margin-bottom: 0px;
-                    margin-left: 10px;
-                }
-            }
+    display: flex;
+    .top-event-img {
+      background-position: center;
+      width: 250px;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .event-details {
+      width: calc(100% - 250px);
+    }
+    .bottom-card {
+      border-bottom: none;
+      .events-venue-date {
+        border-bottom: none !important;
+        display: flex;
+        padding: 6px 16px;
+        .common-datevenue {
+          margin-right: 30px;
+          display: flex;
+          align-items: center;
+          &:last-child {
+            margin-right: 0px;
+          }
+          p {
+            margin-bottom: 0px;
+            margin-left: 10px;
+          }
         }
-        // .Event-price-view {
-        //     flex-direction: column;
-        // }
-        .common-priceview {
-            margin-bottom: 6px;
-        }
+      }
+      // .Event-price-view {
+      //     flex-direction: column;
+      // }
+      .common-priceview {
+        margin-bottom: 6px;
+      }
     }
   }
   .display-col-1 {
     .top-event-img {
-        width: 400px;
-    }
-    .event-details{
-        padding: 10px 0px;
-        .events-title{
-            padding: 14px 14px;
-        }
-    }
-}
-.display-col-2 {
-    .top-event-img {
-        width: 180px;
+      width: 400px;
     }
     .event-details {
-        width: calc(100% - 180px);
-        .bottom-card {
-            padding: 0px 20px;
-            .events-venue-date {
-                border-bottom: 1px solid #ccc !important;
-                padding: 10px 0px !important;
-                .common-datevenue {
-                    margin-right: 10px;
-                    display: flex;
-                    align-items: center;
-                    p {
-                        margin-bottom: 0px;
-                        margin-left: 10px;
-                    }
-                }
-            }
-            .Event-price-view {
-                padding: 10px 0px !important;
-                .common-priceview {
-                    button {
-                        width: 200px;
-                    }
-                }
-            }
-        }
+      padding: 10px 0px;
+      .events-title {
+        padding: 14px 14px;
+      }
     }
-}
+  }
+  .display-col-2 {
+    .top-event-img {
+      width: 180px;
+    }
+    .event-details {
+      width: calc(100% - 180px);
+      .bottom-card {
+        padding: 0px 20px;
+        .events-venue-date {
+          border-bottom: 1px solid #ccc !important;
+          padding: 10px 0px !important;
+          .common-datevenue {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            p {
+              margin-bottom: 0px;
+              margin-left: 10px;
+            }
+          }
+        }
+        .Event-price-view {
+          padding: 10px 0px !important;
+          .common-priceview {
+            button {
+              width: 200px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .list-events {
-  .verticle-view{
+  .verticle-view {
     .top-event-img {
-        background-position: center;
-        height: 200px;
-        background-size: cover;
-        background-repeat: no-repeat;
+      background-position: center;
+      height: 200px;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
   }
   .top-heading-event {
-      h3 {
-          font-size: 20px;
-          text-align: justify;
-          margin: 24px 0px;
-          padding: 10px;
-      }
+    h3 {
+      font-size: 20px;
+      text-align: justify;
+      margin: 24px 0px;
+      padding: 10px;
+    }
   }
   .common-events-listing {
-      box-shadow: 0 1px 14px 0px #005eff26;
-      border-radius: 6px;
-      overflow: hidden;
-      .events-title {
-          // background-color: #EFF5FF;
-          padding: 14px;
-          h3 {
-              font-size: 16px;
-              margin: 0px;
-              font-weight: 500;
-              text-align: justify;
-          }
-          p {
-              font-size: 12px;
-              margin: 0px;
-              ::ng-deep p {
-                  margin-bottom: 0 !important;
-              }
-          }
-          .boxoffice-desc{
-            display: -webkit-box;
-            -webkit-line-clamp: 5;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            height: 100px;
-          }
+    box-shadow: 0 1px 14px 0px #005eff26;
+    border-radius: 6px;
+    overflow: hidden;
+    .events-title {
+      // background-color: #EFF5FF;
+      padding: 14px;
+      h3 {
+        font-size: 16px;
+        margin: 0px;
+        font-weight: 500;
+        text-align: justify;
       }
-      .events-venue-date {
-          padding: 10px 16px;
-          border-bottom: 1px solid #ccc;
-          .common-datevenue {
-              display: flex;
-              align-items: center;
-              margin-bottom: 10px;
-              p {
-                  margin: 0px;
-                  margin-left: 12px;
-              }
-          }
+      p {
+        font-size: 12px;
+        margin: 0px;
+        ::ng-deep p {
+          margin-bottom: 0 !important;
+        }
       }
-      .Event-price-view {
-          padding: 10px 16px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          .common-priceview {
-              p {
-                  font-size: 12px;
-                  margin: 0px;
-              }
-              h3 {
-                  font-weight: 600;
-                  text-align: initial;
-                  font-size: 20px;
-                  margin: 0px;
-              }
-              .viewevents-btn {
-                  background-color: #0d66ff;
-                  color: #fff;
-              }
-          }
+      .boxoffice-desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 100px;
       }
+    }
+    .events-venue-date {
+      padding: 10px 16px;
+      border-bottom: 1px solid #ccc;
+      .common-datevenue {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        p {
+          margin: 0px;
+          margin-left: 12px;
+        }
+      }
+    }
+    .Event-price-view {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .common-priceview {
+        p {
+          font-size: 12px;
+          margin: 0px;
+        }
+        h3 {
+          font-weight: 600;
+          text-align: initial;
+          font-size: 20px;
+          margin: 0px;
+        }
+        .viewevents-btn {
+          background-color: #0d66ff;
+          color: #fff;
+        }
+      }
+    }
   }
   .bottom-help-tickets {
     width: 100%;
@@ -1297,46 +1346,47 @@
     justify-content: space-between;
     align-items: center;
     h3 {
-        font-weight: 500;
-        // color: #2C2C2C;
-        margin-bottom: 0px;
+      font-weight: 500;
+      // color: #2C2C2C;
+      margin-bottom: 0px;
     }
-    .privacy-policy{
-        text-decoration: underline;
+    .privacy-policy {
+      text-decoration: underline;
     }
     .btn {
-        padding: 4px 20px;
-        // color: #fff !important;
-        display: inline-block;
-        margin: 0px 12px;
+      padding: 4px 20px;
+      // color: #fff !important;
+      display: inline-block;
+      margin: 0px 12px;
     }
-    .right-logo-section{
-        p{
-            margin-bottom: 0px;
-            text-align: end;
-            font-size: 10px;
-        }
-        img{
-          width: 120px;
-        }
+    .right-logo-section {
+      p {
+        margin-bottom: 0px;
+        text-align: end;
+        font-size: 10px;
+      }
+      img {
+        width: 120px;
+      }
     }
-    &.default-footer{
-      background-color: #FFE6C8;
+    &.default-footer {
+      background-color: #ffe6c8;
       h3 {
-        color: #2C2C2C;
+        color: #2c2c2c;
       }
       .btn {
         background-color: #973c56;
         color: #fff !important;
       }
-      a{
+      a {
         color: #973c56 !important;
+        text-decoration: none;
       }
     }
-}
+  }
 }
 
-.default-setting-btn{
+.default-setting-btn {
   background-color: #fff;
   color: #000;
   margin-left: auto;
@@ -1345,21 +1395,26 @@
 #theme_6,
 #theme_2,
 #theme_5,
-#theme_4{
-    .share-link-main{
-        margin-top: 40px !important;
-        p{
-            margin-right: 30px !important;
-            margin-bottom: 0px !important;
-        }
+#theme_4 {
+  .share-link-main {
+    margin-top: 40px !important;
+    p {
+      margin-right: 30px !important;
+      margin-bottom: 0px !important;
     }
-}
-#theme_6{
-  .share-link-main{
-      margin-top: 34px !important;
-      margin-bottom: 8px !important;
-      p{
-          margin-right: 30px;
-      }
   }
+}
+#theme_6 {
+  .share-link-main {
+    margin-top: 34px !important;
+    margin-bottom: 8px !important;
+    p {
+      margin-right: 30px;
+    }
+  }
+}
+
+.loader-main{
+  
+  background: rgba(255, 255, 255, 1)  !important;
 }

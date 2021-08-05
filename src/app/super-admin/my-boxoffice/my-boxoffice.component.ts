@@ -187,21 +187,24 @@ export class MyBoxofficeComponent implements OnInit {
   }
 
   getAllCountry(){
+    this.isLoaderAdmin = true;
     this.superadminService.getAllCountry().subscribe((response:any) => {
       if(response.data == true){
         this.allCountry = response.response
       }
+      this.isLoaderAdmin = false;
     });
   }
   
   getAllCurrancy(){
-
+    this.isLoaderAdmin = true;
     this.superadminService.getAllCurrancy().subscribe((response:any) => {
       if(response.data == true){
         this.allCurency = response.response
       }else if(response.data == false){
         // this.ErrorService.errorMessage(response.response)
       }
+      this.isLoaderAdmin = false;
     });
 
   }
@@ -334,21 +337,24 @@ export class myCreateNewBoxofficeDialog {
   }
 
   getAllCountry(){
+    this.isLoaderAdmin = true;
     this.superadminService.getAllCountry().subscribe((response:any) => {
       if(response.data == true){
         this.allCountry = response.response
       }
+      this.isLoaderAdmin = false;
     });
   }
   
   getAllCurrancy(){
-
+    this.isLoaderAdmin = true;
     this.superadminService.getAllCurrancy().subscribe((response:any) => {
       if(response.data == true){
         this.allCurency = response.response
       }else if(response.data == false){
         // this.ErrorService.errorMessage(response.response)
       }
+      this.isLoaderAdmin = false;
     });
 
   }

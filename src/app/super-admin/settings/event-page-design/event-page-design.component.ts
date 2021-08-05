@@ -119,8 +119,8 @@ export class EventPageDesignComponent implements OnInit {
         this.allEventList.length = 0;
         // this.ErrorService.errorMessage(response.response);
       }
-    });
     this.isLoaderAdmin = false;
+    });
   }
 
   fnChangeTheme(theme){
@@ -171,8 +171,8 @@ export class EventPageDesignComponent implements OnInit {
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);
       }
-    });
       this.isLoaderAdmin = false;
+    });
   }
 
   
@@ -281,11 +281,13 @@ export class EventPageDesignComponent implements OnInit {
 
   }
   fnGoogleMap(address){
+    this.isLoaderAdmin = true;
     this.SettingService.googleMap(address).subscribe((response:any) => {
       if(response.status =='OK'){
         var results = response.results[0].geometry.location;
          this.eventLocationSrc =  this.sanitizer.bypassSecurityTrustResourceUrl('https://maps.google.com/maps?q='+results.lat+','+results.lng+'&z=15&output=embed');
       }
+      this.isLoaderAdmin = false;
     });
   }
  
@@ -304,8 +306,8 @@ export class EventPageDesignComponent implements OnInit {
         }
       } else if(response.data == false){
       }
-    });
     this.isLoaderAdmin = false;
+    });
 
   }
 
@@ -316,6 +318,7 @@ export class EventPageDesignComponent implements OnInit {
       'boxoffice_id' : 'NULL'
     }
 
+    this.isLoaderAdmin = true;
     this.SettingService.getSettingsValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.waitingListSettings =  JSON.parse(response.response); 
@@ -388,6 +391,29 @@ export class EventPageDesignComponent implements OnInit {
       'json_type' : 'Y'
     }
     this.updateThemeAppearance(requestObject);
+  }
+
+  transformTime24To12(time: any): any {
+    if(time != null){
+      let hour = (time.split(':'))[0];
+      let min = (time.split(':'))[1];
+      let part = 'AM';
+      let finalhrs = hour
+      if(hour == 0){
+        finalhrs = 12
+      }
+      if(hour == 12){
+        finalhrs = 12;
+        part = 'PM';
+      }
+      if(hour > 12){
+        finalhrs  = hour - 12
+        part = 'PM' 
+      }
+      return `${finalhrs}:${min} ${part}`
+    }else{
+      return "";
+    }
   }
 
 }

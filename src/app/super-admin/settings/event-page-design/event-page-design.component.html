@@ -143,7 +143,7 @@
                             <div class="events-venue-date">
                                 <div *ngIf="boxOfficeEventList.event_occurrence_type == 'N'" class="common-datevenue">
                                     <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                                    <p> {{boxOfficeEventList.start_date}} {{boxOfficeEventList.start_time}} </p>
+                                    <p> {{boxOfficeEventList.start_date}} {{transformTime24To12(boxOfficeEventList.start_time)}} </p>
                                 </div>
                                 <div *ngIf="boxOfficeEventList.event_occurrence_type == 'Y'" class="common-datevenue">
                                     <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="common-priceview">
                                     <button mat-raised-button [style.background]="btnColor" [style.color]="btnTextColor" class="viewevents-btn btn-color btn-bgcolor">View
-                                        Events</button>
+                                        Event</button>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +203,7 @@
                                     <div class="events-venue-date">
                                         <div *ngIf="boxOfficeEventList.event_occurrence_type == 'N'" class="common-datevenue">
                                             <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                                            <p> {{boxOfficeEventList.start_date}} {{boxOfficeEventList.start_time}} </p>
+                                            <p> {{boxOfficeEventList.start_date}} {{transformTime24To12(boxOfficeEventList.start_time)}} </p>
                                         </div>
                                         <div *ngIf="boxOfficeEventList.event_occurrence_type == 'Y'" class="common-datevenue">
                                             <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
@@ -240,7 +240,7 @@
                                         </div>
                                         <div class="common-priceview">
                                             <button [style.background]="btnColor" [style.color]="btnTextColor" mat-raised-button class="viewevents-btn btn-color btn-bgcolor">View
-                                                Events</button>
+                                                Event</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1918,23 +1918,23 @@
                 <h3>Theme 1</h3>
             </div>
             <div (click)="fnChangeTheme('theme2')" [ngClass]="{'active':selectedTheme == 'theme2'}" class="theme-box">
-                <img src="../../../../assets/images/settings/themes/layout_2.png" />
+                <img src="../../../../assets/images/settings/themes/layout_3.png" />
                 <h3>Theme 2</h3>
             </div>
             <div (click)="fnChangeTheme('theme3')" [ngClass]="{'active':selectedTheme == 'theme3'}" class="theme-box">
-                <img src="../../../../assets/images/settings/themes/layout_3.png" />
+                <img src="../../../../assets/images/settings/themes/layout_6.png" />
                 <h3>Theme 3</h3>
             </div>
             <div (click)="fnChangeTheme('theme4')" [ngClass]="{'active':selectedTheme == 'theme4'}" class="theme-box">
-                <img src="../../../../assets/images/settings/themes/layout_4.png" />
+                <img src="../../../../assets/images/settings/themes/layout_5.png" />
                 <h3>Theme 4</h3>
             </div>
             <div (click)="fnChangeTheme('theme5')" [ngClass]="{'active':selectedTheme == 'theme5'}" class="theme-box">
-                <img src="../../../../assets/images/settings/themes/layout_5.png" />
+                <img src="../../../../assets/images/settings/themes/layout_4.png" />
                 <h3>Theme 5</h3>
             </div>
             <div (click)="fnChangeTheme('theme6')" [ngClass]="{'active':selectedTheme == 'theme6'}" class="theme-box">
-                <img src="../../../../assets/images/settings/themes/layout_6.png" />
+                <img src="../../../../assets/images/settings/themes/layout_2.png" />
                 <h3>Theme 6</h3>
             </div>
             <div (click)="fnThemeDirection('themeCustomization')" class="theme-box">
@@ -1958,7 +1958,7 @@
             <div class="customization-box">
                 <div class="first-column">
                     <div class="row mx-0">
-                        <label class="col-6">Header Color</label>
+                        <label class="col-6"> Header/Footer Color</label>
                         <label class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{headerColor}}</div>
@@ -1994,7 +1994,7 @@
                 </div>
                 <div class="second-column">
                     <div class="row mx-0">
-                        <label class="col-6">Header Text Color</label>
+                        <label class="col-6">Header/Footer Text Color</label>
                         <label class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{headerTextColor}}</div>
