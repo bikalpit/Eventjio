@@ -49,3 +49,9 @@
 ::ng-deep h3 {
     font-weight: bold !important;
 }
+.hover-link{
+    color: #FF6600 !important;
+    &:hover{
+        color: #FF6600 !important;
+    }
+}
