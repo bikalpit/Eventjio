@@ -186,7 +186,7 @@ export class AppComponent {
       this.pageName = 'Coupon'
     } else if (url === '/super-admin/settings') {
       this.pageName = 'Settings'
-    }else if((devidedUrl[2] != 'settings' || devidedUrl[2] != 'single-event-dashboard') && this.currentUser){
+    }else if(devidedUrl[2] != 'settings' && devidedUrl[2] != 'single-event-dashboard' && this.currentUser){
       if (this.currentUser.user_type == 'A') {
         this.router.navigate(['/super-admin/']);
       }
