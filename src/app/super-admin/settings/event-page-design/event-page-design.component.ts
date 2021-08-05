@@ -271,6 +271,12 @@ export class EventPageDesignComponent implements OnInit {
         if(this.eventSettings.event_banner_zoom){
           this.bannerZoomLavel = this.eventSettings.event_banner_zoom
         }
+        if(this.eventDetail.online_event == 'N'){
+          var address = [this.eventDetail.venue_name ,this.eventDetail.country[0].name,this.eventDetail.postal_code];
+          this.fnGoogleMap(address.join('+'));
+        }else{
+           
+        }
         this.change.detectChanges();
       } else if(response.data == false){
         this.ErrorService.errorMessage(response.response);

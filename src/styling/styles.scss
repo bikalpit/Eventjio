@@ -315,7 +315,7 @@
         color: #30A81E !important;
     }
     
-    a {
+    a:not(.footer-colored-btn) {
         color: #FE6A4D !important;
         text-decoration: none;
         cursor: pointer;

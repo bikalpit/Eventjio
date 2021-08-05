@@ -93,33 +93,33 @@ $bg-darkblue:#eef5ff;
 $bg-header:#cfe3fc;
 
 .header-color {
-    color: $headerTextColor !important;
+    color: $headerTextColor;
 }
 
 .header-bgcolor {
-    background-color: $headerColor !important;
+    background-color: $headerColor;
 }
 
 .page-color {
-    color: $pageTextColor !important;
+    color: $pageTextColor;
 }
 
 .page-bgcolor {
-    background-color: $pageColor !important;
+    background-color: $pageColor;
 }
 
 .btn-color {
-    color: $btnTextColor !important;
+    color: $btnTextColor;
 }
 
 .btn-bgcolor {
-    background-color: $btnColor !important;
+    background-color: $btnColor;
 }
 
 .bg-color {
-    background-color: $bgColor !important;
+    background-color: $bgColor;
 }
 
 .SelectedFont {
-    font-family: $fontFamily !important;
+    font-family: $fontFamily;
 }

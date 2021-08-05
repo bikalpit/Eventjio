@@ -619,7 +619,7 @@
               font-size: 14px;
             }
             .map-main-div {
-              height: 230px;
+              height: 300px;
               margin-top: 20px;
             }
           }
@@ -687,7 +687,7 @@
           background-position: center;
         }
         .bottom-deatils {
-          background-color: #fff;
+          // background-color: #fff;
           padding: 34px 5px;
           display: flow-root;
           .heading-preview-name {
@@ -1019,7 +1019,7 @@
   .bottom-help-tickets .privacy-policy{
     text-decoration: underline;
   }
-  .horizontal-view .display-col-4 .common-events-listing .event-details .boxoffice-desc{
+  .horizontal-view .display-col-2 .common-events-listing .event-details .boxoffice-desc{
     padding: 14px;
   }
 }
