@@ -115,7 +115,7 @@
 
                     <div class="form-group col-md-12 col-lg-12 col-sm-12">
                         <label>Send<span class="text-danger">*</span> </label>
-                        <mat-select class="form-control clr-black" formControlName="send" (selectionChange)="fnSelectionChange($event)" id="exampleFormControlSelect1">
+                        <mat-select class="form-control clr-black" [(ngModel)]="sendingType" formControlName="send" (selectionChange)="fnSelectionChange($event)" id="exampleFormControlSelect1">
                             <mat-option value="IMM">Immediately </mat-option>
                             <mat-option value="AT_SED_DATE_TIME">At a scheduled date and time</mat-option>
                             <mat-option value="AT_SED_ITR_BFO_EVT_ST">At a scheduled interval before the event start</mat-option>
@@ -142,9 +142,13 @@
 
                         <div class="col-3 d-inline-block">
                             <label for="">Time :</label>
-                            <mat-select formControlName="scheduledTime" class="form-control">
+                            <mat-select *ngIf="!scheduledDateToday" formControlName="scheduledTime" class="form-control">
                                 <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
-                            </mat-select><br>
+                            </mat-select>
+                            <mat-select *ngIf="scheduledDateToday" formControlName="scheduledTime" class="form-control">
+                                <mat-option  [disabled]="currentTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                            </mat-select>
+                            <br>
                             <span class="error-wrap" *ngIf="createBroadcastForm.get('scheduledTime').touched || createBroadcastForm.get('scheduledTime').dirty">
                                 <small *ngIf="createBroadcastForm.get('scheduledTime').hasError('required')" class="error">Scheduled time is required.</small>
                             </span>

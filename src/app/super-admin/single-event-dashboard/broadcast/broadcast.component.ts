@@ -39,6 +39,9 @@ export class BroadcastComponent implements OnInit {
   selectedOccurrence:any;
   occurrenceError:boolean=false;
   allOccurrenceList:any;
+  sendingType:any;
+  scheduledDateToday:boolean=false;
+  currentTime:any;
   // status:string = "draft";
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
@@ -80,7 +83,6 @@ export class BroadcastComponent implements OnInit {
   
 
   fnOnSubmitForm(status){
-    // console.log(this.createBroadcastForm);
     if(this.createBroadcastForm.invalid){
       this.createBroadcastForm.get('recipients').markAllAsTouched();
       this.createBroadcastForm.get('subject').markAllAsTouched();
@@ -143,15 +145,15 @@ export class BroadcastComponent implements OnInit {
          if(status == 'send'){
           setTimeout(() => {
             this.sendBroadcast(this.getAllBroadcastData[this.getAllBroadcastData.length-1], this.getAllBroadcastData[this.getAllBroadcastData.length-1].unique_code)
-          },3000)
+          },1000)
           // const index = this.getAllBroadcastData.indexOf(createBroadcastData., 0);
          }
         }
         else if(response.data == false){
          this.ErrorService.errorMessage(response.response);
         }
+        this.isLoaderAdmin = false;
       })
-      this.isLoaderAdmin = false;
   }
   fnSelectionChange(event){
     // this.sendOptions = event.value; 
@@ -172,9 +174,6 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.controls["scheduledInterval"].updateValueAndValidity();
       this.createBroadcastForm.controls["scheduledDate"].updateValueAndValidity();
       this.createBroadcastForm.controls["scheduledTime"].updateValueAndValidity();
-      // if(this.createBroadcastForm.get('scheduledDate').value !== null){
-      //   this.scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd")
-      // };
     }else{
       this.sendOptions = event.value;
       this.createBroadcastForm.controls["scheduledDate"].setValidators(null);
@@ -204,6 +203,17 @@ export class BroadcastComponent implements OnInit {
       part = 'PM' 
     }
     return `${finalhrs}:${min} ${part}`
+  }
+
+  transformTime(time: any): any {
+    let hour = (time.split(':'))[0];
+    let temp = (time.split(':'))[1];
+    let min = (temp.split(' '))[0];
+    let part = (time.split(' '))[1];
+    if(part == 'PM' && hour !== '12'){
+      hour = Number(hour)+12;
+    }
+    return `${hour}:${min}`
   }
 
   getAllOccurrenceList(){
@@ -236,6 +246,12 @@ export class BroadcastComponent implements OnInit {
 
   fnChangeEventStartDate(){
     if(this.createBroadcastForm.get('scheduledDate').value !== null){
+      var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd");
+      var scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd");
+      if(scheduledDate === todayDate){
+        this.scheduledDateToday=true;
+        this.currentTime = this.transformTime(this.datePipe.transform(new Date(),"h:mm a"))
+      }
       this.scheduledDate = this.datePipe.transform(new Date(this.createBroadcastForm.get('scheduledDate').value),"yyyy-MM-dd")
     };
     this.startDate = this.createBroadcastForm.get('scheduledDate').value;
