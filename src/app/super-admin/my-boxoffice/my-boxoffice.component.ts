@@ -25,7 +25,7 @@ export class MyBoxofficeComponent implements OnInit {
   allCurency: any;
   allCountry: any;
   admin_id :any;
-  allBoxoffice: any;
+  allBoxoffice: any=[];
   adminSettings : boolean = false;
   currentUser:any;
   adminId:any;
@@ -34,7 +34,7 @@ export class MyBoxofficeComponent implements OnInit {
   pageSlug:any;
   firstCreateBoxOffice : boolean = false;
   keepMe:any;
-  noBoxOffice:boolean= true
+  noBoxOffice:boolean;
   constructor(
 
     public dialog: MatDialog,
@@ -46,6 +46,7 @@ export class MyBoxofficeComponent implements OnInit {
     public AppComponent: AppComponent
     ) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      this.getAllBoxoffice();
       localStorage.setItem('isBoxoffice','true')
       this.router.events.subscribe(event => {
         if (event instanceof RouterEvent) this.handleRoute(event);
@@ -90,8 +91,6 @@ export class MyBoxofficeComponent implements OnInit {
           }
       }
  
-      
-      this.getAllBoxoffice();
     }
 
     ngAfterViewInit() {
@@ -107,11 +106,13 @@ export class MyBoxofficeComponent implements OnInit {
         if(response.data == true){
           if(this.firstCreateBoxOffice){
             this.fnSelectBoxoffice(response.response[0].unique_code,response.response[0].box_office_name, response.response[0].box_office_link);
+            this.isLoaderAdmin = false;
             
           }else{
             this.allBoxoffice = response.response
             console.log(this.allBoxoffice)
             this.noBoxOffice = false;
+            this.isLoaderAdmin = false;
           }
           
         }else if(response.data == false){
@@ -119,9 +120,9 @@ export class MyBoxofficeComponent implements OnInit {
             this.noBoxOffice = true;
             this.firstCreateBoxOffice = true;
           }
+          this.isLoaderAdmin = false;
           // this.ErrorService.errorMessage(response.response)
         }
-        this.isLoaderAdmin = false;
       });
 
     }

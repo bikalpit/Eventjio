@@ -67,13 +67,8 @@ export class AppComponent {
       if (event instanceof RouterEvent) this.handleRoute(event);
       const url = this.getUrl(event);
       this.currentUrl = url;
-      console.log(this.currentUrl)
-      console.log('currentUserData--',this.currentUserData)
-      console.log('currentUser--',this.currentUser)
       if ((this.currentUser && this.currentUrl == '')) {
-        console.log('1')
         if (this.currentUser.user_type == 'A') {
-        console.log('2')
           this.router.navigate(['/super-admin/']);
         }
 
@@ -175,6 +170,9 @@ export class AppComponent {
     if (url === '/super-admin/dashboard') {
       this.pageName = 'Dashboard';
     }
+    else if (url === '/super-admin') {
+      this.pageName = 'Box Office'
+    }
     else if (url === '/super-admin/events' || url === '/super-admin/events?event=new') {
       this.pageName = 'Events'
     }
@@ -188,6 +186,10 @@ export class AppComponent {
       this.pageName = 'Coupon'
     } else if (url === '/super-admin/settings') {
       this.pageName = 'Settings'
+    }else if(devidedUrl[2] != 'settings' && devidedUrl[2] != 'single-event-dashboard' && this.currentUser){
+      if (this.currentUser.user_type == 'A') {
+        this.router.navigate(['/super-admin/']);
+      }
     }
     if (devidedUrl[2] == 'settings') {
       this.pageName = 'Settings'
@@ -368,7 +370,6 @@ export class AppComponent {
   signInWithFB(loginForm): void {
     this.loginForm=loginForm;
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(res=>{
-      console.log("facebook res=>",res);
       this.fnLoginWithGoogleFacebook(res);
 
     }); 
