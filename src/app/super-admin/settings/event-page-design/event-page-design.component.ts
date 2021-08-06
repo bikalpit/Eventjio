@@ -125,7 +125,7 @@ export class EventPageDesignComponent implements OnInit {
 
   fnChangeTheme(theme){
     this.selectedTheme = theme;
-    this.fnSetDefaultColorSetting();
+    this.fnSetThemeSetting();
   }
 
   fnThemeDirection(direction){
@@ -388,6 +388,30 @@ export class EventPageDesignComponent implements OnInit {
       "displayView":"verticle",
       'theme': this.selectedTheme,
       'updated': false
+    }
+    let requestObject = {
+      "boxoffice_id"  : this.boxOfficeId,
+      "option_key"    :  "themeColorAppearance",
+      "option_value" : themeAppearance,
+      "event_id" :  null,
+      'json_type' : 'Y'
+    }
+    this.updateThemeAppearance(requestObject);
+  }
+  public fnSetThemeSetting(){
+    let themeAppearance = {
+      "font":this.selectedFont,
+      "bgColor":this.bgColor,
+      "pageColor":this.pageColor,
+      "pageTextColor":this.pageTextColor,
+      "headerColor":this.headerColor,
+      "headerTextColor":this.headerTextColor,
+      "btnColor":this.btnColor,
+      "btnTextColor":this.btnTextColor,
+      "displayCol":this.displayCol,
+      "displayView":this.displayView,
+      'theme': this.selectedTheme,
+      'updated': this.updated
     }
     let requestObject = {
       "boxoffice_id"  : this.boxOfficeId,

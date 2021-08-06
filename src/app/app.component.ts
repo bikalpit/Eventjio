@@ -1,6 +1,7 @@
 import { Component, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { Router, RouterEvent, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
+import { ErrorService } from './_services/error.service';
 import { SocialAuthService, FacebookLoginProvider,GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User, Role } from './_models';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -48,7 +49,8 @@ export class AppComponent {
     private _snackBar: MatSnackBar,
     private authService: SocialAuthService,
     private authenticationService: AuthenticationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private errorService: ErrorService,
   ) {
     localStorage.setItem('mainSidebar', 'true');
     this.keepMe = localStorage.getItem('keepMeSignIn')
@@ -173,6 +175,9 @@ export class AppComponent {
     else if (url === '/super-admin') {
       this.pageName = 'Box Office'
     }
+    else if (url === '/super-admin/my-profile') {
+      this.pageName = 'My Profile'
+    }
     else if (url === '/super-admin/events' || url === '/super-admin/events?event=new') {
       this.pageName = 'Events'
     }
@@ -192,9 +197,19 @@ export class AppComponent {
       }
     }
     if (devidedUrl[2] == 'settings') {
-      this.pageName = 'Settings'
+      if(localStorage.getItem('boxoffice_id')){
+        this.pageName = 'Settings'
+      }else{
+        this.errorService.errorMessage('Select Box-office first.');
+        this.router.navigate(["/super-admin/boxoffice"]);
+      }
     } else if (devidedUrl[2] == 'single-event-dashboard') {
-      this.pageName = 'Events'
+      if(localStorage.getItem('boxoffice_id')){
+        this.pageName = 'Events';
+      }else{
+        this.errorService.errorMessage('Select Box-office first.');
+        this.router.navigate(["/super-admin/boxoffice"]);
+      }
     }
   }
 

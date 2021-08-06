@@ -144,7 +144,7 @@ export class BroadcastComponent implements OnInit {
          this.getAllBroadcast();
          if(status == 'send'){
           setTimeout(() => {
-            this.sendBroadcast(this.getAllBroadcastData[this.getAllBroadcastData.length-1], this.getAllBroadcastData[this.getAllBroadcastData.length-1].unique_code)
+            this.sendBroadcast(this.getAllBroadcastData[this.getAllBroadcastData.length-1], this.getAllBroadcastData[this.getAllBroadcastData.length-1].unique_code, false)
           },1000)
           // const index = this.getAllBroadcastData.indexOf(createBroadcastData., 0);
          }
@@ -321,15 +321,15 @@ fnCreateBroadcast(){
   }
 
   previewBroadcast(index){    
-    this.sendBroadcast(this.getAllBroadcastData[index],this.getAllBroadcastData[index].unique_code);
+    this.sendBroadcast(this.getAllBroadcastData[index],this.getAllBroadcastData[index].unique_code,true);
   }
 
   
   
-sendBroadcast(broadcastData, uniqueCode) {
+sendBroadcast(broadcastData, uniqueCode,resend) {
   const dialogRef = this.dialog.open(mySendBroadcastDialog, {
     width: '650px',
-    data:{createBroadcastData : broadcastData, uniqueCode : uniqueCode}
+    data:{createBroadcastData : broadcastData, uniqueCode : uniqueCode, resend:resend}
     
   });
    dialogRef.afterClosed().subscribe(result => {
@@ -352,13 +352,14 @@ sendBroadcast(broadcastData, uniqueCode) {
 
 export class mySendBroadcastDialog{ 
   createBroadcastData:any;
-  isLoaderAdmin:any;
+  isLoaderAdmin:boolean=false;
   buttonHide:any = false;
   editor1 = 'Angular 4';
   datav: any = `<p>Hello, world!</p>`;
   editorValue: string = '';
   currentUser:any;
   uniqueCode:any;
+  resend:any;
   constructor(
     public dialogRef: MatDialogRef<mySendBroadcastDialog>,
     private http: HttpClient,
@@ -368,38 +369,51 @@ export class mySendBroadcastDialog{
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.createBroadcastData = this.data.createBroadcastData;
       this.uniqueCode = this.data.uniqueCode;
+      this.resend = this.data.resend;
       this.editorValue = this.createBroadcastData.message;
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
     fnSendBroadCast(){
-      let requestObject = {
-        'unique_code':this.uniqueCode
+      if(this.resend){
+        let requestObject = {
+          'unique_code':this.uniqueCode
+        }
+        this.isLoaderAdmin = true;
+        this.SingleEventServiceService.reSendBroadcast(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+           this.ErrorService.successMessage(response.response);
+           this.dialogRef.close('sent');
+          }
+          else if(response.data == false){
+           this.ErrorService.errorMessage(response.response);
+          }
+          this.isLoaderAdmin = false;
+        })
+      }else{
+        let requestObject = {
+          'unique_code':this.uniqueCode
+        }
+        this.isLoaderAdmin = true;
+        this.SingleEventServiceService.sendBroadcast(requestObject).subscribe((response:any) => {
+          if(response.data == true){
+           this.ErrorService.successMessage(response.response);
+           this.dialogRef.close('sent');
+          }
+          else if(response.data == false){
+           this.ErrorService.errorMessage(response.response);
+          }
+          this.isLoaderAdmin = false;
+        })
       }
-      this.isLoaderAdmin = true;
-      this.SingleEventServiceService.sendBroadcast(requestObject).subscribe((response:any) => {
-        if(response.data == true){
-         this.ErrorService.successMessage(response.response);
-         this.dialogRef.close('sent');
-        }
-        else if(response.data == false){
-         this.ErrorService.errorMessage(response.response);
-        }
-        this.isLoaderAdmin = false;
-      })
+  
     }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+    ngOnInit() { 
     
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-
-
-
-  ngOnInit() { 
-   
-  }
+    }
   }
 
 

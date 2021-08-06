@@ -100,6 +100,7 @@ export class AuthenticationService {
             sessionStorage.removeItem('isFront');
             sessionStorage.removeItem('logoutTime');
             sessionStorage.removeItem('isBoxoffice');
+            localStorage.clear();
             sessionStorage.clear();
             window.location.reload(true);
             this.currentUserSubject.next(null);
