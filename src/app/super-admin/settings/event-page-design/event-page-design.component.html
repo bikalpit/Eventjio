@@ -1,4 +1,4 @@
-<div id="event_page_design" class="" [ngStyle]="{'font-family': selectedFont}">
+<div id="event_page_design" class="">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div routerLink="/super-admin/settings" class="exit-btn pointer">
         <mat-icon>close</mat-icon>
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="eventPageType == 'listing'" class="preview-area container"
+        <div [ngStyle]="{'font-family': selectedFont}" *ngIf="eventPageType == 'listing'" class="preview-area container"
             [ngClass]="{'mobile-view': eventPageView == 'mobile'}">
             <div *ngIf="eventPageView == 'mobile'" class="mobile-preview-device marvel-device s5 white">
                 <div class="top-bar"></div>
@@ -354,7 +354,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="eventPageType == 'single'" class="preview-area container"
+        <div [ngStyle]="{'font-family': selectedFont}" *ngIf="eventPageType == 'single'" class="preview-area container"
             [ngClass]="{'mobile-view': eventPageView == 'mobile'}">
             <div *ngIf="eventPageView == 'mobile'" class="mobile-preview-device marvel-device s5 white">
                 <div class="top-bar"></div>
@@ -917,7 +917,7 @@
                                     *ngIf="selectedTheme == 'theme5'">
                                     <div class="bottom-deatils">
                                         <div class="heading-preview-name">
-                                            <h3> {{
+                                            <h3 class="header-color header-bgcolor" [style.background]="headerColor" [style.color]="headerTextColor"> {{
                                                 eventDetail ? eventDetail.event_title : '-' }}
                                                 <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
                                                     ({{boxOfficeName}})</h4>
@@ -1194,8 +1194,8 @@
                 </div>
                 <div class="home"></div>
             </div>
-            <div [style.background]="bgColor" *ngIf="eventPageView == 'desktop'" id="preview-event">
-                <div class="preview-bg">
+            <div [style.background]="bgColor" *ngIf="eventPageView == 'desktop'" class="{{selectedTheme}}" id="preview-event">
+                <div class="preview-bg" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + eventImage + ')'}">
                     <div class="main-preview-section">
                         <div *ngIf="selectedTheme == 'theme3'" class="heading-preview-name">
                             <h3 class="header-color header-bgcolor mb-0" [style.background]="headerColor"
@@ -1710,7 +1710,8 @@
                             *ngIf="selectedTheme == 'theme5'">
                             <div class="bottom-deatils">
                                 <div class="heading-preview-name">
-                                    <h3> {{ eventDetail
+                                    <h3 class="header-color header-bgcolor" [style.background]="headerColor"
+                                    [style.color]="headerTextColor"> {{ eventDetail
                                         ? eventDetail.event_title : '-' }}
                                         <h4 class="mt-2 mb-0 header-color" [style.color]="headerTextColor">
                                             ({{boxOfficeName}})</h4>
