@@ -142,7 +142,7 @@
                         </mat-select>
                     </div>
                     <div style="width:500px;"
-                        *ngIf="latestSalesStats && latestSalesStats && (latestSalesStats.ticket_sold != 0 || latestSalesStats.ticket_left != 0)"
+                        *ngIf="latestSalesStats && (latestSalesStats.ticket_sold != 0 || latestSalesStats.ticket_left != 0)"
                         class="row ticketchart mt-4">
                         <canvas id="ticketchart"></canvas>
                         <ul class="chart-legends">
@@ -159,7 +159,7 @@
                         </ul>
                     </div>
                     <div class="no-data-label text-center"
-                        *ngIf="latestSalesStats && latestSalesStats.ticket_left == 0 && latestSalesStats && latestSalesStats.ticket_sold == 0">
+                        *ngIf="latestSalesStats && latestSalesStats.ticket_left == 0 && latestSalesStats.ticket_sold == 0">
                         <div class="no-data-view">
                             <img src="../../../assets/images/no-data-found.svg" />
                             <label> No data available.</label>
