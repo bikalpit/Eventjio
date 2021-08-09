@@ -148,6 +148,7 @@ export class BroadcastComponent implements OnInit {
           },1000)
           // const index = this.getAllBroadcastData.indexOf(createBroadcastData., 0);
          }
+         this.createBroadcast =true;
         }
         else if(response.data == false){
          this.ErrorService.errorMessage(response.response);
