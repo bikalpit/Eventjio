@@ -52,7 +52,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
  allTimeZone:any;
  boxOfficeCode:any;
  eventImageType:any = '1';
- newEventImageUrl:any = '';
+ newEventImageUrl:any;
  allDefaultImages:any;
  selecetdDefaultImage:any = 'default1.jpg';
  eventStartTime:any;
@@ -802,7 +802,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
       this.selecetdDefaultImage = undefined;
     }else if(this.eventImageType === 'noImage'){
       this.selecetdDefaultImage = undefined;
-      this.newEventImageUrl = "";
+      this.newEventImageUrl = undefined;
     }else{
       this.newEventImageUrl = undefined;
     }
