@@ -94,16 +94,13 @@ export class AuthenticationService {
             sessionStorage.removeItem('currentUser');
             localStorage.clear();
             window.location.reload(true);
-            this.currentUserSubject.next(null);
         } else {
             sessionStorage.removeItem('currentUser');
             sessionStorage.removeItem('isFront');
             sessionStorage.removeItem('logoutTime');
             sessionStorage.removeItem('isBoxoffice');
-            localStorage.clear();
             sessionStorage.clear();
             window.location.reload(true);
-            this.currentUserSubject.next(null);
         }
 
 
