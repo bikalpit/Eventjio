@@ -174,6 +174,9 @@ export class EventPageDesignComponent implements OnInit {
       this.isLoaderAdmin = false;
     });
   }
+  OnHeaderColorChange(){
+    this.updated = true;
+  }
 
   
   fnUpadateThemeAppearanceColor(){
@@ -189,7 +192,7 @@ export class EventPageDesignComponent implements OnInit {
         "displayCol":this.displayCol,
         "displayView":this.displayView,
         'theme': this.selectedTheme,
-        'updated': true
+        'updated': this.updated
       }
       let requestObject = {
         "boxoffice_id"  : this.boxOfficeId,

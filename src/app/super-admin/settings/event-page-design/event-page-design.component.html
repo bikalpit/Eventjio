@@ -2036,67 +2036,67 @@
                 <div class="first-column">
                     <div class="row mx-0">
                         <label class="col-6"> Header/Footer Color</label>
-                        <label class="col-6">
+                        <div class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{headerColor}}</div>
-                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="headerColor"
+                                <input class="color-box d-inline-block ml-auto m-2" (colorPickerChange)="OnHeaderColorChange()" [(colorPicker)]="headerColor"
                                     [style.background]="headerColor" (value)="headerColor" />
                             </div>
-                        </label>
+                        </div>
                         <label class="col-6">Page Color</label>
-                        <label class="col-6">
+                        <div class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{pageColor}}</div>
                                 <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="pageColor"
                                     [style.background]="pageColor" (value)="pageColor" />
                             </div>
-                        </label>
+                        </div>
                         <label class="col-6">Button Color</label>
-                        <label class="col-6">
+                        <div class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{btnColor}}</div>
                                 <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="btnColor"
                                     [style.background]="btnColor" (value)="btnColor" />
                             </div>
-                        </label>
+                        </div>
                         <label class="col-6">Background Color</label>
-                        <label class="col-6">
+                        <div class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{bgColor}}</div>
                                 <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="bgColor"
                                     [style.background]="bgColor" (value)="bgColor" />
                             </div>
-                        </label>
+                        </div>
                     </div>
                 </div>
                 <div class="second-column">
                     <div class="row mx-0">
                         <label class="col-6">Header/Footer Text Color</label>
-                        <label class="col-6">
+                        <div class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{headerTextColor}}</div>
-                                <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="headerTextColor"
+                                <input class="color-box d-inline-block ml-auto m-2" (colorPickerChange)="OnHeaderColorChange()" [(colorPicker)]="headerTextColor"
                                     [style.background]="headerTextColor" (value)="headerTextColor" />
                             </div>
-                        </label>
+                        </div>
                         <label class="col-6">Page Text Color</label>
-                        <label class="col-6">
+                        <div class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{pageTextColor}}</div>
                                 <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="pageTextColor"
                                     [style.background]="pageTextColor" (value)="pageTextColor" />
                             </div>
-                        </label>
+                        </div>
                         <label class="col-6">Button Text Color</label>
-                        <label class="col-6">
+                        <div class="col-6">
                             <div class="color-code d-inline-block">
                                 <div class="d-inline-block color-code-text p-2">{{btnTextColor}}</div>
                                 <input class="color-box d-inline-block ml-auto m-2" [(colorPicker)]="btnTextColor"
                                     [style.background]="btnTextColor" (value)="btnTextColor" />
                             </div>
-                        </label>
+                        </div>
                         <label class="col-6">Font</label>
-                        <label class="col-6">
+                        <div class="col-6">
                             <div class=" color-code d-block font-selection-main">
                                 <mat-select (selectionChange)="fnChangeFont($event)" [(ngModel)]="selectedFont"
                                     class="font-selection p-2">
@@ -2113,14 +2113,14 @@
                                     <mat-option value="Ubuntu, sans-serif">Ubuntu</mat-option>
                                 </mat-select>
                             </div>
-                        </label>
+                        </div>
                     </div>
                 </div>
                 <div class="third-column">
                     <div class="row mx-0">
 
                         <label class="col-8">Event List View</label>
-                        <label class="col-4">
+                        <div class="col-4">
                             <div class=" color-code d-block font-selection-main">
                                 <mat-select (selectionChange)="onChangeView($event)" [(ngModel)]="displayView"
                                     class="font-selection p-2">
@@ -2128,9 +2128,9 @@
                                     <mat-option value="horizontal">Horizontal</mat-option>
                                 </mat-select>
                             </div>
-                        </label>
+                        </div>
                         <label class="col-8">Column in row</label>
-                        <label class="col-4">
+                        <div class="col-4">
                             <div class=" color-code d-block font-selection-main">
                                 <mat-select (selectionChange)="onChangeColumn($event)" [(ngModel)]="displayCol"
                                     class="font-selection p-2">
@@ -2138,7 +2138,7 @@
                                     <mat-option value="4">4</mat-option>
                                 </mat-select>
                             </div>
-                        </label>
+                        </div>
                         <div class="col-12">
                             <button mat-button class="default-setting-btn" (click)="fnSetDefaultSettings()">Reset to Default</button>
                         </div>

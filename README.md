@@ -1,4 +1,4 @@
-# Eventjio
+# Eventsmatic
 Event Management System
 
 Install CK editor through below command

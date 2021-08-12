@@ -55,11 +55,32 @@
         .mat-expansion-panel-header-title {
             margin-right: 0 !important;
             .payment-image{
-                width: 130px;
+                // width: 130px;
+                height: 50px;
             }
         }
         .payment-toggle-btn {
             margin-left: auto;
+        }
+        .mat-expansion-panel-header{
+            .payment-expand-icon{
+                width: 30px;
+                height: 30px;
+                border-radius: 100px;
+                background-color: #973c56;
+                color: #fff;
+                transition: all 0.3s;
+                svg {
+                    path{
+                        fill: #fff;
+                    }
+                }
+            }
+            &.mat-expanded{
+                .payment-expand-icon{
+                    transform: rotate(180deg);
+                }
+            }
         }
     }
 }

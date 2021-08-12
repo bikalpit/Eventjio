@@ -291,6 +291,30 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+    getAllPaymentGateways(requestObject){
+        return this.http.post(`${environment.apiFolderUrl}/showAllPaymentGateway`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    UpdatePaymentGateway(requestObject){
+        return this.http.post(`${environment.apiFolderUrl}/savePaymentGateway`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    ChangeGatewayStatus(requestObject){
+        return this.http.post(`${environment.apiFolderUrl}/changeStatusPaymentGateway`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    ChangeDefaultGateway(requestObject){
+        return this.http.post(`${environment.apiFolderUrl}/makeDefaultPaymentGatway`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
 
       googleMap(address) {
         return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyA8RwRCpG7ajbR-pl0D58oUGzi83c6RCYk`).pipe(

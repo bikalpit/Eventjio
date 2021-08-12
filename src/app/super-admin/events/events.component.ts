@@ -280,7 +280,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
         tag: "h1",
       },
     ],
-	uploadUrl: 'https://api.eventjio.com/api/event-image-upload',
+	uploadUrl: 'https://api.eventsmatic.com/api/event-image-upload',
     sanitize: true
 };
 

@@ -4,12 +4,13 @@
 
 export const environment = {
     production: false,
-  	apiUrl:         'https://api.eventjio.com/api',
-  	apiFolderUrl:         'https://api.eventjio.com',
-    authApiUrl:     'https://api.eventjio.com/api',
+  	apiUrl:         'https://api.eventsmatic.com/api',
+  	apiFolderUrl:         'https://api.eventsmatic.com',
+    authApiUrl:     'https://api.eventsmatic.com/api',
     urlForLink :    'http://localhost:4500',
-    APPURL:     'https://app.eventjio.com/',
+    APPURL:     'https://app.eventsmatic.com/',
     bookingPageUrl:     'http://localhost:4800',
+    ErrorMsg:"Something went wrong",
 
 };
 

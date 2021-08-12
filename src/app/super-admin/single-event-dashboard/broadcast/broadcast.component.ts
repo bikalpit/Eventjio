@@ -146,7 +146,6 @@ export class BroadcastComponent implements OnInit {
           setTimeout(() => {
             this.sendBroadcast(this.getAllBroadcastData[this.getAllBroadcastData.length-1], this.getAllBroadcastData[this.getAllBroadcastData.length-1].unique_code, false)
           },1000)
-          // const index = this.getAllBroadcastData.indexOf(createBroadcastData., 0);
          }
          this.createBroadcast =true;
         }

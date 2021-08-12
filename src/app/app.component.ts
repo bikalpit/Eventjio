@@ -21,7 +21,7 @@ export class AppComponent {
 
 
 
-  title = 'Eventjio';
+  title = 'Eventsmatic';
   boxofficeComponent: boolean = true;
   pageName: any = 'Box-Office';
   timer: any = 0;
@@ -405,7 +405,7 @@ export class AppComponent {
           this.router.navigate(["super-admin"]);
 
       }else if(data.idExists == false && data.emailExists == true){
-        this._snackBar.open("You are successfully loggedin with Eventjio using google account.", "X", {
+        this._snackBar.open("You are successfully loggedin with Eventsmatic using google account.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
@@ -414,20 +414,20 @@ export class AppComponent {
         // this.loginForm.controls['email'].setValue(data.userData.email);
       }else if(data.idExists == true && data.emailExists == false){
         this.router.navigate(["super-admin"]);
-        this._snackBar.open("You are successfully registered with Eventjio.", "X", {
+        this._snackBar.open("You are successfully registered with Eventsmatic.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
         });
         
         // this.router.navigate(["super-admin"]);
-        // //this.error = "It seems that you already have account with Eventjio";
+        // //this.error = "It seems that you already have account with Eventsmatic";
         // this.loginForm.controls['email'].setValue(data.userData.email);
         // //this.dataLoaded = true;
       }else if(data.idExists == false && data.emailExists == false){
         // this.fnSignup(user);this.isAllowed=true;
         this.router.navigate(["super-admin"]);
-        this._snackBar.open("You are successfully registered with Eventjio.", "X", {
+        this._snackBar.open("You are successfully registered with Eventsmatic.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
