@@ -1,5 +1,6 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CardDetailDialogComponent } from '../../../_components/card-detail-dialog/card-detail-dialog';
 
 @Component({
   selector: 'app-billing',
@@ -62,6 +63,30 @@ export class BillingComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
 
+      }
+    });
+  }
+  onupdateCardDetail() {
+    const dialogRef = this.dialog.open(CardDetailDialogComponent, {
+      width: '700px',
+      // data: "Are you sure you want to delete?"
+    });
+     dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        // this.isLoaderAdmin = true;
+        // let requestObject = {
+        //   'unique_code': couponcode_code
+        // }
+        // this.SuperadminService.fnDeleteCoupon(requestObject).subscribe((response:any) => {
+        //   if(response.data == true){
+        //     this.errorService.successMessage(response.response);
+        //     this.getAllCouponCodes();
+        //   }
+        //   else if(response.data == false){
+        //   this.errorService.errorMessage(response.response);
+        //   }
+        // })
+        // this.isLoaderAdmin = false;
       }
     });
   }

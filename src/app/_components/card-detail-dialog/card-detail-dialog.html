@@ -1,0 +1,191 @@
+<div class="" role="document" id="update-payment">
+    <div class="modal-header pl-3 py-0 border-0">
+        <p class="dialog-title"> Update payment details </p>
+        <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="main-top-heading">
+            <h4> Payment method information</h4>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-6">
+                    <label class="" for="">First Name
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="form-group">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label class="" for="">Last Name
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="form-group">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label class="" for="">Card Number
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="form-group">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div id="cb-cards">
+        
+                        <span class="visa"></span>
+                    
+                        <span class="mastercard"></span>
+                    
+                        <span class="american_express"></span>
+                    
+                </div>
+                </div>
+                <div class="col-6">
+                    <label class="" for="">Expiry
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="Expiry-main-wrap">
+                        <div class="form-group">
+                            <mat-select class="form-control">
+                                <mat-option value="1">
+                                    Month
+                                </mat-option>
+                                <mat-option value="2">
+                                    1
+                                </mat-option>
+                                <mat-option value="3">
+                                    2
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                        <div class="form-group">
+                            <mat-select class="form-control">
+                                <mat-option value="1">
+                                    Month
+                                </mat-option>
+                                <mat-option value="2">
+                                    1
+                                </mat-option>
+                                <mat-option value="3">
+                                    2
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col-6">
+                    <label class="" for="">CVV
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="Expiry-main-wrap">
+                        <div class="form-group">
+                            <input class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <div id="cb-cvv"><span class="help-block">(Last 3-4 digits)</span></div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label class="" for="">Card address line 1
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="form-group">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label class="" for="">Card address line 2
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="form-group">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label class="" for="">Card address city
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="form-group">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label class="" for="">Card address zip
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="form-group">
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label class="" for="">Card address country
+                        <span class="asterisk-icon">
+                            <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
+                        </span>
+                    </label>
+                    <div class="form-group">
+                        <mat-select class="form-control">
+                            <mat-option value="1">
+                                Choose country
+                            </mat-option>
+                            <mat-option value="2">
+                                1
+                            </mat-option>
+                            <mat-option value="3">
+                                2
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bottom-main-wrap">
+                <p>
+                    I authorize Zimma Ltd trading as Ticket Tailor to save this payment method and automatically charge this payment method whenever a subscription is associated with it.
+                </p>
+                <div class="payment-submit-button">
+                    <button mat-button class="yes-btn mr-2"> Add Payment Mathod </button>
+                    <button mat-button class="cancel-btn" (click)="onNoClick()">Cancel</button>
+                </div>
+            </div>
+            <div class="informtation-main">
+                <div class="note-theme mt-4 mb-4">
+                    <div class="notification">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" class="notif-icon">help_outline
+                        </mat-icon>
+                    </div>
+                    <div>
+                        <p class="note-message">
+                            You may be taken to your bank page for 3D secure verification for which a token amount may be charged, which will be fully refunded.</p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

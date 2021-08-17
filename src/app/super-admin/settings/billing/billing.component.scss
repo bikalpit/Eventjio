@@ -186,7 +186,43 @@
         }
     }
 }
+::ng-deep .yes-btn {
+    min-width: 130px;
+    height: 37px;
+    border-radius: 29px;
+    background-color: #973c56;
+    color: white;
+}
+::ng-deep .cancel-btn {
+    min-width: 130px;
+    height: 37px;
+    border-radius: 29px;
+    background-color: #FFE6C8;
+    color: #000;
+}
+::ng-deep .popup-cancel-btn {
+    min-width: 64px;
+    height: auto;
+    background: #DDDDDD 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    text-align: center;
+    color: #181818;
+    font-size: 14px;
+    line-height: 36px;
+    padding: 0px 16px;
+}
 
+::ng-deep .popup-save-btn {
+    min-width: 64px;
+    height: auto;
+    color: #fff;
+    background: #973c56 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 36px;
+    padding: 0px 16px;
+}
 .note-theme {
     background: #FFE6C8;
     border-radius: 5px;
