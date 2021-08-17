@@ -15,7 +15,7 @@ import { WebsitesEmbedCodesComponent } from './websites-embed-codes/websites-emb
 import { BoxOfficeComponent } from './box-office/box-office.component';
 import { SeatingChartsComponent } from './seating-charts/seating-charts.component';
 import { TeamAccessComponent } from './team-access/team-access.component';
-import { BillingComponent } from './billing/billing.component';
+import { BillingComponent,DialogUnBuyTicketsCredits ,DialogLearnMore,DialogViewAllInvoices,DialogViewAllUsage} from './billing/billing.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { PrivacyPolicyGenerateDialog } from './privacy-policy/privacy-policy.component';
 import { MatExpansionModule} from '@angular/material/expansion';
@@ -66,6 +66,10 @@ import { MdePopoverModule } from '@material-extended/mde';
     AppUsersComponent,
     AddAppUser,
     appUserDetail,
+    DialogUnBuyTicketsCredits,
+    DialogLearnMore,
+    DialogViewAllInvoices,
+    DialogViewAllUsage
   ],
 
   imports: [
@@ -95,6 +99,10 @@ import { MdePopoverModule } from '@material-extended/mde';
     addReferralCodeDialog,
     AddAppUser,
     appUserDetail,
+    DialogUnBuyTicketsCredits,
+    DialogLearnMore,
+    DialogViewAllInvoices,
+    DialogViewAllUsage
   ]
 })
 export class SettingsModule { }
