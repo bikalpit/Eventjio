@@ -1,0 +1,103 @@
+<div class="all-usage-main">
+    <!-- <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div> -->
+    <div class="modal-header pl-3 py-0 border-0">
+        <p class="">Chargeable usage </p>
+        <button class="close-btn" type="button" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="mt-3">
+            <div class="main-white-label">
+                <div class="top-filter-main row mb-3">
+                    <div class="col-3">
+                        <label>Event</label>
+                        <mat-select class="form-control">
+                            <mat-option value="1">
+                                All Event
+                            </mat-option>
+                            <mat-option value="2">
+                                Event 1
+                            </mat-option>
+                            <mat-option value="3">
+                                Event 2
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                    <div class="col-3">
+                        <label>From</label>
+                        <div class="matDate">
+                            <mat-datepicker-toggle matPrefix [for]="usagefrom" class="dateIcon">
+                            </mat-datepicker-toggle>
+                            <input placeholder="MM/DD/YYYY" type="text" [matDatepicker]="usagefrom"
+                                (click)="usagefrom.open()" class="form-control matInputdate">
+                            <mat-datepicker #usagefrom></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label>To</label>
+                        <div class="matDate">
+                            <mat-datepicker-toggle matPrefix [for]="usageto" class="dateIcon"> </mat-datepicker-toggle>
+                            <input placeholder="MM/DD/YYYY" type="text" [matDatepicker]="usageto"
+                                (click)="usageto.open()" class="form-control matInputdate">
+                            <mat-datepicker #usageto></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label>Activity</label>
+                        <mat-select class="form-control">
+                            <mat-option value="1">
+                                Activity
+                            </mat-option>
+                            <mat-option value="2">
+                                Activity 1
+                            </mat-option>
+                            <mat-option value="3">
+                                Activity 2
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="invoices-listing">
+                    <div class="main-table-content main-cust-table-content ">
+                        <div class="listing-table">
+                            <div class="heads main-heading-content drageble py-3" fxLayout="row">
+                                <div class="" fxFlex="20">Date</div>
+                                <div class="" fxFlex="15">Event Id</div>
+                                <div class="" fxFlex="15">Order Id</div>
+                                <div class="" fxFlex="15">Activity</div>
+                                <div class="" fxFlex="15">Credits Used</div>
+                                <div class="" fxFlex="20">Payg Fee</div>
+                            </div>
+                            <div class="drageble-list">
+                                <div class="drageble-box" fxLayout="row">
+                                    <div class="tb-data " fxFlex="20">
+                                        <p> Aug 2, 2021 3:13 PM </p>
+                                    </div>
+                                    <div class="tb-data " fxFlex="15">
+                                        <p> 878305 </p>
+                                    </div>
+                                    <div class="tb-data " fxFlex="15">
+                                        <p> 15962182 </p>
+                                    </div>
+                                    <div class="tb-data " fxFlex="15">
+                                        <p> Ticket sale </p>
+                                    </div>
+                                    <div class="tb-data " fxFlex="15">
+                                        <p> 4 </p>
+                                    </div>
+                                    <div class="tb-data " fxFlex="20">
+                                        <p> $5.20 (Invoiced) </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-right">
+        <button mat-flat-button class="popup-cancel-btn" (click)="onNoClick()"> Cancel </button>
+    </div>
+</div>

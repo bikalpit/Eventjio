@@ -17,6 +17,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { DialogAuthentication } from './_services/auth.component';
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
+import { CardDetailDialogComponent } from './_components/card-detail-dialog/card-detail-dialog';
 import {OnlyNumberDirective} from './only-number.directive';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider,GoogleLoginProvider } from 'angularx-social-login';
 import { ErrorInterceptor } from './_helpers';
@@ -60,6 +61,7 @@ export function provideConfig() {
     ResetPasswordComponent,
     DialogAuthentication,
     ConfirmationDialogComponent,
+    CardDetailDialogComponent,
     OnlyNumberDirective,
     ResponsePageComponent
   ],
@@ -82,7 +84,8 @@ export function provideConfig() {
   ],
   entryComponents: [
     DialogAuthentication,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CardDetailDialogComponent
   ],
   providers: [
     {
