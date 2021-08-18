@@ -182,7 +182,8 @@ export class SingleEventDashboard implements OnInit {
 
     let requestObject = {
       'unique_code' : this.eventId,
-      'event_status' : status
+      'event_status' : status,
+      'boxoffice_code' : localStorage.getItem('boxoffice_id'),
     }
 
     this.SingleEventServiceService.updateEventStatus(requestObject).subscribe((response:any) => {
