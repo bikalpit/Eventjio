@@ -185,7 +185,7 @@
                             mat-flat-button class="footer-colored-btn btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                        
                         </div>
-                            <div>
+                            <div *ngIf="hide_tailor_logo== 'N'">
                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                     <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                     <img src="../../assets/images/logo/footer-logo.png"/>
@@ -326,7 +326,7 @@
                 <div *ngIf="allEventList.length == 0">
                     <h3> No Events.</h3>
                 </div>
-                <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets default-footer" *ngIf="!updated">
                     <div> 
                     <h3> NEED HELP OR LOST YOUR TICKET?  <a 
                         mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
@@ -339,13 +339,13 @@
                             </a>
                         </div>
                 </div>
-                <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
+                <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                     <div> 
                     <h3> NEED HELP OR LOST YOUR TICKET? <a 
                         mat-flat-button class="footer-colored-btn btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                    
                     </div>
-                        <div>
+                        <div *ngIf="hide_tailor_logo== 'N'">
                             <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                 <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                 <img src="../../assets/images/logo/footer-logo.png"/>
@@ -512,7 +512,7 @@
                                             mat-flat-button class="btn footer-colored-btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                                        
                                         </div>
-                                            <div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                                     <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                                     <img src="../../assets/images/logo/footer-logo.png"/>
@@ -648,7 +648,7 @@
                                             mat-flat-button class="btn footer-colored-btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                                         
                                         </div>
-                                            <div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                                     <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                                     <img src="../../assets/images/logo/footer-logo.png"/>
@@ -772,7 +772,7 @@
                                             mat-flat-button class="btn footer-colored-btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                                       
                                         </div>
-                                            <div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                                     <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                                     <img src="../../assets/images/logo/footer-logo.png"/>
@@ -903,7 +903,7 @@
                                             mat-flat-button class="footer-colored-btn btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>  <a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                                        
                                         </div>
-                                            <div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                                     <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                                     <img src="../../assets/images/logo/footer-logo.png"/>
@@ -1040,7 +1040,7 @@
                                             mat-flat-button class="btn footer-colored-btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a><a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                                        
                                         </div>
-                                            <div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                                     <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                                     <img src="../../assets/images/logo/footer-logo.png"/>
@@ -1178,7 +1178,7 @@
                                         <a 
                                             mat-flat-button class="footer-colored-btn btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a>
                                         </div>
-                                            <div>
+                                            <div *ngIf="hide_tailor_logo== 'N'">
                                                 <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                                     <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                                     <img src="../../assets/images/logo/footer-logo.png"/>
@@ -1312,7 +1312,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a 
                                     mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
@@ -1325,13 +1325,13 @@
                                         </a>
                                     </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET?  <a 
                                     mat-flat-button class="footer-colored-btn btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a><a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                                
                                 </div>
-                                    <div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                             <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                             <img src="../../assets/images/logo/footer-logo.png"/>
@@ -1439,7 +1439,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a 
                                     mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
@@ -1452,13 +1452,13 @@
                                         </a>
                                     </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET?  <a 
                                     mat-flat-button class="footer-colored-btn btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a><a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                                
                                 </div>
-                                    <div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                             <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                             <img src="../../assets/images/logo/footer-logo.png"/>
@@ -1555,7 +1555,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a 
                                     mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
@@ -1568,13 +1568,13 @@
                                         </a>
                                     </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a 
                                     mat-flat-button class="footer-colored-btn btn"> Contact the Event Organizer </a> <a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                               
                                 </div>
-                                    <div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                             <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                             <img src="../../assets/images/logo/footer-logo.png"/>
@@ -1677,7 +1677,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET?   <a 
                                     mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
@@ -1690,13 +1690,13 @@
                                         </a>
                                     </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET?   <a 
                                     mat-flat-button class="footer-colored-btn btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                               
                                 </div>
-                                    <div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                             <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                             <img src="../../assets/images/logo/footer-logo.png"/>
@@ -1807,7 +1807,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a 
                                     mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
@@ -1820,13 +1820,13 @@
                                         </a>
                                     </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET?  <a 
                                     mat-flat-button class="footer-colored-btn btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a><a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                                
                                 </div>
-                                    <div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                             <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                             <img src="../../assets/images/logo/footer-logo.png"/>
@@ -1937,7 +1937,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bottom-help-tickets default-footer" *ngIf="!updated">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets default-footer" *ngIf="!updated">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET? <a 
                                     mat-flat-button class="bg-primary btn"> Contact the Event Organizer </a> <a class="privacy-policy"> Privacy Policy </a></h3>
@@ -1950,13 +1950,13 @@
                                         </a>
                                     </div>
                             </div>
-                            <div class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
+                            <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets header-color header-bgcolor" *ngIf="updated" [style.background]="headerColor" [style.color]="headerTextColor">
                                 <div> 
                                 <h3> NEED HELP OR LOST YOUR TICKET?  <a 
                                     mat-flat-button class="footer-colored-btn btn btn-color btn-bgcolor" [style.background]="btnColor" [style.color]="btnTextColor"> Contact the Event Organizer </a> <a class="privacy-policy footer-colored-btn header-color" [style.color]="headerTextColor"> Privacy Policy </a></h3>
                               
                                 </div>
-                                    <div>
+                                    <div *ngIf="hide_tailor_logo== 'N'">
                                         <a target="_blank" href="https://eventsmatic.com/" class="right-logo-section" >
                                             <p class="header-color" [style.color]="headerTextColor"> Powered by </p>
                                             <img src="../../assets/images/logo/footer-logo.png"/>

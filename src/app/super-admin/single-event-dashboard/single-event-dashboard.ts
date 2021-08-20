@@ -205,6 +205,10 @@ export class SingleEventDashboard implements OnInit {
   }
 
 
+  goToCreateBroadcast() {
+    this.router.navigate(['/super-admin/single-event-dashboard/broadcast'], { queryParams: { broadcast: 'new' } });
+    this.pageName = 'broadcast';
+  }
 
   dynamicSort(property: string) {
     let sortOrder = 1;

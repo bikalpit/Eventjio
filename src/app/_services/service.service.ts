@@ -60,6 +60,14 @@ export class ServiceService {
                 return res;
         }),catchError(this.handleError));
     }
+    
+    getAllCountry(){    
+        return this.http.post(`${environment.apiUrl}/get-country-api`,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
 
  
 

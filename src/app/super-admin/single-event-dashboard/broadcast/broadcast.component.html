@@ -46,6 +46,8 @@
             </div>
         </div>
     </div>
+    <div #new_broadcast_start>
+    </div>
     <div class="create-broadcast-main" *ngIf="!createBroadcast">
         <div class="container-fluid">
             <div class="top-heading-main">
@@ -62,10 +64,10 @@
                         </label>
                         <mat-select class="form-control clr-black" formControlName="recipients" id="exampleFormControlSelect1">
                             <!-- <mat-option value="select Recipients">select Recipients</mat-option> -->
-                            <mat-option value="BUY">All ticket buyers ({{allWaitingListData.BUY}})</mat-option>
-                            <mat-option value="ALL">All waitlist signups ({{allWaitingListData.ALL}})</mat-option>
-                            <mat-option value="NEW">New waitlist signups ({{allWaitingListData.NEW}})</mat-option>
-                            <mat-option value="NOTIFY">Notified waitlist signups ({{allWaitingListData.NOTIFY}})</mat-option>
+                            <mat-option value="BUY">All ticket buyers ({{allWaitingListData?allWaitingListData.BUY:0}})</mat-option>
+                            <mat-option value="ALL">All waitlist signups ({{allWaitingListData?allWaitingListData.ALL:0}})</mat-option>
+                            <mat-option value="NEW">New waitlist signups ({{allWaitingListData?allWaitingListData.NEW:0}})</mat-option>
+                            <mat-option value="NOTIFY">Notified waitlist signups ({{allWaitingListData?allWaitingListData.NOTIFY:0}})</mat-option>
                         </mat-select><br>
                         <span class="error-wrap" *ngIf="createBroadcastForm.get('recipients').touched || createBroadcastForm.get('recipients').dirty">
                             <small *ngIf="createBroadcastForm.get('recipients').hasError('required')" class="error">Recipients is required.</small>

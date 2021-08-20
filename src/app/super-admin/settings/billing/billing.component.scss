@@ -57,7 +57,7 @@
 ::ng-deep .buy-tickets-credits-main {
     .top-main-selection {
         .form-control {
-            width: 50%;
+            width: 80%;
         }
     }
     .center-auto-renew {
@@ -152,11 +152,20 @@
     .all-usage-main{
         .matDate {
             position: relative;
+            display: flex;
             .mat-datepicker-toggle {
                 position: absolute;
             }
             .form-control {
                 padding-left: 40px;
+            }
+            .clear-date{
+                background-color: red;
+                border-radius: 100px;
+                color: #fff;
+                margin: auto 5px;
+                font-size: 20px;
+                padding: 2px;
             }
         }
     }

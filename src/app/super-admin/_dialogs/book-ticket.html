@@ -17,8 +17,8 @@
                                 <div class="heads main-heading-content drageble" fxLayout="row">
                                     <!-- <div class="th-data" fxFlex="10"></div>  -->
                                     <div class="th-data" fxFlex="30">Ticket type</div>
-                                    <div class="th-data" fxFlex="10">Price</div>
-                                    <div class="th-data" fxFlex="20">Available Tickets</div>
+                                    <div class="th-data" fxFlex="15">Price</div>
+                                    <div class="th-data" fxFlex="15">Available Tickets</div>
                                     <div class="th-data" fxFlex="20">Booking Fee</div>
                                     <div class="th-data" fxFlex="20">Quantity</div>
                                 </div>
@@ -28,8 +28,8 @@
                                 <mat-checkbox  (change)="fnBookTicket($event,i)" ></mat-checkbox>
                               </div>    -->
                                         <div class="tb-data" fxFlex="30">{{eventTicket.ticket_name}} </div>
-                                        <div class="tb-data" fxFlex="10"><input type="hidden" class="form-control">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
-                                        <div class="tb-data" fxFlex="20"><p>{{eventTicket.remaining?eventTicket.remaining[0].remaining:''}}</p></div>
+                                        <div class="tb-data" fxFlex="15"><input type="hidden" class="form-control">{{ eventTicket.prize | currency:currencyCode:'symbol' }}</div>
+                                        <div class="tb-data" fxFlex="15">{{eventTicket.remaining?eventTicket.remaining[0].remaining:''}}</div>
                                         <div class="th-data" fxFlex="20">{{ eventTicket.booking_fee | currency:currencyCode:'symbol' }}</div>
                                         <div *ngIf="eventTicket.ticket_status != 'booking_close'" class="tb-data ticket-qty" fxFlex="20">
                                             <input *ngIf="eventTicket.remaining[0].remaining > 0" type="number" onlyNumber [(ngModel)]="eventTicket.qty" class="form-control" value="{{eventTicket.qty}}" (keyup)="fnPreAddQty(i,$event.target.value);">
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="example-button-row ml-auto mt-4">
-                        <button mat-raised-button class="comm-btn d-flex ml-auto" [disabled]="subTotal == 0" (click)="fnTicketCheckout('CheckoutForm')">Next</button>
+                        <button mat-raised-button class="comm-btn d-flex ml-auto" [disabled]="subTotal == 0" (click)="fnTicketCheckout('CheckoutForm')">Book</button>
                     </div>
                 </div>
             </div>

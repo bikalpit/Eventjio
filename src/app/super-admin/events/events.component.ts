@@ -719,6 +719,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
     let requestObject = {
       'unique_code' : uniqueCode,
       'event_status' : status,
+      'boxoffice_code' : this.boxOfficeCode,
     }
     this.SuperadminService.fnChangeEventStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){

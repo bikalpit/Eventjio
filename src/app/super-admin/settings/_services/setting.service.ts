@@ -40,6 +40,7 @@ export class SettingService {
        
     }
 
+    
 
     getAllLanguages(){
         return this.http.post(`${environment.apiUrl}/get-languages`,{}).pipe(
@@ -311,6 +312,52 @@ export class SettingService {
     }
     ChangeDefaultGateway(requestObject){
         return this.http.post(`${environment.apiFolderUrl}/makeDefaultPaymentGatway`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    getCreditList(){
+        return this.http.post(`${environment.apiUrl}/credit-list`,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    purchaseCredits(requestObject){
+        return this.http.post(`${environment.apiUrl}/buy-credits`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    checkSubscription(requestObject){
+        return this.http.post(`${environment.apiUrl}/check-boxoffice-subscription`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
+    submitCardDetail(requestObject){
+        return this.http.post(`${environment.apiUrl}/add-subscription`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
+    getCreditDetails(requestObject){
+        return this.http.post(`${environment.apiUrl}/credit-details`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
+    getUnbilledUsage(requestObject){
+        return this.http.post(`${environment.apiUrl}/unbilling-usages`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
+    getOverviewUnBillUsage(requestObject){
+        return this.http.post(`${environment.apiUrl}/overview-unbilling-usages`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

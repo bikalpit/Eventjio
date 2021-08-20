@@ -325,6 +325,12 @@ export class SingleEventServiceService {
                 return res;
         }),catchError(this.handleError));
     }
+    deleteWaitingRec(requestObject) {
+        return this.http.post(`${environment.apiUrl}/waiting-list-delete`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
     createOccurence(requestObject) {
         
         return this.http.post(`${environment.apiUrl}/create-event-occurrence-api`,requestObject,{headers:this.globalHeaders}).pipe(

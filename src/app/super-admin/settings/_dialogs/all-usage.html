@@ -12,16 +12,10 @@
                 <div class="top-filter-main row mb-3">
                     <div class="col-3">
                         <label>Event</label>
-                        <mat-select class="form-control">
-                            <mat-option value="1">
-                                All Event
-                            </mat-option>
-                            <mat-option value="2">
-                                Event 1
-                            </mat-option>
-                            <mat-option value="3">
-                                Event 2
-                            </mat-option>
+                        <mat-select (selectionChange)="getUnbilledUsage()" [(ngModel)]="selectedEvent" class="form-control">
+                            <mat-option [value]="null">All Event</mat-option>
+                            <mat-option [value]="event.unique_code" *ngFor="let event of eventsList; let i=index">{{event.event_title}}</mat-option>
+                                <mat-option [value]="element.unique_code" *ngFor="let element of eventOccurrenceList; let i=index">{{element.previewLabel}}</mat-option>
                         </mat-select>
                     </div>
                     <div class="col-3">
@@ -29,21 +23,23 @@
                         <div class="matDate">
                             <mat-datepicker-toggle matPrefix [for]="usagefrom" class="dateIcon">
                             </mat-datepicker-toggle>
-                            <input placeholder="MM/DD/YYYY" type="text" [matDatepicker]="usagefrom"
+                            <input (dateChange)="getUnbilledUsage()" [(ngModel)]="selectedStartDate" placeholder="MM/DD/YYYY" type="text" [matDatepicker]="usagefrom"
                                 (click)="usagefrom.open()" class="form-control matInputdate">
                             <mat-datepicker #usagefrom></mat-datepicker>
+                            <mat-icon class="pointer clear-date" (click)="clearStartDate()">close</mat-icon>
                         </div>
                     </div>
                     <div class="col-3">
                         <label>To</label>
                         <div class="matDate">
                             <mat-datepicker-toggle matPrefix [for]="usageto" class="dateIcon"> </mat-datepicker-toggle>
-                            <input placeholder="MM/DD/YYYY" type="text" [matDatepicker]="usageto"
+                            <input (dateChange)="getUnbilledUsage()" [(ngModel)]="selectedEndDate" placeholder="MM/DD/YYYY" type="text" [matDatepicker]="usageto"
                                 (click)="usageto.open()" class="form-control matInputdate">
                             <mat-datepicker #usageto></mat-datepicker>
+                            <mat-icon class="pointer clear-date" (click)="clearEndDate()">close</mat-icon>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <!-- <div class="col-3">
                         <label>Activity</label>
                         <mat-select class="form-control">
                             <mat-option value="1">
@@ -56,7 +52,7 @@
                                 Activity 2
                             </mat-option>
                         </mat-select>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="invoices-listing">
                     <div class="main-table-content main-cust-table-content ">
@@ -70,24 +66,24 @@
                                 <div class="" fxFlex="20">Payg Fee</div>
                             </div>
                             <div class="drageble-list">
-                                <div class="drageble-box" fxLayout="row">
+                                <div class="drageble-box" *ngFor="let use of usageList; let i=index;" fxLayout="row">
                                     <div class="tb-data " fxFlex="20">
-                                        <p> Aug 2, 2021 3:13 PM </p>
+                                        <p> {{use.created_at}} </p>
                                     </div>
                                     <div class="tb-data " fxFlex="15">
-                                        <p> 878305 </p>
+                                        <p> <a (click)="goToEvent(use.event_id)">{{use.event_id}}</a> </p>
                                     </div>
                                     <div class="tb-data " fxFlex="15">
-                                        <p> 15962182 </p>
+                                        <p> <a (click)="viewOrder(use.unique_code)">{{use.order_id}}</a> </p>
                                     </div>
                                     <div class="tb-data " fxFlex="15">
                                         <p> Ticket sale </p>
                                     </div>
                                     <div class="tb-data " fxFlex="15">
-                                        <p> 4 </p>
+                                        <p> {{use.credit_used}} </p>
                                     </div>
                                     <div class="tb-data " fxFlex="20">
-                                        <p> $5.20 (Invoiced) </p>
+                                        <p> ${{use.payg_fee}} </p>
                                     </div>
                                 </div>
                             </div>
