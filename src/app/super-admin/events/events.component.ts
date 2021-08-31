@@ -14,6 +14,7 @@ import { DirtyComponent } from '../../_models/dirty-component';
 
 // import { BEFORE_UNLOAD_FN } from '../beforeunload';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
+import { CardDetailDialogComponent } from '../../_components/card-detail-dialog/card-detail-dialog';
 
 interface Status {
   value: string;
@@ -86,7 +87,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
   next_page_url_upCommintEvent:any;
   prev_page_url_upCommintEvent:any;
   path_upCommintEvent:any;
-  totalUpcomingEvents:any;
+  totalUpcomingEvents:number =0;
   
   
   pastEventApiUrl:any =  `${environment.apiUrl}/get-allboxoffice-event-api`;
@@ -97,7 +98,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
   next_page_url_pastEvent:any;
   prev_page_url_pastEvent:any;
   path_pastEvent:any;
-  totalPastEvents:any;
+  totalPastEvents:number =0;
   onlyNumbers= /^[0-9]+$/;
   onlynumericAmount = /^(\d*\.)?\d+$/
   deletedSalesTaxIndex:any=[];
@@ -122,7 +123,6 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
   protected _onDestroy = new Subject<void>();
   @ViewChild('target', { static: false }) target: MdePopoverTrigger;
-
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -259,6 +259,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
     defaultParagraphSeparator: '',
     defaultFontName: '',
 	defaultFontSize: '',
+  sanitize: false,
 	fonts: [
 	{class: 'arial', name: 'Arial'},
 	{class: 'times-new-roman', name: 'Times New Roman'},
@@ -281,7 +282,6 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
       },
     ],
 	uploadUrl: 'https://api.eventsmatic.com/api/event-image-upload',
-    sanitize: true
 };
 
   private scrollToFirstInvalidControl() {
@@ -725,7 +725,19 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
       if(response.data == true){
         this.errorService.successMessage(response.response);
       }else if(response.data == false){
-        this.errorService.errorMessage(response.response);
+        if(response.response == 'Card details is not updated!'){
+          const dialogRef = this.dialog.open(CardDetailDialogComponent, {
+            width: '700px',
+            data: {status : 'new'}
+          });
+           dialogRef.afterClosed().subscribe(result => {
+            if(result == 'success'){
+              this.fnChangeEventStatus(uniqueCode, status);
+            }
+          });
+        }else{
+          this.errorService.errorMessage(response.response);
+        }
       }
       if(this.clickedIndex == 0){
         this.fnGetUpcomingEventList();

@@ -6,6 +6,8 @@ import { ErrorService } from '../../../_services/error.service'
 import {SingleEventServiceService} from '../_services/single-event-service.service';
 import { AuthenticationService } from '../../../_services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { AngularEditorConfig } from "@kolkov/angular-editor";
 import { DatePipe} from '@angular/common';
 export interface DialogData {
   animal: string;
@@ -45,6 +47,34 @@ export class BroadcastComponent implements OnInit, AfterViewInit {
   sendingType:any;
   scheduledDateToday:boolean=false;
   currentTime:any;
+  broadcast_message:any;
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [["bold"]],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   // status:string = "draft";
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
@@ -53,7 +83,8 @@ export class BroadcastComponent implements OnInit, AfterViewInit {
     private SingleEventServiceService : SingleEventServiceService,
     private auth : AuthenticationService,
     private datePipe: DatePipe,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    protected _sanitizer: DomSanitizer
     ) { 
      
       if(localStorage.getItem('boxoffice_id')){
@@ -110,7 +141,9 @@ export class BroadcastComponent implements OnInit, AfterViewInit {
     this.selectedOccurrence = event.value
     this.occurrenceError = false;
   }
-  
+  transform(items): SafeHtml{
+    return this._sanitizer.bypassSecurityTrustHtml(items);
+}
 
   fnOnSubmitForm(status){
     if(this.createBroadcastForm.invalid){
@@ -124,14 +157,15 @@ export class BroadcastComponent implements OnInit, AfterViewInit {
       this.createBroadcastForm.get('terms').markAllAsTouched();
       return false;
     }else{
-      console.log(this.createBroadcastForm.get('message').value)
-      debugger;
+      // this.broadcast_message = this.transform (this.createBroadcastForm.get('message').value)
+      // console.log(this.createBroadcastForm.get('message').value)
+      console.log(this.broadcast_message)
       if(this.recurrenceEvent == 'Y'){
         if(this.selectedOccurrence){
           this.createBroadcastData = { 
             "recipients" : this.createBroadcastForm.get('recipients').value,
             "subject" : this.createBroadcastForm.get('subject').value,
-            "message" : this.createBroadcastForm.get('message').value,
+            "message" : this.broadcast_message,
             "send" : this.createBroadcastForm.get('send').value,
             "scheduledDate" : this.scheduledDate,
             "scheduledTime" : this.createBroadcastForm.get('scheduledTime').value,
@@ -359,6 +393,7 @@ fnCreateBroadcast(){
   
   
 sendBroadcast(broadcastData, uniqueCode,resend) {
+  console.log(broadcastData)
   const dialogRef = this.dialog.open(mySendBroadcastDialog, {
     width: '650px',
     data:{createBroadcastData : broadcastData, uniqueCode : uniqueCode, resend:resend, allWaitingListData: this.allWaitingListData}
@@ -393,6 +428,33 @@ export class mySendBroadcastDialog{
   uniqueCode:any;
   resend:any;
   allWaitingListData:any;
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [["bold"]],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   constructor(
     public dialogRef: MatDialogRef<mySendBroadcastDialog>,
     private http: HttpClient,
@@ -405,6 +467,7 @@ export class mySendBroadcastDialog{
       this.uniqueCode = this.data.uniqueCode;
       this.resend = this.data.resend;
       this.editorValue = this.createBroadcastData.message;
+      console.log(this.editorValue)
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 

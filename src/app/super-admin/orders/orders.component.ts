@@ -128,7 +128,7 @@ export class OrdersComponent implements OnInit {
     if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
       this.fnChangeOccurrence();
     }else{
-      this.fngetallOrders();
+      this.fngetallOrders(false);
     }
      this.fnGetAllEventList();
   }
@@ -191,7 +191,7 @@ export class OrdersComponent implements OnInit {
       if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
         this.fnChangeOccurrence();
       }else{
-        this.fngetallOrders();
+        this.fngetallOrders(false);
       }
     });
   }  
@@ -207,7 +207,7 @@ export class OrdersComponent implements OnInit {
       if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
         this.fnChangeOccurrence();
       }else{
-        this.fngetallOrders();
+        this.fngetallOrders(false);
       }
     });
   }
@@ -224,7 +224,7 @@ export class OrdersComponent implements OnInit {
       if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
         this.fnChangeOccurrence();
       }else{
-        this.fngetallOrders();
+        this.fngetallOrders(false);
       }
      });
   }  
@@ -279,12 +279,17 @@ export class OrdersComponent implements OnInit {
       if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
         this.fnChangeOccurrence();
       }else{
-        this.fngetallOrders();
+        // this.fngetallOrders();
       }
       if(this.animal == 'success'){
-        this.fngetallOrders();
-        this.eventSummary(this.allorderlist[0]);
-        
+        this.fngetallOrders(true);
+        // this.isLoaderAdmin=true;
+        // setTimeout(() => {
+        //   this.isLoaderAdmin=false;
+        //   this.eventSummary(this.allorderlist[0]);
+        // }, 500);
+      }else{
+        this.fngetallOrders(false);
       }
     });
   }
@@ -311,7 +316,7 @@ export class OrdersComponent implements OnInit {
   }
   
 
-  fngetallOrders(){
+  fngetallOrders(status){
  
     this.isLoaderAdmin = true;
     this.orderToDate = this.start_date
@@ -358,6 +363,9 @@ export class OrdersComponent implements OnInit {
         this.next_page_url_orders = response.response.next_page_url;
         this.prev_page_url_orders = response.response.prev_page_url;
         this.path_orders = response.response.path;
+        if(status){
+          this.eventSummary(this.allorderlist[0])
+        }
       }else{
         this.allorderlist.length = 0;
           // this.ErrorService.errorMessage(response.response);
@@ -370,7 +378,7 @@ export class OrdersComponent implements OnInit {
 
   fnChangeOccurrence(){
     if(this.selectedOccurrence == 'all'){
-      this.fngetallOrders();
+      this.fngetallOrders(false);
       return false;
     }
     this.isLoaderAdmin = true;
@@ -422,14 +430,14 @@ export class OrdersComponent implements OnInit {
   navigateTo_orders(api_url){
     this.ordersApiUrl=api_url;
     if(this.ordersApiUrl){
-      this.fngetallOrders();
+      this.fngetallOrders(false);
     }
   }
 
   navigateToPageNumber_orders(index){
     this.ordersApiUrl=this.path_orders+'?page='+index;
     if(this.ordersApiUrl){
-      this.fngetallOrders();
+      this.fngetallOrders(false);
     }
   }
 
@@ -1076,6 +1084,9 @@ export class AddNewOrderDialog {
     
        dialogRef.afterClosed().subscribe(result => {
         this.animal = result;
+        if(this.animal){
+          this.dialogRef.close(this.animal);
+        }
        });
   }
   
@@ -1233,17 +1244,20 @@ export class BookTicketDialog {
       if(this.eventSettings.currency){
         this.currencySymbol = this.eventSettings.currency;
       }
-
-      this.sales_tax_array = JSON.parse(this.eventSettings.sales_tax);
-      if(this.sales_tax_array.length >0){
-        this.sales_tax_array.forEach(element => {
-          if(parseInt(element.amount) > 0){
-            element.finalAmount = 0
-            element.finalAmount = element.amount*this.subTotalWithTransactionFee/100
-            this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
-          }
-        });
+      if(this.eventSettings.custom_sales_tax == 'Y'){
+        this.sales_tax_array = JSON.parse(this.eventSettings.sales_tax);
+        console.log(this.sales_tax_array)
+        if(this.sales_tax_array.length >0){
+          this.sales_tax_array.forEach(element => {
+            if(parseInt(element.amount) > 0){
+              element.finalAmount = 0
+              element.finalAmount = element.amount*this.subTotalWithTransactionFee/100
+              this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
+            }
+          });
+        }
       }
+     
 
 
       if(localStorage.getItem('boxoffice_id')){
@@ -1897,12 +1911,12 @@ export class BookTicketDialog {
 
       "voucher_code" : this.voucher_code,
       "voucher_amt" : this.voucher_amt,
-      "coupon_code" : this.coupon_code,
+      "coupon_code" : this.coupon_code, 
       "coupon_amt" : this.coupon_amt,
 
       "grand_total" : this.grandTotal,
       "payment_method" : "cash",
-      "transaction_id" : this.makeid(16),
+      "transaction_id" : null,
       "payment_status" : 'paid',
       "occurrence_id":this.occurrenceCode?this.occurrenceCode:null,
       "customer_firstname": name[0] ? name[0] : '',

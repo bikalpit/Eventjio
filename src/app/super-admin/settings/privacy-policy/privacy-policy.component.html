@@ -19,7 +19,7 @@
                     <i class="fa fa-question-circle ml-2" matTooltip="Info about the action" aria-hidden="true"></i>
                 </div>
                 <div class="col-10 ckeditor privacy-ckeditor p-0">
-                    <angular-editor class="description_field" formControlName="updatePolicy" class="form-group">
+                    <angular-editor [config]="config" class="description_field" formControlName="updatePolicy" class="form-group">
                     </angular-editor>
                     <span class="error-wrap" *ngIf="privacyPolicesForm.get('updatePolicy').touched || privacyPolicesForm.get('updatePolicy').dirty">
                 <small *ngIf="privacyPolicesForm.get('updatePolicy').hasError('required')" class="error">Field is required.</small>

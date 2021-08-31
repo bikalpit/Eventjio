@@ -61,48 +61,6 @@
 
                         </div>
                     </div>
-                    <!--   
-            <div class="col-6 my-right-content">   
-                 <div class="form-group mt-2">  
-                      <div class="section1 col-1"></div> 
-                        <span>Box office Link<i class="fa fa-question-circle ml-2"  matTooltip="Info about the action" aria-hidden="true"></i></span>
-                        <div class="row">
-                            <div class="col-10 pr-1">
-                                <input type="text" class="form-control">
-                            </div>            
-                            <div class="col-1 pl-1">
-                                <button type="" class="btn alert-info search-button" ><span class="material-icons create">create </span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-office-form">
-                        <form>
-                            <div class="form-group mt-4">
-                                <label for="" class="required">Box Office Name</label>
-                                <input type="text" class="form-control col-12">
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="">Language (experimental feature)</label>
-                                <mat-select name=" " id="" class="form-control col-12">
-                                    <mat-option value="english">English</mat-option>
-                                    <mat-option value="english">Hindi</mat-option>
-                                    <mat-option value="english">Gujarati</mat-option>
-                                    <mat-option value="english">Tamil</mat-option>
-                                </mat-select>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="required">Timezone</label>
-                                <mat-select name=" " id="" class="form-control col-12">
-                                    <mat-option value="english">(GMT+05.30) Calcutta</mat-option>
-                                    <mat-option value="english">(GMT+05.30) Mumbai</mat-option>
-                                    <mat-option value="english">(GMT+05.30) Delhi</mat-option>
-                                    <mat-option value="english">(GMT+05.30) Calcutta</mat-option>
-                                </mat-select>
-                            </div>
-                        </form>
-                    </div>
-                </div> -->
-
 
                     <div class="col-md-6 my-right-content">
                         <div class="form-group mt-2">
@@ -146,7 +104,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <mat-checkbox [checked]="hideLogo == 'Y'" class="" (change)="fnHideLogo($event)">Hide Eventsmatic logo <span class="ml-2"><i class="fa fa-question-circle ml-2"  matTooltip="Hide the Event Jio logo from your box office pages. This feature is only available on certain plans." aria-hidden="true"></i></span></mat-checkbox>
+                            <mat-checkbox [ngClass]="{'disable-access': singleBoxofficeDetails.subscription.white_label_status == 'N'}" [checked]="hideLogo == 'Y'" class="" (change)="fnHideLogo($event)">Hide Eventsmatic logo <span class="ml-2"><i class="fa fa-question-circle ml-2"  matTooltip="Hide the Event Jio logo from your box office pages. This feature is only available on certain plans." aria-hidden="true"></i></span></mat-checkbox>
                         </div>
                         <div class="mt-4">
                             <mat-checkbox [checked]="hideName == 'Y'" class="" (change)="fnHideNameLogo($event)">Hide Box Office name from preview </mat-checkbox>

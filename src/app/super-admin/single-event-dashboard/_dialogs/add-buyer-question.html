@@ -78,7 +78,7 @@
                     <div class="col-12" *ngIf="termsField">
                         <label class="mb-0" for="">Terms and conditions</label>
                         <div class="form-group">
-                            <angular-editor class="description_field" formControlName="terms">
+                            <angular-editor [config]="config" class="description_field" formControlName="terms">
                             </angular-editor>
                         </div>
                     </div>

@@ -20,18 +20,21 @@
                                 </div>
         
                                 <div class="drageble-list">
-                                    <div class="drageble-box" fxLayout="row">
-                                        <div class="tb-data " fxFlex="25"> <p> <span>174120 </span>
-                                            Aug 1, 2021 </p>
+                                    <div *ngFor="let invoice of invoiceList; let i=index;" class="drageble-box" fxLayout="row">
+                                        <div class="tb-data " fxFlex="25"> 
+                                            <p> <span>{{invoice.invoiceId}} </span>
+                                                {{invoice.invoiceDate * 1000 | date:'MMM d, y'}}</p>
                                         </div>
-                                        <div class="tb-data " fxFlex="25"> <p> <span>$19.50 </span>
-                                            Unpaid </p>
+                                        <div class="tb-data " fxFlex="25"> 
+                                            <p> <span>${{invoice.invoiceTotal}} </span>
+                                                {{invoice.invoiceStatus == 'success'?'Paid':'Unpaid'}} </p>
                                         </div>
                                         <div class="tb-data " fxFlex="25"><p> <span>N/A </span>
                                            </p>
                                         </div>
                                         <div class="tb-data " fxFlex="25">
-                                            <i class="fa fa-download mr-2 pointer"></i><span class="pointer">Download</span>
+                                            <i class="fa fa-download mr-2 pointer"></i><a download [href]="invoice.invoiceUrl"
+                                            class="pointer">Download</a>
                                         </div>
                                     </div>
                                 </div>

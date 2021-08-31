@@ -6,6 +6,7 @@ import { SettingService } from '../_services/setting.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe} from '@angular/common';
 import { orderDetailsComponent } from '../../../_components/single-order-detail/single-order-detail';
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import * as moment from 'moment'; 
 
 @Component({
@@ -23,9 +24,12 @@ export class BillingComponent implements OnInit {
     'total': "",
     'unpaid': "",
   };
+  invoiceList:any = [];
+  recentInvoice:any;
+  singleBoxofficeDetails:any;
   constructor(
     public dialog: MatDialog,
-    private SettingService : SettingService,
+    private settingService : SettingService,
     private datePipe: DatePipe,
     private errorService : ErrorService,
   ) { 
@@ -36,18 +40,38 @@ export class BillingComponent implements OnInit {
     this.checkSubscription();
     this.getCreditDetails();
     this.getOverviewUnBillUsage();
+    this.getInvoiceList();
+    this.getSingleBoxofficeDetails();
   }
 
   checkSubscription(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      'boxoffice_code':localStorage.getItem('boxoffice_id'),    }
-    this.SettingService.checkSubscription(requestObject).subscribe((response:any) => {
+      'boxoffice_code':localStorage.getItem('boxoffice_id'),
+    }
+    this.settingService.checkSubscription(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.subscriptionStatus = response.response;
       }
       else if(response.data == false){
-        this.errorService.errorMessage(response.response)
+        // this.errorService.errorMessage(response.response)
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+  getInvoiceList(){
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      'boxoffice_code':localStorage.getItem('boxoffice_id'),   
+    }
+    this.settingService.getInvoiceList(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.invoiceList = response.response;
+        this.recentInvoice = this.invoiceList[0]
+      }
+      else if(response.data == false){
+        // this.errorService.errorMessage(response.response)
       }
       this.isLoaderAdmin = false;
     })
@@ -58,12 +82,12 @@ export class BillingComponent implements OnInit {
     let requestObject = {
       'unique_code':localStorage.getItem('boxoffice_id'),    
     }
-    this.SettingService.getCreditDetails(requestObject).subscribe((response:any) => {
+    this.settingService.getCreditDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.creditDetails = response.response;
       }
       else if(response.data == false){
-        this.errorService.errorMessage(response.response)
+        // this.errorService.errorMessage(response.response)
       }
       this.isLoaderAdmin = false;
     })
@@ -74,7 +98,7 @@ export class BillingComponent implements OnInit {
     let requestObject= {
       'boxoffice_id':localStorage.getItem('boxoffice_id'), 
     }
-    this.SettingService.getOverviewUnBillUsage(requestObject).subscribe((response:any) => {
+    this.settingService.getOverviewUnBillUsage(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.overviewUsageData = response.response;
         this.overviewUsageData.already_paid = Math.round((this.overviewUsageData.already_paid + Number.EPSILON) * 100) / 100;
@@ -82,10 +106,25 @@ export class BillingComponent implements OnInit {
         this.overviewUsageData.total = Math.round((this.overviewUsageData.total + Number.EPSILON) * 100) / 100;
       }
       else if(response.data == false){
-      this.errorService.errorMessage(response.response);
+      // this.errorService.errorMessage(response.response);
       }
       this.isLoaderAdmin = false;
     })
+  }
+
+  
+  getSingleBoxofficeDetails(){
+    let requestObject = {
+        'unique_code' : localStorage.getItem('boxoffice_id')
+    };
+    this.settingService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.singleBoxofficeDetails = response.response[0];
+      }else if(response.data == false){
+        this.errorService.errorMessage(response.response);
+      }
+    });
+
   }
 
 
@@ -103,14 +142,14 @@ export class BillingComponent implements OnInit {
     });
   }
 
-  onLearnMore() {
+  onWhiteLable() {
     const dialogRef = this.dialog.open(DialogLearnMore, {
       width: '700px',
-
+      data : {singleBoxofficeDetails : this.singleBoxofficeDetails}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
-
+        this.getSingleBoxofficeDetails();
       }
     });
   }
@@ -118,7 +157,7 @@ export class BillingComponent implements OnInit {
   onViewAllInvoices() {
     const dialogRef = this.dialog.open(DialogViewAllInvoices, {
       width: '700px',
-
+      data : {invoiceList:this.invoiceList}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
@@ -141,7 +180,7 @@ export class BillingComponent implements OnInit {
   onupdateCardDetail() {
     const dialogRef = this.dialog.open(CardDetailDialogComponent, {
       width: '700px',
-      // data: "Are you sure you want to delete?"
+      data: {status : 'update'}
     });
      dialogRef.afterClosed().subscribe(result => {
       if(result == 'success'){
@@ -177,7 +216,7 @@ export class DialogUnBuyTicketsCredits {
   buyCreditAction:any='one_time';
   constructor(
     public dialogRef: MatDialogRef<DialogUnBuyTicketsCredits>,
-    private SettingService : SettingService,
+    private settingService : SettingService,
     private datePipe: DatePipe,
     private errorService : ErrorService,
     public dialog: MatDialog,
@@ -195,7 +234,7 @@ export class DialogUnBuyTicketsCredits {
   
   getCreditList(){
     this.isLoaderAdmin = true;
-    this.SettingService.getCreditList().subscribe((response:any) => {
+    this.settingService.getCreditList().subscribe((response:any) => {
       if(response.data == true){
         this.creditList = response.response;
       }
@@ -217,7 +256,7 @@ export class DialogUnBuyTicketsCredits {
         'credit_amt': this.selectedCredit.credit_amount,
       }
       this.isLoaderAdmin = true;
-      this.SettingService.purchaseCredits(requestObject).subscribe((response:any) => {
+      this.settingService.purchaseCredits(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.dialogRef.close('success');
         }
@@ -243,7 +282,7 @@ export class DialogUnBuyTicketsCredits {
     if(!this.subscriptionStatus){
       const dialogRef = this.dialog.open(CardDetailDialogComponent, {
         width: '700px',
-        // data: "Are you sure you want to delete?"
+        data: {status : 'new'}
       });
        dialogRef.afterClosed().subscribe(result => {
         if(result){
@@ -258,16 +297,20 @@ export class DialogUnBuyTicketsCredits {
 }
 
 @Component({
-  selector: 'Learn More',
-  templateUrl: '../_dialogs/learn-more.html'
+  selector: 'White Label',
+  templateUrl: '../_dialogs/white-label.html'
 })
 export class DialogLearnMore {
 
   isLoaderAdmin: boolean = false;
+  singleBoxofficeDetails:any;
   constructor(
     public dialogRef: MatDialogRef<DialogLearnMore>,
+    private settingService : SettingService,
+    public dialog: MatDialog,
+    private errorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-
+      this.singleBoxofficeDetails = this.data.singleBoxofficeDetails
   }
 
   onNoClick(): void {
@@ -275,6 +318,51 @@ export class DialogLearnMore {
   }
   ngOnInit() {
 
+  }
+
+  onActiveWhiteLabel(){
+    let requestObject = {
+        'boxoffice_code' : localStorage.getItem('boxoffice_id')
+      }
+      this.isLoaderAdmin = true;
+      this.settingService.addWhiteLable(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+        this.errorService.successMessage(response.response);
+          this.dialogRef.close('success');
+        }
+        else if(response.data == false){
+        this.errorService.errorMessage(response.response);
+        }
+        this.isLoaderAdmin = false;
+      })
+  }
+
+
+
+  onCancelWhiteLabel(){
+     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to cancel white label subscription?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.isLoaderAdmin = true;
+          let requestObject = {
+            'boxoffice_code' : localStorage.getItem('boxoffice_id')
+          }
+          this.settingService.cancelWhiteLable(requestObject).subscribe((response:any) => {
+            if(response.data == true){
+            this.errorService.successMessage(response.response);
+              this.dialogRef.close('success');
+            }
+            else if(response.data == false){
+            this.errorService.errorMessage(response.response);
+            }
+            this.isLoaderAdmin = false;
+          })
+        }
+    });
+      
   }
 
 }
@@ -287,10 +375,11 @@ export class DialogLearnMore {
 export class DialogViewAllInvoices {
 
   isLoaderAdmin: boolean = false;
+  invoiceList:any;
   constructor(
     public dialogRef: MatDialogRef<DialogViewAllInvoices>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-
+      this.invoiceList = this.data.invoiceList
   }
 
   onNoClick(): void {
@@ -319,7 +408,7 @@ export class DialogViewAllUsage {
   selectedEndDate:any;
   constructor(
     public dialogRef: MatDialogRef<DialogViewAllUsage>,
-    private SettingService : SettingService,
+    private settingService : SettingService,
     private router: Router,
     private datePipe: DatePipe,
     private errorService : ErrorService,
@@ -346,7 +435,7 @@ export class DialogViewAllUsage {
       'start_date':this.selectedStartDate?this.datePipe.transform(new Date(this.selectedStartDate),'yy-M-d'):null,
       'end_date':this.selectedEndDate?this.datePipe.transform(new Date(this.selectedEndDate),'yy-M-d'):null,    
     }
-    this.SettingService.getUnbilledUsage(requestObject).subscribe((response:any) => {
+    this.settingService.getUnbilledUsage(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.usageList = response.response;
       }
@@ -364,7 +453,7 @@ export class DialogViewAllUsage {
       'events_id' : 'all',
       'boxoffice_id' : localStorage.getItem('boxoffice_id')
     }
-    this.SettingService.fnGetAllEventList(requestObject).subscribe((response:any) => {
+    this.settingService.fnGetAllEventList(requestObject).subscribe((response:any) => {
       if(response.data == true){
       // this.eventsList = response.response
       response.response.forEach(element => {

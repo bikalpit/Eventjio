@@ -335,8 +335,22 @@ export class SettingService {
         }),catchError(this.handleError));
     }
     
+    getInvoiceList(requestObject){
+        return this.http.post(`${environment.apiUrl}/subscription-invoice-list`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
     submitCardDetail(requestObject){
         return this.http.post(`${environment.apiUrl}/add-subscription`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
+    updateCardDetail(requestObject){
+        return this.http.post(`${environment.apiUrl}/update-card-details`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));
@@ -358,6 +372,19 @@ export class SettingService {
     
     getOverviewUnBillUsage(requestObject){
         return this.http.post(`${environment.apiUrl}/overview-unbilling-usages`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    
+    addWhiteLable(requestObject){
+        return this.http.post(`${environment.apiUrl}/add-whitelabel-subscription`,requestObject,{headers:this.globalHeaders}).pipe(
+        map((res) => {
+            return res;
+        }),catchError(this.handleError));
+    }
+    cancelWhiteLable(requestObject){
+        return this.http.post(`${environment.apiUrl}/cancel-whitelabel-subscription`,requestObject,{headers:this.globalHeaders}).pipe(
         map((res) => {
             return res;
         }),catchError(this.handleError));

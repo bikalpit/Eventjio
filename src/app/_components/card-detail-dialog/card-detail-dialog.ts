@@ -16,12 +16,15 @@ export class CardDetailDialogComponent implements OnInit {
   exYearList:any=[];
   countryList:any=[];
   isLoaderAdmin:boolean=false;
+  status:any;
   constructor(public dialogRef: MatDialogRef<CardDetailDialogComponent>,
     private _formBuilder:FormBuilder,
     private serviceService: ServiceService,
     private errorService: ErrorService,
     private settingService: SettingService,
-    @Inject(MAT_DIALOG_DATA) public message: string) {
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      console.log(this.data)
+      this.status = this.data.status;
       for(let i = 0; i<20; i++){
         let year = this.currentYear+i;
         this.exYearList.push(year) 
@@ -64,6 +67,8 @@ onNoClick(): void {
     })
   }
 
+
+
   submitCard(){
     if(this.cardDetail.invalid){
       this.cardDetail.get("firstname").markAsTouched();
@@ -80,23 +85,62 @@ onNoClick(): void {
       this.cardDetail.get("country").markAsTouched();
       return false;
     }
-    this.isLoaderAdmin = true;
-    let requestObject = {
-      'boxoffice_code':localStorage.getItem('boxoffice_id'), 
-      'card_first_name' : this.cardDetail.get("firstname").value,
-      'card_last_name' : this.cardDetail.get("lastname").value,
-      'card_number' : this.cardDetail.get("number").value,
-      'expiry_month' : this.cardDetail.get("exMonth").value,
-      'expiry_year' : this.cardDetail.get("exYear").value,
-      'cvv' : this.cardDetail.get("cvv").value,
-      'card_address' : this.cardDetail.get("address1").value,
-      'card_address2' : this.cardDetail.get("address2").value,
-      'card_city' : this.cardDetail.get("city").value,
-      'card_zip' : this.cardDetail.get("zip").value,
-      'card_state' : this.cardDetail.get("state").value,
-      'card_country' : this.cardDetail.get("country").value,
+    if(this.status == 'new'){
+      let requestObject = {
+        'boxoffice_code':localStorage.getItem('boxoffice_id'), 
+        'card_first_name' : this.cardDetail.get("firstname").value,
+        'card_last_name' : this.cardDetail.get("lastname").value,
+        'card_number' : this.cardDetail.get("number").value,
+        'expiry_month' : this.cardDetail.get("exMonth").value,
+        'expiry_year' : this.cardDetail.get("exYear").value,
+        'cvv' : this.cardDetail.get("cvv").value,
+        'card_address' : this.cardDetail.get("address1").value,
+        'card_address2' : this.cardDetail.get("address2").value,
+        'card_city' : this.cardDetail.get("city").value,
+        'card_zip' : this.cardDetail.get("zip").value,
+        'card_state' : this.cardDetail.get("state").value,
+        'card_country' : this.cardDetail.get("country").value,
+      }
+      this.addCard(requestObject);
+    }else if(this.status == 'update'){
+      let requestObject = {
+        'boxoffice_code':localStorage.getItem('boxoffice_id'), 
+        'first_name' : this.cardDetail.get("firstname").value,
+        'last_name' : this.cardDetail.get("lastname").value,
+        'card_number' : this.cardDetail.get("number").value,
+        'expiry_month' : this.cardDetail.get("exMonth").value,
+        'expiry_year' : this.cardDetail.get("exYear").value,
+        'cvv' : this.cardDetail.get("cvv").value,
+        'card_address' : this.cardDetail.get("address1").value,
+        'card_address2' : this.cardDetail.get("address2").value,
+        'billing_city' : this.cardDetail.get("city").value,
+        'billing_zip' : this.cardDetail.get("zip").value,
+        'billing_state' : this.cardDetail.get("state").value,
+        'billing_country' : this.cardDetail.get("country").value,
+      }
+      this.updateCard(requestObject);
     }
+   
+  }
+
+  addCard(requestObject){
+     this.isLoaderAdmin = true;
     this.settingService.submitCardDetail(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        // this.countryList = response.response;
+        this.errorService.successMessage(response.response)
+        this.dialogRef.close('success');
+      }
+      else if(response.data == false){
+        this.errorService.errorMessage(response.response)
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+  updateCard(requestObject){
+     this.isLoaderAdmin = true;
+    this.settingService.updateCardDetail(requestObject).subscribe((response:any) => {
       if(response.data == true){
         // this.countryList = response.response;
         this.errorService.successMessage(response.response)

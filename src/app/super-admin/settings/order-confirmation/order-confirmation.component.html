@@ -27,10 +27,10 @@
         <div class="msg-content mt-3 border rounded">
             <div class="msg border">
 
-                <angular-editor class="description_field" *ngIf="templateType=='In-person'" [(ngModel)]="globalOrderEmail">
+                <angular-editor [config]="config" class="description_field" *ngIf="templateType=='In-person'" [(ngModel)]="globalOrderEmail">
                 </angular-editor>
 
-                <angular-editor class="description_field" *ngIf="templateType=='online'" [(ngModel)]="globalOrderEmailOnline">
+                <angular-editor [config]="config" class="description_field" *ngIf="templateType=='online'" [(ngModel)]="globalOrderEmailOnline">
                 </angular-editor>
             </div>
 

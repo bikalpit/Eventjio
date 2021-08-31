@@ -6,6 +6,7 @@ import { ErrorService } from '../../../_services/error.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-checkout-form',
@@ -312,7 +313,33 @@ export class addBuyerQuestionDialog {
   singleQuestion:any;
   is_address = false;
   addressForamteStyle = "US";
-
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [["bold"]],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   constructor(
     public dialogRef: MatDialogRef<addBuyerQuestionDialog>,
     private http: HttpClient,
@@ -471,7 +498,33 @@ export class addAttendeeQuestionDialog {
   singleQuestion:any;
   addressForamteStyle = true;
   is_address = false;
-
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [["bold"]],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   constructor(
     public dialogRef: MatDialogRef<addAttendeeQuestionDialog>,
     private http: HttpClient,
