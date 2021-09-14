@@ -8,7 +8,7 @@
             <div class="bottom-broadcast-wrap">
                 <div class="broadcast-notification">
                     <i class="fa fa-bell" aria-hidden="true"></i>
-                    <p>Broadcasts can not be used for sending anything other than important event updates. If you would like to send marketing emails please use our <a> MailChimp integration. </a> </p>
+                    <p>Broadcasts can not be used for sending anything other than important event updates. If you would like to send marketing emails please use our <a href="www.weberr.com" target="_blank">Weberr</a> Product</p>
 
                 </div>
                 <div class="manage-broadcast-table">
@@ -32,13 +32,19 @@
                                     <div class="drageble-box" fxLayout="row">
                                         <div class="tb-data heading-table" (click)="previewBroadcast(i)" fxFlex="25"> <a> {{getAllBroadcastData.subject}} </a> </div>
                                         <div class="tb-data heading-table" fxFlex="25"> {{getAllBroadcastData.recipients}} </div>
-                                        <div class="tb-data heading-table text-green text-capitalize" fxFlex="25">{{getAllBroadcastData.status}}</div>
+                                        <div class="tb-data heading-table {{getAllBroadcastData.status == 'draft' ? 'text-black' : 'text-green'}} text-capitalize" fxFlex="25">{{getAllBroadcastData.status}}</div>
                                         <div class="tb-data heading-table" fxFlex="25">{{getAllBroadcastData.created_at}}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="getAllBroadcastData.length == 0">
+                            <!-- <div *ngIf="getAllBroadcastData.length == 0">
                                 <p class="my-2 text-center">No record found.</p>
+                            </div> -->
+                            <div class="no-data-label" *ngIf="getAllBroadcastData.length == 0">
+                                <div class="no-data-view">
+                                    <img src="../../../assets/images/no-data-found.svg" />
+                                    <label> No data available.</label>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -36,7 +36,7 @@ config: AngularEditorConfig = {
   translate: "no",
   defaultParagraphSeparator: "p",
   defaultFontName: "Arial",
-  toolbarHiddenButtons: [["bold"]],
+  toolbarHiddenButtons: [],
   sanitize: false,
   customClasses: [
     {

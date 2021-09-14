@@ -53,7 +53,7 @@
                                 <div class="heading-table" fxFlex="15">Revenue</div>
                                 <div class="heading-table" fxFlex="15">Action</div>
                             </div>
-                            <div class="content" *ngIf="allOccurrenceList && allOccurrenceList.length != 0" class="drageble-list occurrence-list">
+                            <div class="content" *ngIf="allOccurrenceList && allOccurrenceList.length > 0" class="drageble-list occurrence-list">
                                 <div class="drageble-box" fxLayout="row" *ngFor="let element of allOccurrenceList; let i=index;">
                                     <div class="tb-data" fxFlex="40">
                                         <mat-checkbox [checked]="element.is_selected" (change)="fnAddOccurrenceId($event.checked, element.unique_code,i)"></mat-checkbox>
@@ -98,8 +98,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="allOccurrenceList && allOccurrenceList.length == 0">
-                                <p class="text-center my-2">No record found.</p>
+                            <div class="no-data-label" *ngIf="allOccurrenceList.length == 0">
+                                <div class="no-data-view">
+                                    <img src="../../../assets/images/no-data-found.svg" />
+                                    <label> No data available.</label>
+                                </div>
                             </div>
                         </div>
                     </div>

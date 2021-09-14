@@ -281,7 +281,7 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
         tag: "h1",
       },
     ],
-	uploadUrl: 'https://api.eventsmatic.com/api/event-image-upload',
+	// uploadUrl: 'https://api.eventsmatic.com/api/event-image-upload',
 };
 
   private scrollToFirstInvalidControl() {
@@ -733,6 +733,9 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
            dialogRef.afterClosed().subscribe(result => {
             if(result == 'success'){
               this.fnChangeEventStatus(uniqueCode, status);
+            }else{
+              this.fnGetUpcomingEventList();
+              this.fnGetPastEventList();
             }
           });
         }else{

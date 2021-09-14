@@ -7,6 +7,7 @@ import { DatePipe} from '@angular/common';
 import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 import { SingleEventServiceService } from './_services/single-event-service.service';
+import { CardDetailDialogComponent } from '../../_components/card-detail-dialog/card-detail-dialog';
 
 @Component({
   selector: 'single-event-dashboard',
@@ -190,7 +191,22 @@ export class SingleEventDashboard implements OnInit {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
       } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        if(response.response == 'Card details is not updated!'){
+          const dialogRef = this.dialog.open(CardDetailDialogComponent, {
+            width: '700px',
+            data: {status : 'new'}
+          });
+           dialogRef.afterClosed().subscribe(result => {
+            if(result == 'success'){
+              this.fnChangeEventStatus(status);
+            }else{
+              this.fnGetEventDetail();
+              this.fnGetBoxOfficeDetail();
+            }
+          });
+        }else{
+          this.ErrorService.errorMessage(response.response);
+        }
       }
     });
 

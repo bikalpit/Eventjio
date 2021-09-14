@@ -322,7 +322,7 @@ export class addBuyerQuestionDialog {
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
     sanitize: false,
     customClasses: [
       {
@@ -507,7 +507,7 @@ export class addAttendeeQuestionDialog {
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
     sanitize: false,
     customClasses: [
       {

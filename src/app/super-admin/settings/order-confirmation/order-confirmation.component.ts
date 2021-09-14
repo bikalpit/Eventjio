@@ -35,7 +35,7 @@ export class OrderConfirmationComponent implements OnInit {
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
     sanitize: false,
     customClasses: [
       {

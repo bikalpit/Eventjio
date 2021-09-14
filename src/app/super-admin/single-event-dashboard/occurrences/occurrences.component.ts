@@ -21,7 +21,7 @@ export class OccurrencesComponent implements OnInit {
   isLoaderAdmin:boolean=false;
   event_id:any;
   boxoffice_id:any;
-  allOccurrenceList:any;
+  allOccurrenceList:any=[];
   selectedOccurrenceAarry:any=[];
   selectAll: boolean = false;
   singleOccurenceData:any;

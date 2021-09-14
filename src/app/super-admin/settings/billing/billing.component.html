@@ -67,7 +67,7 @@
                     <!-- <p>Thursday 13th of August 2020</p>
                     <p>5 (will reset on Thursday 13th of August 2020)</p>
                     <p>0 (charged at $0.65 per ticket)</p> -->
-                    <a class="biiling-link"> <u>Apply for a charity discount</u></a>
+                    <a (click)="applyCharityDiscount()" class="biiling-link"> <u>Apply for a charity discount</u></a>
 
                 </div>
                 <div class="col-12">
@@ -138,8 +138,11 @@
                                                     class="pointer">Download</a>
                                             </div>
                                         </div>
-                                        <div  *ngIf="invoiceList.length == 0">
-                                            <p class="my-2 text-center">No Record found.</p>
+                                        <div class="no-data-label" *ngIf="invoiceList.length == 0">
+                                            <div class="no-data-view">
+                                                <img src="../../../assets/images/no-data-found.svg" />
+                                                <label> No data available.</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -169,13 +172,19 @@
                         <p> ${{overviewUsageData.unpaid}} </p>
                     </div>
                 </div>
+                <!-- <div class="no-data-label" *ngIf="!overviewUsageData.unpaid && !overviewUsageData.already_paid && !overviewUsageData.total">
+                    <div class="no-data-view">
+                        <img src="../../../assets/images/no-data-found.svg" />
+                        <label> No data available.</label>
+                    </div>
+                </div> -->
                 <div class="note-theme mt-2 mb-4">
                     <div class="notification">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" class="notif-icon">notifications
                         </mat-icon>
                     </div>
                     <div>
-                        <p class="note-message">Your next invoice will be generated either on Wed 1 September 2021, or
+                        <p class="note-message">Your next invoice will be generated either on {{overviewUsageData.nextBillDate?overviewUsageData.nextBillDate:''}}, or
                             when you exceed $50 of unpaid charges (Whichever is sooner). Any payment due will be charged
                             to the card you have on file. </p>
                     </div>

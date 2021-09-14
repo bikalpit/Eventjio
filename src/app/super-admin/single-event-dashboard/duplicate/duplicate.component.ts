@@ -32,6 +32,8 @@ export class DuplicateComponent implements OnInit {
   errorMessage:any;
   startEndSameDate:any;
   recurringEvent:any='N';
+  currentTime:any;
+  startdateToday:boolean=false;
   // duplicateForm:boolean=false;
   finalArr = [];
   constructor(
@@ -119,6 +121,15 @@ export class DuplicateComponent implements OnInit {
   }
   fnChangeEventStartDate(event){
     this.minTillDate = event.value;
+    var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    var selectedStartDate = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+    if(selectedStartDate === todayDate){
+      this.startdateToday=true;
+      this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
+      this.currentTime = this.transformTime24To12(this.datePipe.transform(new Date(),"h:mm a"))
+    }else{
+      this.startdateToday=false;
+    }
     this.errorMessage = null;
 
     // this.minTillDate = this.duplicateForm.get('start_date').value;

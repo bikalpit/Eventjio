@@ -1917,7 +1917,7 @@ export class BookTicketDialog {
       "grand_total" : this.grandTotal,
       "payment_method" : "cash",
       "transaction_id" : null,
-      "payment_status" : 'paid',
+      "payment_status" : 'unpaid',
       "occurrence_id":this.occurrenceCode?this.occurrenceCode:null,
       "customer_firstname": name[0] ? name[0] : '',
       "customer_lastname": name[1] ? name[1]: '',

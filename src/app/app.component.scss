@@ -495,3 +495,18 @@
         width: 100% !important;
     }
 }
+
+
+::ng-deep angular-editor{
+    .angular-editor-wrapper{
+        p{
+            width: 100% !important;
+            img{
+                max-width: 100% !important;
+            }
+        }
+        img{
+            max-width: 100% !important;
+        }
+    }
+}

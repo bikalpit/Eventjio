@@ -95,7 +95,7 @@ export class EventAndTicketTypesComponent implements OnInit, AfterViewInit {
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
     sanitize: false,
     customClasses: [
       {

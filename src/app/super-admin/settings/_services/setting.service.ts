@@ -389,6 +389,20 @@ export class SettingService {
             return res;
         }),catchError(this.handleError));
     }
+    
+    getBoxOfficeEvents(requestObject) {
+        return this.http.post(`${environment.apiUrl}/front-events-list`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
+    
+    applyForCherityDiscount(requestObject) {
+        return this.http.post(`${environment.apiUrl}/front-events-list`,requestObject,{headers:this.globalHeaders}).pipe(
+            map((res) => {
+                return res;
+        }),catchError(this.handleError));
+    }
 
       googleMap(address) {
         return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyA8RwRCpG7ajbR-pl0D58oUGzi83c6RCYk`).pipe(

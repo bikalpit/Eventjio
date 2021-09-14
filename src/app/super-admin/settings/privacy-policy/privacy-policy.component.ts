@@ -24,7 +24,7 @@ export class PrivacyPolicyComponent implements OnInit {
   translate: "no",
   defaultParagraphSeparator: "p",
   defaultFontName: "Arial",
-  toolbarHiddenButtons: [["bold"]],
+  toolbarHiddenButtons: [],
   sanitize: false,
   customClasses: [
     {
@@ -152,7 +152,7 @@ export class PrivacyPolicyGenerateDialog implements OnInit {
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
     sanitize: false,
     customClasses: [
       {

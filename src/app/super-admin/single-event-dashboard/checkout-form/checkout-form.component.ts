@@ -392,7 +392,7 @@ export class addBuyeronlyQuestionDialog {
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
     sanitize: false,
     customClasses: [
       {
@@ -578,7 +578,7 @@ export class addAttendeeonlyQuestionDialog {
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
     sanitize: false,
     customClasses: [
       {

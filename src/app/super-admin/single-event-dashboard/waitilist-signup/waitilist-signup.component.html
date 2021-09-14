@@ -100,6 +100,12 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="no-data-label" *ngIf="getAllWaitingListData && getAllWaitingListData.data.length == 0">
+                                <div class="no-data-view">
+                                    <img src="../../../assets/images/no-data-found.svg" />
+                                    <label> No data available.</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </mat-tab>

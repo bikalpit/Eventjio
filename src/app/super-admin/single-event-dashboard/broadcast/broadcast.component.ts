@@ -57,7 +57,7 @@ export class BroadcastComponent implements OnInit, AfterViewInit {
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
     sanitize: false,
     customClasses: [
       {
@@ -120,7 +120,6 @@ export class BroadcastComponent implements OnInit, AfterViewInit {
     let newBroadcastAction = window.location.search.split("?broadcast")
     console.log(this.jump)
         if(newBroadcastAction.length > 1 && this.jump){
-          alert('1')
           this.scrollContainer = this.jump.nativeElement;
 
           // check if the query is present
@@ -437,7 +436,7 @@ export class mySendBroadcastDialog{
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
     sanitize: false,
     customClasses: [
       {
