@@ -90,6 +90,18 @@ export class BillingComponent implements OnInit {
       }
     });
   }
+
+  onUpdateVatInfo() {
+    const dialogRef = this.dialog.open(DialogUpdateVatInfo, {
+      width: '700px',
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'success') {
+
+      }
+    });
+  }
 }
 
 
@@ -170,6 +182,29 @@ export class DialogViewAllUsage {
   isLoaderAdmin: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<DialogViewAllUsage>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  ngOnInit() {
+
+  }
+
+}
+
+
+@Component({
+  selector: 'Update Vat Info',
+  templateUrl: '../_dialogs/update-vat-info.html'
+})
+export class DialogUpdateVatInfo {
+
+  isLoaderAdmin: boolean = false;
+  constructor(
+    public dialogRef: MatDialogRef<DialogUpdateVatInfo>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
