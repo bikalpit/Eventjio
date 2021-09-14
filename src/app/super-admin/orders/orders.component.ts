@@ -128,7 +128,7 @@ export class OrdersComponent implements OnInit {
     if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
       this.fnChangeOccurrence();
     }else{
-      this.fngetallOrders();
+      this.fngetallOrders(false);
     }
      this.fnGetAllEventList();
   }
@@ -191,7 +191,7 @@ export class OrdersComponent implements OnInit {
       if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
         this.fnChangeOccurrence();
       }else{
-        this.fngetallOrders();
+        this.fngetallOrders(false);
       }
     });
   }  
@@ -207,7 +207,7 @@ export class OrdersComponent implements OnInit {
       if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
         this.fnChangeOccurrence();
       }else{
-        this.fngetallOrders();
+        this.fngetallOrders(false);
       }
     });
   }
@@ -224,7 +224,7 @@ export class OrdersComponent implements OnInit {
       if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
         this.fnChangeOccurrence();
       }else{
-        this.fngetallOrders();
+        this.fngetallOrders(false);
       }
      });
   }  
@@ -245,12 +245,8 @@ export class OrdersComponent implements OnInit {
   }
 
   selectedEventOrder(event){
-    console.log(event)
-    
     // const index = this.allEventlist.indexOf(event.value);
     const index = this.allEventlist.findIndex(x => x.unique_code === event.value);
-    console.log(index);
-    console.log(this.allEventlist[index]);
     this.selectedEventTickets = this.allEventlist[index].event_tickets
   }
 
@@ -283,7 +279,17 @@ export class OrdersComponent implements OnInit {
       if(this.selectedOccurrence && this.selectedOccurrence != 'all'){
         this.fnChangeOccurrence();
       }else{
-        this.fngetallOrders();
+        // this.fngetallOrders();
+      }
+      if(this.animal == 'success'){
+        this.fngetallOrders(true);
+        // this.isLoaderAdmin=true;
+        // setTimeout(() => {
+        //   this.isLoaderAdmin=false;
+        //   this.eventSummary(this.allorderlist[0]);
+        // }, 500);
+      }else{
+        this.fngetallOrders(false);
       }
     });
   }
@@ -310,7 +316,7 @@ export class OrdersComponent implements OnInit {
   }
   
 
-  fngetallOrders(){
+  fngetallOrders(status){
  
     this.isLoaderAdmin = true;
     this.orderToDate = this.start_date
@@ -357,6 +363,9 @@ export class OrdersComponent implements OnInit {
         this.next_page_url_orders = response.response.next_page_url;
         this.prev_page_url_orders = response.response.prev_page_url;
         this.path_orders = response.response.path;
+        if(status){
+          this.eventSummary(this.allorderlist[0])
+        }
       }else{
         this.allorderlist.length = 0;
           // this.ErrorService.errorMessage(response.response);
@@ -369,7 +378,7 @@ export class OrdersComponent implements OnInit {
 
   fnChangeOccurrence(){
     if(this.selectedOccurrence == 'all'){
-      this.fngetallOrders();
+      this.fngetallOrders(false);
       return false;
     }
     this.isLoaderAdmin = true;
@@ -421,14 +430,14 @@ export class OrdersComponent implements OnInit {
   navigateTo_orders(api_url){
     this.ordersApiUrl=api_url;
     if(this.ordersApiUrl){
-      this.fngetallOrders();
+      this.fngetallOrders(false);
     }
   }
 
   navigateToPageNumber_orders(index){
     this.ordersApiUrl=this.path_orders+'?page='+index;
     if(this.ordersApiUrl){
-      this.fngetallOrders();
+      this.fngetallOrders(false);
     }
   }
 
@@ -585,7 +594,6 @@ export class ExportOrderDialog {
           element.selected = true;
           this.selectedTicketList.push(element.ticket_id)
         });
-        console.log(this.selectedTicketList)
       }
       
       
@@ -1070,12 +1078,15 @@ export class AddNewOrderDialog {
 
   fnBookOccurrence(occurrenceCode){
       const dialogRef = this.dialog.open(BookTicketDialog, {
-        width: '700px',
+        width: '800px',
         data :{selecetedEvent : this.selectedEvent,occurrenceCode : occurrenceCode,singleEventData: this.singleEventData}
       });
     
        dialogRef.afterClosed().subscribe(result => {
         this.animal = result;
+        if(this.animal){
+          this.dialogRef.close(this.animal);
+        }
        });
   }
   
@@ -1084,7 +1095,7 @@ export class AddNewOrderDialog {
     this.isLoaderAdmin = true;
     let requestObject={
       "boxoffice_id": this.boxOfficeCode,
-      "filter":'upcoming',
+      "filter":'upcoming',  
     }
 
     this.superadminService.getAllEventList(requestObject).subscribe((response:any) => {
@@ -1129,7 +1140,7 @@ export class AddNewOrderDialog {
      dialogRef.afterClosed().subscribe(result => {
       this.animal = result;
       if(this.animal){
-        this.dialogRef.close();
+        this.dialogRef.close(this.animal);
       }
      });
   }
@@ -1222,12 +1233,9 @@ export class BookTicketDialog {
       if(this.data.occurrenceCode){
         this.occurrenceCode = this.data.occurrenceCode;
         this.recurringEvent =true;
-        console.log(this.occurrenceCode)
       }
       this.selectedEventCode = this.data.selecetedEvent;
       this.eventDetail = this.data.singleEventData;
-      console.log(this.selectedEventCode)
-      console.log(this.eventDetail)
     
       this.eventSettings = this.eventDetail.event_setting;
       this.currencyCode = this.eventSettings.currency
@@ -1236,18 +1244,20 @@ export class BookTicketDialog {
       if(this.eventSettings.currency){
         this.currencySymbol = this.eventSettings.currency;
       }
-      console.log(this.eventSettings)
-
-      this.sales_tax_array = JSON.parse(this.eventSettings.sales_tax);
-      if(this.sales_tax_array.length >0){
-        this.sales_tax_array.forEach(element => {
-          if(parseInt(element.amount) > 0){
-            element.finalAmount = 0
-            element.finalAmount = element.amount*this.subTotalWithTransactionFee/100
-            this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
-          }
-        });
+      if(this.eventSettings.custom_sales_tax == 'Y'){
+        this.sales_tax_array = JSON.parse(this.eventSettings.sales_tax);
+        console.log(this.sales_tax_array)
+        if(this.sales_tax_array.length >0){
+          this.sales_tax_array.forEach(element => {
+            if(parseInt(element.amount) > 0){
+              element.finalAmount = 0
+              element.finalAmount = element.amount*this.subTotalWithTransactionFee/100
+              this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
+            }
+          });
+        }
       }
+     
 
 
       if(localStorage.getItem('boxoffice_id')){
@@ -1458,13 +1468,11 @@ export class BookTicketDialog {
           }
 
           if(element.hide == 'true'){
-            console.log('2')
 
             this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',null];
             element.controlname = element.label.replace(/[^a-zA-Z]/g, '');
             element.value = '';
           }else{
-            console.log('1')
             var required = element.required ? Validators.required : null;
           
             this.formArr[element.label.replace(/[^a-zA-Z]/g, '')] = ['',required];
@@ -1588,6 +1596,7 @@ export class BookTicketDialog {
      
       this.eventTicket.forEach(element=>{
         if(parseInt(element.qty)  > 0 && element.id_added == true){
+          element.qty = parseInt(element.qty)
           this.is_added_at_least_item = false;
           var total = parseInt(element.qty) * parseFloat(element.prize);
           this.subTotal = this.subTotal + total + parseFloat(element.booking_fee);
@@ -1779,7 +1788,6 @@ export class BookTicketDialog {
     var is_error = false;
 
     if(this.bookTickets.invalid){
-      console.log(this.bookTickets)
       this.bookTickets.get('name').markAsTouched();
       this.bookTickets.get('email').markAsTouched();
       this.bookTickets.get('phone').markAsTouched();
@@ -1903,13 +1911,13 @@ export class BookTicketDialog {
 
       "voucher_code" : this.voucher_code,
       "voucher_amt" : this.voucher_amt,
-      "coupon_code" : this.coupon_code,
+      "coupon_code" : this.coupon_code, 
       "coupon_amt" : this.coupon_amt,
 
       "grand_total" : this.grandTotal,
       "payment_method" : "cash",
-      "transaction_id" : this.makeid(16),
-      "payment_status" : 'paid',
+      "transaction_id" : null,
+      "payment_status" : 'unpaid',
       "occurrence_id":this.occurrenceCode?this.occurrenceCode:null,
       "customer_firstname": name[0] ? name[0] : '',
       "customer_lastname": name[1] ? name[1]: '',
@@ -2441,7 +2449,6 @@ export class cancelOrderDialog {
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.singleorderCustomer = this.data;
-      console.log(this.singleorderCustomer)
       this.eventData = this.data.events ? this.data.events : [];
     }
 
@@ -2531,6 +2538,7 @@ export class eventSummaryDialog {
     private change:ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.Orderdata = this.data.Orderdata
+      console.log(this.Orderdata)
       this.subPermission = this.data.subPermission
       if(this.Orderdata.customer.usa_address != null){
         this.customerAddress = JSON.parse(this.Orderdata.customer.usa_address)
@@ -2633,6 +2641,7 @@ export class eventSummaryDialog {
       this.superadminService.fnGetsingleOrder(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.orderDetail = response.response.order_info;
+          console.log(this.orderDetail)
           this.purchasedTicket = response.response.ticket_info;
           this.orderDate  = this.datePipe.transform(new Date(this.orderDetail.created_at),"EEE MMM d, y");
           this.eventDate  = this.datePipe.transform(new Date(this.orderDetail.events.start_date),"EEE MMM d, y");
@@ -2641,7 +2650,6 @@ export class eventSummaryDialog {
           this.attendeeData  = JSON.parse(this.orderDetail.attendee_info);
           this.currencyCode = this.orderDetail.events.event_setting.currency;
           this.taxArray = this.orderDetail.tax_info!= null?JSON.parse(this.orderDetail.tax_info):'';
-          console.log(this.taxArray)
         }else{
           this.singleorderCustomer  = [];
         }

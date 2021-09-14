@@ -12,6 +12,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment'; 
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 export interface ListTimeZoneListArry {
   id: string;
@@ -85,7 +86,33 @@ export class EventAndTicketTypesComponent implements OnInit, AfterViewInit {
   eventStarted:any;
   goto: any;
   scrollContainer: any;
-
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   constructor(
     private SingleEventServiceService: SingleEventServiceService,
     private ErrorService: ErrorService,

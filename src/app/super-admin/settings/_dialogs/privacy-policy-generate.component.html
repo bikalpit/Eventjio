@@ -79,7 +79,7 @@
 
     <div class="modal-body" *ngIf="preview">
         <h2 class="text-left">Your Policy is ready...</h2>
-        <angular-editor [(ngModel)]="htmlContent" class="description_field" class="form-group">
+        <angular-editor [config]="config" [(ngModel)]="htmlContent" class="description_field" class="form-group">
         </angular-editor>
         <!-- <div #msgText contenteditable="true" class="previewContent border rounded p-3">
             <h3 class="text-left">Introduction</h3>

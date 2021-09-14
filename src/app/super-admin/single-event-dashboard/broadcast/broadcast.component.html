@@ -8,7 +8,7 @@
             <div class="bottom-broadcast-wrap">
                 <div class="broadcast-notification">
                     <i class="fa fa-bell" aria-hidden="true"></i>
-                    <p>Broadcasts can not be used for sending anything other than important event updates. If you would like to send marketing emails please use our <a> MailChimp integration. </a> </p>
+                    <p>Broadcasts can not be used for sending anything other than important event updates. If you would like to send marketing emails please use our <a href="www.weberr.com" target="_blank">Weberr</a> Product</p>
 
                 </div>
                 <div class="manage-broadcast-table">
@@ -32,19 +32,27 @@
                                     <div class="drageble-box" fxLayout="row">
                                         <div class="tb-data heading-table" (click)="previewBroadcast(i)" fxFlex="25"> <a> {{getAllBroadcastData.subject}} </a> </div>
                                         <div class="tb-data heading-table" fxFlex="25"> {{getAllBroadcastData.recipients}} </div>
-                                        <div class="tb-data heading-table text-green text-capitalize" fxFlex="25">{{getAllBroadcastData.status}}</div>
+                                        <div class="tb-data heading-table {{getAllBroadcastData.status == 'draft' ? 'text-black' : 'text-green'}} text-capitalize" fxFlex="25">{{getAllBroadcastData.status}}</div>
                                         <div class="tb-data heading-table" fxFlex="25">{{getAllBroadcastData.created_at}}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="getAllBroadcastData.length == 0">
+                            <!-- <div *ngIf="getAllBroadcastData.length == 0">
                                 <p class="my-2 text-center">No record found.</p>
+                            </div> -->
+                            <div class="no-data-label" *ngIf="getAllBroadcastData.length == 0">
+                                <div class="no-data-view">
+                                    <img src="../../../assets/images/no-data-found.svg" />
+                                    <label> No data available.</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div #new_broadcast_start>
     </div>
     <div class="create-broadcast-main" *ngIf="!createBroadcast">
         <div class="container-fluid">
@@ -62,10 +70,10 @@
                         </label>
                         <mat-select class="form-control clr-black" formControlName="recipients" id="exampleFormControlSelect1">
                             <!-- <mat-option value="select Recipients">select Recipients</mat-option> -->
-                            <mat-option value="BUY">All ticket buyers ({{allWaitingListData.BUY}})</mat-option>
-                            <mat-option value="ALL">All waitlist signups ({{allWaitingListData.ALL}})</mat-option>
-                            <mat-option value="NEW">New waitlist signups ({{allWaitingListData.NEW}})</mat-option>
-                            <mat-option value="NOTIFY">Notified waitlist signups ({{allWaitingListData.NOTIFY}})</mat-option>
+                            <mat-option value="BUY">All ticket buyers ({{allWaitingListData?allWaitingListData.BUY:0}})</mat-option>
+                            <mat-option value="ALL">All waitlist signups ({{allWaitingListData?allWaitingListData.ALL:0}})</mat-option>
+                            <mat-option value="NEW">New waitlist signups ({{allWaitingListData?allWaitingListData.NEW:0}})</mat-option>
+                            <mat-option value="NOTIFY">Notified waitlist signups ({{allWaitingListData?allWaitingListData.NOTIFY:0}})</mat-option>
                         </mat-select><br>
                         <span class="error-wrap" *ngIf="createBroadcastForm.get('recipients').touched || createBroadcastForm.get('recipients').dirty">
                             <small *ngIf="createBroadcastForm.get('recipients').hasError('required')" class="error">Recipients is required.</small>
@@ -105,7 +113,7 @@
 
                     <div class="form-group col-md-12 col-lg-12 col-sm-12">
                         <label>Message<span class="text-danger">*</span> </label>
-                        <angular-editor class="description_field" name="editor1" formControlName="message">
+                        <angular-editor [config]="config" [(ngModel)]="broadcast_message" class="description_field" name="editor1" formControlName="message">
                         </angular-editor>
                         <span class="error-wrap" *ngIf="createBroadcastForm.get('message').touched || createBroadcastForm.get('message').dirty">
                             <small *ngIf="createBroadcastForm.get('message').hasError('required')" class="error">Enter your message, Message is required.</small>

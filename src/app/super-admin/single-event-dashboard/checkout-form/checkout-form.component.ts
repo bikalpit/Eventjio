@@ -6,6 +6,7 @@ import { ErrorService } from '../../../_services/error.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import {HttpClient} from '@angular/common/http';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 export interface DialogData {
   animal: string;
@@ -382,7 +383,33 @@ export class addBuyeronlyQuestionDialog {
   singleQuestion:any;
   is_address = false;
   addressForamteStyle = 'US';
-
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   constructor(
     public dialogRef: MatDialogRef<addBuyeronlyQuestionDialog>,
     private http: HttpClient,
@@ -542,6 +569,33 @@ export class addAttendeeonlyQuestionDialog {
   defaultQuestion:boolean = false;
   allQuestionlist:any = [];
   singleQuestion:any;
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   constructor(
     public dialogRef: MatDialogRef<addAttendeeonlyQuestionDialog>,
     private http: HttpClient,

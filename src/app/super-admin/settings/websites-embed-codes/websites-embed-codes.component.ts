@@ -163,7 +163,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
         }
         console.log(this.embededCodePreview)
       } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        // this.ErrorService.errorMessage(response.response);
       }
     });
       this.isLoaderAdmin = false;
@@ -180,7 +180,7 @@ export class WebsitesEmbedCodesComponent implements OnInit {
         console.log(this.allEvents);
       }
       else if(response.data == false){
-      this.ErrorService.errorMessage(response.response);
+      // this.ErrorService.errorMessage(response.response);
       this.allEvents.length = 0
       }
       this.isLoaderAdmin = false;

@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {SingleEventServiceService} from '../_services/single-event-service.service';
-import { ErrorService } from '../../../_services/error.service'
+import { ErrorService } from '../../../_services/error.service';
+import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 import { ExportToCsv } from 'export-to-csv';
+import { DatePipe} from '@angular/common';
+import { SingleEventDashboard } from '../single-event-dashboard'
 
 @Component({
   selector: 'app-waitilist-signup',
   templateUrl: './waitilist-signup.component.html',
-  styleUrls: ['./waitilist-signup.component.scss']
+  styleUrls: ['./waitilist-signup.component.scss'],
+  providers: [DatePipe]
 })
 export class WaitilistSignupComponent implements OnInit {
   isLoaderAdmin:boolean=false;
@@ -36,6 +41,9 @@ export class WaitilistSignupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private SingleEventServiceService:SingleEventServiceService,
     private ErrorService:ErrorService,
+    private datePipe: DatePipe,
+    public dialog: MatDialog,
+    private singleEventDashboard:SingleEventDashboard,
   ) 
   {
     if(localStorage.getItem('boxoffice_id')){
@@ -127,6 +135,11 @@ export class WaitilistSignupComponent implements OnInit {
         if(response.data == true && response.response){
           if(status == 'ALL'){
             this.getAllWaitingListData = response.response;
+            this.getAllWaitingListData.data.forEach(element => {
+              element.created_at = this.datePipe.transform(element.created_at, 'MMM d, y, h:mm a');
+              element.updated_at = this.datePipe.transform(element.updated_at, 'MMM d, y, h:mm a');
+              console.log(element.created_at)
+            });
           }else if(status == 'NEW'){
             this.getNewWaitingListData = response.response;
           }else{ 
@@ -153,6 +166,11 @@ export class WaitilistSignupComponent implements OnInit {
         if(response.data == true && response.response){
           if(status == 'ALL'){
             this.getAllWaitingListData = response.response;
+            this.getAllWaitingListData.data.forEach(element => {
+              element.created_at = this.datePipe.transform(element.created_at, 'MMM d, y, h:mm a');
+              element.updated_at = this.datePipe.transform(element.updated_at, 'MMM d, y, h:mm a');
+              console.log(element.created_at)
+            });
           }else if(status == 'NEW'){
             this.getNewWaitingListData = response.response;
           }else{ 
@@ -168,6 +186,37 @@ export class WaitilistSignupComponent implements OnInit {
         this.isLoaderAdmin = false;
     }
     
+  }
+  
+  onDeleteRec(code){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to delete Customer?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.deleteRecord(code);
+        }
+    });
+  }
+
+  deleteRecord(code){
+
+    this.isLoaderAdmin=true;
+    let requestObject = {
+      'waitlist_id':code
+    }
+    this.SingleEventServiceService.deleteWaitingRec(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.ErrorService.successMessage(response.response)
+        this.getSignupWaitingList('NEW');
+        this.getSignupWaitingList('ALL');
+        this.getSignupWaitingList('NOTIFY');
+      }else if(response.data == false){
+        this.ErrorService.errorMessage(response.response)
+      }
+    });
+    this.isLoaderAdmin=false;
   }
 
 
@@ -300,6 +349,10 @@ this.isLoaderAdmin=false;
         }
     });
     this.isLoaderAdmin=false;
+  }
+
+  goToCreateBroadcast(){
+    this.singleEventDashboard.goToCreateBroadcast();
   }
 
 }

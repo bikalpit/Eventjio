@@ -89,8 +89,14 @@
                                     </div>
 
                                     <div class="tb-data heading-table" fxFlex="15">
-                                        <mat-select class="form-control clr-black custom-fc-width" formControlName="start_time">
+                                        <!-- <mat-select class="form-control clr-black custom-fc-width" formControlName="start_time">
                                             <mat-option value="{{i}}" (onSelectionChange)="onChangeStartTime(i)" *ngFor="let time of fullDayTimeSlote; let i=index">{{transformTime24To12(time)}}</mat-option>
+                                        </mat-select> -->
+                                        <mat-select placeholder="HH:MM" *ngIf="!startdateToday" formControlName="start_time"  class="form-control clr-black custom-fc-width">
+                                            <mat-option (onSelectionChange)="onChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                        </mat-select>
+                                        <mat-select placeholder="HH:MM" *ngIf="startdateToday" formControlName="start_time"  class="form-control clr-black custom-fc-width">
+                                            <mat-option [disabled]="currentTime > fullDayTimeSlote" (onSelectionChange)="onChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                         </mat-select>
                                         <span *ngIf="item.get('start_time').touched || item.get('start_time').dirty">
                                         <small *ngIf="item.get('start_time').hasError('required')" class="error"> Start time is required </small>

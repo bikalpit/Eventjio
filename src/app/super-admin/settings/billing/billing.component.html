@@ -1,4 +1,5 @@
 <div class="main bg-white">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="row">
         <div class="col-12">
             <div class="page-title">
@@ -16,14 +17,14 @@
                         credits</button>
                 </div>
                 <p class="mt-3">Buy ticket credits in advance and save.</p>
-                <ul class="credit-data">
+                <ul class="credit-data" *ngIf="creditDetails"> 
                     <li>
                         <label>Ticket credit balance :</label>
-                        <p>0</p>
+                        <p>{{creditDetails.credit}}</p>
                     </li>
                     <li>
                         <label>Auto-renew :</label>
-                        <p> No</p>
+                        <p> {{creditDetails.auto_renew?creditDetails.auto_renew:''}}</p>
                     </li>
                 </ul>
             </div>
@@ -54,19 +55,19 @@
                 <div class="col-6">
                     <p>Plan name:</p>
                     <p>Card payment details:</p>
-                    <p>Next renewal date:</p>
+                    <!-- <p>Next renewal date:</p>
                     <p>The remaining ticket sales included your plan:</p>
-                    <p>Additional ticket sales :</p>
+                    <p>Additional ticket sales :</p> -->
                     <p>Charity discount:</p>
                 </div>
 
                 <div class="col-6">
-                    <p>Pay as you go</p>
+                    <p>{{creditDetails && creditDetails.credit > 0 ? 'Pre Pay' : 'Pay as you go'}}</p>
                     <p>ending <a class="biiling-link" (click)="onupdateCardDetail()"> <u>Update cards details</u></a></p>
-                    <p>Thursday 13th of August 2020</p>
+                    <!-- <p>Thursday 13th of August 2020</p>
                     <p>5 (will reset on Thursday 13th of August 2020)</p>
-                    <p>0 (charged at $0.65 per ticket)</p>
-                    <a class="biiling-link"> <u>Apply for a charity discount</u></a>
+                    <p>0 (charged at $0.65 per ticket)</p> -->
+                    <a (click)="applyCharityDiscount()" class="biiling-link"> <u>Apply for a charity discount</u></a>
 
                 </div>
                 <div class="col-12">
@@ -86,14 +87,15 @@
                 <div class="col-12 pb-2 ">Add-ons</div>
             </div>
 
-            <div class="row alert-info text-dark ml-2">
+            <div class="row alert-info text-dark ml-2" *ngIf="singleBoxofficeDetails && singleBoxofficeDetails.subscription">
                 <div class="col-10">
                     <div class="col-3 pb-2 mt-3 ">White-label</div>
                     <p class="ml-3">Remove the "Powered by Eventsmatic" badge from your box office for only<b>
                                 $49.00 / month.</b></p>
+                    <label class="ml-3 mt-3 white-lable-status" *ngIf="singleBoxofficeDetails.subscription.white_label_status == 'Y'">Subscription Enabled</label>
                 </div>
                 <div class="col-2 pt-3">
-                    <button mat-flat-button (click)="onLearnMore()" class="mat-blue">Learn more</button>
+                    <button mat-flat-button (click)="onWhiteLable()" class="mat-blue">Learn more</button>
                 </div>
             </div>
         </div>
@@ -103,7 +105,7 @@
             <mat-card class="main-form-setting-content bg-light mt-3">
                 <div class="col-12 main-header-billing">
                     <p> Recent invoices</p>
-                    <button mat-flat-button (click)="onViewAllInvoices()" class="mat-blue">View all invoices</button>
+                    <button [disabled]="invoiceList.length == 0" mat-flat-button (click)="onViewAllInvoices()" class="mat-blue">View all invoices</button>
                 </div>
                 <div class="mt-3">
                     <div class="main-white-label">
@@ -118,22 +120,28 @@
                                     </div>
 
                                     <div class="drageble-list">
-                                        <div class="drageble-box" fxLayout="row">
+                                        <div class="drageble-box" *ngIf="invoiceList.length > 0" fxLayout="row">
                                             <div class="tb-data " fxFlex="25">
-                                                <p> <span>174120 </span>
-                                                    Aug 1, 2021 </p>
+                                                <p> <span>{{recentInvoice.invoiceId}} </span>
+                                                  {{recentInvoice.invoiceDate * 1000 | date:'MMM d, y'}}</p>
                                             </div>
                                             <div class="tb-data " fxFlex="25">
-                                                <p> <span>$19.50 </span>
-                                                    Unpaid </p>
+                                                <p> <span>${{recentInvoice.invoiceTotal}} </span>
+                                                    {{recentInvoice.invoiceStatus == 'success'?'Paid':'Unpaid'}} </p>
                                             </div>
                                             <div class="tb-data " fxFlex="25">
                                                 <p> <span>N/A </span>
                                                 </p>
                                             </div>
                                             <div class="tb-data " fxFlex="25">
-                                                <i class="fa fa-download mr-2 pointer"></i><span
-                                                    class="pointer">Download</span>
+                                                <i class="fa fa-download mr-2 pointer"></i><a download [href]="recentInvoice.invoiceUrl"
+                                                    class="pointer">Download</a>
+                                            </div>
+                                        </div>
+                                        <div class="no-data-label" *ngIf="invoiceList.length == 0">
+                                            <div class="no-data-view">
+                                                <img src="../../../assets/images/no-data-found.svg" />
+                                                <label> No data available.</label>
                                             </div>
                                         </div>
                                     </div>
@@ -150,27 +158,33 @@
                     <p> Unbilled usage </p>
                     <button mat-flat-button (click)="onViewAllUsage()" class="mat-blue">View all usage</button>
                 </div>
-                <div class="main-usage-wrap mt-3">
+                <div class="main-usage-wrap mt-3" *ngIf="overviewUsageData">
                     <div class="common-usage-total">
                         <h3> Total: </h3>
-                        <p> $5.20 </p>
+                        <p> ${{overviewUsageData.total}} </p>
                     </div>
                     <div class="common-usage-total">
                         <h3> Already paid (e.g via Stripe): </h3>
-                        <p> $0.0 </p>
+                        <p> ${{overviewUsageData.already_paid}} </p>
                     </div>
                     <div class="common-usage-total">
                         <h3> Unpaid: </h3>
-                        <p> $5.20 </p>
+                        <p> ${{overviewUsageData.unpaid}} </p>
                     </div>
                 </div>
+                <!-- <div class="no-data-label" *ngIf="!overviewUsageData.unpaid && !overviewUsageData.already_paid && !overviewUsageData.total">
+                    <div class="no-data-view">
+                        <img src="../../../assets/images/no-data-found.svg" />
+                        <label> No data available.</label>
+                    </div>
+                </div> -->
                 <div class="note-theme mt-2 mb-4">
                     <div class="notification">
                         <mat-icon aria-hidden="false" aria-label="Example home icon" class="notif-icon">notifications
                         </mat-icon>
                     </div>
                     <div>
-                        <p class="note-message">Your next invoice will be generated either on Wed 1 September 2021, or
+                        <p class="note-message">Your next invoice will be generated either on {{overviewUsageData.nextBillDate?overviewUsageData.nextBillDate:''}}, or
                             when you exceed $50 of unpaid charges (Whichever is sooner). Any payment due will be charged
                             to the card you have on file. </p>
                     </div>

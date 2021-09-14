@@ -5,6 +5,7 @@ import {SettingService} from '../_services/setting.service';
 import { ErrorService } from '../../../_services/error.service';
 import { AuthenticationService } from '../../../_services/authentication.service'
 import {DomSanitizer} from '@angular/platform-browser';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
 @Component({
@@ -25,6 +26,33 @@ export class OrderConfirmationComponent implements OnInit {
   templateType:string = 'In-person';
   invoiceAddress:any;
   invoiceValidation:boolean=false;
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   constructor(
     private _formBuilder: FormBuilder,
     private SettingService : SettingService,

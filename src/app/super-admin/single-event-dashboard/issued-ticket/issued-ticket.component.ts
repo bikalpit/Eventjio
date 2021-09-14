@@ -28,7 +28,7 @@ export class IssuedTicketComponent implements OnInit {
   exportdoorlist:any;
   issuedticketView:any;
   event_id:any;
-  getIssuedTicket:any;
+  getIssuedTicket:any=[];
   global_search = '';
   EventDetail:any = [];
   Ticket_Type = "all";

@@ -7,6 +7,7 @@ import { DatePipe} from '@angular/common';
 import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment'
 import { SingleEventServiceService } from './_services/single-event-service.service';
+import { CardDetailDialogComponent } from '../../_components/card-detail-dialog/card-detail-dialog';
 
 @Component({
   selector: 'single-event-dashboard',
@@ -182,14 +183,30 @@ export class SingleEventDashboard implements OnInit {
 
     let requestObject = {
       'unique_code' : this.eventId,
-      'event_status' : status
+      'event_status' : status,
+      'boxoffice_code' : localStorage.getItem('boxoffice_id'),
     }
 
     this.SingleEventServiceService.updateEventStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.ErrorService.successMessage(response.response);
       } else if(response.data == false){
-        this.ErrorService.errorMessage(response.response);
+        if(response.response == 'Card details is not updated!'){
+          const dialogRef = this.dialog.open(CardDetailDialogComponent, {
+            width: '700px',
+            data: {status : 'new'}
+          });
+           dialogRef.afterClosed().subscribe(result => {
+            if(result == 'success'){
+              this.fnChangeEventStatus(status);
+            }else{
+              this.fnGetEventDetail();
+              this.fnGetBoxOfficeDetail();
+            }
+          });
+        }else{
+          this.ErrorService.errorMessage(response.response);
+        }
       }
     });
 
@@ -204,6 +221,10 @@ export class SingleEventDashboard implements OnInit {
   }
 
 
+  goToCreateBroadcast() {
+    this.router.navigate(['/super-admin/single-event-dashboard/broadcast'], { queryParams: { broadcast: 'new' } });
+    this.pageName = 'broadcast';
+  }
 
   dynamicSort(property: string) {
     let sortOrder = 1;

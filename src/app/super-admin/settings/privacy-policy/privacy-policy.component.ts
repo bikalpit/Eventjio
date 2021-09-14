@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import {HttpClient} from '@angular/common/http';
 import { SettingService } from '../_services/setting.service';
 import { ErrorService } from '../../../_services/error.service';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
 @Component({
@@ -14,7 +15,33 @@ import { ErrorService } from '../../../_services/error.service';
 export class PrivacyPolicyComponent implements OnInit {
  privacyPolicesForm:FormGroup;
  isLoaderAdmin:any;
-
+ config: AngularEditorConfig = {
+  editable: true,
+  spellcheck: true,
+  height: "15rem",
+  minHeight: "5rem",
+  placeholder: "Enter text here...",
+  translate: "no",
+  defaultParagraphSeparator: "p",
+  defaultFontName: "Arial",
+  toolbarHiddenButtons: [],
+  sanitize: false,
+  customClasses: [
+    {
+      name: "quote",
+      class: "quote"
+    },
+    {
+      name: "redText",
+      class: "redText"
+    },
+    {
+      name: "titleText",
+      class: "titleText",
+      tag: "h1"
+    }
+  ]
+};
   constructor( 
     public dialog: MatDialog,
     private _formBuilder:FormBuilder,
@@ -116,6 +143,33 @@ export class PrivacyPolicyGenerateDialog implements OnInit {
   textMessage:any;
   htmlContent:any;
   isLoaderAdmin:boolean=false;
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   constructor(
     public dialogRef: MatDialogRef<PrivacyPolicyGenerateDialog>,
     private _formBuilder:FormBuilder,

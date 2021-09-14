@@ -21,7 +21,7 @@
                     <div class="col-12 font-weight-bold align-items-center d-flex justify-content-between">
                         Manage
                         <div class="d-flex align-items-center">
-                            <a class="mt-1 mr-3"><u> Get the check-in app </u></a>
+                            <a routerLink="/super-admin/settings/app-users" class="mt-1 mr-3"><u> Get the check-in app </u></a>
                             <button mat-flat-button class="mat-blue" (click)="fnExportDoorList()"> Export doorlist   </button>
                         </div>
 
@@ -91,7 +91,7 @@
                                 <div class="" fxFlex="15">Issued</div>
                             </div>
 
-                            <div class="drageble-list">
+                            <div class="drageble-list" *ngIf="getIssuedTicket.length > 0">
                                 <div class="drageble-box" fxLayout="row" *ngFor="let val of getIssuedTicket; let i = index">
                                     <div class="tb-data" fxFlex="30">
                                         <span class="cpn-bor" (click)="fnIssuedTicketView(i)" [ngStyle]="{ color: val.order_status === 'CO' ? '#0000ff' : '#0000ff'}">
@@ -116,6 +116,12 @@
                                     <div class="tb-data" fxFlex="15">
                                         {{ dateFormate(val.order_date) }}
                                     </div>
+                                </div>
+                            </div>
+                            <div class="no-data-label" *ngIf="getIssuedTicket.length == 0">
+                                <div class="no-data-view">
+                                    <img src="../../../assets/images/no-data-found.svg" />
+                                    <label> No data available.</label>
                                 </div>
                             </div>
 

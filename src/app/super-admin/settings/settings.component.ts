@@ -67,7 +67,6 @@ export class SettingsComponent implements OnInit {
   private handleRoute(event: RouterEvent) {
     const url = this.getUrl(event);
     this.currentUrl = url;
-    console.log(url)
     if(url === '/super-admin/settings'){
       this.pageName = 'websites-embed-codes';
     }

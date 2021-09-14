@@ -181,7 +181,7 @@
                                         aria-hidden="true"></i></span></label>
                             <!-- <angular-editor class="description_field" formControlName="description"   >
                             </angular-editor> -->
-                            <angular-editor formControlName="description"></angular-editor>
+                            <angular-editor [config]="config" formControlName="description"></angular-editor>
                             <span class="error-wrap" *ngIf="editEventForm.get('description').touched || editEventForm.get('description').dirty">
                                 <small *ngIf="editEventForm.get('description').hasError('required')"
                                     class="error">Description is required.</small>

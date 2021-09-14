@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject} from '@angular/core';
-import { FormGroup, FormBuilder, Validators,FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { SettingService } from '../_services/setting.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ErrorService } from '../../../_services/error.service';
 import { environment } from '../../../../environments/environment'
 import { take, takeUntil } from 'rxjs/operators';
-import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 
 
 export interface ListTimeZoneListArry {
@@ -63,7 +63,6 @@ export class BoxOfficeComponent implements OnInit {
       box_office_link:['',[Validators.required]],
       account_owner:[''],
       currency:['',[Validators.required]],
-
     }); 
   }
 

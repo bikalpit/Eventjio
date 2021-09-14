@@ -18,6 +18,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { DialogAuthentication } from './_services/auth.component';
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 import { CardDetailDialogComponent } from './_components/card-detail-dialog/card-detail-dialog';
+import { orderDetailsComponent, cancelOrderDialog, EditorderDialog, ConfirmpaymentreceivedDialog } from './_components/single-order-detail/single-order-detail';
 import {OnlyNumberDirective} from './only-number.directive';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider,GoogleLoginProvider } from 'angularx-social-login';
 import { ErrorInterceptor } from './_helpers';
@@ -62,6 +63,10 @@ export function provideConfig() {
     DialogAuthentication,
     ConfirmationDialogComponent,
     CardDetailDialogComponent,
+    EditorderDialog, 
+    ConfirmpaymentreceivedDialog,
+    cancelOrderDialog,
+    orderDetailsComponent,
     OnlyNumberDirective,
     ResponsePageComponent
   ],
@@ -85,7 +90,11 @@ export function provideConfig() {
   entryComponents: [
     DialogAuthentication,
     ConfirmationDialogComponent,
-    CardDetailDialogComponent
+    CardDetailDialogComponent,
+    EditorderDialog, 
+    ConfirmpaymentreceivedDialog,
+    cancelOrderDialog,
+    orderDetailsComponent,
   ],
   providers: [
     {

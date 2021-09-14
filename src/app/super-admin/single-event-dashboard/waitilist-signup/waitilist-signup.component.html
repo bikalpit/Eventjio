@@ -62,7 +62,7 @@
         <div class="bottom-hide-waiting">
             <div class="side-common-btn">
                 <button mat-flat-button (click)="fnExportData()" color="primary"> Export Data </button>
-                <button mat-flat-button color="primary" routerLink="../broadcast"> Create Broadcast </button>
+                <button mat-flat-button color="primary" (click)="goToCreateBroadcast()"> Create Broadcast </button>
             </div>
             <mat-tab-group>
                 <mat-tab label="All ({{getAllWaitingListData ? getAllWaitingListData.count : 0}})">
@@ -77,21 +77,33 @@
                             <div class="heads main-heading-content" fxLayout="row">
                                 <div class="" fxFlex="30">Email</div>
                                 <div class="" fxFlex="30">Signed up</div>
-                                <div class="" fxFlex="30">Notified</div>
+                                <div class="" fxFlex="20">Notified</div>
+                                <div class="" fxFlex="20">Action</div>
                             </div>
                             <div *ngIf="getAllWaitingListData && getAllWaitingListData.data.length > 0">
                                 <div *ngFor="let val of getAllWaitingListData.data;let index = i;">
                                     <div class="content" fxLayout="row">
                                         <div class="tb-data" fxFlex="30">{{val.email}}</div>
                                         <div class="tb-data" fxFlex="30">
-                                            <div *ngIf="val.signed_up === 'Y'">YES</div>
-                                            <div *ngIf="val.signed_up === 'N'">NO</div>
+                                            {{val.created_at}}
+                                            <!-- <div *ngIf="val.signed_up === 'N'">NO</div> -->
                                         </div>
-                                        <div class="tb-data" fxFlex="30">
+                                        <div class="tb-data" fxFlex="20">
                                             <div *ngIf="val.status === 'BUY' || val.status === 'NEW'">NO</div>
                                             <div *ngIf="val.status === 'NOTIFY'">YES</div>
                                         </div>
+                                        <div class="tb-data" fxFlex="20">
+                                            <button (click)="onDeleteRec(val.unique_code)" mat-fab color="warn" class="delete-btn" aria-label="Example icon button with a delete icon">
+                                                Delete
+                                              </button>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="no-data-label" *ngIf="getAllWaitingListData && getAllWaitingListData.data.length == 0">
+                                <div class="no-data-view">
+                                    <img src="../../../assets/images/no-data-found.svg" />
+                                    <label> No data available.</label>
                                 </div>
                             </div>
                         </div>

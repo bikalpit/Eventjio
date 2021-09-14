@@ -1,10 +1,13 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit,ViewChild,Inject,ElementRef, AfterViewInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormControl, Validators, } from '@angular/forms';
 import { ErrorService } from '../../../_services/error.service'
 import {SingleEventServiceService} from '../_services/single-event-service.service';
-import { AuthenticationService } from '../../../_services/authentication.service'
+import { AuthenticationService } from '../../../_services/authentication.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { AngularEditorConfig } from "@kolkov/angular-editor";
 import { DatePipe} from '@angular/common';
 export interface DialogData {
   animal: string;
@@ -18,7 +21,9 @@ export interface DialogData {
   styleUrls: ['./broadcast.component.scss'],
   providers: [DatePipe]
 })
-export class BroadcastComponent implements OnInit {
+export class BroadcastComponent implements OnInit, AfterViewInit {
+  @ViewChild('new_broadcast_start') jump: ElementRef;
+  scrollContainer: any;
   animal :any;
   allBusiness: any;
   createBroadcast: any = true;
@@ -42,6 +47,34 @@ export class BroadcastComponent implements OnInit {
   sendingType:any;
   scheduledDateToday:boolean=false;
   currentTime:any;
+  broadcast_message:any;
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   // status:string = "draft";
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,
@@ -50,6 +83,8 @@ export class BroadcastComponent implements OnInit {
     private SingleEventServiceService : SingleEventServiceService,
     private auth : AuthenticationService,
     private datePipe: DatePipe,
+    private route: ActivatedRoute,
+    protected _sanitizer: DomSanitizer
     ) { 
      
       if(localStorage.getItem('boxoffice_id')){
@@ -63,6 +98,11 @@ export class BroadcastComponent implements OnInit {
         
         this.getAllOccurrenceList();
       }  
+      this.getWaitingList();
+    // let newBroadcastAction = window.location.search.split("?broadcast")
+    // if(newBroadcastAction.length > 1){
+    //   this.fnCreateBroadcast();
+    // }
      
     this.createBroadcastForm = this._formBuilder.group({
         recipients:['',[Validators.required]],
@@ -76,11 +116,33 @@ export class BroadcastComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    let newBroadcastAction = window.location.search.split("?broadcast")
+    console.log(this.jump)
+        if(newBroadcastAction.length > 1 && this.jump){
+          this.scrollContainer = this.jump.nativeElement;
+
+          // check if the query is present
+          this.route.queryParams.subscribe((params)=> {
+            console.log(params)
+              if (params['broadcast'] == 'new') {
+                this.createBroadcast = false; 
+                // scroll the div
+                this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+          });
+        }
+    
+    // this.setInitialValue();
+  }
+
   fnChangeOccurrence(event){
     this.selectedOccurrence = event.value
     this.occurrenceError = false;
   }
-  
+  transform(items): SafeHtml{
+    return this._sanitizer.bypassSecurityTrustHtml(items);
+}
 
   fnOnSubmitForm(status){
     if(this.createBroadcastForm.invalid){
@@ -94,12 +156,15 @@ export class BroadcastComponent implements OnInit {
       this.createBroadcastForm.get('terms').markAllAsTouched();
       return false;
     }else{
+      // this.broadcast_message = this.transform (this.createBroadcastForm.get('message').value)
+      // console.log(this.createBroadcastForm.get('message').value)
+      console.log(this.broadcast_message)
       if(this.recurrenceEvent == 'Y'){
         if(this.selectedOccurrence){
           this.createBroadcastData = { 
             "recipients" : this.createBroadcastForm.get('recipients').value,
             "subject" : this.createBroadcastForm.get('subject').value,
-            "message" : this.createBroadcastForm.get('message').value,
+            "message" : this.broadcast_message,
             "send" : this.createBroadcastForm.get('send').value,
             "scheduledDate" : this.scheduledDate,
             "scheduledTime" : this.createBroadcastForm.get('scheduledTime').value,
@@ -327,9 +392,10 @@ fnCreateBroadcast(){
   
   
 sendBroadcast(broadcastData, uniqueCode,resend) {
+  console.log(broadcastData)
   const dialogRef = this.dialog.open(mySendBroadcastDialog, {
     width: '650px',
-    data:{createBroadcastData : broadcastData, uniqueCode : uniqueCode, resend:resend}
+    data:{createBroadcastData : broadcastData, uniqueCode : uniqueCode, resend:resend, allWaitingListData: this.allWaitingListData}
     
   });
    dialogRef.afterClosed().subscribe(result => {
@@ -360,6 +426,34 @@ export class mySendBroadcastDialog{
   currentUser:any;
   uniqueCode:any;
   resend:any;
+  allWaitingListData:any;
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: "15rem",
+    minHeight: "5rem",
+    placeholder: "Enter text here...",
+    translate: "no",
+    defaultParagraphSeparator: "p",
+    defaultFontName: "Arial",
+    toolbarHiddenButtons: [],
+    sanitize: false,
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote"
+      },
+      {
+        name: "redText",
+        class: "redText"
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1"
+      }
+    ]
+  };
   constructor(
     public dialogRef: MatDialogRef<mySendBroadcastDialog>,
     private http: HttpClient,
@@ -368,9 +462,11 @@ export class mySendBroadcastDialog{
     private ErrorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.createBroadcastData = this.data.createBroadcastData;
+      this.allWaitingListData = this.data.allWaitingListData;
       this.uniqueCode = this.data.uniqueCode;
       this.resend = this.data.resend;
       this.editorValue = this.createBroadcastData.message;
+      console.log(this.editorValue)
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
