@@ -207,7 +207,7 @@ export class BillingComponent implements OnInit {
   onUpdateVatInfo() {
     const dialogRef = this.dialog.open(DialogUpdateVatInfo, {
       width: '700px',
-      data : {singleBoxofficeDetails: this.singleBoxofficeDetails, invoiceList:this.invoiceList, overviewUsageData : this.overviewUsageData}
+      data : {singleBoxofficeDetails: this.singleBoxofficeDetails, invoiceList:this.invoiceList, overviewUsageData : this.overviewUsageData, creditDetails: this.creditDetails}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
@@ -792,6 +792,8 @@ export class DialogUpdateVatInfo {
   overviewUsageData:any;
   invoiceList:any;
   currentUser:any;
+  creditDetails:any;
+  subStartDate:any=new Date();
   constructor(
     public dialogRef: MatDialogRef<DialogUpdateVatInfo>,
     public dialog: MatDialog,
@@ -802,12 +804,15 @@ export class DialogUpdateVatInfo {
       this.singleBoxofficeDetails = this.data.singleBoxofficeDetails;
       this.invoiceList = this.data.invoiceList;
       this.overviewUsageData = this.data.overviewUsageData;
+      this.creditDetails = this.data.creditDetails;
       let keepMe = localStorage.getItem('keepMeSignIn')
         if (keepMe == 'true') {
           this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
         } else {
           this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
         }
+        this.subStartDate = new Date(this.overviewUsageData.nextBillDate) 
+        this.subStartDate.setMonth(new Date(this.overviewUsageData.nextBillDate).getMonth() - 1);
   }
 
   onNoClick(): void {

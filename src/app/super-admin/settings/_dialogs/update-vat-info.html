@@ -135,8 +135,8 @@
                     </div>
                     <div class="main-payment-body p-3">
                         <p class="mb-2"> Your recurring charges every 1 Month(s) </p>
-                        <p class="mb-2"> Your next billing will be on {{overviewUsageData.nextBillDate?overviewUsageData.nextBillDate:''}}. </p>
-                        <p class="mb-2"> Your current billing term is 01-Sep-2021 to 01-Oct-2021. </p>
+                        <p class="mb-2"> Your next billing will be on {{overviewUsageData.nextBillDate | date :'MMM d, y'}}. </p>
+                        <p *ngIf="creditDetails.auto_renew && creditDetails.auto_renew == 'Yes'" class="mb-2"> Your current billing term is {{subStartDate | date :'MMM d, y'}} to {{overviewUsageData.nextBillDate | date :'MMM d, y'}}. </p>
                         <p class="mb-2" *ngIf="singleBoxofficeDetails && singleBoxofficeDetails.subscription"> Your subscription was activated on {{singleBoxofficeDetails.subscription.created_at | date :'MMM d, y'}}. </p>
                         <p class="mb-2" *ngIf="currentUser"> Signed up on {{currentUser.created_at | date :'MMM d, y'}}. </p>
                     </div>
