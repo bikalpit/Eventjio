@@ -207,7 +207,7 @@ export class BillingComponent implements OnInit {
   onUpdateVatInfo() {
     const dialogRef = this.dialog.open(DialogUpdateVatInfo, {
       width: '700px',
-
+      data : {singleBoxofficeDetails: this.singleBoxofficeDetails, invoiceList:this.invoiceList, overviewUsageData : this.overviewUsageData}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
@@ -456,9 +456,11 @@ export class DialogCharityDiscount {
   applyCharityForm:FormGroup;
   boxOfficeEventList:any=[];
   eventOccurrenceList:any=[];
-  files: any = [];
+  // files: any = [];
+  fileList:any=[]
   currentUser:any;
-  @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
+  documents: any=[];
+  // @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
   constructor(
     public dialogRef: MatDialogRef<DialogCharityDiscount>,
     private formBuilder:FormBuilder,
@@ -482,52 +484,42 @@ export class DialogCharityDiscount {
     this.fnGetBoxOfficeEvents();
 
   }
-
-  onFileDropped($event) {
-    this.prepareFilesList($event);  
-    console.log($event)
-  }
- 
-  fileBrowseHandler(files) {
-    this.prepareFilesList(files);
-  }
- 
-  deleteFile(index: number) {
+  
     
-
+  onFileChange(event) {
+    console.log(event)
+    var file_type = event.target.files[0].type;
+    if( file_type!='application/pdf' &&  file_type!='application/vnd.openxmlformats-officedocument.wordprocessingml.document' && file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
+        this.errorService.errorMessage("Sorry, only PDF, JPG, PNG & DOC files are allowed");
+    }else{
+      const reader = new FileReader();
+      this.fileList.push(event.target.files[0])
+      if (event.target.files && event.target.files.length) {
+          const [file] = event.target.files;
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+              this.documents.push(reader.result as string);
+          };
+      }
+      console.log(this.fileList)
+    }
+  }
+  deleteFile(index: number) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
       data: "Are you sure you want to delete?"
-  });
-  dialogRef.afterClosed().subscribe(result => {
+    });
+    dialogRef.afterClosed().subscribe(result => {
       if(result){
-        if (this.files[index].progress < 100) {
-          return;
-        }
-      this.files.splice(index, 1);
+        // if (this.fileList[index].progress < 100) {
+        //   return;
+        // }
+        this.fileList.splice(index, 1);
+        this.documents.splice(index, 1);
       }
-  });
+    });
   }
 
-  prepareFilesList(files: Array<any>) {
-  
-    console.log(files)
-    for (const item of files) {
-      item.progress = 0;
-
-      var file_type = item.type;
-
-      if( file_type!='application/pdf' &&  file_type!='application/vnd.openxmlformats-officedocument.wordprocessingml.document' && file_type!='image/jpeg' &&  file_type!='image/png' && file_type!='image/jpg' &&  file_type!='image/gif'){
-          this.errorService.errorMessage("Sorry, only PDF, JPG, PNG & DOC files are allowed");
-      }else{
-        this.files.push(item);
-      }
-
-      
-    }
-    this.fileDropEl.nativeElement.value = "";
-    this.uploadFilesSimulator(0);   
-  }
 
   formatBytes(bytes, decimals = 2) {
     if (bytes === 0) {
@@ -539,23 +531,6 @@ export class DialogCharityDiscount {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
   } 
-  
-  uploadFilesSimulator(index: number) {
-    setTimeout(() => {
-      if (index === this.files.length) {
-        return;
-      } else {
-        const progressInterval = setInterval(() => {
-          if (this.files[index].progress === 100) {
-            clearInterval(progressInterval);
-            this.uploadFilesSimulator(index + 1);
-          } else {
-            this.files[index].progress += 5;
-          }
-        }, 200);
-      }
-    }, 1000);
-  }
   
   fnGetBoxOfficeEvents(){
     let requestObject = {
@@ -622,27 +597,21 @@ export class DialogCharityDiscount {
     }
   }
 
-  onUploadDocument(){
-
-  }
-
   onApply(){
     if(this.applyCharityForm.invalid){
-      
+      this.applyCharityForm.get('event').markAsTouched();
+    }else if(this.fileList.length == 0){
+      this.errorService.errorMessage('Please Upload Document.');
+
     }else{
-      let formData = new FormData();
-      var i=0;
-      console.log(this.files)
-      this.files.forEach(element => {
-        formData.append('document[]', this.files[i]); 
-        i++;
-      });
-      formData.append('event', this.applyCharityForm.get('event').value);
-      formData.append('description', this.applyCharityForm.get('description').value);
-      formData.append('customer_id', this.currentUser.user_id);
-      
+      let requestObject = {
+        'event_name' :this.applyCharityForm.get('event').value,
+        'description' :this.applyCharityForm.get('description').value,
+        'customer_id': this.currentUser.user_id,
+        'file': this.documents
+      }
       this.isLoaderAdmin = true;
-      this.settingService.applyForCherityDiscount(formData).subscribe((response:any) => {
+      this.settingService.applyForCherityDiscount(requestObject).subscribe((response:any) => {
         if(response.data == true){
         this.errorService.successMessage(response.response);
           this.dialogRef.close('success');
@@ -691,7 +660,6 @@ export class DialogViewAllUsage {
   ngOnInit() {
 
   }
-
   
   getUnbilledUsage(){
     this.isLoaderAdmin = true;
@@ -745,10 +713,7 @@ export class DialogViewAllUsage {
         }else{
           this.eventsList.push(element)
         }
-    
       });
-      console.log(this.eventsList)
-      console.log(this.eventOccurrenceList)
       }
       else if(response.data == false){
         // this.errorService.errorMessage(response.response);
@@ -817,15 +782,32 @@ export class DialogViewAllUsage {
 
 @Component({
   selector: 'Update Vat Info',
-  templateUrl: '../_dialogs/update-vat-info.html'
+  templateUrl: '../_dialogs/update-vat-info.html',
+  providers: [DatePipe]
 })
 export class DialogUpdateVatInfo {
 
   isLoaderAdmin: boolean = false;
+  singleBoxofficeDetails:any;
+  overviewUsageData:any;
+  invoiceList:any;
+  currentUser:any;
   constructor(
     public dialogRef: MatDialogRef<DialogUpdateVatInfo>,
+    public dialog: MatDialog,
+    private settingService : SettingService,
+    private datePipe: DatePipe,
+    private errorService : ErrorService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-
+      this.singleBoxofficeDetails = this.data.singleBoxofficeDetails;
+      this.invoiceList = this.data.invoiceList;
+      this.overviewUsageData = this.data.overviewUsageData;
+      let keepMe = localStorage.getItem('keepMeSignIn')
+        if (keepMe == 'true') {
+          this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+        } else {
+          this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'))
+        }
   }
 
   onNoClick(): void {
@@ -833,6 +815,32 @@ export class DialogUpdateVatInfo {
   }
   ngOnInit() {
 
+  }
+  
+  getSingleBoxofficeDetails(){
+    let requestObject = {
+        'unique_code' : localStorage.getItem('boxoffice_id')
+    };
+    this.settingService.getSingleBoxofficeDetails(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.singleBoxofficeDetails = response.response[0];
+      }else if(response.data == false){
+        this.errorService.errorMessage(response.response);
+      }
+    });
+
+  }
+
+  addCardDetail(status) {
+    const dialogRef = this.dialog.open(CardDetailDialogComponent, {
+      width: '700px',
+      data: {status : status}
+    });
+     dialogRef.afterClosed().subscribe(result => {
+      if(result == 'success'){
+        this.getSingleBoxofficeDetails();
+      }
+    });
   }
 
 }

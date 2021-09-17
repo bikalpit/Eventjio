@@ -397,8 +397,9 @@ export class SettingService {
         }),catchError(this.handleError));
     }
     
-    applyForCherityDiscount(requestObject) {
-        return this.http.post(`${environment.apiUrl}/front-events-list`,requestObject,{headers:this.globalHeaders}).pipe(
+    applyForCherityDiscount(requestObject:any) {
+        // requestObject = JSON.parse(requestObject)
+        return this.http.post(`${environment.apiUrl}/send-charity-discount`, requestObject ,{headers:this.globalHeaders}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));

@@ -96,7 +96,7 @@
                                             <mat-option (onSelectionChange)="onChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                         </mat-select>
                                         <mat-select placeholder="HH:MM" *ngIf="startdateToday" formControlName="start_time"  class="form-control clr-black custom-fc-width">
-                                            <mat-option [disabled]="currentTime > fullDayTimeSlote" (onSelectionChange)="onChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                            <mat-option [disabled]="currentTime > transformTime24To12(fullDayTimeSlote)" (onSelectionChange)="onChangeStartTime(i)" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                         </mat-select>
                                         <span *ngIf="item.get('start_time').touched || item.get('start_time').dirty">
                                         <small *ngIf="item.get('start_time').hasError('required')" class="error"> Start time is required </small>
@@ -128,7 +128,7 @@
                                         </mat-select>
 
                                         <mat-select *ngIf="startEndSameDate" class="form-control clr-black custom-fc-width" formControlName="end_time">
-                                            <mat-option [disabled]="item.get('start_time').value > (i-1)" value="{{i}}" (onSelectionChange)="onChangeEndTime(i)" *ngFor="let time of fullDayTimeSlote;let i=index">{{time}}</mat-option>
+                                            <mat-option [disabled]="item.get('start_time').value > (i-1)" value="{{i}}" (onSelectionChange)="onChangeEndTime(i)" *ngFor="let time of fullDayTimeSlote;let i=index">{{transformTime24To12(time)}}</mat-option>
                                         </mat-select>
 
                                         <span *ngIf="item.get('end_time').touched || item.get('end_time').dirty">

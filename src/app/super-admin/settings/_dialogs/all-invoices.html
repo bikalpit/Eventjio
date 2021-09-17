@@ -22,14 +22,15 @@
                                 <div class="drageble-list">
                                     <div *ngFor="let invoice of invoiceList; let i=index;" class="drageble-box" fxLayout="row">
                                         <div class="tb-data " fxFlex="25"> 
-                                            <p> <span>{{invoice.invoiceId}} </span>
+                                            <p class="mb-0"> <span>{{invoice.invoiceId}} </span>
                                                 {{invoice.invoiceDate * 1000 | date:'MMM d, y'}}</p>
                                         </div>
                                         <div class="tb-data " fxFlex="25"> 
-                                            <p> <span>${{invoice.invoiceTotal}} </span>
+                                            <p class="mb-0"> <span>${{invoice.invoiceTotal}} </span>
                                                 {{invoice.invoiceStatus == 'success'?'Paid':'Unpaid'}} </p>
                                         </div>
-                                        <div class="tb-data " fxFlex="25"><p> <span>N/A </span>
+                                        <div class="tb-data " fxFlex="25">
+                                            <p class="mb-0"> <span>N/A </span>
                                            </p>
                                         </div>
                                         <div class="tb-data " fxFlex="25">

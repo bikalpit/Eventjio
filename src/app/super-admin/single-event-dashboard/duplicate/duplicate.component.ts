@@ -123,10 +123,13 @@ export class DuplicateComponent implements OnInit {
     this.minTillDate = event.value;
     var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
     var selectedStartDate = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+    console.log('selectedStartDate',selectedStartDate)
+    console.log('todayDate',todayDate)
     if(selectedStartDate === todayDate){
       this.startdateToday=true;
       this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
       this.currentTime = this.transformTime24To12(this.datePipe.transform(new Date(),"h:mm a"))
+      console.log(this.currentTime)
     }else{
       this.startdateToday=false;
     }

@@ -688,6 +688,8 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
     this.minEventEndDate = this.addEventForm.get('event_start_date').value;
     var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
     var selectedStartDate = this.datePipe.transform(new Date(this.addEventForm.get('event_start_date').value),"yyyy-MM-dd")
+    console.log('selectedStartDate',selectedStartDate)
+    console.log('todayDate',todayDate)
     if(selectedStartDate === todayDate){
       this.addEventForm.get('event_start_time').setValue('');
       this.startdateToday=true;

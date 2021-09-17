@@ -28,10 +28,11 @@
                 <div class="common-payment-card">
                     <div class="top-title-heading">
                         <h3> Payment method information </h3>
-                        <button mat-flat-button class="mat-blue"> Add</button>
+                        <button (click)="addCardDetail('new')" mat-flat-button class="mat-blue" *ngIf="singleBoxofficeDetails && !singleBoxofficeDetails.subscription"> Add</button>
+                        <button (click)="addCardDetail('update')" mat-flat-button class="mat-blue" *ngIf="singleBoxofficeDetails && singleBoxofficeDetails.subscription"> Update</button>
                     </div>
                     <div class="main-payment-body p-3">
-                        <div class="note-theme">
+                        <div class="note-theme" *ngIf="singleBoxofficeDetails && !singleBoxofficeDetails.subscription">
                             <div class="notification">
                                 <mat-icon aria-hidden="false" aria-label="Example home icon" class="notif-icon">help_outline
                                 </mat-icon>
@@ -40,26 +41,26 @@
                                 <p class="note-message">You have not added your payment method details. Use the add option to update your payment method details. </p>
                             </div>
                         </div>
-                        <!-- <div class="card-details-wrap">
+                        <div class="card-details-wrap" *ngIf="singleBoxofficeDetails && singleBoxofficeDetails.subDetails">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <p><span>Name:</span> Marten Alex</p>
+                                    <div class="col-12">
+                                        <p class="mb-1"><span>Name:</span> {{singleBoxofficeDetails.subDetails.subscription[singleBoxofficeDetails.subDetails.subscription.length-1].cards[0].cardFirstName}} {{singleBoxofficeDetails.subDetails.subscription[singleBoxofficeDetails.subDetails.subscription.length-1].cards[0].cardLastName}}</p>
                                        
                                     </div>
-                                    <div class="col-6">
-                                        <p><span>Card Number:</span> 454546565656</p>
+                                    <div class="col-12">
+                                        <p class="mb-1"><span>Card Number:</span> {{singleBoxofficeDetails.subDetails.subscription[singleBoxofficeDetails.subDetails.subscription.length-1].cards[0].cardMaskedNumber}}</p>
                                     </div>
-                                    <div class="col-6">
-                                        <p><span>Expiry:</span> 05/2025</p>
+                                    <div class="col-12">
+                                        <p class="mb-1"><span>Expiry:</span> {{singleBoxofficeDetails.subDetails.subscription[singleBoxofficeDetails.subDetails.subscription.length-1].cards[0].cardExpiryMonth}}/{{singleBoxofficeDetails.subDetails.subscription[singleBoxofficeDetails.subDetails.subscription.length-1].cards[0].cardExpiryYear}}</p>
                                     </div>
-                                    <div class="col-6">
-                                        <p><span>CVV:</span> 213</p>
+                                    <div class="col-12">
+                                        <p class="mb-1"><span>CVV:</span> ***</p>
                                     </div>
                                 </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
-                <div class="common-payment-card">
+                <!-- <div class="common-payment-card">
                     <div class="top-title-heading">
                         <h3> Billing Information </h3>
                         <button mat-flat-button class="mat-blue"> Edit</button>
@@ -67,7 +68,7 @@
                     <div class="main-payment-body p-3">
                         <p> United States </p>
                     </div>
-                </div>
+                </div> -->
                 <div class="common-payment-card">
                     <div class="top-title-heading">
                         <h3> Payment History </h3>
@@ -79,27 +80,25 @@
                                     <div class="main-table-content main-cust-table-content ">
                                         <div class="listing-table">
                                             <div class="heads main-heading-content drageble py-3" fxLayout="row">
-                                                <div class="" fxFlex="20">Status</div>
-                                                <div class="" fxFlex="20">Date</div>
+                                                <div class="" fxFlex="25">Status</div>
+                                                <div class="" fxFlex="25">Date</div>
                                                 <div class="" fxFlex="25">Invoice Number</div>
-                                                <div class="" fxFlex="35">Amount</div>
+                                                <div class="" fxFlex="25">Amount</div>
                                             </div>
         
-                                            <div class="drageble-list">
-                                                <div class="drageble-box" fxLayout="row">
-                                                    <div class="tb-data " fxFlex="20">
-                                                        <p>   <mat-icon aria-hidden="false" aria-label="" class="close-icon">close
-                                                        </mat-icon>  Not Paid  </p>
-                                                    </div>
-                                                    <div class="tb-data " fxFlex="20">
-                                                        <p>01-Sep-2021 </p>
+                                            <div class="drageble-list" *ngIf="invoiceList.length > 0">
+                                                <div class="drageble-box" *ngFor="let invoice of invoiceList; let i=index;" fxLayout="row">
+                                                    <div class="tb-data " fxFlex="25">
+                                                        <p class="mb-0" [ngStyle]="{'color': invoice.invoiceStatus == 'success' ? '#2BB800' : '#FF0000'}"> {{invoice.invoiceStatus == 'success'?'Paid':'Unpaid'}}</p>
                                                     </div>
                                                     <div class="tb-data " fxFlex="25">
-                                                        <p> 178371 </p>
+                                                        <p class="mb-0">  {{invoice.invoiceDate * 1000 | date:'MMM d, y'}}</p>
                                                     </div>
-                                                    <div class="tb-data " fxFlex="35">
-                                                        <p> $5.20 <span> Oustanding Payment
-                                                        </span> </p>
+                                                    <div class="tb-data " fxFlex="25">
+                                                        <p class="mb-0"> {{invoice.invoiceId}}  </p>
+                                                    </div>
+                                                    <div class="tb-data " fxFlex="25">
+                                                        <p class="mb-0"> ${{invoice.invoiceTotal}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,13 +120,13 @@
                                 </mat-icon>
                             </div>
                             <div>
-                                <p class="note-message">Your next billing is on 01-Oct-2021 </p>
+                                <p class="note-message">Your next billing is on {{overviewUsageData.nextBillDate?overviewUsageData.nextBillDate:''}} </p>
                             </div>
                         </div>
-                        <div class="bottom-recurring-charge">
+                        <!-- <div class="bottom-recurring-charge">
                             <p> Your recurring charges every 1 Month(s) <span> $0.00</span> </p>
 
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="common-payment-card">
@@ -136,10 +135,10 @@
                     </div>
                     <div class="main-payment-body p-3">
                         <p class="mb-2"> Your recurring charges every 1 Month(s) </p>
-                        <p class="mb-2"> Your next billing will be on 01-Oct-2021. </p>
+                        <p class="mb-2"> Your next billing will be on {{overviewUsageData.nextBillDate?overviewUsageData.nextBillDate:''}}. </p>
                         <p class="mb-2"> Your current billing term is 01-Sep-2021 to 01-Oct-2021. </p>
-                        <p class="mb-2"> Your subscription was activated on 01-Sep-2021. </p>
-                        <p class="mb-2"> Signed up on 31-Jul-2021. </p>
+                        <p class="mb-2" *ngIf="singleBoxofficeDetails && singleBoxofficeDetails.subscription"> Your subscription was activated on {{singleBoxofficeDetails.subscription.created_at | date :'MMM d, y'}}. </p>
+                        <p class="mb-2" *ngIf="currentUser"> Signed up on {{currentUser.created_at | date :'MMM d, y'}}. </p>
                     </div>
                 </div>
             </div>  
