@@ -38,7 +38,7 @@ export class SuperadminService {
     }
     public getIPAddress()  
     {  
-      return this.http.get("https://api.ipify.org/?format=json");  
+      return this.http.get(`${environment.apiUrl}/get-ip`);  
     }  
   
    

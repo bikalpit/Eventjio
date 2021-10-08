@@ -676,6 +676,7 @@
 }
 .mobile-preview-device {
   #preview-event {
+    overflow: unset;
     .preview-bg {
       .container {
         padding: 0;

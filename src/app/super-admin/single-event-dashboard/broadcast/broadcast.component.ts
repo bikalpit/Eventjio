@@ -75,6 +75,7 @@ export class BroadcastComponent implements OnInit, AfterViewInit {
       }
     ]
   };
+  weberrLink:any='https://www.weberr.com';
   // status:string = "draft";
   constructor(public dialog: MatDialog,
     private _formBuilder:FormBuilder,

@@ -242,8 +242,10 @@ export class EventsComponent implements OnInit, DirtyComponent, AfterViewInit {
     // this.subscribeToNativeNavigation();
     this.isLoaderAdmin = true;
     this.SuperadminService.getIPAddress().subscribe((res:any)=>{ 
+      if(res.data == true){
+        this.ipAddress= res.response
+      }
       this.isLoaderAdmin = false 
-      this.ipAddress = res.ip
       this.fnGetUpcomingEventList();
       this.fnGetPastEventList();
     });
