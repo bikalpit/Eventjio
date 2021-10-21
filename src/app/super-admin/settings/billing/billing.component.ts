@@ -494,13 +494,15 @@ export class DialogCharityDiscount {
     }else{
       const reader = new FileReader();
       this.fileList.push(event.target.files[0])
-      if (event.target.files && event.target.files.length) {
-          const [file] = event.target.files;
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-              this.documents.push(reader.result as string);
-          };
-      }
+      // if (event.target.files && event.target.files.length) {
+      //     const [file] = event.target.files;
+          
+      //     this.documents.push(file);
+      //     // reader.readAsDataURL(file);
+      //     // reader.onload = () => {
+      //     //     this.documents.push(reader.result as string);
+      //     // };
+      // }
       console.log(this.fileList)
     }
   }
@@ -604,14 +606,22 @@ export class DialogCharityDiscount {
       this.errorService.errorMessage('Please Upload Document.');
 
     }else{
-      let requestObject = {
-        'event_name' :this.applyCharityForm.get('event').value,
-        'description' :this.applyCharityForm.get('description').value,
-        'customer_id': this.currentUser.user_id,
-        'file': this.documents
-      }
+      
+      const formData = new FormData();
+      this.fileList.forEach(element => {
+        formData.append('file[]', element);
+      });
+      formData.append('event_name',this.applyCharityForm.get('event').value);
+      formData.append('description',this.applyCharityForm.get('description').value);
+      formData.append('customer_id',this.currentUser.user_id);
+      // let requestObject = {
+      //   'event_name' :this.applyCharityForm.get('event').value,
+      //   'description' :this.applyCharityForm.get('description').value,
+      //   'customer_id': this.currentUser.user_id,
+      //   'file': this.documents
+      // }
       this.isLoaderAdmin = true;
-      this.settingService.applyForCherityDiscount(requestObject).subscribe((response:any) => {
+      this.settingService.applyForCherityDiscount(formData).subscribe((response:any) => {
         if(response.data == true){
         this.errorService.successMessage(response.response);
           this.dialogRef.close('success');

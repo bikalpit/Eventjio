@@ -399,7 +399,7 @@ export class SettingService {
     
     applyForCherityDiscount(requestObject:any) {
         // requestObject = JSON.parse(requestObject)
-        return this.http.post(`${environment.apiUrl}/send-charity-discount`, requestObject ,{headers:this.globalHeaders}).pipe(
+        return this.http.post(`${environment.apiUrl}/send-charity-discount`, requestObject ,{}).pipe(
             map((res) => {
                 return res;
         }),catchError(this.handleError));
