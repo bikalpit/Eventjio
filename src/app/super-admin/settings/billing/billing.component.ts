@@ -69,7 +69,7 @@ export class BillingComponent implements OnInit {
     }
     this.settingService.getInvoiceList(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.invoiceList = response.response;
+        this.invoiceList = response.response.filter(element => element.customer.customerId == localStorage.getItem('boxoffice_id'));
         this.recentInvoice = this.invoiceList[0]
       }
       else if(response.data == false){
@@ -152,6 +152,7 @@ export class BillingComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
         this.getSingleBoxofficeDetails();
+        this.checkSubscription();
       }
     });
   }
@@ -164,6 +165,7 @@ export class BillingComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
         this.getSingleBoxofficeDetails();
+        this.checkSubscription();
       }
     });
   }
@@ -175,7 +177,7 @@ export class BillingComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
-
+        this.checkSubscription();
       }
     });
   }
@@ -187,7 +189,7 @@ export class BillingComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
-
+        this.checkSubscription();
       }
     });
   }
@@ -211,10 +213,21 @@ export class BillingComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'success') {
-
+        this.checkSubscription();
       }
     });
   }
+
+  downloadInvoice(invoiceUrl){
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', invoiceUrl);
+    link.setAttribute('download', 'invoice_'+invoiceUrl);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
 }
 
 
@@ -437,6 +450,16 @@ export class DialogViewAllInvoices {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  downloadInvoice(invoiceUrl){
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', invoiceUrl);
+    link.setAttribute('download', invoiceUrl);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
   ngOnInit() {
 

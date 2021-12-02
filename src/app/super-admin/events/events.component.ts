@@ -1355,6 +1355,8 @@ export class AddNewTicketType {
   onlynumericAmount = /^(\d*\.)?\d+$/
   onlynumeric = /^[0-9]+(?:\.[0-9]+)?$/
   onlynumericQTY = /^[1-9]\d*$/
+  startdateToday:boolean=false;
+  currentTime:any;
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
     private _formBuilder: FormBuilder,
@@ -1533,30 +1535,48 @@ export class AddNewTicketType {
   }
 
 
-  // maxOrderCheck(control: FormControl) {
-  //   console.log(control.value);
-  //   console.log(this.minOrderVal);
-   
-  //   return new Promise((resolve, reject) => {
-  //       console.log('1')
-  //       if(control.value && this.minOrderVal){
-  //         if(this.minOrderVal > control.value){
-  //           console.log(this.minOrderVal)
-  //           resolve({ maxOrderCheck: true });
-  //         }else{
-  //         resolve(null);
-  //         }
-  //       }
-  //   });
-  // }
-
   fnAvailDateChange(event){
+    
     this.minUnavailDate = event.value
+    
     this.untilDate = this.datePipe.transform(new Date(this.addTicketForm.get('until_date').value),"yyyy-MM-dd");
     this.addTicketForm.controls['until_time'].setValue('');
     this.addTicketForm.controls['after_date'].setValue(null);
     this.addTicketForm.controls['after_time'].setValue('');
     
+  }
+
+  fnAvailAfterDateChange(event){
+    
+    this.minUnavailDate = event.value
+    
+    var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    var selectedStartDate = this.datePipe.transform(new Date(this.minUnavailDate),"yyyy-MM-dd")
+    this.addTicketForm.controls['recurring_after_time'].setValue('');
+    console.log('todayDate',todayDate)
+    console.log('selectedStartDate',selectedStartDate)
+    if(selectedStartDate === todayDate){
+      console.log('1')
+      this.startdateToday=true;
+      this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
+      this.currentTime = this.transformTime(this.datePipe.transform(new Date(),"h:mm a"))
+    }else{
+      console.log('2')
+      this.startdateToday=false;
+    }
+    
+  }
+
+  // time formate 12 to 24
+  transformTime(time: any): any {
+    let hour = (time.split(':'))[0];
+    let temp = (time.split(':'))[1];
+    let min = (temp.split(' '))[0];
+    let part = (time.split(' '))[1];
+    if(part == 'PM' && hour !== '12'){
+      hour = Number(hour)+12;
+    }
+    return `${hour}:${min}`
   }
   
   fnAvailTimeChange(event){

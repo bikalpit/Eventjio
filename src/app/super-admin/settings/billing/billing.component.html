@@ -134,8 +134,7 @@
                                                 </p>
                                             </div>
                                             <div class="tb-data " fxFlex="25">
-                                                <i class="fa fa-download mr-2 pointer"></i><a download [href]="recentInvoice.invoiceUrl"
-                                                    class="pointer">Download</a>
+                                                <i class="fa fa-download mr-2 pointer"></i><a rel="noopener noreferrer" [href]="recentInvoice.invoiceUrl" [download]="recentInvoice.invoiceUrl" class="pointer">Download</a>
                                             </div>
                                         </div>
                                         <div class="no-data-label" *ngIf="invoiceList.length == 0">

@@ -993,7 +993,7 @@ export class ExportOrderDialog {
 })
 export class AddNewOrderDialog { 
   animal :any;
-  allEventlist:any;
+  allEventlist:any=[];
   boxOfficeCode:any;
   selectedEvent :any;
   openPage:any='eventlist';

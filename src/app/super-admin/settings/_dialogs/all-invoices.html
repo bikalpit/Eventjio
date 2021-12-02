@@ -34,7 +34,7 @@
                                            </p>
                                         </div>
                                         <div class="tb-data " fxFlex="25">
-                                            <i class="fa fa-download mr-2 pointer"></i><a download [href]="invoice.invoiceUrl"
+                                            <i class="fa fa-download mr-2 pointer"></i><a  (click)="downloadInvoice(invoice.invoiceUrl)" 
                                             class="pointer">Download</a>
                                         </div>
                                     </div>

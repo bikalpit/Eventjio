@@ -134,23 +134,24 @@ export class DashboardComponent implements OnInit {
       if(response.data == true){
         this.setupSteps= response.response;
         if(this.setupSteps.signup == 'Y'){
-          this.progressValue  = Math.round(this.progressValue+16.67)
+          this.progressValue  = this.progressValue+16.66
         }
         if(this.setupSteps.add_event == 'Y'){
-          this.progressValue  = Math.round(this.progressValue+16.67)
+          this.progressValue  = this.progressValue+16.66
         }
         if(this.setupSteps.customize_event == 'Y'){
-          this.progressValue  = Math.round(this.progressValue+16.67)
+          this.progressValue  = this.progressValue+16.66
         }
         if(this.setupSteps.select_plan == 'Y'){
-          this.progressValue  = Math.round(this.progressValue+16.67)
+          this.progressValue  = this.progressValue+16.66
         }
         if(this.setupSteps.setup_payment == 'Y'){
-          this.progressValue  = Math.round(this.progressValue+16.67)
+          this.progressValue  = this.progressValue+16.66
         }
         if(this.setupSteps.publish == 'Y'){
-          this.progressValue  = Math.round(this.progressValue+16.67)
+          this.progressValue  = this.progressValue+16.66
         }
+        this.progressValue = Math.round(this.progressValue);
 
       }
     });

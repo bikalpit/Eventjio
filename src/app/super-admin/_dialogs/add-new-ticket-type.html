@@ -267,15 +267,18 @@
                     <mat-checkbox *ngIf="recurringEvent == 'Y'" class="w-100 d-block mt-2" (change)="fnChangeRecurringAfter($event)">Hide after a set date and time</mat-checkbox>
                     <div *ngIf="recurringAfter == 'Y'" class="form-group d-flex">
                         <div class="matDate w-50 d-inline-block">
-                            <input formControlName="recurring_after_date" type="text" [matDatepicker]="hideDatePicker" [min]="minAvailDate" id="recurring_after_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailDateChange($event)" class="form-control" placeholder="MM/DD/YYYY">
+                            <input formControlName="recurring_after_date" type="text" [matDatepicker]="hideDatePicker" [min]="minAvailDate" id="recurring_after_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailAfterDateChange($event)" class="form-control" placeholder="MM/DD/YYYY">
                             <mat-datepicker #hideDatePicker></mat-datepicker>
                             <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('recurring_after_date').touched || addTicketForm.get('recurring_after_date').dirty">
                             <small *ngIf="addTicketForm.get('recurring_after_date').hasError('required')" class="error">Hide until Date is required.</small>
                         </span>
                         </div>
                         <div class="d-flex flex-wrap w-50">
-                            <mat-select placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="recurring_after_time" class="ml-2 form-control d-inline-block">
+                            <mat-select *ngIf="!startdateToday" placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="recurring_after_time" class="ml-2 form-control d-inline-block">
                                 <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                            </mat-select>
+                            <mat-select *ngIf="startdateToday" placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="recurring_after_time" class="ml-2 form-control d-inline-block">
+                                <mat-option [disabled]="currentTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                             </mat-select>
                             <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('recurring_after_time').touched || addTicketForm.get('recurring_after_time').dirty">
                             <small *ngIf="addTicketForm.get('recurring_after_time').hasError('required')" class="error">Hide until Time is required.</small>
