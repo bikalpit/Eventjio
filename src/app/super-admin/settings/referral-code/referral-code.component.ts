@@ -20,6 +20,7 @@ export class ReferralCodeComponent implements OnInit {
   allReferralCodeList:any;
   singleCodeData:any;
   boxOfficeUrl:any;
+  isTextCopie: boolean = false;
   constructor(
     public dialog: MatDialog,
     private SettingService : SettingService,
@@ -139,6 +140,34 @@ export class ReferralCodeComponent implements OnInit {
       // this.getAllAddTax();
     });
   }
+
+
+  copyRefferUrl(val: string){
+    let selBox = document.createElement('textarea');
+      selBox.style.position = 'fixed';
+      selBox.style.left = '0';
+      selBox.style.top = '0';
+      selBox.style.opacity = '0';
+      selBox.value = val;
+      document.body.appendChild(selBox);
+      selBox.focus();
+      selBox.select();
+      document.execCommand('copy');
+      document.body.removeChild(selBox);
+      this.ErrorService.successMessage('Referral Url is successfully Copied.');
+      this.isTextCopie = true
+      setTimeout(() => {
+        this.isTextCopie = false
+      }, 5000);
+    }
+
+    fnShare(type,url) {
+      if(type=='facebook'){
+        window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(url), "_blank", "width=600,height=600");
+      }else if(type=='twitter'){
+        window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(url), "_blank", "width=600,height=600");
+      }
+    }
 
 }
 

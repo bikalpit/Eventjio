@@ -34,7 +34,7 @@
                             <mat-select class="form-control" [(ngModel)]="single_order_event" (selectionChange)="fngetallOrders(false); selectedEventOrder($event)">
                                 <mat-option value="all">All Events</mat-option>
                                 <mat-option *ngFor="let val of allEventlist;let i = index;" value="{{val.unique_code}}">
-                                    {{val.event_title}} {{val.start_date}} - {{val.start_time}}
+                                    {{val.event_title}} {{val.start_date}} - {{transformTime24To12(val.start_time)}}
                                 </mat-option>
                             </mat-select>
                         </div>

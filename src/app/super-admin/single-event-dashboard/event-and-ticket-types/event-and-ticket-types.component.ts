@@ -1334,7 +1334,7 @@ export class AddNewTicketType {
   
   fnChangeMinOr(event){
     if(parseInt(this.addTicketForm.get('min_order').value) > parseInt(this.addTicketForm.get('qty').value)){
-      this.ErrorService.errorMessage('Minimum order should not greater then quntity.');
+      this.ErrorService.errorMessage('Minimum order should not greater then quantity.');
       this.addTicketForm.controls['min_order'].setValue('');
     }
     this.addTicketForm.controls['max_order'].setValue('');
@@ -1342,7 +1342,7 @@ export class AddNewTicketType {
   
   fnChangeMaxOr(event){
     if(parseInt(this.addTicketForm.get('max_order').value) > parseInt(this.addTicketForm.get('qty').value)){
-      this.ErrorService.errorMessage('Maximum order should not greater then quntity.');
+      this.ErrorService.errorMessage('Maximum order should not greater then quantity.');
       this.addTicketForm.controls['max_order'].setValue('');
     }else if(parseInt(this.addTicketForm.get('max_order').value) < parseInt(this.addTicketForm.get('min_order').value)){
       this.ErrorService.errorMessage('Maximum order should not less then min order.');

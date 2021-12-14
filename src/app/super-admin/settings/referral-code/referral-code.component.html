@@ -32,10 +32,15 @@
             <div class="mt-3" fxLayout="row">
                 <div class="" fxFlex="20">{{rCodes.type}}</div>
                 <div class="" fxFlex="20">{{rCodes.code}}</div>
-                <div class="" fxFlex="50">{{boxOfficeUrl}}?{{rCodes.type}}={{rCodes.code}}</div>
-                <div class="text-right" fxFlex="10">
-                    <i class="fa fa-pencil p-2 mx-2" (click)="updateReferralCode(i)"></i>
-                    <i class="fa fa-trash p-2 mx-2" (click)=" fnDeleteReferralCode(i)"></i>
+                <div class="" fxFlex="35">
+                    <span class="url">{{boxOfficeUrl}}?{{rCodes.type}}={{rCodes.code}}</span>
+                    <i matTooltipPosition="above" matTooltip="Copy Url" (click)="copyRefferUrl(boxOfficeUrl+'?'+rCodes.type+'='+rCodes.code)" class="fa fa-copy fa-lg copy-btn mx-2 p-2"></i>
+                </div>
+                <div class="text-right d-flex align-items-start justify-content-end" fxFlex="25">
+                    <i (click)="fnShare('twitter',boxOfficeUrl+'?'+rCodes.type+'='+rCodes.code);" class="action-btn fa fa-twitter fa-lg p-2"></i>
+                    <i (click)="fnShare('facebook',boxOfficeUrl+'?'+rCodes.type+'='+rCodes.code);" class="fa action-btn ml-2 fa-facebook fa-lg p-2"></i>
+                    <i class="action-btn fa fa-pencil p-2 ml-2" (click)="updateReferralCode(i)"></i>
+                    <i class="action-btn fa fa-trash p-2 ml-2" (click)=" fnDeleteReferralCode(i)"></i>
                 </div>
             </div>
         </div>

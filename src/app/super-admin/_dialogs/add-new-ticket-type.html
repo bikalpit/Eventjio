@@ -248,7 +248,7 @@
                     <mat-checkbox *ngIf="recurringEvent == 'Y'" class="w-100 d-block mt-2" (change)="fnChangeRecurringUntil($event)">Hide until a set date and time</mat-checkbox>
                     <div *ngIf="recurringUntil == 'Y'" class="form-group d-flex">
                         <div class="matDate w-50 d-inline-block">
-                            <input formControlName="recurring_until_date" type="text" [matDatepicker]="hideDatePicker" [max]="maxAvailDate" [min]="minAvailDate" id="recurring_until_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailDateChange($event)" class="form-control"
+                            <input formControlName="recurring_until_date" type="text" [matDatepicker]="hideDatePicker" [max]="maxAvailDate" [min]="minAvailDate" id="recurring_until_date" (click)="hideDatePicker.open()" (dateChange)="fnAvailUntiDateChange($event)" class="form-control"
                                 placeholder="MM/DD/YYYY">
                             <mat-datepicker #hideDatePicker></mat-datepicker>
                             <span style="bottom:unset" class="error-wrap" *ngIf="addTicketForm.get('recurring_until_date').touched || addTicketForm.get('recurring_until_date').dirty">
@@ -256,8 +256,11 @@
                         </span>
                         </div>
                         <div class="d-flex flex-wrap w-50">
-                            <mat-select placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="recurring_until_time" class="ml-2 form-control d-inline-block">
+                            <mat-select *ngIf="!startUntildateToday" placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="recurring_until_time" class="ml-2 form-control d-inline-block">
                                 <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                            </mat-select>
+                            <mat-select *ngIf="startUntildateToday" placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="recurring_until_time" class="ml-2 form-control d-inline-block">
+                                <mat-option [disabled]="currentTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                             </mat-select>
                             <span style="left:0px" class="error-wrap w-auto pl-2" *ngIf="addTicketForm.get('recurring_until_time').touched || addTicketForm.get('recurring_until_time').dirty">
                             <small *ngIf="addTicketForm.get('recurring_until_time').hasError('required')" class="error">Hide until Time is required.</small>

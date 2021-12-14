@@ -19,7 +19,7 @@
 
             <div class="form-group">
                 <label>{{eventForm[1] ? eventForm[1].label : 'Email'}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="email" placeholder="" readonly>
+                <input type="text" class="form-control" formControlName="email" placeholder="" readonly>
                 <span class="error-wrap" *ngIf="editTicket.get('email').dirty || editTicket.get('email').touched">
             <small *ngIf="editTicket.get('email').hasError('required')" class="error text-left">Email is required.</small>
             <small *ngIf="editTicket.get('email').hasError('pattern')" class="error">Enter valid email.</small>
@@ -29,7 +29,7 @@
 
             <div class="form-group">
                 <label> {{addressArr.address}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="address" placeholder="">
+                <input type="text" class="form-control" formControlName="address" placeholder="">
                 <span class="error-wrap" *ngIf="editTicket.get('address').dirty || editTicket.get('address').touched">
               <small *ngIf="editTicket.get('address').hasError('required')" class="error text-left">{{addressArr.address}} is required.</small>
           </span>
@@ -37,7 +37,7 @@
 
             <div class="form-group">
                 <label> {{addressArr.address1}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="address1" placeholder="">
+                <input type="text" class="form-control" formControlName="address1" placeholder="">
                 <span class="error-wrap" *ngIf="editTicket.get('address1').dirty || editTicket.get('address1').touched">
               <small *ngIf="editTicket.get('address1').hasError('required')" class="error text-left">{{addressArr.address1}} is required.</small>
           </span>
@@ -45,7 +45,7 @@
 
             <div class="form-group">
                 <label> {{addressArr.address2}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="address2" placeholder="">
+                <input type="text" class="form-control" formControlName="address2" placeholder="">
                 <span class="error-wrap" *ngIf="editTicket.get('address2').dirty || editTicket.get('address2').touched">
               <small *ngIf="editTicket.get('address2').hasError('required')" class="error text-left">{{addressArr.address2}} is required.</small>
           </span>
@@ -53,7 +53,7 @@
 
             <div class="form-group">
                 <label> {{addressArr.zipcode}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" class="form-control" formControlName="zipcode" placeholder="">
+                <input type="text" class="form-control" formControlName="zipcode" placeholder="">
                 <span class="error-wrap" *ngIf="editTicket.get('zipcode').dirty || editTicket.get('zipcode').touched">
               <small *ngIf="editTicket.get('zipcode').hasError('required')" class="error text-left">{{addressArr.zipcode}} is required.</small>
               <small *ngIf="editTicket.get('zipcode').hasError('pattern') || editTicket.get('zipcode').hasError('pattern') && (editTicket.get('zipcode').hasError('maxlength') || editTicket.get('zipcode').hasError('minlength'))" class="error">{{addressArr.zipcode}} Should in numbers</small>
@@ -66,7 +66,7 @@
 
             <div class="form-group">
                 <label>{{eventForm[3] ? eventForm[3].label : 'Phone'}} <span class="text-danger">*</span> </label>
-                <input matInput type="text" formControlName="phone" class="form-control" placeholder="">
+                <input type="text" formControlName="phone" class="form-control" placeholder="">
                 <span class="error-wrap" *ngIf="editTicket.get('phone').dirty || editTicket.get('phone').touched">
             <small *ngIf="editTicket.get('phone').hasError('required')" class="error text-left">Phone Number is required.</small>
             <small *ngIf="editTicket.get('phone').hasError('pattern') || editTicket.get('phone').hasError('pattern') && (editTicket.get('phone').hasError('maxlength') || editTicket.get('phone').hasError('minlength'))" class="error">Phone Number Should in numbers</small>
@@ -80,7 +80,7 @@
 
             <div class="" *ngIf="val.type=='text'">
                 <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-                <input matInput type="text" class="form-control" [(ngModel)]="val.value" placeholder="">
+                <input type="text" class="form-control" [(ngModel)]="val.value" placeholder="">
                 <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                 {{val.label}} is required.
             </span>
@@ -149,7 +149,7 @@
 
                 <div class="" *ngIf="val.type=='text'">
                     <label> {{val.label}} <span class="text-danger"> {{ val.required ? '*' : ''}} </span> </label>
-                    <input matInput type="text" class="form-control" [(ngModel)]="val.value" placeholder="">
+                    <input type="text" class="form-control" [(ngModel)]="val.value" placeholder="">
                     <span class="error-wrap error" *ngIf="val.required && val.value=='' && is_submit">
                   {{val.label}} is required.
               </span>

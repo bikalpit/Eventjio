@@ -70,3 +70,27 @@
         line-height: 1.4;
     }
 }
+
+.copy-btn{
+    
+    background-color: #E3E6EB;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, .87);
+}
+
+.action-btn{
+    
+    background-color: #E3E6EB;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, .87);
+    display: flex;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    text-align: center;
+}

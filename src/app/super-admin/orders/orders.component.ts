@@ -145,22 +145,27 @@ export class OrdersComponent implements OnInit {
 
   
   transformTime24To12(time: any): any {
-    let hour = (time.split(':'))[0];
-    let min = (time.split(':'))[1];
-    let part = 'AM';
-    let finalhrs = hour
-    if(hour == 0){
-      finalhrs = 12
+    if(time){
+
+      let hour = (time.split(':'))[0];
+      let min = (time.split(':'))[1];
+      let part = 'AM';
+      let finalhrs = hour
+      if(hour == 0){
+        finalhrs = 12
+      }
+      if(hour == 12){
+        finalhrs = 12;
+        part = 'PM';
+      }
+      if(hour > 12){
+        finalhrs  = hour - 12
+        part = 'PM' 
+      }
+      return `${finalhrs}:${min} ${part}`
+    }else{
+      return null
     }
-    if(hour == 12){
-      finalhrs = 12;
-      part = 'PM';
-    }
-    if(hour > 12){
-      finalhrs  = hour - 12
-      part = 'PM' 
-    }
-    return `${finalhrs}:${min} ${part}`
   }
 
   getAllOccurrenceList(){
@@ -1643,9 +1648,49 @@ export class BookTicketDialog {
     
   }
 
-  fnAddDiscount(){
+  fnRemoveDiscount(){
+    this.isLoaderAdmin = true;
+    this.coupon_amt = 0;
+    this.coupon_code = '';
+    this.promo_code = '';
     
+    this.coupon_amt = 0;
+    this.discount_amt = this.coupon_amt;
 
+    this.subTotalWithDiscount = this.subTotalWithTransactionFee-this.discount_amt;
+    if(this.eventSettings.custom_sales_tax == 'Y'){
+      this.total_sales_tax = 0;
+      this.sales_tax_array.forEach(element => {
+        element.finalAmount = 0
+        if(parseInt(element.amount) > 0){
+          element.finalAmount = element.amount*this.subTotalWithDiscount/100
+          this.total_sales_tax = this.total_sales_tax + parseInt(element.amount);
+        }
+      });
+      this.total_sales_tax_amount = this.subTotalWithDiscount*this.total_sales_tax/100;
+      // this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount+this.transaction_fee;
+      this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
+    }else if(this.eventSettings.custom_sales_tax == 'N' && this.boxOfficeSalesTaxStatus == 'Y'){
+      this.totalGlobelSalesTax = 0;
+        if(this.subTotalWithDiscount != 0){
+          this.gloabelSalesTaxArray.forEach(element => {
+            element.finalAmount = 0;
+            if(element.status == 'Y'){
+                element.finalAmount =  element.value*this.subTotalWithDiscount / 100;
+              this.totalGlobelSalesTax = this.totalGlobelSalesTax + parseInt(element.value);
+            }
+            
+          });
+        }
+        this.total_sales_tax_amount = this.subTotalWithDiscount*this.totalGlobelSalesTax/100;
+        this.grandTotal = this.subTotalWithDiscount+this.total_sales_tax_amount;
+    }else{
+      this.grandTotal = this.subTotalWithDiscount
+    }
+    this.isLoaderAdmin = false;
+  }
+
+  fnAddDiscount(){
     this.isLoaderAdmin = true;
     let requestObject = {
       'event_id' : this.selectedEventCode,

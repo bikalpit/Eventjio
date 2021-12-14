@@ -530,7 +530,7 @@
                                 </span>
                             </div>
                             <div class="donation-field mt-3">
-                                <label for="">Donation desciption <i class="fa fa-question-circle" matTooltipPosition="above" matTooltip="Tell people more about the donation here."></i></label>
+                                <label for="">Donation description <i class="fa fa-question-circle" matTooltipPosition="above" matTooltip="Tell people more about the donation here."></i></label>
                                 <input formControlName="donation_description" type="text" class="form-control">
                                 <span class="error-wrap" *ngIf="addEventForm.get('donation_description').touched || addEventForm.get('donation_description').dirty">
                                     <small *ngIf="addEventForm.get('donation_description').hasError('required')" class="error">Description is required.</small>
@@ -608,7 +608,7 @@
                                     <div class="tax-input">
                                         <label for="">Sales tax percentage</label>
                                         <div class="form-group">
-                                            <input formControlName="amount" type="text" class="form-control" placeholder="0.00">
+                                            <input formControlName="amount" type="number" class="form-control" placeholder="0.00">
                                         </div>
                                     </div>
 

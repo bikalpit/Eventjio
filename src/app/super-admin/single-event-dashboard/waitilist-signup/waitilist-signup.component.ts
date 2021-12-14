@@ -284,13 +284,13 @@ export class WaitilistSignupComponent implements OnInit {
    
 
   fnSavewaitlist(){
-    this.isLoaderAdmin=true;
     if(this.waitListForm.invalid){
      this.waitListForm.get('btn_text').markAllAsTouched();
      this.waitListForm.get('event_page_text').markAllAsTouched();
      this.waitListForm.get('confirmation_msg').markAllAsTouched();
      return false;
     }
+    this.isLoaderAdmin=true;
     
      this.waitinglistObject = {
       "active_watlist":this.checkActiveWaitlist,
@@ -319,8 +319,8 @@ export class WaitilistSignupComponent implements OnInit {
     } else if(response.data == false){
     this.ErrorService.errorMessage(response.response);
     }
+    this.isLoaderAdmin=false;
 });
-this.isLoaderAdmin=false;
 
   }
 

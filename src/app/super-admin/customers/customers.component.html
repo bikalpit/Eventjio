@@ -1,6 +1,6 @@
 <div id="my-customers" class="sub-container">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
-    <div class="right-toolbar">
+    <div class="right-toolbar h-100">
         <div class="container-fluid top-fixed-customer">
             <div class="row">
                 <div class="p-3 mt-2 page-title">
@@ -15,8 +15,8 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid fixed-wrap">
-            <div class="row">
+        <div class="container-fluid h-100 fixed-wrap">
+            <div class="row h-100">
                 <div class="customer-list-container bg-light p-0">
                     <div class="border-bottom px-3 py-4 my-2">
                         <mat-select [(ngModel)]="selecetdFilterCustomer" (selectionChange)="fnFilterCustomer($event)" class=" form-control">
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <div>
-                            <mat-tab-group class="single-customer-detail">
+                            <mat-tab-group class="">
                                 <mat-tab label="Details">
                                     <div class="py-2">
                                         <label for="">Phone No.</label>
@@ -104,9 +104,9 @@
                                     <hr class="m-0">
                                     <div class="py-2">
                                         <label for="">Address</label>
-                                        <p *ngIf="selectedCustomerDetails.address">
+                                        <!-- <p *ngIf="selectedCustomerDetails.address">
                                             {{selectedCustomerDetails.address}}
-                                        </p>
+                                        </p> -->
                                         <p *ngIf="selectedCustomerDetails.uk_address !== null">
                                             {{selectedCustomerDetails.uk_address.address1}}, {{selectedCustomerDetails.uk_address.address2}}, {{selectedCustomerDetails.uk_address.address3}}, {{selectedCustomerDetails.uk_address.zipcode}} 
                                         </p>
@@ -193,7 +193,7 @@
                     <div class="p-3" *ngIf="!addFormButtonDiv" class="add-customer-form">
                         <div class="px-3">
                             <div class="row">
-                                <form class="p-3" action="" [formGroup]="addCustomerForm" class="with-validation">
+                                <div class="px-3 pt-3">
                                     <div class="col-12 px-3 pt-3 add-customer-div-title" *ngIf="!editCustomerForm">
                                         Add Customer
                                     </div>
@@ -227,14 +227,11 @@
                                                 </p>
                                             </div>
                                             <div class="px-3 py-42 add-customer-file" *ngIf="customerImageUrl">
-                                                <!-- <span>{{customerImageUrl}}</span> -->
-                                                <!-- <p class="mt-2">
-                                                    Upload image (in .jpg, .jpeg or .png format), <br /> and the image size should not exceed 200x200.
-                                                </p> -->
                                             </div>
                                         </div>
                                     </div>
-
+                                </div>
+                                <form [formGroup]="addCustomerForm" class="with-validation px-3 pb-3">
                                     <div class="col-12 px-3 mt-3">
                                         <div class="row">
                                             <div class="col-6 ">
@@ -244,21 +241,6 @@
                                                     <span class="error-wrap" *ngIf="addCustomerForm.get('cust_name').dirty || addCustomerForm.get('cust_name').touched"><small *ngIf="addCustomerForm.get('cust_name').hasError('required')" class="error text-left">name is required.</small></span>
                                                 </div>
                                             </div>
-                                            <!---<div class="col-6 ">
-                                                <label for="">First Name</label>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" formControlName="firstname" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('firstname').dirty || addCustomerForm.get('firstname').touched"><small *ngIf="addCustomerForm.get('firstname').hasError('required')" class="error text-left">First name is required.</small></span>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-6">
-                                                <label for="">Last Name</label>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" formControlName="lastname" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('lastname').dirty || addCustomerForm.get('lastname').touched"><small *ngIf="addCustomerForm.get('lastname').hasError('required')" class="error text-left">Last name is required.</small></span>
-                                                </div>
-                                            </div>--->
 
                                             <div class="col-6 ">
                                                 <label for="">Phone No. </label>
@@ -278,26 +260,43 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12 ">
-                                                <label for="">Full Address</label>
+                                            <div class="col-6">
+                                                <label for="">{{addressArr.address}}</label>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" formControlName="address" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('address').dirty || addCustomerForm.get('address').touched"><small *ngIf="addCustomerForm.get('address').hasError('required')" class="error text-left">Address is required.</small></span>
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('address').dirty || addCustomerForm.get('address').touched"><small *ngIf="addCustomerForm.get('address').hasError('required')" class="error text-left">{{addressArr.address}} is required.</small></span>
                                                 </div>
-                                            </div>
+                                            </div> 
+                                            <div class="col-4">
+                                                <label for="">{{addressArr.address1}}</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" formControlName="address1" />
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('address1').dirty || addCustomerForm.get('address1').touched"><small *ngIf="addCustomerForm.get('address1').hasError('required')" class="error text-left">{{addressArr.address1}} is required.</small></span>
+                                                </div>
+                                            </div> 
+                                            <div class="col-4">
+                                                <label for="">{{addressArr.address2}}</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" formControlName="address2" />
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('address2').dirty || addCustomerForm.get('address2').touched"><small *ngIf="addCustomerForm.get('address2').hasError('required')" class="error text-left">{{addressArr.address1}} is required.</small></span>
+                                                </div>
+                                            </div> 
+                                            <div class="col-4">
+                                                <label for="">{{addressArr.zipcode}}</label>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" formControlName="zipcode" />
+                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('zipcode').dirty || addCustomerForm.get('zipcode').touched">
+                                                        <small *ngIf="addCustomerForm.get('zipcode').hasError('required')" class="error text-left">{{addressArr.zipcode}} is required.</small>
+                                                        <small *ngIf="!addCustomerForm.get('zipcode').hasError('required') && (addCustomerForm.get('zipcode').hasError('minlength') || addCustomerForm.get('zipcode').hasError('maxlength'))" class="error text-left">{{addressArr.zipcode}} is should be 5 to 7 characters.</small>
+                                                    </span>
+                                                </div>
+                                            </div> 
+                                            
 
                                             <div class="col-12 ">
                                                 <label for="">Add Tags</label>
-                                                <!--<div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Press enter to add tag" formControlName="tags" />
-                                                    <span class="error-wrap" *ngIf="addCustomerForm.get('tags').dirty || addCustomerForm.get('tags').touched"><small *ngIf="addCustomerForm.get('tags').hasError('required')" class="error text-left">tags is required.</small></span>
-                                                </div>--->
                                                 <div class="d-flex">
                                                     <div class="tag-container">
-                                                        <!---<div class="d-flex">
-														<h6 class="mr-2">Tags</h6>
-														<mat-icon (click)="fnAddNewTag()" class="add-tag-icon pointer">add_circle</mat-icon>
-													</div>-->
                                                         <mat-form-field [ngClass]="{'tag-disabled':!addNewTag}" class="w-100 tags-input bottom-border-field">
                                                             <mat-chip-list #chipList aria-label="Tag selection">
                                                                 <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">{{tag}}
@@ -312,20 +311,12 @@
                                             </div>
 
                                             <div class="footer-btn">
-
                                                 <div class="can-save">
                                                     <button mat-raised-button class="cancel-btn" (click)="addFormButton()">Cancel</button>
                                                     <button *ngIf="!editCustomerForm" mat-raised-button class="save-btn" (click)="submitForm()">Create</button>
                                                     <button *ngIf="editCustomerForm" mat-raised-button class="save-btn" (click)="submitForm()">Update</button>
-                                                    <!-- <button mat-raised-button class="cancel-btn" (click)="addFormButton()">Cancel</button>
-                                                    <button mat-raised-button (click)=" fnOnSubmitMyProfile()" class="save-btn">Save</button> -->
                                                 </div>
                                             </div>
-                                            <!-- <div class="col-12 mb-3 text-right">
-                                                <button mat-flat-button class="mr-2 px-5 cancel-btn" (click)="addFormButton()">Cancel</button>
-                                                <button *ngIf="!editCustomerForm" mat-flat-button class="ml-2 px-5 create-btn" (click)="submitForm()">Create</button>
-                                                <button *ngIf="editCustomerForm" mat-flat-button class="ml-2 px-5 create-btn" (click)="submitForm()">Update</button>
-                                            </div> -->
                                         </div>
                                     </div>
                                 </form>

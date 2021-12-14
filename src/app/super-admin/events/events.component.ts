@@ -1356,6 +1356,7 @@ export class AddNewTicketType {
   onlynumeric = /^[0-9]+(?:\.[0-9]+)?$/
   onlynumericQTY = /^[1-9]\d*$/
   startdateToday:boolean=false;
+  startUntildateToday:boolean=false;
   currentTime:any;
   constructor(
     public dialogRef: MatDialogRef<AddNewTicketType>,
@@ -1517,7 +1518,7 @@ export class AddNewTicketType {
   
   fnChangeMinOr(event){
     if(parseInt(this.addTicketForm.get('min_order').value) > parseInt(this.addTicketForm.get('qty').value)){
-      this.errorService.errorMessage('Minimum order should not greater then quntity.');
+      this.errorService.errorMessage('Minimum order should not greater then quantity.');
       this.addTicketForm.controls['min_order'].setValue('');
     }
     this.addTicketForm.controls['max_order'].setValue('');
@@ -1525,7 +1526,7 @@ export class AddNewTicketType {
   
   fnChangeMaxOr(event){
     if(parseInt(this.addTicketForm.get('max_order').value) > parseInt(this.addTicketForm.get('qty').value)){
-      this.errorService.errorMessage('Maximum order should not greater then quntity.');
+      this.errorService.errorMessage('Maximum order should not greater then quantity.');
       this.addTicketForm.controls['max_order'].setValue('');
     }else if(parseInt(this.addTicketForm.get('max_order').value) < parseInt(this.addTicketForm.get('min_order').value)){
       this.errorService.errorMessage('Maximum order should not less then min order.');
@@ -1543,6 +1544,24 @@ export class AddNewTicketType {
     this.addTicketForm.controls['until_time'].setValue('');
     this.addTicketForm.controls['after_date'].setValue(null);
     this.addTicketForm.controls['after_time'].setValue('');
+    
+  }
+
+  fnAvailUntiDateChange(event){
+    var todayDate = this.datePipe.transform(new Date(),"yyyy-MM-dd")
+    var selectedStartDate = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+    this.addTicketForm.controls['recurring_after_time'].setValue('');
+    console.log('todayDate',todayDate)
+    console.log('selectedStartDate',selectedStartDate)
+    if(selectedStartDate === todayDate){
+      console.log('1')
+      this.startUntildateToday=true;
+      this.currentTime = this.datePipe.transform(new Date(),"h:mm a")
+      this.currentTime = this.transformTime(this.datePipe.transform(new Date(),"h:mm a"))
+    }else{
+      console.log('2')
+      this.startUntildateToday=false;
+    }
     
   }
 

@@ -64,7 +64,14 @@ export class CustomersComponent implements OnInit {
   tags: Tag[] = [];
   currentUser:any;
   eventActiveTab = 'all';
+  editAddressType:any='US'
   keepMe:any;
+  addressArr = {
+    'address': 'Address Line 1',
+    'address1': 'City',
+    'address2': 'State',
+    'zipcode': 'Zip Code',
+  };
   constructor(
     private formBuilder:FormBuilder,
     private SuperadminService : SuperadminService,
@@ -100,13 +107,14 @@ export class CustomersComponent implements OnInit {
     
     let emailPattern=/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/ 
     this.addCustomerForm = this.formBuilder.group({
-		cust_name:['',Validators.required],
-      //firstname:['',Validators.required],
-      //lastname:['',Validators.required],
+		  cust_name:['',Validators.required],
       phone:['',[Validators.required,Validators.pattern(this.onlynumeric),Validators.minLength(6),Validators.maxLength(15)]],
       email:['',[Validators.required,Validators.email,Validators.pattern(emailPattern)]],
-      // image:[''],
-      address:['',Validators.required],
+      // address:['',[Validators.required]],
+      address:["", Validators.required],
+      address1:["", Validators.required],
+      address2:["", Validators.required],
+      zipcode:["", [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       tags:[''],
     });  
    }
@@ -186,9 +194,9 @@ export class CustomersComponent implements OnInit {
      });
   }
 
-
   submitForm(){	 
     if(this.addCustomerForm.invalid){
+      console.log(this.addCustomerForm)
       //this.addCustomerForm.get("firstname").markAsTouched();
       //this.addCustomerForm.get("lastname").markAsTouched();
 	  this.addCustomerForm.get("cust_name").markAsTouched();
@@ -200,25 +208,59 @@ export class CustomersComponent implements OnInit {
     }else{
       if(this.editCustomerForm == true){
         if(this.customerImageUrl){
-		  var cust_name = this.addCustomerForm.get('cust_name').value;
-		  var cust_name = cust_name.split(" ");
-		  var firstname=cust_name[0];
-		  var lastname=cust_name[1];
-		  if(cust_name[1]=='undefined' || cust_name[1]==undefined){
-			  lastname="";
-		  }
+          var cust_name = this.addCustomerForm.get('cust_name').value;
+          var cust_name = cust_name.split(" ");
+          var firstname=cust_name[0];
+          var lastname=cust_name[1];
+          if(cust_name[1]=='undefined' || cust_name[1]==undefined){
+            lastname="";
+          }
+         
+
           let requestObject={			
             "firstname":firstname,
             "lastname":lastname,			
             "email":this.addCustomerForm.get('email').value,
             "phone":this.addCustomerForm.get('phone').value,
             "image": this.customerImageUrl,
-            "address":this.addCustomerForm.get('address').value,
             "unique_code": this.selectedCustomerCode,
 			      "tags": JSON.stringify(this.tags),           
             "boxoffice_id": this.boxofficeId,
-          }; //"tags": this.addCustomerForm.get("tags").value,
-		  
+            "uk_address": null,
+            "usa_address": null,
+            "ca_address": null,
+          }; 
+          
+          let addressStyleArry = {}
+          if(this.editAddressType == 'UK'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "address2" : this.addCustomerForm.get("address1").value,
+              "address3" : this.addCustomerForm.get("address2").value,
+              "zipcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['uk_address'] = addressStyleArry;
+          }else if(this.editAddressType == 'US'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "city" : this.addCustomerForm.get("address1").value,
+              "state" : this.addCustomerForm.get("address2").value,
+              "zipcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['usa_address'] = addressStyleArry;
+          }else if(this.editAddressType == 'Cadadian'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "city" : this.addCustomerForm.get("address1").value,
+              "province" : this.addCustomerForm.get("address2").value,
+              "postalcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['ca_address'] = addressStyleArry;
+          }
+          console.log(requestObject)
           this.fnUpdateCustomer(requestObject)
         }else{
           var cust_name = this.addCustomerForm.get('cust_name').value;
@@ -233,53 +275,150 @@ export class CustomersComponent implements OnInit {
             "lastname":lastname,			
             "email":this.addCustomerForm.get('email').value,
             "phone":this.addCustomerForm.get('phone').value,
-            "address":this.addCustomerForm.get('address').value,
             "unique_code": this.selectedCustomerCode,
-			"tags": JSON.stringify(this.tags),            
+			      "tags": JSON.stringify(this.tags),            
             "boxoffice_id": this.boxofficeId,
+            "uk_address": null,
+            "usa_address": null,
+            "ca_address": null,
           };
-		  //"tags": this.addCustomerForm.get("tags").value,
+          
+          let addressStyleArry = {}
+          if(this.editAddressType == 'UK'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "address2" : this.addCustomerForm.get("address1").value,
+              "address3" : this.addCustomerForm.get("address2").value,
+              "zipcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['uk_address'] = addressStyleArry;
+          }else if(this.editAddressType == 'US'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "city" : this.addCustomerForm.get("address1").value,
+              "state" : this.addCustomerForm.get("address2").value,
+              "zipcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['usa_address'] = addressStyleArry;
+          }else if(this.editAddressType == 'Cadadian'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "city" : this.addCustomerForm.get("address1").value,
+              "province" : this.addCustomerForm.get("address2").value,
+              "postalcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['ca_address'] = addressStyleArry;
+          }
+          console.log(requestObject)
           this.fnUpdateCustomer(requestObject)
         }
       }else if(this.editCustomerForm == false){
         if(this.customerImageUrl){
           var cust_name = this.addCustomerForm.get('cust_name').value;
-		  var cust_name = cust_name.split(" ");
-		  var firstname=cust_name[0];
-		  var lastname=cust_name[1];
-		  if(cust_name[1]=='undefined' || cust_name[1]==undefined){
-			  lastname="";
-		  }
+          var cust_name = cust_name.split(" ");
+          var firstname=cust_name[0];
+          var lastname=cust_name[1];
+          if(cust_name[1]=='undefined' || cust_name[1]==undefined){
+            lastname="";
+          }
           let requestObject={			
             "firstname":firstname,
             "lastname":lastname,			
             "phone": this.addCustomerForm.get("phone").value,
             "email": this.addCustomerForm.get("email").value,
-            "address": this.addCustomerForm.get("address").value,            
-			"tags": JSON.stringify(this.tags),
+			      "tags": JSON.stringify(this.tags),
             "image": this.customerImageUrl,
             "boxoffice_id": this.boxofficeId,
+            "uk_address": null,
+            "usa_address": null,
+            "ca_address": null,
           } //"tags": this.addCustomerForm.get("tags").value,
+
+          
+          let addressStyleArry = {}
+          if(this.editAddressType == 'UK'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "address2" : this.addCustomerForm.get("address1").value,
+              "address3" : this.addCustomerForm.get("address2").value,
+              "zipcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['uk_address'] = addressStyleArry;
+          }else if(this.editAddressType == 'US'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "city" : this.addCustomerForm.get("address1").value,
+              "state" : this.addCustomerForm.get("address2").value,
+              "zipcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['usa_address'] = addressStyleArry;
+          }else if(this.editAddressType == 'Cadadian'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "city" : this.addCustomerForm.get("address1").value,
+              "province" : this.addCustomerForm.get("address2").value,
+              "postalcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['ca_address'] = addressStyleArry;
+          }
+          console.log(requestObject)
 		  
           this.fnCreateCustomer(requestObject)
         }else{
           var cust_name = this.addCustomerForm.get('cust_name').value;
-		  var cust_name = cust_name.split(" ");
-		  var firstname=cust_name[0];
-		  var lastname=cust_name[1];
-		  if(cust_name[1]=='undefined' || cust_name[1]==undefined){
-			  lastname="";
-		  }
+          var cust_name = cust_name.split(" ");
+          var firstname=cust_name[0];
+          var lastname=cust_name[1];
+          if(cust_name[1]=='undefined' || cust_name[1]==undefined){
+            lastname="";
+          }
           let requestObject={			
             "firstname":firstname,
             "lastname":lastname,
             "phone": this.addCustomerForm.get("phone").value,
             "email": this.addCustomerForm.get("email").value,
-            "address": this.addCustomerForm.get("address").value,
             "tags": JSON.stringify(this.tags),
             "boxoffice_id": this.boxofficeId,
+            "uk_address": null,
+            "usa_address": null,
+            "ca_address": null,
           }
-		  //this.addCustomerForm.get("tags").value,
+          let addressStyleArry = {}
+          if(this.editAddressType == 'UK'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "address2" : this.addCustomerForm.get("address1").value,
+              "address3" : this.addCustomerForm.get("address2").value,
+              "zipcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['uk_address'] = addressStyleArry;
+          }else if(this.editAddressType == 'US'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "city" : this.addCustomerForm.get("address1").value,
+              "state" : this.addCustomerForm.get("address2").value,
+              "zipcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['usa_address'] = addressStyleArry;
+          }else if(this.editAddressType == 'Cadadian'){
+            addressStyleArry = {
+              "address1" : this.addCustomerForm.get("address").value,
+              "city" : this.addCustomerForm.get("address1").value,
+              "province" : this.addCustomerForm.get("address2").value,
+              "postalcode" : this.addCustomerForm.get("zipcode").value,
+              'style' : this.editAddressType
+            }
+            requestObject['ca_address'] = addressStyleArry;
+          }
+          console.log(requestObject)
           this.fnCreateCustomer(requestObject)
         }
       }
@@ -356,6 +495,49 @@ export class CustomersComponent implements OnInit {
     
     if(response.data == true){
       this.selectedCustomerDetails = response.response.customer;
+      console.log('this.selectedCustomerDetails',this.selectedCustomerDetails)
+      this.selectedCustomerDetails.formatedAddress = '';
+      if(this.selectedCustomerDetails.usa_address){
+        this.editAddressType = 'US';
+        this.selectedCustomerDetails.formatedAddress = JSON.parse(this.selectedCustomerDetails.usa_address);
+        this.addressArr = {
+          'address': 'Address Line 1',
+          'address1': 'City',
+          'address2': 'State',
+          'zipcode': 'Zip Code',
+        };
+        this.addCustomerForm.controls['address'].setValue(this.selectedCustomerDetails.formatedAddress.address1)
+        this.addCustomerForm.controls['address1'].setValue(this.selectedCustomerDetails.formatedAddress.city)
+        this.addCustomerForm.controls['address2'].setValue(this.selectedCustomerDetails.formatedAddress.state)
+        this.addCustomerForm.controls['zipcode'].setValue(this.selectedCustomerDetails.formatedAddress.zipcode)
+      }else if(this.selectedCustomerDetails.uk_address){
+        this.editAddressType = 'UK';
+        this.addressArr = {
+          'address': 'Address Line 1',
+          'address1': 'Address Line 2',
+          'address2': 'Address Line 3',
+          'zipcode': 'Zip Code',
+        };
+        this.selectedCustomerDetails.formatedAddress = JSON.parse(this.selectedCustomerDetails.uk_address);
+        this.addCustomerForm.controls['address'].setValue(this.selectedCustomerDetails.formatedAddress.address1)
+        this.addCustomerForm.controls['address1'].setValue(this.selectedCustomerDetails.formatedAddress.address2)
+        this.addCustomerForm.controls['address2'].setValue(this.selectedCustomerDetails.formatedAddress.address3)
+        this.addCustomerForm.controls['zipcode'].setValue(this.selectedCustomerDetails.formatedAddress.zipcode)
+      }else if(this.selectedCustomerDetails.ca_address){
+        this.editAddressType = 'CA';
+        this.addressArr = {
+          'address': 'Address Line 1',
+          'address1': 'City',
+          'address2': 'Province',
+          'zipcode': 'Postal Code',
+        };
+        this.selectedCustomerDetails.formatedAddress = JSON.parse(this.selectedCustomerDetails.ca_address);
+        this.addCustomerForm.controls['address'].setValue(this.selectedCustomerDetails.formatedAddress.address1)
+        this.addCustomerForm.controls['address1'].setValue(this.selectedCustomerDetails.formatedAddress.city)
+        this.addCustomerForm.controls['address2'].setValue(this.selectedCustomerDetails.formatedAddress.province)
+        this.addCustomerForm.controls['zipcode'].setValue(this.selectedCustomerDetails.formatedAddress.postalcode)
+      }
+      console.log(this.selectedCustomerDetails.formatedAddress)
       if(this.selectedCustomerDetails.lastname!=''){
         this.addCustomerForm.controls['cust_name'].setValue(this.selectedCustomerDetails.firstname+' '+this.selectedCustomerDetails.lastname)
       }else{

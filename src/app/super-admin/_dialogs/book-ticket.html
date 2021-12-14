@@ -175,7 +175,8 @@
                   </span> -->
                         </div>
                         <div class="col-2 pl-1">
-                            <button mat-raised-button class="ticket-btn apply-btn" (click)="fnAddDiscount()" [disabled]="coupon_code!=''">Apply</button>
+                            <button *ngIf="coupon_code==''" mat-raised-button class="ticket-btn apply-btn" (click)="fnAddDiscount()">Apply</button>
+                            <button *ngIf="coupon_code!=''" mat-raised-button class="ticket-btn apply-btn" (click)="fnRemoveDiscount()">Remove</button>
                         </div>
                     </div>
                 </div>
