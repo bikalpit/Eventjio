@@ -8,8 +8,8 @@
                     <mat-option *ngFor="let element of allOccurrenceList; let i=index;" value="{{element.unique_code}}">{{element.occurance_start_date |date :'mediumDate'}} {{element.occurance_start_time}} - {{element.occurance_end_time}}</mat-option>
                 </mat-select>
             </h4>
-            <p> Set up a waitlist to collect email addresses from prospective tickets buyers. When tickets become available you can notify the signups by sending them a Broadcast or exporting the data and using an alternative tool.
-                <a> Learn more about how to set up a waitlist in our helpdesk article. </a>
+            <p> 
+                Set up a waitlist to collect email addresses from prospective tickets buyers. When tickets become available, you can notify the sign-ups by sending them a Broadcast or exporting the data and using an alternative tool.
             </p>
         </div>
         <div class="bottom-waitlist-main">
@@ -26,7 +26,7 @@
                             <label>Call to action<span class="text-danger">*</span> <i class="fa fa-question-circle" aria-hidden="true"  
                                     matTooltip="This is what will be displayed on event action buttons and as a title above the waitlist form" ></i> </label>
 
-                            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="btn_text" placeholder="join waiting list">
+                            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="btn_text" placeholder="Join waiting list">
                             <span class="error-wrap" *ngIf="waitListForm.get('btn_text').dirty || waitListForm.get('btn_text').touched"><small *ngIf="waitListForm.get('btn_text').hasError('required')" class="error text-left">Join waiting list  is required.</small></span>
                         </div>
                         <div class="form-group col-md-12 col-lg-12 col-sm-12">

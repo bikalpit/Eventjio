@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="col-6">
-                            <label for="">Quantity<span><i class="fa fa-asterisk"></i></span></label>
+                            <label for="">No. of tickets<span><i class="fa fa-asterisk"></i></span></label>
                             <div class="form-group">
                                 <input (change)="fnChangeQTY($event)" type="text" formControlName="qty" class="form-control">
                                 <span class="error-wrap" *ngIf="addTicketForm.get('qty').touched || addTicketForm.get('qty').dirty">
@@ -47,7 +47,7 @@
 
                     <div class="form-group">
                         <!-- <input type="checkbox" class="from-control mr-2"> Show advance settings -->
-                        <mat-checkbox [checked]="advanceSetting == 'Y'" (change)="fnChangeAdvSetting($event)">Show advance settings</mat-checkbox>
+                        <mat-checkbox [checked]="advanceSetting == 'Y'" (change)="fnChangeAdvSetting($event)">Show advanced settings</mat-checkbox>
                     </div>
                     <div *ngIf="advanceSetting == 'Y'">
                         <label for="">Description</label>
@@ -118,7 +118,7 @@
                 <div class="col-5">
                     <div *ngIf="recurringEvent == 'N'">
                         <div class="w-100 ticket-available-unavailabel">
-                            <label for="">Tickets become availables <span><i class="fa fa-asterisk"></i></span>  </label>
+                            <label for="">Tickets become available <span><i class="fa fa-asterisk"></i></span>  </label>
                             <div class="form-group">
                                 <mat-select matTooltipClass="main-menu-tooltip" matTooltipPosition="above" matTooltip="{{getTicketAvailTooltip(ticketAvalStatus)}}" (selectionChange)="fnTicketAvailableStatus($event)" class="form-control d-block" formControlName="ticket_available">
                                     <mat-option matTooltipClass="main-menu-tooltip" matTooltipPosition="left" matTooltip="When the event is published" value="PB">When the event is published</mat-option>
@@ -144,7 +144,7 @@
                             </div>
                             <div class="d-flex flex-wrap w-50">
                                 <mat-select *ngIf="untilDate == eventStartDate" placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="until_time" class="w-100 ml-2 form-control d-inline-block">
-                                    <mat-option [disabled]="eventStartTime < i+1" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                    <mat-option [ngClass]="{'hidden-slot':eventStartTime < i+1}" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                                 <mat-select *ngIf="untilDate != eventStartDate" placeholder="HH:MM" (selectionChange)="fnAvailTimeChange($event)" formControlName="until_time" class="w-100 ml-2 form-control d-inline-block">
                                     <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
@@ -177,10 +177,10 @@
                         </span>
                         </div>
                         <div class="mt-3 mb-2 w-100 ticket-available-unavailabel ml-auto">
-                            <label for="">Tickets become unavailables <span><i class="fa fa-asterisk"></i></span>  </label>
+                            <label for="">Tickets become unavailable <span><i class="fa fa-asterisk"></i></span>  </label>
                             <div class="form-group">
                                 <mat-select matTooltipClass="main-menu-tooltip" matTooltipPosition="above" matTooltip="{{getTicketUnavailTooltip(ticketUnavalStatus)}}" (selectionChange)="fnTicketUnavailableStatus($event)" class="form-control d-block" formControlName="ticket_unavailable">
-                                    <mat-option matTooltipClass="main-menu-tooltip" matTooltipPosition="left" matTooltip="When the event is taken off, or the event passes" value="TOS">When the event is taken off, or the event passes</mat-option>
+                                    <mat-option matTooltipClass="main-menu-tooltip" matTooltipPosition="left" matTooltip="When the event is completed or canceled" value="TOS">When the event is completed or canceled</mat-option>
                                     <mat-option matTooltipClass="main-menu-tooltip" matTooltipPosition="left" matTooltip="At a scheduled date and time" value="SDT">At a scheduled date and time</mat-option>
                                     <mat-option matTooltipClass="main-menu-tooltip" matTooltipPosition="left" matTooltip="At a scheduled interval before the event starts" value="SIB">At a scheduled interval before the event starts</mat-option>
                                 </mat-select>
@@ -193,7 +193,6 @@
 
                         <div *ngIf="ticketUnavalStatus == 'SDT'" class="form-group d-flex align-items-start">
                             <div class="matDate w-50 d-inline-block">
-                                <!-- <input formControlName="after_date" type="text" [matDatepicker]="ticketIssuedDatePicker" [min]="minDate" id="after_date" (click)="ticketIssuedDatePicker.open()" class="form-control "> -->
                                 <input formControlName="after_date" type="text" [matDatepicker]="ticketIssuedDatePicker" [max]="maxUnavailDate" [min]="minUnavailDate" id="after_date" (click)="ticketIssuedDatePicker.open()" (dateChange)="fnUnavailDateChange($event)" class="form-control "
                                     placeholder="MM/DD/YYYY" readonly>
                                 <mat-datepicker #ticketIssuedDatePicker></mat-datepicker>
@@ -203,21 +202,14 @@
                             </div>
 
                             <div class="d-flex flex-wrap w-50">
-                                <!-- <input type="date" class="form-control col-6 mr-1 d-inline-block"> -->
-                                <!-- <mat-select placeholder="HH:MM" *ngIf="availUnavailDateSame" formControlName="after_time" class="ml-2 form-control d-inline-block same_1">
-                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="addTicketForm.get('until_time').value > fullDayTimeSlote" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
-                                </mat-select>
-                                <mat-select placeholder="HH:MM" *ngIf="!availUnavailDateSame" formControlName="after_time" class="ml-2 form-control d-inline-block same_2">
-                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
-                                </mat-select> -->
                                 <mat-select placeholder="HH:MM" *ngIf="availUnavailDateSame && (afterDate != eventEndDate)" formControlName="after_time" class="ml-2 form-control d-inline-block same_1">
-                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="addTicketForm.get('until_time').value > fullDayTimeSlote" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [ngClass]="{'hidden-slot':addTicketForm.get('until_time').value > fullDayTimeSlote}" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                                 <mat-select placeholder="HH:MM" *ngIf="availUnavailDateSame && (afterDate == eventEndDate)" formControlName="after_time" class="ml-2 form-control d-inline-block same_1">
-                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="addTicketForm.get('until_time').value > fullDayTimeSlote || eventEndTime < i+1" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                    <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [ngClass]="{'hidden-slot':addTicketForm.get('until_time').value > fullDayTimeSlote || eventEndTime < i+1}" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                                 <mat-select placeholder="HH:MM" *ngIf="!availUnavailDateSame && (afterDate == eventEndDate)" formControlName="after_time" class="ml-2 form-control d-inline-block same_2">
-                                    <mat-option [disabled]="eventEndTime < i+1" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                    <mat-option [ngClass]="{'hidden-slot':eventEndTime < i+1}" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                 </mat-select>
                                 <mat-select placeholder="HH:MM" *ngIf="!availUnavailDateSame && (afterDate != eventEndDate)" formControlName="after_time" class="ml-2 form-control d-inline-block same_2">
                                     <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}:00"> {{transformTime24To12(fullDayTimeSlote)}}</mat-option>
@@ -232,18 +224,18 @@
 
                         <div *ngIf="ticketUnavalStatus == 'SIB'" class="form-group ">
                             <mat-select formControlName="after_interval" class="form-control w-50">
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 1" value="1">1</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 2" value="2">2</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 3" value="3">3</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 4" value="4">4</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 5" value="5">5</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 6" value="6">6</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 7" value="7">7</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 8" value="8">8</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 9" value="9">9</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 10" value="10">10</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 11" value="11">11</mat-option>
-                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 12" value="12" value="12">12</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 1}" value="1">1</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 2}" value="2">2</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 3}" value="3">3</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 4}" value="4">4</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 5}" value="5">5</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 6}" value="6">6</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 7}" value="7">7</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 8}" value="8">8</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 9}" value="9">9</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 10}" value="10">10</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 11}" value="11">11</mat-option>
+                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 12}" value="12" value="12">12</mat-option>
                             </mat-select> <span class="pl-2"> / Hours</span>
                             <span class="error-wrap d-block" *ngIf="addTicketForm.get('after_interval').touched || addTicketForm.get('after_interval').dirty">
                             <small *ngIf="addTicketForm.get('after_interval').hasError('required')" class="error">Hide after Interval is required.</small>
@@ -287,7 +279,7 @@
                         </div>
                     </div>
                     <mat-checkbox [checked]="soldOut == 'Y'" class="w-100 d-block mt-2" (change)="fnChangeSoldOut($event)">Hide when sold out</mat-checkbox>
-                    <mat-checkbox [checked]="showQTY == 'Y'" class="w-100 d-block" (change)="fnChangeShowQTY($event)">Show quantity remaining on event page</mat-checkbox>
+                    <mat-checkbox [checked]="showQTY == 'Y'" class="w-100 d-block" (change)="fnChangeShowQTY($event)">Show no. of tickets unsold on the event page</mat-checkbox>
 
                     <h3 class="font-weight-medium mt-2 text-left" *ngIf="allCouponCodeList != null">Discounts</h3>
                     <div class="form-group pb-0 mb-0" *ngFor="let allCouponCodeList of allCouponCodeList; let i=index">

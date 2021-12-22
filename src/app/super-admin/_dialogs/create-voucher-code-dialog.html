@@ -2,7 +2,7 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/event-spinner.svg" /></div>
     <div class="modal-content ">
         <div class="modal-header modal-bcolor-primary">
-            <p class="heading lead  work-content">Create batch of voucher codes</p>
+            <p class="heading lead  work-content">Create voucher code</p>
             <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
@@ -14,7 +14,7 @@
                     <div class="col-md-6">
                         <label for="">Name <span><i class="fa fa-asterisk"></i></span> 
                   <span mat-raised-button
-                        matTooltip="what would you like to call this batch of codes? This name will be displayed to the customer when enter a code at checkout."
+                        matTooltip="Give a name to this voucher batch."
                         matTooltipPosition="above" class="tooltip-btn ml-1">
                         <span class="info"><i class="fa fa-question"></i></span>
                 </span>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class=" col-md-12">
-                        <label>Expire Date <span><i class="fa fa-asterisk"></i></span> </label>
+                        <label>Expiry date <span><i class="fa fa-asterisk"></i></span> </label>
                         <div class="matDate form-group">
                             <mat-datepicker-toggle matSuffix [for]="ticketIssuedTo" class="dateIcon"></mat-datepicker-toggle>
                             <input type="text" [min]="minExpiryDate" [matDatepicker]="ticketIssuedTo" formControlName="expiry_date" (click)="ticketIssuedTo.open()" class="form-control matInputdate">

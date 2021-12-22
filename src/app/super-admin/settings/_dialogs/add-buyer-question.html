@@ -13,7 +13,7 @@
             <form [formGroup]="newBuyerQForm" class="with-validation">
                 <div class="row mx-0">
                     <div class="col-12" *ngIf="!defaultQuestion">
-                        <label class="mb-0" for="">What kind of response do you want? 
+                        <label class="mb-0" for="">What response do you expect from the customer?   
                         <span class="asterisk-icon">
                           <i class="fa fa-asterisk asterisk" aria-hidden="true"></i>
                         </span> 
@@ -24,7 +24,7 @@
                                 <mat-option value="dropdown">Select answer from drop-down</mat-option>
                                 <mat-option value="radio">Select answer from radio buttons</mat-option>
                                 <mat-option value="checkbox">Select answer from checkboxes</mat-option>
-                                <mat-option value="terms">Terms and condition agreement</mat-option>
+                                <mat-option value="terms">Terms and conditions agreement</mat-option>
                                 <mat-option value="marketing">Opt in to receive marketing emails</mat-option>
                             </mat-select>
                             <span style="left:0" class="error-wrap" *ngIf="newBuyerQForm.get('type').touched || newBuyerQForm.get('type').dirty">

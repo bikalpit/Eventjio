@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <input [ngStyle]="{'pointer-events':updatecode?'none':'','background': updatecode?'#ececec':''}" disabled="{{updatecode}}" formControlName="type" class="form-control" type="text">
                             <span style="left:0" class="error-wrap" *ngIf="addRefferalCodeForm.get('type').touched || addRefferalCodeForm.get('type').dirty">
-                            <small *ngIf="addRefferalCodeForm.get('type').hasError('required')" class="error">type is required.</small>
+                            <small *ngIf="addRefferalCodeForm.get('type').hasError('required')" class="error">Name is required.</small>
                         </span>
                         </div>
                     </div>

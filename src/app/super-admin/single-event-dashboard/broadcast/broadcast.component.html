@@ -154,7 +154,7 @@
                                 <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                             </mat-select>
                             <mat-select *ngIf="scheduledDateToday" formControlName="scheduledTime" class="form-control">
-                                <mat-option  [disabled]="currentTime > fullDayTimeSlote" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                <mat-option  [ngClass]="{'hidden-slot':currentTime > fullDayTimeSlote}" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{fullDayTimeSlote}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                             </mat-select>
                             <br>
                             <span class="error-wrap" *ngIf="createBroadcastForm.get('scheduledTime').touched || createBroadcastForm.get('scheduledTime').dirty">

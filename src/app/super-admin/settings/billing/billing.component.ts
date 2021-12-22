@@ -439,8 +439,6 @@ export class DialogLearnMore {
   templateUrl: '../_dialogs/all-invoices.html'
 })
 export class DialogViewAllInvoices {
-
-  isLoaderAdmin: boolean = false;
   invoiceList:any;
   constructor(
     public dialogRef: MatDialogRef<DialogViewAllInvoices>,

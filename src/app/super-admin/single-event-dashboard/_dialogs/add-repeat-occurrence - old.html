@@ -12,7 +12,7 @@
         <div class="">
             <form [formGroup]="dayTimeForm" class="with-validation">
                 <div class="row mx-0">
-                    <div class="section-head">Times per day</div>
+                    <div class="section-head">Time per day</div>
                     <div formArrayName="dayTimeArr" *ngFor="let a of dayTimeForm.get('dayTimeArr')['controls']; let i = index">
                         <div [formGroupName]="i" class="single-form-row mt-3">
                             <label>Start</label>

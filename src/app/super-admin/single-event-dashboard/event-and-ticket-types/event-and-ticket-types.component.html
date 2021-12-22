@@ -51,7 +51,7 @@
                                             </mat-select>
 
                                             <mat-select *ngIf="startdateToday" (selectionChange)="fnOnChangeTime($event)" formControlName="event_start_time" class="col-10 ml-2 form-control d-inline-block">
-                                                <mat-option [disabled]="eventStarted" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                                <mat-option [ngClass]="{'hidden-slot':eventStarted}" *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                             </mat-select>
                                             <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_start_time').touched || editEventForm.get('event_start_time').dirty">
                                                 <small
@@ -85,7 +85,7 @@
 
 
                                         <mat-select *ngIf="startEndSameDate" formControlName="event_end_time" class="col-10 ml-2 form-control d-inline-block">
-                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [disabled]="editEventForm.get('event_start_time').value > (i-1)" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
+                                            <mat-option *ngFor="let fullDayTimeSlote of fullDayTimeSlote; let i=index" [ngClass]="{'hidden-slot':editEventForm.get('event_start_time').value > (i-1)}" value="{{i}}">{{transformTime24To12(fullDayTimeSlote)}}</mat-option>
                                         </mat-select>
                                         <span style="left:0" class="error-wrap pl-2" *ngIf="editEventForm.get('event_end_time').touched || editEventForm.get('event_end_time').dirty">
                                             <small *ngIf="editEventForm.get('event_end_time').hasError('required')"
@@ -98,7 +98,7 @@
 
 
                         <section class="form-group col-md-12 mt-3">
-                            <mat-checkbox [checked]="olPlatForm == 'Y'" class="" (change)="fnolPlatform($event.checked)">This is on online event</mat-checkbox>
+                            <mat-checkbox [checked]="olPlatForm == 'Y'" class="" (change)="fnolPlatform($event.checked)">This is an online event</mat-checkbox>
                         </section>
                         <div class="w-100  mt-3" *ngIf="olPlatForm == 'N'">
                             <div class="row m-0">
@@ -330,7 +330,7 @@
                         </div>
                         <div class="form-group col-md-6 mt-3">
                             <label for="">Transaction fee<span
-                                    matTooltip="You can add a transactionfee to orders.This is charged pnce per order as opposed to ticket booking fees which are charged once per ticket."
+                                    matTooltip="You can add a transaction fee to each order. Please note this differs from ticket booking fees that are charged once per ticket."
                                     matTooltipPosition="above" class="tooltip-btn info"><i class="fa fa-question"
                                         aria-hidden="true"></i></span></label>
                             <input formControlName="transaction_fee" type="text" class="form-control" id="" placeholder="0.00">
@@ -416,7 +416,7 @@
 
                     </div>
                     <div class="">
-                        <h6 class="col-md-12 mb-0 py-3">Advance Settings</h6>
+                        <h6 class="col-md-12 mb-0 py-3">Advanced settings</h6>
                         <div class="event-info row mx-0">
                             <!-- <div class="col-md-6">
                                 <label for="">Tickets become availables <span><i class="fa fa-asterisk"></i></span>  </label>
@@ -454,7 +454,7 @@
                                         matTooltipPosition="above"><i class="fa fa-question"
                                             aria-hidden="true"></i></span></label>
                                 <div class="my-2 form-group">
-                                    <input formControlName="redirect_url" type="text" class="form-control col-6" placeholder="https://yourwebsitename.com/order-complete">
+                                    <input formControlName="redirect_url" type="text" class="form-control col-6" placeholder="Type the URL here">
                                     <span class="error-wrap" *ngIf="editEventForm.get('redirect_url').touched || editEventForm.get('redirect_url').dirty">
                                         <small *ngIf="editEventForm.get('redirect_url').hasError('required')"
                                             class="error">Redirect URL is required.</small>
@@ -468,7 +468,7 @@
                                             aria-hidden="true"></i></span></mat-checkbox>
                             </section>
                             <section class=" col-md-12">
-                                <mat-checkbox [checked]="accessCode == 'Y'" (change)="fnAccessCode($event.checked)" [checked]="false">Customers need to enter an access code to buy tickets for this event
+                                <mat-checkbox [checked]="accessCode == 'Y'" (change)="fnAccessCode($event.checked)" [checked]="false">Customers need to enter an access code to buy tickets for this event.
                                     <span class="info" matTooltip="You may like to add a short description for your customers.This is used in event listings." matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question"
                                             aria-hidden="true"></i></span></mat-checkbox>
                             </section>

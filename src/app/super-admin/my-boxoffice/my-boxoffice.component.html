@@ -107,12 +107,12 @@
                             <small *ngIf="createBoxoffice.get('boxoffice_country').hasError('required')" class="error">Country is required.</small></span>
                         </div>
                         <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
-                            <label>Billing currency  <span class="text-danger">*</span></label>
+                            <label>Billing Currency  <span class="text-danger">*</span></label>
                             <mat-select formControlName="boxoffice_billing_currency" class="form-control">
                                 <mat-option *ngFor="let val of allCurency" value="{{val.id}}">{{val.CurrencyName}}</mat-option>
                             </mat-select>
                             <span class="error-wrap" *ngIf="createBoxoffice.get('boxoffice_billing_currency').dirty || createBoxoffice.get('boxoffice_billing_currency').touched">
-                                <small *ngIf="createBoxoffice.get('boxoffice_billing_currency').hasError('required')" class="error">Billing currency is required.</small>
+                                <small *ngIf="createBoxoffice.get('boxoffice_billing_currency').hasError('required')" class="error">Billing Currency is required.</small>
                             </span>
                         </div>
                     </div>
@@ -128,17 +128,17 @@
                             <mat-select formControlName="boxoffice_genre" class="form-control">
                                 <!-- <mat-option value="business">Are of film</mat-option> -->
                                 <mat-option value="business">Business</mat-option>
-                                <mat-option value="Charity Fundrises">Charity Fundrises</mat-option>
+                                <mat-option value="Charity Fundraisers">Charity Fundraisers</mat-option>
                                 <mat-option value="Comedy">Comedy</mat-option>
                                 <mat-option value="Education">Education</mat-option>
                                 <mat-option value="Entertainment">Entertainment</mat-option>
                                 <mat-option value="Food and Drink">Food and Drink</mat-option>
-                                <mat-option value="Health and wellbeing">Health and wellbeing</mat-option>
+                                <mat-option value="Health & Well-being">Health & Well-being</mat-option>
                                 <mat-option value="History/Heritage">History/Heritage</mat-option>
                                 <mat-option value="Music">Music</mat-option>
-                                <mat-option value="Private(Friend,family,group)">Private(Friend,family,group)</mat-option>
+                                <mat-option value="Private (Friend, Family, Group)">Private (Friend, Family, Group)</mat-option>
                                 <mat-option value="Religious/Spiritual">Religious/Spiritual</mat-option>
-                                <mat-option value="Sports and fitness">Sports and fitness</mat-option>
+                                <mat-option value="Sports & Fitness">Sports & Fitness</mat-option>
                                 <mat-option value="Theatre">Theatre</mat-option>
                                 <mat-option value="Tour/Travel">Tour/Travel</mat-option>
                                 <mat-option value="Other">Other</mat-option>
@@ -163,7 +163,7 @@
                                 <mat-option value="Networking">Networking</mat-option>
                                 <mat-option value="Nightclub">Nightclub</mat-option>
                                 <mat-option value="Private Party">Private Party</mat-option>
-                                <mat-option value="Race / Competition">Race / Competition</mat-option>
+                                <mat-option value="Race/Competition">Race/Competition</mat-option>
                                 <mat-option value="Show/Performance/Viewing">Show/Performance/Viewing</mat-option>
                                 <mat-option value="Tour">Tour</mat-option>
                                 <mat-option value="Trade show">Trade show</mat-option>
@@ -189,9 +189,7 @@
                             <img src="../../../assets/images/admin/storesimg-1.png"> 
                         </div>
                         <p> 
-                            Connect allows us to achieve compliance
-                            with minimal effort, spend practically...
-                            connect us to achieve.
+                            Life-saver. I was looking to sell tickets for my first event. One cousin recommended Eventsmatic. Now I make all event on their platform. Very simple.
                         </p>
                         <div class="testimonial-name">
                             <div> 
@@ -208,9 +206,7 @@
                             <img src="../../../assets/images/admin/storesimg-2.png"> 
                         </div>
                         <p> 
-                            Connect allows us to achieve compliance
-                            with minimal effort, spend practically...
-                            connect us to achieve.
+                            The best part about Eventsmatic is it is so easy to use. It hardly took me a few minutes to create my event. Setting up payments and discount coupons was super easy. If you want to make your first event, then get Eventsmatic. They will surely help you out. 
                         </p>
                         <div class="testimonial-name">
                             <div> 
@@ -229,66 +225,7 @@
                             <img src="../../../assets/images/admin/storesimg-3.png"> 
                         </div>
                         <p> 
-                            Connect allows us to achieve compliance
-                            with minimal effort, spend practically...
-                            connect us to achieve.
-                        </p>
-                        <div class="testimonial-name">
-                            <div> 
-                                <img src="../../../assets/images/admin/comment.png"> 
-                            </div>
-                            <div> 
-                                <h3>Yuri Markov </h3>
-                                <span> Marketing Director @Descom</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card mr-auto">
-                        <div class="store-img">
-                            <img src="../../../assets/images/admin/storesimg-1.png"> 
-                        </div>
-                        <p> 
-                            Connect allows us to achieve compliance
-                            with minimal effort, spend practically...
-                            connect us to achieve.
-                        </p>
-                        <div class="testimonial-name">
-                            <div> 
-                                <img src="../../../assets/images/admin/comment.png"> 
-                            </div>
-                            <div> 
-                                <h3>Yuri Markov </h3>
-                                <span> Marketing Director @Descom</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card ml-auto">
-                        <div class="store-img">
-                            <img src="../../../assets/images/admin/storesimg-2.png"> 
-                        </div>
-                        <p> 
-                            Connect allows us to achieve compliance
-                            with minimal effort, spend practically...
-                            connect us to achieve.
-                        </p>
-                        <div class="testimonial-name">
-                            <div> 
-                                <img src="../../../assets/images/admin/comment.png"> 
-                            </div>
-                            <div> 
-                                <h3>Yuri Markov </h3>
-                                <span> Marketing Director @Descom</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card mr-auto">
-                        <div class="store-img">
-                            <img src="../../../assets/images/admin/storesimg-3.png"> 
-                        </div>
-                        <p> 
-                            Connect allows us to achieve compliance
-                            with minimal effort, spend practically...
-                            connect us to achieve.
+                            Eventsmatic is one rare software that deliver exactly as per their promises. The platform is easy-to-use and anyone can create an event in less than 10 minutes. You can promote your event on social media and sell tickets to a public or private audience.
                         </p>
                         <div class="testimonial-name">
                             <div> 

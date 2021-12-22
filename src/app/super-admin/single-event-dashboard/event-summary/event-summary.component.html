@@ -12,16 +12,16 @@
             <i class="fa fa-bell mr-2"></i><span class="font-weight-bold">Set up your payment system</span>
         </div>
         <div class="mt-2">
-            To allow your customers to buy tickets for your event, you’ll need to choose how you want to take payments. We support the following options:
+            To allow customers to buy tickets for your event, choose how you want to accept payments. We support the following options:
         </div>
 
 
         <div *ngIf="!setupStripe">
             <div class="mt-3 font-weight-bold">
-                # Stripe (recommended)
+               #Stripe (Recommended)
             </div>
             <div class="mt-2">
-                Easy to set up, great support and a simple purchase experience for your customers to pay by card. Stripe has low fees and typically pays out to your bank account 7 days after the money was paid to you.
+                Easy to set up, wholehearted support, and a direct purchase experience for your customers to pay by card. Stripe has low fees and typically pays out your bank account 7 days after the customer completes payment.
             </div>
             <div class="mt-3">
                 <button mat-flat-button color="primary" class="mr-3">Set up Stripe to take payments</button> <a class="setup-link">Learn more about Stripe</a>
@@ -44,7 +44,7 @@
             # Offline payments
         </div>
         <div class="mt-2">
-            Allow your customers to pay by bank transfer, cheque or by any other means that isn't online.
+            Allow your customers to pay by bank transfer, cheque, or any other means that aren't online.
         </div>
         <div class="mt-3">
             <button mat-flat-button color="primary" class="mr-3" [routerLink]="['/super-admin/settings/payment-systems']">Set up offline payments</button> <a class="setup-link"> Learn more about offline payments</a>
@@ -293,9 +293,9 @@
         </div> -->
         <div class="mt-3">
             <div class="border" fxLayout="row">
-                <div class="fxflex p-2 pl-3 border-right" fxFlex="40">Refferel Code</div>
+                <div class="fxflex p-2 pl-3 border-right" fxFlex="40">Referral Code</div>
                 <div class="fxflex p-2 pl-3 border-right" fxFlex="20">Orders Placed</div>
-                <div class="fxflex p-2 pl-3 border-right" fxFlex="20">Ticket Sold</div>
+                <div class="fxflex p-2 pl-3 border-right" fxFlex="20">Tickets Sold</div>
                 <div class="fxflex p-2 pl-3 border-right" fxFlex="20">Revenue</div>
             </div>
             <div *ngIf="eventSummery && eventSummery.refrelData">
@@ -317,7 +317,7 @@
             <input type="text" id="chart_view_section">
             <div class="ml-auto">
                 <mat-select class="event-view-dropdown form-control" (selectionChange)="fnGetEventViews($event)" value="day">
-                    <mat-option value="day">Last 7 Day</mat-option>
+                    <mat-option value="day">Last 7 Days</mat-option>
                     <mat-option value="week">Last 4 Weeks</mat-option>
                     <mat-option value="year">Last Year</mat-option>
                 </mat-select>

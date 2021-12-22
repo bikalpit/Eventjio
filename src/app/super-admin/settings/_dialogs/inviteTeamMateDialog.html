@@ -22,7 +22,7 @@
                         </div>
                         <section class="col-md-12 form-group">
                             <mat-checkbox [checked]="admin_permission" name="permission" (change)="fnOnchecked($event,'admin_permission')" class="mb-0">Admin</mat-checkbox>
-                            <p class="pl-25">Access everything except team access (can not delete account owner)</p>
+                            <p class="pl-25">Access everything except team access (cannot delete account owner)</p>
                         </section>
                         <section class="col-md-12 form-group">
                             <mat-checkbox [checked]="em_permission" name="permission" (change)="fnOnchecked($event,'em_permission')" class="mb-0">Event Manager</mat-checkbox>
@@ -31,7 +31,7 @@
                         </section>
                         <section class="col-md-12 form-group">
                             <mat-checkbox [checked]="om_permission" name="permission" (change)="fnOnchecked($event,'om_permission')" class="mb-0">Order manager</mat-checkbox>
-                            <p class="pl-25">View and search orders, and resend tickets</p>
+                            <p class="pl-25">View, search orders and resend tickets</p>
                             <mat-checkbox value="AUEC" name="AUEC" class="mb-0 pl-25" [checked]="om_AUEC_permission" (change)="fnOncheckedOM($event,'AUEC')">Allow user to edit and cancel orders</mat-checkbox>
                             <mat-checkbox value="AUER" name="AUER" class="mb-0 pl-25" [checked]="om_AUER_permission" (change)="fnOncheckedOM($event,'AUER')">Allow user to export reports</mat-checkbox>
                         </section>
