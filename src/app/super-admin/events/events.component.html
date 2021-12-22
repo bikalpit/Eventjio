@@ -394,7 +394,7 @@
                             matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
                             </label>
                             <div class="select-event-img-sm row mx-0">
-                                <div *ngIf="selecetdDefaultImage !== 'newUploadImage' && !newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/event-images/'+ selecetdDefaultImage + ')'}" class="select-event-image">
+                                <div *ngIf="selecetdDefaultImage !== 'newUploadImage' && !newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/default-event-images/'+ selecetdDefaultImage + ')'}" class="select-event-image">
                                 </div>
                                 <div *ngIf="eventImageType == 'newUploadImage' && newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
                                 </div>
@@ -413,7 +413,7 @@
                                  matTooltipPosition="above" class="tooltip-btn"><i class="fa fa-question" aria-hidden="true"></i></span>
                             </label>
                             <div class="select-event-img-lg row mx-0">
-                                <div *ngIf="selecetdDefaultImage && !newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/event-images/'+ selecetdDefaultImage + ')'}" class="select-event-image">
+                                <div *ngIf="selecetdDefaultImage && !newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/default-event-images/'+ selecetdDefaultImage + ')'}" class="select-event-image">
                                 </div>
                                 <div *ngIf="eventImageType == 'newUploadImage' && newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
                                 </div>

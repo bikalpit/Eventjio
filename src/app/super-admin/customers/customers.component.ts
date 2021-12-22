@@ -157,6 +157,7 @@ export class CustomersComponent implements OnInit {
     this.addFormButtonDiv = this.addFormButtonDiv ? false : true;
     this.addCustomerForm.reset();
     this.editCustomerForm =false; 
+    this.fnSelectCustomer(this.selectedCustomerCode);
     
   }
 
@@ -499,6 +500,7 @@ export class CustomersComponent implements OnInit {
       this.selectedCustomerDetails.formatedAddress = '';
       if(this.selectedCustomerDetails.usa_address){
         this.editAddressType = 'US';
+        console.log(this.editAddressType)
         this.selectedCustomerDetails.formatedAddress = JSON.parse(this.selectedCustomerDetails.usa_address);
         this.addressArr = {
           'address': 'Address Line 1',
@@ -506,6 +508,8 @@ export class CustomersComponent implements OnInit {
           'address2': 'State',
           'zipcode': 'Zip Code',
         };
+        console.log(this.selectedCustomerDetails.formatedAddress)
+        console.log(this.selectedCustomerDetails.formatedAddress.address1)
         this.addCustomerForm.controls['address'].setValue(this.selectedCustomerDetails.formatedAddress.address1)
         this.addCustomerForm.controls['address1'].setValue(this.selectedCustomerDetails.formatedAddress.city)
         this.addCustomerForm.controls['address2'].setValue(this.selectedCustomerDetails.formatedAddress.state)
@@ -537,7 +541,7 @@ export class CustomersComponent implements OnInit {
         this.addCustomerForm.controls['address2'].setValue(this.selectedCustomerDetails.formatedAddress.province)
         this.addCustomerForm.controls['zipcode'].setValue(this.selectedCustomerDetails.formatedAddress.postalcode)
       }
-      console.log(this.selectedCustomerDetails.formatedAddress)
+      console.log(this.addCustomerForm)
       if(this.selectedCustomerDetails.lastname!=''){
         this.addCustomerForm.controls['cust_name'].setValue(this.selectedCustomerDetails.firstname+' '+this.selectedCustomerDetails.lastname)
       }else{
@@ -549,7 +553,6 @@ export class CustomersComponent implements OnInit {
       if(this.selectedCustomerDetails.tags && (this.selectedCustomerDetails.tags != '' || this.selectedCustomerDetails.tags != null)){
 	      this.tags = JSON.parse(this.selectedCustomerDetails.tags);
       }
-      this.addCustomerForm.controls['address'].setValue(this.selectedCustomerDetails.address)
       // this.customerImageUrl.setValue(this.selectedCustomerDetails.image)
       
     }  else if(response.data == false){

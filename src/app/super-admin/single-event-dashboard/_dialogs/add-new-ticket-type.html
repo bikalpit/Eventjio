@@ -224,18 +224,18 @@
 
                         <div *ngIf="ticketUnavalStatus == 'SIB'" class="form-group ">
                             <mat-select formControlName="after_interval" class="form-control w-50">
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 1}" value="1">1</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 2}" value="2">2</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 3}" value="3">3</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 4}" value="4">4</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 5}" value="5">5</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 6}" value="6">6</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 7}" value="7">7</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 8}" value="8">8</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 9}" value="9">9</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 10}" value="10">10</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 11}" value="11">11</mat-option>
-                                <mat-option [ngClass]="{'hidden-slot':addTicketForm.get('until_interval').value <= 12}" value="12" value="12">12</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 1" value="1">1</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 2" value="2">2</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 3" value="3">3</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 4" value="4">4</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 5" value="5">5</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 6" value="6">6</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 7" value="7">7</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 8" value="8">8</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 9" value="9">9</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 10" value="10">10</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 11" value="11">11</mat-option>
+                                <mat-option [disabled]="addTicketForm.get('until_interval').value <= 12" value="12">12</mat-option>
                             </mat-select> <span class="pl-2"> / Hours</span>
                             <span class="error-wrap d-block" *ngIf="addTicketForm.get('after_interval').touched || addTicketForm.get('after_interval').dirty">
                             <small *ngIf="addTicketForm.get('after_interval').hasError('required')" class="error">Hide after Interval is required.</small>

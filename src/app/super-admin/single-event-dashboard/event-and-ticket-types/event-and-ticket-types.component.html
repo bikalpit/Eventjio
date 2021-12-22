@@ -212,8 +212,8 @@
                             <div class="select-event-img-sm row mx-0">
                                 <div *ngIf="!selectedImage && singleEventDetail && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + singleEventDetail.images[0].image + ')'}" class="select-event-image">
                                 </div>
-                                <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/event-images/'+ selectedImage + ')'}" class="select-event-image">
-                                    <!-- <img src="{{apiUrl}}/event-images/{{selectedImage}}" class="select-event-image" alt=""> -->
+                                <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/default-event-images/'+ selectedImage + ')'}" class="select-event-image">
+                                    <!-- <img src="{{apiUrl}}/default-event-images/{{selectedImage}}" class="select-event-image" alt=""> -->
                                 </div>
                                 <div *ngIf="eventImageType == 'newUploadImage' && newEventImageUrl" [ngStyle]="{'background-size': thumbZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
                                     <!-- <img src="{{newEventImageUrl}}" class="select-event-image" alt=""> -->
@@ -242,7 +242,7 @@
                             <div class="select-event-img-lg row mx-0">
                                 <div *ngIf="!selectedImage && singleEventDetail && singleEventDetail.images !== undefined && !newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + singleEventDetail.images[0].image + ')'}" class="select-event-image">
                                 </div>
-                                <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/event-images/'+ selectedImage + ')'}" class="select-event-image">
+                                <div *ngIf="selectedImage && !newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + apiUrl +'/default-event-images/'+ selectedImage + ')'}" class="select-event-image">
                                 </div>
                                 <div *ngIf="eventImageType == 'newUploadImage' && newEventImageUrl" [ngStyle]="{'background-size': bannerZoomLavel+'%', 'background-image': 'url(' + newEventImageUrl + ')'}" class="select-event-image">
                                 </div>
