@@ -314,12 +314,12 @@
                         <h3 class="text-center"> Attendee Information </h3>
                     </div>
 
-                    <form [formGroup]="dynamicForm" class="row">
-                        <div class="col-12 col-xl-12 col-md-12 col-sm-12 vip-tickets" [ngClass]="{'hide-first-field': attendeeForm[0].hide == 'true'}" *ngFor="let ticket of t.controls; let i = index">
-                            <div [formGroup]="ticket" class="single-ticket-attendee-form">
-                                <div *ngFor="let attendeeFormval of attendeeForm; let i=index;">
+                    <form [formGroup]="dynamicForm" class="row mx-0" >
+                        <div class="col-12 col-xl-12 col-md-12 col-sm-12 vip-tickets single-ticket-attendee-form" *ngFor="let ticket of t.controls; let i = index" [ngClass]="{'blank-form-field' : attendeeForm.length == 1 && attendeeForm[0].hide == 'true'}">
+                            <div [formGroup]="ticket" class="">
+                                <div *ngFor="let attendeeFormval of attendeeForm; let i=index;" [ngClass]="{'hide-first-field': attendeeForm[0].hide == 'true'}" class="">
                                     <div class="" *ngIf="attendeeFormval.type=='text' && !( i == 0 && attendeeFormval.hide == 'true')">
-                                        <div class="form-group common-checkout-filed">
+                                        <div class="form-group common-checkout-filed 111">
                                             <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
                                             <input [formControlName]="attendeeFormval.controlname" class="form-control" placeholder="">
                                         </div>
@@ -330,8 +330,8 @@
                                         <div class="form-group common-checkout-filed">
                                             <label> {{attendeeFormval.label}} <span class="text-danger"> {{ attendeeFormval.required ? '*' : ''}} </span> </label>
                                             <select [formControlName]="attendeeFormval.controlname" class="form-control">
-                                  <option *ngFor="let dropVal of optionsArr(attendeeFormval.options);let optionI=index">{{dropVal}}</option>
-                              </select>
+                                                <option *ngFor="let dropVal of optionsArr(attendeeFormval.options);let optionI=index">{{dropVal}}</option>
+                                            </select>
                                         </div>
                                     </div>
 

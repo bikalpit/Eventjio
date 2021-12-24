@@ -108,7 +108,8 @@
                                         {{ val.ticket ? val.ticket.ticket_name : '-' }}
                                     </div>
                                     <div class="tb-data" fxFlex="20">
-                                        {{ val.customer ? val.customer.firstname : '' }} {{ val.customer ? val.customer.lastname : '' }}
+                                        {{val.attendee_name != ''?val.attendee_name:'No attendee Name'}}
+                                        <!-- {{ val.customer ? val.customer.firstname : '' }} {{ val.customer ? val.customer.lastname : '' }} -->
                                     </div>
                                     <div class="tb-data" fxFlex="15">
                                         {{ val.order.order_id }}

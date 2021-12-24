@@ -1092,3 +1092,12 @@
 .no-data-label{
     height: calc(100vh - 480px) !important;
 }
+::ng-deep .hide-first-field:first-child{
+    display: none;
+}
+::ng-deep .blank-form-field{
+    border:0px !important;
+    margin-top: 0;
+    padding: 0;
+    margin-bottom: 0;
+}

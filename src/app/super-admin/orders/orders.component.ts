@@ -1406,6 +1406,7 @@ export class BookTicketDialog {
         
         var data =   JSON.parse(response.response);
         this.attendeeForm = data[0].attendee_questions;
+        console.log(this.attendeeForm)
         this.eventForm = data[0].buyer_questions;
         
         this.attendeeFormLength = this.attendeeForm.length;

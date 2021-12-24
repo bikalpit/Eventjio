@@ -323,8 +323,85 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="allEventList.length == 0">
-                    <h3> No Events.</h3>
+                <div *ngIf="allEventList.length == 0 && displayView == 'verticle'" class="w-100 verticle-view">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center mx-0">
+                            <div class="col-12 custom-col" [ngClass]="{'col-lg-6 col-xl-6 display-col-2' : displayCol == '2', 'col-lg-3 col-xl-3 display-col-4' : displayCol == '4'}">
+                                <div class="empty-events-template">
+                                    <div class="event-image-main">
+                                        <img src="../../assets/images/icons/insert-picture-icon.svg" alt="No image">
+                                    </div>
+                                    <div class="events-empty-content-main">
+                                        <div class="custom-empty-lines-wrap">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <div class="empty-detail-main">
+                                            <div class="calendar-wrap">
+                                                <img src="../../assets/images/icons/calendar (7).svg" alt="calendar">
+                                                <span></span>
+                                            </div> 
+                                            <div class="time-wrap">
+                                                <img src="../../assets/images/icons/clock (2).svg" alt="clock">
+                                                <span></span>
+                                            </div>
+                                            <div class="location-wrap">
+                                                <img src="../../assets/images/icons/location-pin.svg" alt="location">
+                                                <span></span>
+                                            </div>
+                                        </div>
+                                        <div class="empty-footer-main">
+                                            <div class="left-side-wrap">
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                            <div class="right-side-wrap">
+                                                <span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 custom-col" [ngClass]="{'col-lg-6 col-xl-6 display-col-2' : displayCol == '2', 'col-lg-3 col-xl-3 display-col-4' : displayCol == '4'}">
+                                <div class="empty-events-template">
+                                    <div class="event-image-main">
+                                        <img src="../../assets/images/icons/insert-picture-icon.svg" alt="No image">
+                                    </div>
+                                    <div class="events-empty-content-main">
+                                        <div class="custom-empty-lines-wrap">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                        <div class="empty-detail-main">
+                                            <div class="calendar-wrap">
+                                                <img src="../../assets/images/icons/calendar (7).svg" alt="calendar">
+                                                <span></span>
+                                            </div> 
+                                            <div class="time-wrap">
+                                                <img src="../../assets/images/icons/clock (2).svg" alt="clock">
+                                                <span></span>
+                                            </div>
+                                            <div class="location-wrap">
+                                                <img src="../../assets/images/icons/location-pin.svg" alt="location">
+                                                <span></span>
+                                            </div>
+                                        </div>
+                                        <div class="empty-footer-main">
+                                            <div class="left-side-wrap">
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                            <div class="right-side-wrap">
+                                                <span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div [ngClass]="{'justify-content-center' : hide_tailor_logo== 'Y'}" class="bottom-help-tickets default-footer" *ngIf="!updated">
                     <div> 
@@ -449,8 +526,7 @@
                                                     <div class="book-tickets-btn">
                                                         <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                            Ticket'}}
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                         </button>
                                                         <button *ngIf="joinWaitingList && recurringEvent == 'N'"
                                                             mat-flat-button class="btn-color btn-bgcolor btn mt-3"
@@ -586,8 +662,7 @@
                                                     <div class="book-tickets-btn">
                                                         <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                            Ticket'}}
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                         </button>
                                                         <button *ngIf="joinWaitingList && recurringEvent == 'N'"
                                                             mat-flat-button class="btn-color btn-bgcolor btn mt-3"
@@ -708,8 +783,7 @@
                                                     <div class="book-tickets-btn">
                                                         <button mat-flat-button class="mb-0 btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                            Ticket'}}
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                         </button>
                                                         <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                             Join Waiting List
@@ -838,8 +912,7 @@
                                                     <div class="book-tickets-btn">
                                                         <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                            Ticket'}}
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                         </button>
                                                         <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                             Join Waiting List
@@ -975,8 +1048,7 @@
                                                     <div class="book-tickets-btn">
                                                         <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                            Ticket'}}
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                         </button>
                                                         <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                             Join Waiting List
@@ -1113,8 +1185,7 @@
                                                     <div class="book-tickets-btn">
                                                         <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                             [style.background]="btnColor" [style.color]="btnTextColor">
-                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                            Ticket'}}
+                                                            {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                         </button>
                                                         <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                             Join Waiting List
@@ -1271,14 +1342,12 @@
                                             <div class="book-tickets-btn">
                                                 <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                    Ticket'}}
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                 </button>
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
                                                     class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
-                                                    Waiting List'}}
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join  Waiting List'}}
                                                 </button>
                                             </div>
                                             <div class="share-link-main">
@@ -1399,14 +1468,12 @@
                                             <div class="book-tickets-btn">
                                                 <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                    Ticket'}}
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                 </button>
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
                                                     class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
-                                                    Waiting List'}}
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
                                                 </button>
                                             </div>
                                             <div
@@ -1513,8 +1580,7 @@
                                             <div class="book-tickets-btn">
                                                 <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                    Ticket'}}
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                 </button>
                                                 <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                     Join Waiting List
@@ -1522,8 +1588,7 @@
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
                                                     class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
-                                                    Waiting List'}}
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
                                                 </button>
                                             </div>
                                             <div class="share-link-main">
@@ -1634,8 +1699,7 @@
                                             <div class="book-tickets-btn">
                                                 <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                    Ticket'}}
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                 </button>
                                                 <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                     Join Waiting List
@@ -1643,8 +1707,7 @@
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
                                                     class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
-                                                    Waiting List'}}
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
                                                 </button>
                                             </div>
                                             <div
@@ -1764,8 +1827,7 @@
                                             <div class="book-tickets-btn">
                                                 <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                    Ticket'}}
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                 </button>
                                                 <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                     Join Waiting List
@@ -1773,8 +1835,7 @@
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
                                                     class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
-                                                    Waiting List'}}
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
                                                 </button>
                                             </div>
                                             <div
@@ -1894,8 +1955,7 @@
                                             <div class="book-tickets-btn">
                                                 <button mat-flat-button class="btn-color btn-bgcolor btn"
                                                     [style.background]="btnColor" [style.color]="btnTextColor">
-                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book
-                                                    Ticket'}}
+                                                    {{eventSettings.event_button_title?eventSettings.event_button_title:'Book Ticket'}}
                                                 </button>
                                                 <!-- <button *ngIf="eventDetail.soldout_status == true" mat-flat-button class="bg-primary btn"> 
                                                     Join Waiting List
@@ -1903,8 +1963,7 @@
                                                 <button *ngIf="joinWaitingList && recurringEvent == 'N'" mat-flat-button
                                                     class="btn-color btn-bgcolor btn mt-3" [style.background]="btnColor"
                                                     [style.color]="btnTextColor">
-                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join
-                                                    Waiting List'}}
+                                                    {{waitingListSettings ? waitingListSettings.event_page_text : 'Join Waiting List'}}
                                                 </button>
                                             </div>
                                             <div
@@ -1972,12 +2031,6 @@
 
         </div>
     </div>
-    <!-- <div *ngIf="themeSelectionOption == 'themeSelection'" class="preview-option-main">
-        <div class="d-flex flex-wrap justify-content-center align-items-center">
-            <h5>For preview theme click below button</h5>
-            <a target="_blank" href="{{boxOfficeUrl}}" mat-button class="bg-primary">Preview Theme</a>
-        </div>
-    </div> -->
     <div class="customize-area" [ngClass]="{'opened':customizerThemePanel}">
         <div class="handler" (click)="customizerThemePanel=!customizerThemePanel">Theme <span
                 class="material-icons">expand_less</span></div>

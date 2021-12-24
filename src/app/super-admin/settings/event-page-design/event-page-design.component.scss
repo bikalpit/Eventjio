@@ -1622,3 +1622,170 @@
   
   background: rgba(255, 255, 255, 1)  !important;
 }
+
+
+/*no events design css starts*/
+.empty-events-template{
+  border-radius: 5px;
+  margin-bottom: 20px;
+  .event-image-main{
+      background-color: #d6d6d6;
+      height: 145px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      img{
+          width: 45px;
+          height: 45px;
+      }
+  }
+  .events-empty-content-main{
+      padding: 20px;
+      background-color: #fff;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      .custom-empty-lines-wrap{
+          display: inline-grid;
+          width: 100%;
+          span:nth-child(1){
+              background-color: #b8b8b8;
+              width: 40%;
+              height: 8px;
+              border-radius: 50px;
+              margin-bottom: 12px;
+          }
+          span:nth-child(2){
+              background-color: #cfcfcf;
+              width: 95%;
+              height: 8px;
+              border-radius: 50px;
+              margin-bottom: 7px;
+          }
+          span:nth-child(3){
+              background-color: #cfcfcf;
+              width: 55%;
+              height: 8px;
+              border-radius: 50px;
+          }
+      }
+      .empty-detail-main{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 30px;
+          width: 90%;
+          .calendar-wrap{
+              display: flex;
+              align-items: center;
+              img{
+                  width: 16px;
+                  height: 16px;
+              }
+              span{
+                  background-color: #b8b8b8;
+                  width: 75px;
+                  height: 7px;
+                  border-radius: 50px;
+                  margin-left: 7px;
+              }
+          }
+          .time-wrap{
+              display: flex;
+              align-items: center;
+              img{
+                  width: 16px;
+                  height: 16px;
+              }
+              span{
+                  background-color: #b8b8b8;
+                  width: 45px;
+                  height: 7px;
+                  border-radius: 50px;
+                  margin-left: 7px;
+              }
+          }
+          .location-wrap{
+              display: flex;
+              align-items: center;
+              img{
+                  width: 16px;
+                  height: 16px;
+              }
+              span{
+                  background-color: #b8b8b8;
+                  width: 65px;
+                  height: 7px;
+                  border-radius: 50px;
+                  margin-left: 7px;
+              }
+          }
+      }
+      .empty-footer-main{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 35px;
+          .left-side-wrap{
+              display: grid;
+              span:nth-child(1){
+                  background-color: #b8b8b8;
+                  width: 30px;
+                  height: 8px;
+                  border-radius: 50px;
+                  margin-bottom: 4px;
+              }
+              span:nth-child(2){
+                  background-color: #b8b8b8;
+                  width: 15px;
+                  height: 8px;
+                  border-radius: 50px;
+              }
+          }
+          .right-side-wrap{
+              background-color: #973c56;
+              width: 60%;
+              height: 30px;
+              border-radius: 3px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              span{
+                  background-color: #fff;
+                  width: 40%;
+                  height: 6px;
+                  border-radius: 50px;
+              }
+          }
+      }
+  }
+}
+.verticle-view{
+  .display-col-4{
+    .empty-events-template{
+      .empty-detail-main{
+        span{
+          width: 30px;
+          height: 7px;
+          border-radius: 50px;
+          margin-left: 7px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: 320px) and (max-width: 374px) {
+ .custom-col{
+    padding: 0px;
+  }
+  .events-empty-content-main{
+      .empty-detail-main{
+          flex-flow: wrap;
+          .location-wrap{
+              margin-top: 7px;
+          }
+      }
+  }
+}
