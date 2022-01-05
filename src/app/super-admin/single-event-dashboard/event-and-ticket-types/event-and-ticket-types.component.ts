@@ -1587,7 +1587,7 @@ export class AddNewTicketType {
   
 
   fnSubmitAddTicketForm(){
-    //console.log(this.addTicketForm)
+    console.log(this.addTicketForm)
     if(this.addTicketForm.invalid){
       if(this.recurringEvent == 'N'){
         this.addTicketForm.get('title').markAsTouched();
