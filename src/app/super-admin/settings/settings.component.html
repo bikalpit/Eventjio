@@ -106,6 +106,12 @@
                         <img [ngStyle]="{'display':pageName === 'privacy-policy' ? 'block' : 'none'}" src="../../../assets/images/settings/menu-icons/privacy-policy_active.svg" class="w-100" alt="">
                     </div> <span>Privacy Policy</span>
                 </div>
+                <div (click)="fnPostUrl('reminders')" [ngClass]="{'active': pageName == 'reminders'}" class="py-2 common-setting-menu" routerLink="/super-admin/settings/reminders">
+                    <div class="setting-menu-icon d-inline-block mr-2 ">
+                        <img [ngStyle]="{'display':pageName === 'reminders' ? 'none' : 'block'}" src="../../../assets/images/events/shout.svg" class="w-100" alt="">
+                        <img [ngStyle]="{'display':pageName === 'reminders' ? 'block' : 'none'}" src="../../../assets/images/events/shout_active.svg" class="w-100" alt="">
+                    </div> <span>Reminders</span>
+                </div>
             </div>
         </div>
 

@@ -37,6 +37,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { MdePopoverModule } from '@material-extended/mde';
 import { ProgressComponent } from './components/progress/progress.component';
+import { RemindersComponent } from './reminders/reminders.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { ProgressComponent } from './components/progress/progress.component';
     DialogViewAllUsage,
     DialogUpdateVatInfo,
     DialogCharityDiscount,
-    ProgressComponent
+    ProgressComponent,
+    RemindersComponent
   ],
 
   imports: [

@@ -115,6 +115,9 @@ export class SettingsComponent implements OnInit {
     else if(url === '/super-admin/settings/privacy-policy'){
       this.pageName= 'privacy-policy'
     }
+    else if(url === '/super-admin/settings/reminders'){
+      this.pageName= 'reminders'
+    }
     if(url === '/super-admin/settings/event-page-design'){
       this.sidebar = false;
       localStorage.setItem('mainSidebar', 'false');

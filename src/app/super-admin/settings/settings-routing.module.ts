@@ -17,8 +17,9 @@ import { BillingComponent } from './billing/billing.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SalesTaxComponent } from './sales-tax/sales-tax.component';
 import { PaymentSystemsComponent } from './payment-systems/payment-systems.component';
-import { ReferralCodeComponent } from './referral-code/referral-code.component'
-import { AppUsersComponent } from './app-users/app-users.component'
+import { ReferralCodeComponent } from './referral-code/referral-code.component';
+import { AppUsersComponent } from './app-users/app-users.component';
+import { RemindersComponent } from './reminders/reminders.component';
 
 const routes: Routes = [{ 
               path: '', 
@@ -93,7 +94,12 @@ const routes: Routes = [{
                   { 
                     path: 'app-users', 
                     component: AppUsersComponent
-                  }]
+                  },
+                  { 
+                    path: 'reminders', 
+                    component: RemindersComponent
+                  }
+                ]
               }]
                          
                          
